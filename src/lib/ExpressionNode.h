@@ -2,6 +2,6 @@
 #include "SyntaxNode.h"
 
 class ExpressionNode : public SyntaxNode {
-    public:
-        ExpressionNode(SyntaxType type);
+public:
+  ExpressionNode(SyntaxType type);
 };

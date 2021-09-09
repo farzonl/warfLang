@@ -1,4 +1,4 @@
-project(${CMAKE_PROJECT_NAME}_FUZZ_TEST)
+project(${CMAKE_PROJECT_NAME}_FUZZ)
 cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_C_COMPILER:FILEPATH /usr/local/opt/llvm/bin/clang)

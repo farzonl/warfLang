@@ -20,3 +20,7 @@ ninja -C./build
 cmake -B build
 msbuild build\exp-tree.sln -t:Build -p:Configuration=Release
 ```
+
+## Docker Build & Run
+- build: `docker build -t warflang:latest .`
+- run: `docker run  --name test_vm -it warflang:latest`
