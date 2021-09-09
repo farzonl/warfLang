@@ -1,0 +1,1 @@
+find src test fuzz \( -name \*.h -o -name \*.cpp \) -exec clang-format -style=file -i {} \;

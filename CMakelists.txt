@@ -1,36 +1,21 @@
-project(exp-tree)
-cmake_minimum_required(VERSION 3.10)
+project(WarfLang)
 
-if(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++latest /W4")
-    # Default debug flags are OK 
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
-else()
-    set(CMAKE_CXX_STANDARD 17)
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
+function(download_file url filename hash_type hash)
+
+if(NOT EXISTS ${filename})
+  file(DOWNLOAD ${url} ${filename}
+       TIMEOUT 60  # seconds
+       EXPECTED_HASH ${hash_type}=${hash}
+       TLS_VERIFY ON
+      )
 endif()
 
-set(SourceFiles Lexer.cpp
-                main.cpp
-                SyntaxToken.cpp
-                SyntaxNode.cpp
-                ExpressionNode.cpp
-                NumberNode.cpp
-                BinaryExpressionNode.cpp
-                ParenthesizedExpressionNode.cpp
-                Parser.cpp
-                SyntaxTree.cpp
-)
-set(HeaderFiles Lexer.h
-                SyntaxToken.h
-                SyntaxType.h
-                SyntaxNode.h
-                ExpressionNode.h
-                NumberNode.h
-                BinaryExpressionNode.h
-                ParenthesizedExpressionNode.h
-                Parser.h
-                SyntaxTree.h
-)
-add_executable(${PROJECT_NAME} ${SourceFiles} ${HeaderFiles})
+endfunction(download_file)
+
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_subdirectory (src)
+add_subdirectory (fuzz)
+add_subdirectory (test)
