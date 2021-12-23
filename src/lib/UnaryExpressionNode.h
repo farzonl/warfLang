@@ -9,7 +9,7 @@ class UnaryExpressionNode : public ExpressionNode {
 public:
   UnaryExpressionNode(std::shared_ptr<SyntaxToken> operatorToken,
                       std::unique_ptr<ExpressionNode> operand);
-  
+
   ExpressionNode *Operand();
   SyntaxToken *Operator();
 };

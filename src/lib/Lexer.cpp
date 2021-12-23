@@ -1,9 +1,9 @@
 #include "Lexer.h"
 #include <ctype.h>
 #include <errno.h>
+#include <limits.h>
 #include <sstream>
 #include <stdlib.h>
-#include <limits.h>
 
 Lexer::Lexer(std::string text) : mText(text), mPosition(0), mVecErrors() {}
 

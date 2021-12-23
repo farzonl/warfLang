@@ -2,11 +2,11 @@
 //#include<algorithm> // for copy() and assign()
 //#include<iterator> // for back_inserter
 #include "BinaryExpressionNode.h"
-#include "UnaryExpressionNode.h"
 #include "Lexer.h"
 #include "NumberNode.h"
 #include "ParenthesizedExpressionNode.h"
 #include "Parser.h"
+#include "UnaryExpressionNode.h"
 
 std::shared_ptr<SyntaxToken> Parser::Peek(int32_t offset) {
   int32_t index = mPosition + offset;
@@ -52,20 +52,26 @@ Parser::Parser(std::string text) : mTokens(), mPosition(0), mVecErrors() {
   mVecErrors.assign(lex.Errors().begin(), lex.Errors().end());
 }
 
-std::unique_ptr<ExpressionNode> Parser::ParseBinaryExpression(int parentPrecedence) {
+std::unique_ptr<ExpressionNode>
+Parser::ParseBinaryExpression(int parentPrecedence) {
   std::unique_ptr<ExpressionNode> left = nullptr;
-  int unaryOperatorPrecedence = SyntaxOrder::GetUnaryOperatorPrecedence(Current()->Type());
-  if (unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentPrecedence) {
-      auto operatorToken = Next();
-      std::unique_ptr<ExpressionNode> operand = ParseBinaryExpression(unaryOperatorPrecedence);
-      left = std::make_unique<UnaryExpressionNode>(operatorToken, std::move(operand));
+  int unaryOperatorPrecedence =
+      SyntaxOrder::GetUnaryOperatorPrecedence(Current()->Type());
+  if (unaryOperatorPrecedence != 0 &&
+      unaryOperatorPrecedence >= parentPrecedence) {
+    auto operatorToken = Next();
+    std::unique_ptr<ExpressionNode> operand =
+        ParseBinaryExpression(unaryOperatorPrecedence);
+    left = std::make_unique<UnaryExpressionNode>(operatorToken,
+                                                 std::move(operand));
   } else {
     left = ParsePrimaryExpression();
   }
   while (true) {
-    int precedence = SyntaxOrder::GetBinaryOperatorPrecedence(Current()->Type());
+    int precedence =
+        SyntaxOrder::GetBinaryOperatorPrecedence(Current()->Type());
     if (precedence == 0 || precedence <= parentPrecedence) {
-        break;
+      break;
     }
     auto operatorToken = Next();
     std::unique_ptr<ExpressionNode> right = ParseBinaryExpression(precedence);

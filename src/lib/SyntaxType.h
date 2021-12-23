@@ -52,8 +52,9 @@ enum class SyntaxType {
 struct SyntaxOrder {
   static int GetUnaryOperatorPrecedence(SyntaxType type);
   static int GetBinaryOperatorPrecedence(SyntaxType type);
-  private:
-    SyntaxOrder() = delete;
+
+private:
+  SyntaxOrder() = delete;
 };
 
 static const std::unordered_map<std::string, SyntaxType> SyntaxTypeMap = {
