@@ -13,10 +13,12 @@ endif()
 
 set(SourceFiles Lexer.cpp
                 SyntaxToken.cpp
+                SyntaxType.cpp
                 SyntaxNode.cpp
                 ExpressionNode.cpp
                 NumberNode.cpp
                 BinaryExpressionNode.cpp
+                UnaryExpressionNode.cpp
                 ParenthesizedExpressionNode.cpp
                 Parser.cpp
                 SyntaxTree.cpp
@@ -28,6 +30,7 @@ set(HeaderFiles Lexer.h
                 ExpressionNode.h
                 NumberNode.h
                 BinaryExpressionNode.h
+                UnaryExpressionNode.h
                 ParenthesizedExpressionNode.h
                 Parser.h
                 SyntaxTree.h

@@ -51,6 +51,9 @@ inline std::ostream &operator<<(std::ostream &out, const ValueType v) {
   case Type::IntegerType:
     out << v.asInt();
     break;
+  default:
+    std::cerr << "Literal type is Unknown or not supported." << std::endl;
+    throw;
   }
   return out;
 }

@@ -1,5 +1,5 @@
 #include "Lexer.h"
-#include <cassert>
+#include "Parser.h"
 
 void LexerFuzzTest(std::string &line) {
   Lexer lex(line);
@@ -8,11 +8,17 @@ void LexerFuzzTest(std::string &line) {
   }
 }
 
+void ParserFuzzTest(std::string &line) {
+  Parser parser(line);
+  parser.Parse();
+}
+
 extern "C" int LLVMFuzzerTestOneInput(const char *cLine, size_t len) {
   if (cLine == nullptr) {
     return -1;
   }
   std::string sLine(cLine, len);
   LexerFuzzTest(sLine);
+  ParserFuzzTest(sLine);
   return 0;
 }
