@@ -176,13 +176,13 @@ void Lexer::ReadToken(SyntaxType &type) {
   }
 }
 void Lexer::ParseBool(SyntaxType &type) {
-  //true
-  //false
+  // true
+  // false
   const char *startPointer = mText.c_str() + mPosition;
   bool bValue;
-  if(*startPointer == 't') {
+  if (*startPointer == 't') {
     bValue = true;
-  } else if(*startPointer == 'f') {
+  } else if (*startPointer == 'f') {
     bValue = false;
   } else {
     std::stringstream errorStream;
@@ -191,12 +191,12 @@ void Lexer::ParseBool(SyntaxType &type) {
     return;
   }
   std::string boolStr = boolToNameMap.at(bValue);
-  std::string boolValueAsStr = mText.substr(mPosition,boolStr.size());
+  std::string boolValueAsStr = mText.substr(mPosition, boolStr.size());
   // note only set the value if found.
-  if(boolStrToValueMap.find(boolStr) != boolStrToValueMap.end()) {
+  if (boolStrToValueMap.find(boolStr) != boolStrToValueMap.end()) {
     mValue = static_cast<bool>(bValue);
     type = SyntaxType::BooleanToken;
-    mPosition+= boolStr.size();
+    mPosition += boolStr.size();
   }
 }
 

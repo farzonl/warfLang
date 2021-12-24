@@ -12,13 +12,13 @@ enum class Type { UnknownType, IntegerType, BooleanType };
 enum class Errors { LexError, ParseError };
 
 static const std::unordered_map<bool, std::string> boolToNameMap = {
-  {true, "true"},
-  {false, "false"},
+    {true, "true"},
+    {false, "false"},
 };
 
 static const std::unordered_map<std::string, bool> boolStrToValueMap = {
-  {"true", true},
-  {"false", false},
+    {"true", true},
+    {"false", false},
 };
 
 class ValueType {
@@ -49,12 +49,8 @@ public:
     assert(type == Type::BooleanType);
     return val.boolean;
   }
-  bool isInt() const {
-    return type == Type::IntegerType;
-  }
-  bool isBool() const {
-    return type == Type::BooleanType;
-  }
+  bool isInt() const { return type == Type::IntegerType; }
+  bool isBool() const { return type == Type::BooleanType; }
   friend class SyntaxToken;
   friend std::ostream &operator<<(std::ostream &out, const ValueType v);
 };

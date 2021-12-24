@@ -90,10 +90,10 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
     return std::make_unique<ParenthesizedExpressionNode>(
         left, std::move(expression), right);
   }
-   if (Current()->Type() == SyntaxType::BooleanToken) {
-     auto boolToken = Match(SyntaxType::BooleanToken);
-     return std::make_unique<LiteralExpression>(boolToken);
-   }
+  if (Current()->Type() == SyntaxType::BooleanToken) {
+    auto boolToken = Match(SyntaxType::BooleanToken);
+    return std::make_unique<LiteralExpression>(boolToken);
+  }
 
   auto numberToken = Match(SyntaxType::NumberToken);
   return std::make_unique<LiteralExpression>(numberToken);
