@@ -16,7 +16,7 @@ set(SourceFiles Lexer.cpp
                 SyntaxType.cpp
                 SyntaxNode.cpp
                 ExpressionNode.cpp
-                NumberNode.cpp
+                LiteralExpression.cpp
                 BinaryExpressionNode.cpp
                 UnaryExpressionNode.cpp
                 ParenthesizedExpressionNode.cpp
@@ -28,7 +28,7 @@ set(HeaderFiles Lexer.h
                 SyntaxType.h
                 SyntaxNode.h
                 ExpressionNode.h
-                NumberNode.h
+                LiteralExpression.h
                 BinaryExpressionNode.h
                 UnaryExpressionNode.h
                 ParenthesizedExpressionNode.h

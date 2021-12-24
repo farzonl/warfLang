@@ -4,6 +4,7 @@
 #include <limits.h>
 #include <sstream>
 #include <stdlib.h>
+#include <string.h>
 
 Lexer::Lexer(std::string text) : mText(text), mPosition(0), mVecErrors() {}
 
@@ -156,6 +157,10 @@ void Lexer::ReadToken(SyntaxType &type) {
       mPosition++;
     }
     break;
+  case 't':
+  case 'f':
+    ParseBool(type);
+    break;
   case '0':
   case '1':
   case '2':
@@ -166,13 +171,36 @@ void Lexer::ReadToken(SyntaxType &type) {
   case '7':
   case '8':
   case '9':
-    type = SyntaxType::NumberToken;
-    ParseNumber();
+    ParseNumber(type);
     break;
   }
 }
+void Lexer::ParseBool(SyntaxType &type) {
+  //true
+  //false
+  const char *startPointer = mText.c_str() + mPosition;
+  bool bValue;
+  if(*startPointer == 't') {
+    bValue = true;
+  } else if(*startPointer == 'f') {
+    bValue = false;
+  } else {
+    std::stringstream errorStream;
+    errorStream << "LexerError: bad character input: " << CurrentToken();
+    mVecErrors.push_back(errorStream.str());
+    return;
+  }
+  std::string boolStr = boolToNameMap.at(bValue);
+  std::string boolValueAsStr = mText.substr(mPosition,boolStr.size());
+  // note only set the value if found.
+  if(boolStrToValueMap.find(boolStr) != boolStrToValueMap.end()) {
+    mValue = static_cast<bool>(bValue);
+    type = SyntaxType::BooleanToken;
+    mPosition+= boolStr.size();
+  }
+}
 
-void Lexer::ParseNumber() {
+void Lexer::ParseNumber(SyntaxType &type) {
   int32_t posStart = mPosition;
   while (isdigit(CurrentToken())) {
     mPosition++;
@@ -190,13 +218,14 @@ void Lexer::ParseNumber() {
     return;
   }
   mValue = static_cast<int32_t>(val);
+  type = SyntaxType::NumberToken;
 }
 
 std::unique_ptr<SyntaxToken> Lexer::NextToken() {
   SyntaxType type = SyntaxType::UnknownToken;
   int32_t tokenStartPos = mPosition;
   ReadToken(type);
-  if (type == SyntaxType::NumberToken) {
+  if (type == SyntaxType::NumberToken || type == SyntaxType::BooleanToken) {
     return std::make_unique<SyntaxToken>(type, tokenStartPos, mValue);
   }
   if (type == SyntaxType::UnknownToken) {

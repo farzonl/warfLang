@@ -3,7 +3,7 @@
 //#include<iterator> // for back_inserter
 #include "BinaryExpressionNode.h"
 #include "Lexer.h"
-#include "NumberNode.h"
+#include "LiteralExpression.h"
 #include "ParenthesizedExpressionNode.h"
 #include "Parser.h"
 #include "UnaryExpressionNode.h"
@@ -90,9 +90,13 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
     return std::make_unique<ParenthesizedExpressionNode>(
         left, std::move(expression), right);
   }
+   if (Current()->Type() == SyntaxType::BooleanToken) {
+     auto boolToken = Match(SyntaxType::BooleanToken);
+     return std::make_unique<LiteralExpression>(boolToken);
+   }
 
   auto numberToken = Match(SyntaxType::NumberToken);
-  return std::make_unique<NumberNode>(numberToken);
+  return std::make_unique<LiteralExpression>(numberToken);
 }
 
 std::unique_ptr<SyntaxTree> Parser::Parse() {

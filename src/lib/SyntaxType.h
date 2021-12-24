@@ -42,11 +42,12 @@ enum class SyntaxType {
   GreaterToken,
   GreaterOrEqualsToken,
   NumberToken,
+  BooleanToken,
   // Not Real Tokens
   UnaryExpression,
   BinaryExpression,
   ParenthesizedExpression,
-  NumberNode
+  LiteralExpression
 };
 
 struct SyntaxOrder {
@@ -171,9 +172,11 @@ static const std::unordered_map<SyntaxType, std::string> SyntaxTypeStrMap = {
     {SyntaxType::GreaterToken, "GreaterToken"},
     {SyntaxType::GreaterOrEqualsToken, "GreaterOrEqualsToken"},
     {SyntaxType::NumberToken, "NumberToken"},
+    {SyntaxType::BooleanToken, "BooleanToken"},
     {SyntaxType::BinaryExpression, "BinaryExpression"},
+    {SyntaxType::UnaryExpression, "UnaryExpression"},
     {SyntaxType::ParenthesizedExpression, "ParenthesizedExpression"},
-    {SyntaxType::NumberNode, "NumberNode"},
+    {SyntaxType::LiteralExpression, "LiteralExpression"},
     {SyntaxType::UnknownToken, "UnknownToken"}};
 
 inline std::ostream &operator<<(std::ostream &out, const SyntaxType s) {

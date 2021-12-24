@@ -1,8 +1,9 @@
 #include "SyntaxTree.h"
 #include "BinaryExpressionNode.h"
-#include "NumberNode.h"
+#include "LiteralExpression.h"
 #include "ParenthesizedExpressionNode.h"
 #include "Parser.h"
+#include "UnaryExpressionNode.h"
 #include <iostream>
 
 SyntaxTree::SyntaxTree(std::vector<std::string> &vecErrors,
@@ -14,17 +15,25 @@ SyntaxTree::SyntaxTree(std::vector<std::string> &vecErrors,
 ExpressionNode *SyntaxTree::Root() const { return mRootExpression.get(); }
 
 int SyntaxTree::EvaluateRec(ExpressionNode *node) {
-  if (NumberNode *number = dynamic_cast<NumberNode *>(node)) {
-    return number->NumberToken()->HasValue()
-               ? number->NumberToken()->Value().asInt()
+  if (LiteralExpression *literal = dynamic_cast<LiteralExpression *>(node)) {
+    return literal->LiteralToken()->HasValue()
+               ? literal->LiteralToken()->Value().asInt()
                : 0;
   }
-  if (NumberNode *number = dynamic_cast<NumberNode *>(node)) {
-    return number->NumberToken()->HasValue()
-               ? number->NumberToken()->Value().asInt()
-               : 0;
+  if (UnaryExpressionNode *unaryExpression =
+          dynamic_cast<UnaryExpressionNode *>(node)) {
+    auto opType = unaryExpression->Operator()->Type();
+    auto operand = EvaluateRec(unaryExpression->Operand());
+    switch (opType) {
+    case SyntaxType::MinusToken:
+      return -operand;
+    case SyntaxType::PlusToken:
+      return operand;
+    default:
+      mVecErrors.push_back("EvaluatorError: Unexpected unary operator: " +
+                           SyntaxTokenToStrMap.at(opType));
+    }
   }
-
   if (BinaryExpressionNode *binaryExpression =
           dynamic_cast<BinaryExpressionNode *>(node)) {
     auto left = EvaluateRec(binaryExpression->Left());

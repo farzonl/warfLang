@@ -3,6 +3,10 @@
 #include <doctest/doctest.h>
 
 TEST_CASE("Binary Expression") {
+  SUBCASE("negative numbers") {
+    auto syntaxTree = SyntaxTree::Parse("-1");
+    REQUIRE(-1 == syntaxTree->Evaluate());
+  }
   SUBCASE("Simple Addition") {
     auto syntaxTree = SyntaxTree::Parse("1+3");
     REQUIRE(4 == syntaxTree->Evaluate());
@@ -19,15 +23,15 @@ TEST_CASE("Binary Expression") {
     auto syntaxTree = SyntaxTree::Parse("4*3");
     REQUIRE(12 == syntaxTree->Evaluate());
   }
-  // SUBCASE(" Multiplication of Negative") {
-  //    auto syntaxTree = SyntaxTree::Parse("4*-5");
-  //    REQUIRE(-20 == syntaxTree->Evaluate());
-  //}
-  // SUBCASE(" Multiplication of Negative") {
-  //    auto syntaxTree = SyntaxTree::Parse("4*(-5)");
-  //    REQUIRE(-20 == syntaxTree->Evaluate());
-  //}
-  SUBCASE(" Multiplication of Negative") {
+   SUBCASE("Multiplication of Negative") {
+      auto syntaxTree = SyntaxTree::Parse("4*-5");
+      REQUIRE(-20 == syntaxTree->Evaluate());
+  }
+   SUBCASE("Multiplication of Negative") {
+      auto syntaxTree = SyntaxTree::Parse("4*(-5)");
+      REQUIRE(-20 == syntaxTree->Evaluate());
+  }
+  SUBCASE("Multiplication of Negative") {
     auto syntaxTree = SyntaxTree::Parse("4*(3-5)");
     REQUIRE(-8 == syntaxTree->Evaluate());
   }
@@ -42,5 +46,9 @@ TEST_CASE("Binary Expression") {
   SUBCASE("Simple Parentheses") {
     auto syntaxTree = SyntaxTree::Parse("4*(1+3)");
     REQUIRE(16 == syntaxTree->Evaluate());
+  }
+   SUBCASE("Negative Parentheses") {
+    auto syntaxTree = SyntaxTree::Parse("-(1+3)");
+    REQUIRE(-4 == syntaxTree->Evaluate());
   }
 }
