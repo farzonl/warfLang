@@ -11,6 +11,16 @@ enum class Type { UnknownType, IntegerType, BooleanType };
 
 enum class Errors { LexError, ParseError };
 
+static const std::unordered_map<bool, std::string> boolToNameMap = {
+    {true, "true"},
+    {false, "false"},
+};
+
+static const std::unordered_map<std::string, bool> boolStrToValueMap = {
+    {"true", true},
+    {"false", false},
+};
+
 class ValueType {
   union Value {
     bool boolean;
@@ -39,6 +49,8 @@ public:
     assert(type == Type::BooleanType);
     return val.boolean;
   }
+  bool isInt() const { return type == Type::IntegerType; }
+  bool isBool() const { return type == Type::BooleanType; }
   friend class SyntaxToken;
   friend std::ostream &operator<<(std::ostream &out, const ValueType v);
 };
@@ -46,11 +58,14 @@ public:
 inline std::ostream &operator<<(std::ostream &out, const ValueType v) {
   switch (v.type) {
   case Type::BooleanType:
-    out << v.asBool();
+    out << boolToNameMap.at(v.asBool());
     break;
   case Type::IntegerType:
     out << v.asInt();
     break;
+  default:
+    std::cerr << "Literal type is Unknown or not supported." << std::endl;
+    throw;
   }
   return out;
 }

@@ -17,6 +17,8 @@ class Parser {
   std::unique_ptr<ExpressionNode> ParseTerm();
   std::unique_ptr<ExpressionNode> ParseFactor();
   std::unique_ptr<ExpressionNode> ParsePrimaryExpression();
+  std::unique_ptr<ExpressionNode>
+  ParseBinaryExpression(int parentPrecedence = 0);
 
 public:
   Parser(std::string text);

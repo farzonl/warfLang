@@ -11,7 +11,8 @@ private:
   ValueType mValue;
   std::vector<std::string> mVecErrors;
   void ReadToken(SyntaxType &type);
-  void ParseNumber();
+  void ParseNumber(SyntaxType &type);
+  void ParseBool(SyntaxType &type);
 
 public:
   Lexer(std::string text);

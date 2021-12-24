@@ -3,15 +3,13 @@
 //#include<iterator> // for back_inserter
 #include "BinaryExpressionNode.h"
 #include "Lexer.h"
-#include "NumberNode.h"
+#include "LiteralExpression.h"
 #include "ParenthesizedExpressionNode.h"
 #include "Parser.h"
+#include "UnaryExpressionNode.h"
 
 std::shared_ptr<SyntaxToken> Parser::Peek(int32_t offset) {
   int32_t index = mPosition + offset;
-  // if (index >= mTokens.size()) {
-  //    return nullptr;
-  //}
   assert(index < mTokens.size());
   return mTokens[index];
 }
@@ -52,64 +50,58 @@ Parser::Parser(std::string text) : mTokens(), mPosition(0), mVecErrors() {
   } while (pCurrToken && pCurrToken->Type() != SyntaxType::EndOfFileToken);
 
   mVecErrors.assign(lex.Errors().begin(), lex.Errors().end());
-  // copy(lex.Errors().begin(), lex.Errors().end(), back_inserter(mVecErrors));
 }
 
-std::unique_ptr<ExpressionNode> Parser::ParseTerm() {
-  // if (Current() == nullptr) {
-  //    return nullptr;
-  //}
-
-  std::unique_ptr<ExpressionNode> left = ParseFactor();
-  while (Current()->Type() == SyntaxType::PlusToken ||
-         Current()->Type() == SyntaxType::MinusToken) {
+std::unique_ptr<ExpressionNode>
+Parser::ParseBinaryExpression(int parentPrecedence) {
+  std::unique_ptr<ExpressionNode> left = nullptr;
+  int unaryOperatorPrecedence =
+      SyntaxOrder::GetUnaryOperatorPrecedence(Current()->Type());
+  if (unaryOperatorPrecedence != 0 &&
+      unaryOperatorPrecedence >= parentPrecedence) {
     auto operatorToken = Next();
-    std::unique_ptr<ExpressionNode> right = ParseFactor();
+    std::unique_ptr<ExpressionNode> operand =
+        ParseBinaryExpression(unaryOperatorPrecedence);
+    left = std::make_unique<UnaryExpressionNode>(operatorToken,
+                                                 std::move(operand));
+  } else {
+    left = ParsePrimaryExpression();
+  }
+  while (true) {
+    int precedence =
+        SyntaxOrder::GetBinaryOperatorPrecedence(Current()->Type());
+    if (precedence == 0 || precedence <= parentPrecedence) {
+      break;
+    }
+    auto operatorToken = Next();
+    std::unique_ptr<ExpressionNode> right = ParseBinaryExpression(precedence);
     left = std::make_unique<BinaryExpressionNode>(
         std::move(left), operatorToken, std::move(right));
   }
-
-  return std::move(left);
-}
-
-std::unique_ptr<ExpressionNode> Parser::ParseFactor() {
-  // if (Current() == nullptr) {
-  //    return nullptr;
-  //}
-
-  std::unique_ptr<ExpressionNode> left = ParsePrimaryExpression();
-  while (Current()->Type() == SyntaxType::StarToken ||
-         Current()->Type() == SyntaxType::SlashToken) {
-    auto operatorToken = Next();
-    std::unique_ptr<ExpressionNode> right = ParsePrimaryExpression();
-    left = std::make_unique<BinaryExpressionNode>(
-        std::move(left), operatorToken, std::move(right));
-  }
-
   return std::move(left);
 }
 
 std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
-  // if (Current() == nullptr) {
-  //    return nullptr;
-  //}
-
   if (Current()->Type() == SyntaxType::OpenParenthesisToken) {
     auto left = Next();
-    auto expression = ParseTerm();
+    auto expression = ParseBinaryExpression();
 
     auto right = Match(SyntaxType::CloseParenthesisToken);
     return std::make_unique<ParenthesizedExpressionNode>(
         left, std::move(expression), right);
   }
+  if (Current()->Type() == SyntaxType::BooleanToken) {
+    auto boolToken = Match(SyntaxType::BooleanToken);
+    return std::make_unique<LiteralExpression>(boolToken);
+  }
 
   auto numberToken = Match(SyntaxType::NumberToken);
-  return std::make_unique<NumberNode>(numberToken);
+  return std::make_unique<LiteralExpression>(numberToken);
 }
 
 std::unique_ptr<SyntaxTree> Parser::Parse() {
 
-  auto expression = ParseTerm();
+  auto expression = ParseBinaryExpression();
   // if (expression == nullptr) {
   //    return std::make_unique<ExpressionNode>(SyntaxType::UnknownToken);
   //}
