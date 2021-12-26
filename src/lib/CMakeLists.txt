@@ -11,28 +11,28 @@ else()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
 endif()
 
-set(SourceFiles Lexer.cpp
-                SyntaxToken.cpp
-                SyntaxType.cpp
-                SyntaxNode.cpp
-                ExpressionNode.cpp
-                LiteralExpression.cpp
-                BinaryExpressionNode.cpp
-                UnaryExpressionNode.cpp
-                ParenthesizedExpressionNode.cpp
-                Parser.cpp
-                SyntaxTree.cpp
+set(SourceFiles Syntax/Lexer.cpp
+                Syntax/SyntaxToken.cpp
+                Syntax/SyntaxType.cpp
+                Syntax/SyntaxNode.cpp
+                Syntax/ExpressionNode.cpp
+                Syntax/LiteralExpressionNode.cpp
+                Syntax/BinaryExpressionNode.cpp
+                Syntax/UnaryExpressionNode.cpp
+                Syntax/ParenthesizedExpressionNode.cpp
+                Syntax/Parser.cpp
+                Syntax/SyntaxTree.cpp
 )
-set(HeaderFiles Lexer.h
-                SyntaxToken.h
-                SyntaxType.h
-                SyntaxNode.h
-                ExpressionNode.h
-                LiteralExpression.h
-                BinaryExpressionNode.h
-                UnaryExpressionNode.h
-                ParenthesizedExpressionNode.h
-                Parser.h
-                SyntaxTree.h
+set(HeaderFiles Syntax/Lexer.h
+                Syntax/SyntaxToken.h
+                Syntax/SyntaxType.h
+                Syntax/SyntaxNode.h
+                Syntax/ExpressionNode.h
+                Syntax/LiteralExpressionNode.h
+                Syntax/BinaryExpressionNode.h
+                Syntax/UnaryExpressionNode.h
+                Syntax/ParenthesizedExpressionNode.h
+                Syntax/Parser.h
+                Syntax/SyntaxTree.h
 )
 add_library (${PROJECT_NAME} STATIC ${SourceFiles} ${HeaderFiles})

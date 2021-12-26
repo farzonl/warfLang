@@ -1,6 +1,6 @@
 #include "SyntaxTree.h"
 #include "BinaryExpressionNode.h"
-#include "LiteralExpression.h"
+#include "LiteralExpressionNode.h"
 #include "ParenthesizedExpressionNode.h"
 #include "Parser.h"
 #include "UnaryExpressionNode.h"
@@ -15,7 +15,7 @@ SyntaxTree::SyntaxTree(std::vector<std::string> &vecErrors,
 ExpressionNode *SyntaxTree::Root() const { return mRootExpression.get(); }
 
 int SyntaxTree::EvaluateRec(ExpressionNode *node) {
-  if (LiteralExpression *literal = dynamic_cast<LiteralExpression *>(node)) {
+  if (LiteralExpressionNode *literal = dynamic_cast<LiteralExpressionNode *>(node)) {
     return literal->LiteralToken()->HasValue()
                ? literal->LiteralToken()->Value().asInt()
                : 0;

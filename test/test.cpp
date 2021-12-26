@@ -1,5 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "SyntaxTree.h"
+#include "Syntax/SyntaxTree.h"
 #include <doctest/doctest.h>
 
 TEST_CASE("Binary Expression") {

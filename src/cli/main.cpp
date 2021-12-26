@@ -1,5 +1,5 @@
 
-#include "SyntaxTree.h"
+#include "Syntax/SyntaxTree.h"
 
 int main(int argc, char **argv) {
   std::cout << "warfLang 1.0" << std::endl;

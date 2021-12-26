@@ -1,5 +1,5 @@
-#include "Lexer.h"
-#include "Parser.h"
+#include "Syntax/Lexer.h"
+#include "Syntax/Parser.h"
 
 void LexerFuzzTest(std::string &line) {
   Lexer lex(line);
