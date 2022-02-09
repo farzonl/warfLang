@@ -17,5 +17,8 @@ set(WARF_CORE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 add_library (${PROJECT_NAME} STATIC
   WarfCoreStatic.cpp
   $<TARGET_OBJECTS:WarfCore.Syntax>
+  $<TARGET_OBJECTS:WarfCore.Binding>
 )
+
 add_subdirectory(Syntax)
+add_subdirectory(Binding)

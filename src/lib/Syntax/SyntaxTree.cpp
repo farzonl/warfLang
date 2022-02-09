@@ -17,7 +17,7 @@ ExpressionNode *SyntaxTree::Root() const { return mRootExpression.get(); }
 int SyntaxTree::EvaluateRec(ExpressionNode *node) {
   if (LiteralExpressionNode *literal = dynamic_cast<LiteralExpressionNode *>(node)) {
     return literal->LiteralToken()->HasValue()
-               ? literal->LiteralToken()->Value().asInt()
+               ? literal->LiteralToken()->GetValue().asInt()
                : 0;
   }
   if (UnaryExpressionNode *unaryExpression =
@@ -77,7 +77,7 @@ void SyntaxTree::PrintTreeRec(SyntaxNode *sNode, std::string indent,
   std::cout << indent << marker << sNode->Type() << std::endl;
   SyntaxToken *derived = dynamic_cast<SyntaxToken *>(sNode);
   if (derived && derived->HasValue()) {
-    std::cout << indent << "   " << derived->Value() << std::endl;
+    std::cout << indent << "   " << derived->GetValue() << std::endl;
   }
 
   indent += isLast ? "    " : "|   ";

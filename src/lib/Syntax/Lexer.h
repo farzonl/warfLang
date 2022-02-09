@@ -8,7 +8,7 @@ class Lexer {
 private:
   std::string mText;
   int32_t mPosition;
-  ValueType mValue;
+  Value mValue;
   std::vector<std::string> mVecErrors;
   void ReadToken(SyntaxType &type);
   void ParseNumber(SyntaxType &type);
