@@ -26,16 +26,19 @@ class BoundUnaryOperator {
         Type mOperandType;
         Type mEvalType;
         BoundUnaryOperator(SyntaxType syntaxType, BoundUnaryOperatorType unaryType, Type operandValueType);
-        static const BoundUnaryOperator sOperators[];
+        static const BoundUnaryOperator const sOperators[];
+        BoundUnaryOperator() = delete;
+        friend class BoundUnaryExpressionNode;
 };
 
 class BoundUnaryExpressionNode : public BoundExpressionNode {
     public:
-        BoundUnaryExpressionNode(BoundUnaryOperator& op, std::unique_ptr<BoundExpressionNode> operand);
+        BoundUnaryExpressionNode(const BoundUnaryOperator& op, std::unique_ptr<BoundExpressionNode> operand);
         virtual BoundNodeType NodeType() override;
-        virtual Type ValueType() override;
+        virtual Type GetType() override;
         BoundExpressionNode* Operand();
+        virtual ~BoundUnaryExpressionNode() {}
     private:
-        BoundUnaryOperator mOperator;
+        const BoundUnaryOperator& mOperator;
         std::unique_ptr<BoundExpressionNode> mOperand;
 };

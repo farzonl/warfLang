@@ -5,6 +5,7 @@
 #include "Syntax/BinaryExpressionNode.h"
 #include "BoundUnaryExpressionNode.h"
 #include "BoundLiteralExpressionNode.h"
+#include "BoundBinaryExpressionNode.h"
 
  std::unique_ptr<BoundExpressionNode> Binder::BindExpression(ExpressionNode* node) {
 
@@ -18,12 +19,12 @@
             return std::move(BindBinaryExpression(binaryExpression));
     }
 
-    throw "Unexpected syntax ";
+    throw "Unexpected syntax " + SyntaxTokenToStrMap.at(node->Type());
     return nullptr;
 }
 
 std::unique_ptr<BoundExpressionNode> Binder::BindLiteralExpression(LiteralExpressionNode* literal) {
-    std::make_unique<BoundLiteralExpressionNode>(literal);
+    return std::make_unique<BoundLiteralExpressionNode>(literal);
 }
 
 std::unique_ptr<BoundExpressionNode> Binder::BindUnaryExpression(UnaryExpressionNode* unary) {
@@ -34,9 +35,12 @@ std::unique_ptr<BoundExpressionNode> Binder::BindUnaryExpression(UnaryExpression
         std::cerr << "Unary operator " << unary->Operator() << " is not defined for type " << boundOperand->GetType() << ".";
         return boundOperand;
     }
-    return std::make_unique<BoundExpressionNode>(boundOperator, boundOperand);
+    return std::make_unique<BoundUnaryExpressionNode>(boundOperator, std::move(boundOperand));
 }
 
 std::unique_ptr<BoundExpressionNode> Binder::BindBinaryExpression(BinaryExpressionNode* binary) {
-    
+    auto boundLeft = BindExpression(binary->Left());
+    auto boundRight = BindExpression(binary->Right());
+    auto boundOperator = BoundBinaryOperator::Bind(binary->Operator()->Type(), boundLeft->GetType(), boundRight->GetType());
+    return std::make_unique<BoundBinaryExpressionNode>(std::move(boundLeft), boundOperator, std::move(boundRight));
 }

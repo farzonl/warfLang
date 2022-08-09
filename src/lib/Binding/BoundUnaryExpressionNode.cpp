@@ -11,7 +11,7 @@ BoundUnaryOperator::BoundUnaryOperator(SyntaxType syntaxType,
                                        BoundUnaryOperatorType unaryType, 
                                     Type operandValueType) :
                                     mSyntaxType(syntaxType),mUnaryType(unaryType),
-                                    mOperandType(operandValueType),mValueType(operandValueType)
+                                    mOperandType(operandValueType)
 {
 }
 
@@ -28,8 +28,16 @@ const BoundUnaryOperator& BoundUnaryOperator::Bind(SyntaxType syntaxType, Type o
     return GetBindFailure();
 }
 
-BoundUnaryExpressionNode::BoundUnaryExpressionNode(BoundUnaryOperator& op, std::unique_ptr<BoundExpressionNode> operand) :
-                          BoundExpressionNode()
-{
+BoundUnaryExpressionNode::BoundUnaryExpressionNode(const BoundUnaryOperator& op, std::unique_ptr<BoundExpressionNode> operand) :
+                          BoundExpressionNode(),
+                          mOperator(op),
+                          mOperand(std::move(operand))
+{}
 
+BoundNodeType BoundUnaryExpressionNode::NodeType() {
+    return BoundNodeType::UnaryExpression;
+}
+
+Type BoundUnaryExpressionNode::GetType() {
+    return mOperand->GetType();
 }

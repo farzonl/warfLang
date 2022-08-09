@@ -1,9 +1,17 @@
 include_directories(${WARF_CORE_SOURCE_DIR})
 
-set(SourceFiles 
+set(SourceFiles
+    Binder.cpp
+    BoundLiteralExpressionNode.cpp
+    BoundUnaryExpressionNode.cpp
     ValueType.cpp
+    
 )
-set(HeaderFiles 
+set(HeaderFiles
+    Binder.h
+    BoundExpressionNode.h
+    BoundLiteralExpressionNode.h
+    BoundUnaryExpressionNode.h
     ValueType.h
 )
 

@@ -18,7 +18,7 @@ ninja -C./build
 - Using MSBUILD
 ```powershell
 cmake -B build
-msbuild build\exp-tree.sln -t:Build -p:Configuration=Release
+msbuild build\WarfLang.sln -t:Build -p:Configuration=Release
 ```
 
 ## Docker Build & Run

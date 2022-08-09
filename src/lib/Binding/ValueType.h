@@ -1,3 +1,5 @@
+#pragma once
+
 #include <unordered_map>
 #include <string>
 #include <cassert>
@@ -35,6 +37,9 @@ public:
     type = Type::Boolean;
     return *this;
   }
+  Type GetType() {
+    return type;
+  }
   int asInt() const {
     assert(type == Type::Number);
     return val.integer;
@@ -56,6 +61,21 @@ inline std::ostream &operator<<(std::ostream &out, const Value v) {
     break;
   case Type::Number:
     out << v.asInt();
+    break;
+  default:
+    std::cerr << "Literal type is Unknown or not supported." << std::endl;
+    throw;
+  }
+  return out;
+}
+
+inline std::ostream &operator<<(std::ostream &out, const Type t) {
+  switch (t) {
+  case Type::Boolean:
+    out << "Boolean";
+    break;
+  case Type::Number:
+    out << "Number";
     break;
   default:
     std::cerr << "Literal type is Unknown or not supported." << std::endl;
