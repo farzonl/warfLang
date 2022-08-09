@@ -14,10 +14,24 @@ endif()
 # PathTracer Src dir
 set(WARF_CORE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
+set(SourceFiles Evaluator.cpp
+)
+
+set(HeaderFiles Evaluator.h
+)
+
 add_library (${PROJECT_NAME} STATIC
   WarfCoreStatic.cpp
+   ${SourceFiles} ${HeaderFiles}
   $<TARGET_OBJECTS:WarfCore.Syntax>
   $<TARGET_OBJECTS:WarfCore.Binding>
+)
+
+target_include_directories(${PROJECT_NAME}
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+  # Add include_directories here
+  Syntax
+  Binding
 )
 
 add_subdirectory(Syntax)

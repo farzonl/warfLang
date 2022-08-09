@@ -63,8 +63,7 @@ inline std::ostream &operator<<(std::ostream &out, const Value v) {
     out << v.asInt();
     break;
   default:
-    std::cerr << "Literal type is Unknown or not supported." << std::endl;
-    throw;
+    throw std::runtime_error("Unsupported Literal Value.");
   }
   return out;
 }
@@ -78,8 +77,7 @@ inline std::ostream &operator<<(std::ostream &out, const Type t) {
     out << "Number";
     break;
   default:
-    std::cerr << "Literal type is Unknown or not supported." << std::endl;
-    throw;
+    throw std::runtime_error("Unsupported Literal type.");;
   }
   return out;
 }

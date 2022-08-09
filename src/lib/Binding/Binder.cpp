@@ -7,6 +7,8 @@
 #include "BoundLiteralExpressionNode.h"
 #include "BoundBinaryExpressionNode.h"
 
+#include <sstream>
+
  std::unique_ptr<BoundExpressionNode> Binder::BindExpression(ExpressionNode* node) {
 
     if (LiteralExpressionNode *literal = dynamic_cast<LiteralExpressionNode*>(node)) {
@@ -18,8 +20,10 @@
     if (BinaryExpressionNode *binaryExpression = dynamic_cast<BinaryExpressionNode *>(node)) {
             return std::move(BindBinaryExpression(binaryExpression));
     }
-
-    throw "Unexpected syntax " + SyntaxTokenToStrMap.at(node->Type());
+    std::stringstream diagmsg; 
+    diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(node->Type());
+    mDiagnostics.push_back(diagmsg.str());
+    throw diagmsg.str();
     return nullptr;
 }
 
@@ -29,10 +33,12 @@ std::unique_ptr<BoundExpressionNode> Binder::BindLiteralExpression(LiteralExpres
 
 std::unique_ptr<BoundExpressionNode> Binder::BindUnaryExpression(UnaryExpressionNode* unary) {
     auto boundOperand = BindExpression(unary->Operand());
-    auto boundOperator = BoundUnaryOperator::Bind(unary->Operator()->Type(), boundOperand->GetType());
-    if (&boundOperator == &BoundUnaryOperator::GetBindFailure()) {
-        //TODO
-        std::cerr << "Unary operator " << unary->Operator() << " is not defined for type " << boundOperand->GetType() << ".";
+    const std::shared_ptr<BoundUnaryOperator> boundOperator = BoundUnaryOperator::Bind(unary->Operator()->Type(), boundOperand->GetType());
+    if (boundOperator == BoundUnaryOperator::GetBindFailure()) {
+        
+        std::stringstream diagmsg; 
+        diagmsg << "Unary operator " << unary->Operator() << " is not defined for type " << boundOperand->GetType() << ".";
+        mDiagnostics.push_back(diagmsg.str());
         return boundOperand;
     }
     return std::make_unique<BoundUnaryExpressionNode>(boundOperator, std::move(boundOperand));
@@ -41,6 +47,13 @@ std::unique_ptr<BoundExpressionNode> Binder::BindUnaryExpression(UnaryExpression
 std::unique_ptr<BoundExpressionNode> Binder::BindBinaryExpression(BinaryExpressionNode* binary) {
     auto boundLeft = BindExpression(binary->Left());
     auto boundRight = BindExpression(binary->Right());
-    auto boundOperator = BoundBinaryOperator::Bind(binary->Operator()->Type(), boundLeft->GetType(), boundRight->GetType());
+    const std::shared_ptr<BoundBinaryOperator> boundOperator = BoundBinaryOperator::Bind(binary->Operator()->Type(), boundLeft->GetType(), boundRight->GetType());
+    if(boundOperator == BoundBinaryOperator::GetBindFailure()) {
+        std::stringstream diagmsg; 
+        diagmsg << "Binary operator " << binary->Operator()->Text() << " is not defined for types " 
+            << boundLeft->GetType() << "and\\or " << boundRight->GetType() << "." << std::endl;
+        mDiagnostics.push_back(diagmsg.str());
+        return boundLeft;
+    }
     return std::make_unique<BoundBinaryExpressionNode>(std::move(boundLeft), boundOperator, std::move(boundRight));
 }
