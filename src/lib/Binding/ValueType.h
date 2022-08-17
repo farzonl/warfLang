@@ -38,21 +38,9 @@ public:
     return value;
   }
 
-  Value operator+(int i) {
-    Value value; 
-    value = this->asInt() + i;
-    return value;
-  }
-
   Value operator-(const Value& v) {
     Value value; 
     value = this->asInt() - v.asInt();
-    return value;
-  }
-
-  Value operator-(int i) {
-    Value value; 
-    value = this->asInt() - i;
     return value;
   }
 
@@ -68,21 +56,9 @@ public:
     return value;
   }
 
-  Value operator*(int i) {
-    Value value; 
-    value = this->asInt() * i;
-    return value;
-  }
-
   Value operator/(const Value& v) {
     Value value; 
     value = this->asInt() / v.asInt();
-    return value;
-  }
-
-  Value operator/(int i) {
-    Value value; 
-    value = this->asInt() / i;
     return value;
   }
 
@@ -112,9 +88,31 @@ public:
     return value;
   }
 
+  Value operator&&(const Value& v) {
+    Value value;
+    value.type = Type::Boolean;
+    value.val.boolean = this->asBool() && v.asBool();
+    return value;
+  }
+
+  Value operator||(const Value& v) {
+    Value value;
+    value.type = Type::Boolean;
+    value.val.boolean = this->asBool() && v.asBool();
+    return value;
+  }
+
+  Value operator!() {
+    Value value;
+    value.type = Type::Boolean;
+    value.val.boolean = !this->asBool();
+    return value;
+  }
+
   Type GetType() {
     return type;
   }
+
   int asInt() const {
     assert(type == Type::Number);
     return val.integer;

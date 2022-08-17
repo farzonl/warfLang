@@ -1,54 +1,52 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "Syntax/SyntaxTree.h"
+#include "Binding/Binder.h"
+#include "Evaluator.h"
 #include <doctest/doctest.h>
+
+Value testCaseHelper(std::string s) {
+  auto syntaxTree = SyntaxTree::Parse(s);
+  auto binder = std::make_unique<Binder>();
+  auto boundExpression = binder->BindExpression(syntaxTree->Root());
+  auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
+  return eval->Evaluate();
+}
 
 TEST_CASE("Binary Expression") {
   SUBCASE("negative numbers") {
-    auto syntaxTree = SyntaxTree::Parse("-1");
-    REQUIRE(-1 == syntaxTree->Evaluate());
+    REQUIRE(-1 == testCaseHelper("-1").asInt());
   }
   SUBCASE("Simple Addition") {
-    auto syntaxTree = SyntaxTree::Parse("1+3");
-    REQUIRE(4 == syntaxTree->Evaluate());
+    REQUIRE(4 == testCaseHelper("1 + 3").asInt());
   }
   SUBCASE("Simple Subtraction") {
-    auto syntaxTree = SyntaxTree::Parse("4-3");
-    REQUIRE(1 == syntaxTree->Evaluate());
+    REQUIRE(1 == testCaseHelper("4-3").asInt());
   }
   SUBCASE("Simple Negative Number") {
-    auto syntaxTree = SyntaxTree::Parse("3-4");
-    REQUIRE(-1 == syntaxTree->Evaluate());
+    REQUIRE(-1 == testCaseHelper("3-4").asInt());
   }
   SUBCASE("Simple Multiplication") {
-    auto syntaxTree = SyntaxTree::Parse("4*3");
-    REQUIRE(12 == syntaxTree->Evaluate());
+    REQUIRE(12 == testCaseHelper("4*3").asInt());
   }
   SUBCASE("Multiplication of Negative") {
-    auto syntaxTree = SyntaxTree::Parse("4*-5");
-    REQUIRE(-20 == syntaxTree->Evaluate());
+    REQUIRE(-20 == testCaseHelper("4*-5").asInt());
   }
-  SUBCASE("Multiplication of Negative") {
-    auto syntaxTree = SyntaxTree::Parse("4*(-5)");
-    REQUIRE(-20 == syntaxTree->Evaluate());
+  /*SUBCASE("Multiplication of Negative Parentheses") {
+    REQUIRE(-20 == testCaseHelper("4*(-5)").asInt());
   }
-  SUBCASE("Multiplication of Negative") {
-    auto syntaxTree = SyntaxTree::Parse("4*(3-5)");
-    REQUIRE(-8 == syntaxTree->Evaluate());
-  }
+  SUBCASE("Multiplication of Negative Created in Parentheses") {
+    REQUIRE(-8 == testCaseHelper("4*(3-5)").asInt());
+  }*/
   SUBCASE("Simple Division") {
-    auto syntaxTree = SyntaxTree::Parse("9/3");
-    REQUIRE(3 == syntaxTree->Evaluate());
+    REQUIRE(3 == testCaseHelper("9/3").asInt());
   }
   SUBCASE("Simple PMDAS Ordering") {
-    auto syntaxTree = SyntaxTree::Parse("4*1+3");
-    REQUIRE(7 == syntaxTree->Evaluate());
+    REQUIRE(7 == testCaseHelper("4*1+3").asInt());
   }
-  SUBCASE("Simple Parentheses") {
-    auto syntaxTree = SyntaxTree::Parse("4*(1+3)");
-    REQUIRE(16 == syntaxTree->Evaluate());
+  /*SUBCASE("Simple Parentheses") {
+    REQUIRE(16 == testCaseHelper("4*(1+3)").asInt());
   }
   SUBCASE("Negative Parentheses") {
-    auto syntaxTree = SyntaxTree::Parse("-(1+3)");
-    REQUIRE(-4 == syntaxTree->Evaluate());
-  }
+    REQUIRE(-4 == testCaseHelper("-(1+3)").asInt());
+  }*/
 }

@@ -23,6 +23,8 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
       return operand;
     case BoundUnaryOperatorType::Negation:
       return -operand;
+    case BoundUnaryOperatorType::LogicalNegation:
+      return !operand;
     default:
       mVecErrors.push_back("EvaluatorError: Unexpected unary operator: " +
                            BoundUnaryTypeStrMap.at(opType));
@@ -42,10 +44,14 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
       return left * right;
     case BoundBinaryOperatorType ::Division:
       return left / right;
-    case BoundBinaryOperatorType::EqualsEquals:
+    case BoundBinaryOperatorType::Equals:
       return left == right;
-    case BoundBinaryOperatorType::BangEquals:
+    case BoundBinaryOperatorType::NotEquals:
       return left != right;
+    case BoundBinaryOperatorType::LogicalAnd:
+      return left && right;
+    case BoundBinaryOperatorType::LogicalOr:
+      return left || right;
     default:
       mVecErrors.push_back("EvaluatorError: Unexpected binary operator: " +
                            BoundBinaryTypeStrMap.at(opType));

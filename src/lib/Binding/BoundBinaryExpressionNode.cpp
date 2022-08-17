@@ -7,10 +7,12 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
       std::make_shared<BoundBinaryOperator>(SyntaxType::BangToken, BoundBinaryOperatorType::LogicalNegation, Type::Boolean, Type::Boolean),
       std::make_shared<BoundBinaryOperator>(SyntaxType::StarToken, BoundBinaryOperatorType::Multiplication, Type::Number, Type::Number),
       std::make_shared<BoundBinaryOperator>(SyntaxType::SlashToken, BoundBinaryOperatorType::Division, Type::Number, Type::Number),
-      std::make_shared<BoundBinaryOperator>(SyntaxType::EqualsEqualsToken, BoundBinaryOperatorType::EqualsEquals, Type::Number, Type::Number),
-      std::make_shared<BoundBinaryOperator>(SyntaxType::EqualsEqualsToken, BoundBinaryOperatorType::EqualsEquals, Type::Boolean, Type::Boolean),
-      std::make_shared<BoundBinaryOperator>(SyntaxType::BangEqualsToken, BoundBinaryOperatorType::BangEquals, Type::Number, Type::Number),
-      std::make_shared<BoundBinaryOperator>(SyntaxType::BangEqualsToken, BoundBinaryOperatorType::BangEquals, Type::Boolean, Type::Boolean),
+      std::make_shared<BoundBinaryOperator>(SyntaxType::EqualsEqualsToken, BoundBinaryOperatorType::Equals, Type::Number, Type::Number),
+      std::make_shared<BoundBinaryOperator>(SyntaxType::EqualsEqualsToken, BoundBinaryOperatorType::Equals, Type::Boolean, Type::Boolean),
+      std::make_shared<BoundBinaryOperator>(SyntaxType::BangEqualsToken, BoundBinaryOperatorType::NotEquals, Type::Number, Type::Number),
+      std::make_shared<BoundBinaryOperator>(SyntaxType::BangEqualsToken, BoundBinaryOperatorType::NotEquals, Type::Boolean, Type::Boolean),
+      std::make_shared<BoundBinaryOperator>(SyntaxType::AmpersandAmpersandToken, BoundBinaryOperatorType::LogicalAnd, Type::Boolean, Type::Boolean),
+      std::make_shared<BoundBinaryOperator>(SyntaxType::PipePipeToken, BoundBinaryOperatorType::LogicalOr, Type::Boolean, Type::Boolean),
     };
 
 BoundBinaryOperator::BoundBinaryOperator(SyntaxType syntaxType, 

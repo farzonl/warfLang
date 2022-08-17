@@ -179,27 +179,21 @@ void Lexer::ReadToken(SyntaxType &type) {
 void Lexer::ParseBool(SyntaxType &type) {
 
   const char *startPointer = mText.c_str() + mPosition;
-  bool bValue;
   std::string trueStr = boolToNameMap.at(true);
   std::string falseStr = boolToNameMap.at(false);
   if (*startPointer == 't' && strncmp(startPointer, trueStr.c_str(),trueStr.size()) == 0) {
-    bValue = true;
+    mValue = true;
+    mPosition += trueStr.size();
   } else if (*startPointer == 'f' && strncmp(startPointer, falseStr.c_str(), falseStr.size()) == 0) {
-    bValue = false;
+    mValue = false;
+    mPosition += falseStr.size();
   } else {
     std::stringstream errorStream;
     errorStream << "LexerError: bad character input: " << CurrentToken();
     mVecErrors.push_back(errorStream.str());
     return;
   }
-  std::string boolStr = boolToNameMap.at(bValue);
-  std::string boolValueAsStr = mText.substr(mPosition, boolStr.size());
-  // note only set the value if found.
-  if (boolStrToValueMap.find(boolStr) != boolStrToValueMap.end()) {
-    mValue = static_cast<bool>(bValue);
-    type = SyntaxType::BooleanToken;
-    mPosition += boolStr.size();
-  }
+  type = SyntaxType::BooleanToken;
 }
 
 void Lexer::ParseNumber(SyntaxType &type) {
