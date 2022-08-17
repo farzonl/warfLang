@@ -1,4 +1,5 @@
 #include "Lexer.h"
+#include "SyntaxType.h"
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
@@ -176,13 +177,14 @@ void Lexer::ReadToken(SyntaxType &type) {
   }
 }
 void Lexer::ParseBool(SyntaxType &type) {
-  // true
-  // false
+
   const char *startPointer = mText.c_str() + mPosition;
   bool bValue;
-  if (*startPointer == 't') {
+  std::string trueStr = boolToNameMap.at(true);
+  std::string falseStr = boolToNameMap.at(false);
+  if (*startPointer == 't' && strncmp(startPointer, trueStr.c_str(),trueStr.size()) == 0) {
     bValue = true;
-  } else if (*startPointer == 'f') {
+  } else if (*startPointer == 'f' && strncmp(startPointer, falseStr.c_str(), falseStr.size()) == 0) {
     bValue = false;
   } else {
     std::stringstream errorStream;

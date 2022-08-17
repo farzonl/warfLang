@@ -4,15 +4,15 @@
 #include "Binding\BoundBinaryExpressionNode.h"
 
 BoundExpressionNode *Evaluator::Root() const { return mRootExpression.get(); }
-int Evaluator::Evaluate() { return EvaluateRec(mRootExpression.get()); }
+Value Evaluator::Evaluate() { return EvaluateRec(mRootExpression.get()); }
 
 Evaluator::Evaluator(std::unique_ptr<BoundExpressionNode> root) : mRootExpression(std::move(root)){
 
 }
 
-int Evaluator::EvaluateRec(BoundExpressionNode *node) {
+Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   if (BoundLiteralExpressionNode *literal = dynamic_cast<BoundLiteralExpressionNode *>(node)) {
-    return literal->GetValue().asInt();
+    return literal->GetValue();
   }
   if (BoundUnaryExpressionNode *unaryExpression =
           dynamic_cast<BoundUnaryExpressionNode *>(node)) {
@@ -42,10 +42,14 @@ int Evaluator::EvaluateRec(BoundExpressionNode *node) {
       return left * right;
     case BoundBinaryOperatorType ::Division:
       return left / right;
+    case BoundBinaryOperatorType::EqualsEquals:
+      return left == right;
+    case BoundBinaryOperatorType::BangEquals:
+      return left != right;
     default:
       mVecErrors.push_back("EvaluatorError: Unexpected binary operator: " +
                            BoundBinaryTypeStrMap.at(opType));
-      return 0;
+      return Value();
     }
   }
   //if (ParenthesizedExpressionNode *parenExpression =
@@ -55,5 +59,5 @@ int Evaluator::EvaluateRec(BoundExpressionNode *node) {
 
   //mVecErrors.push_back("EvaluatorError: Unexpected node: " +
   //                     SyntaxTypeStrMap.at(node->Type()));
-  return 0;
+  return Value();
 }

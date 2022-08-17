@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
       if(binder->Diagnostics().empty()) {
         auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
         if (eval->Errors().size() == 0) {
-          int /*Value*/ result = eval->Evaluate();
+          Value result = eval->Evaluate();
           std::cout << result << std::endl;
         } else {
           for (auto error : eval->Errors()) {

@@ -37,7 +37,7 @@ std::unique_ptr<BoundExpressionNode> Binder::BindUnaryExpression(UnaryExpression
     if (boundOperator == BoundUnaryOperator::GetBindFailure()) {
         
         std::stringstream diagmsg; 
-        diagmsg << "Unary operator " << unary->Operator() << " is not defined for type " << boundOperand->GetType() << ".";
+        diagmsg << "Unary operator " << SyntaxTokenToStrMap.at(unary->Operator()->Type()) << " is not defined for type " << boundOperand->GetType() << ".";
         mDiagnostics.push_back(diagmsg.str());
         return boundOperand;
     }
@@ -51,7 +51,7 @@ std::unique_ptr<BoundExpressionNode> Binder::BindBinaryExpression(BinaryExpressi
     if(boundOperator == BoundBinaryOperator::GetBindFailure()) {
         std::stringstream diagmsg; 
         diagmsg << "Binary operator " << binary->Operator()->Text() << " is not defined for types " 
-            << boundLeft->GetType() << "and\\or " << boundRight->GetType() << "." << std::endl;
+            << boundLeft->GetType() << " and " << boundRight->GetType() << "." << std::endl;
         mDiagnostics.push_back(diagmsg.str());
         return boundLeft;
     }

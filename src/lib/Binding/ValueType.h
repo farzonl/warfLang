@@ -5,17 +5,10 @@
 #include <cassert>
 #include <iostream>
 
+#include "Syntax/SyntaxType.h"
+
 enum class Type { Unknown, Number, Boolean };
 
-static const std::unordered_map<bool, std::string> boolToNameMap = {
-    {true, "true"},
-    {false, "false"},
-};
-
-static const std::unordered_map<std::string, bool> boolStrToValueMap = {
-    {"true", true},
-    {"false", false},
-};
 
 class Value {
   union uValue {
@@ -27,6 +20,7 @@ class Value {
 
 public:
   Value() : type(Type::Unknown), val() {}
+
   Value &operator=(int32_t i) {
     val.integer = i;
     type = Type::Number;
@@ -37,6 +31,87 @@ public:
     type = Type::Boolean;
     return *this;
   }
+
+  Value operator+(const Value& v) {
+    Value value; 
+    value = this->asInt() + v.asInt();
+    return value;
+  }
+
+  Value operator+(int i) {
+    Value value; 
+    value = this->asInt() + i;
+    return value;
+  }
+
+  Value operator-(const Value& v) {
+    Value value; 
+    value = this->asInt() - v.asInt();
+    return value;
+  }
+
+  Value operator-(int i) {
+    Value value; 
+    value = this->asInt() - i;
+    return value;
+  }
+
+  Value operator- () {
+    Value value; 
+    value = -this->asInt();
+    return value;
+  }
+
+  Value operator*(const Value& v) {
+    Value value; 
+    value = this->asInt() * v.asInt();
+    return value;
+  }
+
+  Value operator*(int i) {
+    Value value; 
+    value = this->asInt() * i;
+    return value;
+  }
+
+  Value operator/(const Value& v) {
+    Value value; 
+    value = this->asInt() / v.asInt();
+    return value;
+  }
+
+  Value operator/(int i) {
+    Value value; 
+    value = this->asInt() / i;
+    return value;
+  }
+
+  Value operator==(const Value& v) {
+    Value value;
+    value.type = Type::Boolean;
+    if(this->isInt() && v.isInt()) {
+      value.val.boolean = this->val.integer == v.val.integer;
+    }else if(this->isBool() && v.isBool()) {
+      value.val.boolean = this->val.boolean == v.val.boolean;
+    } else {
+      value.val.boolean = false;
+    }
+    return value;
+  }
+
+  Value operator!=(const Value& v) {
+    Value value;
+    value.type = Type::Boolean;
+    if(this->isInt() && v.isInt()) {
+      value.val.boolean = this->val.integer != v.val.integer;
+    }else if(this->isBool() && v.isBool()) {
+      value.val.boolean = this->val.boolean != v.val.boolean;
+    } else {
+      value.val.boolean = false;
+    }
+    return value;
+  }
+
   Type GetType() {
     return type;
   }

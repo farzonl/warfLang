@@ -7,7 +7,9 @@ enum class BoundBinaryOperatorType {
     Subtraction,
     LogicalNegation,
     Multiplication,
-    Division
+    Division,
+    EqualsEquals,
+    BangEquals
 };
 
 static const std::unordered_map<BoundBinaryOperatorType, std::string> BoundBinaryTypeStrMap = {
@@ -16,6 +18,8 @@ static const std::unordered_map<BoundBinaryOperatorType, std::string> BoundBinar
     {BoundBinaryOperatorType::LogicalNegation, "LogicalNegation"},
     {BoundBinaryOperatorType::Multiplication, "Multiplication"},
     {BoundBinaryOperatorType::Division, "Division"},
+    {BoundBinaryOperatorType::EqualsEquals, "EqualsEquals"},
+    {BoundBinaryOperatorType::BangEquals, "BangEquals"},
 };
 
 class BoundBinaryOperator {
