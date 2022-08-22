@@ -5,7 +5,6 @@
 enum class BoundBinaryOperatorType {
     Addition,
     Subtraction,
-    LogicalNegation,
     Multiplication,
     Division,
     Equals,
@@ -17,7 +16,6 @@ enum class BoundBinaryOperatorType {
 static const std::unordered_map<BoundBinaryOperatorType, std::string> BoundBinaryTypeStrMap = {
     {BoundBinaryOperatorType::Addition, "Addition"},
     {BoundBinaryOperatorType::Subtraction, "Subtraction"},
-    {BoundBinaryOperatorType::LogicalNegation, "LogicalNegation"},
     {BoundBinaryOperatorType::Multiplication, "Multiplication"},
     {BoundBinaryOperatorType::Division, "Division"},
     {BoundBinaryOperatorType::Equals, "Equals"},
@@ -33,10 +31,11 @@ class BoundBinaryOperator {
         BoundBinaryOperatorType BoundType();
         Type LeftOperandType(); // expected Type
         Type RightOperandType(); // expected Type
-        Type EvalType();   // resulting Type
+        Type GetType();   // resulting Type
         static const std::shared_ptr<BoundBinaryOperator> GetBindFailure();
         //TODO see if there is a way to make shared_ptr a friend function
-        BoundBinaryOperator(SyntaxType syntaxType, BoundBinaryOperatorType boundType, Type leftOperandType, Type rightOperandType);
+        BoundBinaryOperator(SyntaxType syntaxType, BoundBinaryOperatorType boundType, Type type);
+        BoundBinaryOperator(SyntaxType syntaxType, BoundBinaryOperatorType boundType, Type leftOperandType, Type rightOperandType, Type evalType);
     private:
         SyntaxType mSyntaxType;
         BoundBinaryOperatorType mBoundType;

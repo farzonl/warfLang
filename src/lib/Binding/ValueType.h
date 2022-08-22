@@ -98,7 +98,7 @@ public:
   Value operator||(const Value& v) {
     Value value;
     value.type = Type::Boolean;
-    value.val.boolean = this->asBool() && v.asBool();
+    value.val.boolean = this->asBool() || v.asBool();
     return value;
   }
 

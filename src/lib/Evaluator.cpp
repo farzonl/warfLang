@@ -58,12 +58,5 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
       return Value();
     }
   }
-  //if (ParenthesizedExpressionNode *parenExpression =
-  //        dynamic_cast<ParenthesizedExpressionNode *>(node)) {
-  //  return EvaluateRec(parenExpression->Expression());
-  //}
-
-  //mVecErrors.push_back("EvaluatorError: Unexpected node: " +
-  //                     SyntaxTypeStrMap.at(node->Type()));
   return Value();
 }
