@@ -1,25 +1,13 @@
-/*
- * Copyright (c) 2022 F. Lotfi All rights reserved.
- * Use of this source code is governed by a BSD-style
- * license that can be found in the LICENSE file.
- */
+#pragma once
 
 #include <cassert>
 #include <iostream>
 #include <string>
 #include <unordered_map>
 
+#include "Syntax/SyntaxType.h"
+
 enum class Type { Unknown, Number, Boolean };
-
-static const std::unordered_map<bool, std::string> boolToNameMap = {
-    {true, "true"},
-    {false, "false"},
-};
-
-static const std::unordered_map<std::string, bool> boolStrToValueMap = {
-    {"true", true},
-    {"false", false},
-};
 
 class Value {
   union uValue {
@@ -31,6 +19,7 @@ class Value {
 
 public:
   Value() : type(Type::Unknown), val() {}
+
   Value &operator=(int32_t i) {
     val.integer = i;
     type = Type::Number;
@@ -41,6 +30,86 @@ public:
     type = Type::Boolean;
     return *this;
   }
+
+  Value operator+(const Value &v) {
+    Value value;
+    value = this->asInt() + v.asInt();
+    return value;
+  }
+
+  Value operator-(const Value &v) {
+    Value value;
+    value = this->asInt() - v.asInt();
+    return value;
+  }
+
+  Value operator-() {
+    Value value;
+    value = -this->asInt();
+    return value;
+  }
+
+  Value operator*(const Value &v) {
+    Value value;
+    value = this->asInt() * v.asInt();
+    return value;
+  }
+
+  Value operator/(const Value &v) {
+    Value value;
+    value = this->asInt() / v.asInt();
+    return value;
+  }
+
+  Value operator==(const Value &v) {
+    Value value;
+    value.type = Type::Boolean;
+    if (this->isInt() && v.isInt()) {
+      value.val.boolean = this->val.integer == v.val.integer;
+    } else if (this->isBool() && v.isBool()) {
+      value.val.boolean = this->val.boolean == v.val.boolean;
+    } else {
+      value.val.boolean = false;
+    }
+    return value;
+  }
+
+  Value operator!=(const Value &v) {
+    Value value;
+    value.type = Type::Boolean;
+    if (this->isInt() && v.isInt()) {
+      value.val.boolean = this->val.integer != v.val.integer;
+    } else if (this->isBool() && v.isBool()) {
+      value.val.boolean = this->val.boolean != v.val.boolean;
+    } else {
+      value.val.boolean = false;
+    }
+    return value;
+  }
+
+  Value operator&&(const Value &v) {
+    Value value;
+    value.type = Type::Boolean;
+    value.val.boolean = this->asBool() && v.asBool();
+    return value;
+  }
+
+  Value operator||(const Value &v) {
+    Value value;
+    value.type = Type::Boolean;
+    value.val.boolean = this->asBool() || v.asBool();
+    return value;
+  }
+
+  Value operator!() {
+    Value value;
+    value.type = Type::Boolean;
+    value.val.boolean = !this->asBool();
+    return value;
+  }
+
+  Type GetType() { return type; }
+
   int asInt() const {
     assert(type == Type::Number);
     return val.integer;
@@ -64,8 +133,22 @@ inline std::ostream &operator<<(std::ostream &out, const Value v) {
     out << v.asInt();
     break;
   default:
-    std::cerr << "Literal type is Unknown or not supported." << std::endl;
-    throw;
+    throw std::runtime_error("Unsupported Literal Value.");
+  }
+  return out;
+}
+
+inline std::ostream &operator<<(std::ostream &out, const Type t) {
+  switch (t) {
+  case Type::Boolean:
+    out << "Boolean";
+    break;
+  case Type::Number:
+    out << "Number";
+    break;
+  default:
+    throw std::runtime_error("Unsupported Literal type.");
+    ;
   }
   return out;
 }

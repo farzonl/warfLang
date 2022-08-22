@@ -56,6 +56,16 @@ enum class SyntaxType {
   LiteralExpression
 };
 
+static const std::unordered_map<bool, std::string> boolToNameMap = {
+    {true, "true"},
+    {false, "false"},
+};
+
+static const std::unordered_map<std::string, bool> boolStrToValueMap = {
+    {"true", true},
+    {"false", false},
+};
+
 struct SyntaxOrder {
   static int GetUnaryOperatorPrecedence(SyntaxType type);
   static int GetBinaryOperatorPrecedence(SyntaxType type);

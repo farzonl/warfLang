@@ -18,35 +18,47 @@ enum class BoundUnaryOperatorType {
   LogicalNegation,
 };
 
+static const std::unordered_map<BoundUnaryOperatorType, std::string>
+    BoundUnaryTypeStrMap = {
+        {BoundUnaryOperatorType::Identity, "Identity"},
+        {BoundUnaryOperatorType::Negation, "Negation"},
+        {BoundUnaryOperatorType::LogicalNegation, "LogicalNegation"},
+};
+
 class BoundUnaryOperator {
 public:
-  static const BoundUnaryOperator &Bind(SyntaxType syntaxType,
-                                        Type operandType);
+  static const std::shared_ptr<BoundUnaryOperator> Bind(SyntaxType syntaxType,
+                                                        Type operandType);
   SyntaxType GetSyntaxType();
   BoundUnaryOperatorType UnaryType();
   Type OperandType(); // expected Type
   Type EvalType();    // resulting Type
-  static const BoundUnaryOperator &GetBindFailure();
+  static const std::shared_ptr<BoundUnaryOperator> GetBindFailure();
+  BoundUnaryOperator(SyntaxType syntaxType, BoundUnaryOperatorType unaryType,
+                     Type operandValueType);
 
 private:
   SyntaxType mSyntaxType;
   BoundUnaryOperatorType mUnaryType;
   Type mOperandType;
   Type mEvalType;
-  BoundUnaryOperator(SyntaxType syntaxType, BoundUnaryOperatorType unaryType,
-                     Type operandValueType);
-  static const BoundUnaryOperator sOperators[];
+
+  static const std::shared_ptr<BoundUnaryOperator> sOperators[];
+  BoundUnaryOperator() = delete;
+  friend class BoundUnaryExpressionNode;
 };
 
 class BoundUnaryExpressionNode : public BoundExpressionNode {
 public:
-  BoundUnaryExpressionNode(BoundUnaryOperator &op,
+  BoundUnaryExpressionNode(const std::shared_ptr<BoundUnaryOperator> op,
                            std::unique_ptr<BoundExpressionNode> operand);
   virtual BoundNodeType NodeType() override;
-  virtual Type ValueType() override;
+  virtual Type GetType() override;
   BoundExpressionNode *Operand();
+  BoundUnaryOperatorType OperatorType();
+  virtual ~BoundUnaryExpressionNode() {}
 
 private:
-  BoundUnaryOperator mOperator;
+  const std::shared_ptr<BoundUnaryOperator> mOperator;
   std::unique_ptr<BoundExpressionNode> mOperand;
 };

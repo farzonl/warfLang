@@ -16,15 +16,16 @@ class UnaryExpressionNode;
 class BinaryExpressionNode;
 
 class Binder {
-  static std::unique_ptr<BoundExpressionNode>
-  BindExpression(ExpressionNode *syntax);
+public:
+  std::unique_ptr<BoundExpressionNode> BindExpression(ExpressionNode *syntax);
+  const std::vector<std::string> &Diagnostics() const { return mDiagnostics; }
 
 private:
-  static std::unique_ptr<BoundExpressionNode>
+  std::vector<std::string> mDiagnostics;
+  std::unique_ptr<BoundExpressionNode>
   BindLiteralExpression(LiteralExpressionNode *literal);
-  static std::unique_ptr<BoundExpressionNode>
+  std::unique_ptr<BoundExpressionNode>
   BindUnaryExpression(UnaryExpressionNode *unary);
-  static std::unique_ptr<BoundExpressionNode>
+  std::unique_ptr<BoundExpressionNode>
   BindBinaryExpression(BinaryExpressionNode *binary);
-  Binder() = delete;
 };
