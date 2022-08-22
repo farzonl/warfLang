@@ -7,6 +7,7 @@
 #pragma once
 #include "ExpressionNode.h"
 #include "SyntaxToken.h"
+#include <memory>
 
 class BinaryExpressionNode : public ExpressionNode {
   std::unique_ptr<ExpressionNode> mLeft;
