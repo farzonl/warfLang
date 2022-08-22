@@ -77,8 +77,8 @@ jobs:
     - name: Set variables (Mac\Linux)
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
       run: |
-        APP=$(cat $GITHUB_WORKSPACE/src/Version/appName.txt)
-        VER=$(cat $GITHUB_WORKSPACE/src/Version/version.txt)
+        APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
+        VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
         echo "VERSION=$VER" >> $GITHUB_ENV
         echo "APPNAME=$APP" >> $GITHUB_ENV
     - name: Set variables (Windows)
@@ -93,7 +93,7 @@ jobs:
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ./test/${{ env.APPNAME }}_TEST
+      run: ./test/${{ env.APPNAME }}Lang_TEST
 
     - name: Test Windows
       if: matrix.os == 'windows-latest'
@@ -114,7 +114,7 @@ jobs:
       shell: bash
       run:  |
         mkdir ${{github.workspace}}/artifacts
-        cp build/src/lib/lib${{ env.APPNAME }}${{ matrix.artifact_staticlib_ext }} ${{github.workspace}}/artifacts
+        cp build/src/lib/lib${{ env.APPNAME }}Core${{ matrix.artifact_staticlib_ext }} ${{github.workspace}}/artifacts
         cp build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifacts
         pushd ${{github.workspace}}
         zip -r ${{ env.APPNAME }}-$(uname -s)-$(uname -m).zip artifacts
@@ -124,7 +124,7 @@ jobs:
       shell: powershell
       run: |
         [system.io.directory]::CreateDirectory("${{github.workspace}}/artifacts")
-        Copy-Item "build/src/lib/${{ matrix.artifact_out_dir}}${{ env.APPNAME }}${{ matrix.artifact_staticlib_ext }}" -Destination "${{github.workspace}}/artifacts"
+        Copy-Item "build/src/lib/${{ matrix.artifact_out_dir}}${{ env.APPNAME }}Core${{ matrix.artifact_staticlib_ext }}" -Destination "${{github.workspace}}/artifacts"
         Copy-Item "build/src/cli/${{ matrix.artifact_out_dir }}${{ env.APPNAME }}${{ matrix.artifact_exec_ext }}" -Destination "${{github.workspace}}/artifacts"
         Compress-Archive -Path ${{github.workspace}}/artifacts/* -DestinationPath ${{ env.APPNAME }}-${{matrix.artifact_os_name}}-${{matrix.artifact_arch}}.zip
     - name: 'Upload Pull Request Artifact'
