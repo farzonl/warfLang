@@ -8,8 +8,6 @@
 #include "SyntaxNode.h"
 #include "SyntaxType.h"
 
-
-
 enum class Errors { LexError, ParseError };
 
 class SyntaxToken : public SyntaxNode {

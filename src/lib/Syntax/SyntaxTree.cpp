@@ -15,7 +15,8 @@ SyntaxTree::SyntaxTree(std::vector<std::string> &vecErrors,
 ExpressionNode *SyntaxTree::Root() const { return mRootExpression.get(); }
 
 int SyntaxTree::EvaluateRec(ExpressionNode *node) {
-  if (LiteralExpressionNode *literal = dynamic_cast<LiteralExpressionNode *>(node)) {
+  if (LiteralExpressionNode *literal =
+          dynamic_cast<LiteralExpressionNode *>(node)) {
     return literal->LiteralToken()->HasValue()
                ? literal->LiteralToken()->GetValue().asInt()
                : 0;

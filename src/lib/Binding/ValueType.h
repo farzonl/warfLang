@@ -1,7 +1,7 @@
-#include <unordered_map>
-#include <string>
 #include <cassert>
 #include <iostream>
+#include <string>
+#include <unordered_map>
 
 enum class Type { Unknown, Number, Boolean };
 

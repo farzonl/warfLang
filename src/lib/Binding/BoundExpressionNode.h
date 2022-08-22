@@ -7,7 +7,7 @@ enum class BoundNodeType {
 };
 
 class BoundExpressionNode {
-    public:
-        virtual BoundNodeType NodeType() = 0;
-        virtual Type GetType() = 0;
+public:
+  virtual BoundNodeType NodeType() = 0;
+  virtual Type GetType() = 0;
 };

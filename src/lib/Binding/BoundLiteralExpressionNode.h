@@ -6,9 +6,10 @@
 #include "Syntax/SyntaxType.h"
 
 class BoundLiteralExpressionNode : public BoundExpressionNode {
-    public:
-        BoundLiteralExpressionNode(ValueType value);
-        ValueType Value();
-    private:
-        ValueType mValue;
+public:
+  BoundLiteralExpressionNode(ValueType value);
+  ValueType Value();
+
+private:
+  ValueType mValue;
 };
