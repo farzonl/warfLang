@@ -77,8 +77,8 @@ jobs:
     - name: Set variables (Mac\Linux)
       if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
       run: |
-        APP=$(cat $GITHUB_WORKSPACE/src/version/AppName.txt)
-        VER=$(cat $GITHUB_WORKSPACE/src/version/Version.txt)
+        APP=$(cat $GITHUB_WORKSPACE/src/Version/appName.txt)
+        VER=$(cat $GITHUB_WORKSPACE/src/Version/version.txt)
         echo "VERSION=$VER" >> $GITHUB_ENV
         echo "APPNAME=$APP" >> $GITHUB_ENV
     - name: Set variables (Windows)

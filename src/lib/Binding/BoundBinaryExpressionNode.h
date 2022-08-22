@@ -1,6 +1,7 @@
 #pragma once
 #include "BoundExpressionNode.h"
 #include "Syntax/SyntaxType.h"
+#include <memory>
 
 enum class BoundBinaryOperatorType {
   Addition,
