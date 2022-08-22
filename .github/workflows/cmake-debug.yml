@@ -1,4 +1,4 @@
-name: CMake Release
+name: CMake Debug
 
 on:
   push:

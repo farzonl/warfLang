@@ -1,7 +1,7 @@
 #include "Evaluator.h"
-#include "Binding\BoundBinaryExpressionNode.h"
-#include "Binding\BoundLiteralExpressionNode.h"
-#include "Binding\BoundUnaryExpressionNode.h"
+#include "Binding/BoundBinaryExpressionNode.h"
+#include "Binding/BoundLiteralExpressionNode.h"
+#include "Binding/BoundUnaryExpressionNode.h"
 
 BoundExpressionNode *Evaluator::Root() const { return mRootExpression.get(); }
 Value Evaluator::Evaluate() { return EvaluateRec(mRootExpression.get()); }

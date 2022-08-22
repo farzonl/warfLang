@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Binding\BoundExpressionNode.h"
+#include "Binding/BoundBinaryExpressionNode.h"
+#include <vector>
 
 class Evaluator {
 public:
   Evaluator(std::unique_ptr<BoundExpressionNode> root);
-  Value Evaluator::Evaluate();
+  Value Evaluate();
   BoundExpressionNode *Root() const;
   const std::vector<std::string> &Errors() const { return mVecErrors; }
 
