@@ -1,11 +1,15 @@
 project(${CMAKE_PROJECT_NAME}_FUZZ)
-cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_C_COMPILER:FILEPATH /usr/local/opt/llvm/bin/clang)
 set(CMAKE_CXX_COMPILER:FILEPATH /usr/local/opt/llvm/bin/clang++)
 
 #/usr/local/opt/llvm/lib/clang/12.0.1/lib/darwin/libclang_rt.fuzzer_osx.a
 #/usr/local/opt/llvm/lib/clang/12.0.1/lib/darwin/libclang_rt.asan_osx_dynamic.dylib
+
+#/usr/local/opt/llvm/lib/clang/13.0.1/lib/darwin/libclang_rt.asan_osx_dynamic.dylib
+
+#/usr/local/opt/llvm/lib/clang/14.0.6/lib/darwin/libclang_rt.fuzzer_osx.a
+#/usr/local/opt/llvm/lib/clang/14.0.6/lib/darwin/libclang_rt.asan_osx_dynamic.dylib 
 
 include_directories(${CMAKE_SOURCE_DIR}/src/lib)
 

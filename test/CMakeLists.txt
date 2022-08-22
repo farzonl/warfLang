@@ -1,5 +1,4 @@
 project(${CMAKE_PROJECT_NAME}_TEST)
-cmake_minimum_required(VERSION 3.10)
 
 download_file(https://raw.githubusercontent.com/onqtam/doctest/2.4.6/doctest/doctest.h 
               ${CMAKE_SOURCE_DIR}/packages/doctest/doctest.h

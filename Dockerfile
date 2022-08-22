@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
@@ -11,9 +11,9 @@ WORKDIR root
 
 COPY . .
 
-#RUN cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-coverage"  -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-#RUN make -C./build
+RUN cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-coverage"  -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+RUN make -C./build
 #
-#RUN ./build/test/WarfLang_TEST
+RUN ./build/test/WarfLang_TEST
 #
 #RUN ./build/fuzz/WarfLang_FUZZ

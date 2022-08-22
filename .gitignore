@@ -42,3 +42,6 @@ packages/
 
 # MacOS
 .DS_Store
+
+# vs code 
+.vscode/

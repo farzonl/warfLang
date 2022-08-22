@@ -1,5 +1,4 @@
 project(WarfCore)
-cmake_minimum_required(VERSION 3.10)
 
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++latest /W4")
@@ -11,28 +10,28 @@ else()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
 endif()
 
-set(SourceFiles Lexer.cpp
-                SyntaxToken.cpp
-                SyntaxType.cpp
-                SyntaxNode.cpp
-                ExpressionNode.cpp
-                LiteralExpression.cpp
-                BinaryExpressionNode.cpp
-                UnaryExpressionNode.cpp
-                ParenthesizedExpressionNode.cpp
-                Parser.cpp
-                SyntaxTree.cpp
+# PathTracer Src dir
+set(WARF_CORE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+
+set(SourceFiles Evaluator.cpp
 )
-set(HeaderFiles Lexer.h
-                SyntaxToken.h
-                SyntaxType.h
-                SyntaxNode.h
-                ExpressionNode.h
-                LiteralExpression.h
-                BinaryExpressionNode.h
-                UnaryExpressionNode.h
-                ParenthesizedExpressionNode.h
-                Parser.h
-                SyntaxTree.h
+
+set(HeaderFiles Evaluator.h
 )
-add_library (${PROJECT_NAME} STATIC ${SourceFiles} ${HeaderFiles})
+
+add_library (${PROJECT_NAME} STATIC
+  WarfCoreStatic.cpp
+   ${SourceFiles} ${HeaderFiles}
+  $<TARGET_OBJECTS:WarfCore.Syntax>
+  $<TARGET_OBJECTS:WarfCore.Binding>
+)
+
+target_include_directories(${PROJECT_NAME}
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+  # Add include_directories here
+  Syntax
+  Binding
+)
+
+add_subdirectory(Syntax)
+add_subdirectory(Binding)

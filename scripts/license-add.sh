@@ -1,0 +1,1 @@
+find src test fuzz \( -name \*.h -o -name \*.cpp \) -exec ~/go/bin/addlicense -c "F. Lotfi" -l bsd  {} \;

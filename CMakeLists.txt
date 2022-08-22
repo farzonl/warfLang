@@ -12,10 +12,15 @@ endif()
 
 endfunction(download_file)
 
-cmake_minimum_required(VERSION 3.10)
-
+cmake_minimum_required(VERSION 3.22)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory (src)
-add_subdirectory (fuzz)
 add_subdirectory (test)
+
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-fsanitize=address,fuzzer" HAVE_SANITIZE_FUZZER)
+if(HAVE_SANITIZE_FUZZER)
+  add_subdirectory (fuzz)
+endif()
