@@ -10,6 +10,7 @@
 #include "Syntax/LiteralExpressionNode.h"
 #include "Syntax/ParenthesizedExpressionNode.h"
 #include "Syntax/UnaryExpressionNode.h"
+#include "Syntax/AssignmentExpressionNode.h"
 
 #include <sstream>
 
@@ -31,6 +32,10 @@ Binder::BindExpression(ExpressionNode *node) {
   if (ParenthesizedExpressionNode *parenthesizedExpression =
           dynamic_cast<ParenthesizedExpressionNode *>(node)) {
     return std::move(BindExpression(parenthesizedExpression->Expression()));
+  }
+  if (AssignmentExpressionNode *assignmentExpression =
+          dynamic_cast<AssignmentExpressionNode *>(node)) {
+      return nullptr;
   }
   std::stringstream diagmsg;
   diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(node->Type());
