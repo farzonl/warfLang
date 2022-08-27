@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include "BoundExpressionNode.h"
 
 class BoundAssignmentExpressionNode : public BoundExpressionNode {
