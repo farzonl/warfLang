@@ -135,3 +135,27 @@ TEST_CASE("Boolean Expression") {
     REQUIRE_FALSE(testCaseHelper("1==2 || 2==3").asBool());
   }
 }
+
+TEST_CASE("Assignment Expression") {
+  SUBCASE("Simple assignment of Number") {
+    REQUIRE(1 == testCaseHelper("a1 = 1").asInt());
+    REQUIRE(1 == testCaseHelper("a1").asInt());
+  }
+  SUBCASE("Simple assignment of Bool") {
+    REQUIRE(testCaseHelper("b1 = true").asBool());
+    REQUIRE(testCaseHelper("b1").asBool());
+    REQUIRE_FALSE(testCaseHelper("b2 = false").asBool());
+    REQUIRE_FALSE(testCaseHelper("b2").asBool());
+  }
+
+  SUBCASE("Assignment of binary expression") {
+    REQUIRE(3 == testCaseHelper("a1 = 3*(3+2)/5").asInt());
+    REQUIRE(3 == testCaseHelper("a1").asInt());
+    REQUIRE(testCaseHelper("b1 = 3*(3+2)/5 == 3").asBool());
+    REQUIRE(testCaseHelper("b1").asBool());
+    REQUIRE(testCaseHelper("b2 = 3*(3+2)/5 == 3").asBool());
+    REQUIRE(testCaseHelper("b1").asBool());
+  }
+
+  // TODO support binary epressions for IdentifierExpressions
+}
