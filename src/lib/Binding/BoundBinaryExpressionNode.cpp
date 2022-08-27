@@ -90,7 +90,7 @@ BoundBinaryExpressionNode::BoundBinaryExpressionNode(
       mRight(std::move(right)) {}
 
 BoundNodeType BoundBinaryExpressionNode::NodeType() {
-  return mLeft->NodeType();
+  return BoundNodeType::BinaryExpression;
 }
 
 Type BoundBinaryExpressionNode::GetType() { return mOperator->GetType(); }

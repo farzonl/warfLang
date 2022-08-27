@@ -8,7 +8,13 @@
 
 #include "ValueType.h"
 
-enum class BoundNodeType { Unknown, UnaryExpression, LiteralExpression };
+enum class BoundNodeType {
+  Unknown,
+  AssignmentExpression,
+  BinaryExpression,
+  UnaryExpression,
+  LiteralExpression
+};
 
 class BoundExpressionNode {
 public:

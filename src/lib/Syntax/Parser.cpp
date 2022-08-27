@@ -5,13 +5,14 @@
 #include <sstream>
 //#include<algorithm> // for copy() and assign()
 //#include<iterator> // for back_inserter
+#include "AssignmentExpressionNode.h"
+#include "IdentifierExpressionNode.h"
 #include "BinaryExpressionNode.h"
 #include "Lexer.h"
 #include "LiteralExpressionNode.h"
 #include "ParenthesizedExpressionNode.h"
 #include "Parser.h"
 #include "UnaryExpressionNode.h"
-#include "AssignmentExpressionNode.h"
 
 std::shared_ptr<SyntaxToken> Parser::Peek(int32_t offset) {
   int32_t index = mPosition + offset;
@@ -95,9 +96,14 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
     return std::make_unique<ParenthesizedExpressionNode>(
         left, std::move(expression), right);
   }
-  if (Current()->Type() == SyntaxType::TrueKeyword || Current()->Type() == SyntaxType::FalseKeyword) {
+  if (Current()->Type() == SyntaxType::TrueKeyword ||
+      Current()->Type() == SyntaxType::FalseKeyword) {
     auto boolToken = Match(Current()->Type());
     return std::make_unique<LiteralExpressionNode>(boolToken);
+  }
+  if (Current()->Type() == SyntaxType::IdentifierToken) {
+     auto identifierToken = Match(Current()->Type());
+     return std::make_unique<IdentifierExpressionNode>(identifierToken);
   }
 
   auto numberToken = Match(SyntaxType::NumberToken);
@@ -107,10 +113,11 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
 std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
   if (Peek(0)->Type() == SyntaxType::IdentifierToken &&
       Peek(1)->Type() == SyntaxType::EqualsToken) {
-      auto identifierToken = Next();
-      auto operatorToken = Next();
-      auto right = ParseAssignmentExpression();
-      return std::make_unique<AssignmentExpressionNode>(identifierToken, operatorToken, std::move(right));
+    auto identifierToken = Next();
+    auto operatorToken = Next();
+    auto right = ParseAssignmentExpression();
+    return std::make_unique<AssignmentExpressionNode>(
+        identifierToken, operatorToken, std::move(right));
   }
   return ParseBinaryExpression();
 }

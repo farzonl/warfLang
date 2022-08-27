@@ -10,6 +10,7 @@ set(SourceFiles Lexer.cpp
                 BinaryExpressionNode.cpp
                 UnaryExpressionNode.cpp
                 ParenthesizedExpressionNode.cpp
+                IdentifierExpressionNode.cpp
                 Parser.cpp
                 SyntaxTree.cpp
 )
@@ -23,6 +24,7 @@ set(HeaderFiles Lexer.h
                 BinaryExpressionNode.h
                 UnaryExpressionNode.h
                 ParenthesizedExpressionNode.h
+                IdentifierExpressionNode.h
                 Parser.h
                 SyntaxTree.h
 )

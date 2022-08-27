@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
   bool showTree = false;
   while (true) {
     try {
-      std::string line = "";
+      std::string line;
       std::cout << ">>> ";
       std::getline(std::cin, line);
       if (line == "#showTree") {
@@ -19,6 +19,9 @@ int main(int argc, char **argv) {
                                : "Not showing parse trees")
                   << std::endl;
         continue;
+      }
+      if (line == "#exit") {
+        exit(0);
       }
       auto syntaxTree = SyntaxTree::Parse(line);
       auto binder = std::make_unique<Binder>();

@@ -52,6 +52,7 @@ public:
     NumberToken,
     // Not Real Tokens
     IdentifierToken,
+    IdentifierExpression,
     UnaryExpression,
     BinaryExpression,
     ParenthesizedExpression,
@@ -77,10 +78,10 @@ public:
   constexpr SyntaxType(Value aSyntaxType) : value(aSyntaxType) {}
 
   // Allow switch and comparisons.
-  Value GetValue() const { return value; } 
-  //Note: I want to do this but it conflicts with operator ==
-  //constexpr operator Value() const { return value; }
-  
+  Value GetValue() const { return value; }
+  // Note: I want to do this but it conflicts with operator ==
+  // constexpr operator Value() const { return value; }
+
   // Prevent usage: if(SyntaxType)
   explicit operator bool() const = delete;
   constexpr bool operator==(SyntaxType a) const { return value == a.value; }
@@ -95,7 +96,7 @@ public:
   };
 
 private:
-Value value;
+  Value value;
 };
 
 static const std::unordered_map<bool, std::string> boolToNameMap = {
@@ -271,7 +272,8 @@ static const std::unordered_map<SyntaxType, std::string, SyntaxType::Hash>
         {SyntaxType::LiteralExpression, "LiteralExpression"},
         {SyntaxType::AssignmentExpression, "AssignmentExpression"},
         {SyntaxType::UnknownToken, "UnknownToken"},
-         {SyntaxType::IdentifierToken, "IdentifierToken"},
+        {SyntaxType::IdentifierToken, "IdentifierToken"},
+        {SyntaxType::IdentifierExpression, "IdentifierExpression"},
         {SyntaxType::BreakKeyword, "BreakKeyword"},
         {SyntaxType::ContinueKeyword, "ContinueKeyword"},
         {SyntaxType::IfKeyword, "IfKeyword"},

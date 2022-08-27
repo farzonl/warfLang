@@ -196,13 +196,13 @@ void Lexer::ReadIdentifierOrKeyword(SyntaxType &type) {
   int32_t length = mPosition - start;
   std::string text = mText.substr(start, length);
   type = SyntaxType::GetKeywordType(text);
-  if(type == SyntaxType::TrueKeyword) {
+  if (type == SyntaxType::TrueKeyword) {
     mValue = true;
   }
-  if(type == SyntaxType::FalseKeyword) {
+  if (type == SyntaxType::FalseKeyword) {
     mValue = false;
   }
-  if(type == SyntaxType::IdentifierToken) {
+  if (type == SyntaxType::IdentifierToken) {
     mIdentifier = text;
   }
 }
@@ -232,12 +232,13 @@ std::unique_ptr<SyntaxToken> Lexer::NextToken() {
   SyntaxType type = SyntaxType::UnknownToken;
   int32_t tokenStartPos = mPosition;
   ReadToken(type);
-  
-  if (type == SyntaxType::NumberToken || type == SyntaxType::TrueKeyword || type == SyntaxType::FalseKeyword) {
+
+  if (type == SyntaxType::NumberToken || type == SyntaxType::TrueKeyword ||
+      type == SyntaxType::FalseKeyword) {
     return std::make_unique<SyntaxToken>(type, tokenStartPos, mValue);
   }
   if (type == SyntaxType::IdentifierToken) {
-   return std::make_unique<SyntaxToken>(type, tokenStartPos, mIdentifier);
+    return std::make_unique<SyntaxToken>(type, tokenStartPos, mIdentifier);
   }
   if (type == SyntaxType::UnknownToken) {
     std::stringstream errorStream;

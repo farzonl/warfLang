@@ -14,6 +14,8 @@
 class LiteralExpressionNode;
 class UnaryExpressionNode;
 class BinaryExpressionNode;
+class AssignmentExpressionNode;
+class IdentifierExpressionNode;
 
 class Binder {
 public:
@@ -28,4 +30,8 @@ private:
   BindUnaryExpression(UnaryExpressionNode *unary);
   std::unique_ptr<BoundExpressionNode>
   BindBinaryExpression(BinaryExpressionNode *binary);
+  std::unique_ptr<BoundExpressionNode>
+  BindAssignmentExpression(AssignmentExpressionNode *assignment);
+  std::unique_ptr<BoundExpressionNode>
+  BindIdentifierExpression(IdentifierExpressionNode *identifier);
 };
