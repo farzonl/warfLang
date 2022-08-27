@@ -4,8 +4,16 @@
 
 #include "SyntaxType.h"
 
+SyntaxType SyntaxType::GetKeywordType(std::string &text) {
+  auto it = KeywordMap.find(text);
+  if (it != KeywordMap.end()) {
+    return it->second;
+  }
+  return SyntaxType::IdentifierToken;
+}
+
 int SyntaxOrder::GetUnaryOperatorPrecedence(SyntaxType type) {
-  switch (type) {
+  switch (type.GetValue()) {
   case SyntaxType::PlusToken:
   case SyntaxType::MinusToken:
   case SyntaxType::BangToken:
@@ -17,7 +25,7 @@ int SyntaxOrder::GetUnaryOperatorPrecedence(SyntaxType type) {
 }
 
 int SyntaxOrder::GetBinaryOperatorPrecedence(SyntaxType type) {
-  switch (type) {
+  switch (type.GetValue()) {
   case SyntaxType::StarToken:
   case SyntaxType::SlashToken:
     return 5;

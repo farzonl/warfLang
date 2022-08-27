@@ -5,6 +5,8 @@ set(SourceFiles
     BoundBinaryExpressionNode.cpp
     BoundLiteralExpressionNode.cpp
     BoundUnaryExpressionNode.cpp
+    BoundAssignmentExpressionNode.cpp
+    BoundIdentifierExpressionNode.cpp
     ValueType.cpp
     
 )
@@ -14,6 +16,8 @@ set(HeaderFiles
     BoundExpressionNode.h
     BoundLiteralExpressionNode.h
     BoundUnaryExpressionNode.h
+    BoundAssignmentExpressionNode.h
+    BoundIdentifierExpressionNode.h
     ValueType.h
 )
 

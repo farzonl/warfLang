@@ -13,12 +13,14 @@
 class Lexer {
 private:
   std::string mText;
+  std::string mIdentifier;
   int32_t mPosition;
   Value mValue;
   std::vector<std::string> mVecErrors;
   void ReadToken(SyntaxType &type);
   void ParseNumber(SyntaxType &type);
-  void ParseBool(SyntaxType &type);
+  void ParseLetters(SyntaxType &type);
+  void ReadIdentifierOrKeyword(SyntaxType &type);
 
 public:
   Lexer(std::string text);

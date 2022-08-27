@@ -162,10 +162,6 @@ void Lexer::ReadToken(SyntaxType &type) {
       mPosition++;
     }
     break;
-  case 't':
-  case 'f':
-    ParseBool(type);
-    break;
   case '0':
   case '1':
   case '2':
@@ -178,28 +174,37 @@ void Lexer::ReadToken(SyntaxType &type) {
   case '9':
     ParseNumber(type);
     break;
+  case '_':
+    ReadIdentifierOrKeyword(type);
+    break;
+  default:
+    ParseLetters(type);
   }
 }
-void Lexer::ParseBool(SyntaxType &type) {
-
-  const char *startPointer = mText.c_str() + mPosition;
-  std::string trueStr = boolToNameMap.at(true);
-  std::string falseStr = boolToNameMap.at(false);
-  if (*startPointer == 't' &&
-      strncmp(startPointer, trueStr.c_str(), trueStr.size()) == 0) {
-    mValue = true;
-    mPosition += trueStr.size();
-  } else if (*startPointer == 'f' &&
-             strncmp(startPointer, falseStr.c_str(), falseStr.size()) == 0) {
-    mValue = false;
-    mPosition += falseStr.size();
-  } else {
-    std::stringstream errorStream;
-    errorStream << "LexerError: bad character input: " << CurrentToken();
-    mVecErrors.push_back(errorStream.str());
-    return;
+void Lexer::ParseLetters(SyntaxType &type) {
+  if (isalpha(CurrentToken())) {
+    ReadIdentifierOrKeyword(type);
   }
-  type = SyntaxType::BooleanToken;
+}
+
+void Lexer::ReadIdentifierOrKeyword(SyntaxType &type) {
+  int32_t start = mPosition;
+  while (isalpha(CurrentToken()) || isdigit(CurrentToken()) ||
+         CurrentToken() == '_') {
+    mPosition++;
+  }
+  int32_t length = mPosition - start;
+  std::string text = mText.substr(start, length);
+  type = SyntaxType::GetKeywordType(text);
+  if (type == SyntaxType::TrueKeyword) {
+    mValue = true;
+  }
+  if (type == SyntaxType::FalseKeyword) {
+    mValue = false;
+  }
+  if (type == SyntaxType::IdentifierToken) {
+    mIdentifier = text;
+  }
 }
 
 void Lexer::ParseNumber(SyntaxType &type) {
@@ -227,8 +232,13 @@ std::unique_ptr<SyntaxToken> Lexer::NextToken() {
   SyntaxType type = SyntaxType::UnknownToken;
   int32_t tokenStartPos = mPosition;
   ReadToken(type);
-  if (type == SyntaxType::NumberToken || type == SyntaxType::BooleanToken) {
+
+  if (type == SyntaxType::NumberToken || type == SyntaxType::TrueKeyword ||
+      type == SyntaxType::FalseKeyword) {
     return std::make_unique<SyntaxToken>(type, tokenStartPos, mValue);
+  }
+  if (type == SyntaxType::IdentifierToken) {
+    return std::make_unique<SyntaxToken>(type, tokenStartPos, mIdentifier);
   }
   if (type == SyntaxType::UnknownToken) {
     std::stringstream errorStream;

@@ -8,7 +8,6 @@
 #include "ParenthesizedExpressionNode.h"
 #include "Parser.h"
 #include "UnaryExpressionNode.h"
-#include <iostream>
 
 SyntaxTree::SyntaxTree(std::vector<std::string> &vecErrors,
                        std::unique_ptr<ExpressionNode> root)
@@ -23,21 +22,26 @@ std::unique_ptr<SyntaxTree> SyntaxTree::Parse(std::string text) {
   return parser.Parse();
 }
 
-void SyntaxTree::PrintTreeRec(SyntaxNode *sNode, std::string indent,
-                              bool isLast) {
+void SyntaxTree::PrintTreeRec(SyntaxNode *sNode, std::ostream &out,
+                              std::string indent, bool isLast) {
   std::string marker = isLast ? "L--" : "|--";
-  std::cout << indent << marker << sNode->Type() << std::endl;
+  out << indent << marker << sNode->Type() << std::endl;
   SyntaxToken *derived = dynamic_cast<SyntaxToken *>(sNode);
+  if (derived && derived->Type() == SyntaxType::IdentifierToken) {
+    out << indent << "   " << derived->Text() << std::endl;
+  }
   if (derived && derived->HasValue()) {
-    std::cout << indent << "   " << derived->GetValue() << std::endl;
+    out << indent << "   " << derived->GetValue() << std::endl;
   }
 
   indent += isLast ? "    " : "|   ";
   auto vecChildren = sNode->GetChildren();
   for (auto child : vecChildren) {
     bool isLastChild = (child == vecChildren[vecChildren.size() - 1]);
-    PrintTreeRec(child, indent, isLastChild);
+    PrintTreeRec(child, out, indent, isLastChild);
   }
 }
 
-void SyntaxTree::PrintTree() { PrintTreeRec(this->mRootExpression.get()); }
+void SyntaxTree::PrintTree(std::ostream &out) {
+  PrintTreeRec(this->mRootExpression.get(), out);
+}
