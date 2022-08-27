@@ -12,9 +12,10 @@
 
 class IdentifierExpressionNode : public ExpressionNode {
 private:
-    std::shared_ptr<SyntaxToken> mIdentifier;
+  std::shared_ptr<SyntaxToken> mIdentifier;
+
 public:
   IdentifierExpressionNode(std::shared_ptr<SyntaxToken> identifierToken);
   std::shared_ptr<SyntaxToken> IdentifierToken();
-  std::string Name() { return mIdentifier->Text();}
+  std::string Name() { return mIdentifier->Text(); }
 };

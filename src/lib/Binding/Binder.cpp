@@ -4,16 +4,16 @@
 
 #include "Binder.h"
 #include "BoundAssignmentExpressionNode.h"
-#include "BoundIdentifierExpressionNode.h"
 #include "BoundBinaryExpressionNode.h"
+#include "BoundIdentifierExpressionNode.h"
 #include "BoundLiteralExpressionNode.h"
 #include "BoundUnaryExpressionNode.h"
 #include "Syntax/AssignmentExpressionNode.h"
 #include "Syntax/BinaryExpressionNode.h"
+#include "Syntax/IdentifierExpressionNode.h"
 #include "Syntax/LiteralExpressionNode.h"
 #include "Syntax/ParenthesizedExpressionNode.h"
 #include "Syntax/UnaryExpressionNode.h"
-#include "Syntax/IdentifierExpressionNode.h"
 
 #include <sstream>
 
@@ -101,8 +101,7 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   // TODO check if variable exists if it does update it with the new variable
 
   return std::make_unique<BoundAssignmentExpressionNode>(
-      name,
-      std::move(boundExpression));
+      name, std::move(boundExpression));
 }
 
 std::unique_ptr<BoundExpressionNode>

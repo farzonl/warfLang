@@ -4,8 +4,8 @@
 
 #include "Evaluator.h"
 #include "Binding/BoundAssignmentExpressionNode.h"
-#include "Binding/BoundIdentifierExpressionNode.h"
 #include "Binding/BoundBinaryExpressionNode.h"
+#include "Binding/BoundIdentifierExpressionNode.h"
 #include "Binding/BoundLiteralExpressionNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
 
@@ -24,12 +24,12 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   }
   if (BoundIdentifierExpressionNode *identifierExpression =
           dynamic_cast<BoundIdentifierExpressionNode *>(node)) {
-      std::string name = identifierExpression->Name();
-      if(Evaluator::variables.count(name) > 0) {
-        return variables[name];
-      } else {
-        return Value();
-      }
+    std::string name = identifierExpression->Name();
+    if (Evaluator::variables.count(name) > 0) {
+      return variables[name];
+    } else {
+      return Value();
+    }
   }
   if (BoundAssignmentExpressionNode *assignmentExpression =
           dynamic_cast<BoundAssignmentExpressionNode *>(node)) {

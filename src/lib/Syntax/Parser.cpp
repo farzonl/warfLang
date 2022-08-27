@@ -6,8 +6,8 @@
 //#include<algorithm> // for copy() and assign()
 //#include<iterator> // for back_inserter
 #include "AssignmentExpressionNode.h"
-#include "IdentifierExpressionNode.h"
 #include "BinaryExpressionNode.h"
+#include "IdentifierExpressionNode.h"
 #include "Lexer.h"
 #include "LiteralExpressionNode.h"
 #include "ParenthesizedExpressionNode.h"
@@ -102,8 +102,8 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
     return std::make_unique<LiteralExpressionNode>(boolToken);
   }
   if (Current()->Type() == SyntaxType::IdentifierToken) {
-     auto identifierToken = Match(Current()->Type());
-     return std::make_unique<IdentifierExpressionNode>(identifierToken);
+    auto identifierToken = Match(Current()->Type());
+    return std::make_unique<IdentifierExpressionNode>(identifierToken);
   }
 
   auto numberToken = Match(SyntaxType::NumberToken);

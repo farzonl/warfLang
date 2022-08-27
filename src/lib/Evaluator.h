@@ -7,8 +7,8 @@
 #pragma once
 
 #include "Binding/BoundBinaryExpressionNode.h"
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 class Value;
 
@@ -23,6 +23,7 @@ private:
   Value EvaluateRec(BoundExpressionNode *node);
   std::unique_ptr<BoundExpressionNode> mRootExpression;
   std::vector<std::string> mVecErrors;
-  //NOTE: really shouldn't do it this way because we aren't future proofing for scoping.
+  // NOTE: really shouldn't do it this way because we aren't future proofing for
+  // scoping.
   static std::unordered_map<std::string, Value> variables;
 };

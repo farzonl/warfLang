@@ -4,9 +4,8 @@ BoundNodeType BoundIdentifierExpressionNode::NodeType() {
   return BoundNodeType::AssignmentExpression;
 }
 
-Type BoundIdentifierExpressionNode::GetType() {
-  return Type::Unknown;
-}
+Type BoundIdentifierExpressionNode::GetType() { return Type::Unknown; }
 
-BoundIdentifierExpressionNode::BoundIdentifierExpressionNode(const std::string& name)
+BoundIdentifierExpressionNode::BoundIdentifierExpressionNode(
+    const std::string &name)
     : BoundExpressionNode(), mName(name) {}
