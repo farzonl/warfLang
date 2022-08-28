@@ -15,9 +15,16 @@ Type BoundAssignmentExpressionNode::GetType() {
 BoundExpressionNode *BoundAssignmentExpressionNode::BoundExpression() {
   return mBoundExpression.get();
 }
-std::string BoundAssignmentExpressionNode::Identifier() { return mIdentifer; }
+std::string BoundAssignmentExpressionNode::Identifier() {
+  return mVariable->Name();
+}
+
+std::shared_ptr<VariableSymbol> BoundAssignmentExpressionNode::Variable() {
+  return mVariable;
+}
 
 BoundAssignmentExpressionNode::BoundAssignmentExpressionNode(
-    std::string identifer, std::unique_ptr<BoundExpressionNode> boundExpression)
-    : BoundExpressionNode(), mIdentifer(identifer),
+    std::shared_ptr<VariableSymbol> variable,
+    std::unique_ptr<BoundExpressionNode> boundExpression)
+    : BoundExpressionNode(), mVariable(variable),
       mBoundExpression(std::move(boundExpression)) {}

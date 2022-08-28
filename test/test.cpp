@@ -5,10 +5,12 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "Binding/Binder.h"
 #include "Evaluator.h"
+#include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
 #include <doctest/doctest.h>
 
 Value testCaseHelper(std::string s) {
+  SymbolTableMgr::init();
   auto syntaxTree = SyntaxTree::Parse(s);
   auto binder = std::make_unique<Binder>();
   auto boundExpression = binder->BindExpression(syntaxTree->Root());
@@ -156,6 +158,71 @@ TEST_CASE("Assignment Expression") {
     REQUIRE(testCaseHelper("b2 = 3*(3+2)/5 == 3").asBool());
     REQUIRE(testCaseHelper("b1").asBool());
   }
+}
 
-  // TODO support binary epressions for IdentifierExpressions
+TEST_CASE("Number Unary expressions using IdentifierExpressions") {
+  SUBCASE("Unary Expression using Numeric negation") {
+    REQUIRE(1 == testCaseHelper("b1 = 1").asInt());
+    REQUIRE(-1 == testCaseHelper("b2 = -1").asInt());
+
+    REQUIRE(-1 == testCaseHelper("-b1").asInt());
+    REQUIRE(1 == testCaseHelper("-b2").asInt());
+  }
+  SUBCASE("Unary Expression using Numeric identity") {
+    REQUIRE(1 == testCaseHelper("b1 = 1").asInt());
+    REQUIRE(-1 == testCaseHelper("b2 = -1").asInt());
+
+    REQUIRE(1 == testCaseHelper("+b1").asInt());
+    REQUIRE(-1 == testCaseHelper("+b2").asInt());
+  }
+}
+
+TEST_CASE("Boolean Unary expressions using IdentifierExpressions") {
+  SUBCASE("Unary Expression using Logical negation") {
+    REQUIRE(testCaseHelper("b1 = true").asBool());
+    REQUIRE_FALSE(testCaseHelper("b2 = false").asBool());
+
+    REQUIRE_FALSE(testCaseHelper("!b1").asBool());
+    REQUIRE(testCaseHelper("!b2").asBool());
+  }
+}
+
+TEST_CASE("Boolean Binary expressions using IdentifierExpressions") {
+  SUBCASE("Binary Expression using AND") {
+    REQUIRE(testCaseHelper("b1 = true").asBool());
+    REQUIRE(testCaseHelper("b2 = true").asBool());
+    REQUIRE_FALSE(testCaseHelper("b3 = false").asBool());
+    REQUIRE(testCaseHelper("b1 && b2").asBool());
+    REQUIRE_FALSE(testCaseHelper("b1 && b3").asBool());
+  }
+
+  SUBCASE("Binary Expression using OR") {
+    REQUIRE(testCaseHelper("b1 = true").asBool());
+    REQUIRE_FALSE(testCaseHelper("b2 = false").asBool());
+    REQUIRE_FALSE(testCaseHelper("b3 = false").asBool());
+
+    REQUIRE(testCaseHelper("b1 || b2").asBool());
+    REQUIRE(testCaseHelper("b2 || b1").asBool());
+    REQUIRE_FALSE(testCaseHelper("b2 || b3").asBool());
+  }
+
+  SUBCASE("Binary Expression Equality") {
+    REQUIRE(testCaseHelper("b1 = true").asBool());
+    REQUIRE(testCaseHelper("b2 = true").asBool());
+    REQUIRE_FALSE(testCaseHelper("b3 = false").asBool());
+
+    REQUIRE(testCaseHelper("b1 == b2").asBool());
+    REQUIRE(testCaseHelper("b1 == b1").asBool());
+    REQUIRE_FALSE(testCaseHelper("b1 == b3").asBool());
+  }
+
+  SUBCASE("Binary Expression inEquality") {
+    REQUIRE(testCaseHelper("b1 = true").asBool());
+    REQUIRE(testCaseHelper("b2 = true").asBool());
+    REQUIRE_FALSE(testCaseHelper("b3 = false").asBool());
+
+    REQUIRE_FALSE(testCaseHelper("b1 != b2").asBool());
+    REQUIRE_FALSE(testCaseHelper("b1 != b1").asBool());
+    REQUIRE(testCaseHelper("b1 != b3").asBool());
+  }
 }

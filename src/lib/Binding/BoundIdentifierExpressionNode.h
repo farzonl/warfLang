@@ -7,16 +7,18 @@
 #pragma once
 
 #include "BoundExpressionNode.h"
+#include "Symbol/VariableSymbol.h"
 #include <string>
 
 class BoundIdentifierExpressionNode : public BoundExpressionNode {
 public:
-  BoundIdentifierExpressionNode(const std::string &name);
+  BoundIdentifierExpressionNode(std::shared_ptr<VariableSymbol> variable);
 
   virtual BoundNodeType NodeType() override;
   virtual Type GetType() override;
-  std::string Name() { return mName; }
+  std::string Name() { return mVariable->Name(); }
+  std::shared_ptr<VariableSymbol> Variable() { return mVariable; }
 
 private:
-  std::string mName;
+  std::shared_ptr<VariableSymbol> mVariable;
 };

@@ -9,8 +9,6 @@
 #include "Binding/BoundLiteralExpressionNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
 
-std::unordered_map<std::string, Value> Evaluator::variables;
-
 BoundExpressionNode *Evaluator::Root() const { return mRootExpression.get(); }
 Value Evaluator::Evaluate() { return EvaluateRec(mRootExpression.get()); }
 
@@ -24,17 +22,12 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   }
   if (BoundIdentifierExpressionNode *identifierExpression =
           dynamic_cast<BoundIdentifierExpressionNode *>(node)) {
-    std::string name = identifierExpression->Name();
-    if (Evaluator::variables.count(name) > 0) {
-      return variables[name];
-    } else {
-      return Value();
-    }
+    return identifierExpression->Variable()->GetValue();
   }
   if (BoundAssignmentExpressionNode *assignmentExpression =
           dynamic_cast<BoundAssignmentExpressionNode *>(node)) {
     auto rightSide = EvaluateRec(assignmentExpression->BoundExpression());
-    Evaluator::variables[assignmentExpression->Identifier()] = rightSide;
+    assignmentExpression->Variable()->SetValue(rightSide);
     return rightSide;
   }
   if (BoundUnaryExpressionNode *unaryExpression =

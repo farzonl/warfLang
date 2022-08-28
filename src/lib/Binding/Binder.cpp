@@ -15,6 +15,9 @@
 #include "Syntax/ParenthesizedExpressionNode.h"
 #include "Syntax/UnaryExpressionNode.h"
 
+#include "Symbol/SymbolTableMgr.h"
+#include "Symbol/VariableSymbol.h"
+
 #include <sstream>
 
 std::unique_ptr<BoundExpressionNode>
@@ -98,14 +101,32 @@ std::unique_ptr<BoundExpressionNode>
 Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   std::string name = assignment->IdentifierToken()->Text();
   auto boundExpression = BindExpression(assignment->Expression());
-  // TODO check if variable exists if it does update it with the new variable
+  auto newVar =
+      std::make_shared<VariableSymbol>(name, boundExpression->GetType());
+  auto existingVariable = SymbolTableMgr::find(name);
+  if (existingVariable != VariableSymbol::failSymbol()) {
+    SymbolTableMgr::modify(newVar, existingVariable->GetScopeName());
+  } else {
+    SymbolTableMgr::insert(newVar);
+  }
 
   return std::make_unique<BoundAssignmentExpressionNode>(
-      name, std::move(boundExpression));
+      newVar, std::move(boundExpression));
 }
 
 std::unique_ptr<BoundExpressionNode>
 Binder::BindIdentifierExpression(IdentifierExpressionNode *identifier) {
   std::string name = identifier->IdentifierToken()->Text();
-  return std::make_unique<BoundIdentifierExpressionNode>(name);
+  std::shared_ptr<VariableSymbol> variable = SymbolTableMgr::find(name);
+  if (variable == VariableSymbol::failSymbol()) {
+    std::stringstream diagmsg;
+    diagmsg << "Undefined name: " << name << "Starting at Position "
+            << identifier->IdentifierToken()->Position() << " Ending at: "
+            << identifier->IdentifierToken()->Position() + name.size() << "."
+            << std::endl;
+    mDiagnostics.push_back(diagmsg.str());
+    return std::make_unique<BoundLiteralExpressionNode>(0);
+  }
+
+  return std::make_unique<BoundIdentifierExpressionNode>(variable);
 }

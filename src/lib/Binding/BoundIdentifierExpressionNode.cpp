@@ -8,8 +8,8 @@ BoundNodeType BoundIdentifierExpressionNode::NodeType() {
   return BoundNodeType::AssignmentExpression;
 }
 
-Type BoundIdentifierExpressionNode::GetType() { return Type::Unknown; }
+Type BoundIdentifierExpressionNode::GetType() { return mVariable->GetType(); }
 
 BoundIdentifierExpressionNode::BoundIdentifierExpressionNode(
-    const std::string &name)
-    : BoundExpressionNode(), mName(name) {}
+    std::shared_ptr<VariableSymbol> variable)
+    : BoundExpressionNode(), mVariable(variable) {}
