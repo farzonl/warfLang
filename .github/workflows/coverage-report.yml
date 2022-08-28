@@ -102,7 +102,6 @@ jobs:
         git add -A
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git config -–local –add safe.directory ${{github.workspace}}/build/out/report
         git commit -m 'deploy'
 
     - name: Force push to destination branch
@@ -112,3 +111,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: gh-pages-coverage
         force: true
+        directory: ${{github.workspace}}/build/out/report
