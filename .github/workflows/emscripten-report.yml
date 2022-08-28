@@ -83,7 +83,7 @@ jobs:
       working-directory: ${{github.workspace}}/install
       run: |
         git init
-        git submodule add -b gh-pages-coverage https://github.com/farzonl/warfLang.git coverage
+        git submodule add -b gh-pages-coverage git@github.com:farzonl/warfLang.git coverage
         git add -A
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
