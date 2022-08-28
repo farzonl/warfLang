@@ -76,13 +76,21 @@ jobs:
         branch: gh-pages-emscripten
         force: true
         directory: ${{github.workspace}}/install
-    
+
+    - name: Set variables (Mac\Linux)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
+      run: |
+        APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
+        VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
+        echo "VERSION=$VER" >> $GITHUB_ENV
+        echo "APPNAME=$APP" >> $GITHUB_ENV
+
     - name: Prepare Binaries for upload (Mac\Linux)
       if: matrix.os == 'ubuntu-22.04'
       shell: bash
       run:  |
         pushd ${{github.workspace}}
-        zip -r ${{ env.APPNAME }}-wasm.zip install
+        zip -r ${{ env.APPNAME }}-wasm-32.zip install
         popd
     - name: 'Upload Pull Request Artifact'
       if: startsWith(github.ref, 'refs/pull/') && matrix.os == 'ubuntu-22.04'
