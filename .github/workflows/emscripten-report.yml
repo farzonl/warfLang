@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04]
+        os: [ubuntu-22.04, macOS-latest]
     steps:
     - uses: actions/checkout@v2
     
@@ -31,7 +31,8 @@ jobs:
       run: |
         brew install emscripten
 
-    - name: Create Build Environment
+    - name: Create Build Environment (Linux)
+      if: matrix.os == 'ubuntu-22.04'
       working-directory: ${{github.workspace}}
       # Some projects don't allow in-source building, so create a separate build directory
       # We'll use this as our working directory for all subsequent commands
@@ -40,12 +41,30 @@ jobs:
         source ./emsdk/emsdk_env.sh
         emcmake cmake -B build .
   
-    - name: Build
+    - name: Build (Linux)
+      if: matrix.os == 'ubuntu-22.04'
       working-directory: ${{github.workspace}}
       shell: bash
       # Execute the build.  
       run: |
         source ./emsdk/emsdk_env.sh
+        emmake make -C build
+    
+    - name: Create Build Environment (MacOS)
+      if: matrix.os == 'macOS-latest'
+      working-directory: ${{github.workspace}}
+      # Some projects don't allow in-source building, so create a separate build directory
+      # We'll use this as our working directory for all subsequent commands
+      shell: bash
+      run: |
+        emcmake cmake -B build .
+  
+    - name: Build (MacOS)
+      if: matrix.os == 'macOS-latest'
+      working-directory: ${{github.workspace}}
+      shell: bash
+      # Execute the build.  
+      run: |
         emmake make -C build
 
     - name: Package for Install
@@ -57,6 +76,7 @@ jobs:
         find build/ -name "*.html" -exec cp {} install/ \;
         find build/ -name "*.js" -exec cp {} install/ \;
         find build/ -name "*.wasm" -exec cp {} install/ \;
+        mv install/Warf.html install/index.html
 
 
     - name: Init new repo in dist folder and commit generated files
@@ -78,7 +98,7 @@ jobs:
         directory: ${{github.workspace}}/install
 
     - name: Set variables (Mac\Linux)
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
+      if: matrix.os == 'ubuntu-22.04' || matrix.os == 'macOS-latest'
       run: |
         APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
         VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
