@@ -6,7 +6,7 @@ env:
 
 on:
   push:
-    branches: [ master, feature/emscripten]
+    branches: [ master ]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
