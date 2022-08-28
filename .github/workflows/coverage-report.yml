@@ -12,12 +12,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [ubuntu-22.04, macos-latest]
     steps:
     - uses: actions/checkout@v2
     
     - name: Install dependencies (Linux)
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt install llvm-dev
 
@@ -47,7 +47,7 @@ jobs:
               -DCMAKE_CXX_COMPILER=$(brew --prefix llvm)/bin/clang++
   
     - name: Configure CMake (Linux)
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-22.04'
       # Use a bash shell so we can use the same syntax for environment variable
       # access regardless of the host operating system
       shell: bash
@@ -68,7 +68,7 @@ jobs:
       run: cmake --build . --config $BUILD_TYPE
    
     - name: Set variables (Mac\Linux)
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
+      if: matrix.os == 'ubuntu-22.04' || matrix.os == 'macOS-latest'
       run: |
         APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
         VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
@@ -86,7 +86,7 @@ jobs:
         $(brew --prefix llvm)/bin/llvm-cov show ./test/${{ env.APPNAME }}Lang_TEST -format="html" -instr-profile=${{ env.APPNAME }}Lang.profdata -output-dir=out/report
 
     - name: Run Test(s) on Linux and Generate Profraw, Profdata, & html Coverage report
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-22.04'
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
@@ -105,6 +105,7 @@ jobs:
         git commit -m 'deploy'
 
     - name: Force push to destination branch
+      if: matrix.os == 'ubuntu-22.04'
       uses: ad-m/github-push-action@v0.5.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
