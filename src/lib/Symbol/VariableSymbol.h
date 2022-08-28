@@ -37,10 +37,11 @@ public:
     size_t operator()(const VariableSymbol &variable) const;
     size_t operator()(const std::shared_ptr<VariableSymbol> variable) const;
   };*/
-friend class Scope;
+  friend class Scope;
+
 private:
   std::string mName;
   Type mType;
-  Scope* mScope;
+  Scope *mScope;
   Value mValue;
 };

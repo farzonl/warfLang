@@ -5,12 +5,14 @@
 #include "Scope.h"
 #include <functional>
 
-const std::unordered_map<std::string, Scope::ScopeType>Scope:: NameToScopeType = {
-    {".global", ScopeType::Global},
+const std::unordered_map<std::string, Scope::ScopeType> Scope::NameToScopeType =
+    {
+        {".global", ScopeType::Global},
 };
 
-const std::unordered_map<Scope::ScopeType, std::string> Scope::ScopeTypeToName = {
-    {ScopeType::Global, ".global"},
+const std::unordered_map<Scope::ScopeType, std::string> Scope::ScopeTypeToName =
+    {
+        {ScopeType::Global, ".global"},
 };
 
 Scope::Scope(ScopeType scopeType, std::shared_ptr<TextSpan> textSpan,
@@ -20,13 +22,11 @@ Scope::Scope(ScopeType scopeType, std::shared_ptr<TextSpan> textSpan,
 
 const std::string &Scope::Name() const { return mName; }
 
-std::shared_ptr<TextSpan> Scope::GetTextSpan() {
-    return mTextspan;
-}
+std::shared_ptr<TextSpan> Scope::GetTextSpan() { return mTextspan; }
 
 void Scope::insert(std::shared_ptr<VariableSymbol> variable) {
-    variable->mScope = this;
-    mVariables[variable->Name()] = variable;
+  variable->mScope = this;
+  mVariables[variable->Name()] = variable;
 }
 
 /*size_t Scope::Hash::operator()(const Scope &scope) const {

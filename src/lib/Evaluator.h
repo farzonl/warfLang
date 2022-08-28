@@ -23,5 +23,4 @@ private:
   Value EvaluateRec(BoundExpressionNode *node);
   std::unique_ptr<BoundExpressionNode> mRootExpression;
   std::vector<std::string> mVecErrors;
-
 };

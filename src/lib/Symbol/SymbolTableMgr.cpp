@@ -9,7 +9,7 @@
 SymbolTable SymbolTableMgr::symbolTable;
 
 void SymbolTableMgr::init() {
-  if(symbolTable.head.size() == 0) {
+  if (symbolTable.head.size() == 0) {
     std::shared_ptr<TextSpan> globalTextSpan =
         std::make_shared<TextSpan>(0, std::numeric_limits<int32_t>::max());
     std::shared_ptr<Scope> globalScope =
@@ -18,26 +18,28 @@ void SymbolTableMgr::init() {
   }
 }
 std::shared_ptr<Scope> SymbolTableMgr::getGlobalScope() {
-  const std::string& global = Scope::ScopeTypeToName.at(Scope::ScopeType::Global);
-  auto iter =
-      symbolTable.head.find(global);
+  const std::string &global =
+      Scope::ScopeTypeToName.at(Scope::ScopeType::Global);
+  auto iter = symbolTable.head.find(global);
   if (iter != symbolTable.head.end()) {
     return iter->second;
   }
   return nullptr;
 }
 std::shared_ptr<VariableSymbol> SymbolTableMgr::find(std::string variableName,
-                                              std::string scopeName) {
-    return symbolTable.find(variableName, scopeName);
+                                                     std::string scopeName) {
+  return symbolTable.find(variableName, scopeName);
 }
 
-bool SymbolTableMgr::modify(std::shared_ptr<VariableSymbol> variable, std::string scopeName) {
-    return symbolTable.modify(variable, scopeName);
+bool SymbolTableMgr::modify(std::shared_ptr<VariableSymbol> variable,
+                            std::string scopeName) {
+  return symbolTable.modify(variable, scopeName);
 }
 
-bool SymbolTableMgr::insert(std::shared_ptr<VariableSymbol> variable, std::string scopeName) {
-    if(scopeName == "") {
-        scopeName = Scope::ScopeTypeToName.at(Scope::ScopeType::Global);
-    }
-    return symbolTable.insert(variable, scopeName);
+bool SymbolTableMgr::insert(std::shared_ptr<VariableSymbol> variable,
+                            std::string scopeName) {
+  if (scopeName == "") {
+    scopeName = Scope::ScopeTypeToName.at(Scope::ScopeType::Global);
+  }
+  return symbolTable.insert(variable, scopeName);
 }

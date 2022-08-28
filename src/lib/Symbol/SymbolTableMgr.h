@@ -15,8 +15,11 @@ public:
   static std::shared_ptr<Scope> getGlobalScope();
   static std::shared_ptr<VariableSymbol> find(std::string variableName,
                                               std::string scopeName = "");
-  static bool modify(std::shared_ptr<VariableSymbol> variable, std::string scopeName);
-  static bool insert(std::shared_ptr<VariableSymbol> variable, std::string scopeName = "");
+  static bool modify(std::shared_ptr<VariableSymbol> variable,
+                     std::string scopeName);
+  static bool insert(std::shared_ptr<VariableSymbol> variable,
+                     std::string scopeName = "");
+
 private:
   static SymbolTable symbolTable;
   SymbolTableMgr() = delete;

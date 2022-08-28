@@ -22,7 +22,7 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   }
   if (BoundIdentifierExpressionNode *identifierExpression =
           dynamic_cast<BoundIdentifierExpressionNode *>(node)) {
-      return identifierExpression->Variable()->GetValue();
+    return identifierExpression->Variable()->GetValue();
   }
   if (BoundAssignmentExpressionNode *assignmentExpression =
           dynamic_cast<BoundAssignmentExpressionNode *>(node)) {

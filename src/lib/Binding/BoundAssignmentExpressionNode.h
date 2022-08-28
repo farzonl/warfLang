@@ -25,5 +25,5 @@ public:
 
 private:
   std::unique_ptr<BoundExpressionNode> mBoundExpression;
- std::shared_ptr<VariableSymbol> mVariable;
+  std::shared_ptr<VariableSymbol> mVariable;
 };

@@ -10,8 +10,6 @@ int32_t TextSpan::Start() const { return mStart; }
 
 int32_t TextSpan::Length() const { return mLength; }
 
-void TextSpan::SetLength(int32_t newLength) {
-    mLength = newLength;
-}
+void TextSpan::SetLength(int32_t newLength) { mLength = newLength; }
 
 int32_t TextSpan::End() const { return mStart + mLength; }

@@ -4,8 +4,8 @@
 
 #include "Binding/Binder.h"
 #include "Evaluator.h"
-#include "Syntax/SyntaxTree.h"
 #include "Symbol/SymbolTableMgr.h"
+#include "Syntax/SyntaxTree.h"
 
 int main(int argc, char **argv) {
   std::cout << "warfLang 1.0" << std::endl;
@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
       if (line == "#exit") {
         exit(0);
       }
-      
+
       auto globalScope = SymbolTableMgr::getGlobalScope();
       auto syntaxTree = SyntaxTree::Parse(line);
       globalScope->GetTextSpan()->SetLength(line.size());

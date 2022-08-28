@@ -13,15 +13,11 @@ const std::string &VariableSymbol::Name() const { return mName; }
 Type VariableSymbol::GetType() const { return mType; }
 
 std::string VariableSymbol::GetScopeName() {
-    return this->mScope != nullptr ? this->mScope->Name() : "";
+  return this->mScope != nullptr ? this->mScope->Name() : "";
 }
 
-Value VariableSymbol::GetValue() const {
-    return mValue;
-}
-  void VariableSymbol::SetValue(Value v) {
-    mValue = v;
-  }
+Value VariableSymbol::GetValue() const { return mValue; }
+void VariableSymbol::SetValue(Value v) { mValue = v; }
 /*size_t VariableSymbol::Hash::operator()(const VariableSymbol &variable) const
 { return std::hash<std::string>{}(variable.Name());
 }
