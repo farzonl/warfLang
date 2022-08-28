@@ -1,0 +1,129 @@
+name: Deploy Emscripten to GitHub pages
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, macOS-latest]
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install dependencies (Linux)
+      if: matrix.os == 'ubuntu-22.04'
+      run: |
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk
+        ./emsdk install latest
+        ./emsdk activate latest
+        source ./emsdk_env.sh
+        emcc -v
+
+    - name: Install dependencies (MacOS)
+      if: matrix.os == 'macOS-latest'
+      run: |
+        brew install emscripten
+
+    - name: Create Build Environment (Linux)
+      if: matrix.os == 'ubuntu-22.04'
+      working-directory: ${{github.workspace}}
+      # Some projects don't allow in-source building, so create a separate build directory
+      # We'll use this as our working directory for all subsequent commands
+      shell: bash
+      run: |
+        source ./emsdk/emsdk_env.sh
+        emcmake cmake -B build .
+  
+    - name: Build (Linux)
+      if: matrix.os == 'ubuntu-22.04'
+      working-directory: ${{github.workspace}}
+      shell: bash
+      # Execute the build.  
+      run: |
+        source ./emsdk/emsdk_env.sh
+        emmake make -C build
+    
+    - name: Create Build Environment (MacOS)
+      if: matrix.os == 'macOS-latest'
+      working-directory: ${{github.workspace}}
+      # Some projects don't allow in-source building, so create a separate build directory
+      # We'll use this as our working directory for all subsequent commands
+      shell: bash
+      run: |
+        emcmake cmake -B build .
+  
+    - name: Build (MacOS)
+      if: matrix.os == 'macOS-latest'
+      working-directory: ${{github.workspace}}
+      shell: bash
+      # Execute the build.  
+      run: |
+        emmake make -C build
+
+    - name: Package for Install
+      working-directory: ${{github.workspace}}
+      shell: bash
+      # Execute the build.  
+      run: |
+        mkdir install
+        find build/ -name "*.html" -exec cp {} install/ \;
+        find build/ -name "*.js" -exec cp {} install/ \;
+        find build/ -name "*.wasm" -exec cp {} install/ \;
+        mv install/Warf.html install/index.html
+
+
+    - name: Init new repo in dist folder and commit generated files
+      working-directory: ${{github.workspace}}/install
+      run: |
+        git init
+        git submodule add -b gh-pages-coverage https://github.com/farzonl/warfLang.git coverage
+        git add -A
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m 'deploy'
+
+    - name: Force push to destination branch
+      if: matrix.os == 'ubuntu-22.04'
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages-emscripten
+        force: true
+        directory: ${{github.workspace}}/install
+
+    - name: Set variables (Mac\Linux)
+      if: matrix.os == 'ubuntu-22.04' || matrix.os == 'macOS-latest'
+      run: |
+        APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
+        VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
+        echo "VERSION=$VER" >> $GITHUB_ENV
+        echo "APPNAME=$APP" >> $GITHUB_ENV
+
+    - name: Prepare Binaries for upload (Mac\Linux)
+      if: matrix.os == 'ubuntu-22.04'
+      shell: bash
+      run:  |
+        pushd ${{github.workspace}}
+        zip -r ${{ env.APPNAME }}-wasm-32.zip install
+        popd
+    - name: 'Upload Pull Request Artifact'
+      if: startsWith(github.ref, 'refs/pull/') && matrix.os == 'ubuntu-22.04'
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ env.APPNAME }} Pull Request Artifacts
+        path: ${{ env.APPNAME }}-*.zip
+        retention-days: 5
+    - name: Upload binaries to Release
+      if: startsWith(github.ref, 'refs/heads/master') && matrix.os == 'ubuntu-22.04'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ env.APPNAME }}-${{ env.VERSION }}
+        files: |
+          ${{ env.APPNAME }}-*.zip
