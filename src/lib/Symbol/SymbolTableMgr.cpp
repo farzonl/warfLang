@@ -8,11 +8,13 @@
 SymbolTable SymbolTableMgr::symbolTable;
 
 void SymbolTableMgr::init() {
-  std::shared_ptr<TextSpan> globalTextSpan =
-      std::make_shared<TextSpan>(0, INT_MAX);
-  std::shared_ptr<Scope> globalScope =
-      std::make_shared<Scope>(Scope::ScopeType::Global, globalTextSpan);
-  symbolTable.insert(globalScope);
+  if(symbolTable.head.size() == 0) {
+    std::shared_ptr<TextSpan> globalTextSpan =
+        std::make_shared<TextSpan>(0, INT_MAX);
+    std::shared_ptr<Scope> globalScope =
+        std::make_shared<Scope>(Scope::ScopeType::Global, globalTextSpan);
+    symbolTable.insert(globalScope);
+  }
 }
 std::shared_ptr<Scope> SymbolTableMgr::getGlobalScope() {
   const std::string& global = Scope::ScopeTypeToName.at(Scope::ScopeType::Global);

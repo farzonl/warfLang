@@ -10,9 +10,10 @@
 int main(int argc, char **argv) {
   std::cout << "warfLang 1.0" << std::endl;
   bool showTree = false;
+  SymbolTableMgr::init();
   while (true) {
     try {
-      std::string line;
+      std::string line = "";
       std::cout << ">>> ";
       std::getline(std::cin, line);
       if (line == "#showTree") {
@@ -25,7 +26,7 @@ int main(int argc, char **argv) {
       if (line == "#exit") {
         exit(0);
       }
-      SymbolTableMgr::init();
+      
       auto globalScope = SymbolTableMgr::getGlobalScope();
       auto syntaxTree = SyntaxTree::Parse(line);
       globalScope->GetTextSpan()->SetLength(line.size());

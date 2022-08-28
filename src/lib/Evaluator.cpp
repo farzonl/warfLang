@@ -8,8 +8,6 @@
 #include "Binding/BoundIdentifierExpressionNode.h"
 #include "Binding/BoundLiteralExpressionNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
-#include "Symbol/SymbolTableMgr.h"
-
 
 BoundExpressionNode *Evaluator::Root() const { return mRootExpression.get(); }
 Value Evaluator::Evaluate() { return EvaluateRec(mRootExpression.get()); }
