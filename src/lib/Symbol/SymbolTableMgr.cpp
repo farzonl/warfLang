@@ -4,13 +4,14 @@
 
 #include "SymbolTableMgr.h"
 #include "SymbolTable.h"
+#include <limits>
 
 SymbolTable SymbolTableMgr::symbolTable;
 
 void SymbolTableMgr::init() {
   if(symbolTable.head.size() == 0) {
     std::shared_ptr<TextSpan> globalTextSpan =
-        std::make_shared<TextSpan>(0, INT_MAX);
+        std::make_shared<TextSpan>(0, std::numeric_limits<int32_t>::max());
     std::shared_ptr<Scope> globalScope =
         std::make_shared<Scope>(Scope::ScopeType::Global, globalTextSpan);
     symbolTable.insert(globalScope);

@@ -9,6 +9,8 @@
 #include "Binding/ValueType.h"
 #include <string>
 
+#include <memory>
+
 class Scope;
 
 class VariableSymbol {
