@@ -5,6 +5,8 @@
 #include "Binding/Binder.h"
 #include "Evaluator.h"
 #include "Syntax/SyntaxTree.h"
+#include "Symbol/SymbolTableMgr.h"
+
 int main(int argc, char **argv) {
   std::cout << "warfLang 1.0" << std::endl;
   bool showTree = false;
@@ -23,7 +25,10 @@ int main(int argc, char **argv) {
       if (line == "#exit") {
         exit(0);
       }
+      SymbolTableMgr::init();
+      auto globalScope = SymbolTableMgr::getGlobalScope();
       auto syntaxTree = SyntaxTree::Parse(line);
+      globalScope->GetTextSpan()->SetLength(line.size());
       auto binder = std::make_unique<Binder>();
       auto boundExpression = binder->BindExpression(syntaxTree->Root());
 

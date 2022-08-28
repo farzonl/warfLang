@@ -9,19 +9,21 @@
 #include <memory>
 
 #include "BoundExpressionNode.h"
+#include "Symbol/VariableSymbol.h"
 
 class BoundAssignmentExpressionNode : public BoundExpressionNode {
 public:
   BoundAssignmentExpressionNode(
-      std::string identifierToken,
+      std::shared_ptr<VariableSymbol> variable,
       std::unique_ptr<BoundExpressionNode> boundExpression);
 
   virtual BoundNodeType NodeType() override;
   BoundExpressionNode *BoundExpression();
   std::string Identifier();
   virtual Type GetType() override;
+  std::shared_ptr<VariableSymbol> Variable();
 
 private:
   std::unique_ptr<BoundExpressionNode> mBoundExpression;
-  std::string mIdentifer;
+ std::shared_ptr<VariableSymbol> mVariable;
 };

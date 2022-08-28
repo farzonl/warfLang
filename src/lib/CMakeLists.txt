@@ -24,6 +24,7 @@ add_library (${PROJECT_NAME} STATIC
    ${SourceFiles} ${HeaderFiles}
   $<TARGET_OBJECTS:WarfCore.Syntax>
   $<TARGET_OBJECTS:WarfCore.Binding>
+  $<TARGET_OBJECTS:WarfCore.Symbol>
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -31,7 +32,9 @@ target_include_directories(${PROJECT_NAME}
   # Add include_directories here
   Syntax
   Binding
+  Symbol
 )
 
 add_subdirectory(Syntax)
 add_subdirectory(Binding)
+add_subdirectory(Symbol)
