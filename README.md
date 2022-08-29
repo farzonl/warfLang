@@ -1,5 +1,9 @@
 
-# Build Instructions
+# WarfLang 
+## Inspiration for the name
+A legally distinct but phoneitically similar name to a sci-fi space warrior. 
+
+## Build Instructions
 ```bash
 cmake -B build
 make
@@ -43,11 +47,9 @@ cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug \
       -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping -mllvm -runtime-counter-relocation"
 ninja -C./build
 LLVM_PROFILE_FILE="Warflang.profraw" ./build/test/WarfLang_TEST
-$(brew --prefix llvm)/bin/llvm-profdata merge -sparse Warflang.profraw -o Warflang.profdata
 $(brew --prefix llvm)/bin/llvm-profdata merge -sparse WarfLang.profraw -o WarfLang.profdata
 $(brew --prefix llvm)/bin/llvm-cov show ./test/WarfLang_TEST -format="html" -instr-profile=WarfLang.profdata -output-dir=out/report
 ```
-
 
 ### Run Clang Tidy
 After running cmake, the build dir will have a `compile_commands.json` file. Thats all you need to run `run-clang-tidy.py`.

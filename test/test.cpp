@@ -47,6 +47,28 @@ TEST_CASE("Binary Expression") {
   SUBCASE("Negative Parentheses") {
     REQUIRE(-4 == testCaseHelper("-(1+3)").asInt());
   }
+
+  SUBCASE("Binary Expression Integer Bitwise OR") {
+    REQUIRE(3 == testCaseHelper("1 | 2").asInt());
+    REQUIRE(3 == testCaseHelper("3 | 1").asInt());
+    REQUIRE(3 == testCaseHelper("3 | 2").asInt());
+  }
+
+  SUBCASE("Binary Expression Integer Bitwise And") {
+    REQUIRE(0 == testCaseHelper("1 & 2").asInt());
+    REQUIRE(1 == testCaseHelper("3 & 1").asInt());
+    REQUIRE(2 == testCaseHelper("3 & 2").asInt());
+  }
+  // A B
+  // 0 0 0
+  // 0 1 1
+  // 1 0 1
+  // 1 1 0
+  SUBCASE("Binary Expression Integer Bitwise XOR") {
+    REQUIRE(3 == testCaseHelper("1 ^ 2").asInt());
+    REQUIRE(2 == testCaseHelper("3 ^ 1").asInt());
+    REQUIRE(1 == testCaseHelper("3 ^ 2").asInt());
+  }
 }
 
 TEST_CASE("Boolean Expression") {
@@ -135,6 +157,44 @@ TEST_CASE("Boolean Expression") {
     REQUIRE(testCaseHelper("1==2 || 2==2").asBool());
 
     REQUIRE_FALSE(testCaseHelper("1==2 || 2==3").asBool());
+  }
+
+  SUBCASE("Binary Expression Boolean LessThan") {
+    REQUIRE(testCaseHelper("1 < 2").asBool());
+    REQUIRE_FALSE(testCaseHelper("1 < -1").asBool());
+    REQUIRE(1 == testCaseHelper("a1 =  1").asInt());
+    REQUIRE(-1 == testCaseHelper("a2 = -1").asInt());
+    REQUIRE_FALSE(testCaseHelper("a1 < a2").asBool());
+    REQUIRE_FALSE(testCaseHelper("a1 + 1 < a2 + 2").asBool());
+  }
+
+  SUBCASE("Binary Expression Boolean GreaterThan") {
+    REQUIRE_FALSE(testCaseHelper("1 > 2").asBool());
+    REQUIRE(testCaseHelper("1 > -1").asBool());
+    REQUIRE(1 == testCaseHelper("a1 =  1").asInt());
+    REQUIRE(-1 == testCaseHelper("a2 = -1").asInt());
+    REQUIRE(testCaseHelper("a1 > a2").asBool());
+    REQUIRE(testCaseHelper("a1 + 1 > a2 + 2").asBool());
+  }
+
+  SUBCASE("Binary Expression Boolean LessThanOrEqualTo") {
+    REQUIRE(testCaseHelper("1 <= 2").asBool());
+    REQUIRE(testCaseHelper("1 <= 1").asBool());
+    REQUIRE_FALSE(testCaseHelper("1 <= -1").asBool());
+    REQUIRE(1 == testCaseHelper("a1 =  1").asInt());
+    REQUIRE(-1 == testCaseHelper("a2 = -1").asInt());
+    REQUIRE_FALSE(testCaseHelper("a1 <= a2").asBool());
+    REQUIRE_FALSE(testCaseHelper("a1 + 1 <= a2 + 2").asBool());
+  }
+
+  SUBCASE("Binary Expression Boolean GreaterThanOrEqualTo") {
+    REQUIRE_FALSE(testCaseHelper("1 >= 2").asBool());
+    REQUIRE(testCaseHelper("1 >= 1").asBool());
+    REQUIRE(testCaseHelper("1 >= -1").asBool());
+    REQUIRE(1 == testCaseHelper("a1 =  1").asInt());
+    REQUIRE(-1 == testCaseHelper("a2 = -1").asInt());
+    REQUIRE(testCaseHelper("a1 >= a2").asBool());
+    REQUIRE(testCaseHelper("a1 + 1 >= a2 + 2").asBool());
   }
 }
 

@@ -4,7 +4,6 @@
 
 #include "Lexer.h"
 #include "SyntaxType.h"
-#include <ctype.h>
 #include <errno.h>
 #include <limits.h>
 #include <sstream>
@@ -206,7 +205,15 @@ void Lexer::ReadIdentifierOrKeyword(SyntaxType &type) {
     mIdentifier = text;
   }
 }
-
+// Note because we are just parsing numeric numbers
+// we don't know if a sign had been added to a literal.
+// that means we are not properly setting int32_t min\max
+// INT_MIN : -2147483648 INT_MAX : 2147483647.
+// for example -2147483648 would be interpreted as 2147483648
+// which we would treat as an overflow.
+// This has two issues:
+//   1) we are reporting underflows as overflows
+//   2) we have an off by one error, where a valid int is now not possible.
 void Lexer::ParseNumber(SyntaxType &type) {
   int32_t posStart = mPosition;
   while (isdigit(CurrentToken())) {
@@ -214,14 +221,23 @@ void Lexer::ParseNumber(SyntaxType &type) {
   }
   const char *startPointer = mText.c_str() + posStart;
   const char *endPointer = mText.c_str() + mPosition;
-  long val = strtol(startPointer, const_cast<char **>(&endPointer), 10);
-  if (val == LONG_MIN && errno == ERANGE) {
+  int64_t val = static_cast<int64_t>(
+      strtol(startPointer, const_cast<char **>(&endPointer), 10));
+  ;
+
+  if (errno == ERANGE) {
+    mVecErrors.push_back("LexerError: Numeric Range Error.");
+  } else if (val <= static_cast<int64_t>(std::numeric_limits<int32_t>::min())) {
     // underflow
     mVecErrors.push_back("LexerError: Numeric underflow.");
+    mValue = 0;
+    type = SyntaxType::NumberToken;
     return;
-  } else if (val == LONG_MAX && errno == ERANGE) {
+  } else if (val >= static_cast<int64_t>(std::numeric_limits<int32_t>::max())) {
     // overflow
     mVecErrors.push_back("LexerError: Numeric overflow.");
+    mValue = 0;
+    type = SyntaxType::NumberToken;
     return;
   }
   mValue = static_cast<int32_t>(val);

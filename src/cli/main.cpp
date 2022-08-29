@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
         syntaxTree->PrintTree();
       }
 
-      if (binder->Diagnostics().empty()) {
+      if (syntaxTree->Errors().empty() && binder->Diagnostics().empty()) {
         auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
         if (eval->Errors().size() == 0) {
           Value result = eval->Evaluate();
@@ -48,6 +48,9 @@ int main(int argc, char **argv) {
           }
         }
       } else {
+        for (auto error : syntaxTree->Errors()) {
+          std::cerr << error << std::endl;
+        }
         for (auto error : binder->Diagnostics()) {
           std::cerr << error << std::endl;
         }

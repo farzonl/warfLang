@@ -17,7 +17,14 @@ enum class BoundBinaryOperatorType {
   Equals,
   NotEquals,
   LogicalAnd,
-  LogicalOr
+  LogicalOr,
+  BitwiseAnd,
+  BitwiseOr,
+  BitwiseXor,
+  GreaterThan,
+  LessThan,
+  LessThanOrEqualTo,
+  GreaterThanOrEqualTo
 };
 
 static const std::unordered_map<BoundBinaryOperatorType, std::string>
@@ -30,6 +37,15 @@ static const std::unordered_map<BoundBinaryOperatorType, std::string>
         {BoundBinaryOperatorType::NotEquals, "NotEquals"},
         {BoundBinaryOperatorType::LogicalAnd, "LogicalAnd"},
         {BoundBinaryOperatorType::LogicalOr, "LogicalOr"},
+        {BoundBinaryOperatorType::BitwiseAnd, "BitwiseAnd"},
+        {BoundBinaryOperatorType::BitwiseOr, "BitwiseOr"},
+        {BoundBinaryOperatorType::BitwiseXor, "BitwiseXor"},
+        {BoundBinaryOperatorType::BitwiseOr, "BitwiseOr,"},
+        {BoundBinaryOperatorType::BitwiseXor, "BitwiseXor,"},
+        {BoundBinaryOperatorType::GreaterThan, "GreaterThan,"},
+        {BoundBinaryOperatorType::LessThan, "LessThan,"},
+        {BoundBinaryOperatorType::LessThanOrEqualTo, "LessThanOrEqualTo,"},
+        {BoundBinaryOperatorType::GreaterThanOrEqualTo, "GreaterThanOrEqualTo"},
 };
 
 class BoundBinaryOperator {

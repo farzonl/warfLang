@@ -37,6 +37,28 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
     std::make_shared<BoundBinaryOperator>(SyntaxType::PipePipeToken,
                                           BoundBinaryOperatorType::LogicalOr,
                                           Type::Boolean),
+
+    std::make_shared<BoundBinaryOperator>(SyntaxType::AmpersandToken,
+                                          BoundBinaryOperatorType::BitwiseAnd,
+                                          Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxType::PipeToken,
+                                          BoundBinaryOperatorType::BitwiseOr,
+                                          Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxType::HatToken,
+                                          BoundBinaryOperatorType::BitwiseXor,
+                                          Type::Number),
+
+    std::make_shared<BoundBinaryOperator>(SyntaxType::GreaterToken,
+                                          BoundBinaryOperatorType::GreaterThan,
+                                          Type::Number),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxType::GreaterOrEqualsToken,
+        BoundBinaryOperatorType::GreaterThanOrEqualTo, Type::Number),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxType::LessToken, BoundBinaryOperatorType::LessThan, Type::Number),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxType::LessOrEqualsToken,
+        BoundBinaryOperatorType::LessThanOrEqualTo, Type::Number),
 };
 
 BoundBinaryOperator::BoundBinaryOperator(SyntaxType syntaxType,
