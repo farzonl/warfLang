@@ -5,7 +5,7 @@
 #include "Lexer.h"
 #include "SyntaxType.h"
 #include <errno.h>
-#include <limits.h>
+#include <limits>
 #include <sstream>
 #include <stdlib.h>
 #include <string.h>
