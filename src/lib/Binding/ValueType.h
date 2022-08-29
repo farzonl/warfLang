@@ -55,9 +55,57 @@ public:
     return value;
   }
 
+  Value operator~() {
+    Value value;
+    value = ~this->asInt();
+    return value;
+  }
+
+  Value operator|(const Value &v) {
+    Value value;
+    value = this->asInt() | v.asInt();
+    return value;
+  }
+
+  Value operator&(const Value &v) {
+    Value value;
+    value = this->asInt() & v.asInt();
+    return value;
+  }
+
+  Value operator^(const Value &v) {
+    Value value;
+    value = this->asInt() ^ v.asInt();
+    return value;
+  }
+
   Value operator*(const Value &v) {
     Value value;
     value = this->asInt() * v.asInt();
+    return value;
+  }
+
+  Value operator<(const Value &v) {
+    Value value;
+    value = this->asInt() < v.asInt();
+    return value;
+  }
+
+  Value operator>(const Value &v) {
+    Value value;
+    value = this->asInt() > v.asInt();
+    return value;
+  }
+
+  Value operator<=(const Value &v) {
+    Value value;
+    value = this->asInt() <= v.asInt();
+    return value;
+  }
+
+  Value operator>=(const Value &v) {
+    Value value;
+    value = this->asInt() >= v.asInt();
     return value;
   }
 

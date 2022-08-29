@@ -15,6 +15,9 @@ const std::shared_ptr<BoundUnaryOperator> BoundUnaryOperator::sOperators[] = {
         SyntaxType::MinusToken, BoundUnaryOperatorType::Negation, Type::Number),
     std::make_shared<BoundUnaryOperator>(
         SyntaxType::PlusToken, BoundUnaryOperatorType::Identity, Type::Number),
+    std::make_shared<BoundUnaryOperator>(SyntaxType::TildeToken,
+                                         BoundUnaryOperatorType::BitwiseNot,
+                                         Type::Number),
 };
 
 BoundUnaryOperator::BoundUnaryOperator(SyntaxType syntaxType,

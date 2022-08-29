@@ -16,6 +16,7 @@ enum class BoundUnaryOperatorType {
   Identity,
   Negation,
   LogicalNegation,
+  BitwiseNot
 };
 
 static const std::unordered_map<BoundUnaryOperatorType, std::string>
@@ -23,6 +24,7 @@ static const std::unordered_map<BoundUnaryOperatorType, std::string>
         {BoundUnaryOperatorType::Identity, "Identity"},
         {BoundUnaryOperatorType::Negation, "Negation"},
         {BoundUnaryOperatorType::LogicalNegation, "LogicalNegation"},
+        {BoundUnaryOperatorType::BitwiseNot, "BitwiseNot"},
 };
 
 class BoundUnaryOperator {
