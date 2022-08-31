@@ -11,11 +11,27 @@
 #include "BoundExpressionNode.h"
 #include "Symbol/VariableSymbol.h"
 
+class BoundAssignmentOperator {
+public:
+  static const std::shared_ptr<BoundAssignmentOperator>
+  Bind(SyntaxType syntaxType, Type OperandType);
+  SyntaxType GetSyntaxType();
+  Type RightHandExpressionType();
+  BoundAssignmentOperator(SyntaxType syntaxType, Type rhsOperandType);
+
+private:
+  SyntaxType mSyntaxType;
+  Type mRhsType;
+  static const std::shared_ptr<BoundAssignmentOperator> sOperators[];
+  BoundAssignmentOperator() = delete;
+  friend class BoundAssignmentExpressionNode;
+};
 class BoundAssignmentExpressionNode : public BoundExpressionNode {
 public:
   BoundAssignmentExpressionNode(
       std::shared_ptr<VariableSymbol> variable,
-      std::unique_ptr<BoundExpressionNode> boundExpression);
+      std::unique_ptr<BoundExpressionNode> boundExpression,
+      std::shared_ptr<BoundAssignmentOperator> assignmentOperator);
 
   virtual BoundNodeType NodeType() override;
   BoundExpressionNode *BoundExpression();
@@ -26,4 +42,5 @@ public:
 private:
   std::unique_ptr<BoundExpressionNode> mBoundExpression;
   std::shared_ptr<VariableSymbol> mVariable;
+  std::shared_ptr<BoundAssignmentOperator> mAssignmentOperator;
 };

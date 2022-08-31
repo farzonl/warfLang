@@ -28,6 +28,7 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
           dynamic_cast<BoundAssignmentExpressionNode *>(node)) {
     auto rightSide = EvaluateRec(assignmentExpression->BoundExpression());
     assignmentExpression->Variable()->SetValue(rightSide);
+    //TODO add assignment operator types
     return rightSide;
   }
   if (BoundUnaryExpressionNode *unaryExpression =
@@ -54,13 +55,13 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
     auto right = EvaluateRec(binaryExpression->Right());
     auto opType = binaryExpression->OperatorType();
     switch (opType) {
-    case BoundBinaryOperatorType ::Addition:
+    case BoundBinaryOperatorType::Addition:
       return left + right;
-    case BoundBinaryOperatorType ::Subtraction:
+    case BoundBinaryOperatorType::Subtraction:
       return left - right;
-    case BoundBinaryOperatorType ::Multiplication:
+    case BoundBinaryOperatorType::Multiplication:
       return left * right;
-    case BoundBinaryOperatorType ::Division:
+    case BoundBinaryOperatorType::Division:
       return left / right;
     case BoundBinaryOperatorType::Equals:
       return left == right;

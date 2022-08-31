@@ -20,7 +20,7 @@ std::shared_ptr<SyntaxToken> AssignmentExpressionNode::IdentifierToken() {
   return mIdentifier;
 }
 
-std::shared_ptr<SyntaxToken> AssignmentExpressionNode::EqualsToken() {
+std::shared_ptr<SyntaxToken> AssignmentExpressionNode::AssignmentToken() {
   return mAssignmentOperator;
 }
 

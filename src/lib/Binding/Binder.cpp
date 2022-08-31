@@ -101,8 +101,11 @@ std::unique_ptr<BoundExpressionNode>
 Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   std::string name = assignment->IdentifierToken()->Text();
   auto boundExpression = BindExpression(assignment->Expression());
+  const std::shared_ptr<BoundAssignmentOperator> boundOperator =
+      BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Type(),
+                                    boundExpression->GetType()); 
   auto newVar =
-      std::make_shared<VariableSymbol>(name, boundExpression->GetType());
+          std::make_shared<VariableSymbol>(name, boundExpression->GetType());
   auto existingVariable = SymbolTableMgr::find(name);
   if (existingVariable != VariableSymbol::failSymbol()) {
     SymbolTableMgr::modify(newVar, existingVariable->GetScopeName());
@@ -111,7 +114,7 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   }
 
   return std::make_unique<BoundAssignmentExpressionNode>(
-      newVar, std::move(boundExpression));
+      newVar, std::move(boundExpression), boundOperator);
 }
 
 std::unique_ptr<BoundExpressionNode>
