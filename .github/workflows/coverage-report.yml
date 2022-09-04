@@ -83,7 +83,7 @@ jobs:
       run: |
         LLVM_PROFILE_FILE="${{ env.APPNAME }}Lang.profraw" ./test/${{ env.APPNAME }}Lang_TEST
         $(brew --prefix llvm)/bin/llvm-profdata merge -sparse ${{ env.APPNAME }}Lang.profraw -o ${{ env.APPNAME }}Lang.profdata
-        $(brew --prefix llvm)/bin/llvm-cov show ./test/${{ env.APPNAME }}Lang_TEST -format="html" -instr-profile=${{ env.APPNAME }}Lang.profdata -output-dir=out/report 
+        $(brew --prefix llvm)/bin/llvm-cov show ./test/${{ env.APPNAME }}Lang_TEST -format="html" -instr-profile=${{ env.APPNAME }}Lang.profdata -output-dir=out/report ${{github.workspace}}/src 
 
     - name: Run Test(s) on Linux and Generate Profraw, Profdata, & html Coverage report
       if: matrix.os == 'ubuntu-22.04'
