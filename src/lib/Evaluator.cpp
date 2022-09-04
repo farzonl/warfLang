@@ -27,9 +27,37 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   if (BoundAssignmentExpressionNode *assignmentExpression =
           dynamic_cast<BoundAssignmentExpressionNode *>(node)) {
     auto rightSide = EvaluateRec(assignmentExpression->BoundExpression());
-    assignmentExpression->Variable()->SetValue(rightSide);
     //TODO add assignment operator types
-    return rightSide;
+    auto opType = assignmentExpression->OperatorType();
+    Value returnValue;
+    switch(opType) {
+      case BoundAssignmentOperatorType::Assignment:
+      returnValue = rightSide;
+      break;
+      case BoundAssignmentOperatorType::AddAndAssign:
+      returnValue = assignmentExpression->Variable()->GetValue() + rightSide;
+      break;
+      case BoundAssignmentOperatorType::SubtractAndAssign:
+      returnValue = assignmentExpression->Variable()->GetValue() - rightSide;
+      break;
+      case BoundAssignmentOperatorType::MultiplyAndAssign:
+      returnValue = assignmentExpression->Variable()->GetValue() * rightSide;
+      break;
+      case BoundAssignmentOperatorType::DivideAndAssign:
+      returnValue = assignmentExpression->Variable()->GetValue() / rightSide;
+      break;
+      case BoundAssignmentOperatorType::BitwiseAndAndAssign:
+      returnValue = assignmentExpression->Variable()->GetValue() & rightSide;
+      break;
+      case BoundAssignmentOperatorType::BitwiseOrAndAssign:
+      returnValue = assignmentExpression->Variable()->GetValue() | rightSide;
+      break;
+      case BoundAssignmentOperatorType::BitwiseXorAndAssign:
+      returnValue = assignmentExpression->Variable()->GetValue() ^ rightSide;
+      break;
+    }
+    assignmentExpression->Variable()->SetValue(returnValue);
+    return returnValue;
   }
   if (BoundUnaryExpressionNode *unaryExpression =
           dynamic_cast<BoundUnaryExpressionNode *>(node)) {

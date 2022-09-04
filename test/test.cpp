@@ -286,3 +286,36 @@ TEST_CASE("Boolean Binary expressions using IdentifierExpressions") {
     REQUIRE(testCaseHelper("b1 != b3").asBool());
   }
 }
+
+TEST_CASE("Compound Assignment Expressions") {
+  SUBCASE("Assignment and Add a Number") {
+    REQUIRE(1 == testCaseHelper("a = 1").asInt());
+    REQUIRE(2 == testCaseHelper("a += 1").asInt());
+    REQUIRE(1 == testCaseHelper("a = 1").asInt());
+    REQUIRE(5 == testCaseHelper("a += 4").asInt());
+  }
+  SUBCASE("Assignment and Subtract a Number") {
+    REQUIRE(1 == testCaseHelper("a = 1").asInt());
+    REQUIRE(0 == testCaseHelper("a -= 1").asInt());
+  }
+  SUBCASE("Assignment and Multipy a Number") {
+    REQUIRE(2 == testCaseHelper("a = 2").asInt());
+    REQUIRE(4 == testCaseHelper("a *= 2").asInt());
+  }
+  SUBCASE("Assignment and Divide a Number") {
+    REQUIRE(2 == testCaseHelper("a = 2").asInt());
+    REQUIRE(1 == testCaseHelper("a /= 2").asInt());
+  }
+  SUBCASE("Assignment and Bitwise And a Number") {
+    REQUIRE(3 == testCaseHelper("a = 3").asInt());
+    REQUIRE(2 == testCaseHelper("a &= 2").asInt());
+  }
+  SUBCASE("Assignment and Bitwise OR a Number") {
+    REQUIRE(2 == testCaseHelper("a = 2").asInt());
+    REQUIRE(3 == testCaseHelper("a |= 1").asInt());
+  }
+  SUBCASE("Assignment and Bitwise XOR a Number") {
+    REQUIRE(1 == testCaseHelper("a = 1").asInt());
+    REQUIRE(3 == testCaseHelper("a ^= 2").asInt());
+  }
+}
