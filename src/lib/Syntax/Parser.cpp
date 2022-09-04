@@ -111,13 +111,26 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
 }
 
 std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
-  if (Peek(0)->Type() == SyntaxType::IdentifierToken &&
-      Peek(1)->Type() == SyntaxType::EqualsToken) {
+  if (Peek(0)->Type() != SyntaxType::IdentifierToken) {
+    return ParseBinaryExpression();
+  }
+  switch (Peek(1)->Type().GetValue()) {
+  case SyntaxType::PlusEqualsToken:
+  case SyntaxType::MinusEqualsToken:
+  case SyntaxType::StarEqualsToken:
+  case SyntaxType::SlashEqualsToken:
+  case SyntaxType::AmpersandEqualsToken:
+  case SyntaxType::PipeEqualsToken:
+  case SyntaxType::HatEqualsToken:
+  case SyntaxType::EqualsToken: {
     auto identifierToken = Next();
     auto operatorToken = Next();
     auto right = ParseAssignmentExpression();
     return std::make_unique<AssignmentExpressionNode>(
         identifierToken, operatorToken, std::move(right));
+  }
+  default:
+    break;
   }
   return ParseBinaryExpression();
 }

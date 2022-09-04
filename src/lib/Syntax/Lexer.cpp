@@ -225,9 +225,7 @@ void Lexer::ParseNumber(SyntaxType &type) {
       strtol(startPointer, const_cast<char **>(&endPointer), 10));
   ;
 
-  if (errno == ERANGE) {
-    mVecErrors.push_back("LexerError: Numeric Range Error.");
-  } else if (val <= static_cast<int64_t>(std::numeric_limits<int32_t>::min())) {
+  if (val <= static_cast<int64_t>(std::numeric_limits<int32_t>::min())) {
     // underflow
     mVecErrors.push_back("LexerError: Numeric underflow.");
     mValue = 0;

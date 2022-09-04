@@ -18,10 +18,10 @@ private:
 
 public:
   AssignmentExpressionNode(std::shared_ptr<SyntaxToken> identifierToken,
-                           std::shared_ptr<SyntaxToken> equalsToken,
+                           std::shared_ptr<SyntaxToken> assignmentToken,
                            std::unique_ptr<ExpressionNode> expression);
 
   std::shared_ptr<SyntaxToken> IdentifierToken();
-  std::shared_ptr<SyntaxToken> EqualsToken();
+  std::shared_ptr<SyntaxToken> AssignmentToken();
   ExpressionNode *Expression();
 };

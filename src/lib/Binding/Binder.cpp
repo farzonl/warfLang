@@ -101,17 +101,36 @@ std::unique_ptr<BoundExpressionNode>
 Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   std::string name = assignment->IdentifierToken()->Text();
   auto boundExpression = BindExpression(assignment->Expression());
-  auto newVar =
-      std::make_shared<VariableSymbol>(name, boundExpression->GetType());
-  auto existingVariable = SymbolTableMgr::find(name);
-  if (existingVariable != VariableSymbol::failSymbol()) {
-    SymbolTableMgr::modify(newVar, existingVariable->GetScopeName());
+  const std::shared_ptr<BoundAssignmentOperator> boundOperator =
+      BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Type(),
+                                    boundExpression->GetType());
+  if (assignment->AssignmentToken()->Type() == SyntaxType::EqualsToken) {
+    auto newVar =
+        std::make_shared<VariableSymbol>(name, boundExpression->GetType());
+    auto existingVariable = SymbolTableMgr::find(name);
+    if (existingVariable != VariableSymbol::failSymbol()) {
+      SymbolTableMgr::modify(newVar, existingVariable->GetScopeName());
+    } else {
+      SymbolTableMgr::insert(newVar);
+    }
+    return std::make_unique<BoundAssignmentExpressionNode>(
+        newVar, std::move(boundExpression), boundOperator);
   } else {
-    SymbolTableMgr::insert(newVar);
-  }
 
-  return std::make_unique<BoundAssignmentExpressionNode>(
-      newVar, std::move(boundExpression));
+    std::shared_ptr<VariableSymbol> existingVariable =
+        SymbolTableMgr::find(name);
+    if (existingVariable == VariableSymbol::failSymbol()) {
+      std::stringstream diagmsg;
+      diagmsg << "Undefined name: " << name << " Starting at Position "
+              << assignment->IdentifierToken()->Position() << " Ending at: "
+              << assignment->IdentifierToken()->Position() + name.size() << "."
+              << std::endl;
+      mDiagnostics.push_back(diagmsg.str());
+      return std::make_unique<BoundLiteralExpressionNode>(0);
+    }
+    return std::make_unique<BoundAssignmentExpressionNode>(
+        existingVariable, std::move(boundExpression), boundOperator);
+  }
 }
 
 std::unique_ptr<BoundExpressionNode>

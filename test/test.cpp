@@ -18,6 +18,11 @@ Value testCaseHelper(std::string s) {
   return eval->Evaluate();
 }
 
+bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
+  auto syntaxTree = SyntaxTree::Parse(s);
+  return errorStr == syntaxTree->Errors()[0];
+}
+
 TEST_CASE("Binary Expression") {
   SUBCASE("negative numbers") { REQUIRE(-1 == testCaseHelper("-1").asInt()); }
   SUBCASE("Simple Addition") { REQUIRE(4 == testCaseHelper("1 + 3").asInt()); }
@@ -284,5 +289,49 @@ TEST_CASE("Boolean Binary expressions using IdentifierExpressions") {
     REQUIRE_FALSE(testCaseHelper("b1 != b2").asBool());
     REQUIRE_FALSE(testCaseHelper("b1 != b1").asBool());
     REQUIRE(testCaseHelper("b1 != b3").asBool());
+  }
+}
+
+TEST_CASE("Compound Assignment Expressions") {
+  SUBCASE("Assignment and Add a Number") {
+    REQUIRE(1 == testCaseHelper("_a = 1").asInt());
+    REQUIRE(2 == testCaseHelper("_a += 1").asInt());
+    REQUIRE(1 == testCaseHelper("_a = 1").asInt());
+    REQUIRE(5 == testCaseHelper("_a += 4").asInt());
+    REQUIRE(5 == testCaseHelper("_a += 0").asInt());
+    REQUIRE(0 == testCaseHelper("_a = 0").asInt());
+    REQUIRE(0 == testCaseHelper("_a += 0").asInt());
+  }
+  SUBCASE("Assignment and Subtract a Number") {
+    REQUIRE(1 == testCaseHelper("a = 1").asInt());
+    REQUIRE(0 == testCaseHelper("a -= 1").asInt());
+  }
+  SUBCASE("Assignment and Multipy a Number") {
+    REQUIRE(2 == testCaseHelper("a = 2").asInt());
+    REQUIRE(4 == testCaseHelper("a *= 2").asInt());
+  }
+  SUBCASE("Assignment and Divide a Number") {
+    REQUIRE(2 == testCaseHelper("a = 2").asInt());
+    REQUIRE(1 == testCaseHelper("a /= 2").asInt());
+  }
+  SUBCASE("Assignment and Bitwise And a Number") {
+    REQUIRE(3 == testCaseHelper("a = 3").asInt());
+    REQUIRE(2 == testCaseHelper("a &= 2").asInt());
+  }
+  SUBCASE("Assignment and Bitwise OR a Number") {
+    REQUIRE(2 == testCaseHelper("a = 2").asInt());
+    REQUIRE(3 == testCaseHelper("a |= 1").asInt());
+  }
+  SUBCASE("Assignment and Bitwise XOR a Number") {
+    REQUIRE(1 == testCaseHelper("a = 1").asInt());
+    REQUIRE(3 == testCaseHelper("a ^= 2").asInt());
+  }
+}
+TEST_CASE("Runtime Exceptions") {
+  SUBCASE("Overflow") {
+    REQUIRE(
+        testCaseSyntaxErrors("2147483648", "LexerError: Numeric overflow."));
+    REQUIRE(
+        testCaseSyntaxErrors("1 ? 2", "LexerError: bad character input: ?"));
   }
 }

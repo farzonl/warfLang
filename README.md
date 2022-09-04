@@ -44,7 +44,7 @@ cmake -G Ninja -B build -DCMAKE_C_COMPILER=$(brew --prefix llvm)/bin/clang \
 ### on MacOS
 ```bash
 cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug \
-      -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping -mllvm -runtime-counter-relocation"
+      -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping"
 ninja -C./build
 LLVM_PROFILE_FILE="Warflang.profraw" ./build/test/WarfLang_TEST
 $(brew --prefix llvm)/bin/llvm-profdata merge -sparse WarfLang.profraw -o WarfLang.profdata
