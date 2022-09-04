@@ -43,42 +43,42 @@ BoundAssignmentOperatorType BoundAssignmentOperator::AssignmentType() {
 }
 
 void BoundAssignmentOperator::setOperatorType() {
-  switch(mSyntaxType.GetValue()) {
-    case SyntaxType::EqualsToken:
+  switch (mSyntaxType.GetValue()) {
+  case SyntaxType::EqualsToken:
     mAssigmentType = BoundAssignmentOperatorType::Assignment;
     break;
-    case SyntaxType::PlusEqualsToken:
+  case SyntaxType::PlusEqualsToken:
     mAssigmentType = BoundAssignmentOperatorType::AddAndAssign;
     break;
-    case SyntaxType::MinusEqualsToken:
+  case SyntaxType::MinusEqualsToken:
     mAssigmentType = BoundAssignmentOperatorType::SubtractAndAssign;
     break;
-    case SyntaxType::StarEqualsToken:
+  case SyntaxType::StarEqualsToken:
     mAssigmentType = BoundAssignmentOperatorType::MultiplyAndAssign;
     break;
-    case SyntaxType::SlashEqualsToken:
+  case SyntaxType::SlashEqualsToken:
     mAssigmentType = BoundAssignmentOperatorType::DivideAndAssign;
     break;
-    case SyntaxType::AmpersandEqualsToken:
+  case SyntaxType::AmpersandEqualsToken:
     mAssigmentType = BoundAssignmentOperatorType::BitwiseAndAndAssign;
     break;
-    case SyntaxType::PipeEqualsToken:
+  case SyntaxType::PipeEqualsToken:
     mAssigmentType = BoundAssignmentOperatorType::BitwiseOrAndAssign;
     break;
-    case SyntaxType::HatEqualsToken:
+  case SyntaxType::HatEqualsToken:
     mAssigmentType = BoundAssignmentOperatorType::BitwiseXorAndAssign;
     break;
-    default:
-      throw std::runtime_error("Unexpected SyntaxType aseen while processing a BoundAssignment");
+  default:
+    throw std::runtime_error(
+        "Unexpected SyntaxType aseen while processing a BoundAssignment");
   }
 }
-
 
 BoundAssignmentOperator::BoundAssignmentOperator(SyntaxType syntaxType,
                                                  Type rhsOperandType)
     : mSyntaxType(syntaxType), mRhsType(rhsOperandType) {
-      setOperatorType();
-    }
+  setOperatorType();
+}
 
 SyntaxType BoundAssignmentOperator::GetSyntaxType() { return mSyntaxType; }
 Type BoundAssignmentOperator::RightHandExpressionType() { return mRhsType; }

@@ -27,32 +27,32 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   if (BoundAssignmentExpressionNode *assignmentExpression =
           dynamic_cast<BoundAssignmentExpressionNode *>(node)) {
     auto rightSide = EvaluateRec(assignmentExpression->BoundExpression());
-    //TODO add assignment operator types
+    // TODO add assignment operator types
     auto opType = assignmentExpression->OperatorType();
     Value returnValue;
-    switch(opType) {
-      case BoundAssignmentOperatorType::Assignment:
+    switch (opType) {
+    case BoundAssignmentOperatorType::Assignment:
       returnValue = rightSide;
       break;
-      case BoundAssignmentOperatorType::AddAndAssign:
+    case BoundAssignmentOperatorType::AddAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() + rightSide;
       break;
-      case BoundAssignmentOperatorType::SubtractAndAssign:
+    case BoundAssignmentOperatorType::SubtractAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() - rightSide;
       break;
-      case BoundAssignmentOperatorType::MultiplyAndAssign:
+    case BoundAssignmentOperatorType::MultiplyAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() * rightSide;
       break;
-      case BoundAssignmentOperatorType::DivideAndAssign:
+    case BoundAssignmentOperatorType::DivideAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() / rightSide;
       break;
-      case BoundAssignmentOperatorType::BitwiseAndAndAssign:
+    case BoundAssignmentOperatorType::BitwiseAndAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() & rightSide;
       break;
-      case BoundAssignmentOperatorType::BitwiseOrAndAssign:
+    case BoundAssignmentOperatorType::BitwiseOrAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() | rightSide;
       break;
-      case BoundAssignmentOperatorType::BitwiseXorAndAssign:
+    case BoundAssignmentOperatorType::BitwiseXorAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() ^ rightSide;
       break;
     }

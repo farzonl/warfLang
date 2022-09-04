@@ -329,7 +329,9 @@ TEST_CASE("Compound Assignment Expressions") {
 }
 TEST_CASE("Runtime Exceptions") {
   SUBCASE("Overflow") {
-    REQUIRE(testCaseSyntaxErrors("2147483648", "LexerError: Numeric overflow."));
-    REQUIRE(testCaseSyntaxErrors("1 ? 2", "LexerError: bad character input: ?"));
+    REQUIRE(
+        testCaseSyntaxErrors("2147483648", "LexerError: Numeric overflow."));
+    REQUIRE(
+        testCaseSyntaxErrors("1 ? 2", "LexerError: bad character input: ?"));
   }
 }
