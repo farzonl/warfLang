@@ -7,6 +7,11 @@ env:
 on:
   push:
     branches: [ master ]
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - '**CMakeLists.txt'
+      - .github/workflows/emscripten-report.yml
 jobs:
   build:
     runs-on: ${{ matrix.os }}

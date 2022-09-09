@@ -5,18 +5,18 @@ on:
     branches:
       - master
     paths:
-      - src/**
-      - test/**
-      - fuzz/**
-      - .github/workflows/cmake.yml
+      - '**.cpp'
+      - '**.h'
+      - '**CMakeLists.txt'
+      - .github/workflows/cmake-debug.yml
   pull_request:
     branches:
       - '**'
     paths:
-      - src/**
-      - test/**
-      - fuzz/**
-      - .github/workflows/cmake.yml
+      - '**.cpp'
+      - '**.h'
+      - '**CMakeLists.txt'
+      - .github/workflows/cmake-debug.yml
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Debug
