@@ -8,6 +8,7 @@ on:
     paths:
       - '**.cpp'
       - '**.h'
+      - '**CMakeLists.txt'
       - .github/workflows/cmake-aarch64.yml
   pull_request:
     branches:
@@ -86,14 +87,14 @@ jobs:
         echo "VERSION=$VER" >> $GITHUB_ENV
         echo "APPNAME=$APP" >> $GITHUB_ENV
     - name: Test aarch64 via qemu
-      working-directory: ${{github.workspace}}/build
-      run: qemu-aarch64 -L sysroots/aarch64-linux-gnu/usr/ test/${{ env.APPNAME }}Lang_TEST
+      working-directory: ${{github.workspace}}
+      run: qemu-aarch64 -L sysroots/aarch64-linux-gnu/usr/ build/test/${{ env.APPNAME }}Lang_TEST
     - name: Prepare Binaries for upload 
       shell: bash
       run:  |
         mkdir ${{github.workspace}}/artifacts
-        cp build/src/lib/lib${{ env.APPNAME }}Core${{ matrix.artifact_staticlib_ext }} ${{github.workspace}}/artifacts
-        cp build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifacts
+        cp ${{github.workspace}}/build/src/lib/lib${{ env.APPNAME }}Core.so ${{github.workspace}}/artifacts
+        cp ${{github.workspace}}/build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifacts
         
         pushd ${{github.workspace}}
         zip -r ${{ env.APPNAME }}-$(uname -s)-$(uname -m).zip artifacts
