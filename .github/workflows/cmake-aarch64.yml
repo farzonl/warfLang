@@ -90,7 +90,7 @@ jobs:
         cp build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifacts
         
         pushd ${{github.workspace}}
-        zip -r ${{ env.APPNAME }}-$(uname -s)-$(uname -m).zip artifacts
+        zip -r ${{ env.APPNAME }}-$(uname -s)-arm64.zip artifacts
         popd
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v3
