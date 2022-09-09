@@ -4,9 +4,18 @@ on:
   push:
     branches:
       - master
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - .github/workflows/license-check.yml
   pull_request:
     branches:
       - '**'
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - .github/workflows/license-check.yml
+    
 
 jobs:
   build:

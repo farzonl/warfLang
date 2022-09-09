@@ -3,6 +3,10 @@ on:
   pull_request:
     branches:
       - '**'
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - .github/workflows/clang-format.yml
 jobs:
   formatting-check:
     name: Formatting Check
