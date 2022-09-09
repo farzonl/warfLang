@@ -11,7 +11,9 @@ WORKDIR root
 
 COPY . .
 
-RUN cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-coverage"  -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+RUN cmake -B build -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_CXX_FLAGS="-coverage"  -DCMAKE_C_COMPILER=clang \
+    -DCMAKE_CXX_COMPILER=clang++ -DBUILD_FUZZER=true
 RUN make -C./build
 #
 RUN ./build/test/WarfLang_TEST
