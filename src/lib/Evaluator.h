@@ -19,10 +19,8 @@ public:
   Evaluator(std::unique_ptr<BoundExpressionNode> root);
   Value Evaluate();
   BoundExpressionNode *Root() const;
-  const Records &Errors() const { return mRecords; }
 
 private:
   Value EvaluateRec(BoundExpressionNode *node);
   std::unique_ptr<BoundExpressionNode> mRootExpression;
-  Records mRecords;
 };

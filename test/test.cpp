@@ -20,7 +20,7 @@ Value testCaseHelper(std::string s) {
 
 bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
   auto syntaxTree = SyntaxTree::Parse(s);
-  return errorStr == syntaxTree->Errors()[0];
+  return errorStr == syntaxTree->Errors()[0].Message();
 }
 
 TEST_CASE("Binary Expression") {

@@ -13,7 +13,7 @@ BoundExpressionNode *Evaluator::Root() const { return mRootExpression.get(); }
 Value Evaluator::Evaluate() { return EvaluateRec(mRootExpression.get()); }
 
 Evaluator::Evaluator(std::unique_ptr<BoundExpressionNode> root)
-    : mRootExpression(std::move(root)), mRecords("Evaluator") {}
+    : mRootExpression(std::move(root)) {}
 
 Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   if (BoundLiteralExpressionNode *literal =

@@ -37,21 +37,15 @@ int main(int argc, char **argv) {
         syntaxTree->PrintTree();
       }
 
-      if (syntaxTree->Errors().empty() && binder->Diagnostics().empty()) {
+      if (syntaxTree->Errors().empty() && binder->Errors().empty()) {
         auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
-        if (eval->Errors().size() == 0) {
-          Value result = eval->Evaluate();
-          std::cout << result << std::endl;
-        } else {
-          for (auto error : eval->Errors()) {
-            std::cerr << error << std::endl;
-          }
-        }
+        Value result = eval->Evaluate();
+        std::cout << result << std::endl;
       } else {
         for (auto error : syntaxTree->Errors()) {
           std::cerr << error << std::endl;
         }
-        for (auto error : binder->Diagnostics()) {
+        for (auto error : binder->Errors()) {
           std::cerr << error << std::endl;
         }
       }

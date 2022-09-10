@@ -1,8 +1,29 @@
 #include "Record.h"
-#include "Syntax/SyntaxToken.h"
 #include <sstream>
 
+Record::Record(TextSpan span, std::string message) : mSpan(span), mMessage(message){
+}
+TextSpan Record::Span() const {
+  return mSpan;
+}
+std::string Record::Message() const {
+  return mMessage;
+}
+
+/*
+bool Record::operator==(const std::string &s) const {
+  return this->mMessage == s;
+}*/
+
 Records::Records(std::string prefix) : mPrefix(prefix) {}
+
+Record &Records::operator[](int index) {
+  return mRecords[index];
+}
+
+const Record &Records::operator[](int index) const{
+  return mRecords[index];
+}
 
 void Records::Report(TextSpan span, std::string message) {
   mRecords.push_back(Record(span, message));
@@ -46,7 +67,7 @@ void Records::ReportUnexpectedToken(int32_t start, int32_t end,
   Report(TextSpan(start, end), message.str());
 }
 
-void Records::ReportUndefinedUnaryOperator(SyntaxToken *unaryOperator,
+void Records::ReportUndefinedUnaryOperator(std::shared_ptr<SyntaxToken> unaryOperator,
                                            Type operandType) {
 
   std::stringstream message;
@@ -56,15 +77,7 @@ void Records::ReportUndefinedUnaryOperator(SyntaxToken *unaryOperator,
   Report(unaryOperator->Span(), message.str());
 }
 
-/*void Records::ReportUndefinedUnaryOperatorEvaluation(int32_t start, int32_t
-end, BoundUnaryOperatorType operatorType, Type valueType) { std::stringstream
-message; message << mPrefix << "Error: Unary operator " <<
-BoundUnaryTypeStrMap.at(operatorType)
-         << "is not defined for type " << valueType
-         << ".";
-}*/
-
-void Records::ReportUndefinedBinaryOperator(SyntaxToken *binaryOperator,
+void Records::ReportUndefinedBinaryOperator(std::shared_ptr<SyntaxToken> binaryOperator,
                                             Type leftType, Type rightType) {
   std::stringstream message;
   message << "Error: Binary operator "

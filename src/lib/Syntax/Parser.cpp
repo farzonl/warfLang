@@ -138,8 +138,5 @@ std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
 std::unique_ptr<SyntaxTree> Parser::Parse() {
 
   auto expression = ParseAssignmentExpression();
-  // if (expression == nullptr) {
-  //    return std::make_unique<ExpressionNode>(SyntaxType::UnknownToken);
-  //}
   return std::make_unique<SyntaxTree>(mRecords, std::move(expression));
 }

@@ -17,4 +17,4 @@ BinaryExpressionNode::BinaryExpressionNode(
 
 ExpressionNode *BinaryExpressionNode::Left() { return mLeft.get(); }
 ExpressionNode *BinaryExpressionNode::Right() { return mRight.get(); }
-SyntaxToken *BinaryExpressionNode::Operator() { return mOperator.get(); }
+std::shared_ptr<SyntaxToken> BinaryExpressionNode::Operator() { return mOperator; }
