@@ -13,7 +13,7 @@ BoundExpressionNode *Evaluator::Root() const { return mRootExpression.get(); }
 Value Evaluator::Evaluate() { return EvaluateRec(mRootExpression.get()); }
 
 Evaluator::Evaluator(std::unique_ptr<BoundExpressionNode> root)
-    : mRootExpression(std::move(root)) {}
+    : mRootExpression(std::move(root)), mRecords("Evaluator") {}
 
 Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   if (BoundLiteralExpressionNode *literal =
@@ -73,8 +73,8 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
     case BoundUnaryOperatorType::BitwiseNot:
       return ~operand;
     default:
-      mVecErrors.push_back("EvaluatorError: Unexpected unary operator: " +
-                           BoundUnaryTypeStrMap.at(opType));
+      throw std::runtime_error("EvaluatorError: Unexpected unary operator: " +
+                               BoundUnaryTypeStrMap.at(opType));
     }
   }
   if (BoundBinaryExpressionNode *binaryExpression =
@@ -114,8 +114,8 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
     case BoundBinaryOperatorType::LessThanOrEqualTo:
       return left <= right;
     default:
-      mVecErrors.push_back("EvaluatorError: Unexpected binary operator: " +
-                           BoundBinaryTypeStrMap.at(opType));
+      throw std::runtime_error("EvaluatorError: Unexpected binary operator: " +
+                               BoundBinaryTypeStrMap.at(opType));
       return Value();
     }
   }

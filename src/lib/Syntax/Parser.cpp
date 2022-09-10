@@ -32,14 +32,14 @@ std::shared_ptr<SyntaxToken> Parser::Match(SyntaxType type) {
   if (Current()->Type() == type) {
     return Next();
   }
-  std::stringstream ss;
-  ss << "ParseError: Unexpected token: < " << Current()->Type()
-     << " > Expected: < " << type << " >";
-  mVecErrors.push_back(ss.str());
-  return std::make_shared<SyntaxToken>(type, Current()->Position(), "");
+  mRecords.ReportUnexpectedToken(Current()->Span().Start(),
+                                 Current()->Span().End(), Current()->Type(),
+                                 type);
+  return std::make_shared<SyntaxToken>(type, Current()->Span().Start(),
+                                       Current()->Span().End(), "");
 }
 
-Parser::Parser(std::string text) : mTokens(), mPosition(0), mVecErrors() {
+Parser::Parser(std::string text) : mTokens(), mPosition(0), mRecords("Parser") {
   Lexer lex(text);
   SyntaxToken *pCurrToken = nullptr;
   std::unique_ptr<SyntaxToken> upCurrToken = nullptr;
@@ -55,7 +55,7 @@ Parser::Parser(std::string text) : mTokens(), mPosition(0), mVecErrors() {
 
   } while (pCurrToken && pCurrToken->Type() != SyntaxType::EndOfFileToken);
 
-  mVecErrors.assign(lex.Errors().begin(), lex.Errors().end());
+  mRecords.assign(lex.Errors().begin(), lex.Errors().end());
 }
 
 std::unique_ptr<ExpressionNode>
@@ -141,5 +141,5 @@ std::unique_ptr<SyntaxTree> Parser::Parse() {
   // if (expression == nullptr) {
   //    return std::make_unique<ExpressionNode>(SyntaxType::UnknownToken);
   //}
-  return std::make_unique<SyntaxTree>(mVecErrors, std::move(expression));
+  return std::make_unique<SyntaxTree>(mRecords, std::move(expression));
 }

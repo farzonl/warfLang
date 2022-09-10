@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "BoundExpressionNode.h"
+#include "Error/Record.h"
 #include "Syntax/ExpressionNode.h"
 
 class LiteralExpressionNode;
@@ -20,10 +21,11 @@ class IdentifierExpressionNode;
 class Binder {
 public:
   std::unique_ptr<BoundExpressionNode> BindExpression(ExpressionNode *syntax);
-  const std::vector<std::string> &Diagnostics() const { return mDiagnostics; }
+  const Records &Errors() const { return mRecords; }
+  Binder() : mRecords("Binder") {}
 
 private:
-  std::vector<std::string> mDiagnostics;
+  Records mRecords;
   std::unique_ptr<BoundExpressionNode>
   BindLiteralExpression(LiteralExpressionNode *literal);
   std::unique_ptr<BoundExpressionNode>

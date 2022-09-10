@@ -25,6 +25,7 @@ add_library (${PROJECT_NAME} STATIC
   $<TARGET_OBJECTS:WarfCore.Syntax>
   $<TARGET_OBJECTS:WarfCore.Binding>
   $<TARGET_OBJECTS:WarfCore.Symbol>
+  $<TARGET_OBJECTS:WarfCore.Error>
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -38,3 +39,4 @@ target_include_directories(${PROJECT_NAME}
 add_subdirectory(Syntax)
 add_subdirectory(Binding)
 add_subdirectory(Symbol)
+add_subdirectory(Error)

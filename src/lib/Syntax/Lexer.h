@@ -5,6 +5,7 @@
  */
 
 #pragma once
+#include "Error/Record.h"
 #include "SyntaxToken.h"
 #include <memory>
 #include <string>
@@ -16,7 +17,7 @@ private:
   std::string mIdentifier;
   int32_t mPosition;
   Value mValue;
-  std::vector<std::string> mVecErrors;
+  Records mRecords;
   void ReadToken(SyntaxType &type);
   void ParseNumber(SyntaxType &type);
   void ParseLetters(SyntaxType &type);
@@ -26,5 +27,5 @@ public:
   Lexer(std::string text);
   char CurrentToken();
   std::unique_ptr<SyntaxToken> NextToken();
-  const std::vector<std::string> &Errors() const { return mVecErrors; }
+  const Records &Errors() const { return mRecords; }
 };

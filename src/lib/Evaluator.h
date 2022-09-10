@@ -10,6 +10,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "Error/Record.h"
+
 class Value;
 
 class Evaluator {
@@ -17,10 +19,10 @@ public:
   Evaluator(std::unique_ptr<BoundExpressionNode> root);
   Value Evaluate();
   BoundExpressionNode *Root() const;
-  const std::vector<std::string> &Errors() const { return mVecErrors; }
+  const Records &Errors() const { return mRecords; }
 
 private:
   Value EvaluateRec(BoundExpressionNode *node);
   std::unique_ptr<BoundExpressionNode> mRootExpression;
-  std::vector<std::string> mVecErrors;
+  Records mRecords;
 };

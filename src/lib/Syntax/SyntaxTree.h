@@ -10,16 +10,17 @@
 #include <string>
 #include <vector>
 
+#include "Error/Record.h"
+
 class SyntaxTree {
-  std::vector<std::string> mVecErrors;
+  Records mRecords;
   std::unique_ptr<ExpressionNode> mRootExpression;
   void PrintTreeRec(SyntaxNode *sNode, std::ostream &out,
                     std::string indent = "", bool isLast = true);
 
 public:
-  SyntaxTree(std::vector<std::string> &vecErrors,
-             std::unique_ptr<ExpressionNode> root);
-  const std::vector<std::string> &Errors() const { return mVecErrors; }
+  SyntaxTree(Records &records, std::unique_ptr<ExpressionNode> root);
+  const Records &Errors() const { return mRecords; }
   ExpressionNode *Root() const;
   void PrintTree(std::ostream &out = std::cout);
   static std::unique_ptr<SyntaxTree> Parse(std::string text);
