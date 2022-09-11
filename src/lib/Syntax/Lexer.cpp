@@ -220,10 +220,8 @@ void Lexer::ParseNumber(SyntaxType &type) {
     mPosition++;
   }
   const char *startPointer = mText.c_str() + posStart;
-  const char *endPointer = mText.c_str() + mPosition;
-  int64_t val = static_cast<int64_t>(
-      strtol(startPointer, const_cast<char **>(&endPointer), 10));
-  ;
+  std::string numberStr(startPointer, mPosition - posStart);
+  int64_t val = static_cast<int64_t>(std::stoll(numberStr, nullptr, 10));
 
   if (val <= static_cast<int64_t>(std::numeric_limits<int32_t>::min())) {
     // underflow
