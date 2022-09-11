@@ -91,7 +91,6 @@ BoundBinaryOperator::Bind(SyntaxType syntaxType, Type leftOperandType,
       return op;
     }
   }
-  std::cerr << "Unexpected binary operator: " << syntaxType << std::endl;
   return GetBindFailure();
 }
 
