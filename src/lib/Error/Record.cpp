@@ -15,7 +15,7 @@ bool Record::operator==(const std::string &s) const {
   return this->mMessage == s;
 }*/
 
-Records::Records(std::string prefix) : mPrefix(prefix) {}
+Records::Records(std::string prefix) : mPrefix(prefix), mRecords() {}
 
 Record &Records::operator[](int index) {
   return mRecords[index];
@@ -29,7 +29,7 @@ void Records::Report(TextSpan span, std::string message) {
   mRecords.push_back(Record(span, message));
 }
 
-void Records::assign(const Iterator start, const Iterator end) {
+void Records::assign(std::vector<Record>::const_iterator start, std::vector<Record>::const_iterator end) {
   mRecords.assign(start, end);
 }
 
@@ -42,13 +42,13 @@ size_t Records::size() const { return mRecords.size(); }
 void Records::ReportOverflow(int32_t start, int32_t end, int64_t num) {
   std::stringstream message;
   message << mPrefix << "Error: The number " << num
-          << "is a Numeric underflow.";
+          << " is a Numeric overflow.";
   Report(TextSpan(start, end), message.str());
 }
 
 void Records::ReportUnderflow(int32_t start, int32_t end, int64_t num) {
   std::stringstream message;
-  message << mPrefix << "Error: The number " << num << "is a Numeric overflow.";
+  message << mPrefix << "Error: The number " << num << "is a Numeric underflow.";
   Report(TextSpan(start, end), message.str());
 }
 
@@ -71,7 +71,7 @@ void Records::ReportUndefinedUnaryOperator(std::shared_ptr<SyntaxToken> unaryOpe
                                            Type operandType) {
 
   std::stringstream message;
-  message << "Error: Unary operator "
+  message << mPrefix << "Error: Unary operator "
           << SyntaxTokenToStrMap.at(unaryOperator->Type())
           << " is not defined for type " << operandType << ".";
   Report(unaryOperator->Span(), message.str());
@@ -80,19 +80,18 @@ void Records::ReportUndefinedUnaryOperator(std::shared_ptr<SyntaxToken> unaryOpe
 void Records::ReportUndefinedBinaryOperator(std::shared_ptr<SyntaxToken> binaryOperator,
                                             Type leftType, Type rightType) {
   std::stringstream message;
-  message << "Error: Binary operator "
+  message << mPrefix << "Error: Binary operator "
           << SyntaxTokenToStrMap.at(binaryOperator->Type())
           << " is not defined for types " << leftType << " and " << rightType
-          << "." << std::endl;
+          << ".";
   Report(binaryOperator->Span(), message.str());
 }
 
 void Records::ReportUndefinedIdentifier(
     std::shared_ptr<SyntaxToken> identifierToken) {
   std::stringstream message;
-  message << "Undefined name: " << identifierToken->Text()
-          << "Starting at Position " << identifierToken->Span().Start()
-          << " Ending at: " << identifierToken->Span().End() << "."
-          << std::endl;
+  message << mPrefix << "Error: Undefined name " << identifierToken->Text()
+          << " Starting at Position " << identifierToken->Span().Start()
+          << " Ending at: " << identifierToken->Span().End() << ".";
   Report(identifierToken->Span(), message.str());
 }

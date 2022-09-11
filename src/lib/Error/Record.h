@@ -40,43 +40,13 @@ private:
 
 public:
   Records(std::string prefix);
-  struct Iterator {
-    using iterator_category = std::forward_iterator_tag;
-    using difference_type = std::ptrdiff_t;
-    using value_type = Record;
-    using pointer = Record *;
-    using reference = Record &;
-
-    Iterator(pointer ptr) : m_ptr(ptr) {}
-
-    reference operator*() const { return *m_ptr; }
-    pointer operator->() { return m_ptr; }
-    Iterator &operator++() {
-      m_ptr++;
-      return *this;
-    }
-    Iterator operator++(int) {
-      Iterator tmp = *this;
-      ++(*this);
-      return tmp;
-    }
-    friend bool operator==(const Iterator &a, const Iterator &b) {
-      return a.m_ptr == b.m_ptr;
-    };
-    friend bool operator!=(const Iterator &a, const Iterator &b) {
-      return a.m_ptr != b.m_ptr;
-    };
-
-  private:
-    pointer m_ptr;
-  };
   Record &operator[](int index);
   const Record &operator[](int index) const;
-  Iterator begin() { return Iterator(&mRecords[0]); }
-  Iterator end() { return Iterator(&mRecords[mRecords.size() - 1]); }
-  const Iterator begin() const { return Iterator(const_cast<Record*>(&mRecords[0])); }
-  const Iterator end() const { return Iterator(const_cast<Record*>(&mRecords[mRecords.size() - 1])); }
-  void assign(const Iterator start, const Iterator end);
+  std::vector<Record>::iterator begin() { return mRecords.begin(); }
+  std::vector<Record>::iterator end() { return mRecords.end(); }
+  std::vector<Record>::const_iterator begin() const { return mRecords.begin(); }
+  std::vector<Record>::const_iterator end() const { return mRecords.end(); }
+  void assign(std::vector<Record>::const_iterator start, std::vector<Record>::const_iterator end);
   void swap(Records records);
   bool empty() const;
   size_t size() const;
