@@ -36,10 +36,11 @@ bool Records::empty() const { return mRecords.empty(); }
 
 size_t Records::size() const { return mRecords.size(); }
 
-void Records::ReportRangError(int32_t start, int32_t end, int64_t num, std::string overunder) {
+void Records::ReportRangError(int32_t start, int32_t end, int64_t num,
+                              std::string overunder) {
   std::stringstream message;
-  message << mPrefix << "Error: The number " << num
-          << " is a Numeric "<< overunder << ".";
+  message << mPrefix << "Error: The number " << num << " is a Numeric "
+          << overunder << ".";
   Report(TextSpan(start, end), message.str());
 }
 

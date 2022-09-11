@@ -110,7 +110,7 @@ public:
   }
 
   Value operator/(const Value &v) {
-    if(v.asInt() == 0) {
+    if (v.asInt() == 0) {
       throw std::runtime_error("Logial error: Divide by zero.");
     }
     Value value;
