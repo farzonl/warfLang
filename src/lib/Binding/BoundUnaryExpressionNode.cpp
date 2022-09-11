@@ -38,7 +38,6 @@ BoundUnaryOperator::Bind(SyntaxType syntaxType, Type operandType) {
       return op;
     }
   }
-  std::cerr << "Unexpected unary operator: " << syntaxType << std::endl;
   return GetBindFailure();
 }
 

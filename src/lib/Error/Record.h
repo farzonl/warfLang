@@ -52,8 +52,9 @@ public:
   bool empty() const;
   size_t size() const;
   void Report(TextSpan span, std::string message);
-  void ReportOverflow(int32_t start, int32_t end, int64_t num);
-  void ReportUnderflow(int32_t start, int32_t end, int64_t num);
+  void ReportRangError(int32_t start, int32_t end, int64_t num, std::string overunder);
+  void ReportOverflow(int32_t start, int32_t end, int64_t num)  {ReportRangError(start,end,num, "overflow" );}
+  void ReportUnderflow(int32_t start, int32_t end, int64_t num) {ReportRangError(start,end,num, "underflow");}
   void ReportBadCharacter(int position, char character);
   void ReportUnexpectedToken(int32_t start, int32_t end, SyntaxType actual,
                              SyntaxType expected);

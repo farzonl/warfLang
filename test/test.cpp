@@ -19,8 +19,23 @@ Value testCaseHelper(std::string s) {
 }
 
 bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
+  SymbolTableMgr::init();
   auto syntaxTree = SyntaxTree::Parse(s);
-  return errorStr == syntaxTree->Errors()[0].Message();
+  if(!syntaxTree->Errors().empty()) {
+    return errorStr == syntaxTree->Errors()[0].Message();
+  }
+  auto binder = std::make_unique<Binder>();
+  auto boundExpression = binder->BindExpression(syntaxTree->Root());
+  if(!binder->Errors().empty()) {
+    return errorStr == binder->Errors()[0].Message();
+  }
+  try {
+     auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
+     eval->Evaluate();
+  }catch (std::runtime_error &error) {
+    return errorStr == error.what();
+  }
+  return false;
 }
 
 TEST_CASE("Binary Expression") {
@@ -328,11 +343,25 @@ TEST_CASE("Compound Assignment Expressions") {
   }
 }
 TEST_CASE("Runtime Exceptions") {
-  SUBCASE("Overflow") {
+  SUBCASE("Lexer Errors") {
     REQUIRE(testCaseSyntaxErrors(
         "2147483648",
         "LexerError: The number 2147483648 is a Numeric overflow."));
     REQUIRE(
         testCaseSyntaxErrors("1 ? 2", "LexerError: Bad character input: ?."));
+  }
+  SUBCASE("Parser Errors") {
+    REQUIRE(
+        testCaseSyntaxErrors("a = ((1 + 2)", "ParserError: Unexpected token: < EndOfFileToken > Expected: < CloseParenthesisToken >"));
+  }
+  SUBCASE("Bind Error") {
+    REQUIRE(
+        testCaseSyntaxErrors("!1", "BinderError: Unary operator ! is not defined for type Number."));
+        testCaseSyntaxErrors("1 == true", "BinderError: Binary operator == is not defined for types Number and Boolean.");
+        testCaseSyntaxErrors("a += 1", "BinderError: Undefined name a Starting at Position 0 Ending at: 1.");
+        testCaseSyntaxErrors("b", "BinderError: Undefined name a Starting at Position 0 Ending at: 1.");
+  }
+  SUBCASE("Exceptions") {
+    REQUIRE(testCaseSyntaxErrors("1 / 0", "Logial error: Divide by zero."));
   }
 }
