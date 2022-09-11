@@ -249,10 +249,12 @@ std::unique_ptr<SyntaxToken> Lexer::NextToken() {
   int32_t tokenEndPos = mPosition;
   if (type == SyntaxType::NumberToken || type == SyntaxType::TrueKeyword ||
       type == SyntaxType::FalseKeyword) {
-    return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos, mValue);
+    return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
+                                         mValue);
   }
   if (type == SyntaxType::IdentifierToken) {
-    return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos, mIdentifier);
+    return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
+                                         mIdentifier);
   }
   if (type == SyntaxType::UnknownToken) {
     mRecords.ReportBadCharacter(mPosition, CurrentToken());

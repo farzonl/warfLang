@@ -14,4 +14,6 @@ UnaryExpressionNode::UnaryExpressionNode(
 }
 
 ExpressionNode *UnaryExpressionNode::Operand() { return mOperand.get(); }
-std::shared_ptr<SyntaxToken> UnaryExpressionNode::Operator() { return mOperator; }
+std::shared_ptr<SyntaxToken> UnaryExpressionNode::Operator() {
+  return mOperator;
+}

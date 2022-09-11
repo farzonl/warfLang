@@ -1,14 +1,14 @@
+// Copyright (c) 2022 F. Lotfi All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 #include "Record.h"
 #include <sstream>
 
-Record::Record(TextSpan span, std::string message) : mSpan(span), mMessage(message){
-}
-TextSpan Record::Span() const {
-  return mSpan;
-}
-std::string Record::Message() const {
-  return mMessage;
-}
+Record::Record(TextSpan span, std::string message)
+    : mSpan(span), mMessage(message) {}
+TextSpan Record::Span() const { return mSpan; }
+std::string Record::Message() const { return mMessage; }
 
 /*
 bool Record::operator==(const std::string &s) const {
@@ -17,19 +17,16 @@ bool Record::operator==(const std::string &s) const {
 
 Records::Records(std::string prefix) : mPrefix(prefix), mRecords() {}
 
-Record &Records::operator[](int index) {
-  return mRecords[index];
-}
+Record &Records::operator[](int index) { return mRecords[index]; }
 
-const Record &Records::operator[](int index) const{
-  return mRecords[index];
-}
+const Record &Records::operator[](int index) const { return mRecords[index]; }
 
 void Records::Report(TextSpan span, std::string message) {
   mRecords.push_back(Record(span, message));
 }
 
-void Records::assign(std::vector<Record>::const_iterator start, std::vector<Record>::const_iterator end) {
+void Records::assign(std::vector<Record>::const_iterator start,
+                     std::vector<Record>::const_iterator end) {
   mRecords.assign(start, end);
 }
 
@@ -48,7 +45,8 @@ void Records::ReportOverflow(int32_t start, int32_t end, int64_t num) {
 
 void Records::ReportUnderflow(int32_t start, int32_t end, int64_t num) {
   std::stringstream message;
-  message << mPrefix << "Error: The number " << num << "is a Numeric underflow.";
+  message << mPrefix << "Error: The number " << num
+          << "is a Numeric underflow.";
   Report(TextSpan(start, end), message.str());
 }
 
@@ -67,8 +65,8 @@ void Records::ReportUnexpectedToken(int32_t start, int32_t end,
   Report(TextSpan(start, end), message.str());
 }
 
-void Records::ReportUndefinedUnaryOperator(std::shared_ptr<SyntaxToken> unaryOperator,
-                                           Type operandType) {
+void Records::ReportUndefinedUnaryOperator(
+    std::shared_ptr<SyntaxToken> unaryOperator, Type operandType) {
 
   std::stringstream message;
   message << mPrefix << "Error: Unary operator "
@@ -77,8 +75,9 @@ void Records::ReportUndefinedUnaryOperator(std::shared_ptr<SyntaxToken> unaryOpe
   Report(unaryOperator->Span(), message.str());
 }
 
-void Records::ReportUndefinedBinaryOperator(std::shared_ptr<SyntaxToken> binaryOperator,
-                                            Type leftType, Type rightType) {
+void Records::ReportUndefinedBinaryOperator(
+    std::shared_ptr<SyntaxToken> binaryOperator, Type leftType,
+    Type rightType) {
   std::stringstream message;
   message << mPrefix << "Error: Binary operator "
           << SyntaxTokenToStrMap.at(binaryOperator->Type())

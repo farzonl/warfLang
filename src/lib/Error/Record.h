@@ -22,7 +22,7 @@ public:
   Record(TextSpan span, std::string message);
   TextSpan Span() const;
   std::string Message() const;
-  //bool operator==(const std::string &s) const;
+  // bool operator==(const std::string &s) const;
 private:
   TextSpan mSpan;
   std::string mMessage;
@@ -46,7 +46,8 @@ public:
   std::vector<Record>::iterator end() { return mRecords.end(); }
   std::vector<Record>::const_iterator begin() const { return mRecords.begin(); }
   std::vector<Record>::const_iterator end() const { return mRecords.end(); }
-  void assign(std::vector<Record>::const_iterator start, std::vector<Record>::const_iterator end);
+  void assign(std::vector<Record>::const_iterator start,
+              std::vector<Record>::const_iterator end);
   void swap(Records records);
   bool empty() const;
   size_t size() const;
@@ -58,7 +59,8 @@ public:
                              SyntaxType expected);
   void ReportUndefinedUnaryOperator(std::shared_ptr<SyntaxToken> unaryOperator,
                                     Type operandType);
-  void ReportUndefinedBinaryOperator(std::shared_ptr<SyntaxToken> binaryOperator, Type leftType,
-                                     Type rightType);
+  void
+  ReportUndefinedBinaryOperator(std::shared_ptr<SyntaxToken> binaryOperator,
+                                Type leftType, Type rightType);
   void ReportUndefinedIdentifier(std::shared_ptr<SyntaxToken> identifierToken);
 };
