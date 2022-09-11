@@ -49,8 +49,7 @@ Binder::BindExpression(ExpressionNode *node) {
   }
   std::stringstream diagmsg;
   diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(node->Type());
-  mDiagnostics.push_back(diagmsg.str());
-  throw diagmsg.str();
+  throw std::runtime_error(diagmsg.str());
   return nullptr;
 }
 
@@ -66,12 +65,8 @@ Binder::BindUnaryExpression(UnaryExpressionNode *unary) {
       BoundUnaryOperator::Bind(unary->Operator()->Type(),
                                boundOperand->GetType());
   if (boundOperator == BoundUnaryOperator::GetBindFailure()) {
-
-    std::stringstream diagmsg;
-    diagmsg << "Unary operator "
-            << SyntaxTokenToStrMap.at(unary->Operator()->Type())
-            << " is not defined for type " << boundOperand->GetType() << ".";
-    mDiagnostics.push_back(diagmsg.str());
+    mRecords.ReportUndefinedUnaryOperator(unary->Operator(),
+                                          boundOperand->GetType());
     return boundOperand;
   }
   return std::make_unique<BoundUnaryExpressionNode>(boundOperator,
@@ -86,11 +81,8 @@ Binder::BindBinaryExpression(BinaryExpressionNode *binary) {
       BoundBinaryOperator::Bind(binary->Operator()->Type(),
                                 boundLeft->GetType(), boundRight->GetType());
   if (boundOperator == BoundBinaryOperator::GetBindFailure()) {
-    std::stringstream diagmsg;
-    diagmsg << "Binary operator " << binary->Operator()->Text()
-            << " is not defined for types " << boundLeft->GetType() << " and "
-            << boundRight->GetType() << "." << std::endl;
-    mDiagnostics.push_back(diagmsg.str());
+    mRecords.ReportUndefinedBinaryOperator(
+        binary->Operator(), boundLeft->GetType(), boundRight->GetType());
     return boundLeft;
   }
   return std::make_unique<BoundBinaryExpressionNode>(
@@ -120,12 +112,7 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
     std::shared_ptr<VariableSymbol> existingVariable =
         SymbolTableMgr::find(name);
     if (existingVariable == VariableSymbol::failSymbol()) {
-      std::stringstream diagmsg;
-      diagmsg << "Undefined name: " << name << " Starting at Position "
-              << assignment->IdentifierToken()->Position() << " Ending at: "
-              << assignment->IdentifierToken()->Position() + name.size() << "."
-              << std::endl;
-      mDiagnostics.push_back(diagmsg.str());
+      mRecords.ReportUndefinedIdentifier(assignment->IdentifierToken());
       return std::make_unique<BoundLiteralExpressionNode>(0);
     }
     return std::make_unique<BoundAssignmentExpressionNode>(
@@ -138,12 +125,7 @@ Binder::BindIdentifierExpression(IdentifierExpressionNode *identifier) {
   std::string name = identifier->IdentifierToken()->Text();
   std::shared_ptr<VariableSymbol> variable = SymbolTableMgr::find(name);
   if (variable == VariableSymbol::failSymbol()) {
-    std::stringstream diagmsg;
-    diagmsg << "Undefined name: " << name << "Starting at Position "
-            << identifier->IdentifierToken()->Position() << " Ending at: "
-            << identifier->IdentifierToken()->Position() + name.size() << "."
-            << std::endl;
-    mDiagnostics.push_back(diagmsg.str());
+    mRecords.ReportUndefinedIdentifier(identifier->IdentifierToken());
     return std::make_unique<BoundLiteralExpressionNode>(0);
   }
 

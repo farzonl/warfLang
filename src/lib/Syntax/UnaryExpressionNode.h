@@ -17,5 +17,5 @@ public:
                       std::unique_ptr<ExpressionNode> operand);
 
   ExpressionNode *Operand();
-  SyntaxToken *Operator();
+  std::shared_ptr<SyntaxToken> Operator();
 };

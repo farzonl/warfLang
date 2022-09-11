@@ -9,10 +9,9 @@
 #include "Parser.h"
 #include "UnaryExpressionNode.h"
 
-SyntaxTree::SyntaxTree(std::vector<std::string> &vecErrors,
-                       std::unique_ptr<ExpressionNode> root)
-    : mVecErrors(), mRootExpression(std::move(root)) {
-  mVecErrors.swap(vecErrors);
+SyntaxTree::SyntaxTree(Records &records, std::unique_ptr<ExpressionNode> root)
+    : mRecords(""), mRootExpression(std::move(root)) {
+  mRecords.swap(records);
 }
 
 ExpressionNode *SyntaxTree::Root() const { return mRootExpression.get(); }

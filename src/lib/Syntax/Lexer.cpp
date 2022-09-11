@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-Lexer::Lexer(std::string text) : mText(text), mPosition(0), mVecErrors() {}
+Lexer::Lexer(std::string text) : mText(text), mPosition(0), mRecords("Lexer") {}
 
 char Lexer::CurrentToken() {
   if (mPosition >= mText.length()) {
@@ -220,20 +220,18 @@ void Lexer::ParseNumber(SyntaxType &type) {
     mPosition++;
   }
   const char *startPointer = mText.c_str() + posStart;
-  const char *endPointer = mText.c_str() + mPosition;
-  int64_t val = static_cast<int64_t>(
-      strtol(startPointer, const_cast<char **>(&endPointer), 10));
-  ;
+  std::string numberStr(startPointer, mPosition - posStart);
+  int64_t val = static_cast<int64_t>(std::stoll(numberStr, nullptr, 10));
 
   if (val <= static_cast<int64_t>(std::numeric_limits<int32_t>::min())) {
     // underflow
-    mVecErrors.push_back("LexerError: Numeric underflow.");
+    mRecords.ReportUnderflow(posStart, mPosition, val);
     mValue = 0;
     type = SyntaxType::NumberToken;
     return;
   } else if (val >= static_cast<int64_t>(std::numeric_limits<int32_t>::max())) {
     // overflow
-    mVecErrors.push_back("LexerError: Numeric overflow.");
+    mRecords.ReportOverflow(posStart, mPosition, val);
     mValue = 0;
     type = SyntaxType::NumberToken;
     return;
@@ -246,22 +244,22 @@ std::unique_ptr<SyntaxToken> Lexer::NextToken() {
   SyntaxType type = SyntaxType::UnknownToken;
   int32_t tokenStartPos = mPosition;
   ReadToken(type);
-
+  int32_t tokenEndPos = mPosition;
   if (type == SyntaxType::NumberToken || type == SyntaxType::TrueKeyword ||
       type == SyntaxType::FalseKeyword) {
-    return std::make_unique<SyntaxToken>(type, tokenStartPos, mValue);
+    return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
+                                         mValue);
   }
   if (type == SyntaxType::IdentifierToken) {
-    return std::make_unique<SyntaxToken>(type, tokenStartPos, mIdentifier);
+    return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
+                                         mIdentifier);
   }
   if (type == SyntaxType::UnknownToken) {
-    std::stringstream errorStream;
-    errorStream << "LexerError: bad character input: " << CurrentToken();
-    mVecErrors.push_back(errorStream.str());
+    mRecords.ReportBadCharacter(mPosition, CurrentToken());
     mPosition++;
-    return std::make_unique<SyntaxToken>(type, tokenStartPos,
+    return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
                                          std::string() + CurrentToken());
   }
-  return std::make_unique<SyntaxToken>(type, tokenStartPos,
+  return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
                                        SyntaxTokenToStrMap.at(type));
 }

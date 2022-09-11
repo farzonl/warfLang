@@ -70,7 +70,7 @@ void BoundAssignmentOperator::setOperatorType() {
     break;
   default:
     throw std::runtime_error(
-        "Unexpected SyntaxType aseen while processing a BoundAssignment");
+        "Unexpected SyntaxType seen while processing a BoundAssignment");
   }
 }
 

@@ -20,5 +20,5 @@ public:
                        std::unique_ptr<ExpressionNode> right);
   ExpressionNode *Left();
   ExpressionNode *Right();
-  SyntaxToken *Operator();
+  std::shared_ptr<SyntaxToken> Operator();
 };

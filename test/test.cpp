@@ -20,7 +20,7 @@ Value testCaseHelper(std::string s) {
 
 bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
   auto syntaxTree = SyntaxTree::Parse(s);
-  return errorStr == syntaxTree->Errors()[0];
+  return errorStr == syntaxTree->Errors()[0].Message();
 }
 
 TEST_CASE("Binary Expression") {
@@ -329,9 +329,10 @@ TEST_CASE("Compound Assignment Expressions") {
 }
 TEST_CASE("Runtime Exceptions") {
   SUBCASE("Overflow") {
+    REQUIRE(testCaseSyntaxErrors(
+        "2147483648",
+        "LexerError: The number 2147483648 is a Numeric overflow."));
     REQUIRE(
-        testCaseSyntaxErrors("2147483648", "LexerError: Numeric overflow."));
-    REQUIRE(
-        testCaseSyntaxErrors("1 ? 2", "LexerError: bad character input: ?"));
+        testCaseSyntaxErrors("1 ? 2", "LexerError: Bad character input: ?."));
   }
 }

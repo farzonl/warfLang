@@ -11,10 +11,12 @@
 #include "SyntaxToken.h"
 #include "SyntaxTree.h"
 
+#include "Error/Record.h"
+
 class Parser {
   std::vector<std::shared_ptr<SyntaxToken>> mTokens;
   int32_t mPosition;
-  std::vector<std::string> mVecErrors;
+  Records mRecords;
   std::shared_ptr<SyntaxToken> Peek(int32_t offset);
   std::shared_ptr<SyntaxToken> Current();
   std::shared_ptr<SyntaxToken> Next();
@@ -30,5 +32,5 @@ class Parser {
 public:
   Parser(std::string text);
   std::unique_ptr<SyntaxTree> Parse();
-  // const std::vector<std::string>& Errors() const { return mVecErrors; }
+  // const Records &Errors() const { return mRecords; }
 };

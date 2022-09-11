@@ -1,7 +1,7 @@
 
 # WarfLang 
 ## Inspiration for the name
-A legally distinct but phoneitically similar name to a sci-fi space warrior. 
+A legally distinct but phonetically similar name to a sci-fi space warrior.
 
 ## Build Instructions
 ```bash

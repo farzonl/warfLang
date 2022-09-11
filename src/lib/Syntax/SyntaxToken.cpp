@@ -8,12 +8,15 @@ const Value &SyntaxToken::GetValue() const { return mValue; }
 
 bool SyntaxToken::HasValue() const { return mValue.type != Type::Unknown; }
 
-int SyntaxToken::Position() const { return mPosition; }
+const TextSpan &SyntaxToken::Span() const { return mTextSpan; }
 
 std::string SyntaxToken::Text() const { return mText; }
 
-SyntaxToken::SyntaxToken(SyntaxType synType, int pos, std::string text)
-    : SyntaxNode(synType), mPosition(pos), mText(text) {}
+SyntaxToken::SyntaxToken(SyntaxType synType, int startPos, int endPos,
+                         std::string text)
+    : SyntaxNode(synType), mTextSpan(startPos, endPos), mText(text) {}
 
-SyntaxToken::SyntaxToken(SyntaxType synType, int pos, Value value)
-    : SyntaxNode(synType), mPosition(pos), mText(), mValue(value) {}
+SyntaxToken::SyntaxToken(SyntaxType synType, int startPos, int endPos,
+                         Value value)
+    : SyntaxNode(synType), mTextSpan(startPos, endPos), mText(), mValue(value) {
+}
