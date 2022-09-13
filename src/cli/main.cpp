@@ -139,7 +139,7 @@ int main(int argc, char **argv) {
     }
     if (Flags::eval.shortName == argv[i] || Flags::eval.name == argv[i]) {
       isEval = true;
-      if(i+1 >= argc) {
+      if (i + 1 >= argc) {
         std::cerr << "Expected eval argument string" << std::endl;
         return -1;
       }
@@ -151,7 +151,7 @@ int main(int argc, char **argv) {
     } else if (Flags::repl.shortName == argv[i] ||
                Flags::repl.name == argv[i]) {
       isRepl = true;
-    } else if(argv[i][0] == '-') {
+    } else if (argv[i][0] == '-') {
       std::cerr << "Invalid flag: " << argv[i] << std::endl;
       printUsage();
       return 0;
