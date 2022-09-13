@@ -62,5 +62,15 @@
     "arguments" : ["-q"],
     "comparePath" : "cli-test-cases/help.txt",
     "error"    : "Invalid flag: -q\n"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["-e", "2147483648"],
+    "error"    : "LexerError: The number 2147483648 is a Numeric overflow.\n"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["-e", "!1"],
+    "error"    : "BinderError: Unary operator ! is not defined for type Number.\n"
 }
 ]

@@ -6,7 +6,7 @@ env:
 
 on:
   push:
-    branches: [ master]
+    branches: [ master, feature/cliImprovements]
     paths:
       - '**.cpp'
       - '**.h'
@@ -80,39 +80,29 @@ jobs:
         echo "VERSION=$VER" >> $GITHUB_ENV
         echo "APPNAME=$APP" >> $GITHUB_ENV
 
-    - name: Run Test(s) on MacOS and Generate Profraw, Profdata, & html Coverage report
+    - name: Run Unit Test(s) on MacOS & Linux and Generate Profraw, Profdata, & html Coverage report
+      working-directory: ${{github.workspace}}
+      run: |
+        LLVM_PROFILE_FILE="${{ env.APPNAME }}Lang.profraw" ./build/test/${{ env.APPNAME }}Lang_TEST
+    
+    - name: Run CLI Test(s) on MacoOS & Linux and Generate Profraw from cli input
+      working-directory: ${{github.workspace}}
+      run: |
+        LLVM_PROFILE_FILE="${{ env.APPNAME }}" python3 scripts/run_cli.py TestConfigJsonMethods
+  
+    - name: On Mac Generate Profdata, & html Coverage report
       if: matrix.os == 'macOS-latest'
       working-directory: ${{github.workspace}}/build
-      # Execute tests defined by the CMake configuration.  
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: |
-        LLVM_PROFILE_FILE="${{ env.APPNAME }}Lang.profraw" ./test/${{ env.APPNAME }}Lang_TEST
-        $(brew --prefix llvm)/bin/llvm-profdata merge -sparse ${{ env.APPNAME }}Lang.profraw -o ${{ env.APPNAME }}Lang.profdata
-        $(brew --prefix llvm)/bin/llvm-cov show ./test/${{ env.APPNAME }}Lang_TEST -format="html" -instr-profile=${{ env.APPNAME }}Lang.profdata -output-dir=out/report ${{github.workspace}}/src 
-
-    - name: Run Test(s) on Linux and Generate Profraw from unit tests
-      if: matrix.os == 'ubuntu-22.04'
-      working-directory: ${{github.workspace}}
-      # Execute tests defined by the CMake configuration.  
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: |
-        LLVM_PROFILE_FILE="${{ env.APPNAME }}Lang.profraw"
-        ./build/test/${{ env.APPNAME }}Lang_TEST
+        $(brew --prefix llvm)/bin/llvm-profdata merge -sparse ${{ env.APPNAME }}*.profraw ${{ env.APPNAME }}Lang.profraw  -o ${{ env.APPNAME }}.profdata
+        $(brew --prefix llvm)/bin/llvm-cov show -output-dir=out/report -format=html -instr-profile=${{ env.APPNAME }}.profdata -object=build/test/${{ env.APPNAME }}Lang_TEST build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/src
     
-    - name: Run CLI Test(s) on Linux and Generate Profraw from cli input
-      if: matrix.os == 'ubuntu-22.04'
-      working-directory: ${{github.workspace}}
-      # Execute tests defined by the CMake configuration.  
-      # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: |
-        LLVM_PROFILE_FILE="${{ env.APPNAME }}.profraw" 
-        python3 scripts/run_cli.py TestConfigJsonMethods
     - name: On Linux Generate Profdata, & html Coverage report
       if: matrix.os == 'ubuntu-22.04'
       working-directory: ${{github.workspace}}
       run: |
-        llvm-profdata merge -sparse ${{ env.APPNAME }}Lang.profraw ${{ env.APPNAME }}.profraw -o ${{ env.APPNAME }}.profdata
-        llvm-cov show ./build/src/cli/${{ env.APPNAME }} -format="html" -instr-profile=${{ env.APPNAME }}.profdata -output-dir=out/report ${{github.workspace}}/src
+        llvm-profdata merge -sparse ${{ env.APPNAME }}*.profraw ${{ env.APPNAME }}Lang.profraw  -o ${{ env.APPNAME }}.profdata
+        llvm-cov show -output-dir=out/report -format=html -instr-profile=${{ env.APPNAME }}.profdata -object=build/test/${{ env.APPNAME }}Lang_TEST build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/src
 
     - name: Init new repo in dist folder and commit generated files
       working-directory: ${{github.workspace}}/build/out/report
