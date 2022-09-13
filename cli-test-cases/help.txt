@@ -1,0 +1,8 @@
+usage: ./Warf 
+       ./Warf <file_name>
+       ./Warf <file_name> --show_tree
+       ./Warf --repl
+       ./Warf --eval <string_to_evaluate>
+       ./Warf --eval <string_to_evaluate> --show_tree
+       ./Warf -h
+       ./Warf --help

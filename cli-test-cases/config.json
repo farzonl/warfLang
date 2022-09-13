@@ -1,0 +1,66 @@
+[
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["cli-test-cases/add.wf"],
+    "expected" : 3,
+    "error"    : ""
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["--eval", "1 + 2"],
+    "expected" : 3,
+    "error"    : ""
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["-e", "1 + 2"],
+    "expected" : 3,
+    "error"    : ""
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["-e"],
+    "error"    : "Expected eval argument string\n"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["-h"],
+    "comparePath" : "cli-test-cases/help.txt"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["--h"],
+    "comparePath" : "cli-test-cases/help.txt"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["cli-test-cases/add.wf", "--show_tree"],
+    "comparePath" : "cli-test-cases/add_showtree.txt"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["cli-test-cases/add.wf", "-s"],
+    "comparePath" : "cli-test-cases/add_showtree.txt"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["-s","cli-test-cases/add.wf"],
+    "comparePath" : "cli-test-cases/add_showtree.txt"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["-s","cli-test-cases/add.wf", "-s"],
+    "comparePath" : "cli-test-cases/help.txt"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["cli-test-cases/add.wf", "cli-test-cases/add.wf", "cli-test-cases/add.wf"],
+    "comparePath" : "cli-test-cases/help.txt"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["-q"],
+    "comparePath" : "cli-test-cases/help.txt",
+    "error"    : "Invalid flag: -q\n"
+}
+]
