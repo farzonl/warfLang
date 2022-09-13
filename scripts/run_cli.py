@@ -7,17 +7,13 @@ import os
 class TestConfigJsonMethods(unittest.TestCase):
     def test_config(self):
         covergeName = os.environ['LLVM_PROFILE_FILE']
-        coverageRun = False
-        if len(covergeName) > 0:
-            coverageRun = True
         if(len(sys.argv)== 2):
             with open("cli-test-cases/config.json", 'r') as f:
                 testConfigData = json.load(f)
                 for idx, test in enumerate(testConfigData):
                     cliCommand = [test["execpath"]]
-                    if(coverageRun):
+                    if len(covergeName) > 0:
                         os.environ["LLVM_PROFILE_FILE"] = "{}{}.profraw".format(covergeName, idx)
-                        #cliCommand.insert(0, "LLVM_PROFILE_FILE=\"{}{}.profraw\"".format(covergeName, idx))
                     cliCommand.extend(test["arguments"])
                     process = subprocess.Popen(cliCommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                     stdout, stderr = process.communicate()
