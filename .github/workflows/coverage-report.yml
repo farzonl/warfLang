@@ -62,7 +62,7 @@ jobs:
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
       run: |
         cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-              -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping -mllvm -runtime-counter-relocation" \
+              -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
               -DCMAKE_C_COMPILER=clang \
               -DCMAKE_CXX_COMPILER=clang++
 
@@ -92,17 +92,17 @@ jobs:
   
     - name: On Mac Generate Profdata, & html Coverage report
       if: matrix.os == 'macOS-latest'
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{github.workspace}}
       run: |
         $(brew --prefix llvm)/bin/llvm-profdata merge -sparse ${{ env.APPNAME }}*.profraw ${{ env.APPNAME }}Lang.profraw  -o ${{ env.APPNAME }}.profdata
-        $(brew --prefix llvm)/bin/llvm-cov show -output-dir=out/report -format=html -instr-profile=${{ env.APPNAME }}.profdata -object=build/test/${{ env.APPNAME }}Lang_TEST build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/src
+        $(brew --prefix llvm)/bin/llvm-cov show -output-dir=build/out/report -format=html -instr-profile=${{ env.APPNAME }}.profdata -object=build/test/${{ env.APPNAME }}Lang_TEST build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/src
     
     - name: On Linux Generate Profdata, & html Coverage report
       if: matrix.os == 'ubuntu-22.04'
       working-directory: ${{github.workspace}}
       run: |
         llvm-profdata merge -sparse ${{ env.APPNAME }}*.profraw ${{ env.APPNAME }}Lang.profraw  -o ${{ env.APPNAME }}.profdata
-        llvm-cov show -output-dir=out/report -format=html -instr-profile=${{ env.APPNAME }}.profdata -object=build/test/${{ env.APPNAME }}Lang_TEST build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/src
+        llvm-cov show -output-dir=build/out/report -format=html -instr-profile=${{ env.APPNAME }}.profdata -object=build/test/${{ env.APPNAME }}Lang_TEST build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/src
 
     - name: Init new repo in dist folder and commit generated files
       working-directory: ${{github.workspace}}/build/out/report
