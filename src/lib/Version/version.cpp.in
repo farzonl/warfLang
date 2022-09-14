@@ -1,0 +1,23 @@
+/*
+ * Copyright (c) 2021 Farzon Lotfi All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
+ 
+#include "version.h"
+#include <iostream>
+
+const std::string WarfHelper::Version::number = "@WARF_VERSION@";
+const std::string WarfHelper::Version::name   = "@WARF_NAME@";
+
+const std::string WarfHelper::Git::sha1 = "@GIT_SHA1@";
+const std::string WarfHelper::Git::date = "@GIT_DATE@";
+const std::string WarfHelper::Git::subject = "@GIT_COMMIT_SUBJECT@";
+const std::string WarfHelper::Git::branch = "@GIT_COMMIT_BRANCH@";
+
+
+void WarfHelper::printVersion() {
+  std::cout << WarfHelper::Version::name << " version " << WarfHelper::Version::number
+            << "-" << WarfHelper::Git::branch << " commit " << WarfHelper::Git::sha1
+            << std::endl;
+}

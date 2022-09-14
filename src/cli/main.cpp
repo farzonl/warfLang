@@ -6,6 +6,7 @@
 #include "Evaluator.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
+#include "Version/version.h"
 #include <fstream>
 #include <functional>
 
@@ -96,7 +97,7 @@ void evaluate(std::string &line, bool showTree) {
 }
 
 void startRepl(bool showTree) {
-  std::cout << "warfLang 1.0" << std::endl;
+  WarfHelper::printVersion();
   while (true) {
     try {
       std::string line = "";
