@@ -46,7 +46,7 @@ public:
       std::shared_ptr<VariableSymbol> variable,
       std::unique_ptr<BoundExpressionNode> boundExpression,
       std::shared_ptr<BoundAssignmentOperator> assignmentOperator);
-
+  virtual ~BoundAssignmentExpressionNode() {}
   virtual BoundNodeType NodeType() override;
   BoundExpressionNode *BoundExpression();
   std::string Identifier();

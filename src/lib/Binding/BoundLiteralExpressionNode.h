@@ -16,6 +16,7 @@ class BoundLiteralExpressionNode : public BoundExpressionNode {
 public:
   BoundLiteralExpressionNode(LiteralExpressionNode *literal);
   BoundLiteralExpressionNode(int32_t v);
+  virtual ~BoundLiteralExpressionNode() {}
   // Value GetValue();
   virtual BoundNodeType NodeType() override;
   virtual Type GetType() override;

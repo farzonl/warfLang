@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt install -y --no-install-recommends \
     build-essential cmake vim openssl curl ca-certificates \
-    llvm clang
+    llvm clang valgrind
 
 # Set the working directory to root (ie $HOME)
 WORKDIR root
@@ -19,3 +19,4 @@ RUN make -C./build
 RUN ./build/test/WarfLang_TEST
 #
 #RUN ./build/fuzz/WarfLang_FUZZ
+RUN valgrind --tool=memcheck --leak-check=full --track-origins=yes --log-file=valgrind.log ./build/test/WarfLang_TEST

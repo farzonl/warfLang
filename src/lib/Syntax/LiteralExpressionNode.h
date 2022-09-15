@@ -14,4 +14,5 @@ class LiteralExpressionNode : public ExpressionNode {
 public:
   LiteralExpressionNode(std::shared_ptr<SyntaxToken> literalToken);
   std::shared_ptr<SyntaxToken> LiteralToken() { return mLiteralToken; }
+  virtual ~LiteralExpressionNode() {}
 };

@@ -19,4 +19,5 @@ public:
                               std::unique_ptr<ExpressionNode> expression,
                               std::shared_ptr<SyntaxToken> closeParenToken);
   ExpressionNode *Expression() const { return mExpression.get(); }
+  virtual ~ParenthesizedExpressionNode() {}
 };

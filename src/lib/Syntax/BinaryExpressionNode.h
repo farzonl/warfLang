@@ -21,4 +21,5 @@ public:
   ExpressionNode *Left();
   ExpressionNode *Right();
   std::shared_ptr<SyntaxToken> Operator();
+  virtual ~BinaryExpressionNode() {}
 };

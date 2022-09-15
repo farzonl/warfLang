@@ -19,4 +19,5 @@ public:
   SyntaxNode(SyntaxType type);
   SyntaxType Type() { return mType; }
   virtual const std::vector<SyntaxNode *> &GetChildren();
+  virtual ~SyntaxNode() {}
 };
