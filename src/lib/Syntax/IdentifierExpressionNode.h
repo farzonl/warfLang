@@ -18,4 +18,5 @@ public:
   IdentifierExpressionNode(std::shared_ptr<SyntaxToken> identifierToken);
   std::shared_ptr<SyntaxToken> IdentifierToken();
   std::string Name() { return mIdentifier->Text(); }
+  virtual ~IdentifierExpressionNode() {}
 };

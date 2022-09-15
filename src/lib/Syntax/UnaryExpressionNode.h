@@ -18,4 +18,5 @@ public:
 
   ExpressionNode *Operand();
   std::shared_ptr<SyntaxToken> Operator();
+  virtual ~UnaryExpressionNode() {}
 };

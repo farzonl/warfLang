@@ -13,7 +13,7 @@
 class BoundIdentifierExpressionNode : public BoundExpressionNode {
 public:
   BoundIdentifierExpressionNode(std::shared_ptr<VariableSymbol> variable);
-
+  virtual ~BoundIdentifierExpressionNode() {}
   virtual BoundNodeType NodeType() override;
   virtual Type GetType() override;
   std::string Name() { return mVariable->Name(); }

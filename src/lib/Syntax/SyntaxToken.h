@@ -30,4 +30,5 @@ public:
   std::string Text() const;
   SyntaxToken(SyntaxType synType, int startPos, int endPos, std::string text);
   SyntaxToken(SyntaxType synType, int startPos, int endPos, Value value);
+  virtual ~SyntaxToken() {}
 };

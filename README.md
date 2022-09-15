@@ -59,5 +59,7 @@ After running cmake, the build dir will have a `compile_commands.json` file. Tha
 run-clang-tidy.py -p build/ -header-filter='.*' -fix -format
 ```
 ## Docker Build & Run
-- build: `docker build -t warflang:latest .`
-- run: `docker run  --name test_vm -it warflang:latest`
+- Build: `docker build -t warflang:latest .`
+- Run: `docker run  --name test_vm -it warflang:latest`
+- Print out container id: `inspect test_vm -f '{{.Id}}'`
+- Get valgrind log: `docker cp <container id>:root/valgrind.log .`

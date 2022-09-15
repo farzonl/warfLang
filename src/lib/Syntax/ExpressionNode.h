@@ -10,4 +10,5 @@
 class ExpressionNode : public SyntaxNode {
 public:
   ExpressionNode(SyntaxType type);
+  virtual ~ExpressionNode() {}
 };

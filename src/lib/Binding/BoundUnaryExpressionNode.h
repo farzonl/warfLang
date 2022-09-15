@@ -54,11 +54,11 @@ class BoundUnaryExpressionNode : public BoundExpressionNode {
 public:
   BoundUnaryExpressionNode(const std::shared_ptr<BoundUnaryOperator> op,
                            std::unique_ptr<BoundExpressionNode> operand);
+  virtual ~BoundUnaryExpressionNode() {}
   virtual BoundNodeType NodeType() override;
   virtual Type GetType() override;
   BoundExpressionNode *Operand();
   BoundUnaryOperatorType OperatorType();
-  virtual ~BoundUnaryExpressionNode() {}
 
 private:
   const std::shared_ptr<BoundUnaryOperator> mOperator;

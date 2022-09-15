@@ -24,4 +24,5 @@ public:
   std::shared_ptr<SyntaxToken> IdentifierToken();
   std::shared_ptr<SyntaxToken> AssignmentToken();
   ExpressionNode *Expression();
+  virtual ~AssignmentExpressionNode() {}
 };
