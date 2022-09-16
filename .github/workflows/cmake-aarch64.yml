@@ -54,6 +54,10 @@ jobs:
         && curl $LIBEDIT_URL 2>&1 | grep -oh "\"libedit-dev.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBEDIT_URL/% \
         && dpkg-deb -R libedit-dev*arm64.deb . \
         && rm -rf usr/share libedit-dev*arm64.deb DEBIAN \
+        && export LIBBSD_URL=http://ports.ubuntu.com/ubuntu-ports/pool/main/libb/libbsd/ \
+        && curl $LIBBSD_URL 2>&1 | grep -oh "\"libbsd-dev.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBBSD_URL/% \
+        && dpkg-deb -R libbsd-dev*arm64.deb . \
+        && rm -rf usr/share libbsd-dev*arm64.deb DEBIAN \
         && rsync -av usr ../ \
         && cd .. \
         && rm -rf tmp \
