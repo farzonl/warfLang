@@ -10,6 +10,10 @@
 #include <fstream>
 #include <functional>
 
+#if !defined(_WIN32) && !defined(__wasm)
+#include <editline/readline.h>
+#endif
+
 struct Flags {
   struct FlagName {
     const std::string shortName;
@@ -96,25 +100,39 @@ void evaluate(std::string &line, bool showTree) {
   }
 }
 
+void consoleRead(bool &showTree) {
+#if !defined(_WIN32) && !defined(__wasm)
+  char *buffer = readline(">>> ");
+
+  // Add input history
+  if (buffer[0] != '\0') {
+    add_history(buffer);
+  }
+
+  std::string line(buffer);
+  free(buffer);
+#else
+  std::string line = "";
+  std::cout << ">>> ";
+  std::getline(std::cin, line);
+#endif
+  if (line == "#showTree") {
+    showTree = !showTree;
+    std::cout << (showTree ? "Showing parse trees." : "Not showing parse trees")
+              << std::endl;
+    return;
+  }
+  if (line == "#exit") {
+    exit(0);
+  }
+  evaluate(line, showTree);
+}
+
 void startRepl(bool showTree) {
   WarfHelper::printVersion();
   while (true) {
     try {
-      std::string line = "";
-      std::cout << ">>> ";
-      std::getline(std::cin, line);
-      if (line == "#showTree") {
-        showTree = !showTree;
-        std::cout << (showTree ? "Showing parse trees."
-                               : "Not showing parse trees")
-                  << std::endl;
-        continue;
-      }
-      if (line == "#exit") {
-        exit(0);
-      }
-
-      evaluate(line, showTree);
+      consoleRead(showTree);
 
     } catch (std::runtime_error &error) {
       std::cerr << error.what() << std::endl;

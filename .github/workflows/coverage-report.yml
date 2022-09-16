@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies (Linux)
       if: matrix.os == 'ubuntu-22.04'
       run: |
-        sudo apt install llvm-dev python3
+        sudo apt install llvm-dev python3 libedit-dev
 
     - name: Install dependencies (MacOS)
       if: matrix.os == 'macOS-latest'

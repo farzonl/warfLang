@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt install -y --no-install-recommends \
     build-essential cmake vim openssl curl ca-certificates \
-    llvm clang valgrind
+    llvm clang valgrind libedit-dev
 
 # Set the working directory to root (ie $HOME)
 WORKDIR root
