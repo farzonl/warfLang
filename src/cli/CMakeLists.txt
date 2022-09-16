@@ -16,7 +16,12 @@ include_directories(${CMAKE_SOURCE_DIR}/src/lib)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 set(TargetLibraries "")
-if(UNIX AND NOT isEmscripten)
+
+if(DISABLE_LIBEDIT)
+add_definitions(-DDISABLE_LIBEDIT=1)
+endif()
+
+if(UNIX AND NOT isEmscripten AND NOT DISABLE_LIBEDIT)
     list(APPEND TargetLibraries 
         "-ledit"
     )

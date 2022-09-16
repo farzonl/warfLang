@@ -10,7 +10,7 @@
 #include <fstream>
 #include <functional>
 
-#if !defined(_WIN32) && !defined(__wasm)
+#if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
 #include <editline/readline.h>
 #endif
 
@@ -101,7 +101,7 @@ void evaluate(std::string &line, bool showTree) {
 }
 
 void consoleRead(bool &showTree) {
-#if !defined(_WIN32) && !defined(__wasm)
+#if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
   char *buffer = readline(">>> ");
 
   // Add input history
