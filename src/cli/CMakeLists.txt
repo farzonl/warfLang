@@ -15,8 +15,21 @@ include_directories(${CMAKE_SOURCE_DIR}/src/lib)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
+set(TargetLibraries "")
+
+if(DISABLE_LIBEDIT)
+add_definitions(-DDISABLE_LIBEDIT=1)
+endif()
+
+if(UNIX AND NOT isEmscripten AND NOT DISABLE_LIBEDIT)
+    list(APPEND TargetLibraries 
+        "-ledit"
+    )
+endif()
+
 target_link_libraries (${PROJECT_NAME}
   WarfCore
+  ${TargetLibraries}
 )
 
 target_include_directories(${PROJECT_NAME}
