@@ -63,3 +63,7 @@ run-clang-tidy.py -p build/ -header-filter='.*' -fix -format
 - Run: `docker run  --name test_vm -it warflang:latest`
 - Print out container id: `inspect test_vm -f '{{.Id}}'`
 - Get valgrind log: `docker cp <container id>:root/valgrind.log .`
+
+## Docker Build & Run aarch64
+- Build: `docker build -f Dockerfile.aarch64 -t warflang_arch64:latest .`
+- Run: `docker run  --name arm_test_vm -it warflang_arch64:latest`

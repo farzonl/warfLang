@@ -38,10 +38,6 @@ jobs:
         ca-certificates crossbuild-essential-arm64 \
         libstdc++-$GCC_VERS-dev-arm64-cross qemu-user wget rsync curl
     - name: setup sysroot
-      # Note I wanted to do  
-      # && curl $LIBTINFO_URL 2>&1 | grep -oh "\"libtinfo-dev.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBTINFO_URL/% \
-      # However it looks like devs of libtinfo switched to zstd compression standard
-      # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=892664
       run: |
         cd ${{github.workspace}} \
         && mkdir -p sysroots/aarch64-linux-gnu/usr \
@@ -64,9 +60,9 @@ jobs:
         && dpkg-deb -R libbsd-dev*arm64.deb . \
         && rm -rf usr/share libbsd-dev*arm64.deb DEBIAN \
         && export LIBTINFO_URL="http://ports.ubuntu.com/ubuntu-ports/pool/main/n/ncurses/" \
-        && wget $LIBTINFO_URL/libtinfo-dev_6.2-0ubuntu2_arm64.deb \
-        && dpkg-deb -R libtinfo-dev*arm64.deb . \
-        && rm -rf usr/share libtinfo-dev*arm64.deb DEBIAN \
+        && curl $LIBTINFO_URL 2>&1 | grep -oh "\"libncurses-dev.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBTINFO_URL/% \
+        && dpkg-deb -R libncurses-dev*arm64.deb . \
+        && rm -rf usr/share libncurses-dev*arm64.deb DEBIAN \
         && rsync -av usr ../ \
         && cd .. \
         && rm -rf tmp \
