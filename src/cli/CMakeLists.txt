@@ -21,10 +21,23 @@ if(DISABLE_LIBEDIT)
 add_definitions(-DDISABLE_LIBEDIT=1)
 endif()
 
+if(UNIX AND NOT APPLE)
+    set(LINUX TRUE)
+endif()
+
 if(UNIX AND NOT isEmscripten AND NOT DISABLE_LIBEDIT)
-    list(APPEND TargetLibraries 
+    list(APPEND TargetLibraries
         "-ledit"
     )
+    # Note we really only need this for the arm64 crossbuild
+    if(LINUX)
+        list(APPEND TargetLibraries
+            "-lbsd"
+        )
+        list(APPEND TargetLibraries
+            "-ltinfo"
+        )
+    endif()
 endif()
 
 target_link_libraries (${PROJECT_NAME}
