@@ -54,17 +54,15 @@ jobs:
       # Execute the build.  You can specify a specific target with "--target <NAME>"
       run: cmake --build . --config $BUILD_TYPE
     
-    - name: add i386 for Wine
-      shell: bash
-      run: |
-       sudo dpkg --add-architecture i386
-    
-    - name: Setup wine
-      shell: bash
-      run: |
-       sudo apt-get update \
-       && sudo apt install -y \
-       wine32
+    #- name: add i386 for Wine
+    #  shell: bash
+    #  run: |
+    #   sudo dpkg --add-architecture i386
+    #
+    #- name: Setup wine
+    #  shell: bash
+    #  run: |
+    #   sudo apt install wine32
     
     - name: Set variables
       run: |
