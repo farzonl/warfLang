@@ -62,7 +62,8 @@ jobs:
     #- name: Setup wine
     #  shell: bash
     #  run: |
-    #   sudo apt install wine32
+    #   sudo apt-get update \
+    #   && sudo apt install wine32
     
     - name: Set variables
       run: |
@@ -79,7 +80,7 @@ jobs:
       shell: bash
       run:  |
         mkdir ${{github.workspace}}/artifacts
-        cp build/src/lib/lib${{ env.APPNAME }}Core.lib ${{github.workspace}}/artifacts
+        cp build/src/lib/lib${{ env.APPNAME }}Core.a ${{github.workspace}}/artifacts
         cp build/src/cli/${{ env.APPNAME }}.exe ${{github.workspace}}/artifacts
         
         pushd ${{github.workspace}}

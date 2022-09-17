@@ -27,10 +27,10 @@ RUN cmake -S . -B build  \
 
 RUN ninja -C./build
 
-RUN dpkg --add-architecture i386
-RUN apt-get update \
-    && apt install -y \
-    wine32
+#RUN dpkg --add-architecture i386
+#RUN apt-get update \
+#    && apt install -y \
+#    wine32
 
 ENV WINEPATH="/usr/lib/gcc/x86_64-w64-mingw32/10-posix;/usr/x86_64-w64-mingw32/lib"
 RUN wine cmd /C build/test/WarfLang_TEST.exe
