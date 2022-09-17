@@ -9,7 +9,12 @@ RUN apt-get update \
 # Set the working directory to root (ie $HOME)
 WORKDIR root
 
-COPY . .
+COPY test test
+COPY fuzz fuzz
+COPY CMakeLists.txt CMakeLists.txt
+COPY scripts scripts
+COPY cli-test-cases cli-test-cases
+COPY src src
 
 RUN cmake -B build -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_CXX_FLAGS="-coverage"  -DCMAKE_C_COMPILER=clang \
