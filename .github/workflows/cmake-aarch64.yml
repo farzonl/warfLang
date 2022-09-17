@@ -59,6 +59,10 @@ jobs:
         && curl $LIBBSD_URL 2>&1 | grep -oh "\"libbsd-dev.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBBSD_URL/% \
         && dpkg-deb -R libbsd-dev*arm64.deb . \
         && rm -rf usr/share libbsd-dev*arm64.deb DEBIAN \
+        && export LIBTINFO_URL="http://ports.ubuntu.com/ubuntu-ports/pool/main/n/ncurses/" \
+        && curl $LIBTINFO_URL 2>&1 | grep -oh "\"libtinfo-dev.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBTINFO_URL/% \
+        && dpkg-deb -R libtinfo-dev*arm64.deb . \
+        && rm -rf usr/share libtinfo-dev*arm64.deb DEBIAN \
         && rsync -av usr ../ \
         && cd .. \
         && rm -rf tmp \

@@ -28,6 +28,9 @@ if(UNIX AND NOT isEmscripten AND NOT DISABLE_LIBEDIT)
     list(APPEND TargetLibraries
         "-lbsd"
     )
+    list(APPEND TargetLibraries
+        "-ltinfo"
+    )
 endif()
 
 target_link_libraries (${PROJECT_NAME}
