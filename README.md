@@ -3,6 +3,9 @@
 ## Inspiration for the name
 A legally distinct but phonetically similar name to a sci-fi space warrior.
 
+## Open in Gitpod
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/https://github.com/farzonl/warflang)
+
 ## Build Instructions
 ```bash
 cmake -B build
