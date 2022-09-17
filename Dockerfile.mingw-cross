@@ -1,0 +1,37 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && apt install -y \
+    mingw-w64 wget curl cmake ninja-build \
+    ca-certificates vim wine
+
+ENV DEBIAN_FRONTEND=dialog
+ENV WORKDIR=root/project
+RUN mkdir $WORKDIR
+
+#Set the working dir to the env variable
+WORKDIR $WORKDIR
+
+COPY test test
+COPY fuzz fuzz
+COPY CMakeLists.txt CMakeLists.txt
+COPY scripts scripts
+COPY cli-test-cases cli-test-cases
+COPY src src
+
+RUN cmake -S . -B build  \
+    -GNinja -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc-posix -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++-posix \
+    -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_CROSS_COMPILING=TRUE
+
+RUN ninja -C./build
+
+#RUN dpkg --add-architecture i386
+#RUN apt-get update \
+#    && apt install -y \
+#    wine32
+
+ENV WINEPATH="/usr/lib/gcc/x86_64-w64-mingw32/10-posix;/usr/x86_64-w64-mingw32/lib"
+RUN wine cmd /C build/test/WarfLang_TEST.exe
+RUN wine cmd /C  build/src/cli/Warf.exe cli-test-cases/add.wef

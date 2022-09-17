@@ -21,9 +21,6 @@ if(DISABLE_LIBEDIT)
 add_definitions(-DDISABLE_LIBEDIT=1)
 endif()
 
-if(UNIX AND NOT APPLE)
-    set(LINUX TRUE)
-endif()
 
 if(UNIX AND NOT isEmscripten AND NOT DISABLE_LIBEDIT)
     list(APPEND TargetLibraries
@@ -38,6 +35,10 @@ if(UNIX AND NOT isEmscripten AND NOT DISABLE_LIBEDIT)
             "-ltinfo"
         )
     endif()
+endif()
+
+if(isEmscripten AND CMAKE_BUILD_TYPE MATCHES Debug)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -gseparate-dwarf=${SOURCE_FILES}.debug.wasm")
 endif()
 
 target_link_libraries (${PROJECT_NAME}
