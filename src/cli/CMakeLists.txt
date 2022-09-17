@@ -22,8 +22,11 @@ add_definitions(-DDISABLE_LIBEDIT=1)
 endif()
 
 if(UNIX AND NOT isEmscripten AND NOT DISABLE_LIBEDIT)
-    list(APPEND TargetLibraries 
+    list(APPEND TargetLibraries
         "-ledit"
+    )
+    list(APPEND TargetLibraries
+        "-lbsd"
     )
 endif()
 

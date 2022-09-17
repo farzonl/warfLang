@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - bugfix/issue/21
     paths:
       - '**.cpp'
       - '**.h'
@@ -81,8 +82,8 @@ jobs:
           -DCMAKE_ASM_COMPILER_TARGET=$TARGET_TRIPLE \
           -DCMAKE_EXE_LINKER_FLAGS_INIT="-fuse-ld=lld" \
           -DCMAKE_MODULE_LINKER_FLAGS_INIT="-fuse-ld=lld" \
-          -DCMAKE_SHARED_LINKER_FLAGS_INIT="-fuse-ld=lld" \
-          -DDISABLE_LIBEDIT=true
+          -DCMAKE_SHARED_LINKER_FLAGS_INIT="-fuse-ld=lld"
+
     - name: Build
       working-directory: ${{github.workspace}}/build
       shell: bash
