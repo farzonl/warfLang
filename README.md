@@ -74,3 +74,7 @@ run-clang-tidy.py -p build/ -header-filter='.*' -fix -format
 ## Docker Build & Run mingw x86_64
 - Build: `docker build -f Dockerfile.mingw-cross -t warflang_mingw:latest .`
 - Run: `docker run  --name mingw_test_vm -it warflang_mingw:latest`
+
+## Docker Build & Run osxcross x86_64
+- Build: `docker build -f Dockerfile.osx-cross -t warflang_osx:latest .`
+- Run: `docker run  --name osx_test_vm -it warflang_osx:latest`
