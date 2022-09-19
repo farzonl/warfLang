@@ -28,7 +28,9 @@ jobs:
       fail-fast: true
     steps:
     - uses: actions/checkout@v2
-    
+    - name: Install Warf dependencies
+      run: |
+        sudo apt install cmake ninja-build
     - name: Install Darling dependencies
       run: |
         sudo apt install libavcodec58 libavformat58 \
@@ -86,7 +88,7 @@ jobs:
         echo "VERSION=$VER" >> $GITHUB_ENV
         echo "APPNAME=$APP" >> $GITHUB_ENV
     
-    - name: Build Warf
+    - name: Build Warf Cmake
       working-directory: ${{github.workspace}}
       run: |
         export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
@@ -99,6 +101,15 @@ jobs:
         -DCMAKE_LINKER=x86_64-apple-darwin20.4-ld \
         -DCMAKE_C_COMPILER_AR=x86_64-apple-darwin20.4-ar \
         -DCMAKE_CXX_COMPILER_AR=x86_64-apple-darwin20.4-ar
+    
+    - name: Build Warf with Ninja
+      working-directory: ${{github.workspace}}
+      run: |
+        export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
+        export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH
+        echo $PATH
+        echo $LD_LIBRARY_PATH
+        ninja -C./build
     
     - name: Test Warf with Darling
       working-directory: ${{github.workspace}}
