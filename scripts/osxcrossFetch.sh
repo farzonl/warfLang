@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$(expr substr $(uname -s) 1 5)" != "Linux" ]; then
+if [ "$(uname -s)" != "Linux" ]; then
     echo "This Script only works on Linux"
     exit 0
 fi
