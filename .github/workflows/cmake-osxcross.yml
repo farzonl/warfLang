@@ -43,12 +43,12 @@ jobs:
     
     - name: Fetch OSXCross
       working-directory: ${{github.workspace}}
+      shell: bash
       run: ./scripts/osxcrossFetch.sh
     
     - name: Install OSXCross dependnecies
       working-directory: ${{github.workspace}}/packages/osxcross/tools
-      run: |
-        sudo ./get_dependencies.sh
+      run: sudo ./get_dependencies.sh
 
     - name: Cache C++ dependencies in Packages Directory
       uses: actions/cache@v3
@@ -61,14 +61,17 @@ jobs:
           
     - name: Fetch MacOS 11.3 SDK
       working-directory: ${{github.workspace}}
+      shell: bash
       run: ./scripts/macos-sdkFetch.sh
 
     - name: Build OSXCross
-      working-directory: ${{github.workspace}}/packages/osxcross
+      working-directory: ${{github.workspace}}
+      shell: bash
       run: ./scripts/build-osxcross.sh
 
     - name: Download Darling
-      working-directory: ${{github.workspace}}/packages
+      working-directory: ${{github.workspace}}
+      shell: bash
       run: ./scripts/downloadDarling.sh
     
     - name: Install Darling
