@@ -31,16 +31,26 @@ jobs:
     - name: install Darling dependencies
       run: |
         sudo apt install wget unzip  \
-        cmake ninja-build ca-certificates
+        cmake ninja-build ca-certificates \
         libavcodec58 libavformat58 libavutil56 \
         libcairo2 libdbus-1-3 libegl1 libgif7 libgl1 \
         libglu1-mesa libglu1 libpulse0 libswresample3 \
-        libxcursor1 libxkbfile1 libxrandr2
+        libxcursor1 libxkbfile1 libxrandr2 libfuse2
+    
+    - name: Create Packages Environment
+      working-directory: ${{github.workspace}}
+      run: |
+        mkdir packages
+
     - name: Download Darling
       working-directory: ${{github.workspace}}/packages
       run: |
         wget https://github.com/darlinghq/darling/releases/download/v0.1.20220704/darling_0.1.20220704.focal_amd64.deb
-        dpkg -i darling_0.1.20220704.focal_amd64.deb
+    
+    - name: Install Darling
+      working-directory: ${{github.workspace}}/packages
+      run: |
+        sudo dpkg -i darling_0.1.20220704.focal_amd64.deb
     
     - name: Test Darling
       working-directory: ${{github.workspace}}/packages
