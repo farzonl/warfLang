@@ -1,10 +1,9 @@
-name: CMake osxcross Cross-Compile
+name: CMake osxcross Cross-Compile & Darling Test
 
 on:
   push:
     branches:
       - master
-      - feature/macOS-cross
     paths:
       - '**.cpp'
       - '**.h'
@@ -57,9 +56,9 @@ jobs:
       with:
         path: |
           packages
-        key: ${{ runner.OS }}-c++-packages-cache-OSX-Release-${{ hashFiles('depsCache.json') }}
+        key: ${{ runner.OS }}-c++-packages-cache-OSXCross-Release-${{ hashFiles('depsCache.json') }}
         restore-keys: |
-          ${{ runner.OS }}-c++-packages-cache-OSX-Release
+          ${{ runner.OS }}-c++-packages-cache-OSXCross-Release
           
     - name: Fetch MacOS 11.3 SDK
       working-directory: ${{github.workspace}}
@@ -107,8 +106,6 @@ jobs:
       run: |
         export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
         export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH
-        echo $PATH
-        echo $LD_LIBRARY_PATH
         ninja -C./build
     
     - name: Test Warf with Darling
@@ -116,4 +113,22 @@ jobs:
       run: |
         darling shell build/test/WarfLang_TEST 
     
-    
+    - name: Prepare Binaries for upload 
+      shell: bash
+      run:  |
+        mkdir ${{github.workspace}}/artifacts
+        cp build/src/lib/lib${{ env.APPNAME }}Core.a ${{github.workspace}}/artifacts
+        cp build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifacts
+        cp build/test/${{ env.APPNAME }}Lang_TEST ${{github.workspace}}/artifacts
+
+        pushd ${{github.workspace}}
+        zip -r ${{ env.APPNAME }}-MacOS-osxcross.zip artifacts
+        popd
+
+    - name: 'Upload Pull Request Artifact'
+      uses: actions/upload-artifact@v3
+      if: startsWith(github.ref, 'refs/pull/')
+      with:
+        name: ${{ env.APPNAME }} Pull Request Artifacts
+        path: ${{ env.APPNAME }}-*.zip
+        retention-days: 5
