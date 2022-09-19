@@ -1,5 +1,13 @@
 {
     "doctest" : {
         "Src" : "1494db8a28035bcf6caeea817c4b2b65"
+    },
+    "MacOSX11.3.sdk.tar.xz" : {
+        "archive" : "22c0ed904531f6d7dee4f87c15f7cf47",
+        "HashAlgo" : "MD5"
+    },
+    "darling_0.1.20220704.focal_amd64.deb": {
+        "archive" : "3eb271350c8483c4de891b7bf26589ff",
+        "HashAlgo" : "MD5"
     }
 }

@@ -1,0 +1,134 @@
+name: CMake osxcross Cross-Compile & Darling Test
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - '**CMakeLists.txt'
+      - .github/workflows/cmake-osxcross.yml
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - '**CMakeLists.txt'
+      - .github/workflows/cmake-osxcross.yml
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: true
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Warf dependencies
+      run: |
+        sudo apt install cmake ninja-build
+    - name: Install Darling dependencies
+      run: |
+        sudo apt install libavcodec58 libavformat58 \
+        libavutil56 libcairo2 libdbus-1-3 libegl1 libgif7 \
+        libgl1 libglu1-mesa libglu1 libpulse0 libswresample3 \
+        libxcursor1 libxkbfile1 libxrandr2 libfuse2
+    
+    - name: Create Packages Environment
+      working-directory: ${{github.workspace}}
+      run: |
+        mkdir packages
+    
+    - name: Fetch OSXCross
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: ./scripts/osxcrossFetch.sh
+    
+    - name: Install OSXCross dependnecies
+      working-directory: ${{github.workspace}}/packages/osxcross/tools
+      run: sudo ./get_dependencies.sh
+
+    - name: Cache C++ dependencies in Packages Directory
+      uses: actions/cache@v3
+      with:
+        path: |
+          packages
+        key: ${{ runner.OS }}-c++-packages-cache-OSXCross-Release-${{ hashFiles('depsCache.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-c++-packages-cache-OSXCross-Release
+          
+    - name: Fetch MacOS 11.3 SDK
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: ./scripts/macos-sdkFetch.sh
+
+    - name: Build OSXCross
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: ./scripts/build-osxcross.sh
+
+    - name: Download Darling
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: ./scripts/downloadDarling.sh
+    
+    - name: Install Darling
+      working-directory: ${{github.workspace}}/packages
+      run: |
+        sudo dpkg -i darling_0.1.20220704.focal_amd64.deb
+
+    - name: Set variables
+      run: |
+        APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
+        VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
+        echo "VERSION=$VER" >> $GITHUB_ENV
+        echo "APPNAME=$APP" >> $GITHUB_ENV
+    
+    - name: Build Warf Cmake
+      working-directory: ${{github.workspace}}
+      run: |
+        export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
+        export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH
+        cmake -S . -B build \
+        -GNinja -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_C_COMPILER=o64-clang \
+        -DCMAKE_CXX_COMPILER=o64-clang++ \
+        -DCMAKE_SYSTEM_NAME=Darwin -DCMAKE_CROSS_COMPILING=TRUE \
+        -DCMAKE_LINKER=x86_64-apple-darwin20.4-ld \
+        -DCMAKE_C_COMPILER_AR=x86_64-apple-darwin20.4-ar \
+        -DCMAKE_CXX_COMPILER_AR=x86_64-apple-darwin20.4-ar
+    
+    - name: Build Warf with Ninja
+      working-directory: ${{github.workspace}}
+      run: |
+        export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
+        export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH
+        ninja -C./build
+    
+    - name: Test Warf with Darling
+      working-directory: ${{github.workspace}}
+      run: |
+        darling shell build/test/WarfLang_TEST 
+    
+    - name: Prepare Binaries for upload 
+      shell: bash
+      run:  |
+        mkdir ${{github.workspace}}/artifacts
+        cp build/src/lib/lib${{ env.APPNAME }}Core.a ${{github.workspace}}/artifacts
+        cp build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifacts
+        cp build/test/${{ env.APPNAME }}Lang_TEST ${{github.workspace}}/artifacts
+
+        pushd ${{github.workspace}}
+        zip -r ${{ env.APPNAME }}-MacOS-osxcross.zip artifacts
+        popd
+
+    - name: 'Upload Pull Request Artifact'
+      uses: actions/upload-artifact@v3
+      if: startsWith(github.ref, 'refs/pull/')
+      with:
+        name: ${{ env.APPNAME }} Pull Request Artifacts
+        path: ${{ env.APPNAME }}-*.zip
+        retention-days: 5
