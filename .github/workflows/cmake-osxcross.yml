@@ -28,12 +28,6 @@ jobs:
       fail-fast: true
     steps:
     - uses: actions/checkout@v2
-    - name: Install OSXCross dependnecies
-      run: |
-        sudo apt install clang llvm-dev patch \
-        libxml2-dev uuid-dev libssl-dev xz-utils unzip \
-        tar  bzip2  gzip sed cpio libbz2-dev cmake wget \
-        ca-certificates  fuse libfuse-dev git ninja-build
     
     - name: Install Darling dependencies
       run: |
@@ -48,11 +42,10 @@ jobs:
         mkdir packages
     
     - name: Fetch OSXCross
-      working-directory: ${{github.workspace}}/packages
-      run: |
-        git clone https://github.com/tpoechtrager/osxcross
+      working-directory: ${{github.workspace}}
+      run: ./scripts/osxcrossFetch.sh
     
-    - name: Fetch Remaining OSXCross Dependencies
+    - name: Install OSXCross dependnecies
       working-directory: ${{github.workspace}}/packages/osxcross/tools
       run: |
         sudo ./get_dependencies.sh
@@ -67,18 +60,16 @@ jobs:
           ${{ runner.OS }}-c++-packages-cache-OSX-Release
           
     - name: Fetch MacOS 11.3 SDK
-      working-directory: ${{github.workspace}}/packages/osxcross/tarballs
-      run: |
-        wget https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX11.3.sdk.tar.xz
+      working-directory: ${{github.workspace}}
+      run: ./scripts/macos-sdkFetch.sh
 
     - name: Build OSXCross
       working-directory: ${{github.workspace}}/packages/osxcross
-      run: UNATTENDED=1 ./build.sh
+      run: ./scripts/build-osxcross.sh
 
     - name: Download Darling
       working-directory: ${{github.workspace}}/packages
-      run: |
-        wget https://github.com/darlinghq/darling/releases/download/v0.1.20220704/darling_0.1.20220704.focal_amd64.deb
+      run: ./scripts/downloadDarling.sh
     
     - name: Install Darling
       working-directory: ${{github.workspace}}/packages
