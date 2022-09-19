@@ -57,6 +57,15 @@ jobs:
       run: |
         sudo ./get_dependencies.sh
 
+    - name: Cache C++ dependencies in Packages Directory
+      uses: actions/cache@v3
+      with:
+        path: |
+          packages
+        key: ${{ runner.OS }}-c++-packages-cache-OSX-Release-${{ hashFiles('depsCache.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-c++-packages-cache-OSX-Release
+          
     - name: Fetch MacOS 11.3 SDK
       working-directory: ${{github.workspace}}/packages/osxcross/tarballs
       run: |
@@ -93,8 +102,8 @@ jobs:
     - name: Build Warf
       working-directory: ${{github.workspace}}
       run: |
-        export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin \
-        export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH \
+        export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
+        export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH
         cmake -S . -B build \
         -GNinja -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_C_COMPILER=o64-clang \
