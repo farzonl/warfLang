@@ -87,12 +87,12 @@ jobs:
         echo "VERSION=$VER" >> $GITHUB_ENV
         echo "APPNAME=$APP" >> $GITHUB_ENV
     
-    - name: Build Warf Cmake
+    - name: Build Warf Cmake x64
       working-directory: ${{github.workspace}}
       run: |
         export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
         export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH
-        cmake -S . -B build \
+        cmake -S . -B build/x64 \
         -GNinja -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_C_COMPILER=o64-clang \
         -DCMAKE_CXX_COMPILER=o64-clang++ \
@@ -101,34 +101,83 @@ jobs:
         -DCMAKE_C_COMPILER_AR=x86_64-apple-darwin20.4-ar \
         -DCMAKE_CXX_COMPILER_AR=x86_64-apple-darwin20.4-ar
     
-    - name: Build Warf with Ninja
+    - name: Build Warf with Ninja x64
       working-directory: ${{github.workspace}}
       run: |
         export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
         export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH
-        ninja -C./build
+        ninja -C./build/x64
     
-    - name: Test Warf with Darling
+    - name: Test Warf x64 with Darling
       working-directory: ${{github.workspace}}
       run: |
-        darling shell build/test/WarfLang_TEST 
+        darling shell build/x64/test/WarfLang_TEST 
+
+    - name: Build Warf Cmake aarch64
+      working-directory: ${{github.workspace}}
+      run: |
+        export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
+        export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH
+        cmake -S . -B build/aarch64 \
+        -GNinja -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_C_COMPILER=oa64-clang \
+        -DCMAKE_CXX_COMPILER=oa64-clang++ \
+        -DCMAKE_SYSTEM_NAME=Darwin -DCMAKE_CROSS_COMPILING=TRUE \
+        -DCMAKE_LINKER=aarch64-apple-darwin20.4-ld \
+        -DCMAKE_C_COMPILER_AR=aarch64-apple-darwin20.4-ar \
+        -DCMAKE_CXX_COMPILER_AR=aarch64-apple-darwin20.4-ar
+
+    - name: Build Warf with Ninja aarch64
+      working-directory: ${{github.workspace}}
+      run: |
+        export PATH=$PATH:${{github.workspace}}/packages/osxcross/target/bin
+        export LD_LIBRARY_PATH=${{github.workspace}}/packages/osxcross/target/lib:$LD_LIBRARY_PATH
+        ninja -C./build/aarch64
     
-    - name: Prepare Binaries for upload 
+    - name: Prepare x64 Binaries for upload 
       shell: bash
       run:  |
-        mkdir ${{github.workspace}}/artifacts
-        cp build/src/lib/lib${{ env.APPNAME }}Core.a ${{github.workspace}}/artifacts
-        cp build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifacts
-        cp build/test/${{ env.APPNAME }}Lang_TEST ${{github.workspace}}/artifacts
+        mkdir ${{github.workspace}}/artifactsX64
+        cp build/x64/src/lib/lib${{ env.APPNAME }}Core.a ${{github.workspace}}/artifactsX64
+        cp build/x64/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifactsX64
+        cp build/x64/test/${{ env.APPNAME }}Lang_TEST ${{github.workspace}}/artifactsX64
 
         pushd ${{github.workspace}}
-        zip -r ${{ env.APPNAME }}-MacOS-osxcross.zip artifacts
+        zip -r ${{ env.APPNAME }}-MacOS-osxcross-x64.zip artifactsX64
+        popd
+    
+    - name: Prepare aarch64 Binaries for upload 
+      shell: bash
+      run:  |
+        mkdir ${{github.workspace}}/artifactsArm64
+        cp build/aarch64/src/lib/lib${{ env.APPNAME }}Core.a ${{github.workspace}}/artifactsArm64
+        cp build/aarch64/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifactsArm64
+        cp build/aarch64/test/${{ env.APPNAME }}Lang_TEST ${{github.workspace}}/artifactsArm64
+
+        pushd ${{github.workspace}}
+        zip -r ${{ env.APPNAME }}-MacOS-osxcross-aarch64.zip artifactsArm64
         popd
 
-    - name: 'Upload Pull Request Artifact'
+    - name: 'Upload x64 Pull Request Artifact'
       uses: actions/upload-artifact@v3
       if: startsWith(github.ref, 'refs/pull/')
       with:
-        name: ${{ env.APPNAME }} Pull Request Artifacts
-        path: ${{ env.APPNAME }}-*.zip
+        name: ${{ env.APPNAME }} x64 Pull Request Artifacts
+        path: ${{ env.APPNAME }}-*-x64.zip
         retention-days: 5
+    
+    - name: 'Upload aarch64 Pull Request Artifact'
+      uses: actions/upload-artifact@v3
+      if: startsWith(github.ref, 'refs/pull/')
+      with:
+        name: ${{ env.APPNAME }} aarch64 Pull Request Artifacts
+        path: ${{ env.APPNAME }}-*-aarch64.zip
+        retention-days: 5
+    
+    - name: Upload binaries to Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/heads/master')
+      with:
+        tag_name: ${{ env.APPNAME }}-${{ env.VERSION }}
+        files: |
+          ${{ env.APPNAME }}-*-aarch64.zip
