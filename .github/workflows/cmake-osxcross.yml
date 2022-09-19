@@ -84,13 +84,6 @@ jobs:
       working-directory: ${{github.workspace}}/packages
       run: |
         sudo dpkg -i darling_0.1.20220704.focal_amd64.deb
-    
-    - name: Test Darling
-      working-directory: ${{github.workspace}}/packages
-      run: |
-        wget https://github.com/farzonl/warfLang/releases/download/Warf-0.0.7/Warf-Darwin-x86_64.zip
-        unzip Warf-Darwin-x86_64.zip
-        darling shell artifacts/Warf -e "a = 4*(5+1)/2" --show_tree
 
     - name: Set variables
       run: |
@@ -112,5 +105,10 @@ jobs:
         -DCMAKE_LINKER=x86_64-apple-darwin20.4-ld \
         -DCMAKE_C_COMPILER_AR=x86_64-apple-darwin20.4-ar \
         -DCMAKE_CXX_COMPILER_AR=x86_64-apple-darwin20.4-ar
+    
+    - name: Test Warf with Darling
+      working-directory: ${{github.workspace}}
+      run: |
+        darling shell build/test/WarfLang_TEST 
     
     
