@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - feature/addFreeBSDBuilds
     paths:
       - '**.cpp'
       - '**.h'
@@ -96,7 +95,7 @@ jobs:
     
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v3
-      if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/feature/addFreeBSDBuilds')
+      if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/feature/master')
       with:
         name: ${{ env.APPNAME }}-freebsd-x86_64.zip
         path: ${{ env.APPNAME }}-*.zip
