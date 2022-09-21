@@ -1,0 +1,50 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && apt install -y \
+    clang lld llvm-dev wget curl cmake ninja-build \
+    ca-certificates vim xz-utils libc++-dev libc++abi-dev
+
+ENV DEBIAN_FRONTEND=dialog
+ENV WORKDIR=root/project
+RUN mkdir $WORKDIR
+
+#Set the working dir to the env variable
+WORKDIR $WORKDIR
+
+RUN cd /tmp && wget http://ftp.plusline.de/FreeBSD/releases/amd64/13.1-RELEASE/base.txz \
+    && mkdir -p /opt/cross-freebsd-13 \
+    && cd /opt/cross-freebsd-13 \
+    && tar -xf /tmp/base.txz ./lib/ ./usr/lib/ ./usr/include/ \
+    && cd /opt/cross-freebsd-13/usr/lib \
+    && find . -xtype l|xargs ls -l|grep ' /lib/' \
+        | awk '{print "ln -sf /opt/cross-freebsd-13"$11 " " $9}' \
+        | /bin/sh && \
+    rm -f /tmp/base.txz
+
+
+COPY test test
+COPY fuzz fuzz
+COPY CMakeLists.txt CMakeLists.txt
+COPY scripts scripts
+COPY cli-test-cases cli-test-cases
+COPY src src
+
+ENV TARGET_TRIPLE=x86_64-unknown-freebsd13.1
+RUN cmake -S . -B build  \
+    -GNinja -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ \
+    -DCMAKE_SYSTEM_NAME=BSD -DCMAKE_CROSS_COMPILING=TRUE \
+    -DCMAKE_SYSROOT=/opt/cross-freebsd-13/ \
+    -DCMAKE_C_COMPILER_TARGET=$TARGET_TRIPLE \
+    -DCMAKE_CXX_COMPILER_TARGET=$TARGET_TRIPLE \
+    -DCMAKE_ASM_COMPILER_TARGET=$TARGET_TRIPLE \
+    -DDISABLE_LIBEDIT=true \
+    -DCMAKE_LINKER=lld \
+    -DCMAKE_CXX_FLAGS="-stdlib=libc++" \
+    -DCMAKE_EXE_LINKER_FLAGS_INIT="-fuse-ld=lld" \
+    -DCMAKE_MODULE_LINKER_FLAGS_INIT="-fuse-ld=lld" \
+    -DCMAKE_SHARED_LINKER_FLAGS_INIT="-fuse-ld=lld"
+
+RUN ninja -C./build
