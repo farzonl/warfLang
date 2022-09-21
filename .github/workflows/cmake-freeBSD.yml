@@ -1,4 +1,4 @@
-name: CMake Aarch64
+name: CMake FreeBSD
 
 on:
   push:
@@ -24,6 +24,7 @@ env:
   TARGET_TRIPLE: x86_64-unknown-freebsd13.1
 
 jobs:
+  
   build:
     runs-on: ubuntu-22.04
     strategy:
@@ -87,16 +88,17 @@ jobs:
         mkdir ${{github.workspace}}/artifacts
         cp build/src/lib/lib${{ env.APPNAME }}Core.a ${{github.workspace}}/artifacts
         cp build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/artifacts
+        cp build/test/${{ env.APPNAME }}Lang_TEST ${{github.workspace}}/artifacts
         
         pushd ${{github.workspace}}
-        zip -r ${{ env.APPNAME }}-$(uname -s)-freebsd-x86_64.zip artifacts
+        zip -r ${{ env.APPNAME }}-freebsd-x86_64.zip artifacts
         popd
     
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v3
-      if: startsWith(github.ref, 'refs/pull/')
+      if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/feature/addFreeBSDBuilds')
       with:
-        name: ${{ env.APPNAME }} Pull Request Artifacts
+        name: ${{ env.APPNAME }}-freebsd-x86_64.zip
         path: ${{ env.APPNAME }}-*.zip
         retention-days: 5
     
@@ -107,3 +109,23 @@ jobs:
         tag_name: ${{ env.APPNAME }}-${{ env.VERSION }}
         files: |
           ${{ env.APPNAME }}-*.zip
+  
+  test:
+    needs: [build]
+    runs-on: macos-12
+    name: Fetch & Run Tests on FreeBSD
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: Warf-freebsd-x86_64.zip
+    - name: Test in FreeBSD
+      id: test
+      uses: vmactions/freebsd-vm@v0
+      with:
+        usesh: true
+        prepare: |
+          pkg install -y unzip
+
+        run: |
+          unzip Warf-freebsd-x86_64.zip
+          ./artifacts/WarfLang_TEST
