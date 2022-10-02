@@ -9,16 +9,18 @@
 #include "Parser.h"
 #include "UnaryExpressionNode.h"
 
-SyntaxTree::SyntaxTree(Records &records, std::unique_ptr<ExpressionNode> root)
-    : mRecords(""), mRootExpression(std::move(root)) {
-  mRecords.swap(records);
+SyntaxTree::SyntaxTree(std::string text)
+    : mRecords(""), mRootExpression(nullptr) {
+      Parser parser(text);
+      mRootExpression = parser.Parse();
+      mRecords.swap(parser.Errors());
 }
 
-ExpressionNode *SyntaxTree::Root() const { return mRootExpression.get(); }
+CompilationUnitNode *SyntaxTree::Root() const { return mRootExpression.get(); }
 
 std::unique_ptr<SyntaxTree> SyntaxTree::Parse(std::string text) {
-  Parser parser(text);
-  return parser.Parse();
+  
+  return std::make_unique<SyntaxTree>(text);
 }
 
 void SyntaxTree::PrintTreeRec(SyntaxNode *sNode, std::ostream &out,
@@ -42,5 +44,5 @@ void SyntaxTree::PrintTreeRec(SyntaxNode *sNode, std::ostream &out,
 }
 
 void SyntaxTree::PrintTree(std::ostream &out) {
-  PrintTreeRec(this->mRootExpression.get(), out);
+  PrintTreeRec(this->mRootExpression->Expression(), out);
 }

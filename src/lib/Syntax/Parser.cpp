@@ -135,8 +135,8 @@ std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
   return ParseBinaryExpression();
 }
 
-std::unique_ptr<SyntaxTree> Parser::Parse() {
+std::unique_ptr<CompilationUnitNode> Parser::Parse() {
 
   auto expression = ParseAssignmentExpression();
-  return std::make_unique<SyntaxTree>(mRecords, std::move(expression));
+  return std::make_unique<CompilationUnitNode>(std::move(expression));
 }

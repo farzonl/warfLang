@@ -10,7 +10,7 @@
 #include "ExpressionNode.h"
 #include "SyntaxToken.h"
 #include "SyntaxTree.h"
-
+#include "CompilationUnitNode.h"
 #include "Error/Record.h"
 
 class Parser {
@@ -31,6 +31,6 @@ class Parser {
 
 public:
   Parser(std::string text);
-  std::unique_ptr<SyntaxTree> Parse();
-  // const Records &Errors() const { return mRecords; }
+  std::unique_ptr<CompilationUnitNode> Parse();
+  const Records &Errors() const { return mRecords; }
 };

@@ -52,6 +52,9 @@ public:
     NumberToken,
     // Not Real Tokens
     IdentifierToken,
+    // Nodes
+    CompilationUnit,
+    // Expressions
     IdentifierExpression,
     UnaryExpression,
     BinaryExpression,
@@ -272,6 +275,7 @@ static const std::unordered_map<SyntaxType, std::string, SyntaxType::Hash>
         {SyntaxType::LiteralExpression, "LiteralExpression"},
         {SyntaxType::AssignmentExpression, "AssignmentExpression"},
         {SyntaxType::UnknownToken, "UnknownToken"},
+        {SyntaxType::CompilationUnit, "CompilationUnit"},
         {SyntaxType::IdentifierToken, "IdentifierToken"},
         {SyntaxType::IdentifierExpression, "IdentifierExpression"},
         {SyntaxType::BreakKeyword, "BreakKeyword"},

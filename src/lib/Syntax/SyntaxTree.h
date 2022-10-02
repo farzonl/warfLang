@@ -6,6 +6,7 @@
 
 #pragma once
 #include "ExpressionNode.h"
+#include "CompilationUnitNode.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -14,14 +15,17 @@
 
 class SyntaxTree {
   Records mRecords;
-  std::unique_ptr<ExpressionNode> mRootExpression;
+  SyntaxTree(std::string text);
+  std::unique_ptr<CompilationUnitNode> mRootExpression;
   void PrintTreeRec(SyntaxNode *sNode, std::ostream &out,
                     std::string indent = "", bool isLast = true);
 
 public:
-  SyntaxTree(Records &records, std::unique_ptr<ExpressionNode> root);
   const Records &Errors() const { return mRecords; }
-  ExpressionNode *Root() const;
+  CompilationUnitNode *Root() const;
   void PrintTree(std::ostream &out = std::cout);
   static std::unique_ptr<SyntaxTree> Parse(std::string text);
+  friend std::unique_ptr<SyntaxTree> std::make_unique<SyntaxTree>(std::string&);
+  friend std::unique_ptr<SyntaxTree> std::make_unique<SyntaxTree>(std::string&&);
+
 };

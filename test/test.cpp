@@ -13,7 +13,7 @@ Value testCaseHelper(std::string s) {
   SymbolTableMgr::init();
   auto syntaxTree = SyntaxTree::Parse(s);
   auto binder = std::make_unique<Binder>();
-  auto boundExpression = binder->BindExpression(syntaxTree->Root());
+  auto boundExpression = binder->BindExpression(syntaxTree->Root()->Expression());
   auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
   return eval->Evaluate();
 }
@@ -25,7 +25,7 @@ bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
     return errorStr == syntaxTree->Errors()[0].Message();
   }
   auto binder = std::make_unique<Binder>();
-  auto boundExpression = binder->BindExpression(syntaxTree->Root());
+  auto boundExpression = binder->BindExpression(syntaxTree->Root()->Expression());
   if (!binder->Errors().empty()) {
     return errorStr == binder->Errors()[0].Message();
   }
