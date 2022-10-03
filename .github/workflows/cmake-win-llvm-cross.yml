@@ -143,10 +143,12 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: Warf-llvm-win-cross.zip
+        path: ${{github.workspace}}
     - name: Test in Windows
       working-directory: ${{github.workspace}}
       shell: pwsh
       run: |
+        (Get-ChildItem -Force).FullName
         Expand-Archive -Force Warf-llvm-win-cross.zip .
         md MacOS
         Expand-Archive Warf-Darwin-x86_64-llvm-win-cross.zip MacOS
