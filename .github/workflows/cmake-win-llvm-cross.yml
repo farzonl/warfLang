@@ -144,11 +144,14 @@ jobs:
       with:
         name: Warf-llvm-win-cross.zip
     - name: Test in Windows
+      working-directory: ${{github.workspace}}
+      shell: pwsh
       run: |
-        unzip Warf-llvm-win-cross.zip
-        unzip Warf-llvm-win-cross.zip/Warf-Darwin-x86_64-llvm-win-cross.zip
-        artifacts/WarfLang_TEST.exe
-        rm -rf artifacts
-        unzip Warf-llvm-win-cross.zip/Warf-Linux-x86_64-llvm-win-cross.zip
-        artifacts/Warf.exe -e "1 + 2"
+        Expand-Archive -Force Warf-llvm-win-cross.zip .
+        md MacOS
+        Expand-Archive Warf-Darwin-x86_64-llvm-win-cross.zip MacOS
+        MacOS\artifacts\WarfLang_TEST.exe
+        md Linux
+        Expand-Archive Warf-Linux-x86_64-llvm-win-cross.zip Linux
+        Linux\artifacts\Warf.exe -e "1 + 2"
     
