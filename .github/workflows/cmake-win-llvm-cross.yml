@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - feature/llvmWinBuild
     paths:
       - '**.cpp'
       - '**.h'
@@ -132,7 +131,7 @@ jobs:
     
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v3
-      if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/feature/llvmWinBuild')
+      if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/master')
       with:
         name: ${{ env.APPNAME }}-llvm-win-cross.zip
         path: ${{ env.APPNAME }}-*.zip
@@ -151,7 +150,6 @@ jobs:
       working-directory: ${{github.workspace}}
       shell: pwsh
       run: |
-        (Get-ChildItem -Force).FullName
         md MacOS
         Expand-Archive Warf-Darwin-x86_64-llvm-win-cross.zip MacOS
         MacOS\artifacts\WarfLang_TEST.exe

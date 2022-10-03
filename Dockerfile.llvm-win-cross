@@ -25,7 +25,8 @@ RUN mkdir packages \
 RUN cd packages \
     && ./../scripts/vfs_overlay.sh
 
-RUN python3 scripts/rename.py packages/win_sysroot
+RUN cd packages \
+    && python3 ../scripts/rename.py win_sysroot
 
 COPY test test
 COPY fuzz fuzz
@@ -35,18 +36,20 @@ COPY src src
 COPY cmake_config cmake_config
 
 RUN cmake -GNinja -S . -B winBuild  \
-    -DBuildTest=TRUE \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
 
 RUN ninja -C./winBuild
 
 # To get wine to run 32 and 64 bit binaries you have to do the install in stages
-RUN dpkg --add-architecture i386
-RUN apt-get update \
-    && apt install -y \
-    wine32
-
-#RUN wine winBuild/test/WarfLang_TEST.exe
+#RUN dpkg --add-architecture i386
+#RUN apt-get update \
+#    && apt install -y \
+#    wine32
+ENV WINEPATH="/root/project/packages/win_sysroot/MSVC/14.11.25547/lib/x64"
+ENV WINEPATH="$WINEPATH;/root/project/packages/win_sysroot/WINSDK/10.0.22621.0/lib/um/x64"
+ENV WINEPATH="$WINEPATH;/root/project/packages/win_sysroot/WINSDK/10.0.22621.0/lib/ucrt/x64"
+RUN wine cmd /C winBuild/src/cli/Warf.exe -e "5*(2+3-1)" --show_tree
 
 
 
