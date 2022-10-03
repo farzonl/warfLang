@@ -44,7 +44,7 @@ jobs:
       shell: bash
       run: |
         source ./emsdk/emsdk_env.sh
-        emcmake cmake -B build .
+        emcmake cmake -DBuildTest=TRUE -B build .
   
     - name: Build (Linux)
       if: matrix.os == 'ubuntu-22.04'
@@ -62,7 +62,7 @@ jobs:
       # We'll use this as our working directory for all subsequent commands
       shell: bash
       run: |
-        emcmake cmake -B build .
+        emcmake cmake -DBuildTest=TRUE -B build . 
   
     - name: Build (MacOS)
       if: matrix.os == 'macOS-latest'

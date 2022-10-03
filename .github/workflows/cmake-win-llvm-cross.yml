@@ -32,12 +32,15 @@ jobs:
       fail-fast: true
     steps:
     - uses: actions/checkout@v2
-    - name: install cross-build dependencies
+    - name: install Linux cross-build dependencies
+      if: matrix.os == 'ubuntu-latest'
       run: |
-        clang-tools clang lld lldb llvm-dev libclang-dev \
-        wget curl ca-certificates zip unzip vim wine \
-        cmake msitools p7zip-full ninja-build python3
-    
+        sudo apt install clang-tools clang lld lldb  \
+        llvm-dev libclang-dev wget curl ca-certificates \
+        zip unzip vim wine cmake msitools p7zip-full ninja-build python3
+    - name: install Mac cross-build dependencies
+      if: matrix.os == 'macos-latest'
+      run: brew install llvm cmake ninja msitools p7zip
     - name: Create Packages Environment
       working-directory: ${{github.workspace}}
       run: |

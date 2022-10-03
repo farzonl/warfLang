@@ -43,6 +43,7 @@ jobs:
       run: |
        cmake -S $GITHUB_WORKSPACE -B $GITHUB_WORKSPACE/build  \
            -GNinja -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+           -DBuildTest=TRUE \
            -DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc-posix \
            -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++-posix \
            -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_CROSS_COMPILING=TRUE

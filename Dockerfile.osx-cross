@@ -70,7 +70,8 @@ RUN export LD_LIBRARY_PATH \
     -DCMAKE_SYSTEM_NAME=Darwin -DCMAKE_CROSS_COMPILING=TRUE \
     -DCMAKE_LINKER=x86_64-apple-darwin20.4-ld \
     -DCMAKE_C_COMPILER_AR=x86_64-apple-darwin20.4-ar \
-    -DCMAKE_CXX_COMPILER_AR=x86_64-apple-darwin20.4-ar
+    -DCMAKE_CXX_COMPILER_AR=x86_64-apple-darwin20.4-ar \
+    -DBuildTest=TRUE
 
 RUN ninja -C./build
 
