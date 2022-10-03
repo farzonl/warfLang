@@ -74,7 +74,7 @@ jobs:
       # access regardless of the host operating system
       shell: bash
       run: |
-       cmake -GNinja -S . -B winBuild  \
+       cmake -GNinja -S . -B build  \
        -DBuildTest=TRUE \
        -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
 

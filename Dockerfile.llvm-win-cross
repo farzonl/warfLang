@@ -18,11 +18,14 @@ WORKDIR $WORKDIR
 COPY scripts scripts
 
 SHELL ["/bin/bash", "-c"]
-RUN scripts/download_win_sysroot.sh
+RUN mkdir packages \
+    && cd packages \
+    && ./../scripts/download_win_sysroot.sh
 
-RUN scripts/vfs_overlay.sh
+RUN cd packages \
+    && ./../scripts/vfs_overlay.sh
 
-RUN python3 scripts/rename.py win_sysroot
+RUN python3 scripts/rename.py packages/win_sysroot
 
 COPY test test
 COPY fuzz fuzz
