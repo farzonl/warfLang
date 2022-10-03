@@ -118,13 +118,13 @@ jobs:
       with:
         name: Warf-Darwin-x86_64-llvm-win-cross.zip
     - name: Test in Windows
-        run: |
-          unzip Warf-Darwin-x86_64-llvm-win-cross.zip
-          artifacts/WarfLang_TEST.exe
+      run: |
+        unzip Warf-Darwin-x86_64-llvm-win-cross.zip
+        artifacts/WarfLang_TEST.exe
     - uses: actions/download-artifact@v2
       with:
         name: Warf-Linux-x86_64-llvm-win-cross.zip
     - name: Test in Windows
-        run: |
-          unzip Warf-Linux-x86_64-llvm-win-cross.zip
-          artifacts/WarfLang_TEST.exe
+      run: |
+        unzip Warf-Linux-x86_64-llvm-win-cross.zip
+        artifacts/WarfLang_TEST.exe
