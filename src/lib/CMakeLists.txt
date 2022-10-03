@@ -19,8 +19,6 @@ set(SourceFiles Evaluator.cpp
 set(HeaderFiles Evaluator.h
 )
 
-#if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR 
-#   CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT CMAKE_CROSS_COMPILING)
 add_library (${PROJECT_NAME} STATIC
   WarfCoreStatic.cpp
   ${SourceFiles} ${HeaderFiles}
@@ -40,29 +38,9 @@ target_include_directories(${PROJECT_NAME}
   Error
   Version
 )
-add_subdirectory(Version)
-#else()
-#add_definitions(-DDISABLE_VERSION=1)
-#add_library (${PROJECT_NAME} STATIC
-#  WarfCoreStatic.cpp
-#   ${SourceFiles} ${HeaderFiles}
-#  $<TARGET_OBJECTS:WarfCore.Syntax>
-#  $<TARGET_OBJECTS:WarfCore.Binding>
-#  $<TARGET_OBJECTS:WarfCore.Symbol>
-#  $<TARGET_OBJECTS:WarfCore.Error>
-#)
-#
-#target_include_directories(${PROJECT_NAME}
-#  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-#  # Add include_directories here
-#  Syntax
-#  Binding
-#  Symbol
-#  Error
-#)
-#endif()
 
 add_subdirectory(Syntax)
 add_subdirectory(Binding)
 add_subdirectory(Symbol)
 add_subdirectory(Error)
+add_subdirectory(Version)
