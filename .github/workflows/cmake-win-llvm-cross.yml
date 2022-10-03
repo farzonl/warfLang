@@ -47,6 +47,9 @@ jobs:
         mkdir packages
         
     - name: Cache C++ dependencies in Packages Directory
+      # Takes twice as long to download the cache as it does to build
+      # the sysroot from scratch. on MacOS. Making caching Linux only. 
+      if: matrix.os == 'ubuntu-latest'
       uses: actions/cache@v3
       with:
         path: |
