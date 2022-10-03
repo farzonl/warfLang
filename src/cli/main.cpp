@@ -131,10 +131,10 @@ void consoleRead(bool &showTree) {
 }
 
 void startRepl(bool showTree) {
-  #if !defined(DISABLE_VERSION)
+#if !defined(DISABLE_VERSION)
   WarfHelper::printVersion();
-  #endif
-  
+#endif
+
   while (true) {
     try {
       consoleRead(showTree);
