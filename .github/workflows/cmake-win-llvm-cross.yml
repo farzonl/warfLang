@@ -142,14 +142,13 @@ jobs:
     steps:
     - uses: actions/download-artifact@v2
       with:
-        name: Warf-Darwin-x86_64-llvm-win-cross.zip
+        name: Warf-llvm-win-cross.zip
     - name: Test in Windows
       run: |
-        unzip Warf-Darwin-x86_64-llvm-win-cross.zip
+        unzip Warf-llvm-win-cross.zip
+        unzip Warf-llvm-win-cross.zip/Warf-Darwin-x86_64-llvm-win-cross.zip
         artifacts/WarfLang_TEST.exe
-    - uses: actions/download-artifact@v2
-      with:
-        name: Warf-Linux-x86_64-llvm-win-cross.zip
-    - name: Test in Windows
-      run: |
-        unzip Warf-Linux-x86_64-llvm-win-cross.zip
+        rm -rf artifacts
+        unzip Warf-llvm-win-cross.zip/Warf-Linux-x86_64-llvm-win-cross.zip
+        artifacts/Warf.exe -e "1 + 2"
+    
