@@ -123,6 +123,7 @@ jobs:
         -GNinja -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_C_COMPILER=oa64-clang \
         -DCMAKE_CXX_COMPILER=oa64-clang++ \
+        -DBuildTest=TRUE \
         -DCMAKE_SYSTEM_NAME=Darwin -DCMAKE_CROSS_COMPILING=TRUE \
         -DCMAKE_LINKER=aarch64-apple-darwin20.4-ld \
         -DCMAKE_C_COMPILER_AR=aarch64-apple-darwin20.4-ar \
