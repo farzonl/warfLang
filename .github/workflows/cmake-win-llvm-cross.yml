@@ -1,0 +1,130 @@
+name: CMake llvm cross build
+
+on:
+  push:
+    branches:
+      - master
+      - feature/llvmWinBuild
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - '**CMakeLists.txt'
+      - .github/workflows/cmake-win-llvm-cross
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - '**CMakeLists.txt'
+      - .github/workflows/cmake-win-llvm-cross
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+      fail-fast: true
+    steps:
+    - uses: actions/checkout@v2
+    - name: install cross-build dependencies
+      run: |
+        clang-tools clang lld lldb llvm-dev libclang-dev \
+        wget curl ca-certificates zip unzip vim wine \
+        cmake msitools p7zip-full ninja-build python3
+    
+    - name: Create Packages Environment
+      working-directory: ${{github.workspace}}
+      run: |
+        mkdir packages
+        
+    - name: Cache C++ dependencies in Packages Directory
+      uses: actions/cache@v3
+      with:
+        path: |
+          packages
+        key: ${{ runner.OS }}-c++-packages-cache-win-llvm-cross-Release-${{ hashFiles('scripts/download_win_sysroot.sh') }}
+        restore-keys: |
+          ${{ runner.OS }}-c++-packages-cache-win-llvm-cross-Release
+    
+    - name: setup sysroot
+      working-directory: ${{github.workspace}}
+      shell: bash
+      run: |
+        cd packages
+        ../scripts/download_win_sysroot.sh
+        ../scripts/vfs_overlay.sh
+        python3 scripts/rename.py win_sysroot
+
+    - name: Create Build Environment
+      # Some projects don't allow in-source building, so create a separate build directory
+      # We'll use this as our working directory for all subsequent commands
+      run: cmake -E make_directory ${{github.workspace}}/build
+    
+    - name: Configure CMake
+      # Use a bash shell so we can use the same syntax for environment variable
+      # access regardless of the host operating system
+      shell: bash
+      run: |
+       cmake -GNinja -S . -B winBuild  \
+       -DBuildTest=TRUE \
+       -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      # Execute the build.  You can specify a specific target with "--target <NAME>"
+      run: cmake --build . --config $BUILD_TYPE
+
+    - name: Set variables
+      run: |
+        APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
+        VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
+        echo "VERSION=$VER" >> $GITHUB_ENV
+        echo "APPNAME=$APP" >> $GITHUB_ENV
+    
+    - name: Prepare Binaries for upload (Mac\Linux)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
+      shell: bash
+      run:  |
+        mkdir ${{github.workspace}}/artifacts
+        cp build/src/lib/lib${{ env.APPNAME }}Core$.lib ${{github.workspace}}/artifacts
+        cp build/src/cli/${{ env.APPNAME }}.exe ${{github.workspace}}/artifacts
+        
+        pushd ${{github.workspace}}
+        zip -r ${{ env.APPNAME }}-$(uname -s)-$(uname -m)-llvm-win-cross.zip artifacts
+        popd
+
+    
+    - name: 'Upload Pull Request Artifact'
+      uses: actions/upload-artifact@v3
+      if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/master')
+      with:
+        name: ${{ env.APPNAME }}-llvm-win-cross.zip
+        path: ${{ env.APPNAME }}-*.zip
+        retention-days: 5
+      
+  test:
+    needs: [build]
+    runs-on: windows-latest
+    name: Fetch & Run Tests on Windows
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: Warf-Darwin-x86_64-llvm-win-cross.zip
+    - name: Test in Windows
+        run: |
+          unzip Warf-Darwin-x86_64-llvm-win-cross.zip
+          artifacts/WarfLang_TEST.exe
+    - uses: actions/download-artifact@v2
+      with:
+        name: Warf-Linux-x86_64-llvm-win-cross.zip
+    - name: Test in Windows
+        run: |
+          unzip Warf-Linux-x86_64-llvm-win-cross.zip
+          artifacts/WarfLang_TEST.exe

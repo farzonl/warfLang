@@ -1,0 +1,50 @@
+From ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && apt install -y \
+    clang-tools clang lld lldb llvm-dev libclang-dev \
+    wget curl ca-certificates zip unzip vim wine \
+    cmake msitools p7zip-full ninja-build
+
+ENV DEBIAN_FRONTEND=dialog
+ENV WORKDIR=root/project
+RUN mkdir $WORKDIR
+
+#Set the working dir to the env variable
+WORKDIR $WORKDIR
+
+
+COPY scripts scripts
+
+SHELL ["/bin/bash", "-c"]
+RUN scripts/download_win_sysroot.sh
+
+RUN scripts/vfs_overlay.sh
+
+RUN python3 scripts/rename.py win_sysroot
+
+COPY test test
+COPY fuzz fuzz
+COPY CMakeLists.txt CMakeLists.txt
+COPY cli-test-cases cli-test-cases
+COPY src src
+COPY cmake_config cmake_config
+
+RUN cmake -GNinja -S . -B winBuild  \
+    -DBuildTest=TRUE \
+    -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
+
+RUN ninja -C./winBuild
+
+# To get wine to run 32 and 64 bit binaries you have to do the install in stages
+RUN dpkg --add-architecture i386
+RUN apt-get update \
+    && apt install -y \
+    wine32
+
+#RUN wine winBuild/test/WarfLang_TEST.exe
+
+
+
+

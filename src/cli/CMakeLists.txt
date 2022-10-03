@@ -4,11 +4,16 @@ set(SOURCE_FILES
                  # add files here
                  main.cpp)
 
+if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR 
+   CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT CMAKE_CROSS_COMPILING)
 if(WIN32)
 list(APPEND SOURCE_FILES
     ${CMAKE_CURRENT_BINARY_DIR}/../lib/Version/VersionResource.rc
     ${CMAKE_CURRENT_BINARY_DIR}/../lib/Version/VersionInfo.h
 )
+endif()
+else()
+add_definitions(-DDISABLE_VERSION=1)
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR}/src/lib)
