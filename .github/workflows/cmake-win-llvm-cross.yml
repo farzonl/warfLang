@@ -101,8 +101,8 @@ jobs:
         echo "VERSION=$VER" >> $GITHUB_ENV
         echo "APPNAME=$APP" >> $GITHUB_ENV
     
-    - name: Prepare Binaries for upload (Mac\Linux)
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
+    - name: Prepare Binaries for upload (Linux)
+      if: matrix.os == 'ubuntu-latest'
       shell: bash
       run:  |
         mkdir ${{github.workspace}}/artifacts
@@ -112,11 +112,24 @@ jobs:
         pushd ${{github.workspace}}
         zip -r ${{ env.APPNAME }}-$(uname -s)-$(uname -m)-llvm-win-cross.zip artifacts
         popd
+    
+    - name: Prepare Binaries for upload (Mac)
+      if: matrix.os == 'macOS-latest'
+      shell: bash
+      run:  |
+        mkdir ${{github.workspace}}/artifacts
+        cp build/src/lib/${{ env.APPNAME }}Core.lib ${{github.workspace}}/artifacts
+        cp build/src/cli/${{ env.APPNAME }}.exe ${{github.workspace}}/artifacts
+        cp build/test/${{ env.APPNAME }}Lang_TEST.exe ${{github.workspace}}/artifacts
+        
+        pushd ${{github.workspace}}
+        zip -r ${{ env.APPNAME }}-$(uname -s)-$(uname -m)-llvm-win-cross.zip artifacts
+        popd
 
     
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v3
-      if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/master')
+      if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/feature/llvmWinBuild')
       with:
         name: ${{ env.APPNAME }}-llvm-win-cross.zip
         path: ${{ env.APPNAME }}-*.zip
@@ -140,4 +153,3 @@ jobs:
     - name: Test in Windows
       run: |
         unzip Warf-Linux-x86_64-llvm-win-cross.zip
-        artifacts/WarfLang_TEST.exe
