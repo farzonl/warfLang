@@ -69,13 +69,23 @@ jobs:
       # We'll use this as our working directory for all subsequent commands
       run: cmake -E make_directory ${{github.workspace}}/build
     
-    - name: Configure CMake
+    - name: Configure CMake (MacOS)
       # Use a bash shell so we can use the same syntax for environment variable
       # access regardless of the host operating system
       shell: bash
+      if: matrix.os == 'macos-latest'
       run: |
        cmake -GNinja -S . -B build  \
        -DBuildTest=TRUE \
+       -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
+    
+    - name: Configure CMake Linux
+      # Use a bash shell so we can use the same syntax for environment variable
+      # access regardless of the host operating system
+      shell: bash
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+       cmake -GNinja -S . -B build  \
        -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
 
     - name: Build
@@ -96,7 +106,7 @@ jobs:
       shell: bash
       run:  |
         mkdir ${{github.workspace}}/artifacts
-        cp build/src/lib/lib${{ env.APPNAME }}Core$.lib ${{github.workspace}}/artifacts
+        cp build/src/lib/${{ env.APPNAME }}Core.lib ${{github.workspace}}/artifacts
         cp build/src/cli/${{ env.APPNAME }}.exe ${{github.workspace}}/artifacts
         
         pushd ${{github.workspace}}
