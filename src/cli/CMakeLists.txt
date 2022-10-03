@@ -9,8 +9,6 @@ list(APPEND SOURCE_FILES
     ${CMAKE_CURRENT_BINARY_DIR}/../lib/Version/VersionResource.rc
     ${CMAKE_CURRENT_BINARY_DIR}/../lib/Version/VersionInfo.h
 )
-else()
-add_definitions(-DDISABLE_VERSION=1)
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR}/src/lib)

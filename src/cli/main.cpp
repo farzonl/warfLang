@@ -6,9 +6,7 @@
 #include "Evaluator.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
-#if !defined(DISABLE_VERSION)
 #include "Version/version.h"
-#endif
 #include <fstream>
 #include <functional>
 
@@ -131,9 +129,7 @@ void consoleRead(bool &showTree) {
 }
 
 void startRepl(bool showTree) {
-#if !defined(DISABLE_VERSION)
   WarfHelper::printVersion();
-#endif
 
   while (true) {
     try {
