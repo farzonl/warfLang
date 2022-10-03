@@ -4,7 +4,7 @@ set(SOURCE_FILES
                  # add files here
                  main.cpp)
 
-if(WIN32)
+if(WIN32 AND NOT DISABLE_VERSION)
 list(APPEND SOURCE_FILES
     ${CMAKE_CURRENT_BINARY_DIR}/../lib/Version/VersionResource.rc
     ${CMAKE_CURRENT_BINARY_DIR}/../lib/Version/VersionInfo.h

@@ -48,6 +48,7 @@ jobs:
       run: |
         cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
               -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
+              -DBuildTest=TRUE \
               -DCMAKE_C_COMPILER=$(brew --prefix llvm)/bin/clang \
               -DCMAKE_CXX_COMPILER=$(brew --prefix llvm)/bin/clang++
   
@@ -63,6 +64,7 @@ jobs:
       run: |
         cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
               -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
+              -DBuildTest=TRUE \
               -DCMAKE_C_COMPILER=clang \
               -DCMAKE_CXX_COMPILER=clang++
 

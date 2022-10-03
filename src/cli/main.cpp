@@ -130,6 +130,7 @@ void consoleRead(bool &showTree) {
 
 void startRepl(bool showTree) {
   WarfHelper::printVersion();
+
   while (true) {
     try {
       consoleRead(showTree);

@@ -61,6 +61,7 @@ RUN cmake -S . -B build  \
           -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ \
           -DCMAKE_ASM_COMPILER=clang \
           -DCMAKE_INSTALL_PREFIX=/ \
+          -DBuildTest=TRUE \
           -DCMAKE_SYSROOT=$HOME/sysroots/aarch64-linux-gnu \
           -DCMAKE_C_COMPILER_TARGET=$TARGET_TRIPLE \
           -DCMAKE_CXX_COMPILER_TARGET=$TARGET_TRIPLE \

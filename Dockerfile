@@ -18,7 +18,7 @@ COPY src src
 
 RUN cmake -B build -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_CXX_FLAGS="-coverage"  -DCMAKE_C_COMPILER=clang \
-    -DCMAKE_CXX_COMPILER=clang++ -DBUILD_FUZZER=true
+    -DCMAKE_CXX_COMPILER=clang++ -DBUILD_FUZZER=true -DBuildTest=TRUE
 RUN make -C./build
 #
 RUN ./build/test/WarfLang_TEST

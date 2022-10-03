@@ -23,6 +23,7 @@ COPY src src
 RUN cmake -S . -B build  \
     -GNinja -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc-posix -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++-posix \
+    -DBuildTest=TRUE \
     -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_CROSS_COMPILING=TRUE
 
 RUN ninja -C./build

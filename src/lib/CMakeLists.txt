@@ -21,7 +21,7 @@ set(HeaderFiles Evaluator.h
 
 add_library (${PROJECT_NAME} STATIC
   WarfCoreStatic.cpp
-   ${SourceFiles} ${HeaderFiles}
+  ${SourceFiles} ${HeaderFiles}
   $<TARGET_OBJECTS:WarfCore.Syntax>
   $<TARGET_OBJECTS:WarfCore.Binding>
   $<TARGET_OBJECTS:WarfCore.Symbol>
@@ -35,6 +35,8 @@ target_include_directories(${PROJECT_NAME}
   Syntax
   Binding
   Symbol
+  Error
+  Version
 )
 
 add_subdirectory(Syntax)

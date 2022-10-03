@@ -41,6 +41,7 @@ RUN cmake -S . -B build  \
     -DCMAKE_CXX_COMPILER_TARGET=$TARGET_TRIPLE \
     -DCMAKE_ASM_COMPILER_TARGET=$TARGET_TRIPLE \
     -DDISABLE_LIBEDIT=true \
+    -DBuildTest=TRUE \
     -DCMAKE_LINKER=lld \
     -DCMAKE_CXX_FLAGS="-stdlib=libc++" \
     -DCMAKE_EXE_LINKER_FLAGS_INIT="-fuse-ld=lld" \
