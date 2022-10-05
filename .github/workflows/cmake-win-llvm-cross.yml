@@ -88,7 +88,6 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
        cmake -GNinja -S . -B build  \
-       -DDISABLE_VERSION=TRUE \
        -DBuildTest=TRUE \
        -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
 
