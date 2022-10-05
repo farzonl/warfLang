@@ -89,6 +89,7 @@ jobs:
       run: |
        cmake -GNinja -S . -B build  \
        -DDISABLE_VERSION=TRUE \
+       -DBuildTest=TRUE \
        -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
 
     - name: Build
@@ -103,21 +104,8 @@ jobs:
         VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
         echo "VERSION=$VER" >> $GITHUB_ENV
         echo "APPNAME=$APP" >> $GITHUB_ENV
-    
-    - name: Prepare Binaries for upload (Linux)
-      if: matrix.os == 'ubuntu-latest'
-      shell: bash
-      run:  |
-        mkdir ${{github.workspace}}/artifacts
-        cp build/src/lib/${{ env.APPNAME }}Core.lib ${{github.workspace}}/artifacts
-        cp build/src/cli/${{ env.APPNAME }}.exe ${{github.workspace}}/artifacts
-        
-        pushd ${{github.workspace}}
-        zip -r ${{ env.APPNAME }}-$(uname -s)-$(uname -m)-llvm-win-cross.zip artifacts
-        popd
-    
-    - name: Prepare Binaries for upload (Mac)
-      if: matrix.os == 'macOS-latest'
+
+    - name: Prepare Binaries for upload
       shell: bash
       run:  |
         mkdir ${{github.workspace}}/artifacts
@@ -128,8 +116,7 @@ jobs:
         pushd ${{github.workspace}}
         zip -r ${{ env.APPNAME }}-$(uname -s)-$(uname -m)-llvm-win-cross.zip artifacts
         popd
-
-    
+ 
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v3
       if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/master')
@@ -153,8 +140,10 @@ jobs:
       run: |
         md MacOS
         Expand-Archive Warf-Darwin-x86_64-llvm-win-cross.zip MacOS
+        MacOS\artifacts\Warf.exe -e "1 + 2"
         MacOS\artifacts\WarfLang_TEST.exe
         md Linux
         Expand-Archive Warf-Linux-x86_64-llvm-win-cross.zip Linux
         Linux\artifacts\Warf.exe -e "1 + 2"
+        Linux\artifacts\WarfLang_TEST.exe
     
