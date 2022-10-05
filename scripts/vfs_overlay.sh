@@ -1,5 +1,20 @@
 #!/bin/bash
 
+toLower () {
+  echo $1 | tr '[:upper:]' '[:lower:]'
+}
+
+specialCases() {
+    case $1 in
+        'bcrypt.h') echo 'Bcrypt.h';;
+        'concurrencysal.h') echo 'ConcurrencySal.h';;
+        'driverspecs.h') echo 'DriverSpecs.h';;
+        'specstrings.h') echo 'SpecStrings.h';;
+        'wlantypes.h') echo 'WlanTypes.h';;
+        *) echo $1;;
+    esac
+}
+
 # Create a VFS overlay of the Win SDK for a case insensitive file system
 echo "version: 0" > winsdk_vfs_overlay.yaml
 echo "case-sensitive: false" >> winsdk_vfs_overlay.yaml
@@ -16,7 +31,7 @@ for dir in $(find $PWD/win_sysroot/WINSDK/$WIN_SDK_VERSION/include/ -type d); do
         echo "    type: directory" >> winsdk_vfs_overlay.yaml
         echo "    contents:" >> winsdk_vfs_overlay.yaml
         for f in $files; do
-            echo "      - name: \"$(basename $f)\"" >> winsdk_vfs_overlay.yaml
+            echo "      - name: \"$(specialCases $(toLower $(basename $f)))\"" >> winsdk_vfs_overlay.yaml
             echo "        type: file" >> winsdk_vfs_overlay.yaml
             echo "        external-contents: \"$f\"" >> winsdk_vfs_overlay.yaml
         done
@@ -30,7 +45,7 @@ for dir in $(find $PWD/win_sysroot/MSVC/$MSVC_VERSION/include/ -type d); do
         echo "    type: directory" >> winsdk_vfs_overlay.yaml
         echo "    contents:" >> winsdk_vfs_overlay.yaml
         for f in $files; do
-            echo "      - name: \"$(basename $f)\"" >> winsdk_vfs_overlay.yaml
+            echo "      - name: \"$(specialCases $(toLower $(basename $f)))\"" >> winsdk_vfs_overlay.yaml
             echo "        type: file" >> winsdk_vfs_overlay.yaml
             echo "        external-contents: \"$f\"" >> winsdk_vfs_overlay.yaml
         done

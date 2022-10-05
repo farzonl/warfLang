@@ -37,20 +37,22 @@ COPY cmake_config cmake_config
 
 RUN cmake -GNinja -S . -B winBuild  \
     -DCMAKE_BUILD_TYPE=Release \
+    -DBuildTest=TRUE \
     -DDISABLE_VERSION=TRUE \
     -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
 
 RUN ninja -C./winBuild
-
-# To get wine to run 32 and 64 bit binaries you have to do the install in stages
-#RUN dpkg --add-architecture i386
-#RUN apt-get update \
-#    && apt install -y \
-#    wine32
+#
+## To get wine to run 32 and 64 bit binaries you have to do the install in stages
+##RUN dpkg --add-architecture i386
+##RUN apt-get update \
+##    && apt install -y \
+##    wine32
 ENV WINEPATH="/root/project/packages/win_sysroot/MSVC/14.11.25547/lib/x64"
 ENV WINEPATH="$WINEPATH;/root/project/packages/win_sysroot/WINSDK/10.0.22621.0/lib/um/x64"
 ENV WINEPATH="$WINEPATH;/root/project/packages/win_sysroot/WINSDK/10.0.22621.0/lib/ucrt/x64"
 RUN wine cmd /C winBuild/src/cli/Warf.exe -e "5*(2+3-1)" --show_tree
+RUN wine cmd /C winBuild/test/WarfLang_TEST.exe
 
 
 
