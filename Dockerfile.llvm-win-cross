@@ -22,8 +22,7 @@ RUN mkdir packages \
     && cd packages \
     && ./../scripts/download_win_sysroot.sh
 
-RUN ls scripts \
-    && cd packages \
+RUN cd packages \
     && ./../scripts/vfs_overlay.sh
 
 RUN cd packages \
