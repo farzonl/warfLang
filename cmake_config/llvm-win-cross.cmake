@@ -76,3 +76,5 @@ set(F_FLAGS "-fms-compatibility-version=19.11 -fms-extensions -fdelayed-template
 set(COMPILE_FLAGS "--target=${TARGET_TRIPLE} -nostdlib -lmsvcrt ${F_FLAGS}" )
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  ${COMPILE_FLAG}" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAG}" CACHE STRING "" FORCE)
+
+set(CMAKE_RC_FLAGS "${CMAKE_RC_FLAGS} -Xclang -ivfsoverlay -Xclang ${WiN_VFS_OVERLAY}")
