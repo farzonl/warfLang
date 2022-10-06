@@ -50,30 +50,15 @@ link_directories(
 add_compile_options(
     # XCLANG_FLAGS
     "SHELL:-Xclang -ivfsoverlay -Xclang ${WiN_VFS_OVERLAY}"
-    "SHELL:-Xclang --dependent-lib=oldnames"
-    "SHELL:-Xclang --dependent-lib=ucrt"
-    "SHELL:-Xclang --dependent-lib=vcruntime"
-    "SHELL:-Xclang --dependent-lib=msvcrt$<$<CONFIG:Debug>:d>"
-    "SHELL:-Xclang -disable-llvm-verifier"
-    # WARNINGS
-    -Wno-msvc-not-found
-    # GNU undefs
-    "-U__GNUC__"
-    "-U__gnu_linux__" 
-    "-U__GNUC_MINOR__" 
-    "-U__GNUC_PATCHLEVEL__" 
-    "-U__GNUC_STDC_INLINE__"
-    #Definitions
-    "-DWIN32" 
-    "-D_WIN#@"
-    "-D_MT" 
-    "-D_DLL" 
-    "-D_CRT_SECURE_NO_WARNINGS" 
-    "-D_CRT_NONSTDC_NO_DEPRECATE"
 )
 
+set(GNU_UNDEF_FLAGS "-U__GNUC__ -U__gnu_linux__ -U__GNUC_MINOR__ -U__GNUC_PATCHLEVEL__ -U__GNUC_STDC_INLINE__")
+set(XCLANG_FLAGS "-Xclang '--dependent-lib=msvcrt' -Xclang '--dependent-lib=ucrt' -Xclang '--dependent-lib=oldnames' -Xclang '--dependent-lib=vcruntime'")
 set(F_FLAGS "-fms-compatibility-version=19.11 -fms-extensions -fdelayed-template-parsing -fexceptions -mthread-model posix -fno-threadsafe-statics")
-set(COMPILE_FLAGS "--target=${TARGET_TRIPLE} -nostdlib -lmsvcrt ${F_FLAGS}" )
+set(DEF_FLAGS  "-DWIN32 -D_WIN#@ -D_MT -D_DLL -D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE")
+set(WARN_FLAGS "-Wno-msvc-not-found")
+set(COMPILE_FLAGS "--target=${TARGET_TRIPLE} -nostdlib -lmsvcrt ${F_FLAGS} ${DEF_FLAGS} ${XCLANG_FLAGS} ${GNU_UNDEF_FLAGS} ${WARN_FLAGS}" )
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  ${COMPILE_FLAG}" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAG}" CACHE STRING "" FORCE)
 set(CMAKE_RC_FLAGS "${CMAKE_RC_FLAGS} -Xclang -ivfsoverlay -Xclang ${WiN_VFS_OVERLAY}")
