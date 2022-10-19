@@ -11,15 +11,15 @@
 
 SyntaxTree::SyntaxTree(std::string text)
     : mRecords(""), mRootExpression(nullptr) {
-      Parser parser(text);
-      mRootExpression = parser.Parse();
-      mRecords.swap(parser.Errors());
+  Parser parser(text);
+  mRootExpression = parser.Parse();
+  mRecords.swap(parser.Errors());
 }
 
 CompilationUnitNode *SyntaxTree::Root() const { return mRootExpression.get(); }
 
 std::unique_ptr<SyntaxTree> SyntaxTree::Parse(std::string text) {
-  
+
   return std::make_unique<SyntaxTree>(text);
 }
 

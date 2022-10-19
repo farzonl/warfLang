@@ -12,7 +12,7 @@ int32_t TextSpan::Length() const { return mEnd - mStart; }
 
 int32_t TextSpan::End() const { return mEnd - 1; }
 
-  void TextSpan::updateTextSpan(int start, int end) {
-    mStart = start;
-    mEnd = end;
-  }
+void TextSpan::updateTextSpan(int start, int end) {
+  mStart = start;
+  mEnd = end;
+}

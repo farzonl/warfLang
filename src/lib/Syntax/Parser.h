@@ -7,11 +7,11 @@
 #pragma once
 #include <memory>
 
+#include "CompilationUnitNode.h"
+#include "Error/Record.h"
 #include "ExpressionNode.h"
 #include "SyntaxToken.h"
 #include "SyntaxTree.h"
-#include "CompilationUnitNode.h"
-#include "Error/Record.h"
 
 class Parser {
   std::vector<std::shared_ptr<SyntaxToken>> mTokens;

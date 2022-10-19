@@ -7,6 +7,9 @@ set(SourceFiles
     BoundUnaryExpressionNode.cpp
     BoundAssignmentExpressionNode.cpp
     BoundIdentifierExpressionNode.cpp
+    BoundStatement.cpp
+    BoundBlockStatement.cpp
+    BoundExpressionStatement.cpp
     ValueType.cpp
     
 )
@@ -18,6 +21,9 @@ set(HeaderFiles
     BoundUnaryExpressionNode.h
     BoundAssignmentExpressionNode.h
     BoundIdentifierExpressionNode.h
+    BoundStatement.h
+    BoundBlockStatement.h
+    BoundExpressionStatement.h
     ValueType.h
 )
 

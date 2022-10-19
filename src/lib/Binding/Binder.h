@@ -17,10 +17,17 @@ class UnaryExpressionNode;
 class BinaryExpressionNode;
 class AssignmentExpressionNode;
 class IdentifierExpressionNode;
+class ExpressionStatementSyntax;
+class BlockStatementSyntax;
+class StatementSyntax;
+
+class BoundStatement;
 
 class Binder {
 public:
   std::unique_ptr<BoundExpressionNode> BindExpression(ExpressionNode *syntax);
+  std::unique_ptr<BoundStatement>
+  BindStatement(std::shared_ptr<StatementSyntax> syntax);
   const Records &Errors() const { return mRecords; }
   Binder() : mRecords("Binder") {}
 
@@ -36,4 +43,8 @@ private:
   BindAssignmentExpression(AssignmentExpressionNode *assignment);
   std::unique_ptr<BoundExpressionNode>
   BindIdentifierExpression(IdentifierExpressionNode *identifier);
+  std::unique_ptr<BoundStatement>
+  BindBlockStatement(BlockStatementSyntax *syntax);
+  std::unique_ptr<BoundStatement>
+  BindExpressionStatement(ExpressionStatementSyntax *syntax);
 };

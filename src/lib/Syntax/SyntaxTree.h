@@ -5,8 +5,8 @@
  */
 
 #pragma once
-#include "ExpressionNode.h"
 #include "CompilationUnitNode.h"
+#include "ExpressionNode.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,7 +25,8 @@ public:
   CompilationUnitNode *Root() const;
   void PrintTree(std::ostream &out = std::cout);
   static std::unique_ptr<SyntaxTree> Parse(std::string text);
-  friend std::unique_ptr<SyntaxTree> std::make_unique<SyntaxTree>(std::string&);
-  friend std::unique_ptr<SyntaxTree> std::make_unique<SyntaxTree>(std::string&&);
-
+  friend std::unique_ptr<SyntaxTree>
+  std::make_unique<SyntaxTree>(std::string &);
+  friend std::unique_ptr<SyntaxTree>
+  std::make_unique<SyntaxTree>(std::string &&);
 };

@@ -5,6 +5,8 @@
 #include "Binder.h"
 #include "BoundAssignmentExpressionNode.h"
 #include "BoundBinaryExpressionNode.h"
+#include "BoundBlockStatement.h"
+#include "BoundExpressionStatement.h"
 #include "BoundIdentifierExpressionNode.h"
 #include "BoundLiteralExpressionNode.h"
 #include "BoundUnaryExpressionNode.h"
@@ -19,6 +21,57 @@
 #include "Symbol/VariableSymbol.h"
 
 #include <sstream>
+
+class StatementSyntax {
+public:
+  virtual ~StatementSyntax() {}
+};
+
+class ExpressionStatementSyntax : public StatementSyntax {
+public:
+  ExpressionNode *Expression() { return nullptr; }
+  ~ExpressionStatementSyntax() {}
+};
+
+class BlockStatementSyntax : public StatementSyntax {
+public:
+  std::vector<std::shared_ptr<StatementSyntax>> Statements;
+  ~BlockStatementSyntax() {}
+};
+
+std::unique_ptr<BoundStatement>
+Binder::BindStatement(std::shared_ptr<StatementSyntax> syntax) {
+  if (BlockStatementSyntax *blockStatement =
+          dynamic_cast<BlockStatementSyntax *>(syntax.get())) {
+    return std::move(BindBlockStatement(blockStatement));
+  }
+  if (ExpressionStatementSyntax *expressionStatement =
+          dynamic_cast<ExpressionStatementSyntax *>(syntax.get())) {
+    return std::move(BindExpressionStatement(expressionStatement));
+  }
+  std::stringstream diagmsg;
+  // diagmsg << "Unexpected syntax " << SyntaxTypeStrMap.at(syntax->GetValue());
+  throw std::runtime_error(diagmsg.str());
+}
+
+std::unique_ptr<BoundStatement>
+Binder::BindBlockStatement(BlockStatementSyntax *syntax) {
+  std::vector<std::unique_ptr<BoundStatement>> statements;
+  //_scope = new BoundScope(_scope);
+  for (auto statementSyntax : syntax->Statements) {
+    auto statement = BindStatement(statementSyntax);
+    statements.push_back(std::move(statement));
+  }
+
+  //_scope = _scope.Parent;
+  return std::make_unique<BoundBlockStatement>(statements);
+}
+
+std::unique_ptr<BoundStatement>
+Binder::BindExpressionStatement(ExpressionStatementSyntax *syntax) {
+  auto expression = BindExpression(syntax->Expression());
+  return std::make_unique<BoundExpressionStatement>(std::move(expression));
+}
 
 std::unique_ptr<BoundExpressionNode>
 Binder::BindExpression(ExpressionNode *node) {

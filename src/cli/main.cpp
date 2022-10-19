@@ -78,9 +78,10 @@ void printUsage() {
 void evaluate(std::string &line, bool showTree) {
   auto globalScope = SymbolTableMgr::getGlobalScope();
   auto syntaxTree = SyntaxTree::Parse(line);
-  globalScope->GetTextSpan()->updateTextSpan(0,line.size());
+  globalScope->GetTextSpan()->updateTextSpan(0, line.size());
   auto binder = std::make_unique<Binder>();
-  auto boundExpression = binder->BindExpression(syntaxTree->Root()->Expression());
+  auto boundExpression =
+      binder->BindExpression(syntaxTree->Root()->Expression());
 
   if (showTree) {
     syntaxTree->PrintTree();

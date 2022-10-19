@@ -10,16 +10,25 @@
 
 enum class BoundNodeType {
   Unknown,
+  // Statements
+  BlockStatement,
+  ExpressionStatement,
+
+  // Expressions
   AssignmentExpression,
   BinaryExpression,
   UnaryExpression,
   LiteralExpression
 };
 
-class BoundExpressionNode {
+class BoundNode {
 public:
-  BoundExpressionNode() = default;
+  BoundNode() = default;
+  virtual ~BoundNode() {}
   virtual BoundNodeType NodeType() = 0;
+};
+
+class BoundExpressionNode : public BoundNode {
+public:
   virtual Type GetType() = 0;
-  virtual ~BoundExpressionNode() {}
 };
