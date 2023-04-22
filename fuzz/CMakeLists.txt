@@ -1,26 +1,23 @@
 project(${CMAKE_PROJECT_NAME}_FUZZ)
 
-set(CMAKE_C_COMPILER:FILEPATH /usr/local/opt/llvm/bin/clang)
-set(CMAKE_CXX_COMPILER:FILEPATH /usr/local/opt/llvm/bin/clang++)
-
-#/usr/local/opt/llvm/lib/clang/12.0.1/lib/darwin/libclang_rt.fuzzer_osx.a
-#/usr/local/opt/llvm/lib/clang/12.0.1/lib/darwin/libclang_rt.asan_osx_dynamic.dylib
-
-#/usr/local/opt/llvm/lib/clang/13.0.1/lib/darwin/libclang_rt.asan_osx_dynamic.dylib
-
-#/usr/local/opt/llvm/lib/clang/14.0.6/lib/darwin/libclang_rt.fuzzer_osx.a
-#/usr/local/opt/llvm/lib/clang/14.0.6/lib/darwin/libclang_rt.asan_osx_dynamic.dylib 
-
 include_directories(${CMAKE_SOURCE_DIR}/src/lib)
 
 add_executable(${PROJECT_NAME} fuzzTest.cpp)
 
 #clang++ -g -fsanitize=address,fuzzer
-target_compile_options(${PROJECT_NAME}
-            PRIVATE $<$<C_COMPILER_ID:Clang>:-g -O1 -lc++abi -fsanitize=address,fuzzer>
-            )
 
-target_link_libraries(${PROJECT_NAME}
-            PRIVATE $<$<C_COMPILER_ID:Clang>:-fsanitize=address,fuzzer>
-            WarfCore
-            )
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,fuzzer")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,fuzzer")
+
+if(Win32)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /DEBUG /Od")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DEBUG /Od")
+elseif(UNIX)
+ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g") 
+endif()
+
+
+target_link_libraries(${PROJECT_NAME} PRIVATE 
+        WarfCore
+)

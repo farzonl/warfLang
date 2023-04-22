@@ -17,6 +17,14 @@ if(UNIX AND NOT APPLE)
     set(LINUX TRUE)
 endif()
 
+if(WIN32  AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  # See https://github.com/Kitware/CMake/blob/master/Modules/Platform/Windows-Clang.cmake#L86
+  #This will set:
+  # For Release: -fms-runtime-lib=static -Xclang -flto-visibility-public-std -Xclang --dependent-lib=libcmt
+  # For Debug: -fms-runtime-lib=static_dbg -Xclang -flto-visibility-public-std -Xclang --dependent-lib=libcmtd
+  set(CMAKE_MSVC_RUNTIME_LIBRARY_DEFAULT "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
+
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
     # Default debug flags are OK 
@@ -38,6 +46,7 @@ if(CMAKE_CROSS_COMPILING)
     set(WIN32 FALSE)
     set(LINUX TRUE)
     set(UNIX TRUE)
+
   endif()
   if(CMAKE_SYSTEM_NAME MATCHES MacOS)
     set(WIN32 FALSE)
