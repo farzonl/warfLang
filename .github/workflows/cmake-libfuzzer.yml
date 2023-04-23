@@ -26,9 +26,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        # Note using windows-2019 b\c of weird compile error when vs2022 is installed
+        # https://github.com/llvm/llvm-project/issues/56300
+        os: [ubuntu-latest, macos-latest, windows-2019]
         include:
-          - os: windows-latest
+          - os: windows-2019
             artifact_exec_ext: .exe
     steps:
     - uses: actions/checkout@v2
@@ -44,7 +46,7 @@ jobs:
         echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.zshrc
         echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bashrc
     - name: Install Dependencies (Windows)
-      if: matrix.os == 'windows-latest'
+      if: matrix.os == 'windows-2019'
       run: |
         choco install llvm ninja
   
@@ -87,7 +89,7 @@ jobs:
         echo "APPNAME=$APP" >> $GITHUB_ENV
 
     - name: Set variables (Windows)
-      if: matrix.os == 'windows-latest'
+      if: matrix.os == 'windows-2019'
       run: |
         $APP = type .\src\lib\Version\appName.txt
         $VER = type .\src\lib\Version\version.txt
