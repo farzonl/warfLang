@@ -6,7 +6,11 @@ project(${CMAKE_PROJECT_NAME}_FUZZ)
 
 include_directories(${CMAKE_SOURCE_DIR}/src/lib)
 
-add_executable(${PROJECT_NAME} fuzzTest.cpp)
+set(fuzzers "lexerFuzzer;parserFuzzer" CACHE STRING "libfuzzers")
+foreach(fuzzer ${fuzzers})
+  add_executable(${fuzzer} ${fuzzer}.cpp)
+endforeach()
+
 
 #clang++ -g -fsanitize=address,fuzzer
 
@@ -21,7 +25,8 @@ elseif(UNIX)
  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g") 
 endif()
 
-
-target_link_libraries(${PROJECT_NAME} PRIVATE 
+foreach(fuzzer ${fuzzers})
+  target_link_libraries(${fuzzer} PRIVATE 
         WarfCore
-)
+  )
+endforeach()

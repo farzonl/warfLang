@@ -113,7 +113,7 @@ jobs:
       shell: bash
       run:  |
         mkdir ${{github.workspace}}/artifacts
-        cp build/fuzz/${{ env.APPNAME }}Lang_FUZZ ${{github.workspace}}/artifacts
+        cp build/fuzz/*Fuzzer ${{github.workspace}}/artifacts
         pushd ${{github.workspace}}
         zip -r ${{ env.APPNAME }}-$(uname -s)-libfuzzers-$(uname -m).zip artifacts
         popd
@@ -122,7 +122,7 @@ jobs:
       shell: powershell
       run: |
         [system.io.directory]::CreateDirectory("${{github.workspace}}/artifacts")
-        Copy-Item "build/fuzz/${{ env.APPNAME }}Lang_FUZZ${{ matrix.artifact_exec_ext }}" -Destination "${{github.workspace}}/artifacts"
+        Copy-Item "build/fuzz/${{ env.APPNAME }}*Fuzzer${{ matrix.artifact_exec_ext }}" -Destination "${{github.workspace}}/artifacts"
         Compress-Archive -Path ${{github.workspace}}/artifacts/* -DestinationPath ${{ env.APPNAME }}-${{matrix.artifact_os_name}}-libfuzzers-${{matrix.artifact_arch}}.zip
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v3
