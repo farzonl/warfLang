@@ -32,16 +32,18 @@ jobs:
             artifact_exec_ext: .exe
     steps:
     - uses: actions/checkout@v2
-    - name: Install Dependencies
+    - name: Install Dependencies (Linux)
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt install build-essential cmake \
-        ca-certificates llvm clang libedit-dev ninja
+        ca-certificates llvm clang libedit-dev ninja-build
+    - name: Install Dependencies (Mac)
       if: matrix.os == 'macOS-latest'
       run: |
         brew install llvm ninja
         echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.zshrc
         echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bashrc
+    - name: Install Dependencies (Windows)
       if: matrix.os == 'windows-latest'
       run: |
         choco install llvm ninja
@@ -96,7 +98,7 @@ jobs:
       shell: bash
       run:  |
         mkdir ${{github.workspace}}/artifacts
-        cp build/fuzz{{ env.APPNAME }}Lang_Fuzz${{ matrix.artifact_exec_ext }} ${{github.workspace}}/artifacts
+        cp build/fuzz/${{ env.APPNAME }}Lang_FUZZ${{ matrix.artifact_exec_ext }} ${{github.workspace}}/artifacts
         pushd ${{github.workspace}}
         zip -r ${{ env.APPNAME }}-$(uname -s)-libfuzzers-x86_64.zip artifacts
         popd
