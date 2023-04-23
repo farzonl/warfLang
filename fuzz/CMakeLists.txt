@@ -1,3 +1,7 @@
+# Copyright (c) 2023 F. Lotfi All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 project(${CMAKE_PROJECT_NAME}_FUZZ)
 
 include_directories(${CMAKE_SOURCE_DIR}/src/lib)

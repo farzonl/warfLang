@@ -8,7 +8,7 @@ on:
       - '**.cpp'
       - '**.h'
       - '**CMakeLists.txt'
-      - .github/workflows/cmake-release.yml
+      - .github/workflows/cmake-libfuzzer.yml
   pull_request:
     branches:
       - '**'
@@ -16,7 +16,7 @@ on:
       - '**.cpp'
       - '**.h'
       - '**CMakeLists.txt'
-      - .github/workflows/cmake-release.yml
+      - .github/workflows/cmake-libfuzzer.yml
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
