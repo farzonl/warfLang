@@ -1,0 +1,116 @@
+name: CMake Release
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - '**CMakeLists.txt'
+      - .github/workflows/cmake-release.yml
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - '**.cpp'
+      - '**.h'
+      - '**CMakeLists.txt'
+      - .github/workflows/cmake-release.yml
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: windows-latest
+            artifact_exec_ext: .exe
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt install build-essential cmake \
+        ca-certificates llvm clang libedit-dev ninja
+      if: matrix.os == 'macOS-latest'
+      run: |
+        brew install llvm ninja
+        echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.zshrc
+        echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bashrc
+      if: matrix.os == 'windows-latest'
+      run: |
+        choco install llvm ninja
+  
+    - name: Create Build Environment
+      # Some projects don't allow in-source building, so create a separate build directory
+      # We'll use this as our working directory for all subsequent commands
+      run: cmake -E make_directory ${{github.workspace}}/build
+
+    - name: Cache C++ dependencies in Packages Directory
+      uses: actions/cache@v3
+      with:
+        path: |
+          packages
+        key: ${{ runner.OS }}-c++-packages-cache-libfuzzer-Release-${{ hashFiles('depsCache.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-c++-packages-cache-libfuzzer-Release-
+
+    - name: Configure CMake
+      # Use a bash shell so we can use the same syntax for environment variable
+      # access regardless of the host operating system
+      shell: bash
+      working-directory: ${{github.workspace}}/build
+      # Note the current convention is to use the -S and -B options here to specify source 
+      # and build directories, but this is only available with CMake 3.13 and higher.  
+      # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
+      run: |
+        cmake -G Ninja $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+        -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DBUILD_FUZZER=true
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      # Execute the build.  You can specify a specific target with "--target <NAME>"
+      run: cmake --build . --config $BUILD_TYPE
+    - name: Set variables (Mac\Linux)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
+      run: |
+        APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
+        VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
+        echo "VERSION=$VER" >> $GITHUB_ENV
+        echo "APPNAME=$APP" >> $GITHUB_ENV
+
+    - name: Set variables (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        $APP = type .\src\lib\Version\appName.txt
+        $VER = type .\src\lib\Version\version.txt
+        echo "VERSION=$VER" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+        echo "APPNAME=$APP" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+
+    - name: Prepare Binaries for upload 
+      shell: bash
+      run:  |
+        mkdir ${{github.workspace}}/artifacts
+        cp build/fuzz{{ env.APPNAME }}Lang_Fuzz${{ matrix.artifact_exec_ext }} ${{github.workspace}}/artifacts
+        pushd ${{github.workspace}}
+        zip -r ${{ env.APPNAME }}-$(uname -s)-libfuzzers-x86_64.zip artifacts
+        popd
+    - name: 'Upload Pull Request Artifact'
+      uses: actions/upload-artifact@v3
+      if: startsWith(github.ref, 'refs/pull/')
+      with:
+        name: ${{ env.APPNAME }} Pull Request Artifacts
+        path: ${{ env.APPNAME }}-*.zip
+        retention-days: 5
+    - name: Upload binaries to Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/heads/master')
+      with:
+        tag_name: ${{ env.APPNAME }}-${{ env.VERSION }}
+        files: |
+          ${{ env.APPNAME }}-*.zip
