@@ -32,6 +32,8 @@ jobs:
         include:
           - os: windows-2019
             artifact_exec_ext: .exe
+            artifact_os_name: Windows
+            artifact_arch: x86_64
     steps:
     - uses: actions/checkout@v2
     - name: Install Dependencies (Linux)
@@ -106,14 +108,22 @@ jobs:
         echo "VERSION=$VER" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
         echo "APPNAME=$APP" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
 
-    - name: Prepare Binaries for upload 
+    - name: Prepare Binaries for upload (Mac\Linux)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
       shell: bash
       run:  |
         mkdir ${{github.workspace}}/artifacts
-        cp build/fuzz/${{ env.APPNAME }}Lang_FUZZ${{ matrix.artifact_exec_ext }} ${{github.workspace}}/artifacts
+        cp build/fuzz/${{ env.APPNAME }}Lang_FUZZ ${{github.workspace}}/artifacts
         pushd ${{github.workspace}}
-        zip -r ${{ env.APPNAME }}-$(uname -s)-libfuzzers-x86_64.zip artifacts
+        zip -r ${{ env.APPNAME }}-$(uname -s)-libfuzzers-$(uname -m).zip artifacts
         popd
+    - name: Prepare Binaries for upload (windows)
+      if: matrix.os == 'windows-latest'
+      shell: powershell
+      run: |
+        [system.io.directory]::CreateDirectory("${{github.workspace}}/artifacts")
+        Copy-Item "build/fuzz/${{ env.APPNAME }}Lang_FUZZ${{ matrix.artifact_exec_ext }}" -Destination "${{github.workspace}}/artifacts"
+        Compress-Archive -Path ${{github.workspace}}/artifacts/* -DestinationPath ${{ env.APPNAME }}-${{matrix.artifact_os_name}}-libfuzzers-${{matrix.artifact_arch}}.zip
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v3
       if: startsWith(github.ref, 'refs/pull/')
