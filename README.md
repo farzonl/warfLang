@@ -86,3 +86,7 @@ run-clang-tidy.py -p build/ -header-filter='.*' -fix -format
 ## Docker Build & Run freeBSD x86_64
 - Build: `docker build -f Dockerfile.freebsd-cross -t warflang_freebsd:latest .`
 - Run: `docker run  --name freebsd_test_vm -it warflang_freebsd:latest`
+
+## Docker Build & Run emscripten web
+- Build: `docker build -f Dockerfile.emscripten -t warflang_web:latest .`
+- Run: `docker run  --name emsdk_test_vm -it warflang_web:latest`
