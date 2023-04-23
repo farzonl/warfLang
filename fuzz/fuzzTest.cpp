@@ -25,7 +25,7 @@ extern "C" int LLVMFuzzerTestOneInput(const char *cLine, size_t len) {
   try {
     LexerFuzzTest(sLine);
     ParserFuzzTest(sLine);
-  } catch(...) {
+  } catch (...) {
     return -1;
   }
   return 0;

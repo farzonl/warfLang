@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include "VariableSymbol.h"
-//#include <functional>
+// #include <functional>
 #include "Scope.h"
 
 VariableSymbol::VariableSymbol(const std::string &name, Type type)
