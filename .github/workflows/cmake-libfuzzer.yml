@@ -43,8 +43,6 @@ jobs:
       if: matrix.os == 'macOS-latest'
       run: |
         brew install llvm ninja
-        echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.zshrc
-        echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> ~/.bashrc
     - name: Install Dependencies (Windows)
       if: matrix.os == 'windows-2019'
       run: |
@@ -64,17 +62,29 @@ jobs:
         restore-keys: |
           ${{ runner.OS }}-c++-packages-cache-libfuzzer-Release-
 
+    - name: Configure CMake (Mac)
+      shell: bash
+      working-directory: ${{github.workspace}}/build
+      if: matrix.os == 'macOS-latest'
+      # Mac  needs brew's llvm to override AppleClang
+      run: |
+        export PATH="/usr/local/opt/llvm/bin:$PATH"
+        cmake -G Ninja $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+        -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DBUILD_FUZZER=true
+      
     - name: Configure CMake
       # Use a bash shell so we can use the same syntax for environment variable
       # access regardless of the host operating system
       shell: bash
       working-directory: ${{github.workspace}}/build
+      if: matrix.os != 'macOS-latest'
       # Note the current convention is to use the -S and -B options here to specify source 
       # and build directories, but this is only available with CMake 3.13 and higher.  
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
       run: |
         cmake -G Ninja $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
         -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DBUILD_FUZZER=true
+    
     - name: Build
       working-directory: ${{github.workspace}}/build
       shell: bash
