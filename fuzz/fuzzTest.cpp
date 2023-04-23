@@ -22,7 +22,11 @@ extern "C" int LLVMFuzzerTestOneInput(const char *cLine, size_t len) {
     return -1;
   }
   std::string sLine(cLine, len);
-  LexerFuzzTest(sLine);
-  ParserFuzzTest(sLine);
+  try {
+    LexerFuzzTest(sLine);
+    ParserFuzzTest(sLine);
+  } catch (...) {
+    return -1;
+  }
   return 0;
 }

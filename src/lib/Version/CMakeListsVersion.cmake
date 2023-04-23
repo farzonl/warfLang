@@ -1,3 +1,7 @@
+# Copyright (c) 2023 F. Lotfi All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 # this file is intended to be included by other project CMakeLists.txt files
 # in order to make the following Warf version variables available
 #   WARF_MAJOR : Integer major number (e.g. 0, 1, 2)

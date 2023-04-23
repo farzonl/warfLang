@@ -1,3 +1,7 @@
+# Copyright (c) 2023 F. Lotfi All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 cmake_minimum_required(VERSION 3.22)
 project(WarfLang)
 
@@ -15,6 +19,14 @@ endfunction(download_file)
 
 if(UNIX AND NOT APPLE)
     set(LINUX TRUE)
+endif()
+
+if(WIN32  AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  # See https://github.com/Kitware/CMake/blob/master/Modules/Platform/Windows-Clang.cmake#L86
+  #This will set:
+  # For Release: -fms-runtime-lib=static -Xclang -flto-visibility-public-std -Xclang --dependent-lib=libcmt
+  # For Debug: -fms-runtime-lib=static_dbg -Xclang -flto-visibility-public-std -Xclang --dependent-lib=libcmtd
+  set(CMAKE_MSVC_RUNTIME_LIBRARY_DEFAULT "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 
 if(MSVC)
@@ -38,6 +50,7 @@ if(CMAKE_CROSS_COMPILING)
     set(WIN32 FALSE)
     set(LINUX TRUE)
     set(UNIX TRUE)
+
   endif()
   if(CMAKE_SYSTEM_NAME MATCHES MacOS)
     set(WIN32 FALSE)
