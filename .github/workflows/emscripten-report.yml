@@ -81,7 +81,6 @@ jobs:
         find build/ -name "*.html" -exec cp {} install/ \;
         find build/ -name "*.js" -exec cp {} install/ \;
         find build/ -name "*.wasm" -exec cp {} install/ \;
-        mv install/Warf.html install/index.html
 
 
     - name: Init new repo in dist folder and commit generated files

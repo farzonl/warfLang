@@ -3,4 +3,7 @@
 # license that can be found in the LICENSE file.
 
 add_subdirectory(lib)
+if(isEmscripten)
+    add_subdirectory(wasmEntry)
+endif()
 add_subdirectory(cli)
