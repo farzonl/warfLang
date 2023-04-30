@@ -71,9 +71,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if ("${_cmake_compiler_output}" MATCHES "[Ee]mscripten")
   set(isEmscripten TRUE)
-  set(CMAKE_EXECUTABLE_SUFFIX ".html")
-  #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -sEXPORTED_FUNCTIONS=run -sEXPORTED_RUNTIME_METHODS=ccall,cwrap")
-  #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -sEXPORTED_FUNCTIONS=run -sEXPORTED_RUNTIME_METHODS=ccall,cwrap")
+  set(CMAKE_EXECUTABLE_SUFFIX ".js")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DEmscripten")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEmscripten")
 endif()
 
 if (BUILD_FUZZER AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT isEmscripten )
