@@ -1,7 +1,7 @@
-#include <string>
-#include <sstream>
 #include <iostream>
+#include <sstream>
 #include <stdbool.h>
+#include <string>
 
 #include <emscripten.h>
 
@@ -11,45 +11,40 @@
 #include "Syntax/SyntaxTree.h"
 
 extern "C" {
- EMSCRIPTEN_KEEPALIVE void InitWarf();
- EMSCRIPTEN_KEEPALIVE char* RunWarf(char* input, bool showSyntaxTree);
- EMSCRIPTEN_KEEPALIVE char* ShowSyntaxTree();
+EMSCRIPTEN_KEEPALIVE void InitWarf();
+EMSCRIPTEN_KEEPALIVE char *RunWarf(char *input, bool showSyntaxTree);
+EMSCRIPTEN_KEEPALIVE char *ShowSyntaxTree();
 }
 
-char* g_ReturnBuffer = nullptr;
-char* g_showSyntaxTree = nullptr;
+char *g_ReturnBuffer = nullptr;
+char *g_showSyntaxTree = nullptr;
 
-//EMSCRIPTEN_KEEPALIVE
-void InitWarf() {
-    SymbolTableMgr::init();
-}
+// EMSCRIPTEN_KEEPALIVE
+void InitWarf() { SymbolTableMgr::init(); }
 
-//EMSCRIPTEN_KEEPALIVE
-char* ShowSyntaxTree() {
-  return g_showSyntaxTree;
-}
+// EMSCRIPTEN_KEEPALIVE
+char *ShowSyntaxTree() { return g_showSyntaxTree; }
 
-//EMSCRIPTEN_KEEPALIVE
-char* RunWarf(char* input, bool showSyntaxTree) {
-  
+// EMSCRIPTEN_KEEPALIVE
+char *RunWarf(char *input, bool showSyntaxTree) {
+
   std::string s(input);
-  
-  if(g_ReturnBuffer) {
+
+  if (g_ReturnBuffer) {
     delete g_ReturnBuffer;
     g_ReturnBuffer = nullptr;
   }
 
-  if(g_showSyntaxTree && showSyntaxTree) {
+  if (g_showSyntaxTree && showSyntaxTree) {
     delete g_showSyntaxTree;
     g_showSyntaxTree = nullptr;
   }
-
 
   auto syntaxTree = SyntaxTree::Parse(s);
   auto binder = std::make_unique<Binder>();
   auto boundExpression = binder->BindExpression(syntaxTree->Root());
   auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
-  
+
   std::stringstream outputStream;
   outputStream << eval->Evaluate() << std::endl;
   std::string outputStr = outputStream.str();
@@ -62,8 +57,9 @@ char* RunWarf(char* input, bool showSyntaxTree) {
 
     std::string outputSyntaxTree = syntaxTreeStream.str();
     g_showSyntaxTree = new char(outputSyntaxTree.size());
-    stpncpy(g_showSyntaxTree, outputSyntaxTree.c_str(), outputSyntaxTree.size());
+    stpncpy(g_showSyntaxTree, outputSyntaxTree.c_str(),
+            outputSyntaxTree.size());
   }
-  
+
   return g_ReturnBuffer;
 }

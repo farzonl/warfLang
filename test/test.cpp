@@ -29,7 +29,7 @@ bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
   if (!binder->Errors().empty()) {
     return errorStr == binder->Errors()[0].Message();
   }
-  #if !defined(Emscripten)
+#if !defined(Emscripten)
   try {
     auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
     eval->Evaluate();
@@ -37,9 +37,9 @@ bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
     return errorStr == error.what();
   }
   return false;
-  #else
+#else
   return true;
-  #endif
+#endif
 }
 
 TEST_CASE("Binary Expression") {
