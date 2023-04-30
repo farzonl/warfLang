@@ -11,9 +11,9 @@
 #include "Syntax/SyntaxTree.h"
 
 extern "C" {
-EMSCRIPTEN_KEEPALIVE void InitWarf();
-EMSCRIPTEN_KEEPALIVE char *RunWarf(char *input, bool showSyntaxTree);
-EMSCRIPTEN_KEEPALIVE char *ShowSyntaxTree();
+void InitWarf();
+char *RunWarf(char *input, bool showSyntaxTree);
+char *ShowSyntaxTree();
 }
 
 char *g_ReturnBuffer = nullptr;
