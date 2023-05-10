@@ -32,6 +32,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: install cross-build dependencies
       run: |
+        sudo apt-get update
         sudo apt install cmake ninja-build llvm-dev clang lld libc++-dev \
         libc++abi-dev zlib1g-dev git build-essential \
         ca-certificates crossbuild-essential-arm64 \
