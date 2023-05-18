@@ -118,7 +118,7 @@ jobs:
         zip -r ${{ env.APPNAME }}-$(uname -s)-libfuzzers-$(uname -m).zip artifacts
         popd
     - name: Prepare Binaries for upload (windows)
-      if: matrix.os == 'windows-latest'
+      if: matrix.os == 'windows--2019'
       shell: powershell
       run: |
         [system.io.directory]::CreateDirectory("${{github.workspace}}/artifacts")
