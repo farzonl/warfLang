@@ -30,6 +30,10 @@ class TestConfigJsonMethods(unittest.TestCase):
                         with open(test["comparePath"]) as f:
                             contents = f.read()
                             self.assertEqual(stdout.decode("utf-8"), contents)
+                    if(test.get("compareErrorPath")):
+                        with open(test["compareErrorPath"]) as f:
+                            contents = f.read()
+                            self.assertEqual(stderr.decode("utf-8"), contents)
 
 if __name__ == '__main__':
     unittest.main()

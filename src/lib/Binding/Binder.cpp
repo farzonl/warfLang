@@ -113,7 +113,7 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
         SymbolTableMgr::find(name);
     if (existingVariable == VariableSymbol::failSymbol()) {
       mRecords.ReportUndefinedIdentifier(assignment->IdentifierToken());
-      return std::make_unique<BoundLiteralExpressionNode>(0);
+      throw std::runtime_error("Failed to Bind LiteralExpression");
     }
     return std::make_unique<BoundAssignmentExpressionNode>(
         existingVariable, std::move(boundExpression), boundOperator);
@@ -126,7 +126,7 @@ Binder::BindIdentifierExpression(IdentifierExpressionNode *identifier) {
   std::shared_ptr<VariableSymbol> variable = SymbolTableMgr::find(name);
   if (variable == VariableSymbol::failSymbol()) {
     mRecords.ReportUndefinedIdentifier(identifier->IdentifierToken());
-    return std::make_unique<BoundLiteralExpressionNode>(0);
+    throw std::runtime_error("Failed to Bind LiteralExpression");
   }
 
   return std::make_unique<BoundIdentifierExpressionNode>(variable);
