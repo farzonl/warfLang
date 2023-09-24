@@ -95,7 +95,7 @@ jobs:
         cmake -S . -B build/x64 \
         -GNinja -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_C_COMPILER=o64-clang \
-        -DCMAKE_CXX_COMPILER=o64-clang++-libc++ \
+        -DCMAKE_CXX_COMPILER=o64-clang++ \
         -DBuildTest=TRUE \
         -DCMAKE_SYSTEM_NAME=Darwin -DCMAKE_CROSS_COMPILING=TRUE \
         -DCMAKE_LINKER=x86_64-apple-darwin20.4-ld \
