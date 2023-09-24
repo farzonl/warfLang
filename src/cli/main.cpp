@@ -80,7 +80,12 @@ void evaluate(std::string &line, bool showTree) {
   auto syntaxTree = SyntaxTree::Parse(line);
   globalScope->GetTextSpan()->SetLength(line.size());
   auto binder = std::make_unique<Binder>();
-  auto boundExpression = binder->BindExpression(syntaxTree->Root());
+  std::unique_ptr<BoundExpressionNode> boundExpression;
+  try {
+    boundExpression = binder->BindExpression(syntaxTree->Root());
+  } catch (std::runtime_error &error) {
+    std::cerr << error.what() << std::endl;
+  }
 
   if (showTree) {
     syntaxTree->PrintTree();
@@ -135,9 +140,6 @@ void startRepl(bool showTree) {
     try {
       consoleRead(showTree);
 
-    } catch (std::runtime_error &error) {
-      std::cerr << error.what() << std::endl;
-      std::cin.get();
     } catch (std::exception &error) {
       std::cerr << error.what() << std::endl;
       std::cin.get();

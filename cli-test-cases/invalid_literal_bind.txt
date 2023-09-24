@@ -1,0 +1,15 @@
+L--AssignmentExpression
+    |--IdentifierToken
+       a
+    |--EqualsToken
+    L--BinaryExpression
+        |--LiteralExpression
+        |   L--NumberToken
+        |      1
+        |--PlusToken
+        L--IdentifierExpression
+            L--IdentifierToken
+               b
+L--IdentifierExpression
+    L--IdentifierToken
+       a

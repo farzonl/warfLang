@@ -65,6 +65,12 @@
 },
 {
     "execpath" : "build/src/cli/Warf",
+    "arguments" : ["-s","cli-test-cases/literal_runtime_error.wf"],
+    "comparePath" : "cli-test-cases/invalid_literal_bind.txt",
+    "compareErrorPath" : "cli-test-cases/literal_runtime_error.txt"
+},
+{
+    "execpath" : "build/src/cli/Warf",
     "arguments" : ["-e", "2147483648"],
     "error"    : "LexerError: The number 2147483648 is a Numeric overflow.\n"
 },

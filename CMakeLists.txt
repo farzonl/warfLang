@@ -76,6 +76,11 @@ if ("${_cmake_compiler_output}" MATCHES "[Ee]mscripten")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEmscripten")
 endif()
 
+if(BUILD_ASAN)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
+endif()
+
 if (BUILD_FUZZER AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT isEmscripten )
   add_subdirectory (fuzz)
 endif()
