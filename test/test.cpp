@@ -25,7 +25,12 @@ bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
     return errorStr == syntaxTree->Errors()[0].Message();
   }
   auto binder = std::make_unique<Binder>();
-  auto boundExpression = binder->BindExpression(syntaxTree->Root());
+  std::unique_ptr<BoundExpressionNode> boundExpression;
+  try {
+    boundExpression = binder->BindExpression(syntaxTree->Root());
+  } catch (std::runtime_error &error) {
+    return errorStr == error.what();
+  }
   if (!binder->Errors().empty()) {
     return errorStr == binder->Errors()[0].Message();
   }

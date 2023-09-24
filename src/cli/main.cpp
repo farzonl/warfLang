@@ -81,12 +81,12 @@ void evaluate(std::string &line, bool showTree) {
   globalScope->GetTextSpan()->SetLength(line.size());
   auto binder = std::make_unique<Binder>();
   std::unique_ptr<BoundExpressionNode> boundExpression;
-   try {
-      boundExpression = binder->BindExpression(syntaxTree->Root());
-    } catch (std::runtime_error &error) {
-      std::cerr << error.what() << std::endl;
-    }
-  
+  try {
+    boundExpression = binder->BindExpression(syntaxTree->Root());
+  } catch (std::runtime_error &error) {
+    std::cerr << error.what() << std::endl;
+  }
+
   if (showTree) {
     syntaxTree->PrintTree();
   }
