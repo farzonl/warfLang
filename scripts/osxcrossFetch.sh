@@ -10,7 +10,7 @@ if [ ! -e $SCRIPT_DIR/../packages/osxcross ]; then
     pushd $SCRIPT_DIR/../packages/
     git clone https://github.com/tpoechtrager/osxcross
     pushd osxcross
-    git checkout 26063b07e2aa6a32ba4be31933fd7bda45886d22
+    git checkout 7740274bd92dd6170a181653064791115a0e9d56
     popd
     popd
 fi
