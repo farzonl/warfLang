@@ -27,7 +27,8 @@ const std::shared_ptr<BoundAssignmentOperator>
 };
 
 const std::shared_ptr<BoundAssignmentOperator>
-BoundAssignmentOperator::Bind(SyntaxKind syntaxKind, Value::Type rhsOperandType) {
+BoundAssignmentOperator::Bind(SyntaxKind syntaxKind,
+                              Value::Type rhsOperandType) {
   for (std::shared_ptr<BoundAssignmentOperator> op :
        BoundAssignmentOperator::sOperators) {
     if (op->GetSyntaxKind() == syntaxKind &&
@@ -81,7 +82,9 @@ BoundAssignmentOperator::BoundAssignmentOperator(SyntaxKind syntaxKind,
 }
 
 SyntaxKind BoundAssignmentOperator::GetSyntaxKind() { return mSyntaxKind; }
-Value::Type BoundAssignmentOperator::RightHandExpressionType() { return mRhsType; }
+Value::Type BoundAssignmentOperator::RightHandExpressionType() {
+  return mRhsType;
+}
 
 BoundNodeKind BoundAssignmentExpressionNode::NodeKind() {
   return BoundNodeKind::AssignmentExpression;

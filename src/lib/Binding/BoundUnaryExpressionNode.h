@@ -29,8 +29,8 @@ static const std::unordered_map<BoundUnaryOperatorKind, std::string>
 
 class BoundUnaryOperator {
 public:
-  static const std::shared_ptr<BoundUnaryOperator> Bind(SyntaxKind syntaxKind,
-                                                        Value::Type operandType);
+  static const std::shared_ptr<BoundUnaryOperator>
+  Bind(SyntaxKind syntaxKind, Value::Type operandType);
   SyntaxKind GetSyntaxKind();
   BoundUnaryOperatorKind UnaryKind();
   Value::Type OperandType(); // expected Type

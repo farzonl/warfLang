@@ -13,11 +13,10 @@
 
 #include "Syntax/SyntaxKind.h"
 
-
-
 class Value {
 public:
   enum class Type { Unknown, Number, Boolean };
+
 private:
   union uValue {
     bool boolean;

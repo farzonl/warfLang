@@ -62,8 +62,7 @@ std::unique_ptr<BoundExpressionNode>
 Binder::BindUnaryExpression(UnaryExpressionNode *unary) {
   auto boundOperand = BindExpression(unary->Operand());
   const std::shared_ptr<BoundUnaryOperator> boundOperator =
-      BoundUnaryOperator::Bind(unary->Operator()->Kind(),
-                               boundOperand->Type());
+      BoundUnaryOperator::Bind(unary->Operator()->Kind(), boundOperand->Type());
   if (boundOperator == BoundUnaryOperator::GetBindFailure()) {
     mRecords.ReportUndefinedUnaryOperator(unary->Operator(),
                                           boundOperand->Type());
@@ -78,8 +77,8 @@ Binder::BindBinaryExpression(BinaryExpressionNode *binary) {
   auto boundLeft = BindExpression(binary->Left());
   auto boundRight = BindExpression(binary->Right());
   const std::shared_ptr<BoundBinaryOperator> boundOperator =
-      BoundBinaryOperator::Bind(binary->Operator()->Kind(),
-                                boundLeft->Type(), boundRight->Type());
+      BoundBinaryOperator::Bind(binary->Operator()->Kind(), boundLeft->Type(),
+                                boundRight->Type());
   if (boundOperator == BoundBinaryOperator::GetBindFailure()) {
     mRecords.ReportUndefinedBinaryOperator(
         binary->Operator(), boundLeft->Type(), boundRight->Type());

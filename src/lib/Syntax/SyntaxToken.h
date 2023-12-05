@@ -12,8 +12,8 @@
 
 #include "Binding/ValueType.h"
 #include "Symbol/TextSpan.h"
-#include "SyntaxNode.h"
 #include "SyntaxKind.h"
+#include "SyntaxNode.h"
 
 enum class Errors { LexError, ParseError };
 

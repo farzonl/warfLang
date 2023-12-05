@@ -51,12 +51,13 @@ static const std::unordered_map<BoundBinaryOperatorKind, std::string>
 class BoundBinaryOperator {
 public:
   static const std::shared_ptr<BoundBinaryOperator>
-  Bind(SyntaxKind syntaxKind, Value::Type leftOperandType, Value::Type rightOperandType);
+  Bind(SyntaxKind syntaxKind, Value::Type leftOperandType,
+       Value::Type rightOperandType);
   SyntaxKind GetSyntaxKind();
   BoundBinaryOperatorKind BoundKind();
   Value::Type LeftOperandType();  // expected Type
   Value::Type RightOperandType(); // expected Type
-  Value::Type Type();      // resulting Type
+  Value::Type Type();             // resulting Type
   static const std::shared_ptr<BoundBinaryOperator> GetBindFailure();
   // TODO see if there is a way to make shared_ptr a friend function
   BoundBinaryOperator(SyntaxKind syntaxKind, BoundBinaryOperatorKind boundKind,

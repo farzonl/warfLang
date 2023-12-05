@@ -8,8 +8,9 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
     std::make_shared<BoundBinaryOperator>(SyntaxKind::UnknownToken,
                                           BoundBinaryOperatorKind::Addition,
                                           Value::Type::Unknown),
-    std::make_shared<BoundBinaryOperator>(
-        SyntaxKind::PlusToken, BoundBinaryOperatorKind::Addition, Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::PlusToken,
+                                          BoundBinaryOperatorKind::Addition,
+                                          Value::Type::Number),
     std::make_shared<BoundBinaryOperator>(SyntaxKind::MinusToken,
                                           BoundBinaryOperatorKind::Subtraction,
                                           Value::Type::Number),
@@ -54,8 +55,9 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::GreaterOrEqualsToken,
         BoundBinaryOperatorKind::GreaterThanOrEqualTo, Value::Type::Number),
-    std::make_shared<BoundBinaryOperator>(
-        SyntaxKind::LessToken, BoundBinaryOperatorKind::LessThan, Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::LessToken,
+                                          BoundBinaryOperatorKind::LessThan,
+                                          Value::Type::Number),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::LessOrEqualsToken,
         BoundBinaryOperatorKind::LessThanOrEqualTo, Value::Type::Number),
@@ -70,7 +72,8 @@ BoundBinaryOperator::BoundBinaryOperator(SyntaxKind syntaxKind,
 BoundBinaryOperator::BoundBinaryOperator(SyntaxKind syntaxKind,
                                          BoundBinaryOperatorKind boundKind,
                                          Value::Type leftOperandType,
-                                         Value::Type rightOperandType, Value::Type evalType)
+                                         Value::Type rightOperandType,
+                                         Value::Type evalType)
     : mSyntaxKind(syntaxKind), mBoundKind(boundKind),
       mLeftOperandType(leftOperandType), mRightOperandType(rightOperandType),
       mEvalType(evalType) {}
@@ -99,7 +102,9 @@ SyntaxKind BoundBinaryOperator::GetSyntaxKind() { return mSyntaxKind; }
 BoundBinaryOperatorKind BoundBinaryOperator::BoundKind() { return mBoundKind; }
 Value::Type BoundBinaryOperator::LeftOperandType() { return mLeftOperandType; }
 
-Value::Type BoundBinaryOperator::RightOperandType() { return mRightOperandType; }
+Value::Type BoundBinaryOperator::RightOperandType() {
+  return mRightOperandType;
+}
 
 Value::Type BoundBinaryOperator::Type() { return mEvalType; }
 
