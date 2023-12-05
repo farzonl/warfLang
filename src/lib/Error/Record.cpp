@@ -60,7 +60,7 @@ void Records::ReportUnexpectedToken(int32_t start, int32_t end,
 }
 
 void Records::ReportUndefinedUnaryOperator(
-    std::shared_ptr<SyntaxToken> unaryOperator, Type operandType) {
+    std::shared_ptr<SyntaxToken> unaryOperator, Value::Type operandType) {
 
   std::stringstream message;
   message << mPrefix << "Error: Unary operator "
@@ -70,8 +70,8 @@ void Records::ReportUndefinedUnaryOperator(
 }
 
 void Records::ReportUndefinedBinaryOperator(
-    std::shared_ptr<SyntaxToken> binaryOperator, Type leftType,
-    Type rightType) {
+    std::shared_ptr<SyntaxToken> binaryOperator, Value::Type leftType,
+    Value::Type rightType) {
   std::stringstream message;
   message << mPrefix << "Error: Binary operator "
           << SyntaxTokenToStrMap.at(binaryOperator->Kind())

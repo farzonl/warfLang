@@ -25,15 +25,15 @@ enum class BoundAssignmentOperatorKind {
 class BoundAssignmentOperator {
 public:
   static const std::shared_ptr<BoundAssignmentOperator>
-  Bind(SyntaxKind syntaxKind, Type OperandType);
+  Bind(SyntaxKind syntaxKind, Value::Type OperandType);
   SyntaxKind GetSyntaxKind();
-  Type RightHandExpressionType();
+  Value::Type RightHandExpressionType();
   BoundAssignmentOperatorKind AssignmentKind();
-  BoundAssignmentOperator(SyntaxKind syntaxKind, Type rhsOperandType);
+  BoundAssignmentOperator(SyntaxKind syntaxKind, Value::Type rhsOperandType);
 
 private:
   SyntaxKind mSyntaxKind;
-  Type mRhsType;
+  Value::Type mRhsType;
   BoundAssignmentOperatorKind mAssigmentKind;
   static const std::shared_ptr<BoundAssignmentOperator> sOperators[];
   BoundAssignmentOperator() = delete;
@@ -50,7 +50,7 @@ public:
   virtual BoundNodeKind NodeKind() override;
   BoundExpressionNode *BoundExpression();
   std::string Identifier();
-  virtual Type GetType() override;
+  virtual Value::Type Type() override;
   std::shared_ptr<VariableSymbol> Variable();
   BoundAssignmentOperatorKind OperatorKind();
 

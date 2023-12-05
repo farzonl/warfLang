@@ -19,7 +19,7 @@ public:
   virtual ~BoundLiteralExpressionNode() {}
   // Value GetValue();
   virtual BoundNodeKind NodeKind() override;
-  virtual Type GetType() override;
+  virtual Value::Type Type() override;
   Value GetValue();
 
 private:

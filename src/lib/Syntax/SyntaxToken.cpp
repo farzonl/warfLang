@@ -6,7 +6,7 @@
 
 const Value &SyntaxToken::GetValue() const { return mValue; }
 
-bool SyntaxToken::HasValue() const { return mValue.type != Type::Unknown; }
+bool SyntaxToken::HasValue() const { return mValue.type != Value::Type::Unknown; }
 
 const TextSpan &SyntaxToken::Span() const { return mTextSpan; }
 

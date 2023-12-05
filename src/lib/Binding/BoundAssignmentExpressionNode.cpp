@@ -7,27 +7,27 @@
 const std::shared_ptr<BoundAssignmentOperator>
     BoundAssignmentOperator::sOperators[] = {
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::EqualsToken,
-                                                  Type::Number),
+                                                  Value::Type::Number),
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::EqualsToken,
-                                                  Type::Boolean),
+                                                  Value::Type::Boolean),
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::PlusEqualsToken,
-                                                  Type::Number),
+                                                  Value::Type::Number),
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::MinusEqualsToken,
-                                                  Type::Number),
+                                                  Value::Type::Number),
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::StarEqualsToken,
-                                                  Type::Number),
+                                                  Value::Type::Number),
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::SlashEqualsToken,
-                                                  Type::Number),
+                                                  Value::Type::Number),
         std::make_shared<BoundAssignmentOperator>(
-            SyntaxKind::AmpersandEqualsToken, Type::Number),
+            SyntaxKind::AmpersandEqualsToken, Value::Type::Number),
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::PipeEqualsToken,
-                                                  Type::Number),
+                                                  Value::Type::Number),
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::HatEqualsToken,
-                                                  Type::Number),
+                                                  Value::Type::Number),
 };
 
 const std::shared_ptr<BoundAssignmentOperator>
-BoundAssignmentOperator::Bind(SyntaxKind syntaxKind, Type rhsOperandType) {
+BoundAssignmentOperator::Bind(SyntaxKind syntaxKind, Value::Type rhsOperandType) {
   for (std::shared_ptr<BoundAssignmentOperator> op :
        BoundAssignmentOperator::sOperators) {
     if (op->GetSyntaxKind() == syntaxKind &&
@@ -75,20 +75,20 @@ void BoundAssignmentOperator::setOperatorKind() {
 }
 
 BoundAssignmentOperator::BoundAssignmentOperator(SyntaxKind syntaxKind,
-                                                 Type rhsOperandType)
+                                                 Value::Type rhsOperandType)
     : mSyntaxKind(syntaxKind), mRhsType(rhsOperandType) {
   setOperatorKind();
 }
 
 SyntaxKind BoundAssignmentOperator::GetSyntaxKind() { return mSyntaxKind; }
-Type BoundAssignmentOperator::RightHandExpressionType() { return mRhsType; }
+Value::Type BoundAssignmentOperator::RightHandExpressionType() { return mRhsType; }
 
 BoundNodeKind BoundAssignmentExpressionNode::NodeKind() {
   return BoundNodeKind::AssignmentExpression;
 }
 
-Type BoundAssignmentExpressionNode::GetType() {
-  return mBoundExpression->GetType();
+Value::Type BoundAssignmentExpressionNode::Type() {
+  return mBoundExpression->Type();
 }
 
 BoundExpressionNode *BoundAssignmentExpressionNode::BoundExpression() {

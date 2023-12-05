@@ -20,6 +20,6 @@ class BoundExpressionNode {
 public:
   BoundExpressionNode() = default;
   virtual BoundNodeKind NodeKind() = 0;
-  virtual Type GetType() = 0;
+  virtual Value::Type Type() = 0;
   virtual ~BoundExpressionNode() {}
 };

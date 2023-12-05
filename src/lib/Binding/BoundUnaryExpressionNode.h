@@ -30,20 +30,20 @@ static const std::unordered_map<BoundUnaryOperatorKind, std::string>
 class BoundUnaryOperator {
 public:
   static const std::shared_ptr<BoundUnaryOperator> Bind(SyntaxKind syntaxKind,
-                                                        Type operandType);
+                                                        Value::Type operandType);
   SyntaxKind GetSyntaxKind();
   BoundUnaryOperatorKind UnaryKind();
-  Type OperandType(); // expected Type
-  Type EvalType();    // resulting Type
+  Value::Type OperandType(); // expected Type
+  Value::Type EvalType();    // resulting Type
   static const std::shared_ptr<BoundUnaryOperator> GetBindFailure();
   BoundUnaryOperator(SyntaxKind syntaxKind, BoundUnaryOperatorKind unaryType,
-                     Type operandValueType);
+                     Value::Type operandValueType);
 
 private:
   SyntaxKind mSyntaxKind;
   BoundUnaryOperatorKind mUnaryKind;
-  Type mOperandType;
-  Type mEvalType;
+  Value::Type mOperandType;
+  Value::Type mEvalType;
 
   static const std::shared_ptr<BoundUnaryOperator> sOperators[];
   BoundUnaryOperator() = delete;
@@ -56,7 +56,7 @@ public:
                            std::unique_ptr<BoundExpressionNode> operand);
   virtual ~BoundUnaryExpressionNode() {}
   virtual BoundNodeKind NodeKind() override;
-  virtual Type GetType() override;
+  virtual Value::Type Type() override;
   BoundExpressionNode *Operand();
   BoundUnaryOperatorKind OperatorKind();
 

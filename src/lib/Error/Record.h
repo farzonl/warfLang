@@ -64,9 +64,9 @@ public:
   void ReportUnexpectedToken(int32_t start, int32_t end, SyntaxKind actual,
                              SyntaxKind expected);
   void ReportUndefinedUnaryOperator(std::shared_ptr<SyntaxToken> unaryOperator,
-                                    Type operandType);
+                                    Value::Type operandType);
   void
   ReportUndefinedBinaryOperator(std::shared_ptr<SyntaxToken> binaryOperator,
-                                Type leftType, Type rightType);
+                                Value::Type leftType, Value::Type rightType);
   void ReportUndefinedIdentifier(std::shared_ptr<SyntaxToken> identifierToken);
 };

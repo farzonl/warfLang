@@ -63,10 +63,10 @@ Binder::BindUnaryExpression(UnaryExpressionNode *unary) {
   auto boundOperand = BindExpression(unary->Operand());
   const std::shared_ptr<BoundUnaryOperator> boundOperator =
       BoundUnaryOperator::Bind(unary->Operator()->Kind(),
-                               boundOperand->GetType());
+                               boundOperand->Type());
   if (boundOperator == BoundUnaryOperator::GetBindFailure()) {
     mRecords.ReportUndefinedUnaryOperator(unary->Operator(),
-                                          boundOperand->GetType());
+                                          boundOperand->Type());
     return boundOperand;
   }
   return std::make_unique<BoundUnaryExpressionNode>(boundOperator,
@@ -79,10 +79,10 @@ Binder::BindBinaryExpression(BinaryExpressionNode *binary) {
   auto boundRight = BindExpression(binary->Right());
   const std::shared_ptr<BoundBinaryOperator> boundOperator =
       BoundBinaryOperator::Bind(binary->Operator()->Kind(),
-                                boundLeft->GetType(), boundRight->GetType());
+                                boundLeft->Type(), boundRight->Type());
   if (boundOperator == BoundBinaryOperator::GetBindFailure()) {
     mRecords.ReportUndefinedBinaryOperator(
-        binary->Operator(), boundLeft->GetType(), boundRight->GetType());
+        binary->Operator(), boundLeft->Type(), boundRight->Type());
     return boundLeft;
   }
   return std::make_unique<BoundBinaryExpressionNode>(
@@ -95,10 +95,10 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   auto boundExpression = BindExpression(assignment->Expression());
   const std::shared_ptr<BoundAssignmentOperator> boundOperator =
       BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Kind(),
-                                    boundExpression->GetType());
+                                    boundExpression->Type());
   if (assignment->AssignmentToken()->Kind() == SyntaxKind::EqualsToken) {
     auto newVar =
-        std::make_shared<VariableSymbol>(name, boundExpression->GetType());
+        std::make_shared<VariableSymbol>(name, boundExpression->Type());
     auto existingVariable = SymbolTableMgr::find(name);
     if (existingVariable != VariableSymbol::failSymbol()) {
       SymbolTableMgr::modify(newVar, existingVariable->GetScopeName());

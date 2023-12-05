@@ -7,22 +7,22 @@
 const std::shared_ptr<BoundUnaryOperator> BoundUnaryOperator::sOperators[] = {
     std::make_shared<BoundUnaryOperator>(SyntaxKind::UnknownToken,
                                          BoundUnaryOperatorKind::Identity,
-                                         Type::Unknown),
+                                         Value::Type::Unknown),
     std::make_shared<BoundUnaryOperator>(
         SyntaxKind::BangToken, BoundUnaryOperatorKind::LogicalNegation,
-        Type::Boolean),
+        Value::Type::Boolean),
     std::make_shared<BoundUnaryOperator>(
-        SyntaxKind::MinusToken, BoundUnaryOperatorKind::Negation, Type::Number),
+        SyntaxKind::MinusToken, BoundUnaryOperatorKind::Negation, Value::Type::Number),
     std::make_shared<BoundUnaryOperator>(
-        SyntaxKind::PlusToken, BoundUnaryOperatorKind::Identity, Type::Number),
+        SyntaxKind::PlusToken, BoundUnaryOperatorKind::Identity, Value::Type::Number),
     std::make_shared<BoundUnaryOperator>(SyntaxKind::TildeToken,
                                          BoundUnaryOperatorKind::BitwiseNot,
-                                         Type::Number),
+                                         Value::Type::Number),
 };
 
 BoundUnaryOperator::BoundUnaryOperator(SyntaxKind syntaxKind,
                                        BoundUnaryOperatorKind unaryType,
-                                       Type operandValueType)
+                                       Value::Type operandValueType)
     : mSyntaxKind(syntaxKind), mUnaryKind(unaryType),
       mOperandType(operandValueType) {}
 
@@ -31,7 +31,7 @@ const std::shared_ptr<BoundUnaryOperator> BoundUnaryOperator::GetBindFailure() {
 }
 
 const std::shared_ptr<BoundUnaryOperator>
-BoundUnaryOperator::Bind(SyntaxKind syntaxKind, Type operandType) {
+BoundUnaryOperator::Bind(SyntaxKind syntaxKind, Value::Type operandType) {
   for (std::shared_ptr<BoundUnaryOperator> op :
        BoundUnaryOperator::sOperators) {
     if (op->GetSyntaxKind() == syntaxKind && op->OperandType() == operandType) {
@@ -43,9 +43,9 @@ BoundUnaryOperator::Bind(SyntaxKind syntaxKind, Type operandType) {
 
 SyntaxKind BoundUnaryOperator::GetSyntaxKind() { return mSyntaxKind; }
 
-Type BoundUnaryOperator::OperandType() { return mOperandType; }
+Value::Type BoundUnaryOperator::OperandType() { return mOperandType; }
 
-Type BoundUnaryOperator::EvalType() { return mEvalType; }
+Value::Type BoundUnaryOperator::EvalType() { return mEvalType; }
 
 BoundUnaryOperatorKind BoundUnaryOperator::UnaryKind() { return mUnaryKind; }
 
@@ -62,7 +62,7 @@ BoundExpressionNode *BoundUnaryExpressionNode::Operand() {
   return mOperand.get();
 }
 
-Type BoundUnaryExpressionNode::GetType() { return mOperand->GetType(); }
+Value::Type BoundUnaryExpressionNode::Type() { return mOperand->Type(); }
 
 BoundUnaryOperatorKind BoundUnaryExpressionNode::OperatorKind() {
   return mOperator->UnaryKind();
