@@ -5,25 +5,25 @@
 #include "BoundUnaryExpressionNode.h"
 
 const std::shared_ptr<BoundUnaryOperator> BoundUnaryOperator::sOperators[] = {
-    std::make_shared<BoundUnaryOperator>(SyntaxType::UnknownToken,
-                                         BoundUnaryOperatorType::Identity,
+    std::make_shared<BoundUnaryOperator>(SyntaxKind::UnknownToken,
+                                         BoundUnaryOperatorKind::Identity,
                                          Type::Unknown),
     std::make_shared<BoundUnaryOperator>(
-        SyntaxType::BangToken, BoundUnaryOperatorType::LogicalNegation,
+        SyntaxKind::BangToken, BoundUnaryOperatorKind::LogicalNegation,
         Type::Boolean),
     std::make_shared<BoundUnaryOperator>(
-        SyntaxType::MinusToken, BoundUnaryOperatorType::Negation, Type::Number),
+        SyntaxKind::MinusToken, BoundUnaryOperatorKind::Negation, Type::Number),
     std::make_shared<BoundUnaryOperator>(
-        SyntaxType::PlusToken, BoundUnaryOperatorType::Identity, Type::Number),
-    std::make_shared<BoundUnaryOperator>(SyntaxType::TildeToken,
-                                         BoundUnaryOperatorType::BitwiseNot,
+        SyntaxKind::PlusToken, BoundUnaryOperatorKind::Identity, Type::Number),
+    std::make_shared<BoundUnaryOperator>(SyntaxKind::TildeToken,
+                                         BoundUnaryOperatorKind::BitwiseNot,
                                          Type::Number),
 };
 
-BoundUnaryOperator::BoundUnaryOperator(SyntaxType syntaxType,
-                                       BoundUnaryOperatorType unaryType,
+BoundUnaryOperator::BoundUnaryOperator(SyntaxKind syntaxKind,
+                                       BoundUnaryOperatorKind unaryType,
                                        Type operandValueType)
-    : mSyntaxType(syntaxType), mUnaryType(unaryType),
+    : mSyntaxKind(syntaxKind), mUnaryKind(unaryType),
       mOperandType(operandValueType) {}
 
 const std::shared_ptr<BoundUnaryOperator> BoundUnaryOperator::GetBindFailure() {
@@ -31,31 +31,31 @@ const std::shared_ptr<BoundUnaryOperator> BoundUnaryOperator::GetBindFailure() {
 }
 
 const std::shared_ptr<BoundUnaryOperator>
-BoundUnaryOperator::Bind(SyntaxType syntaxType, Type operandType) {
+BoundUnaryOperator::Bind(SyntaxKind syntaxKind, Type operandType) {
   for (std::shared_ptr<BoundUnaryOperator> op :
        BoundUnaryOperator::sOperators) {
-    if (op->GetSyntaxType() == syntaxType && op->OperandType() == operandType) {
+    if (op->GetSyntaxKind() == syntaxKind && op->OperandType() == operandType) {
       return op;
     }
   }
   return GetBindFailure();
 }
 
-SyntaxType BoundUnaryOperator::GetSyntaxType() { return mSyntaxType; }
+SyntaxKind BoundUnaryOperator::GetSyntaxKind() { return mSyntaxKind; }
 
 Type BoundUnaryOperator::OperandType() { return mOperandType; }
 
 Type BoundUnaryOperator::EvalType() { return mEvalType; }
 
-BoundUnaryOperatorType BoundUnaryOperator::UnaryType() { return mUnaryType; }
+BoundUnaryOperatorKind BoundUnaryOperator::UnaryKind() { return mUnaryKind; }
 
 BoundUnaryExpressionNode::BoundUnaryExpressionNode(
     const std::shared_ptr<BoundUnaryOperator> op,
     std::unique_ptr<BoundExpressionNode> operand)
     : BoundExpressionNode(), mOperator(op), mOperand(std::move(operand)) {}
 
-BoundNodeType BoundUnaryExpressionNode::NodeType() {
-  return BoundNodeType::UnaryExpression;
+BoundNodeKind BoundUnaryExpressionNode::NodeKind() {
+  return BoundNodeKind::UnaryExpression;
 }
 
 BoundExpressionNode *BoundUnaryExpressionNode::Operand() {
@@ -64,6 +64,6 @@ BoundExpressionNode *BoundUnaryExpressionNode::Operand() {
 
 Type BoundUnaryExpressionNode::GetType() { return mOperand->GetType(); }
 
-BoundUnaryOperatorType BoundUnaryExpressionNode::OperatorType() {
-  return mOperator->UnaryType();
+BoundUnaryOperatorKind BoundUnaryExpressionNode::OperatorKind() {
+  return mOperator->UnaryKind();
 }

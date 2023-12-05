@@ -8,7 +8,7 @@ ParenthesizedExpressionNode::ParenthesizedExpressionNode(
     std::shared_ptr<SyntaxToken> openParenToken,
     std::unique_ptr<ExpressionNode> expression,
     std::shared_ptr<SyntaxToken> closeParenToken)
-    : ExpressionNode(SyntaxType::ParenthesizedExpression),
+    : ExpressionNode(SyntaxKind::ParenthesizedExpression),
       mOpenParenToken(openParenToken), mExpression(std::move(expression)),
       mCloseParenToken(closeParenToken) {
   mVecExpressionNodes.push_back(mOpenParenToken.get());

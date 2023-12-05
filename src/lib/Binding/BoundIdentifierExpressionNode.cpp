@@ -4,8 +4,8 @@
 
 #include "BoundIdentifierExpressionNode.h"
 
-BoundNodeType BoundIdentifierExpressionNode::NodeType() {
-  return BoundNodeType::AssignmentExpression;
+BoundNodeKind BoundIdentifierExpressionNode::NodeKind() {
+  return BoundNodeKind::AssignmentExpression;
 }
 
 Type BoundIdentifierExpressionNode::GetType() { return mVariable->GetType(); }

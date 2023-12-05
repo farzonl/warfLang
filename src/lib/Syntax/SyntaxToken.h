@@ -13,7 +13,7 @@
 #include "Binding/ValueType.h"
 #include "Symbol/TextSpan.h"
 #include "SyntaxNode.h"
-#include "SyntaxType.h"
+#include "SyntaxKind.h"
 
 enum class Errors { LexError, ParseError };
 
@@ -28,7 +28,7 @@ public:
   const Value &GetValue() const;
   const TextSpan &Span() const;
   std::string Text() const;
-  SyntaxToken(SyntaxType synType, int startPos, int endPos, std::string text);
-  SyntaxToken(SyntaxType synType, int startPos, int endPos, Value value);
+  SyntaxToken(SyntaxKind synKind, int startPos, int endPos, std::string text);
+  SyntaxToken(SyntaxKind synKind, int startPos, int endPos, Value value);
   virtual ~SyntaxToken() {}
 };

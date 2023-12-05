@@ -24,9 +24,9 @@ std::unique_ptr<SyntaxTree> SyntaxTree::Parse(std::string text) {
 void SyntaxTree::PrintTreeRec(SyntaxNode *sNode, std::ostream &out,
                               std::string indent, bool isLast) {
   std::string marker = isLast ? "L--" : "|--";
-  out << indent << marker << sNode->Type() << std::endl;
+  out << indent << marker << sNode->Kind() << std::endl;
   SyntaxToken *derived = dynamic_cast<SyntaxToken *>(sNode);
-  if (derived && derived->Type() == SyntaxType::IdentifierToken) {
+  if (derived && derived->Kind() == SyntaxKind::IdentifierToken) {
     out << indent << "   " << derived->Text() << std::endl;
   }
   if (derived && derived->HasValue()) {

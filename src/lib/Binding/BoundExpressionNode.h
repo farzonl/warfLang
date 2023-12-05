@@ -8,7 +8,7 @@
 
 #include "ValueType.h"
 
-enum class BoundNodeType {
+enum class BoundNodeKind {
   Unknown,
   AssignmentExpression,
   BinaryExpression,
@@ -19,7 +19,7 @@ enum class BoundNodeType {
 class BoundExpressionNode {
 public:
   BoundExpressionNode() = default;
-  virtual BoundNodeType NodeType() = 0;
+  virtual BoundNodeKind NodeKind() = 0;
   virtual Type GetType() = 0;
   virtual ~BoundExpressionNode() {}
 };

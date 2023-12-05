@@ -6,31 +6,31 @@
 
 const std::shared_ptr<BoundAssignmentOperator>
     BoundAssignmentOperator::sOperators[] = {
-        std::make_shared<BoundAssignmentOperator>(SyntaxType::EqualsToken,
+        std::make_shared<BoundAssignmentOperator>(SyntaxKind::EqualsToken,
                                                   Type::Number),
-        std::make_shared<BoundAssignmentOperator>(SyntaxType::EqualsToken,
+        std::make_shared<BoundAssignmentOperator>(SyntaxKind::EqualsToken,
                                                   Type::Boolean),
-        std::make_shared<BoundAssignmentOperator>(SyntaxType::PlusEqualsToken,
+        std::make_shared<BoundAssignmentOperator>(SyntaxKind::PlusEqualsToken,
                                                   Type::Number),
-        std::make_shared<BoundAssignmentOperator>(SyntaxType::MinusEqualsToken,
+        std::make_shared<BoundAssignmentOperator>(SyntaxKind::MinusEqualsToken,
                                                   Type::Number),
-        std::make_shared<BoundAssignmentOperator>(SyntaxType::StarEqualsToken,
+        std::make_shared<BoundAssignmentOperator>(SyntaxKind::StarEqualsToken,
                                                   Type::Number),
-        std::make_shared<BoundAssignmentOperator>(SyntaxType::SlashEqualsToken,
+        std::make_shared<BoundAssignmentOperator>(SyntaxKind::SlashEqualsToken,
                                                   Type::Number),
         std::make_shared<BoundAssignmentOperator>(
-            SyntaxType::AmpersandEqualsToken, Type::Number),
-        std::make_shared<BoundAssignmentOperator>(SyntaxType::PipeEqualsToken,
+            SyntaxKind::AmpersandEqualsToken, Type::Number),
+        std::make_shared<BoundAssignmentOperator>(SyntaxKind::PipeEqualsToken,
                                                   Type::Number),
-        std::make_shared<BoundAssignmentOperator>(SyntaxType::HatEqualsToken,
+        std::make_shared<BoundAssignmentOperator>(SyntaxKind::HatEqualsToken,
                                                   Type::Number),
 };
 
 const std::shared_ptr<BoundAssignmentOperator>
-BoundAssignmentOperator::Bind(SyntaxType syntaxType, Type rhsOperandType) {
+BoundAssignmentOperator::Bind(SyntaxKind syntaxKind, Type rhsOperandType) {
   for (std::shared_ptr<BoundAssignmentOperator> op :
        BoundAssignmentOperator::sOperators) {
-    if (op->GetSyntaxType() == syntaxType &&
+    if (op->GetSyntaxKind() == syntaxKind &&
         op->RightHandExpressionType() == rhsOperandType) {
       return op;
     }
@@ -38,53 +38,53 @@ BoundAssignmentOperator::Bind(SyntaxType syntaxType, Type rhsOperandType) {
   throw std::runtime_error("Failed to Bind AssignmentExpression");
 }
 
-BoundAssignmentOperatorType BoundAssignmentOperator::AssignmentType() {
-  return mAssigmentType;
+BoundAssignmentOperatorKind BoundAssignmentOperator::AssignmentKind() {
+  return mAssigmentKind;
 }
 
-void BoundAssignmentOperator::setOperatorType() {
-  switch (mSyntaxType.GetValue()) {
-  case SyntaxType::EqualsToken:
-    mAssigmentType = BoundAssignmentOperatorType::Assignment;
+void BoundAssignmentOperator::setOperatorKind() {
+  switch (mSyntaxKind.GetValue()) {
+  case SyntaxKind::EqualsToken:
+    mAssigmentKind = BoundAssignmentOperatorKind::Assignment;
     break;
-  case SyntaxType::PlusEqualsToken:
-    mAssigmentType = BoundAssignmentOperatorType::AddAndAssign;
+  case SyntaxKind::PlusEqualsToken:
+    mAssigmentKind = BoundAssignmentOperatorKind::AddAndAssign;
     break;
-  case SyntaxType::MinusEqualsToken:
-    mAssigmentType = BoundAssignmentOperatorType::SubtractAndAssign;
+  case SyntaxKind::MinusEqualsToken:
+    mAssigmentKind = BoundAssignmentOperatorKind::SubtractAndAssign;
     break;
-  case SyntaxType::StarEqualsToken:
-    mAssigmentType = BoundAssignmentOperatorType::MultiplyAndAssign;
+  case SyntaxKind::StarEqualsToken:
+    mAssigmentKind = BoundAssignmentOperatorKind::MultiplyAndAssign;
     break;
-  case SyntaxType::SlashEqualsToken:
-    mAssigmentType = BoundAssignmentOperatorType::DivideAndAssign;
+  case SyntaxKind::SlashEqualsToken:
+    mAssigmentKind = BoundAssignmentOperatorKind::DivideAndAssign;
     break;
-  case SyntaxType::AmpersandEqualsToken:
-    mAssigmentType = BoundAssignmentOperatorType::BitwiseAndAndAssign;
+  case SyntaxKind::AmpersandEqualsToken:
+    mAssigmentKind = BoundAssignmentOperatorKind::BitwiseAndAndAssign;
     break;
-  case SyntaxType::PipeEqualsToken:
-    mAssigmentType = BoundAssignmentOperatorType::BitwiseOrAndAssign;
+  case SyntaxKind::PipeEqualsToken:
+    mAssigmentKind = BoundAssignmentOperatorKind::BitwiseOrAndAssign;
     break;
-  case SyntaxType::HatEqualsToken:
-    mAssigmentType = BoundAssignmentOperatorType::BitwiseXorAndAssign;
+  case SyntaxKind::HatEqualsToken:
+    mAssigmentKind = BoundAssignmentOperatorKind::BitwiseXorAndAssign;
     break;
   default:
     throw std::runtime_error(
-        "Unexpected SyntaxType seen while processing a BoundAssignment");
+        "Unexpected SyntaxKind seen while processing a BoundAssignment");
   }
 }
 
-BoundAssignmentOperator::BoundAssignmentOperator(SyntaxType syntaxType,
+BoundAssignmentOperator::BoundAssignmentOperator(SyntaxKind syntaxKind,
                                                  Type rhsOperandType)
-    : mSyntaxType(syntaxType), mRhsType(rhsOperandType) {
-  setOperatorType();
+    : mSyntaxKind(syntaxKind), mRhsType(rhsOperandType) {
+  setOperatorKind();
 }
 
-SyntaxType BoundAssignmentOperator::GetSyntaxType() { return mSyntaxType; }
+SyntaxKind BoundAssignmentOperator::GetSyntaxKind() { return mSyntaxKind; }
 Type BoundAssignmentOperator::RightHandExpressionType() { return mRhsType; }
 
-BoundNodeType BoundAssignmentExpressionNode::NodeType() {
-  return BoundNodeType::AssignmentExpression;
+BoundNodeKind BoundAssignmentExpressionNode::NodeKind() {
+  return BoundNodeKind::AssignmentExpression;
 }
 
 Type BoundAssignmentExpressionNode::GetType() {
@@ -102,8 +102,8 @@ std::shared_ptr<VariableSymbol> BoundAssignmentExpressionNode::Variable() {
   return mVariable;
 }
 
-BoundAssignmentOperatorType BoundAssignmentExpressionNode::OperatorType() {
-  return mAssignmentOperator->AssignmentType();
+BoundAssignmentOperatorKind BoundAssignmentExpressionNode::OperatorKind() {
+  return mAssignmentOperator->AssignmentKind();
 }
 
 BoundAssignmentExpressionNode::BoundAssignmentExpressionNode(

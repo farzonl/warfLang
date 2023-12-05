@@ -28,31 +28,31 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
           dynamic_cast<BoundAssignmentExpressionNode *>(node)) {
     auto rightSide = EvaluateRec(assignmentExpression->BoundExpression());
     // TODO add assignment operator types
-    auto opType = assignmentExpression->OperatorType();
+    auto opKind = assignmentExpression->OperatorKind();
     Value returnValue;
-    switch (opType) {
-    case BoundAssignmentOperatorType::Assignment:
+    switch (opKind) {
+    case BoundAssignmentOperatorKind::Assignment:
       returnValue = rightSide;
       break;
-    case BoundAssignmentOperatorType::AddAndAssign:
+    case BoundAssignmentOperatorKind::AddAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() + rightSide;
       break;
-    case BoundAssignmentOperatorType::SubtractAndAssign:
+    case BoundAssignmentOperatorKind::SubtractAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() - rightSide;
       break;
-    case BoundAssignmentOperatorType::MultiplyAndAssign:
+    case BoundAssignmentOperatorKind::MultiplyAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() * rightSide;
       break;
-    case BoundAssignmentOperatorType::DivideAndAssign:
+    case BoundAssignmentOperatorKind::DivideAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() / rightSide;
       break;
-    case BoundAssignmentOperatorType::BitwiseAndAndAssign:
+    case BoundAssignmentOperatorKind::BitwiseAndAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() & rightSide;
       break;
-    case BoundAssignmentOperatorType::BitwiseOrAndAssign:
+    case BoundAssignmentOperatorKind::BitwiseOrAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() | rightSide;
       break;
-    case BoundAssignmentOperatorType::BitwiseXorAndAssign:
+    case BoundAssignmentOperatorKind::BitwiseXorAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() ^ rightSide;
       break;
     }
@@ -61,61 +61,61 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   }
   if (BoundUnaryExpressionNode *unaryExpression =
           dynamic_cast<BoundUnaryExpressionNode *>(node)) {
-    auto opType = unaryExpression->OperatorType();
+    auto opKind = unaryExpression->OperatorKind();
     auto operand = EvaluateRec(unaryExpression->Operand());
-    switch (opType) {
-    case BoundUnaryOperatorType::Identity:
+    switch (opKind) {
+    case BoundUnaryOperatorKind::Identity:
       return operand;
-    case BoundUnaryOperatorType::Negation:
+    case BoundUnaryOperatorKind::Negation:
       return -operand;
-    case BoundUnaryOperatorType::LogicalNegation:
+    case BoundUnaryOperatorKind::LogicalNegation:
       return !operand;
-    case BoundUnaryOperatorType::BitwiseNot:
+    case BoundUnaryOperatorKind::BitwiseNot:
       return ~operand;
     default:
       throw std::runtime_error("EvaluatorError: Unexpected unary operator: " +
-                               BoundUnaryTypeStrMap.at(opType));
+                               BoundUnaryKindStrMap.at(opKind));
     }
   }
   if (BoundBinaryExpressionNode *binaryExpression =
           dynamic_cast<BoundBinaryExpressionNode *>(node)) {
     auto left = EvaluateRec(binaryExpression->Left());
     auto right = EvaluateRec(binaryExpression->Right());
-    auto opType = binaryExpression->OperatorType();
-    switch (opType) {
-    case BoundBinaryOperatorType::Addition:
+    auto opKind = binaryExpression->OperatorKind();
+    switch (opKind) {
+    case BoundBinaryOperatorKind::Addition:
       return left + right;
-    case BoundBinaryOperatorType::Subtraction:
+    case BoundBinaryOperatorKind::Subtraction:
       return left - right;
-    case BoundBinaryOperatorType::Multiplication:
+    case BoundBinaryOperatorKind::Multiplication:
       return left * right;
-    case BoundBinaryOperatorType::Division:
+    case BoundBinaryOperatorKind::Division:
       return left / right;
-    case BoundBinaryOperatorType::Equals:
+    case BoundBinaryOperatorKind::Equals:
       return left == right;
-    case BoundBinaryOperatorType::NotEquals:
+    case BoundBinaryOperatorKind::NotEquals:
       return left != right;
-    case BoundBinaryOperatorType::LogicalAnd:
+    case BoundBinaryOperatorKind::LogicalAnd:
       return left && right;
-    case BoundBinaryOperatorType::LogicalOr:
+    case BoundBinaryOperatorKind::LogicalOr:
       return left || right;
-    case BoundBinaryOperatorType::BitwiseAnd:
+    case BoundBinaryOperatorKind::BitwiseAnd:
       return left & right;
-    case BoundBinaryOperatorType::BitwiseOr:
+    case BoundBinaryOperatorKind::BitwiseOr:
       return left | right;
-    case BoundBinaryOperatorType::BitwiseXor:
+    case BoundBinaryOperatorKind::BitwiseXor:
       return left ^ right;
-    case BoundBinaryOperatorType::GreaterThan:
+    case BoundBinaryOperatorKind::GreaterThan:
       return left > right;
-    case BoundBinaryOperatorType::GreaterThanOrEqualTo:
+    case BoundBinaryOperatorKind::GreaterThanOrEqualTo:
       return left >= right;
-    case BoundBinaryOperatorType::LessThan:
+    case BoundBinaryOperatorKind::LessThan:
       return left < right;
-    case BoundBinaryOperatorType::LessThanOrEqualTo:
+    case BoundBinaryOperatorKind::LessThanOrEqualTo:
       return left <= right;
     default:
       throw std::runtime_error("EvaluatorError: Unexpected binary operator: " +
-                               BoundBinaryTypeStrMap.at(opType));
+                               BoundBinaryKindStrMap.at(opKind));
       return Value();
     }
   }

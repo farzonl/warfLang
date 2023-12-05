@@ -20,7 +20,7 @@ class Parser {
   std::shared_ptr<SyntaxToken> Peek(int32_t offset);
   std::shared_ptr<SyntaxToken> Current();
   std::shared_ptr<SyntaxToken> Next();
-  std::shared_ptr<SyntaxToken> Match(SyntaxType type);
+  std::shared_ptr<SyntaxToken> Match(SyntaxKind type);
 
   std::unique_ptr<ExpressionNode> ParseTerm();
   std::unique_ptr<ExpressionNode> ParseFactor();

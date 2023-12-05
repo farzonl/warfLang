@@ -8,7 +8,7 @@ AssignmentExpressionNode::AssignmentExpressionNode(
     std::shared_ptr<SyntaxToken> identifierToken,
     std::shared_ptr<SyntaxToken> equalsToken,
     std::unique_ptr<ExpressionNode> expression)
-    : ExpressionNode(SyntaxType::AssignmentExpression),
+    : ExpressionNode(SyntaxKind::AssignmentExpression),
       mIdentifier(identifierToken), mAssignmentOperator(equalsToken),
       mExpression(std::move(expression)) {
   mVecExpressionNodes.push_back(identifierToken.get());

@@ -15,17 +15,17 @@
 
 class Scope {
 public:
-  enum class ScopeType { Global };
+  enum class ScopeKind { Global };
 
 private:
-  ScopeType mScopeType;
+  ScopeKind mScopeKind;
   std::shared_ptr<TextSpan> mTextspan;
   std::string mName;
   std::unordered_map<std::string, std::shared_ptr<VariableSymbol>> mVariables;
   Scope() = default;
 
 public:
-  Scope(ScopeType scopeType, std::shared_ptr<TextSpan> textSpan,
+  Scope(ScopeKind scopeKind, std::shared_ptr<TextSpan> textSpan,
         std::string scopeName = "");
 
   const std::string &Name() const;
@@ -44,8 +44,8 @@ public:
     size_t operator()(const std::shared_ptr<Scope> scope) const;
   };*/
 
-  static const std::unordered_map<std::string, ScopeType> NameToScopeType;
-  static const std::unordered_map<ScopeType, std::string> ScopeTypeToName;
+  static const std::unordered_map<std::string, ScopeKind> NameToScopeKind;
+  static const std::unordered_map<ScopeKind, std::string> ScopeKindToName;
 
   friend class SymbolTable;
 };

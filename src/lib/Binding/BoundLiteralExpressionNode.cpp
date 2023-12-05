@@ -13,8 +13,8 @@ BoundLiteralExpressionNode::BoundLiteralExpressionNode(int32_t v) : mValue() {
   mValue = 0;
 }
 
-BoundNodeType BoundLiteralExpressionNode::NodeType() {
-  return BoundNodeType::LiteralExpression;
+BoundNodeKind BoundLiteralExpressionNode::NodeKind() {
+  return BoundNodeKind::LiteralExpression;
 }
 
 Type BoundLiteralExpressionNode::GetType() { return mValue.GetType(); }

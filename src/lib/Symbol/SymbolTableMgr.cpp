@@ -13,13 +13,13 @@ void SymbolTableMgr::init() {
     std::shared_ptr<TextSpan> globalTextSpan =
         std::make_shared<TextSpan>(0, std::numeric_limits<int32_t>::max());
     std::shared_ptr<Scope> globalScope =
-        std::make_shared<Scope>(Scope::ScopeType::Global, globalTextSpan);
+        std::make_shared<Scope>(Scope::ScopeKind::Global, globalTextSpan);
     symbolTable.insert(globalScope);
   }
 }
 std::shared_ptr<Scope> SymbolTableMgr::getGlobalScope() {
   const std::string &global =
-      Scope::ScopeTypeToName.at(Scope::ScopeType::Global);
+      Scope::ScopeKindToName.at(Scope::ScopeKind::Global);
   auto iter = symbolTable.head.find(global);
   if (iter != symbolTable.head.end()) {
     return iter->second;
@@ -39,7 +39,7 @@ bool SymbolTableMgr::modify(std::shared_ptr<VariableSymbol> variable,
 bool SymbolTableMgr::insert(std::shared_ptr<VariableSymbol> variable,
                             std::string scopeName) {
   if (scopeName == "") {
-    scopeName = Scope::ScopeTypeToName.at(Scope::ScopeType::Global);
+    scopeName = Scope::ScopeKindToName.at(Scope::ScopeKind::Global);
   }
   return symbolTable.insert(variable, scopeName);
 }

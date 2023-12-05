@@ -48,7 +48,7 @@ Binder::BindExpression(ExpressionNode *node) {
     return std::move(BindIdentifierExpression(identifierExpression));
   }
   std::stringstream diagmsg;
-  diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(node->Type());
+  diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(node->Kind());
   throw std::runtime_error(diagmsg.str());
   return nullptr;
 }
@@ -62,7 +62,7 @@ std::unique_ptr<BoundExpressionNode>
 Binder::BindUnaryExpression(UnaryExpressionNode *unary) {
   auto boundOperand = BindExpression(unary->Operand());
   const std::shared_ptr<BoundUnaryOperator> boundOperator =
-      BoundUnaryOperator::Bind(unary->Operator()->Type(),
+      BoundUnaryOperator::Bind(unary->Operator()->Kind(),
                                boundOperand->GetType());
   if (boundOperator == BoundUnaryOperator::GetBindFailure()) {
     mRecords.ReportUndefinedUnaryOperator(unary->Operator(),
@@ -78,7 +78,7 @@ Binder::BindBinaryExpression(BinaryExpressionNode *binary) {
   auto boundLeft = BindExpression(binary->Left());
   auto boundRight = BindExpression(binary->Right());
   const std::shared_ptr<BoundBinaryOperator> boundOperator =
-      BoundBinaryOperator::Bind(binary->Operator()->Type(),
+      BoundBinaryOperator::Bind(binary->Operator()->Kind(),
                                 boundLeft->GetType(), boundRight->GetType());
   if (boundOperator == BoundBinaryOperator::GetBindFailure()) {
     mRecords.ReportUndefinedBinaryOperator(
@@ -94,9 +94,9 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   std::string name = assignment->IdentifierToken()->Text();
   auto boundExpression = BindExpression(assignment->Expression());
   const std::shared_ptr<BoundAssignmentOperator> boundOperator =
-      BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Type(),
+      BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Kind(),
                                     boundExpression->GetType());
-  if (assignment->AssignmentToken()->Type() == SyntaxType::EqualsToken) {
+  if (assignment->AssignmentToken()->Kind() == SyntaxKind::EqualsToken) {
     auto newVar =
         std::make_shared<VariableSymbol>(name, boundExpression->GetType());
     auto existingVariable = SymbolTableMgr::find(name);

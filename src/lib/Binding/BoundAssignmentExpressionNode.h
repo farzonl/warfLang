@@ -11,7 +11,7 @@
 #include "BoundExpressionNode.h"
 #include "Symbol/VariableSymbol.h"
 
-enum class BoundAssignmentOperatorType {
+enum class BoundAssignmentOperatorKind {
   Assignment,
   AddAndAssign,
   SubtractAndAssign,
@@ -25,19 +25,19 @@ enum class BoundAssignmentOperatorType {
 class BoundAssignmentOperator {
 public:
   static const std::shared_ptr<BoundAssignmentOperator>
-  Bind(SyntaxType syntaxType, Type OperandType);
-  SyntaxType GetSyntaxType();
+  Bind(SyntaxKind syntaxKind, Type OperandType);
+  SyntaxKind GetSyntaxKind();
   Type RightHandExpressionType();
-  BoundAssignmentOperatorType AssignmentType();
-  BoundAssignmentOperator(SyntaxType syntaxType, Type rhsOperandType);
+  BoundAssignmentOperatorKind AssignmentKind();
+  BoundAssignmentOperator(SyntaxKind syntaxKind, Type rhsOperandType);
 
 private:
-  SyntaxType mSyntaxType;
+  SyntaxKind mSyntaxKind;
   Type mRhsType;
-  BoundAssignmentOperatorType mAssigmentType;
+  BoundAssignmentOperatorKind mAssigmentKind;
   static const std::shared_ptr<BoundAssignmentOperator> sOperators[];
   BoundAssignmentOperator() = delete;
-  void setOperatorType();
+  void setOperatorKind();
   friend class BoundAssignmentExpressionNode;
 };
 class BoundAssignmentExpressionNode : public BoundExpressionNode {
@@ -47,12 +47,12 @@ public:
       std::unique_ptr<BoundExpressionNode> boundExpression,
       std::shared_ptr<BoundAssignmentOperator> assignmentOperator);
   virtual ~BoundAssignmentExpressionNode() {}
-  virtual BoundNodeType NodeType() override;
+  virtual BoundNodeKind NodeKind() override;
   BoundExpressionNode *BoundExpression();
   std::string Identifier();
   virtual Type GetType() override;
   std::shared_ptr<VariableSymbol> Variable();
-  BoundAssignmentOperatorType OperatorType();
+  BoundAssignmentOperatorKind OperatorKind();
 
 private:
   std::unique_ptr<BoundExpressionNode> mBoundExpression;

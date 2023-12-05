@@ -12,11 +12,11 @@ const TextSpan &SyntaxToken::Span() const { return mTextSpan; }
 
 std::string SyntaxToken::Text() const { return mText; }
 
-SyntaxToken::SyntaxToken(SyntaxType synType, int startPos, int endPos,
+SyntaxToken::SyntaxToken(SyntaxKind synKind, int startPos, int endPos,
                          std::string text)
-    : SyntaxNode(synType), mTextSpan(startPos, endPos), mText(text) {}
+    : SyntaxNode(synKind), mTextSpan(startPos, endPos), mText(text) {}
 
-SyntaxToken::SyntaxToken(SyntaxType synType, int startPos, int endPos,
+SyntaxToken::SyntaxToken(SyntaxKind synKind, int startPos, int endPos,
                          Value value)
-    : SyntaxNode(synType), mTextSpan(startPos, endPos), mText(), mValue(value) {
+    : SyntaxNode(synKind), mTextSpan(startPos, endPos), mText(), mValue(value) {
 }

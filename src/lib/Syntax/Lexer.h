@@ -18,10 +18,10 @@ private:
   int32_t mPosition;
   Value mValue;
   Records mRecords;
-  void ReadToken(SyntaxType &type);
-  void ParseNumber(SyntaxType &type);
-  void ParseLetters(SyntaxType &type);
-  void ReadIdentifierOrKeyword(SyntaxType &type);
+  void ReadToken(SyntaxKind &type);
+  void ParseNumber(SyntaxKind &type);
+  void ParseLetters(SyntaxKind &type);
+  void ReadIdentifierOrKeyword(SyntaxKind &type);
 
 public:
   Lexer(std::string text);

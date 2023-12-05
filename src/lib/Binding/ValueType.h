@@ -11,7 +11,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "Syntax/SyntaxType.h"
+#include "Syntax/SyntaxKind.h"
 
 enum class Type { Unknown, Number, Boolean };
 

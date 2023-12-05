@@ -6,7 +6,7 @@
 
 LiteralExpressionNode::LiteralExpressionNode(
     std::shared_ptr<SyntaxToken> literalToken)
-    : ExpressionNode(SyntaxType::LiteralExpression),
+    : ExpressionNode(SyntaxKind::LiteralExpression),
       mLiteralToken(literalToken) {
   mVecExpressionNodes.push_back(literalToken.get());
 }
