@@ -100,7 +100,8 @@ jobs:
         -DCMAKE_SYSTEM_NAME=Darwin -DCMAKE_CROSS_COMPILING=TRUE \
         -DCMAKE_LINKER=x86_64-apple-darwin20.4-ld \
         -DCMAKE_C_COMPILER_AR=x86_64-apple-darwin20.4-ar \
-        -DCMAKE_CXX_COMPILER_AR=x86_64-apple-darwin20.4-ar
+        -DCMAKE_CXX_COMPILER_AR=x86_64-apple-darwin20.4-ar \
+        -DCMAKE_RANLIB=x86_64-apple-darwin20.4-ranlib
     
     - name: Build Warf with Ninja x64
       working-directory: ${{github.workspace}}
