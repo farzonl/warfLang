@@ -1,0 +1,104 @@
+<!--
+ Copyright (c) 2023 F. Lotfi All rights reserved.
+ Use of this source code is governed by a BSD-style
+ license that can be found in the LICENSE file.
+-->
+
+<!DOCTYPE html>
+<html>
+<body>
+<script src="WarfWasm.js"></script>
+<script>
+    let g_WarfApi = null;
+    function stringToUTF8(str, outPtr, maxBytesToWrite) {
+        var utf8 = unescape(encodeURIComponent(str));
+        for (var i = 0; i < utf8.length && i < maxBytesToWrite; i++) {
+            Module.HEAPU8[outPtr + i] = utf8.charCodeAt(i);
+        }
+        Module.HEAPU8[outPtr + i] = 0; // Add null terminator
+        return i;
+    }
+    function Pointer_stringify(ptr) {
+        var str = "";
+        var offset = 0;
+        while (true) {
+          var byte = Module.HEAPU8[ptr + offset];
+          if (byte === 0) break;
+          str += String.fromCharCode(byte);
+          offset += 1;
+        }
+        return str;
+    }
+
+    class WarfLang {
+        constructor() {
+            Module._InitWarf();
+        }
+        Run(input, showSyntaxTree) {
+            var length = lengthBytesUTF8(input) + 1; // Add 1 for the null terminator
+            var buffer = _malloc(length);
+            // Copy the string to memory
+            stringToUTF8(input, buffer, length);
+            let results = Pointer_stringify(Module._RunWarf(buffer, showSyntaxTree));
+            _free(buffer);
+            return results;
+        }
+        ShowTree() {
+            return Pointer_stringify(Module._ShowSyntaxTree());
+        }
+    }
+
+    Module.onRuntimeInitialized = function() {
+        g_WarfApi = new WarfLang();
+    }
+
+    //Module['EXTRA_EXPORTED_RUNTIME_METHODS'] = ['stringToUTF8', 'Pointer_stringify'];
+    
+    function runWarf(form) {
+        let input = form.elements[0].value;
+        let showSyntaxTree = form.elements[1].checked;
+        output = g_WarfApi.Run(input, showSyntaxTree)
+
+        let syntaxTreeElement = document.getElementById("warfLangSyntaxTreeBox")
+        let resultElement = document.getElementById("warfLangOutputBox")
+        //resultElement.removeAttribute("hidden");
+        resultElement.style="display:block;"
+        resultElement.value = output
+        resultElement.rows = output.split('\n').length;
+
+        if(showSyntaxTree) {
+            //syntaxTreeElement.removeAttribute("hidden");
+            syntaxTreeElement.style="display:block;"
+            syntaxTreeElement.value = g_WarfApi.ShowTree();
+            syntaxTreeElement.rows = syntaxTreeElement.value.split('\n').length;
+
+        }else {
+            syntaxTreeElement.style="display:none;"
+        }
+
+        // prevent form from refreshing
+        return false;
+    }
+</script>
+<h1>Try WarfLang!</h1>
+
+<form id="WarfLangInputForm" onsubmit="return runWarf(this)">
+  <!-- Where text will go-->
+  <textarea id="warfLangInputBox" rows="4" cols="50">
+  </textarea>
+  <br>
+  <input type="checkbox" id="showSyntaxTree">
+  <label for="showSyntaxTree"> Show the Syntax Tree</label><br>
+  <input type="submit" value="Submit">
+</form>
+
+<p>Click the "Submit" to Run Warf.</p>
+
+<textarea id="warfLangSyntaxTreeBox" rows="4" cols="50" style="display:none;">
+</textarea>
+
+<textarea id="warfLangOutputBox" rows="4" cols="50" style="display:none;">
+</textarea>
+
+</body>
+</html>
