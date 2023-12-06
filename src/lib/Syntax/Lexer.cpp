@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include "Lexer.h"
-#include "SyntaxType.h"
+#include "SyntaxKind.h"
 #include <errno.h>
 #include <limits>
 #include <sstream>
@@ -19,145 +19,145 @@ char Lexer::CurrentToken() {
   return mText[mPosition];
 }
 
-void Lexer::ReadToken(SyntaxType &type) {
+void Lexer::ReadToken(SyntaxKind &type) {
   switch (CurrentToken()) {
   case '\0':
-    type = SyntaxType::EndOfFileToken;
+    type = SyntaxKind::EndOfFileToken;
     break;
   case ' ':
-    type = SyntaxType::WhiteSpaceToken;
+    type = SyntaxKind::WhiteSpaceToken;
     mPosition++;
     break;
   case '+':
     mPosition++;
     if (CurrentToken() != '=') {
-      type = SyntaxType::PlusToken;
+      type = SyntaxKind::PlusToken;
     } else {
-      type = SyntaxType::PlusEqualsToken;
+      type = SyntaxKind::PlusEqualsToken;
       mPosition++;
     }
     break;
   case '-':
     mPosition++;
     if (CurrentToken() != '=') {
-      type = SyntaxType::MinusToken;
+      type = SyntaxKind::MinusToken;
     } else {
-      type = SyntaxType::MinusEqualsToken;
+      type = SyntaxKind::MinusEqualsToken;
       mPosition++;
     }
     break;
   case '*':
     mPosition++;
     if (CurrentToken() != '=') {
-      type = SyntaxType::StarToken;
+      type = SyntaxKind::StarToken;
     } else {
-      type = SyntaxType::StarEqualsToken;
+      type = SyntaxKind::StarEqualsToken;
       mPosition++;
     }
     break;
   case '/':
     mPosition++;
     if (CurrentToken() != '=') {
-      type = SyntaxType::SlashToken;
+      type = SyntaxKind::SlashToken;
     } else {
-      type = SyntaxType::SlashEqualsToken;
+      type = SyntaxKind::SlashEqualsToken;
       mPosition++;
     }
     break;
   case '(':
-    type = SyntaxType::OpenParenthesisToken;
+    type = SyntaxKind::OpenParenthesisToken;
     mPosition++;
     break;
   case ')':
-    type = SyntaxType::CloseParenthesisToken;
+    type = SyntaxKind::CloseParenthesisToken;
     mPosition++;
     break;
   case '{':
-    type = SyntaxType::OpenBraceToken;
+    type = SyntaxKind::OpenBraceToken;
     mPosition++;
     break;
   case '}':
-    type = SyntaxType::CloseBraceToken;
+    type = SyntaxKind::CloseBraceToken;
     mPosition++;
     break;
   case ':':
-    type = SyntaxType::ColonToken;
+    type = SyntaxKind::ColonToken;
     mPosition++;
     break;
   case ',':
-    type = SyntaxType::CommaToken;
+    type = SyntaxKind::CommaToken;
     mPosition++;
     break;
   case '~':
-    type = SyntaxType::TildeToken;
+    type = SyntaxKind::TildeToken;
     mPosition++;
     break;
   case '^':
     mPosition++;
     if (CurrentToken() != '=') {
-      type = SyntaxType::HatToken;
+      type = SyntaxKind::HatToken;
     } else {
-      type = SyntaxType::HatEqualsToken;
+      type = SyntaxKind::HatEqualsToken;
       mPosition++;
     }
     break;
   case '&':
     mPosition++;
     if (CurrentToken() == '&') {
-      type = SyntaxType::AmpersandAmpersandToken;
+      type = SyntaxKind::AmpersandAmpersandToken;
       mPosition++;
     } else if (CurrentToken() == '=') {
-      type = SyntaxType::AmpersandEqualsToken;
+      type = SyntaxKind::AmpersandEqualsToken;
       mPosition++;
     } else {
-      type = SyntaxType::AmpersandToken;
+      type = SyntaxKind::AmpersandToken;
     }
     break;
   case '|':
     mPosition++;
     if (CurrentToken() == '|') {
-      type = SyntaxType::PipePipeToken;
+      type = SyntaxKind::PipePipeToken;
       mPosition++;
     } else if (CurrentToken() == '=') {
-      type = SyntaxType::PipeEqualsToken;
+      type = SyntaxKind::PipeEqualsToken;
       mPosition++;
     } else {
-      type = SyntaxType::PipeToken;
+      type = SyntaxKind::PipeToken;
     }
     break;
   case '=':
     mPosition++;
     if (CurrentToken() != '=') {
-      type = SyntaxType::EqualsToken;
+      type = SyntaxKind::EqualsToken;
     } else {
-      type = SyntaxType::EqualsEqualsToken;
+      type = SyntaxKind::EqualsEqualsToken;
       mPosition++;
     }
     break;
   case '!':
     mPosition++;
     if (CurrentToken() != '=') {
-      type = SyntaxType::BangToken;
+      type = SyntaxKind::BangToken;
     } else {
-      type = SyntaxType::BangEqualsToken;
+      type = SyntaxKind::BangEqualsToken;
       mPosition++;
     }
     break;
   case '<':
     mPosition++;
     if (CurrentToken() != '=') {
-      type = SyntaxType::LessToken;
+      type = SyntaxKind::LessToken;
     } else {
-      type = SyntaxType::LessOrEqualsToken;
+      type = SyntaxKind::LessOrEqualsToken;
       mPosition++;
     }
     break;
   case '>':
     mPosition++;
     if (CurrentToken() != '=') {
-      type = SyntaxType::GreaterToken;
+      type = SyntaxKind::GreaterToken;
     } else {
-      type = SyntaxType::GreaterOrEqualsToken;
+      type = SyntaxKind::GreaterOrEqualsToken;
       mPosition++;
     }
     break;
@@ -180,13 +180,13 @@ void Lexer::ReadToken(SyntaxType &type) {
     ParseLetters(type);
   }
 }
-void Lexer::ParseLetters(SyntaxType &type) {
+void Lexer::ParseLetters(SyntaxKind &type) {
   if (isalpha(CurrentToken())) {
     ReadIdentifierOrKeyword(type);
   }
 }
 
-void Lexer::ReadIdentifierOrKeyword(SyntaxType &type) {
+void Lexer::ReadIdentifierOrKeyword(SyntaxKind &type) {
   int32_t start = mPosition;
   while (isalpha(CurrentToken()) || isdigit(CurrentToken()) ||
          CurrentToken() == '_') {
@@ -194,14 +194,14 @@ void Lexer::ReadIdentifierOrKeyword(SyntaxType &type) {
   }
   int32_t length = mPosition - start;
   std::string text = mText.substr(start, length);
-  type = SyntaxType::GetKeywordType(text);
-  if (type == SyntaxType::TrueKeyword) {
+  type = SyntaxKind::GetKeywordKind(text);
+  if (type == SyntaxKind::TrueKeyword) {
     mValue = true;
   }
-  if (type == SyntaxType::FalseKeyword) {
+  if (type == SyntaxKind::FalseKeyword) {
     mValue = false;
   }
-  if (type == SyntaxType::IdentifierToken) {
+  if (type == SyntaxKind::IdentifierToken) {
     mIdentifier = text;
   }
 }
@@ -214,7 +214,7 @@ void Lexer::ReadIdentifierOrKeyword(SyntaxType &type) {
 // This has two issues:
 //   1) we are reporting underflows as overflows
 //   2) we have an off by one error, where a valid int is now not possible.
-void Lexer::ParseNumber(SyntaxType &type) {
+void Lexer::ParseNumber(SyntaxKind &type) {
   int32_t posStart = mPosition;
   while (isdigit(CurrentToken())) {
     mPosition++;
@@ -227,34 +227,34 @@ void Lexer::ParseNumber(SyntaxType &type) {
     // underflow
     mRecords.ReportUnderflow(posStart, mPosition, val);
     mValue = 0;
-    type = SyntaxType::NumberToken;
+    type = SyntaxKind::NumberToken;
     return;
   } else if (val >= static_cast<int64_t>(std::numeric_limits<int32_t>::max())) {
     // overflow
     mRecords.ReportOverflow(posStart, mPosition, val);
     mValue = 0;
-    type = SyntaxType::NumberToken;
+    type = SyntaxKind::NumberToken;
     return;
   }
   mValue = static_cast<int32_t>(val);
-  type = SyntaxType::NumberToken;
+  type = SyntaxKind::NumberToken;
 }
 
 std::unique_ptr<SyntaxToken> Lexer::NextToken() {
-  SyntaxType type = SyntaxType::UnknownToken;
+  SyntaxKind type = SyntaxKind::UnknownToken;
   int32_t tokenStartPos = mPosition;
   ReadToken(type);
   int32_t tokenEndPos = mPosition;
-  if (type == SyntaxType::NumberToken || type == SyntaxType::TrueKeyword ||
-      type == SyntaxType::FalseKeyword) {
+  if (type == SyntaxKind::NumberToken || type == SyntaxKind::TrueKeyword ||
+      type == SyntaxKind::FalseKeyword) {
     return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
                                          mValue);
   }
-  if (type == SyntaxType::IdentifierToken) {
+  if (type == SyntaxKind::IdentifierToken) {
     return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
                                          mIdentifier);
   }
-  if (type == SyntaxType::UnknownToken) {
+  if (type == SyntaxKind::UnknownToken) {
     mRecords.ReportBadCharacter(mPosition, CurrentToken());
     mPosition++;
     return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,

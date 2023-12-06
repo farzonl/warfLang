@@ -4,7 +4,7 @@
 
 #include "SyntaxNode.h"
 
-SyntaxNode::SyntaxNode(SyntaxType type) : mType(type), mVecExpressionNodes() {}
+SyntaxNode::SyntaxNode(SyntaxKind kind) : mKind(kind), mVecExpressionNodes() {}
 
 const std::vector<SyntaxNode *> &SyntaxNode::GetChildren() {
   return mVecExpressionNodes;

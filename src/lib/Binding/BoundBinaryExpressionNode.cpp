@@ -5,73 +5,76 @@
 #include "BoundBinaryExpressionNode.h"
 
 const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
-    std::make_shared<BoundBinaryOperator>(SyntaxType::UnknownToken,
-                                          BoundBinaryOperatorType::Addition,
-                                          Type::Unknown),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::UnknownToken,
+                                          BoundBinaryOperatorKind::Addition,
+                                          Value::Type::Unknown),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::PlusToken,
+                                          BoundBinaryOperatorKind::Addition,
+                                          Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::MinusToken,
+                                          BoundBinaryOperatorKind::Subtraction,
+                                          Value::Type::Number),
     std::make_shared<BoundBinaryOperator>(
-        SyntaxType::PlusToken, BoundBinaryOperatorType::Addition, Type::Number),
-    std::make_shared<BoundBinaryOperator>(SyntaxType::MinusToken,
-                                          BoundBinaryOperatorType::Subtraction,
-                                          Type::Number),
+        SyntaxKind::StarToken, BoundBinaryOperatorKind::Multiplication,
+        Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::SlashToken,
+                                          BoundBinaryOperatorKind::Division,
+                                          Value::Type::Number),
     std::make_shared<BoundBinaryOperator>(
-        SyntaxType::StarToken, BoundBinaryOperatorType::Multiplication,
-        Type::Number),
-    std::make_shared<BoundBinaryOperator>(SyntaxType::SlashToken,
-                                          BoundBinaryOperatorType::Division,
-                                          Type::Number),
+        SyntaxKind::EqualsEqualsToken, BoundBinaryOperatorKind::Equals,
+        Value::Type::Number, Value::Type::Number, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
-        SyntaxType::EqualsEqualsToken, BoundBinaryOperatorType::Equals,
-        Type::Number, Type::Number, Type::Boolean),
+        SyntaxKind::EqualsEqualsToken, BoundBinaryOperatorKind::Equals,
+        Value::Type::Boolean, Value::Type::Boolean, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
-        SyntaxType::EqualsEqualsToken, BoundBinaryOperatorType::Equals,
-        Type::Boolean, Type::Boolean, Type::Boolean),
+        SyntaxKind::BangEqualsToken, BoundBinaryOperatorKind::NotEquals,
+        Value::Type::Number, Value::Type::Number, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
-        SyntaxType::BangEqualsToken, BoundBinaryOperatorType::NotEquals,
-        Type::Number, Type::Number, Type::Boolean),
-    std::make_shared<BoundBinaryOperator>(
-        SyntaxType::BangEqualsToken, BoundBinaryOperatorType::NotEquals,
-        Type::Boolean, Type::Boolean, Type::Boolean),
-    std::make_shared<BoundBinaryOperator>(SyntaxType::AmpersandAmpersandToken,
-                                          BoundBinaryOperatorType::LogicalAnd,
-                                          Type::Boolean),
-    std::make_shared<BoundBinaryOperator>(SyntaxType::PipePipeToken,
-                                          BoundBinaryOperatorType::LogicalOr,
-                                          Type::Boolean),
+        SyntaxKind::BangEqualsToken, BoundBinaryOperatorKind::NotEquals,
+        Value::Type::Boolean, Value::Type::Boolean, Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::AmpersandAmpersandToken,
+                                          BoundBinaryOperatorKind::LogicalAnd,
+                                          Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::PipePipeToken,
+                                          BoundBinaryOperatorKind::LogicalOr,
+                                          Value::Type::Boolean),
 
-    std::make_shared<BoundBinaryOperator>(SyntaxType::AmpersandToken,
-                                          BoundBinaryOperatorType::BitwiseAnd,
-                                          Type::Number),
-    std::make_shared<BoundBinaryOperator>(SyntaxType::PipeToken,
-                                          BoundBinaryOperatorType::BitwiseOr,
-                                          Type::Number),
-    std::make_shared<BoundBinaryOperator>(SyntaxType::HatToken,
-                                          BoundBinaryOperatorType::BitwiseXor,
-                                          Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::AmpersandToken,
+                                          BoundBinaryOperatorKind::BitwiseAnd,
+                                          Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::PipeToken,
+                                          BoundBinaryOperatorKind::BitwiseOr,
+                                          Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::HatToken,
+                                          BoundBinaryOperatorKind::BitwiseXor,
+                                          Value::Type::Number),
 
-    std::make_shared<BoundBinaryOperator>(SyntaxType::GreaterToken,
-                                          BoundBinaryOperatorType::GreaterThan,
-                                          Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::GreaterToken,
+                                          BoundBinaryOperatorKind::GreaterThan,
+                                          Value::Type::Number),
     std::make_shared<BoundBinaryOperator>(
-        SyntaxType::GreaterOrEqualsToken,
-        BoundBinaryOperatorType::GreaterThanOrEqualTo, Type::Number),
+        SyntaxKind::GreaterOrEqualsToken,
+        BoundBinaryOperatorKind::GreaterThanOrEqualTo, Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::LessToken,
+                                          BoundBinaryOperatorKind::LessThan,
+                                          Value::Type::Number),
     std::make_shared<BoundBinaryOperator>(
-        SyntaxType::LessToken, BoundBinaryOperatorType::LessThan, Type::Number),
-    std::make_shared<BoundBinaryOperator>(
-        SyntaxType::LessOrEqualsToken,
-        BoundBinaryOperatorType::LessThanOrEqualTo, Type::Number),
+        SyntaxKind::LessOrEqualsToken,
+        BoundBinaryOperatorKind::LessThanOrEqualTo, Value::Type::Number),
 };
 
-BoundBinaryOperator::BoundBinaryOperator(SyntaxType syntaxType,
-                                         BoundBinaryOperatorType boundType,
-                                         Type type)
-    : mSyntaxType(syntaxType), mBoundType(boundType), mLeftOperandType(type),
+BoundBinaryOperator::BoundBinaryOperator(SyntaxKind syntaxKind,
+                                         BoundBinaryOperatorKind boundKind,
+                                         Value::Type type)
+    : mSyntaxKind(syntaxKind), mBoundKind(boundKind), mLeftOperandType(type),
       mRightOperandType(type), mEvalType(type) {}
 
-BoundBinaryOperator::BoundBinaryOperator(SyntaxType syntaxType,
-                                         BoundBinaryOperatorType boundType,
-                                         Type leftOperandType,
-                                         Type rightOperandType, Type evalType)
-    : mSyntaxType(syntaxType), mBoundType(boundType),
+BoundBinaryOperator::BoundBinaryOperator(SyntaxKind syntaxKind,
+                                         BoundBinaryOperatorKind boundKind,
+                                         Value::Type leftOperandType,
+                                         Value::Type rightOperandType,
+                                         Value::Type evalType)
+    : mSyntaxKind(syntaxKind), mBoundKind(boundKind),
       mLeftOperandType(leftOperandType), mRightOperandType(rightOperandType),
       mEvalType(evalType) {}
 
@@ -81,11 +84,11 @@ BoundBinaryOperator::GetBindFailure() {
 }
 
 const std::shared_ptr<BoundBinaryOperator>
-BoundBinaryOperator::Bind(SyntaxType syntaxType, Type leftOperandType,
-                          Type rightOperandType) {
+BoundBinaryOperator::Bind(SyntaxKind syntaxKind, Value::Type leftOperandType,
+                          Value::Type rightOperandType) {
   for (std::shared_ptr<BoundBinaryOperator> op :
        BoundBinaryOperator::sOperators) {
-    if (op->GetSyntaxType() == syntaxType &&
+    if (op->GetSyntaxKind() == syntaxKind &&
         op->LeftOperandType() == leftOperandType &&
         op->RightOperandType() == rightOperandType) {
       return op;
@@ -94,14 +97,16 @@ BoundBinaryOperator::Bind(SyntaxType syntaxType, Type leftOperandType,
   return GetBindFailure();
 }
 
-SyntaxType BoundBinaryOperator::GetSyntaxType() { return mSyntaxType; }
+SyntaxKind BoundBinaryOperator::GetSyntaxKind() { return mSyntaxKind; }
 
-BoundBinaryOperatorType BoundBinaryOperator::BoundType() { return mBoundType; }
-Type BoundBinaryOperator::LeftOperandType() { return mLeftOperandType; }
+BoundBinaryOperatorKind BoundBinaryOperator::BoundKind() { return mBoundKind; }
+Value::Type BoundBinaryOperator::LeftOperandType() { return mLeftOperandType; }
 
-Type BoundBinaryOperator::RightOperandType() { return mRightOperandType; }
+Value::Type BoundBinaryOperator::RightOperandType() {
+  return mRightOperandType;
+}
 
-Type BoundBinaryOperator::GetType() { return mEvalType; }
+Value::Type BoundBinaryOperator::Type() { return mEvalType; }
 
 BoundBinaryExpressionNode::BoundBinaryExpressionNode(
     std::unique_ptr<BoundExpressionNode> left,
@@ -110,16 +115,16 @@ BoundBinaryExpressionNode::BoundBinaryExpressionNode(
     : BoundExpressionNode(), mLeft(std::move(left)), mOperator(op),
       mRight(std::move(right)) {}
 
-BoundNodeType BoundBinaryExpressionNode::NodeType() {
-  return BoundNodeType::BinaryExpression;
+BoundNodeKind BoundBinaryExpressionNode::NodeKind() {
+  return BoundNodeKind::BinaryExpression;
 }
 
-Type BoundBinaryExpressionNode::GetType() { return mOperator->GetType(); }
+Value::Type BoundBinaryExpressionNode::Type() { return mOperator->Type(); }
 
 BoundExpressionNode *BoundBinaryExpressionNode::Left() { return mLeft.get(); }
 
 BoundExpressionNode *BoundBinaryExpressionNode::Right() { return mRight.get(); }
 
-BoundBinaryOperatorType BoundBinaryExpressionNode::OperatorType() {
-  return mOperator->BoundType();
+BoundBinaryOperatorKind BoundBinaryExpressionNode::OperatorKind() {
+  return mOperator->BoundKind();
 }

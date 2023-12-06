@@ -6,11 +6,11 @@
 // #include <functional>
 #include "Scope.h"
 
-VariableSymbol::VariableSymbol(const std::string &name, Type type)
+VariableSymbol::VariableSymbol(const std::string &name, Value::Type type)
     : mName(name), mType(type){};
 
 const std::string &VariableSymbol::Name() const { return mName; }
-Type VariableSymbol::GetType() const { return mType; }
+Value::Type VariableSymbol::Type() const { return mType; }
 
 std::string VariableSymbol::GetScopeName() {
   return this->mScope != nullptr ? this->mScope->Name() : "";

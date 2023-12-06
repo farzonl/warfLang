@@ -6,7 +6,7 @@ include_directories(${WARF_CORE_SOURCE_DIR})
 
 set(SourceFiles Lexer.cpp
                 SyntaxToken.cpp
-                SyntaxType.cpp
+                SyntaxKind.cpp
                 SyntaxNode.cpp
                 ExpressionNode.cpp
                 AssignmentExpressionNode.cpp
@@ -20,7 +20,7 @@ set(SourceFiles Lexer.cpp
 )
 set(HeaderFiles Lexer.h
                 SyntaxToken.h
-                SyntaxType.h
+                SyntaxKind.h
                 SyntaxNode.h
                 ExpressionNode.h
                 AssignmentExpressionNode.h

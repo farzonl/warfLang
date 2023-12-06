@@ -8,16 +8,16 @@
 #include <memory>
 #include <vector>
 
-#include "SyntaxType.h"
+#include "SyntaxKind.h"
 
 class SyntaxNode {
 protected:
-  SyntaxType mType;
+  SyntaxKind mKind;
   std::vector<SyntaxNode *> mVecExpressionNodes;
 
 public:
-  SyntaxNode(SyntaxType type);
-  SyntaxType Type() { return mType; }
+  SyntaxNode(SyntaxKind kind);
+  SyntaxKind Kind() { return mKind; }
   virtual const std::vector<SyntaxNode *> &GetChildren();
   virtual ~SyntaxNode() {}
 };

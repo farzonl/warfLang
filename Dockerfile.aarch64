@@ -27,7 +27,7 @@ RUN cd \
     && mkdir tmp \
     && cd tmp \
     && export LIBEDIT_URL="http://ports.ubuntu.com/ubuntu-ports/pool/main/libe/libedit/" \
-    && curl $LIBEDIT_URL 2>&1 | grep -oh "\"libedit-dev.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBEDIT_URL% \
+    && curl $LIBEDIT_URL 2>&1 | grep -oh "\"libedit-dev_3.1-2022.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBEDIT_URL% \
     && dpkg-deb -R libedit-dev*arm64.deb . \
     && rm -rf usr/share libedit-dev*arm64.deb DEBIAN \
     && export LIBBSD_URL="http://ports.ubuntu.com/ubuntu-ports/pool/main/libb/libbsd/" \

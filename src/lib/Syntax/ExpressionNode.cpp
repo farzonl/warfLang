@@ -4,4 +4,4 @@
 
 #include "ExpressionNode.h"
 
-ExpressionNode::ExpressionNode(SyntaxType type) : SyntaxNode(type) {}
+ExpressionNode::ExpressionNode(SyntaxKind type) : SyntaxNode(type) {}

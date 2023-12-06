@@ -9,41 +9,41 @@
 #include <memory>
 
 #include "BoundExpressionNode.h"
-#include "Syntax/SyntaxType.h"
+#include "Syntax/SyntaxKind.h"
 #include "ValueType.h"
 
-enum class BoundUnaryOperatorType {
+enum class BoundUnaryOperatorKind {
   Identity,
   Negation,
   LogicalNegation,
   BitwiseNot
 };
 
-static const std::unordered_map<BoundUnaryOperatorType, std::string>
-    BoundUnaryTypeStrMap = {
-        {BoundUnaryOperatorType::Identity, "Identity"},
-        {BoundUnaryOperatorType::Negation, "Negation"},
-        {BoundUnaryOperatorType::LogicalNegation, "LogicalNegation"},
-        {BoundUnaryOperatorType::BitwiseNot, "BitwiseNot"},
+static const std::unordered_map<BoundUnaryOperatorKind, std::string>
+    BoundUnaryKindStrMap = {
+        {BoundUnaryOperatorKind::Identity, "Identity"},
+        {BoundUnaryOperatorKind::Negation, "Negation"},
+        {BoundUnaryOperatorKind::LogicalNegation, "LogicalNegation"},
+        {BoundUnaryOperatorKind::BitwiseNot, "BitwiseNot"},
 };
 
 class BoundUnaryOperator {
 public:
-  static const std::shared_ptr<BoundUnaryOperator> Bind(SyntaxType syntaxType,
-                                                        Type operandType);
-  SyntaxType GetSyntaxType();
-  BoundUnaryOperatorType UnaryType();
-  Type OperandType(); // expected Type
-  Type EvalType();    // resulting Type
+  static const std::shared_ptr<BoundUnaryOperator>
+  Bind(SyntaxKind syntaxKind, Value::Type operandType);
+  SyntaxKind GetSyntaxKind();
+  BoundUnaryOperatorKind UnaryKind();
+  Value::Type OperandType(); // expected Type
+  Value::Type EvalType();    // resulting Type
   static const std::shared_ptr<BoundUnaryOperator> GetBindFailure();
-  BoundUnaryOperator(SyntaxType syntaxType, BoundUnaryOperatorType unaryType,
-                     Type operandValueType);
+  BoundUnaryOperator(SyntaxKind syntaxKind, BoundUnaryOperatorKind unaryType,
+                     Value::Type operandValueType);
 
 private:
-  SyntaxType mSyntaxType;
-  BoundUnaryOperatorType mUnaryType;
-  Type mOperandType;
-  Type mEvalType;
+  SyntaxKind mSyntaxKind;
+  BoundUnaryOperatorKind mUnaryKind;
+  Value::Type mOperandType;
+  Value::Type mEvalType;
 
   static const std::shared_ptr<BoundUnaryOperator> sOperators[];
   BoundUnaryOperator() = delete;
@@ -55,10 +55,10 @@ public:
   BoundUnaryExpressionNode(const std::shared_ptr<BoundUnaryOperator> op,
                            std::unique_ptr<BoundExpressionNode> operand);
   virtual ~BoundUnaryExpressionNode() {}
-  virtual BoundNodeType NodeType() override;
-  virtual Type GetType() override;
+  virtual BoundNodeKind NodeKind() override;
+  virtual Value::Type Type() override;
   BoundExpressionNode *Operand();
-  BoundUnaryOperatorType OperatorType();
+  BoundUnaryOperatorKind OperatorKind();
 
 private:
   const std::shared_ptr<BoundUnaryOperator> mOperator;

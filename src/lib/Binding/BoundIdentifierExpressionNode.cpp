@@ -4,11 +4,11 @@
 
 #include "BoundIdentifierExpressionNode.h"
 
-BoundNodeType BoundIdentifierExpressionNode::NodeType() {
-  return BoundNodeType::AssignmentExpression;
+BoundNodeKind BoundIdentifierExpressionNode::NodeKind() {
+  return BoundNodeKind::AssignmentExpression;
 }
 
-Type BoundIdentifierExpressionNode::GetType() { return mVariable->GetType(); }
+Value::Type BoundIdentifierExpressionNode::Type() { return mVariable->Type(); }
 
 BoundIdentifierExpressionNode::BoundIdentifierExpressionNode(
     std::shared_ptr<VariableSymbol> variable)

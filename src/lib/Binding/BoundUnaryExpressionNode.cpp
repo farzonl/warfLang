@@ -5,25 +5,27 @@
 #include "BoundUnaryExpressionNode.h"
 
 const std::shared_ptr<BoundUnaryOperator> BoundUnaryOperator::sOperators[] = {
-    std::make_shared<BoundUnaryOperator>(SyntaxType::UnknownToken,
-                                         BoundUnaryOperatorType::Identity,
-                                         Type::Unknown),
+    std::make_shared<BoundUnaryOperator>(SyntaxKind::UnknownToken,
+                                         BoundUnaryOperatorKind::Identity,
+                                         Value::Type::Unknown),
     std::make_shared<BoundUnaryOperator>(
-        SyntaxType::BangToken, BoundUnaryOperatorType::LogicalNegation,
-        Type::Boolean),
-    std::make_shared<BoundUnaryOperator>(
-        SyntaxType::MinusToken, BoundUnaryOperatorType::Negation, Type::Number),
-    std::make_shared<BoundUnaryOperator>(
-        SyntaxType::PlusToken, BoundUnaryOperatorType::Identity, Type::Number),
-    std::make_shared<BoundUnaryOperator>(SyntaxType::TildeToken,
-                                         BoundUnaryOperatorType::BitwiseNot,
-                                         Type::Number),
+        SyntaxKind::BangToken, BoundUnaryOperatorKind::LogicalNegation,
+        Value::Type::Boolean),
+    std::make_shared<BoundUnaryOperator>(SyntaxKind::MinusToken,
+                                         BoundUnaryOperatorKind::Negation,
+                                         Value::Type::Number),
+    std::make_shared<BoundUnaryOperator>(SyntaxKind::PlusToken,
+                                         BoundUnaryOperatorKind::Identity,
+                                         Value::Type::Number),
+    std::make_shared<BoundUnaryOperator>(SyntaxKind::TildeToken,
+                                         BoundUnaryOperatorKind::BitwiseNot,
+                                         Value::Type::Number),
 };
 
-BoundUnaryOperator::BoundUnaryOperator(SyntaxType syntaxType,
-                                       BoundUnaryOperatorType unaryType,
-                                       Type operandValueType)
-    : mSyntaxType(syntaxType), mUnaryType(unaryType),
+BoundUnaryOperator::BoundUnaryOperator(SyntaxKind syntaxKind,
+                                       BoundUnaryOperatorKind unaryType,
+                                       Value::Type operandValueType)
+    : mSyntaxKind(syntaxKind), mUnaryKind(unaryType),
       mOperandType(operandValueType) {}
 
 const std::shared_ptr<BoundUnaryOperator> BoundUnaryOperator::GetBindFailure() {
@@ -31,39 +33,39 @@ const std::shared_ptr<BoundUnaryOperator> BoundUnaryOperator::GetBindFailure() {
 }
 
 const std::shared_ptr<BoundUnaryOperator>
-BoundUnaryOperator::Bind(SyntaxType syntaxType, Type operandType) {
+BoundUnaryOperator::Bind(SyntaxKind syntaxKind, Value::Type operandType) {
   for (std::shared_ptr<BoundUnaryOperator> op :
        BoundUnaryOperator::sOperators) {
-    if (op->GetSyntaxType() == syntaxType && op->OperandType() == operandType) {
+    if (op->GetSyntaxKind() == syntaxKind && op->OperandType() == operandType) {
       return op;
     }
   }
   return GetBindFailure();
 }
 
-SyntaxType BoundUnaryOperator::GetSyntaxType() { return mSyntaxType; }
+SyntaxKind BoundUnaryOperator::GetSyntaxKind() { return mSyntaxKind; }
 
-Type BoundUnaryOperator::OperandType() { return mOperandType; }
+Value::Type BoundUnaryOperator::OperandType() { return mOperandType; }
 
-Type BoundUnaryOperator::EvalType() { return mEvalType; }
+Value::Type BoundUnaryOperator::EvalType() { return mEvalType; }
 
-BoundUnaryOperatorType BoundUnaryOperator::UnaryType() { return mUnaryType; }
+BoundUnaryOperatorKind BoundUnaryOperator::UnaryKind() { return mUnaryKind; }
 
 BoundUnaryExpressionNode::BoundUnaryExpressionNode(
     const std::shared_ptr<BoundUnaryOperator> op,
     std::unique_ptr<BoundExpressionNode> operand)
     : BoundExpressionNode(), mOperator(op), mOperand(std::move(operand)) {}
 
-BoundNodeType BoundUnaryExpressionNode::NodeType() {
-  return BoundNodeType::UnaryExpression;
+BoundNodeKind BoundUnaryExpressionNode::NodeKind() {
+  return BoundNodeKind::UnaryExpression;
 }
 
 BoundExpressionNode *BoundUnaryExpressionNode::Operand() {
   return mOperand.get();
 }
 
-Type BoundUnaryExpressionNode::GetType() { return mOperand->GetType(); }
+Value::Type BoundUnaryExpressionNode::Type() { return mOperand->Type(); }
 
-BoundUnaryOperatorType BoundUnaryExpressionNode::OperatorType() {
-  return mOperator->UnaryType();
+BoundUnaryOperatorKind BoundUnaryExpressionNode::OperatorKind() {
+  return mOperator->UnaryKind();
 }

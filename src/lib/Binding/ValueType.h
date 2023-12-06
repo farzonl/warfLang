@@ -11,11 +11,13 @@
 #include <string>
 #include <unordered_map>
 
-#include "Syntax/SyntaxType.h"
-
-enum class Type { Unknown, Number, Boolean };
+#include "Syntax/SyntaxKind.h"
 
 class Value {
+public:
+  enum class Type { Unknown, Number, Boolean };
+
+private:
   union uValue {
     bool boolean;
     int32_t integer;
@@ -165,7 +167,7 @@ public:
     return value;
   }
 
-  Type GetType() { return type; }
+  Type VType() { return type; }
 
   int asInt() const {
     assert(type == Type::Number);
@@ -183,10 +185,10 @@ public:
 
 inline std::ostream &operator<<(std::ostream &out, const Value v) {
   switch (v.type) {
-  case Type::Boolean:
+  case Value::Type::Boolean:
     out << boolToNameMap.at(v.asBool());
     break;
-  case Type::Number:
+  case Value::Type::Number:
     out << v.asInt();
     break;
   default:
@@ -195,12 +197,12 @@ inline std::ostream &operator<<(std::ostream &out, const Value v) {
   return out;
 }
 
-inline std::ostream &operator<<(std::ostream &out, const Type t) {
+inline std::ostream &operator<<(std::ostream &out, const Value::Type t) {
   switch (t) {
-  case Type::Boolean:
+  case Value::Type::Boolean:
     out << "Boolean";
     break;
-  case Type::Number:
+  case Value::Type::Number:
     out << "Number";
     break;
   default:

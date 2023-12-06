@@ -15,14 +15,14 @@ class Scope;
 
 class VariableSymbol {
 public:
-  VariableSymbol(const std::string &name, Type type);
+  VariableSymbol(const std::string &name, Value::Type type);
   const std::string &Name() const;
-  Type GetType() const;
+  Value::Type Type() const;
   Value GetValue() const;
   void SetValue(Value v);
   static std::shared_ptr<VariableSymbol> failSymbol() {
     static auto fail =
-        std::make_shared<VariableSymbol>("unknown", Type::Unknown);
+        std::make_shared<VariableSymbol>("unknown", Value::Type::Unknown);
     return fail;
   }
   std::string GetScopeName();
@@ -41,7 +41,7 @@ public:
 
 private:
   std::string mName;
-  Type mType;
+  Value::Type mType;
   Scope *mScope;
   Value mValue;
 };

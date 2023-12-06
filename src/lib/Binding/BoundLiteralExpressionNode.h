@@ -10,7 +10,7 @@
 
 #include "BoundExpressionNode.h"
 #include "Syntax/LiteralExpressionNode.h"
-#include "Syntax/SyntaxType.h"
+#include "Syntax/SyntaxKind.h"
 
 class BoundLiteralExpressionNode : public BoundExpressionNode {
 public:
@@ -18,8 +18,8 @@ public:
   BoundLiteralExpressionNode(int32_t v);
   virtual ~BoundLiteralExpressionNode() {}
   // Value GetValue();
-  virtual BoundNodeType NodeType() override;
-  virtual Type GetType() override;
+  virtual BoundNodeKind NodeKind() override;
+  virtual Value::Type Type() override;
   Value GetValue();
 
 private:

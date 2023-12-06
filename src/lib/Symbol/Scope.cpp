@@ -5,20 +5,20 @@
 #include "Scope.h"
 #include <functional>
 
-const std::unordered_map<std::string, Scope::ScopeType> Scope::NameToScopeType =
+const std::unordered_map<std::string, Scope::ScopeKind> Scope::NameToScopeKind =
     {
-        {".global", ScopeType::Global},
+        {".global", ScopeKind::Global},
 };
 
-const std::unordered_map<Scope::ScopeType, std::string> Scope::ScopeTypeToName =
+const std::unordered_map<Scope::ScopeKind, std::string> Scope::ScopeKindToName =
     {
-        {ScopeType::Global, ".global"},
+        {ScopeKind::Global, ".global"},
 };
 
-Scope::Scope(ScopeType scopeType, std::shared_ptr<TextSpan> textSpan,
+Scope::Scope(ScopeKind scopeKind, std::shared_ptr<TextSpan> textSpan,
              std::string scopeName)
-    : mScopeType(scopeType), mTextspan(textSpan),
-      mName(ScopeTypeToName.at(scopeType) + scopeName), mVariables() {}
+    : mScopeKind(scopeKind), mTextspan(textSpan),
+      mName(ScopeKindToName.at(scopeKind) + scopeName), mVariables() {}
 
 const std::string &Scope::Name() const { return mName; }
 

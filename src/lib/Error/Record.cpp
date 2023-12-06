@@ -51,7 +51,7 @@ void Records::ReportBadCharacter(int position, char character) {
 }
 
 void Records::ReportUnexpectedToken(int32_t start, int32_t end,
-                                    SyntaxType actual, SyntaxType expected) {
+                                    SyntaxKind actual, SyntaxKind expected) {
 
   std::stringstream message;
   message << mPrefix << "Error: Unexpected token: < " << actual
@@ -60,21 +60,21 @@ void Records::ReportUnexpectedToken(int32_t start, int32_t end,
 }
 
 void Records::ReportUndefinedUnaryOperator(
-    std::shared_ptr<SyntaxToken> unaryOperator, Type operandType) {
+    std::shared_ptr<SyntaxToken> unaryOperator, Value::Type operandType) {
 
   std::stringstream message;
   message << mPrefix << "Error: Unary operator "
-          << SyntaxTokenToStrMap.at(unaryOperator->Type())
+          << SyntaxTokenToStrMap.at(unaryOperator->Kind())
           << " is not defined for type " << operandType << ".";
   Report(unaryOperator->Span(), message.str());
 }
 
 void Records::ReportUndefinedBinaryOperator(
-    std::shared_ptr<SyntaxToken> binaryOperator, Type leftType,
-    Type rightType) {
+    std::shared_ptr<SyntaxToken> binaryOperator, Value::Type leftType,
+    Value::Type rightType) {
   std::stringstream message;
   message << mPrefix << "Error: Binary operator "
-          << SyntaxTokenToStrMap.at(binaryOperator->Type())
+          << SyntaxTokenToStrMap.at(binaryOperator->Kind())
           << " is not defined for types " << leftType << " and " << rightType
           << ".";
   Report(binaryOperator->Span(), message.str());

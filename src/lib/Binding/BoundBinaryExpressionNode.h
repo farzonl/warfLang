@@ -6,10 +6,10 @@
 
 #pragma once
 #include "BoundExpressionNode.h"
-#include "Syntax/SyntaxType.h"
+#include "Syntax/SyntaxKind.h"
 #include <memory>
 
-enum class BoundBinaryOperatorType {
+enum class BoundBinaryOperatorKind {
   Addition,
   Subtraction,
   Multiplication,
@@ -27,50 +27,51 @@ enum class BoundBinaryOperatorType {
   GreaterThanOrEqualTo
 };
 
-static const std::unordered_map<BoundBinaryOperatorType, std::string>
-    BoundBinaryTypeStrMap = {
-        {BoundBinaryOperatorType::Addition, "Addition"},
-        {BoundBinaryOperatorType::Subtraction, "Subtraction"},
-        {BoundBinaryOperatorType::Multiplication, "Multiplication"},
-        {BoundBinaryOperatorType::Division, "Division"},
-        {BoundBinaryOperatorType::Equals, "Equals"},
-        {BoundBinaryOperatorType::NotEquals, "NotEquals"},
-        {BoundBinaryOperatorType::LogicalAnd, "LogicalAnd"},
-        {BoundBinaryOperatorType::LogicalOr, "LogicalOr"},
-        {BoundBinaryOperatorType::BitwiseAnd, "BitwiseAnd"},
-        {BoundBinaryOperatorType::BitwiseOr, "BitwiseOr"},
-        {BoundBinaryOperatorType::BitwiseXor, "BitwiseXor"},
-        {BoundBinaryOperatorType::BitwiseOr, "BitwiseOr,"},
-        {BoundBinaryOperatorType::BitwiseXor, "BitwiseXor,"},
-        {BoundBinaryOperatorType::GreaterThan, "GreaterThan,"},
-        {BoundBinaryOperatorType::LessThan, "LessThan,"},
-        {BoundBinaryOperatorType::LessThanOrEqualTo, "LessThanOrEqualTo,"},
-        {BoundBinaryOperatorType::GreaterThanOrEqualTo, "GreaterThanOrEqualTo"},
+static const std::unordered_map<BoundBinaryOperatorKind, std::string>
+    BoundBinaryKindStrMap = {
+        {BoundBinaryOperatorKind::Addition, "Addition"},
+        {BoundBinaryOperatorKind::Subtraction, "Subtraction"},
+        {BoundBinaryOperatorKind::Multiplication, "Multiplication"},
+        {BoundBinaryOperatorKind::Division, "Division"},
+        {BoundBinaryOperatorKind::Equals, "Equals"},
+        {BoundBinaryOperatorKind::NotEquals, "NotEquals"},
+        {BoundBinaryOperatorKind::LogicalAnd, "LogicalAnd"},
+        {BoundBinaryOperatorKind::LogicalOr, "LogicalOr"},
+        {BoundBinaryOperatorKind::BitwiseAnd, "BitwiseAnd"},
+        {BoundBinaryOperatorKind::BitwiseOr, "BitwiseOr"},
+        {BoundBinaryOperatorKind::BitwiseXor, "BitwiseXor"},
+        {BoundBinaryOperatorKind::BitwiseOr, "BitwiseOr,"},
+        {BoundBinaryOperatorKind::BitwiseXor, "BitwiseXor,"},
+        {BoundBinaryOperatorKind::GreaterThan, "GreaterThan,"},
+        {BoundBinaryOperatorKind::LessThan, "LessThan,"},
+        {BoundBinaryOperatorKind::LessThanOrEqualTo, "LessThanOrEqualTo,"},
+        {BoundBinaryOperatorKind::GreaterThanOrEqualTo, "GreaterThanOrEqualTo"},
 };
 
 class BoundBinaryOperator {
 public:
   static const std::shared_ptr<BoundBinaryOperator>
-  Bind(SyntaxType syntaxType, Type leftOperandType, Type rightOperandType);
-  SyntaxType GetSyntaxType();
-  BoundBinaryOperatorType BoundType();
-  Type LeftOperandType();  // expected Type
-  Type RightOperandType(); // expected Type
-  Type GetType();          // resulting Type
+  Bind(SyntaxKind syntaxKind, Value::Type leftOperandType,
+       Value::Type rightOperandType);
+  SyntaxKind GetSyntaxKind();
+  BoundBinaryOperatorKind BoundKind();
+  Value::Type LeftOperandType();  // expected Type
+  Value::Type RightOperandType(); // expected Type
+  Value::Type Type();             // resulting Type
   static const std::shared_ptr<BoundBinaryOperator> GetBindFailure();
   // TODO see if there is a way to make shared_ptr a friend function
-  BoundBinaryOperator(SyntaxType syntaxType, BoundBinaryOperatorType boundType,
-                      Type type);
-  BoundBinaryOperator(SyntaxType syntaxType, BoundBinaryOperatorType boundType,
-                      Type leftOperandType, Type rightOperandType,
-                      Type evalType);
+  BoundBinaryOperator(SyntaxKind syntaxKind, BoundBinaryOperatorKind boundKind,
+                      Value::Type type);
+  BoundBinaryOperator(SyntaxKind syntaxKind, BoundBinaryOperatorKind boundKind,
+                      Value::Type leftOperandType, Value::Type rightOperandType,
+                      Value::Type evalType);
 
 private:
-  SyntaxType mSyntaxType;
-  BoundBinaryOperatorType mBoundType;
-  Type mLeftOperandType;
-  Type mRightOperandType;
-  Type mEvalType;
+  SyntaxKind mSyntaxKind;
+  BoundBinaryOperatorKind mBoundKind;
+  Value::Type mLeftOperandType;
+  Value::Type mRightOperandType;
+  Value::Type mEvalType;
   static const std::shared_ptr<BoundBinaryOperator> sOperators[];
   BoundBinaryOperator() = delete;
   friend class BoundBinaryExpressionNode;
@@ -82,11 +83,11 @@ public:
                             const std::shared_ptr<BoundBinaryOperator> op,
                             std::unique_ptr<BoundExpressionNode> right);
   virtual ~BoundBinaryExpressionNode() {}
-  virtual BoundNodeType NodeType() override;
-  virtual Type GetType() override;
+  virtual BoundNodeKind NodeKind() override;
+  virtual Value::Type Type() override;
   BoundExpressionNode *Left();
   BoundExpressionNode *Right();
-  BoundBinaryOperatorType OperatorType();
+  BoundBinaryOperatorKind OperatorKind();
 
 private:
   std::unique_ptr<BoundExpressionNode> mLeft;
