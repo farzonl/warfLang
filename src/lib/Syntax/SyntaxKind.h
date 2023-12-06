@@ -7,9 +7,9 @@
 #pragma once
 #include <cassert>
 #include <iostream>
+#include <stdint.h>
 #include <string>
 #include <unordered_map>
-#include <stdint.h>
 
 class SyntaxKind {
 public:
