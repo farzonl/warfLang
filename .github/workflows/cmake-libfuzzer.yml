@@ -64,6 +64,12 @@ jobs:
         restore-keys: |
           ${{ runner.OS }}-c++-packages-cache-libfuzzer-Release-
 
+    - name: set Latest xcode 
+      if: matrix.os == 'macOS-latest'
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest
+        
     - name: Configure CMake (Mac)
       shell: bash
       working-directory: ${{github.workspace}}/build
