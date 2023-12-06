@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include <stdint.h>
 
 class SyntaxKind {
 public:
