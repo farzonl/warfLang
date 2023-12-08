@@ -47,7 +47,7 @@ public:
       std::unique_ptr<BoundExpressionNode> boundExpression,
       std::shared_ptr<BoundAssignmentOperator> assignmentOperator);
   virtual ~BoundAssignmentExpressionNode() {}
-  virtual BoundNodeKind NodeKind() override;
+  virtual BoundNodeKind Kind() override;
   BoundExpressionNode *BoundExpression();
   std::string Identifier();
   virtual Value::Type Type() override;

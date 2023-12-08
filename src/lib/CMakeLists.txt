@@ -31,6 +31,7 @@ add_library (${PROJECT_NAME} STATIC
   $<TARGET_OBJECTS:WarfCore.Symbol>
   $<TARGET_OBJECTS:WarfCore.Error>
   $<TARGET_OBJECTS:WarfCore.Version>
+  $<TARGET_OBJECTS:WarfCore.DataStructures>
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -41,6 +42,7 @@ target_include_directories(${PROJECT_NAME}
   Symbol
   Error
   Version
+  DataStructures
 )
 
 add_subdirectory(Syntax)
@@ -48,3 +50,4 @@ add_subdirectory(Binding)
 add_subdirectory(Symbol)
 add_subdirectory(Error)
 add_subdirectory(Version)
+add_subdirectory(DataStructures)

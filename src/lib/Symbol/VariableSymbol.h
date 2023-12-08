@@ -15,14 +15,15 @@ class Scope;
 
 class VariableSymbol {
 public:
-  VariableSymbol(const std::string &name, Value::Type type);
+  VariableSymbol(const std::string &name, bool isReadOnly, Value::Type type);
   const std::string &Name() const;
   Value::Type Type() const;
   Value GetValue() const;
   void SetValue(Value v);
+  bool IsReadOnly() const;
   static std::shared_ptr<VariableSymbol> failSymbol() {
     static auto fail =
-        std::make_shared<VariableSymbol>("unknown", Value::Type::Unknown);
+        std::make_shared<VariableSymbol>("unknown", false, Value::Type::Unknown);
     return fail;
   }
   std::string GetScopeName();
@@ -44,4 +45,5 @@ private:
   Value::Type mType;
   Scope *mScope;
   Value mValue;
+  bool mIsReadOnly;
 };

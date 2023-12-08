@@ -53,6 +53,13 @@ public:
     NumberToken,
     // Not Real Tokens
     IdentifierToken,
+    // Statements
+    BlockStatement,
+    ExpressionStatement,
+    VariableDeclaration,
+    // Node
+    CompilationUnit,
+    // Expressions
     IdentifierExpression,
     UnaryExpression,
     BinaryExpression,

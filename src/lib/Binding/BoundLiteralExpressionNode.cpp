@@ -13,7 +13,7 @@ BoundLiteralExpressionNode::BoundLiteralExpressionNode(int32_t v) : mValue() {
   mValue = 0;
 }
 
-BoundNodeKind BoundLiteralExpressionNode::NodeKind() {
+BoundNodeKind BoundLiteralExpressionNode::Kind() {
   return BoundNodeKind::LiteralExpression;
 }
 

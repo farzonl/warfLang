@@ -15,26 +15,11 @@ bool Record::operator==(const std::string &s) const {
   return this->mMessage == s;
 }*/
 
-Records::Records(std::string prefix) : mPrefix(prefix), mRecords() {}
-
-Record &Records::operator[](int index) { return mRecords[index]; }
-
-const Record &Records::operator[](int index) const { return mRecords[index]; }
+Records::Records(std::string prefix) : TemplateList<Record>(), mPrefix(prefix) {}
 
 void Records::Report(TextSpan span, std::string message) {
-  mRecords.push_back(Record(span, message));
+  this->vec.push_back(Record(span, message));
 }
-
-void Records::assign(std::vector<Record>::const_iterator start,
-                     std::vector<Record>::const_iterator end) {
-  mRecords.assign(start, end);
-}
-
-void Records::swap(Records records) { mRecords.swap(records.mRecords); }
-
-bool Records::empty() const { return mRecords.empty(); }
-
-size_t Records::size() const { return mRecords.size(); }
 
 void Records::ReportRangError(int32_t start, int32_t end, int64_t num,
                               std::string overunder) {

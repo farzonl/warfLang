@@ -6,7 +6,7 @@
 // #include <functional>
 #include "Scope.h"
 
-VariableSymbol::VariableSymbol(const std::string &name, Value::Type type)
+VariableSymbol::VariableSymbol(const std::string &name, bool isReadOnly, Value::Type type)
     : mName(name), mType(type){};
 
 const std::string &VariableSymbol::Name() const { return mName; }
@@ -18,6 +18,9 @@ std::string VariableSymbol::GetScopeName() {
 
 Value VariableSymbol::GetValue() const { return mValue; }
 void VariableSymbol::SetValue(Value v) { mValue = v; }
+
+bool VariableSymbol::IsReadOnly() const { return mIsReadOnly; }
+
 /*size_t VariableSymbol::Hash::operator()(const VariableSymbol &variable) const
 { return std::hash<std::string>{}(variable.Name());
 }

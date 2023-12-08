@@ -17,7 +17,7 @@ protected:
 
 public:
   SyntaxNode(SyntaxKind kind);
-  SyntaxKind Kind() { return mKind; }
+  SyntaxKind Kind() const { return mKind; }
   virtual const std::vector<SyntaxNode *> &GetChildren();
   virtual ~SyntaxNode() {}
 };

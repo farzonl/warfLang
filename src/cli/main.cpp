@@ -6,6 +6,7 @@
 #include "Evaluator.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
+#include "ExpressionStatementSyntaxNode.h"
 #include "Version/version.h"
 #include <fstream>
 #include <functional>
@@ -75,6 +76,17 @@ void printUsage() {
   std::cout << "       ./Warf --help\n";
 }
 
+ExpressionNode* ParseExpression(SyntaxTree* syntaxTree) {
+  auto root = syntaxTree->Root();
+  auto statement = root->Statement();
+  if(statement->Kind() == SyntaxKind::ExpressionStatement) {
+    auto expressionStatement = dynamic_cast<ExpressionStatementSyntaxNode*>(
+      const_cast<StatementSyntaxNode*>(statement));
+    return const_cast<ExpressionNode*>(expressionStatement->Expression());
+  }
+  return nullptr;
+}
+
 void evaluate(std::string &line, bool showTree) {
   auto globalScope = SymbolTableMgr::getGlobalScope();
   auto syntaxTree = SyntaxTree::Parse(line);
@@ -82,7 +94,8 @@ void evaluate(std::string &line, bool showTree) {
   auto binder = std::make_unique<Binder>();
   std::unique_ptr<BoundExpressionNode> boundExpression;
   try {
-    boundExpression = binder->BindExpression(syntaxTree->Root());
+    auto expression = ParseExpression(syntaxTree.get());
+    boundExpression = binder->BindExpression(expression);
   } catch (std::runtime_error &error) {
     std::cerr << error.what() << std::endl;
   }

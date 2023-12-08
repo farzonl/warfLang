@@ -7,13 +7,26 @@
 #include "Evaluator.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
+#include "Syntax/ExpressionStatementSyntaxNode.h"
 #include <doctest/doctest.h>
+
+ExpressionNode* ParseExpression(SyntaxTree* syntaxTree) {
+  auto root = syntaxTree->Root();
+  auto statement = root->Statement();
+  if(statement->Kind() == SyntaxKind::ExpressionStatement) {
+    auto expressionStatement = dynamic_cast<ExpressionStatementSyntaxNode*>(
+      const_cast<StatementSyntaxNode*>(statement));
+    return const_cast<ExpressionNode*>(expressionStatement->Expression());
+  }
+  return nullptr;
+}
 
 Value testCaseHelper(std::string s) {
   SymbolTableMgr::init();
   auto syntaxTree = SyntaxTree::Parse(s);
+  auto expresionNode = ParseExpression(syntaxTree.get());
   auto binder = std::make_unique<Binder>();
-  auto boundExpression = binder->BindExpression(syntaxTree->Root());
+  auto boundExpression = binder->BindExpression(expresionNode);
   auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
   return eval->Evaluate();
 }
@@ -21,13 +34,14 @@ Value testCaseHelper(std::string s) {
 bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
   SymbolTableMgr::init();
   auto syntaxTree = SyntaxTree::Parse(s);
+  auto expresionNode = ParseExpression(syntaxTree.get());
   if (!syntaxTree->Errors().empty()) {
     return errorStr == syntaxTree->Errors()[0].Message();
   }
   auto binder = std::make_unique<Binder>();
   std::unique_ptr<BoundExpressionNode> boundExpression;
   try {
-    boundExpression = binder->BindExpression(syntaxTree->Root());
+    boundExpression = binder->BindExpression(expresionNode);
   } catch (std::runtime_error &error) {
     return errorStr == error.what();
   }

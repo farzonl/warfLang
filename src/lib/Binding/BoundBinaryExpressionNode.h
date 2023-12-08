@@ -83,7 +83,7 @@ public:
                             const std::shared_ptr<BoundBinaryOperator> op,
                             std::unique_ptr<BoundExpressionNode> right);
   virtual ~BoundBinaryExpressionNode() {}
-  virtual BoundNodeKind NodeKind() override;
+  virtual BoundNodeKind Kind() override;
   virtual Value::Type Type() override;
   BoundExpressionNode *Left();
   BoundExpressionNode *Right();

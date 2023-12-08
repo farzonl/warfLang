@@ -17,6 +17,8 @@
 
 #include "Syntax/SyntaxToken.h"
 
+#include "DataStructures/TemplateList.h"
+
 class Record {
 public:
   Record(TextSpan span, std::string message);
@@ -33,24 +35,13 @@ inline std::ostream &operator<<(std::ostream &out, const Record &r) {
   return out;
 }
 
-class Records {
+class Records : public TemplateList<Record> {
 private:
-  std::vector<Record> mRecords;
   std::string mPrefix;
 
 public:
   Records(std::string prefix);
-  Record &operator[](int index);
-  const Record &operator[](int index) const;
-  std::vector<Record>::iterator begin() { return mRecords.begin(); }
-  std::vector<Record>::iterator end() { return mRecords.end(); }
-  std::vector<Record>::const_iterator begin() const { return mRecords.begin(); }
-  std::vector<Record>::const_iterator end() const { return mRecords.end(); }
-  void assign(std::vector<Record>::const_iterator start,
-              std::vector<Record>::const_iterator end);
-  void swap(Records records);
-  bool empty() const;
-  size_t size() const;
+  
   void Report(TextSpan span, std::string message);
   void ReportRangError(int32_t start, int32_t end, int64_t num,
                        std::string overunder);

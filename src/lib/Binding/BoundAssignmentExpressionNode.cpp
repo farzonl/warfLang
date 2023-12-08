@@ -86,7 +86,7 @@ Value::Type BoundAssignmentOperator::RightHandExpressionType() {
   return mRhsType;
 }
 
-BoundNodeKind BoundAssignmentExpressionNode::NodeKind() {
+BoundNodeKind BoundAssignmentExpressionNode::Kind() {
   return BoundNodeKind::AssignmentExpression;
 }
 
