@@ -4,51 +4,52 @@
 
 #include "Binder.h"
 #include "BoundAssignmentExpressionNode.h"
-#include "BoundBlockStatementNode.h"
-#include "BoundVariableDeclarationNode.h"
-#include "BoundExpressionStatementNode.h"
 #include "BoundBinaryExpressionNode.h"
+#include "BoundBlockStatementNode.h"
+#include "BoundExpressionStatementNode.h"
 #include "BoundIdentifierExpressionNode.h"
 #include "BoundLiteralExpressionNode.h"
 #include "BoundUnaryExpressionNode.h"
+#include "BoundVariableDeclarationNode.h"
 #include "Syntax/AssignmentExpressionNode.h"
 #include "Syntax/BinaryExpressionNode.h"
+#include "Syntax/BlockStatementSyntaxNode.h"
+#include "Syntax/ExpressionStatementSyntaxNode.h"
 #include "Syntax/IdentifierExpressionNode.h"
 #include "Syntax/LiteralExpressionNode.h"
 #include "Syntax/ParenthesizedExpressionNode.h"
-#include "Syntax/UnaryExpressionNode.h"
-#include "Syntax/BlockStatementSyntaxNode.h"
 #include "Syntax/StatementSyntaxNode.h"
+#include "Syntax/UnaryExpressionNode.h"
 #include "Syntax/VariableDeclarationSyntaxNode.h"
-#include "Syntax/ExpressionStatementSyntaxNode.h"
 
 #include "Symbol/SymbolTableMgr.h"
 #include "Symbol/VariableSymbol.h"
 
 #include <sstream>
 
-std::unique_ptr<BoundStatementNode> 
-Binder::BindStatement(StatementSyntaxNode* syntax) {
-  switch (syntax->Kind().GetValue())
-  {
-      case SyntaxKind::BlockStatement:
-          return BindBlockStatement(dynamic_cast<BlockStatementSyntaxNode*>(syntax));
-      case SyntaxKind::VariableDeclaration:
-          return BindVariableDeclaration(dynamic_cast<VariableDeclarationSyntaxNode*>(syntax));
-      case SyntaxKind::ExpressionStatement:
-          return BindExpressionStatement(dynamic_cast<ExpressionStatementSyntaxNode*>(syntax));
-      default:
-          std::stringstream diagmsg;
-          diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(syntax->Kind());
-          throw std::runtime_error(diagmsg.str());
+std::unique_ptr<BoundStatementNode>
+Binder::BindStatement(StatementSyntaxNode *syntax) {
+  switch (syntax->Kind().GetValue()) {
+  case SyntaxKind::BlockStatement:
+    return BindBlockStatement(dynamic_cast<BlockStatementSyntaxNode *>(syntax));
+  case SyntaxKind::VariableDeclaration:
+    return BindVariableDeclaration(
+        dynamic_cast<VariableDeclarationSyntaxNode *>(syntax));
+  case SyntaxKind::ExpressionStatement:
+    return BindExpressionStatement(
+        dynamic_cast<ExpressionStatementSyntaxNode *>(syntax));
+  default:
+    std::stringstream diagmsg;
+    diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(syntax->Kind());
+    throw std::runtime_error(diagmsg.str());
   }
 }
 
-std::unique_ptr<BoundStatementNode> 
-Binder::BindBlockStatement(BlockStatementSyntaxNode* syntax) {
+std::unique_ptr<BoundStatementNode>
+Binder::BindBlockStatement(BlockStatementSyntaxNode *syntax) {
   auto statements = std::vector<std::unique_ptr<BoundStatementNode>>();
 
-  for (const auto& statementSyntaxNode : syntax->Statements()) {
+  for (const auto &statementSyntaxNode : syntax->Statements()) {
     auto boundStatement = BindStatement(statementSyntaxNode.get());
     statements.push_back(std::move(boundStatement));
   }
@@ -56,23 +57,24 @@ Binder::BindBlockStatement(BlockStatementSyntaxNode* syntax) {
   return std::make_unique<BoundBlockStatementNode>(std::move(statements));
 }
 
-std::unique_ptr<BoundStatementNode> 
-Binder::BindVariableDeclaration(VariableDeclarationSyntaxNode* syntax) {
+std::unique_ptr<BoundStatementNode>
+Binder::BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax) {
   auto name = syntax->Identifier()->Text();
   bool isReadOnly = syntax->Keyword()->Kind() == SyntaxKind::LetKeyword;
-  auto initializer = BindExpression(
-    const_cast<ExpressionNode*>(syntax->Initializer()));
-  
-  auto variable = std::make_shared<VariableSymbol>(name, isReadOnly, 
-                  initializer->Type());
-  
-  //TODO should we handle scoping here?
+  auto initializer =
+      BindExpression(const_cast<ExpressionNode *>(syntax->Initializer()));
 
- return std::make_unique<BoundVariableDeclarationNode>(variable, std::move(initializer));
+  auto variable =
+      std::make_shared<VariableSymbol>(name, isReadOnly, initializer->Type());
+
+  // TODO should we handle scoping here?
+
+  return std::make_unique<BoundVariableDeclarationNode>(variable,
+                                                        std::move(initializer));
 }
 
-std::unique_ptr<BoundStatementNode> 
-Binder::BindExpressionStatement(ExpressionStatementSyntaxNode* syntax) {
+std::unique_ptr<BoundStatementNode>
+Binder::BindExpressionStatement(ExpressionStatementSyntaxNode *syntax) {
   auto expression = BindExpression(syntax->Expression());
   return std::make_unique<BoundExpressionStatementNode>(std::move(expression));
 }
@@ -148,14 +150,14 @@ Binder::BindBinaryExpression(BinaryExpressionNode *binary) {
 std::unique_ptr<BoundExpressionNode>
 Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   std::string name = assignment->IdentifierToken()->Text();
-  bool isReadOnly = false; //TODO remove this line temp to fix compile issue
+  bool isReadOnly = false; // TODO remove this line temp to fix compile issue
   auto boundExpression = BindExpression(assignment->Expression());
   const std::shared_ptr<BoundAssignmentOperator> boundOperator =
       BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Kind(),
                                     boundExpression->Type());
   if (assignment->AssignmentToken()->Kind() == SyntaxKind::EqualsToken) {
-    auto newVar =
-        std::make_shared<VariableSymbol>(name, isReadOnly, boundExpression->Type());
+    auto newVar = std::make_shared<VariableSymbol>(name, isReadOnly,
+                                                   boundExpression->Type());
     auto existingVariable = SymbolTableMgr::find(name);
     if (existingVariable != VariableSymbol::failSymbol()) {
       SymbolTableMgr::modify(newVar, existingVariable->GetScopeName());

@@ -15,7 +15,8 @@ bool Record::operator==(const std::string &s) const {
   return this->mMessage == s;
 }*/
 
-Records::Records(std::string prefix) : TemplateList<Record>(), mPrefix(prefix) {}
+Records::Records(std::string prefix)
+    : TemplateList<Record>(), mPrefix(prefix) {}
 
 void Records::Report(TextSpan span, std::string message) {
   this->vec.push_back(Record(span, message));

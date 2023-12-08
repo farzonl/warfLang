@@ -5,25 +5,26 @@
  */
 
 #pragma once
-#include "StatementSyntaxNode.h"
 #include "ExpressionNode.h"
+#include "StatementSyntaxNode.h"
 #include "SyntaxToken.h"
 #include <memory>
 #include <vector>
 
-class VariableDeclarationSyntaxNode  : public StatementSyntaxNode {
+class VariableDeclarationSyntaxNode : public StatementSyntaxNode {
 public:
-  VariableDeclarationSyntaxNode( std::shared_ptr<SyntaxToken> keyword,
-   std::shared_ptr<SyntaxToken> identifier,
-   std::shared_ptr<SyntaxToken> equalsToken,
-   std::unique_ptr<ExpressionNode> initializer);
+  VariableDeclarationSyntaxNode(std::shared_ptr<SyntaxToken> keyword,
+                                std::shared_ptr<SyntaxToken> identifier,
+                                std::shared_ptr<SyntaxToken> equalsToken,
+                                std::unique_ptr<ExpressionNode> initializer);
 
   virtual ~VariableDeclarationSyntaxNode() {}
 
   std::shared_ptr<SyntaxToken> Keyword();
   std::shared_ptr<SyntaxToken> Identifier();
   std::shared_ptr<SyntaxToken> EqualsToken();
-  const ExpressionNode* Initializer() const;
+  const ExpressionNode *Initializer() const;
+
 private:
   std::shared_ptr<SyntaxToken> mKeyword;
   std::shared_ptr<SyntaxToken> mIdentifier;

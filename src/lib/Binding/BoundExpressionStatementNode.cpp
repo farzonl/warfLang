@@ -6,13 +6,12 @@
 #include "BoundExpressionStatementNode.h"
 
 BoundExpressionStatementNode::BoundExpressionStatementNode(
-  std::unique_ptr<BoundExpressionNode> expression) : 
-  BoundStatementNode(), 
-  mExpression(std::move(expression)) {}
-  
+    std::unique_ptr<BoundExpressionNode> expression)
+    : BoundStatementNode(), mExpression(std::move(expression)) {}
+
 BoundNodeKind BoundExpressionStatementNode::Kind() {
   return BoundNodeKind::ExpressionStatement;
 }
-const BoundExpressionNode* BoundExpressionStatementNode::Expression() const {
+const BoundExpressionNode *BoundExpressionStatementNode::Expression() const {
   return mExpression.get();
 }

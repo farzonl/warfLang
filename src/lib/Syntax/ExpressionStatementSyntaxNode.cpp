@@ -4,9 +4,11 @@
 
 #include "ExpressionStatementSyntaxNode.h"
 
-ExpressionStatementSyntaxNode::ExpressionStatementSyntaxNode(std::unique_ptr<ExpressionNode> expression) : 
-    StatementSyntaxNode(SyntaxKind::ExpressionStatement), mExpression(std::move(expression)) {}
+ExpressionStatementSyntaxNode::ExpressionStatementSyntaxNode(
+    std::unique_ptr<ExpressionNode> expression)
+    : StatementSyntaxNode(SyntaxKind::ExpressionStatement),
+      mExpression(std::move(expression)) {}
 
-ExpressionNode* ExpressionStatementSyntaxNode::Expression() const{
-    return mExpression.get();
+ExpressionNode *ExpressionStatementSyntaxNode::Expression() const {
+  return mExpression.get();
 }

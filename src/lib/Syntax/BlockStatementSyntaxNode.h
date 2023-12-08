@@ -5,23 +5,25 @@
  */
 
 #pragma once
+#include "DataStructures/TemplateList.h"
 #include "StatementSyntaxNode.h"
 #include "SyntaxToken.h"
 #include <memory>
 #include <vector>
-#include "DataStructures/TemplateList.h"
 
-class BlockStatementSyntaxNode  : public StatementSyntaxNode {
+class BlockStatementSyntaxNode : public StatementSyntaxNode {
 public:
-  BlockStatementSyntaxNode( std::shared_ptr<SyntaxToken> openBraceToken,
-   std::vector<std::unique_ptr<StatementSyntaxNode>> statements,
-   std::shared_ptr<SyntaxToken> closeBraceToken);
+  BlockStatementSyntaxNode(
+      std::shared_ptr<SyntaxToken> openBraceToken,
+      std::vector<std::unique_ptr<StatementSyntaxNode>> statements,
+      std::shared_ptr<SyntaxToken> closeBraceToken);
 
-  virtual ~BlockStatementSyntaxNode () {}
+  virtual ~BlockStatementSyntaxNode() {}
 
   std::shared_ptr<SyntaxToken> OpenBraceToken();
-  const TemplateList<std::unique_ptr<StatementSyntaxNode>>& Statements() const;
+  const TemplateList<std::unique_ptr<StatementSyntaxNode>> &Statements() const;
   std::shared_ptr<SyntaxToken> CloseBraceToken();
+
 private:
   std::shared_ptr<SyntaxToken> mOpenBraceToken;
   std::shared_ptr<SyntaxToken> mCloseBraceToken;

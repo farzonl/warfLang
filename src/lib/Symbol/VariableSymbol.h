@@ -22,8 +22,8 @@ public:
   void SetValue(Value v);
   bool IsReadOnly() const;
   static std::shared_ptr<VariableSymbol> failSymbol() {
-    static auto fail =
-        std::make_shared<VariableSymbol>("unknown", false, Value::Type::Unknown);
+    static auto fail = std::make_shared<VariableSymbol>("unknown", false,
+                                                        Value::Type::Unknown);
     return fail;
   }
   std::string GetScopeName();

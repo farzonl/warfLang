@@ -7,8 +7,8 @@
 #pragma once
 #include "SyntaxNode.h"
 
-class StatementSyntaxNode  : public SyntaxNode {
+class StatementSyntaxNode : public SyntaxNode {
 public:
   StatementSyntaxNode(SyntaxKind type);
-  virtual ~StatementSyntaxNode () {}
+  virtual ~StatementSyntaxNode() {}
 };

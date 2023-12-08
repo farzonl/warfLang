@@ -6,15 +6,15 @@
 
 #include "CompilationUnitSyntaxNode.h"
 
-  CompilationUnitSyntaxNode::CompilationUnitSyntaxNode(std::unique_ptr<StatementSyntaxNode> statement, 
-  std::shared_ptr<SyntaxToken> endOfFileToken) : StatementSyntaxNode(SyntaxKind::CompilationUnit),
-  mStatement(std::move(statement)), mEndOfFileToken(endOfFileToken) {}
+CompilationUnitSyntaxNode::CompilationUnitSyntaxNode(
+    std::unique_ptr<StatementSyntaxNode> statement,
+    std::shared_ptr<SyntaxToken> endOfFileToken)
+    : StatementSyntaxNode(SyntaxKind::CompilationUnit),
+      mStatement(std::move(statement)), mEndOfFileToken(endOfFileToken) {}
 
-
-  const StatementSyntaxNode* CompilationUnitSyntaxNode::Statement() const {
-    return mStatement.get();
-  }
-  std::shared_ptr<SyntaxToken> CompilationUnitSyntaxNode::EndOfFileToken() {
-    return mEndOfFileToken;
-  }
-
+const StatementSyntaxNode *CompilationUnitSyntaxNode::Statement() const {
+  return mStatement.get();
+}
+std::shared_ptr<SyntaxToken> CompilationUnitSyntaxNode::EndOfFileToken() {
+  return mEndOfFileToken;
+}

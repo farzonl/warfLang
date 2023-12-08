@@ -9,13 +9,13 @@
 #include "BoundExpressionNode.h"
 #include "Symbol/VariableSymbol.h"
 
+class BoundExpressionStatementNode : public BoundStatementNode {
+public:
+  BoundExpressionStatementNode(std::unique_ptr<BoundExpressionNode> expression);
 
-class BoundExpressionStatementNode  : public BoundStatementNode {
-  public:
-    BoundExpressionStatementNode(std::unique_ptr<BoundExpressionNode> expression);
-  
-    virtual BoundNodeKind Kind() override;
-    const BoundExpressionNode* Expression() const;
-  private:
-    std::unique_ptr<BoundExpressionNode> mExpression;
+  virtual BoundNodeKind Kind() override;
+  const BoundExpressionNode *Expression() const;
+
+private:
+  std::unique_ptr<BoundExpressionNode> mExpression;
 };

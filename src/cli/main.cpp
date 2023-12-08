@@ -4,9 +4,9 @@
 
 #include "Binding/Binder.h"
 #include "Evaluator.h"
+#include "ExpressionStatementSyntaxNode.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
-#include "ExpressionStatementSyntaxNode.h"
 #include "Version/version.h"
 #include <fstream>
 #include <functional>
@@ -76,13 +76,13 @@ void printUsage() {
   std::cout << "       ./Warf --help\n";
 }
 
-ExpressionNode* ParseExpression(SyntaxTree* syntaxTree) {
+ExpressionNode *ParseExpression(SyntaxTree *syntaxTree) {
   auto root = syntaxTree->Root();
   auto statement = root->Statement();
-  if(statement->Kind() == SyntaxKind::ExpressionStatement) {
-    auto expressionStatement = dynamic_cast<ExpressionStatementSyntaxNode*>(
-      const_cast<StatementSyntaxNode*>(statement));
-    return const_cast<ExpressionNode*>(expressionStatement->Expression());
+  if (statement->Kind() == SyntaxKind::ExpressionStatement) {
+    auto expressionStatement = dynamic_cast<ExpressionStatementSyntaxNode *>(
+        const_cast<StatementSyntaxNode *>(statement));
+    return const_cast<ExpressionNode *>(expressionStatement->Expression());
   }
   return nullptr;
 }

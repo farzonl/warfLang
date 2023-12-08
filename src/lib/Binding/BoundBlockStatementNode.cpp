@@ -6,13 +6,13 @@
 #include "BoundBlockStatementNode.h"
 
 BoundBlockStatementNode::BoundBlockStatementNode(
-  TemplateList<std::unique_ptr<BoundStatementNode>> statements) : 
-  BoundStatementNode(), mStatements(std::move(statements)) {}
-  
+    TemplateList<std::unique_ptr<BoundStatementNode>> statements)
+    : BoundStatementNode(), mStatements(std::move(statements)) {}
+
 BoundNodeKind BoundBlockStatementNode::Kind() {
   return BoundNodeKind::BlockStatement;
 }
-const TemplateList<std::unique_ptr<BoundStatementNode>>& BoundBlockStatementNode::Statements() const {
-    return mStatements;
-  }
-
+const TemplateList<std::unique_ptr<BoundStatementNode>> &
+BoundBlockStatementNode::Statements() const {
+  return mStatements;
+}

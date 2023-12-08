@@ -9,13 +9,14 @@
 #include "BoundExpressionNode.h"
 #include "DataStructures/TemplateList.h"
 
-
 class BoundBlockStatementNode : public BoundStatementNode {
-  public:
-    BoundBlockStatementNode(TemplateList<std::unique_ptr<BoundStatementNode>> statements);
-  
-    virtual BoundNodeKind Kind() override;
-    const TemplateList<std::unique_ptr<BoundStatementNode>>& Statements() const;
-  private:
-    TemplateList<std::unique_ptr<BoundStatementNode>> mStatements;
+public:
+  BoundBlockStatementNode(
+      TemplateList<std::unique_ptr<BoundStatementNode>> statements);
+
+  virtual BoundNodeKind Kind() override;
+  const TemplateList<std::unique_ptr<BoundStatementNode>> &Statements() const;
+
+private:
+  TemplateList<std::unique_ptr<BoundStatementNode>> mStatements;
 };

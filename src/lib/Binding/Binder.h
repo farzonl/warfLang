@@ -40,12 +40,12 @@ private:
   BindAssignmentExpression(AssignmentExpressionNode *assignment);
   std::unique_ptr<BoundExpressionNode>
   BindIdentifierExpression(IdentifierExpressionNode *identifier);
-  std::unique_ptr<BoundStatementNode> 
-  BindStatement(StatementSyntaxNode* syntax);
-  std::unique_ptr<BoundStatementNode> 
-  BindBlockStatement(BlockStatementSyntaxNode* syntax);
-  std::unique_ptr<BoundStatementNode> 
-  BindVariableDeclaration(VariableDeclarationSyntaxNode* syntax);
-  std::unique_ptr<BoundStatementNode> 
-  BindExpressionStatement(ExpressionStatementSyntaxNode* syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindStatement(StatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindBlockStatement(BlockStatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindExpressionStatement(ExpressionStatementSyntaxNode *syntax);
 };

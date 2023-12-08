@@ -10,12 +10,13 @@
 
 class CompilationUnitSyntaxNode : public StatementSyntaxNode {
 public:
-  CompilationUnitSyntaxNode(std::unique_ptr<StatementSyntaxNode> statement, std::shared_ptr<SyntaxToken> endOfFileToken);
-  virtual ~CompilationUnitSyntaxNode () {}
+  CompilationUnitSyntaxNode(std::unique_ptr<StatementSyntaxNode> statement,
+                            std::shared_ptr<SyntaxToken> endOfFileToken);
+  virtual ~CompilationUnitSyntaxNode() {}
 
-  const StatementSyntaxNode* Statement() const;
+  const StatementSyntaxNode *Statement() const;
   std::shared_ptr<SyntaxToken> EndOfFileToken();
-  
+
 private:
   std::unique_ptr<StatementSyntaxNode> mStatement;
   std::shared_ptr<SyntaxToken> mEndOfFileToken;

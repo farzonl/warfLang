@@ -5,14 +5,15 @@
  */
 
 #pragma once
-#include "StatementSyntaxNode.h"
 #include "ExpressionNode.h"
+#include "StatementSyntaxNode.h"
 
 class ExpressionStatementSyntaxNode : public StatementSyntaxNode {
 public:
   ExpressionStatementSyntaxNode(std::unique_ptr<ExpressionNode> expression);
-  virtual ~ExpressionStatementSyntaxNode () {}
-  ExpressionNode* Expression() const;
+  virtual ~ExpressionStatementSyntaxNode() {}
+  ExpressionNode *Expression() const;
+
 private:
   std::unique_ptr<ExpressionNode> mExpression;
 };

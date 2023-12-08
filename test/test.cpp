@@ -6,17 +6,17 @@
 #include "Binding/Binder.h"
 #include "Evaluator.h"
 #include "Symbol/SymbolTableMgr.h"
-#include "Syntax/SyntaxTree.h"
 #include "Syntax/ExpressionStatementSyntaxNode.h"
+#include "Syntax/SyntaxTree.h"
 #include <doctest/doctest.h>
 
-ExpressionNode* ParseExpression(SyntaxTree* syntaxTree) {
+ExpressionNode *ParseExpression(SyntaxTree *syntaxTree) {
   auto root = syntaxTree->Root();
   auto statement = root->Statement();
-  if(statement->Kind() == SyntaxKind::ExpressionStatement) {
-    auto expressionStatement = dynamic_cast<ExpressionStatementSyntaxNode*>(
-      const_cast<StatementSyntaxNode*>(statement));
-    return const_cast<ExpressionNode*>(expressionStatement->Expression());
+  if (statement->Kind() == SyntaxKind::ExpressionStatement) {
+    auto expressionStatement = dynamic_cast<ExpressionStatementSyntaxNode *>(
+        const_cast<StatementSyntaxNode *>(statement));
+    return const_cast<ExpressionNode *>(expressionStatement->Expression());
   }
   return nullptr;
 }

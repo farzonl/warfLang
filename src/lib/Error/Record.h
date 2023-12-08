@@ -41,7 +41,7 @@ private:
 
 public:
   Records(std::string prefix);
-  
+
   void Report(TextSpan span, std::string message);
   void ReportRangError(int32_t start, int32_t end, int64_t num,
                        std::string overunder);

@@ -7,14 +7,14 @@
 #pragma once
 #include <memory>
 
-#include "ExpressionNode.h"
-#include "StatementSyntaxNode.h"
 #include "BlockStatementSyntaxNode.h"
 #include "CompilationUnitSyntaxNode.h"
+#include "ExpressionNode.h"
 #include "ExpressionStatementSyntaxNode.h"
-#include "VariableDeclarationSyntaxNode.h"
+#include "StatementSyntaxNode.h"
 #include "SyntaxToken.h"
 #include "SyntaxTree.h"
+#include "VariableDeclarationSyntaxNode.h"
 
 #include "Error/Record.h"
 
@@ -38,7 +38,7 @@ class Parser {
   std::unique_ptr<BlockStatementSyntaxNode> ParseBlockStatement();
   std::unique_ptr<StatementSyntaxNode> ParseVariableDeclaration();
   std::unique_ptr<ExpressionStatementSyntaxNode> ParseExpressionStatement();
-  
+
 public:
   Parser(std::string text);
   std::unique_ptr<CompilationUnitSyntaxNode> ParseCompilationUnit();

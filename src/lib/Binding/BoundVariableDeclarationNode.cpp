@@ -6,18 +6,19 @@
 
 #include "BoundVariableDeclarationNode.h"
 
-    BoundVariableDeclarationNode::BoundVariableDeclarationNode(std::shared_ptr<VariableSymbol> variable,
-    std::unique_ptr<BoundExpressionNode> initializer): BoundStatementNode(), 
-    mVariable(variable), 
-    mInitializer(std::move(initializer)) {}
+BoundVariableDeclarationNode::BoundVariableDeclarationNode(
+    std::shared_ptr<VariableSymbol> variable,
+    std::unique_ptr<BoundExpressionNode> initializer)
+    : BoundStatementNode(), mVariable(variable),
+      mInitializer(std::move(initializer)) {}
 
-    BoundNodeKind BoundVariableDeclarationNode::Kind() {
-      return BoundNodeKind::VariableDeclaration;
-    }
+BoundNodeKind BoundVariableDeclarationNode::Kind() {
+  return BoundNodeKind::VariableDeclaration;
+}
 
-    std::shared_ptr<VariableSymbol> BoundVariableDeclarationNode::Variable() const {
-      return mVariable;
-    }
-    const BoundExpressionNode* BoundVariableDeclarationNode::Initializer() const {
-      return mInitializer.get();
-    }
+std::shared_ptr<VariableSymbol> BoundVariableDeclarationNode::Variable() const {
+  return mVariable;
+}
+const BoundExpressionNode *BoundVariableDeclarationNode::Initializer() const {
+  return mInitializer.get();
+}

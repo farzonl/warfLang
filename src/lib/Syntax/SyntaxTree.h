@@ -5,8 +5,8 @@
  */
 
 #pragma once
-#include "ExpressionNode.h"
 #include "CompilationUnitSyntaxNode.h"
+#include "ExpressionNode.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -19,6 +19,7 @@ class SyntaxTree {
   void PrintTreeRec(SyntaxNode *sNode, std::ostream &out,
                     std::string indent = "", bool isLast = true);
   SyntaxTree(std::string text);
+
 public:
   const Records &Errors() const { return mRecords; }
   CompilationUnitSyntaxNode *Root() const;
