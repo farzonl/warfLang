@@ -25,4 +25,8 @@ public:
   CompilationUnitSyntaxNode *Root() const;
   void PrintTree(std::ostream &out = std::cout);
   static std::unique_ptr<SyntaxTree> Parse(std::string text);
+  friend std::unique_ptr<SyntaxTree>
+  std::make_unique<SyntaxTree>(std::string &);
+  friend std::unique_ptr<SyntaxTree>
+  std::make_unique<SyntaxTree>(std::string &&);
 };

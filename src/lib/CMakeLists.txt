@@ -14,14 +14,12 @@ else()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g")
 endif()
 
-# PathTracer Src dir
+# Warf Src dir
 set(WARF_CORE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-set(SourceFiles Evaluator.cpp
-)
+set(SourceFiles "")
 
-set(HeaderFiles Evaluator.h
-)
+set(HeaderFiles "")
 
 add_library (${PROJECT_NAME} STATIC
   WarfCoreStatic.cpp
@@ -31,6 +29,7 @@ add_library (${PROJECT_NAME} STATIC
   $<TARGET_OBJECTS:WarfCore.Symbol>
   $<TARGET_OBJECTS:WarfCore.Error>
   $<TARGET_OBJECTS:WarfCore.Version>
+  $<TARGET_OBJECTS:WarfCore.CodeAnalysis>
   $<TARGET_OBJECTS:WarfCore.DataStructures>
 )
 
@@ -42,6 +41,7 @@ target_include_directories(${PROJECT_NAME}
   Symbol
   Error
   Version
+  CodeAnalysis
   DataStructures
 )
 
@@ -50,4 +50,5 @@ add_subdirectory(Binding)
 add_subdirectory(Symbol)
 add_subdirectory(Error)
 add_subdirectory(Version)
+add_subdirectory(CodeAnalysis)
 add_subdirectory(DataStructures)

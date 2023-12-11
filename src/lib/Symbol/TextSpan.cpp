@@ -4,12 +4,15 @@
 
 #include "TextSpan.h"
 
-TextSpan::TextSpan(int start, int length) : mStart(start), mLength(length) {}
+TextSpan::TextSpan(int start, int end) : mStart(start), mEnd(end) {}
 
 int32_t TextSpan::Start() const { return mStart; }
 
-int32_t TextSpan::Length() const { return mLength; }
+int32_t TextSpan::Length() const { return mEnd - mStart; }
 
-void TextSpan::SetLength(int32_t newLength) { mLength = newLength; }
+void TextSpan::updateTextSpan(int start, int end) {
+  mStart = start;
+  mEnd = end;
+}
 
-int32_t TextSpan::End() const { return mStart + mLength; }
+int32_t TextSpan::End() const { return mEnd - 1; }

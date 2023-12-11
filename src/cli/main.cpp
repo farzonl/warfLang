@@ -3,13 +3,14 @@
 // license that can be found in the LICENSE file.
 
 #include "Binding/Binder.h"
-#include "Evaluator.h"
+#include "CodeAnalysis/Evaluator.h"
 #include "ExpressionStatementSyntaxNode.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
 #include "Version/version.h"
 #include <fstream>
 #include <functional>
+#include <sstream>
 
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
 #include <editline/readline.h>
@@ -30,18 +31,18 @@ struct Flags {
 class ParseFile {
 public:
   ParseFile(const std::string &path,
-            std::function<void(std::string &, bool)> parseLineBehavior);
+            std::function<void(std::string &, bool, std::stringstream &)> parseLineBehavior);
   bool parse(bool showTree);
 
 private:
   // TODO make parser hanle multiple files
   // std::vector<std::string> mInputFilePaths;
   std::string mInputFilePath;
-  std::function<void(std::string &, bool)> mParseLineBehavior;
+  std::function<void(std::string &, bool, std::stringstream &)> mParseLineBehavior;
 };
 
 ParseFile::ParseFile(const std::string &path,
-                     std::function<void(std::string &, bool)> parseLineBehavior)
+                     std::function<void(std::string &, bool, std::stringstream &)> parseLineBehavior)
     : mInputFilePath(path), mParseLineBehavior(parseLineBehavior) {}
 
 bool ParseFile::parse(bool showTree) {
@@ -52,8 +53,9 @@ bool ParseFile::parse(bool showTree) {
   }
 
   std::string line;
+  std::stringstream textBlock;
   while (getline(file, line)) {
-    mParseLineBehavior(line, showTree);
+    mParseLineBehavior(line, showTree, textBlock);
   }
 
   file.close();
@@ -87,10 +89,15 @@ ExpressionNode *ParseExpression(SyntaxTree *syntaxTree) {
   return nullptr;
 }
 
-void evaluate(std::string &line, bool showTree) {
+void evaluate(std::string &line, bool showTree, std::stringstream& textBlock) {
   auto globalScope = SymbolTableMgr::getGlobalScope();
+  //textBlock << input;
+  //std::string line = textBlock.str();
   auto syntaxTree = SyntaxTree::Parse(line);
-  globalScope->GetTextSpan()->SetLength(line.size());
+  //if(!input.empty() && syntaxTree->Errors().empty()) {
+  //  return;
+  //}
+  globalScope->GetTextSpan()->updateTextSpan(0, line.size());
   auto binder = std::make_unique<Binder>();
   std::unique_ptr<BoundExpressionNode> boundExpression;
   try {
@@ -118,7 +125,7 @@ void evaluate(std::string &line, bool showTree) {
   }
 }
 
-void consoleRead(bool &showTree) {
+void consoleRead(bool &showTree, std::stringstream& textBlock) {
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
   char *buffer = readline(">>> ");
 
@@ -143,15 +150,15 @@ void consoleRead(bool &showTree) {
   if (line == "#exit") {
     exit(0);
   }
-  evaluate(line, showTree);
+  evaluate(line, showTree, textBlock);
 }
 
 void startRepl(bool showTree) {
   WarfHelper::printVersion();
-
+  std::stringstream textBlock; 
   while (true) {
     try {
-      consoleRead(showTree);
+      consoleRead(showTree, textBlock);
 
     } catch (std::exception &error) {
       std::cerr << error.what() << std::endl;
@@ -194,7 +201,9 @@ int main(int argc, char **argv) {
   }
 
   if (isEval) {
-    evaluate(evalStr, showTree);
+    //TODO we broke one line evaluate
+    std::stringstream textBlock;
+    evaluate(evalStr, showTree, textBlock);
     return 0;
   }
   if (isRepl || argc == 1 || (showTree && argc == 2)) {

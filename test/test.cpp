@@ -4,7 +4,7 @@
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "Binding/Binder.h"
-#include "Evaluator.h"
+#include "CodeAnalysis/Evaluator.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/ExpressionStatementSyntaxNode.h"
 #include "Syntax/SyntaxTree.h"

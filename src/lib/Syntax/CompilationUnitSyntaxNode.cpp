@@ -10,7 +10,10 @@ CompilationUnitSyntaxNode::CompilationUnitSyntaxNode(
     std::unique_ptr<StatementSyntaxNode> statement,
     std::shared_ptr<SyntaxToken> endOfFileToken)
     : StatementSyntaxNode(SyntaxKind::CompilationUnit),
-      mStatement(std::move(statement)), mEndOfFileToken(endOfFileToken) {}
+      mStatement(std::move(statement)), mEndOfFileToken(endOfFileToken) {
+        mVecExpressionNodes.push_back(mStatement.get());
+        mVecExpressionNodes.push_back(mEndOfFileToken.get());
+      }
 
 const StatementSyntaxNode *CompilationUnitSyntaxNode::Statement() const {
   return mStatement.get();

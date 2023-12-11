@@ -293,6 +293,10 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::DoKeyword, "DoKeyword"},
         {SyntaxKind::FunctionKeyword, "FunctionKeyword"},
         {SyntaxKind::ReturnKeyword, "ReturnKeyword"},
+        {SyntaxKind::CompilationUnit, "CompilationUnit"},
+        {SyntaxKind::BlockStatement, "BlockStatement"},
+        {SyntaxKind::ExpressionStatement, "ExpressionStatement"},
+        {SyntaxKind::VariableDeclaration, "VariableDeclaration"},
         {SyntaxKind::LetKeyword, "LetKeyword"},
         {SyntaxKind::VarKeyword, "VarKeyword"}};
 
