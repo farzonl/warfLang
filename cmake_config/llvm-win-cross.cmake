@@ -62,3 +62,9 @@ set(COMPILE_FLAGS "--target=${TARGET_TRIPLE} -nostdlib -lmsvcrt ${F_FLAGS} ${DEF
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  ${COMPILE_FLAG}" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAG}" CACHE STRING "" FORCE)
 set(CMAKE_RC_FLAGS "${CMAKE_RC_FLAGS} -Xclang -ivfsoverlay -Xclang ${WiN_VFS_OVERLAY}")
+
+add_compile_options(
+    "SHELL:-Xclang --dependent-lib=libucrt$<$<CONFIG:Debug>:d>"
+    "SHELL:-Xclang --dependent-lib=libvcruntime$<$<CONFIG:Debug>:d>"
+    "SHELL:-Xclang --dependent-lib=oldnames"
+)
