@@ -115,7 +115,7 @@ BoundBinaryExpressionNode::BoundBinaryExpressionNode(
     : BoundExpressionNode(), mLeft(std::move(left)), mOperator(op),
       mRight(std::move(right)) {}
 
-BoundNodeKind BoundBinaryExpressionNode::NodeKind() {
+BoundNodeKind BoundBinaryExpressionNode::Kind() {
   return BoundNodeKind::BinaryExpression;
 }
 

@@ -82,6 +82,14 @@ if(BUILD_ASAN)
 endif()
 
 if (BUILD_FUZZER AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT isEmscripten )
+  # WarfCore must be compiled with the same sanitizer instrumentation as the
+  # fuzz harnesses, or the linker rejects the mix of instrumented and
+  # uninstrumented objects (MSVC: "/failifmismatch: mismatch detected for
+  # 'annotate_string'"). Building the library with -fsanitize=fuzzer also
+  # gives libFuzzer real coverage feedback from the code under test, not just
+  # the thin harness file.
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,fuzzer-no-link")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,fuzzer-no-link")
   add_subdirectory (fuzz)
 endif()
 

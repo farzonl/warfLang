@@ -71,6 +71,7 @@ set(HeaderFiles
 add_library (WarfCore.Version OBJECT
             ${SourceFiles} ${HeaderFiles}
 )
+target_precompile_headers(WarfCore.Version REUSE_FROM WarfCore.Syntax)
 set_target_properties(WarfCore.Version PROPERTIES LINKER_LANGUAGE CXX)
 
 target_include_directories (

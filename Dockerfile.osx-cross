@@ -54,7 +54,7 @@ COPY test test
 COPY fuzz fuzz
 COPY CMakeLists.txt CMakeLists.txt
 COPY scripts scripts
-COPY cli-test-cases cli-test-cases
+
 COPY src src
 
 # Equivalent of PATH="$PATH:/opt/osxcross/bin"
@@ -77,4 +77,4 @@ RUN ninja -C./build
 
 #Note Darling can't run in Docker. 
 #RUN darling shell build/test/WarfLang_TEST 
-#RUN darling shell build/src/cli/Warf.exe cli-test-cases/add.wef
+#RUN darling shell build/src/cli/Warf.exe test/filecheck/Inputs/add.wf

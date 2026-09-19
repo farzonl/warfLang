@@ -17,7 +17,7 @@ COPY test test
 COPY fuzz fuzz
 COPY CMakeLists.txt CMakeLists.txt
 COPY scripts scripts
-COPY cli-test-cases cli-test-cases
+
 COPY src src
 
 RUN cmake -S . -B build  \
@@ -35,4 +35,4 @@ RUN ninja -C./build
 
 ENV WINEPATH="/usr/lib/gcc/x86_64-w64-mingw32/10-posix;/usr/x86_64-w64-mingw32/lib"
 RUN wine cmd /C build/test/WarfLang_TEST.exe
-RUN wine cmd /C  build/src/cli/Warf.exe cli-test-cases/add.wef
+RUN wine cmd /C  build/src/cli/Warf.exe test/filecheck/Inputs/add.wf

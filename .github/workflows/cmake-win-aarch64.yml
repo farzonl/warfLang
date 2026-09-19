@@ -58,7 +58,7 @@ jobs:
       # Note the current convention is to use the -S and -B options here to specify source 
       # and build directories, but this is only available with CMake 3.13 and higher.  
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBuildTest=TRUE -G "Visual Studio 17 2022" -A ARM64
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBuildTest=TRUE -G "Visual Studio 18 2026" -A ARM64
     - name: Build
       working-directory: ${{github.workspace}}/build
       shell: bash
@@ -80,7 +80,7 @@ jobs:
         Copy-Item "build/src/cli/${{ matrix.artifact_out_dir }}${{ env.APPNAME }}${{ matrix.artifact_exec_ext }}" -Destination "${{github.workspace}}/artifacts"
         Compress-Archive -Path ${{github.workspace}}/artifacts/* -DestinationPath ${{ env.APPNAME }}-${{matrix.artifact_os_name}}-${{matrix.artifact_arch}}.zip
     - name: 'Upload Pull Request Artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: startsWith(github.ref, 'refs/pull/')
       with:
         name: ${{ env.APPNAME }} Pull Request Artifacts

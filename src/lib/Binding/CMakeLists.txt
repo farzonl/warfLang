@@ -11,6 +11,9 @@ set(SourceFiles
     BoundUnaryExpressionNode.cpp
     BoundAssignmentExpressionNode.cpp
     BoundIdentifierExpressionNode.cpp
+    BoundExpressionStatementNode.cpp
+    BoundBlockStatementNode.cpp
+    BoundVariableDeclarationNode.cpp
     ValueType.cpp
     
 )
@@ -18,11 +21,15 @@ set(HeaderFiles
     Binder.h
     BoundBinaryExpressionNode.h
     BoundExpressionNode.h
+    BoundExpressionStatementNode.h
+    BoundBlockStatementNode.h
     BoundLiteralExpressionNode.h
     BoundUnaryExpressionNode.h
     BoundAssignmentExpressionNode.h
     BoundIdentifierExpressionNode.h
+    BoundVariableDeclarationNode.h
     ValueType.h
 )
 
 add_library (WarfCore.Binding OBJECT ${SourceFiles} ${HeaderFiles})
+target_precompile_headers(WarfCore.Binding REUSE_FROM WarfCore.Syntax)

@@ -1,9 +1,0 @@
-L--BinaryExpression
-    |--LiteralExpression
-    |   L--NumberToken
-    |      1
-    |--PlusToken
-    L--LiteralExpression
-        L--NumberToken
-           2
-3

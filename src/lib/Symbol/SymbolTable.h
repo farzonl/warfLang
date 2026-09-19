@@ -8,6 +8,7 @@
 
 #include "Scope.h"
 #include "VariableSymbol.h"
+#include <memory>
 #include <string>
 
 #include <unordered_map>

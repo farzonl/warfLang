@@ -1,0 +1,3 @@
+// RUN: %warf -e "2147483648" 2>&1 | %FileCheck %s
+
+// CHECK: LexerError: The number 2147483648 is a Numeric overflow.

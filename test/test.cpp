@@ -4,16 +4,29 @@
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "Binding/Binder.h"
-#include "Evaluator.h"
+#include "CodeAnalysis/Evaluator.h"
 #include "Symbol/SymbolTableMgr.h"
+#include "Syntax/ExpressionStatementSyntaxNode.h"
 #include "Syntax/SyntaxTree.h"
 #include <doctest/doctest.h>
+
+ExpressionNode *ParseExpression(SyntaxTree *syntaxTree) {
+  auto root = syntaxTree->Root();
+  auto statement = root->Statement();
+  if (statement->Kind() == SyntaxKind::ExpressionStatement) {
+    auto expressionStatement = dynamic_cast<ExpressionStatementSyntaxNode *>(
+        const_cast<StatementSyntaxNode *>(statement));
+    return const_cast<ExpressionNode *>(expressionStatement->Expression());
+  }
+  return nullptr;
+}
 
 Value testCaseHelper(std::string s) {
   SymbolTableMgr::init();
   auto syntaxTree = SyntaxTree::Parse(s);
+  auto expresionNode = ParseExpression(syntaxTree.get());
   auto binder = std::make_unique<Binder>();
-  auto boundExpression = binder->BindExpression(syntaxTree->Root());
+  auto boundExpression = binder->BindExpression(expresionNode);
   auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
   return eval->Evaluate();
 }
@@ -21,13 +34,14 @@ Value testCaseHelper(std::string s) {
 bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
   SymbolTableMgr::init();
   auto syntaxTree = SyntaxTree::Parse(s);
+  auto expresionNode = ParseExpression(syntaxTree.get());
   if (!syntaxTree->Errors().empty()) {
     return errorStr == syntaxTree->Errors()[0].Message();
   }
   auto binder = std::make_unique<Binder>();
   std::unique_ptr<BoundExpressionNode> boundExpression;
   try {
-    boundExpression = binder->BindExpression(syntaxTree->Root());
+    boundExpression = binder->BindExpression(expresionNode);
   } catch (std::runtime_error &error) {
     return errorStr == error.what();
   }
@@ -97,6 +111,15 @@ TEST_CASE("Binary Expression") {
     REQUIRE(3 == testCaseHelper("1 ^ 2").asInt());
     REQUIRE(2 == testCaseHelper("3 ^ 1").asInt());
     REQUIRE(1 == testCaseHelper("3 ^ 2").asInt());
+  }
+}
+
+TEST_CASE("Comments") {
+  SUBCASE("trailing line comment is ignored") {
+    REQUIRE(4 == testCaseHelper("1 + 3 // trailing comment").asInt());
+  }
+  SUBCASE("comment does not need a trailing newline") {
+    REQUIRE(4 == testCaseHelper("1 + 3 //").asInt());
   }
 }
 
@@ -225,6 +248,42 @@ TEST_CASE("Boolean Expression") {
     REQUIRE(testCaseHelper("a1 >= a2").asBool());
     REQUIRE(testCaseHelper("a1 + 1 >= a2 + 2").asBool());
   }
+}
+
+TEST_CASE("Statements") {
+  SymbolTableMgr::init();
+  auto syntaxTree = SyntaxTree::Parse("value = 4 value = value + 1 value");
+  REQUIRE(syntaxTree->Errors().empty());
+
+  auto binder = std::make_unique<Binder>();
+  auto boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
+  REQUIRE(binder->Errors().empty());
+
+  auto evaluator = std::make_unique<Evaluator>(std::move(boundStatement));
+  REQUIRE(5 == evaluator->Evaluate().asInt());
+}
+
+TEST_CASE("Block scopes") {
+  SymbolTableMgr::init();
+
+  auto parentSyntax =
+      SyntaxTree::Parse("scope_outer = 1 { scope_outer = 2 } scope_outer");
+  auto parentBinder = std::make_unique<Binder>();
+  auto parentStatement =
+      parentBinder->BindCompilationUnit(parentSyntax->Root());
+  auto parentEvaluator =
+      std::make_unique<Evaluator>(std::move(parentStatement));
+  REQUIRE(2 == parentEvaluator->Evaluate().asInt());
+
+  auto localSyntax = SyntaxTree::Parse("{ scope_inner = 3 }");
+  auto localBinder = std::make_unique<Binder>();
+  auto localStatement = localBinder->BindCompilationUnit(localSyntax->Root());
+  auto localEvaluator = std::make_unique<Evaluator>(std::move(localStatement));
+  REQUIRE(3 == localEvaluator->Evaluate().asInt());
+
+  auto lookupSyntax = SyntaxTree::Parse("scope_inner");
+  auto lookupBinder = std::make_unique<Binder>();
+  REQUIRE_THROWS(lookupBinder->BindCompilationUnit(lookupSyntax->Root()));
 }
 
 TEST_CASE("Assignment Expression") {

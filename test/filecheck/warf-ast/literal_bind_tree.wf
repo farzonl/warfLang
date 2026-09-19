@@ -1,0 +1,26 @@
+// RUN: %warf -s %s 2>/dev/null | %FileCheck %s
+
+a = 1 + b
+a
+
+// CHECK: L--CompilationUnit
+// CHECK-NEXT: |--ExpressionStatement
+// CHECK-NEXT: L--AssignmentExpression
+// CHECK-NEXT: |--IdentifierToken
+// CHECK-NEXT: a
+// CHECK-NEXT: |--EqualsToken
+// CHECK-NEXT: L--BinaryExpression
+// CHECK-NEXT: |--LiteralExpression
+// CHECK-NEXT: L--NumberToken
+// CHECK-NEXT: 1
+// CHECK-NEXT: |--PlusToken
+// CHECK-NEXT: L--IdentifierExpression
+// CHECK-NEXT: L--IdentifierToken
+// CHECK-NEXT: b
+// CHECK-NEXT: L--EndOfFileToken
+// CHECK: L--CompilationUnit
+// CHECK-NEXT: |--ExpressionStatement
+// CHECK-NEXT: L--IdentifierExpression
+// CHECK-NEXT: L--IdentifierToken
+// CHECK-NEXT: a
+// CHECK-NEXT: L--EndOfFileToken

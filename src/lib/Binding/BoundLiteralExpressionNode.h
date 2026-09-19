@@ -18,7 +18,7 @@ public:
   BoundLiteralExpressionNode(int32_t v);
   virtual ~BoundLiteralExpressionNode() {}
   // Value GetValue();
-  virtual BoundNodeKind NodeKind() override;
+  virtual BoundNodeKind Kind() override;
   virtual Value::Type Type() override;
   Value GetValue();
 

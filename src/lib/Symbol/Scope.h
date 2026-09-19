@@ -21,15 +21,19 @@ private:
   ScopeKind mScopeKind;
   std::shared_ptr<TextSpan> mTextspan;
   std::string mName;
+  std::shared_ptr<Scope> mParent;
   std::unordered_map<std::string, std::shared_ptr<VariableSymbol>> mVariables;
   Scope() = default;
 
 public:
   Scope(ScopeKind scopeKind, std::shared_ptr<TextSpan> textSpan,
-        std::string scopeName = "");
+        std::string scopeName = "", std::shared_ptr<Scope> parent = nullptr);
 
   const std::string &Name() const;
   void insert(std::shared_ptr<VariableSymbol> variable);
+  std::shared_ptr<VariableSymbol> lookupLocal(const std::string &name) const;
+  std::shared_ptr<VariableSymbol> lookup(const std::string &name) const;
+  std::shared_ptr<Scope> Parent() const;
 
   std::shared_ptr<TextSpan> GetTextSpan();
   /*bool operator==(const Scope &scope) const {

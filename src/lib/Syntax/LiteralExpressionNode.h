@@ -7,6 +7,7 @@
 #pragma once
 #include "ExpressionNode.h"
 #include "SyntaxToken.h"
+#include <memory>
 
 class LiteralExpressionNode : public ExpressionNode {
   std::shared_ptr<SyntaxToken> mLiteralToken;

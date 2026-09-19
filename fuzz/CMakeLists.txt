@@ -11,18 +11,20 @@ foreach(fuzzer ${fuzzers})
   add_executable(${fuzzer} ${fuzzer}.cpp)
 endforeach()
 
+# Top-level CMakeLists.txt already applies -fsanitize=address,fuzzer-no-link
+# project-wide (so WarfCore's instrumentation matches these harnesses); the
+# harness executables additionally need the full fuzzer runtime + main.
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=fuzzer")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=fuzzer")
 
-#clang++ -g -fsanitize=address,fuzzer
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,fuzzer")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,fuzzer")
-
-if(Win32)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /DEBUG /Od")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DEBUG /Od")
+if(WIN32)
+  # This project uses plain clang + lld-link (not clang-cl), so debug info
+  # comes from -g/-gcodeview, not the cl.exe-style /DEBUG /Od flags.
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Xclang -gcodeview")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Xclang -gcodeview")
 elseif(UNIX)
- set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
- set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g") 
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 endif()
 
 foreach(fuzzer ${fuzzers})

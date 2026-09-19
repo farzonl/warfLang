@@ -1,0 +1,11 @@
+// RUN: %warf -h | %FileCheck %s
+// RUN: %warf --h | %FileCheck %s
+
+// CHECK: usage: ./Warf
+// CHECK-NEXT: ./Warf <file_name>
+// CHECK-NEXT: ./Warf <file_name> --show_tree
+// CHECK-NEXT: ./Warf --repl
+// CHECK-NEXT: ./Warf --eval <string_to_evaluate>
+// CHECK-NEXT: ./Warf --eval <string_to_evaluate> --show_tree
+// CHECK-NEXT: ./Warf -h
+// CHECK-NEXT: ./Warf --help

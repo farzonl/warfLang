@@ -29,13 +29,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest]
       fail-fast: true
     steps:
     - uses: actions/checkout@v2
     - name: install Linux cross-build dependencies
       if: matrix.os == 'ubuntu-latest'
       run: |
+        sudo apt-get update
         sudo apt install clang-tools clang lld lldb  \
         llvm-dev libclang-dev wget curl ca-certificates \
         zip unzip vim wine cmake msitools p7zip-full ninja-build python3
@@ -108,8 +109,10 @@ jobs:
         popd
  
     - name: 'Upload Pull Request Artifact'
-      uses: actions/upload-artifact@v3
-      if: startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/master')
+      uses: actions/upload-artifact@v4
+      # Both matrix legs cross-compile the same Windows target; only publish one
+      # canonical artifact since v4 rejects duplicate names within a run.
+      if: (startsWith(github.ref, 'refs/pull/') || startsWith(github.ref, 'refs/heads/master')) && matrix.os == 'ubuntu-latest'
       with:
         name: ${{ env.APPNAME }}-llvm-win-cross.zip
         path: ${{ env.APPNAME }}-*.zip
@@ -120,7 +123,7 @@ jobs:
     runs-on: windows-latest
     name: Fetch & Run Tests on Windows
     steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v4
       with:
         name: Warf-llvm-win-cross.zip
         path: ${{github.workspace}}

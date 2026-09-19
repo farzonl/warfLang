@@ -17,6 +17,7 @@ public:
     UnknownToken,
     EndOfFileToken,
     WhiteSpaceToken,
+    CommentToken,
     PlusToken,
     PlusEqualsToken,
     MinusToken,
@@ -53,6 +54,13 @@ public:
     NumberToken,
     // Not Real Tokens
     IdentifierToken,
+    // Statements
+    BlockStatement,
+    ExpressionStatement,
+    VariableDeclaration,
+    // Node
+    CompilationUnit,
+    // Expressions
     IdentifierExpression,
     UnaryExpression,
     BinaryExpression,
@@ -135,21 +143,7 @@ static const std::unordered_map<std::string, SyntaxKind> KeywordMap = {
 };
 
 static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
-    KeywordToStrMap = {
-        {SyntaxKind::BreakKeyword, "break"},
-        {SyntaxKind::ContinueKeyword, "continue"},
-        {SyntaxKind::IfKeyword, "if"},
-        {SyntaxKind::ElseKeyword, "else"},
-        {SyntaxKind::TrueKeyword, "true"},
-        {SyntaxKind::FalseKeyword, "false"},
-        {SyntaxKind::ForKeyword, "for"},
-        {SyntaxKind::WhileKeyword, "while"},
-        {SyntaxKind::DoKeyword, "do"},
-        {SyntaxKind::FunctionKeyword, "function"},
-        {SyntaxKind::ReturnKeyword, "return"},
-        {SyntaxKind::LetKeyword, "let"},
-        {SyntaxKind::VarKeyword, "var"},
-};
+    KeywordToStrMap = {};
 
 static const std::unordered_map<std::string, SyntaxKind> SyntaxKindMap = {
 
@@ -194,6 +188,7 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
     SyntaxTokenToStrMap = {
         {SyntaxKind::EndOfFileToken, "\0"},
         {SyntaxKind::WhiteSpaceToken, " "},
+        {SyntaxKind::CommentToken, "//"},
         {SyntaxKind::PlusToken, "+"},
         {SyntaxKind::PlusEqualsToken, "+="},
         {SyntaxKind::MinusToken, "-"},
@@ -227,12 +222,26 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::LessOrEqualsToken, "<="},
         {SyntaxKind::GreaterToken, ">"},
         {SyntaxKind::GreaterOrEqualsToken, ">="},
+        {SyntaxKind::BreakKeyword, "break"},
+        {SyntaxKind::ContinueKeyword, "continue"},
+        {SyntaxKind::IfKeyword, "if"},
+        {SyntaxKind::ElseKeyword, "else"},
+        {SyntaxKind::TrueKeyword, "true"},
+        {SyntaxKind::FalseKeyword, "false"},
+        {SyntaxKind::ForKeyword, "for"},
+        {SyntaxKind::WhileKeyword, "while"},
+        {SyntaxKind::DoKeyword, "do"},
+        {SyntaxKind::FunctionKeyword, "function"},
+        {SyntaxKind::ReturnKeyword, "return"},
+        {SyntaxKind::LetKeyword, "let"},
+        {SyntaxKind::VarKeyword, "var"},
 };
 
 static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
     SyntaxKindStrMap = {
         {SyntaxKind::EndOfFileToken, "EndOfFileToken"},
         {SyntaxKind::WhiteSpaceToken, "WhiteSpaceToken"},
+        {SyntaxKind::CommentToken, "CommentToken"},
         {SyntaxKind::PlusToken, "PlusToken"},
         {SyntaxKind::PlusEqualsToken, "PlusEqualsToken"},
         {SyntaxKind::MinusToken, "MinusToken"},
@@ -286,6 +295,10 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::DoKeyword, "DoKeyword"},
         {SyntaxKind::FunctionKeyword, "FunctionKeyword"},
         {SyntaxKind::ReturnKeyword, "ReturnKeyword"},
+        {SyntaxKind::CompilationUnit, "CompilationUnit"},
+        {SyntaxKind::BlockStatement, "BlockStatement"},
+        {SyntaxKind::ExpressionStatement, "ExpressionStatement"},
+        {SyntaxKind::VariableDeclaration, "VariableDeclaration"},
         {SyntaxKind::LetKeyword, "LetKeyword"},
         {SyntaxKind::VarKeyword, "VarKeyword"}};
 

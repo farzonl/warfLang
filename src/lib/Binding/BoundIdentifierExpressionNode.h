@@ -8,13 +8,14 @@
 
 #include "BoundExpressionNode.h"
 #include "Symbol/VariableSymbol.h"
+#include <memory>
 #include <string>
 
 class BoundIdentifierExpressionNode : public BoundExpressionNode {
 public:
   BoundIdentifierExpressionNode(std::shared_ptr<VariableSymbol> variable);
   virtual ~BoundIdentifierExpressionNode() {}
-  virtual BoundNodeKind NodeKind() override;
+  virtual BoundNodeKind Kind() override;
   virtual Value::Type Type() override;
   std::string Name() { return mVariable->Name(); }
   std::shared_ptr<VariableSymbol> Variable() { return mVariable; }

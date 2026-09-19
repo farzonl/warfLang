@@ -1,0 +1,4 @@
+// RUN: %warf --eval "1 + 2" | %FileCheck %s
+// RUN: %warf -e "1 + 2" | %FileCheck %s
+
+// CHECK: 3

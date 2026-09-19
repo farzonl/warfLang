@@ -133,10 +133,10 @@ jobs:
         Copy-Item "build/src/cli/${{ matrix.artifact_out_dir }}${{ env.APPNAME }}${{ matrix.artifact_exec_ext }}" -Destination "${{github.workspace}}/artifacts"
         Compress-Archive -Path ${{github.workspace}}/artifacts/* -DestinationPath ${{ env.APPNAME }}-${{matrix.artifact_os_name}}-${{matrix.artifact_arch}}.zip
     - name: 'Upload Pull Request Artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: startsWith(github.ref, 'refs/pull/')
       with:
-        name: ${{ env.APPNAME }} Pull Request Artifacts
+        name: ${{ env.APPNAME }} Pull Request Artifacts (${{ matrix.os }})
         path: ${{ env.APPNAME }}-*.zip
         retention-days: 5
     - name: Upload binaries to Release

@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Binding/BoundBinaryExpressionNode.h"
+#include <memory>
 #include <unordered_map>
 #include <vector>
 
@@ -17,10 +18,12 @@ class Value;
 class Evaluator {
 public:
   Evaluator(std::unique_ptr<BoundExpressionNode> root);
+  Evaluator(std::unique_ptr<BoundStatementNode> root);
   Value Evaluate();
   BoundExpressionNode *Root() const;
 
 private:
   Value EvaluateRec(BoundExpressionNode *node);
-  std::unique_ptr<BoundExpressionNode> mRootExpression;
+  Value EvaluateStatement(BoundStatementNode *node);
+  std::unique_ptr<BoundNode> mRoot;
 };

@@ -4,7 +4,7 @@
 
 #include "BoundIdentifierExpressionNode.h"
 
-BoundNodeKind BoundIdentifierExpressionNode::NodeKind() {
+BoundNodeKind BoundIdentifierExpressionNode::Kind() {
   return BoundNodeKind::AssignmentExpression;
 }
 

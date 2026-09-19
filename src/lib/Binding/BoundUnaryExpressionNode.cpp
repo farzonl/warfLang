@@ -56,7 +56,7 @@ BoundUnaryExpressionNode::BoundUnaryExpressionNode(
     std::unique_ptr<BoundExpressionNode> operand)
     : BoundExpressionNode(), mOperator(op), mOperand(std::move(operand)) {}
 
-BoundNodeKind BoundUnaryExpressionNode::NodeKind() {
+BoundNodeKind BoundUnaryExpressionNode::Kind() {
   return BoundNodeKind::UnaryExpression;
 }
 

@@ -55,7 +55,7 @@ public:
   BoundUnaryExpressionNode(const std::shared_ptr<BoundUnaryOperator> op,
                            std::unique_ptr<BoundExpressionNode> operand);
   virtual ~BoundUnaryExpressionNode() {}
-  virtual BoundNodeKind NodeKind() override;
+  virtual BoundNodeKind Kind() override;
   virtual Value::Type Type() override;
   BoundExpressionNode *Operand();
   BoundUnaryOperatorKind OperatorKind();

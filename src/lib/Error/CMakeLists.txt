@@ -12,3 +12,4 @@ set(HeaderFiles
 )
 
 add_library (WarfCore.Error OBJECT ${SourceFiles} ${HeaderFiles})
+target_precompile_headers(WarfCore.Error REUSE_FROM WarfCore.Syntax)

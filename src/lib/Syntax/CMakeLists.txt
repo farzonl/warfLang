@@ -8,6 +8,11 @@ set(SourceFiles Lexer.cpp
                 SyntaxToken.cpp
                 SyntaxKind.cpp
                 SyntaxNode.cpp
+                BlockStatementSyntaxNode.cpp
+                CompilationUnitSyntaxNode.cpp
+                StatementSyntaxNode.cpp
+                ExpressionStatementSyntaxNode.cpp
+                VariableDeclarationSyntaxNode.cpp
                 ExpressionNode.cpp
                 AssignmentExpressionNode.cpp
                 LiteralExpressionNode.cpp
@@ -22,6 +27,11 @@ set(HeaderFiles Lexer.h
                 SyntaxToken.h
                 SyntaxKind.h
                 SyntaxNode.h
+                BlockStatementSyntaxNode.h
+                CompilationUnitSyntaxNode.h 
+                StatementSyntaxNode.h
+                ExpressionStatementSyntaxNode.h
+                VariableDeclarationSyntaxNode.h
                 ExpressionNode.h
                 AssignmentExpressionNode.h
                 LiteralExpressionNode.h
@@ -33,3 +43,4 @@ set(HeaderFiles Lexer.h
                 SyntaxTree.h
 )
 add_library (WarfCore.Syntax OBJECT ${SourceFiles} ${HeaderFiles})
+target_precompile_headers(WarfCore.Syntax PRIVATE ${WARF_CORE_SOURCE_DIR}/CommonPCH.h)

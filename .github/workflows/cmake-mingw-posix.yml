@@ -30,6 +30,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: install cross-build dependencies
       run: |
+        sudo apt-get update
         sudo apt install cmake mingw-w64 \
         ninja-build wine
     - name: Create Build Environment
@@ -89,7 +90,7 @@ jobs:
         zip -r ${{ env.APPNAME }}-Windows-mingw64.zip artifacts
         popd
     - name: 'Upload Pull Request Artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: startsWith(github.ref, 'refs/pull/')
       with:
         name: ${{ env.APPNAME }} Pull Request Artifacts

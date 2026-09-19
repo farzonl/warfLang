@@ -3,16 +3,24 @@
 // license that can be found in the LICENSE file.
 
 #include "Binding/Binder.h"
-#include "Evaluator.h"
+#include "CodeAnalysis/Evaluator.h"
+#include "ExpressionStatementSyntaxNode.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
 #include "Version/version.h"
 #include <fstream>
 #include <functional>
+#include <sstream>
 
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
 #include <editline/readline.h>
 #endif
+#if !defined(_WIN32)
+#include <unistd.h>
+#endif
+
+// Cap readline/libedit history so a long-running REPL can't grow it unbounded.
+static const int kMaxReplHistoryEntries = 1000;
 
 struct Flags {
   struct FlagName {
@@ -29,19 +37,41 @@ struct Flags {
 class ParseFile {
 public:
   ParseFile(const std::string &path,
-            std::function<void(std::string &, bool)> parseLineBehavior);
+            std::function<void(std::string &, bool, std::stringstream &)>
+                parseLineBehavior);
   bool parse(bool showTree);
 
 private:
   // TODO make parser hanle multiple files
   // std::vector<std::string> mInputFilePaths;
   std::string mInputFilePath;
-  std::function<void(std::string &, bool)> mParseLineBehavior;
+  std::function<void(std::string &, bool, std::stringstream &)>
+      mParseLineBehavior;
 };
 
-ParseFile::ParseFile(const std::string &path,
-                     std::function<void(std::string &, bool)> parseLineBehavior)
+ParseFile::ParseFile(
+    const std::string &path,
+    std::function<void(std::string &, bool, std::stringstream &)>
+        parseLineBehavior)
     : mInputFilePath(path), mParseLineBehavior(parseLineBehavior) {}
+
+// Braces can span multiple physical lines (e.g. a block statement), so we
+// need to know how many are still unclosed to decide whether a statement is
+// complete. Text after "//" is a comment and must not affect the count.
+static int32_t CountUnmatchedBraces(const std::string &line) {
+  int32_t delta = 0;
+  for (size_t i = 0; i < line.size(); i++) {
+    if (line[i] == '/' && i + 1 < line.size() && line[i + 1] == '/') {
+      break;
+    }
+    if (line[i] == '{') {
+      delta++;
+    } else if (line[i] == '}') {
+      delta--;
+    }
+  }
+  return delta;
+}
 
 bool ParseFile::parse(bool showTree) {
   std::ifstream file(mInputFilePath);
@@ -51,8 +81,23 @@ bool ParseFile::parse(bool showTree) {
   }
 
   std::string line;
+  std::stringstream textBlock;
+  std::string statement;
+  int32_t braceDepth = 0;
   while (getline(file, line)) {
-    mParseLineBehavior(line, showTree);
+    braceDepth += CountUnmatchedBraces(line);
+    if (!statement.empty()) {
+      statement += " ";
+    }
+    statement += line;
+    if (braceDepth <= 0) {
+      mParseLineBehavior(statement, showTree, textBlock);
+      statement.clear();
+      braceDepth = 0;
+    }
+  }
+  if (!statement.empty()) {
+    mParseLineBehavior(statement, showTree, textBlock);
   }
 
   file.close();
@@ -75,14 +120,35 @@ void printUsage() {
   std::cout << "       ./Warf --help\n";
 }
 
-void evaluate(std::string &line, bool showTree) {
+ExpressionNode *ParseExpression(SyntaxTree *syntaxTree) {
+  auto root = syntaxTree->Root();
+  auto statement = root->Statement();
+  if (statement->Kind() == SyntaxKind::ExpressionStatement) {
+    auto expressionStatement = dynamic_cast<ExpressionStatementSyntaxNode *>(
+        const_cast<StatementSyntaxNode *>(statement));
+    return const_cast<ExpressionNode *>(expressionStatement->Expression());
+  }
+  return nullptr;
+}
+
+void evaluate(std::string &line, bool showTree, std::stringstream &textBlock) {
   auto globalScope = SymbolTableMgr::getGlobalScope();
+  // textBlock << input;
+  // std::string line = textBlock.str();
   auto syntaxTree = SyntaxTree::Parse(line);
-  globalScope->GetTextSpan()->SetLength(line.size());
+  // if(!input.empty() && syntaxTree->Errors().empty()) {
+  //   return;
+  // }
+  globalScope->GetTextSpan()->updateTextSpan(0, line.size());
+  // Comment-only/blank lines parse to zero statements; nothing to bind, show,
+  // or evaluate.
+  if (syntaxTree->Root()->Statements().empty()) {
+    return;
+  }
   auto binder = std::make_unique<Binder>();
-  std::unique_ptr<BoundExpressionNode> boundExpression;
+  std::unique_ptr<BoundStatementNode> boundStatement;
   try {
-    boundExpression = binder->BindExpression(syntaxTree->Root());
+    boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
   } catch (std::runtime_error &error) {
     std::cerr << error.what() << std::endl;
   }
@@ -92,7 +158,7 @@ void evaluate(std::string &line, bool showTree) {
   }
 
   if (syntaxTree->Errors().empty() && binder->Errors().empty()) {
-    auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
+    auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
     Value result = eval->Evaluate();
     std::cout << result << std::endl;
   } else {
@@ -105,9 +171,13 @@ void evaluate(std::string &line, bool showTree) {
   }
 }
 
-void consoleRead(bool &showTree) {
+void consoleRead(bool &showTree, std::stringstream &textBlock) {
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
   char *buffer = readline(">>> ");
+
+  if (buffer == nullptr) {
+    exit(0);
+  }
 
   // Add input history
   if (buffer[0] != '\0') {
@@ -119,7 +189,9 @@ void consoleRead(bool &showTree) {
 #else
   std::string line = "";
   std::cout << ">>> ";
-  std::getline(std::cin, line);
+  if (!std::getline(std::cin, line)) {
+    exit(0);
+  }
 #endif
   if (line == "#showTree") {
     showTree = !showTree;
@@ -130,15 +202,18 @@ void consoleRead(bool &showTree) {
   if (line == "#exit") {
     exit(0);
   }
-  evaluate(line, showTree);
+  evaluate(line, showTree, textBlock);
 }
 
 void startRepl(bool showTree) {
+#if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
+  stifle_history(kMaxReplHistoryEntries);
+#endif
   WarfHelper::printVersion();
-
+  std::stringstream textBlock;
   while (true) {
     try {
-      consoleRead(showTree);
+      consoleRead(showTree, textBlock);
 
     } catch (std::exception &error) {
       std::cerr << error.what() << std::endl;
@@ -181,10 +256,22 @@ int main(int argc, char **argv) {
   }
 
   if (isEval) {
-    evaluate(evalStr, showTree);
+    // TODO we broke one line evaluate
+    std::stringstream textBlock;
+    evaluate(evalStr, showTree, textBlock);
     return 0;
   }
   if (isRepl || argc == 1 || (showTree && argc == 2)) {
+#if !defined(_WIN32)
+    // Without a real interactive terminal, readline() can't block on input
+    // the way the REPL expects; refuse to spin one up unattended.
+    if (!isatty(fileno(stdin))) {
+      std::cerr << "stdin is not a terminal; refusing to start the REPL."
+                << std::endl;
+      printUsage();
+      return -1;
+    }
+#endif
     startRepl(showTree);
     return 0;
   }

@@ -1,0 +1,10 @@
+// RUN: %warf -s %s 2>%t.err >/dev/null
+// RUN: %FileCheck %s < %t.err
+
+a = 1 + b
+a
+
+// CHECK: Failed to Bind LiteralExpression
+// CHECK-NEXT: BinderError: Undefined name b Starting at Position 8 Ending at: 8.
+// CHECK-NEXT: Failed to Bind LiteralExpression
+// CHECK-NEXT: BinderError: Undefined name a Starting at Position 0 Ending at: 0.

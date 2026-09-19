@@ -13,7 +13,6 @@ COPY test test
 COPY fuzz fuzz
 COPY CMakeLists.txt CMakeLists.txt
 COPY scripts scripts
-COPY cli-test-cases cli-test-cases
 COPY src src
 
 RUN cmake -B build -DCMAKE_BUILD_TYPE=Release \

@@ -7,9 +7,14 @@
 #pragma once
 #include <memory>
 
+#include "BlockStatementSyntaxNode.h"
+#include "CompilationUnitSyntaxNode.h"
 #include "ExpressionNode.h"
+#include "ExpressionStatementSyntaxNode.h"
+#include "StatementSyntaxNode.h"
 #include "SyntaxToken.h"
 #include "SyntaxTree.h"
+#include "VariableDeclarationSyntaxNode.h"
 
 #include "Error/Record.h"
 
@@ -29,8 +34,13 @@ class Parser {
   std::unique_ptr<ExpressionNode>
   ParseBinaryExpression(int parentPrecedence = 0);
 
+  std::unique_ptr<StatementSyntaxNode> ParseStatement();
+  std::unique_ptr<BlockStatementSyntaxNode> ParseBlockStatement();
+  std::unique_ptr<StatementSyntaxNode> ParseVariableDeclaration();
+  std::unique_ptr<ExpressionStatementSyntaxNode> ParseExpressionStatement();
+
 public:
   Parser(std::string text);
-  std::unique_ptr<SyntaxTree> Parse();
-  // const Records &Errors() const { return mRecords; }
+  std::unique_ptr<CompilationUnitSyntaxNode> ParseCompilationUnit();
+  const Records &Errors() const { return mRecords; }
 };

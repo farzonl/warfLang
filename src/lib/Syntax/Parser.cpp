@@ -46,6 +46,7 @@ Parser::Parser(std::string text) : mTokens(), mPosition(0), mRecords("Parser") {
   do {
     upCurrToken = lex.NextToken();
     if (upCurrToken->Kind() != SyntaxKind::WhiteSpaceToken &&
+        upCurrToken->Kind() != SyntaxKind::CommentToken &&
         upCurrToken->Kind() != SyntaxKind::UnknownToken) {
       mTokens.push_back(std::move(upCurrToken));
       pCurrToken = mTokens[mTokens.size() - 1].get();
@@ -135,8 +136,55 @@ std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
   return ParseBinaryExpression();
 }
 
-std::unique_ptr<SyntaxTree> Parser::Parse() {
+std::unique_ptr<CompilationUnitSyntaxNode> Parser::ParseCompilationUnit() {
+  auto statements = std::vector<std::unique_ptr<StatementSyntaxNode>>();
+  while (Current()->Kind() != SyntaxKind::EndOfFileToken) {
+    statements.push_back(ParseStatement());
+  }
+  auto endOfFileToken = Match(SyntaxKind::EndOfFileToken);
+  return std::make_unique<CompilationUnitSyntaxNode>(std::move(statements),
+                                                     endOfFileToken);
+}
 
+std::unique_ptr<StatementSyntaxNode> Parser::ParseStatement() {
+  switch (Current()->Kind().GetValue()) {
+  case SyntaxKind::OpenBraceToken:
+    return ParseBlockStatement();
+  case SyntaxKind::LetKeyword:
+  case SyntaxKind::VarKeyword:
+    return ParseVariableDeclaration();
+  default:
+    return ParseExpressionStatement();
+  }
+}
+
+std::unique_ptr<BlockStatementSyntaxNode> Parser::ParseBlockStatement() {
+  auto statements = std::vector<std::unique_ptr<StatementSyntaxNode>>();
+  auto openBraceToken = Match(SyntaxKind::OpenBraceToken);
+  while (Current()->Kind() != SyntaxKind::EndOfFileToken &&
+         Current()->Kind() != SyntaxKind::CloseBraceToken) {
+    auto statement = ParseStatement();
+    statements.push_back(std::move(statement));
+  }
+  auto closeBraceToken = Match(SyntaxKind::CloseBraceToken);
+  return std::make_unique<BlockStatementSyntaxNode>(
+      openBraceToken, std::move(statements), closeBraceToken);
+}
+
+std::unique_ptr<StatementSyntaxNode> Parser::ParseVariableDeclaration() {
+  auto expected = Current()->Kind() == SyntaxKind::LetKeyword
+                      ? SyntaxKind::LetKeyword
+                      : SyntaxKind::VarKeyword;
+  auto keyword = Match(expected);
+  auto identifier = Match(SyntaxKind::IdentifierToken);
+  auto equals = Match(SyntaxKind::EqualsToken);
+  auto initializer = ParseAssignmentExpression();
+  return std::make_unique<VariableDeclarationSyntaxNode>(
+      keyword, identifier, equals, std::move(initializer));
+}
+
+std::unique_ptr<ExpressionStatementSyntaxNode>
+Parser::ParseExpressionStatement() {
   auto expression = ParseAssignmentExpression();
-  return std::make_unique<SyntaxTree>(mRecords, std::move(expression));
+  return std::make_unique<ExpressionStatementSyntaxNode>(std::move(expression));
 }
