@@ -6,7 +6,7 @@
 
 void ParserFuzzTest(std::string &line) {
   Parser parser(line);
-  parser.Parse();
+  parser.ParseCompilationUnit();
 }
 
 extern "C" int LLVMFuzzerTestOneInput(const char *cLine, size_t len) {
