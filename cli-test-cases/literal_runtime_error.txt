@@ -1,4 +1,0 @@
-Failed to Bind LiteralExpression
-BinderError: Undefined name b Starting at Position 8 Ending at: 8.
-Failed to Bind LiteralExpression
-BinderError: Undefined name a Starting at Position 0 Ending at: 0.
