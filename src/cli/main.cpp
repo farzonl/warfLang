@@ -45,6 +45,24 @@ ParseFile::ParseFile(const std::string &path,
                      std::function<void(std::string &, bool, std::stringstream &)> parseLineBehavior)
     : mInputFilePath(path), mParseLineBehavior(parseLineBehavior) {}
 
+// Braces can span multiple physical lines (e.g. a block statement), so we
+// need to know how many are still unclosed to decide whether a statement is
+// complete. Text after "//" is a comment and must not affect the count.
+static int32_t CountUnmatchedBraces(const std::string &line) {
+  int32_t delta = 0;
+  for (size_t i = 0; i < line.size(); i++) {
+    if (line[i] == '/' && i + 1 < line.size() && line[i + 1] == '/') {
+      break;
+    }
+    if (line[i] == '{') {
+      delta++;
+    } else if (line[i] == '}') {
+      delta--;
+    }
+  }
+  return delta;
+}
+
 bool ParseFile::parse(bool showTree) {
   std::ifstream file(mInputFilePath);
   if (!file.is_open()) {
@@ -54,8 +72,22 @@ bool ParseFile::parse(bool showTree) {
 
   std::string line;
   std::stringstream textBlock;
+  std::string statement;
+  int32_t braceDepth = 0;
   while (getline(file, line)) {
-    mParseLineBehavior(line, showTree, textBlock);
+    braceDepth += CountUnmatchedBraces(line);
+    if (!statement.empty()) {
+      statement += " ";
+    }
+    statement += line;
+    if (braceDepth <= 0) {
+      mParseLineBehavior(statement, showTree, textBlock);
+      statement.clear();
+      braceDepth = 0;
+    }
+  }
+  if (!statement.empty()) {
+    mParseLineBehavior(statement, showTree, textBlock);
   }
 
   file.close();
