@@ -164,6 +164,11 @@ void consoleRead(bool &showTree, std::stringstream& textBlock) {
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
   char *buffer = readline(">>> ");
 
+  // readline() returns nullptr on EOF (e.g. stdin closed/redirected).
+  if (buffer == nullptr) {
+    exit(0);
+  }
+
   // Add input history
   if (buffer[0] != '\0') {
     add_history(buffer);
@@ -174,7 +179,9 @@ void consoleRead(bool &showTree, std::stringstream& textBlock) {
 #else
   std::string line = "";
   std::cout << ">>> ";
-  std::getline(std::cin, line);
+  if (!std::getline(std::cin, line)) {
+    exit(0);
+  }
 #endif
   if (line == "#showTree") {
     showTree = !showTree;
