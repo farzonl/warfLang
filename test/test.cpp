@@ -114,6 +114,15 @@ TEST_CASE("Binary Expression") {
   }
 }
 
+TEST_CASE("Comments") {
+  SUBCASE("trailing line comment is ignored") {
+    REQUIRE(4 == testCaseHelper("1 + 3 // trailing comment").asInt());
+  }
+  SUBCASE("comment does not need a trailing newline") {
+    REQUIRE(4 == testCaseHelper("1 + 3 //").asInt());
+  }
+}
+
 TEST_CASE("Boolean Expression") {
   SUBCASE("types defined") {
     REQUIRE(testCaseHelper("true").asBool());

@@ -46,6 +46,7 @@ Parser::Parser(std::string text) : mTokens(), mPosition(0), mRecords("Parser") {
   do {
     upCurrToken = lex.NextToken();
     if (upCurrToken->Kind() != SyntaxKind::WhiteSpaceToken &&
+        upCurrToken->Kind() != SyntaxKind::CommentToken &&
         upCurrToken->Kind() != SyntaxKind::UnknownToken) {
       mTokens.push_back(std::move(upCurrToken));
       pCurrToken = mTokens[mTokens.size() - 1].get();

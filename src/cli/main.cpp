@@ -111,6 +111,10 @@ void evaluate(std::string &line, bool showTree, std::stringstream& textBlock) {
   }
 
   if (syntaxTree->Errors().empty() && binder->Errors().empty()) {
+    // Comment-only/blank lines parse to zero statements; nothing to evaluate or print.
+    if (syntaxTree->Root()->Statements().empty()) {
+      return;
+    }
     auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
     Value result = eval->Evaluate();
     std::cout << result << std::endl;

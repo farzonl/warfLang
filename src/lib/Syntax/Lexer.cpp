@@ -57,7 +57,13 @@ void Lexer::ReadToken(SyntaxKind &type) {
     break;
   case '/':
     mPosition++;
-    if (CurrentToken() != '=') {
+    if (CurrentToken() == '/') {
+      // Line comment: consume the rest of the line.
+      while (CurrentToken() != '\0' && CurrentToken() != '\n') {
+        mPosition++;
+      }
+      type = SyntaxKind::CommentToken;
+    } else if (CurrentToken() != '=') {
       type = SyntaxKind::SlashToken;
     } else {
       type = SyntaxKind::SlashEqualsToken;

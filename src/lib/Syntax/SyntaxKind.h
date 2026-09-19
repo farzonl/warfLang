@@ -17,6 +17,7 @@ public:
     UnknownToken,
     EndOfFileToken,
     WhiteSpaceToken,
+    CommentToken,
     PlusToken,
     PlusEqualsToken,
     MinusToken,
@@ -188,6 +189,7 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
     SyntaxTokenToStrMap = {
         {SyntaxKind::EndOfFileToken, "\0"},
         {SyntaxKind::WhiteSpaceToken, " "},
+        {SyntaxKind::CommentToken, "//"},
         {SyntaxKind::PlusToken, "+"},
         {SyntaxKind::PlusEqualsToken, "+="},
         {SyntaxKind::MinusToken, "-"},
@@ -240,6 +242,7 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
     SyntaxKindStrMap = {
         {SyntaxKind::EndOfFileToken, "EndOfFileToken"},
         {SyntaxKind::WhiteSpaceToken, "WhiteSpaceToken"},
+        {SyntaxKind::CommentToken, "CommentToken"},
         {SyntaxKind::PlusToken, "PlusToken"},
         {SyntaxKind::PlusEqualsToken, "PlusEqualsToken"},
         {SyntaxKind::MinusToken, "MinusToken"},
