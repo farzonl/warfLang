@@ -254,6 +254,30 @@ TEST_CASE("Statements") {
   REQUIRE(5 == evaluator->Evaluate().asInt());
 }
 
+TEST_CASE("Block scopes") {
+  SymbolTableMgr::init();
+
+  auto parentSyntax = SyntaxTree::Parse(
+      "scope_outer = 1 { scope_outer = 2 } scope_outer");
+  auto parentBinder = std::make_unique<Binder>();
+  auto parentStatement =
+      parentBinder->BindCompilationUnit(parentSyntax->Root());
+  auto parentEvaluator =
+      std::make_unique<Evaluator>(std::move(parentStatement));
+  REQUIRE(2 == parentEvaluator->Evaluate().asInt());
+
+  auto localSyntax = SyntaxTree::Parse("{ scope_inner = 3 }");
+  auto localBinder = std::make_unique<Binder>();
+  auto localStatement = localBinder->BindCompilationUnit(localSyntax->Root());
+  auto localEvaluator =
+      std::make_unique<Evaluator>(std::move(localStatement));
+  REQUIRE(3 == localEvaluator->Evaluate().asInt());
+
+  auto lookupSyntax = SyntaxTree::Parse("scope_inner");
+  auto lookupBinder = std::make_unique<Binder>();
+  REQUIRE_THROWS(lookupBinder->BindCompilationUnit(lookupSyntax->Root()));
+}
+
 TEST_CASE("Assignment Expression") {
   SUBCASE("Simple assignment of Number") {
     REQUIRE(1 == testCaseHelper("a1 = 1").asInt());

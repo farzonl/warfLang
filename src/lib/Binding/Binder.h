@@ -11,6 +11,7 @@
 #include "BoundExpressionNode.h"
 #include "Error/Record.h"
 #include "Syntax/CompilationUnitSyntaxNode.h"
+#include "Symbol/Scope.h"
 #include "Syntax/ExpressionNode.h"
 
 class LiteralExpressionNode;
@@ -30,10 +31,11 @@ public:
   BindCompilationUnit(CompilationUnitSyntaxNode *syntax);
   std::unique_ptr<BoundStatementNode> BindStatement(StatementSyntaxNode *syntax);
   const Records &Errors() const { return mRecords; }
-  Binder() : mRecords("Binder") {}
+  Binder();
 
 private:
   Records mRecords;
+  std::shared_ptr<Scope> mScope;
   std::unique_ptr<BoundExpressionNode>
   BindLiteralExpression(LiteralExpressionNode *literal);
   std::unique_ptr<BoundExpressionNode>

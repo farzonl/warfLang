@@ -27,6 +27,11 @@
 
 #include <sstream>
 
+Binder::Binder() : mRecords("Binder"), mScope(nullptr) {
+  SymbolTableMgr::init();
+  mScope = SymbolTableMgr::getGlobalScope();
+}
+
 std::unique_ptr<BoundStatementNode>
 Binder::BindCompilationUnit(CompilationUnitSyntaxNode *syntax) {
   auto statements = std::vector<std::unique_ptr<BoundStatementNode>>();
@@ -57,11 +62,16 @@ Binder::BindStatement(StatementSyntaxNode *syntax) {
 std::unique_ptr<BoundStatementNode>
 Binder::BindBlockStatement(BlockStatementSyntaxNode *syntax) {
   auto statements = std::vector<std::unique_ptr<BoundStatementNode>>();
+  auto parentScope = mScope;
+  mScope = std::make_shared<Scope>(Scope::ScopeKind::Global, nullptr, "",
+                                   parentScope);
 
   for (const auto &statementSyntaxNode : syntax->Statements()) {
     auto boundStatement = BindStatement(statementSyntaxNode.get());
     statements.push_back(std::move(boundStatement));
   }
+
+  mScope = parentScope;
 
   return std::make_unique<BoundBlockStatementNode>(std::move(statements));
 }
@@ -76,7 +86,7 @@ Binder::BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax) {
   auto variable =
       std::make_shared<VariableSymbol>(name, isReadOnly, initializer->Type());
 
-  SymbolTableMgr::insert(variable);
+  mScope->insert(variable);
 
   return std::make_unique<BoundVariableDeclarationNode>(variable,
                                                         std::move(initializer));
@@ -165,20 +175,25 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
       BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Kind(),
                                     boundExpression->Type());
   if (assignment->AssignmentToken()->Kind() == SyntaxKind::EqualsToken) {
-    auto newVar = std::make_shared<VariableSymbol>(name, isReadOnly,
-                                                   boundExpression->Type());
-    auto existingVariable = SymbolTableMgr::find(name);
-    if (existingVariable != VariableSymbol::failSymbol()) {
-      SymbolTableMgr::modify(newVar, existingVariable->GetScopeName());
+    auto localVariable = mScope->lookupLocal(name);
+    if (localVariable != VariableSymbol::failSymbol()) {
+      localVariable = std::make_shared<VariableSymbol>(
+          name, isReadOnly, boundExpression->Type());
+      mScope->insert(localVariable);
     } else {
-      SymbolTableMgr::insert(newVar);
+      auto variable = mScope->lookup(name);
+      if (variable == VariableSymbol::failSymbol()) {
+        variable = std::make_shared<VariableSymbol>(
+            name, isReadOnly, boundExpression->Type());
+        mScope->insert(variable);
+      }
+      localVariable = variable;
     }
     return std::make_unique<BoundAssignmentExpressionNode>(
-        newVar, std::move(boundExpression), boundOperator);
+        localVariable, std::move(boundExpression), boundOperator);
   } else {
 
-    std::shared_ptr<VariableSymbol> existingVariable =
-        SymbolTableMgr::find(name);
+    std::shared_ptr<VariableSymbol> existingVariable = mScope->lookup(name);
     if (existingVariable == VariableSymbol::failSymbol()) {
       mRecords.ReportUndefinedIdentifier(assignment->IdentifierToken());
       throw std::runtime_error("Failed to Bind LiteralExpression");
@@ -191,7 +206,7 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
 std::unique_ptr<BoundExpressionNode>
 Binder::BindIdentifierExpression(IdentifierExpressionNode *identifier) {
   std::string name = identifier->IdentifierToken()->Text();
-  std::shared_ptr<VariableSymbol> variable = SymbolTableMgr::find(name);
+  std::shared_ptr<VariableSymbol> variable = mScope->lookup(name);
   if (variable == VariableSymbol::failSymbol()) {
     mRecords.ReportUndefinedIdentifier(identifier->IdentifierToken());
     throw std::runtime_error("Failed to Bind LiteralExpression");

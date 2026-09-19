@@ -16,9 +16,10 @@ const std::unordered_map<Scope::ScopeKind, std::string> Scope::ScopeKindToName =
 };
 
 Scope::Scope(ScopeKind scopeKind, std::shared_ptr<TextSpan> textSpan,
-             std::string scopeName)
+             std::string scopeName, std::shared_ptr<Scope> parent)
     : mScopeKind(scopeKind), mTextspan(textSpan),
-      mName(ScopeKindToName.at(scopeKind) + scopeName), mVariables() {}
+      mName(ScopeKindToName.at(scopeKind) + scopeName), mParent(parent),
+      mVariables() {}
 
 const std::string &Scope::Name() const { return mName; }
 
@@ -28,6 +29,25 @@ void Scope::insert(std::shared_ptr<VariableSymbol> variable) {
   variable->mScope = this;
   mVariables[variable->Name()] = variable;
 }
+
+std::shared_ptr<VariableSymbol>
+Scope::lookupLocal(const std::string &name) const {
+  auto variable = mVariables.find(name);
+  return variable == mVariables.end() ? VariableSymbol::failSymbol()
+                                      : variable->second;
+}
+
+std::shared_ptr<VariableSymbol>
+Scope::lookup(const std::string &name) const {
+  auto variable = lookupLocal(name);
+  if (variable != VariableSymbol::failSymbol()) {
+    return variable;
+  }
+  return mParent == nullptr ? VariableSymbol::failSymbol()
+                            : mParent->lookup(name);
+}
+
+std::shared_ptr<Scope> Scope::Parent() const { return mParent; }
 
 /*size_t Scope::Hash::operator()(const Scope &scope) const {
   return std::hash<std::string>{}(scope.Name());

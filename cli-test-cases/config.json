@@ -78,5 +78,17 @@
     "execpath" : "build/src/cli/Warf",
     "arguments" : ["-e", "!1"],
     "error"    : "BinderError: Unary operator ! is not defined for type Number.\n"
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["cli-test-cases/scope_parent.wf"],
+    "comparePath" : "cli-test-cases/scope_parent.txt",
+    "error" : ""
+},
+{
+    "execpath" : "build/src/cli/Warf",
+    "arguments" : ["cli-test-cases/scope_nested.wf"],
+    "comparePath" : "cli-test-cases/scope_nested.txt",
+    "error" : ""
 }
 ]
