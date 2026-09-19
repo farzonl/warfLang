@@ -36,7 +36,7 @@ jobs:
         ca-certificates vim xz-utils libc++-dev libc++abi-dev
     - name: setup sysroot
       run: |
-        cd /tmp && wget http://ftp.plusline.de/FreeBSD/releases/amd64/13.2-RELEASE/base.txz \
+        cd /tmp && wget https://archive.freebsd.org/old-releases/amd64/13.2-RELEASE/base.txz \
         && mkdir -p /opt/cross-freebsd-13 \
         && cd /opt/cross-freebsd-13 \
         && tar -xf /tmp/base.txz ./lib/ ./usr/lib/ ./usr/include/ \
