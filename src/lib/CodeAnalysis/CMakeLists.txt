@@ -14,3 +14,4 @@ set(HeaderFiles
 )
 
 add_library (WarfCore.CodeAnalysis OBJECT ${SourceFiles} ${HeaderFiles})
+target_precompile_headers(WarfCore.CodeAnalysis REUSE_FROM WarfCore.Syntax)

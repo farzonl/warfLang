@@ -32,3 +32,4 @@ set(HeaderFiles
 )
 
 add_library (WarfCore.Binding OBJECT ${SourceFiles} ${HeaderFiles})
+target_precompile_headers(WarfCore.Binding REUSE_FROM WarfCore.Syntax)

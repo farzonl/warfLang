@@ -43,3 +43,4 @@ set(HeaderFiles Lexer.h
                 SyntaxTree.h
 )
 add_library (WarfCore.Syntax OBJECT ${SourceFiles} ${HeaderFiles})
+target_precompile_headers(WarfCore.Syntax PRIVATE ${WARF_CORE_SOURCE_DIR}/CommonPCH.h)

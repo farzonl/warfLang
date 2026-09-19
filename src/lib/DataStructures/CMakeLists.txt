@@ -12,3 +12,4 @@ set(HeaderFiles
 )
 
 add_library (WarfCore.DataStructures OBJECT ${SourceFiles} ${HeaderFiles})
+target_precompile_headers(WarfCore.DataStructures REUSE_FROM WarfCore.Syntax)
