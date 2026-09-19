@@ -36,6 +36,7 @@ jobs:
     - name: install Linux cross-build dependencies
       if: matrix.os == 'ubuntu-latest'
       run: |
+        sudo apt-get update
         sudo apt install clang-tools clang lld lldb  \
         llvm-dev libclang-dev wget curl ca-certificates \
         zip unzip vim wine cmake msitools p7zip-full ninja-build python3
