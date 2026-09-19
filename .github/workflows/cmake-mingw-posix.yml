@@ -89,7 +89,7 @@ jobs:
         zip -r ${{ env.APPNAME }}-Windows-mingw64.zip artifacts
         popd
     - name: 'Upload Pull Request Artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: startsWith(github.ref, 'refs/pull/')
       with:
         name: ${{ env.APPNAME }} Pull Request Artifacts

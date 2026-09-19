@@ -161,7 +161,7 @@ jobs:
         popd
 
     - name: 'Upload x64 Pull Request Artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: startsWith(github.ref, 'refs/pull/')
       with:
         name: ${{ env.APPNAME }} x64 Pull Request Artifacts
@@ -169,7 +169,7 @@ jobs:
         retention-days: 5
     
     - name: 'Upload aarch64 Pull Request Artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: startsWith(github.ref, 'refs/pull/')
       with:
         name: ${{ env.APPNAME }} aarch64 Pull Request Artifacts
