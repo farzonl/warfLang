@@ -19,3 +19,4 @@ Compilation::Compilation(std::unique_ptr<Compilation> previous,
     SyntaxTree*  Compilation::STree() {
         return mSyntaxTree.get();
     }
+    
