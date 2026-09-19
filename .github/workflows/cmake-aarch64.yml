@@ -51,18 +51,12 @@ jobs:
         && cd ../../ \
         && mkdir tmp \
         && cd tmp \
-        && export LIBEDIT_URL="http://ports.ubuntu.com/ubuntu-ports/pool/main/libe/libedit/" \
-        && curl $LIBEDIT_URL 2>&1 | grep -oh "\"libedit-dev_3.1-[0-9]*.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBEDIT_URL/% \
-        && dpkg-deb -R libedit-dev*arm64.deb . \
-        && rm -rf usr/share libedit-dev*arm64.deb DEBIAN \
-        && export LIBBSD_URL=http://ports.ubuntu.com/ubuntu-ports/pool/main/libb/libbsd/ \
-        && curl $LIBBSD_URL 2>&1 | grep -oh "\"libbsd-dev.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBBSD_URL/% \
-        && dpkg-deb -R libbsd-dev*arm64.deb . \
-        && rm -rf usr/share libbsd-dev*arm64.deb DEBIAN \
-        && export LIBTINFO_URL="http://ports.ubuntu.com/ubuntu-ports/pool/main/n/ncurses/" \
-        && curl $LIBTINFO_URL 2>&1 | grep -oh "\"libncurses-dev.*arm64.deb\"" | sort -nr | head -n1 | xargs -I% wget $LIBTINFO_URL/% \
-        && dpkg-deb -R libncurses-dev*arm64.deb . \
-        && rm -rf usr/share libncurses-dev*arm64.deb DEBIAN \
+        && printf 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main universe\n' | sudo tee /etc/apt/sources.list.d/arm64-ports.list \
+        && sudo dpkg --add-architecture arm64 \
+        && sudo apt-get update \
+        && apt-get download libedit-dev:arm64 libbsd-dev:arm64 libncurses-dev:arm64 \
+        && for deb in *arm64.deb; do dpkg-deb -R "$deb" .; done \
+        && rm -rf usr/share *arm64.deb DEBIAN \
         && rsync -av usr ../ \
         && cd .. \
         && rm -rf tmp \
