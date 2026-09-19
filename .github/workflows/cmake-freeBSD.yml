@@ -111,6 +111,10 @@ jobs:
           ${{ env.APPNAME }}-*.zip
   
   test:
+    # Disabled: this job reliably hangs/gets stuck booting the FreeBSD VM
+    # (vmactions/freebsd-vm on macos-12, which is also a deprecated runner
+    # image). Re-enable once a working runner/VM combination is confirmed.
+    if: false
     needs: [build]
     runs-on: macos-12
     name: Fetch & Run Tests on FreeBSD
