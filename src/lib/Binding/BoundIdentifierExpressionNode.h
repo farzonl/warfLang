@@ -8,6 +8,7 @@
 
 #include "BoundExpressionNode.h"
 #include "Symbol/VariableSymbol.h"
+#include <memory>
 #include <string>
 
 class BoundIdentifierExpressionNode : public BoundExpressionNode {

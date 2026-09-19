@@ -8,6 +8,7 @@
 #include "DataStructures/TemplateList.h"
 #include "StatementSyntaxNode.h"
 #include "SyntaxToken.h"
+#include <memory>
 #include <vector>
 
 class CompilationUnitSyntaxNode : public StatementSyntaxNode {

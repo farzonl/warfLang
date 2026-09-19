@@ -7,6 +7,7 @@
 #pragma once
 #include "ExpressionNode.h"
 #include "StatementSyntaxNode.h"
+#include <memory>
 
 class ExpressionStatementSyntaxNode : public StatementSyntaxNode {
 public:

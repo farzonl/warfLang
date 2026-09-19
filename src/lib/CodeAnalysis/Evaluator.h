@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Binding/BoundBinaryExpressionNode.h"
+#include <memory>
 #include <unordered_map>
 #include <vector>
 

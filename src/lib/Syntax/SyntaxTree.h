@@ -8,6 +8,7 @@
 #include "CompilationUnitSyntaxNode.h"
 #include "ExpressionNode.h"
 #include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
 
