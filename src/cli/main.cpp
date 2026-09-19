@@ -15,6 +15,12 @@
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
 #include <editline/readline.h>
 #endif
+#if !defined(_WIN32)
+#include <unistd.h>
+#endif
+
+// Cap readline/libedit history so a long-running REPL can't grow it unbounded.
+static const int kMaxReplHistoryEntries = 1000;
 
 struct Flags {
   struct FlagName {
@@ -164,7 +170,6 @@ void consoleRead(bool &showTree, std::stringstream& textBlock) {
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
   char *buffer = readline(">>> ");
 
-  // readline() returns nullptr on EOF (e.g. stdin closed/redirected).
   if (buffer == nullptr) {
     exit(0);
   }
@@ -196,6 +201,9 @@ void consoleRead(bool &showTree, std::stringstream& textBlock) {
 }
 
 void startRepl(bool showTree) {
+#if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
+  stifle_history(kMaxReplHistoryEntries);
+#endif
   WarfHelper::printVersion();
   std::stringstream textBlock; 
   while (true) {
@@ -249,6 +257,15 @@ int main(int argc, char **argv) {
     return 0;
   }
   if (isRepl || argc == 1 || (showTree && argc == 2)) {
+#if !defined(_WIN32)
+    // Without a real interactive terminal, readline() can't block on input
+    // the way the REPL expects; refuse to spin one up unattended.
+    if (!isatty(fileno(stdin))) {
+      std::cerr << "stdin is not a terminal; refusing to start the REPL." << std::endl;
+      printUsage();
+      return -1;
+    }
+#endif
     startRepl(showTree);
     return 0;
   }
