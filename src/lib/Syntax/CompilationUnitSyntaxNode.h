@@ -5,19 +5,25 @@
  */
 
 #pragma once
+#include "DataStructures/TemplateList.h"
 #include "StatementSyntaxNode.h"
 #include "SyntaxToken.h"
+#include <vector>
 
 class CompilationUnitSyntaxNode : public StatementSyntaxNode {
 public:
+  CompilationUnitSyntaxNode(
+      std::vector<std::unique_ptr<StatementSyntaxNode>> statements,
+      std::shared_ptr<SyntaxToken> endOfFileToken);
   CompilationUnitSyntaxNode(std::unique_ptr<StatementSyntaxNode> statement,
                             std::shared_ptr<SyntaxToken> endOfFileToken);
   virtual ~CompilationUnitSyntaxNode() {}
 
   const StatementSyntaxNode *Statement() const;
+  const TemplateList<std::unique_ptr<StatementSyntaxNode>> &Statements() const;
   std::shared_ptr<SyntaxToken> EndOfFileToken();
 
 private:
-  std::unique_ptr<StatementSyntaxNode> mStatement;
+  TemplateList<std::unique_ptr<StatementSyntaxNode>> mStatements;
   std::shared_ptr<SyntaxToken> mEndOfFileToken;
 };

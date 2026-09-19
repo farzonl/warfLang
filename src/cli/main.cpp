@@ -99,10 +99,9 @@ void evaluate(std::string &line, bool showTree, std::stringstream& textBlock) {
   //}
   globalScope->GetTextSpan()->updateTextSpan(0, line.size());
   auto binder = std::make_unique<Binder>();
-  std::unique_ptr<BoundExpressionNode> boundExpression;
+  std::unique_ptr<BoundStatementNode> boundStatement;
   try {
-    auto expression = ParseExpression(syntaxTree.get());
-    boundExpression = binder->BindExpression(expression);
+    boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
   } catch (std::runtime_error &error) {
     std::cerr << error.what() << std::endl;
   }
@@ -112,7 +111,7 @@ void evaluate(std::string &line, bool showTree, std::stringstream& textBlock) {
   }
 
   if (syntaxTree->Errors().empty() && binder->Errors().empty()) {
-    auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
+    auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
     Value result = eval->Evaluate();
     std::cout << result << std::endl;
   } else {

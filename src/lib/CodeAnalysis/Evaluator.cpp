@@ -7,13 +7,45 @@
 #include "Binding/BoundBinaryExpressionNode.h"
 #include "Binding/BoundIdentifierExpressionNode.h"
 #include "Binding/BoundLiteralExpressionNode.h"
+#include "Binding/BoundBlockStatementNode.h"
+#include "Binding/BoundExpressionStatementNode.h"
+#include "Binding/BoundVariableDeclarationNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
 
-BoundExpressionNode *Evaluator::Root() const { return mRootExpression.get(); }
-Value Evaluator::Evaluate() { return EvaluateRec(mRootExpression.get()); }
+BoundExpressionNode *Evaluator::Root() const {
+  return dynamic_cast<BoundExpressionNode *>(mRoot.get());
+}
+Value Evaluator::Evaluate() {
+  if (auto statement = dynamic_cast<BoundStatementNode *>(mRoot.get())) {
+    return EvaluateStatement(statement);
+  }
+  return EvaluateRec(dynamic_cast<BoundExpressionNode *>(mRoot.get()));
+}
 
 Evaluator::Evaluator(std::unique_ptr<BoundExpressionNode> root)
-    : mRootExpression(std::move(root)) {}
+    : mRoot(std::move(root)) {}
+
+Evaluator::Evaluator(std::unique_ptr<BoundStatementNode> root)
+    : mRoot(std::move(root)) {}
+
+Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
+  if (auto block = dynamic_cast<BoundBlockStatementNode *>(node)) {
+    Value result;
+    for (const auto &statement : block->Statements()) {
+      result = EvaluateStatement(statement.get());
+    }
+    return result;
+  }
+  if (auto expression = dynamic_cast<BoundExpressionStatementNode *>(node)) {
+    return EvaluateRec(const_cast<BoundExpressionNode *>(expression->Expression()));
+  }
+  if (auto declaration = dynamic_cast<BoundVariableDeclarationNode *>(node)) {
+    auto value = EvaluateRec(const_cast<BoundExpressionNode *>(declaration->Initializer()));
+    declaration->Variable()->SetValue(value);
+    return value;
+  }
+  throw std::runtime_error("EvaluatorError: Unexpected statement");
+}
 
 Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   if (BoundLiteralExpressionNode *literal =

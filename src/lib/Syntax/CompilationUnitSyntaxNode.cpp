@@ -7,16 +7,38 @@
 #include "CompilationUnitSyntaxNode.h"
 
 CompilationUnitSyntaxNode::CompilationUnitSyntaxNode(
-    std::unique_ptr<StatementSyntaxNode> statement,
+    std::vector<std::unique_ptr<StatementSyntaxNode>> statements,
     std::shared_ptr<SyntaxToken> endOfFileToken)
     : StatementSyntaxNode(SyntaxKind::CompilationUnit),
-      mStatement(std::move(statement)), mEndOfFileToken(endOfFileToken) {
-        mVecExpressionNodes.push_back(mStatement.get());
-        mVecExpressionNodes.push_back(mEndOfFileToken.get());
-      }
+      mStatements(std::move(statements)), mEndOfFileToken(endOfFileToken) {
+  for (auto &statement : mStatements) {
+    mVecExpressionNodes.push_back(statement.get());
+  }
+  mVecExpressionNodes.push_back(mEndOfFileToken.get());
+}
+
+CompilationUnitSyntaxNode::CompilationUnitSyntaxNode(
+    std::unique_ptr<StatementSyntaxNode> statement,
+    std::shared_ptr<SyntaxToken> endOfFileToken)
+    : CompilationUnitSyntaxNode(
+          std::vector<std::unique_ptr<StatementSyntaxNode>>(),
+          std::move(endOfFileToken)) {
+  mStatements = TemplateList<std::unique_ptr<StatementSyntaxNode>>();
+  std::vector<std::unique_ptr<StatementSyntaxNode>> statements;
+  statements.push_back(std::move(statement));
+  mStatements = TemplateList<std::unique_ptr<StatementSyntaxNode>>(
+      std::move(statements));
+  mVecExpressionNodes.insert(mVecExpressionNodes.begin(),
+                             mStatements[0].get());
+}
 
 const StatementSyntaxNode *CompilationUnitSyntaxNode::Statement() const {
-  return mStatement.get();
+  return mStatements.empty() ? nullptr : mStatements[0].get();
+}
+
+const TemplateList<std::unique_ptr<StatementSyntaxNode>> &
+CompilationUnitSyntaxNode::Statements() const {
+  return mStatements;
 }
 std::shared_ptr<SyntaxToken> CompilationUnitSyntaxNode::EndOfFileToken() {
   return mEndOfFileToken;

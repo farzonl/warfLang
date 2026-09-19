@@ -241,6 +241,19 @@ TEST_CASE("Boolean Expression") {
   }
 }
 
+TEST_CASE("Statements") {
+  SymbolTableMgr::init();
+  auto syntaxTree = SyntaxTree::Parse("value = 4 value = value + 1 value");
+  REQUIRE(syntaxTree->Errors().empty());
+
+  auto binder = std::make_unique<Binder>();
+  auto boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
+  REQUIRE(binder->Errors().empty());
+
+  auto evaluator = std::make_unique<Evaluator>(std::move(boundStatement));
+  REQUIRE(5 == evaluator->Evaluate().asInt());
+}
+
 TEST_CASE("Assignment Expression") {
   SUBCASE("Simple assignment of Number") {
     REQUIRE(1 == testCaseHelper("a1 = 1").asInt());

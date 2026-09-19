@@ -28,6 +28,15 @@
 #include <sstream>
 
 std::unique_ptr<BoundStatementNode>
+Binder::BindCompilationUnit(CompilationUnitSyntaxNode *syntax) {
+  auto statements = std::vector<std::unique_ptr<BoundStatementNode>>();
+  for (const auto &statement : syntax->Statements()) {
+    statements.push_back(BindStatement(statement.get()));
+  }
+  return std::make_unique<BoundBlockStatementNode>(std::move(statements));
+}
+
+std::unique_ptr<BoundStatementNode>
 Binder::BindStatement(StatementSyntaxNode *syntax) {
   switch (syntax->Kind().GetValue()) {
   case SyntaxKind::BlockStatement:
@@ -67,7 +76,7 @@ Binder::BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax) {
   auto variable =
       std::make_shared<VariableSymbol>(name, isReadOnly, initializer->Type());
 
-  // TODO should we handle scoping here?
+  SymbolTableMgr::insert(variable);
 
   return std::make_unique<BoundVariableDeclarationNode>(variable,
                                                         std::move(initializer));

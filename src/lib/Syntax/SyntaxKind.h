@@ -143,19 +143,6 @@ static const std::unordered_map<std::string, SyntaxKind> KeywordMap = {
 
 static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
     KeywordToStrMap = {
-        {SyntaxKind::BreakKeyword, "break"},
-        {SyntaxKind::ContinueKeyword, "continue"},
-        {SyntaxKind::IfKeyword, "if"},
-        {SyntaxKind::ElseKeyword, "else"},
-        {SyntaxKind::TrueKeyword, "true"},
-        {SyntaxKind::FalseKeyword, "false"},
-        {SyntaxKind::ForKeyword, "for"},
-        {SyntaxKind::WhileKeyword, "while"},
-        {SyntaxKind::DoKeyword, "do"},
-        {SyntaxKind::FunctionKeyword, "function"},
-        {SyntaxKind::ReturnKeyword, "return"},
-        {SyntaxKind::LetKeyword, "let"},
-        {SyntaxKind::VarKeyword, "var"},
 };
 
 static const std::unordered_map<std::string, SyntaxKind> SyntaxKindMap = {
@@ -234,6 +221,19 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::LessOrEqualsToken, "<="},
         {SyntaxKind::GreaterToken, ">"},
         {SyntaxKind::GreaterOrEqualsToken, ">="},
+        {SyntaxKind::BreakKeyword, "break"},
+        {SyntaxKind::ContinueKeyword, "continue"},
+        {SyntaxKind::IfKeyword, "if"},
+        {SyntaxKind::ElseKeyword, "else"},
+        {SyntaxKind::TrueKeyword, "true"},
+        {SyntaxKind::FalseKeyword, "false"},
+        {SyntaxKind::ForKeyword, "for"},
+        {SyntaxKind::WhileKeyword, "while"},
+        {SyntaxKind::DoKeyword, "do"},
+        {SyntaxKind::FunctionKeyword, "function"},
+        {SyntaxKind::ReturnKeyword, "return"},
+        {SyntaxKind::LetKeyword, "let"},
+        {SyntaxKind::VarKeyword, "var"},
 };
 
 static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>

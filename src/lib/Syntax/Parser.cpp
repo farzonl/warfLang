@@ -136,10 +136,12 @@ std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
 }
 
 std::unique_ptr<CompilationUnitSyntaxNode> Parser::ParseCompilationUnit() {
-
-  auto statement = ParseStatement();
+  auto statements = std::vector<std::unique_ptr<StatementSyntaxNode>>();
+  while (Current()->Kind() != SyntaxKind::EndOfFileToken) {
+    statements.push_back(ParseStatement());
+  }
   auto endOfFileToken = Match(SyntaxKind::EndOfFileToken);
-  return std::make_unique<CompilationUnitSyntaxNode>(std::move(statement),
+  return std::make_unique<CompilationUnitSyntaxNode>(std::move(statements),
                                                      endOfFileToken);
 }
 
