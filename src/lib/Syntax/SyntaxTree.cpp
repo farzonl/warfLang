@@ -21,7 +21,7 @@ CompilationUnitSyntaxNode *SyntaxTree::Root() const {
 }
 
 std::unique_ptr<SyntaxTree> SyntaxTree::Parse(std::string text) {
-  return std::make_unique<SyntaxTree>(text);
+  return std::unique_ptr<SyntaxTree>(new SyntaxTree(std::move(text)));
 }
 
 void SyntaxTree::PrintTreeRec(SyntaxNode *sNode, std::ostream &out,
