@@ -8,6 +8,7 @@
 
 #include "BoundExpressionNode.h"
 #include "DataStructures/TemplateList.h"
+#include <memory>
 
 class BoundBlockStatementNode : public BoundStatementNode {
 public:
