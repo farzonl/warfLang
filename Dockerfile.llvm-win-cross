@@ -31,7 +31,7 @@ RUN cd packages \
 COPY test test
 COPY fuzz fuzz
 COPY CMakeLists.txt CMakeLists.txt
-COPY cli-test-cases cli-test-cases
+
 COPY src src
 COPY cmake_config cmake_config
 

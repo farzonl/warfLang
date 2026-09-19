@@ -1,0 +1,2 @@
+// RUN: %warf -e "!1" 2>&1 | %FileCheck %s
+// CHECK: BinderError: Unary operator ! is not defined for type Number.

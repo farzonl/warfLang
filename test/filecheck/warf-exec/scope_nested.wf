@@ -1,0 +1,3 @@
+scope_value = 1 { { scope_value = scope_value + 2 } } scope_value
+// RUN: %warf %s | %FileCheck %s
+// CHECK: 3

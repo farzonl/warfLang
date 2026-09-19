@@ -28,7 +28,7 @@ COPY test test
 COPY fuzz fuzz
 COPY CMakeLists.txt CMakeLists.txt
 COPY scripts scripts
-COPY cli-test-cases cli-test-cases
+
 COPY src src
 
 ENV TARGET_TRIPLE=x86_64-unknown-freebsd13.2

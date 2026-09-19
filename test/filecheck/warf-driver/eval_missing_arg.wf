@@ -1,0 +1,2 @@
+// RUN: not %warf -e 2>&1 | %FileCheck %s
+// CHECK: Expected eval argument string
