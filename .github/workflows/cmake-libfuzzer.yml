@@ -69,9 +69,10 @@ jobs:
       shell: bash
       working-directory: ${{github.workspace}}/build
       if: matrix.os == 'macos-15'
-      # Mac  needs brew's llvm to override AppleClang
+      # Mac needs brew's llvm to override AppleClang; use `brew --prefix` since
+      # the install path differs between Apple Silicon (/opt/homebrew) and Intel (/usr/local).
       run: |
-        export PATH="/usr/local/opt/llvm/bin:$PATH"
+        export PATH="$(brew --prefix llvm)/bin:$PATH"
         cmake -G Ninja $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
         -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DBUILD_FUZZER=true
       
