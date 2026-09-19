@@ -98,6 +98,10 @@ void evaluate(std::string &line, bool showTree, std::stringstream& textBlock) {
   //  return;
   //}
   globalScope->GetTextSpan()->updateTextSpan(0, line.size());
+  // Comment-only/blank lines parse to zero statements; nothing to bind, show, or evaluate.
+  if (syntaxTree->Root()->Statements().empty()) {
+    return;
+  }
   auto binder = std::make_unique<Binder>();
   std::unique_ptr<BoundStatementNode> boundStatement;
   try {
@@ -111,10 +115,6 @@ void evaluate(std::string &line, bool showTree, std::stringstream& textBlock) {
   }
 
   if (syntaxTree->Errors().empty() && binder->Errors().empty()) {
-    // Comment-only/blank lines parse to zero statements; nothing to evaluate or print.
-    if (syntaxTree->Root()->Statements().empty()) {
-      return;
-    }
     auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
     Value result = eval->Evaluate();
     std::cout << result << std::endl;

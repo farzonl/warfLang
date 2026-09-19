@@ -1,2 +1,3 @@
 // RUN: %warf %S/../Inputs/add.wf %S/../Inputs/add.wf %S/../Inputs/add.wf | %FileCheck %s
+
 // CHECK: usage: ./Warf

@@ -1,4 +1,5 @@
 // RUN: %warf -q 2>%t.err | %FileCheck %s
 // RUN: %FileCheck %s --check-prefix=ERR < %t.err
+
 // CHECK: usage: ./Warf
 // ERR: Invalid flag: -q

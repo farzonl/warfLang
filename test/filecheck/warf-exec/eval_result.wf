@@ -1,3 +1,5 @@
-1 + 2
 // RUN: %warf %s | %FileCheck %s
+
+1 + 2
+
 // CHECK: 3

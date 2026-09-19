@@ -1,6 +1,8 @@
+// RUN: %warf -s %s 2>/dev/null | %FileCheck %s
+
 a = 1 + b
 a
-// RUN: %warf -s %s 2>/dev/null | %FileCheck %s
+
 // CHECK: L--CompilationUnit
 // CHECK-NEXT: |--ExpressionStatement
 // CHECK-NEXT: L--AssignmentExpression

@@ -1,5 +1,7 @@
-1 + 2
 // RUN: %warf %s --show_tree | %FileCheck %s
+
+1 + 2
+
 // CHECK: L--CompilationUnit
 // CHECK-NEXT: |--ExpressionStatement
 // CHECK-NEXT: L--BinaryExpression
