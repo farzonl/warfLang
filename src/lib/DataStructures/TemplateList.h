@@ -13,8 +13,8 @@ protected:
   std::vector<T> vec;
 
 public:
-  TemplateList() : vec(){};
-  TemplateList(std::vector<T> v) : vec(std::move(v)){};
+  TemplateList() : vec() {};
+  TemplateList(std::vector<T> v) : vec(std::move(v)) {};
   T &operator[](int index) { return vec[index]; }
   const T &operator[](int index) const { return vec[index]; }
 

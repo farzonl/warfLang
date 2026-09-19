@@ -11,12 +11,12 @@ BlockStatementSyntaxNode::BlockStatementSyntaxNode(
     : StatementSyntaxNode(SyntaxKind::BlockStatement),
       mOpenBraceToken(openBraceToken), mStatements(std::move(statements)),
       mCloseBraceToken(closeBraceToken) {
-        mVecExpressionNodes.push_back(openBraceToken.get());
-        for(auto& statement : mStatements) {
-          mVecExpressionNodes.push_back(statement.get());
-        }
-        mVecExpressionNodes.push_back(closeBraceToken.get());
-      }
+  mVecExpressionNodes.push_back(openBraceToken.get());
+  for (auto &statement : mStatements) {
+    mVecExpressionNodes.push_back(statement.get());
+  }
+  mVecExpressionNodes.push_back(closeBraceToken.get());
+}
 
 std::shared_ptr<SyntaxToken> BlockStatementSyntaxNode::OpenBraceToken() {
   return mOpenBraceToken;

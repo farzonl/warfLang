@@ -11,13 +11,14 @@
 
 class Compilation {
 public:
-    Compilation(std::unique_ptr<SyntaxTree> syntaxTree);
-    Compilation(std::unique_ptr<Compilation> previous, 
-                std::unique_ptr<SyntaxTree> syntaxTree);
-    
-    Compilation* Previous();
-    SyntaxTree*  STree();
+  Compilation(std::unique_ptr<SyntaxTree> syntaxTree);
+  Compilation(std::unique_ptr<Compilation> previous,
+              std::unique_ptr<SyntaxTree> syntaxTree);
+
+  Compilation *Previous();
+  SyntaxTree *STree();
+
 private:
-    std::unique_ptr<Compilation> mPrevious;
-    std::unique_ptr<SyntaxTree>  mSyntaxTree;
+  std::unique_ptr<Compilation> mPrevious;
+  std::unique_ptr<SyntaxTree> mSyntaxTree;
 };

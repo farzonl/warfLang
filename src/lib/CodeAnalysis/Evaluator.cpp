@@ -5,12 +5,12 @@
 #include "Evaluator.h"
 #include "Binding/BoundAssignmentExpressionNode.h"
 #include "Binding/BoundBinaryExpressionNode.h"
-#include "Binding/BoundIdentifierExpressionNode.h"
-#include "Binding/BoundLiteralExpressionNode.h"
 #include "Binding/BoundBlockStatementNode.h"
 #include "Binding/BoundExpressionStatementNode.h"
-#include "Binding/BoundVariableDeclarationNode.h"
+#include "Binding/BoundIdentifierExpressionNode.h"
+#include "Binding/BoundLiteralExpressionNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
+#include "Binding/BoundVariableDeclarationNode.h"
 
 BoundExpressionNode *Evaluator::Root() const {
   return dynamic_cast<BoundExpressionNode *>(mRoot.get());
@@ -37,10 +37,12 @@ Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
     return result;
   }
   if (auto expression = dynamic_cast<BoundExpressionStatementNode *>(node)) {
-    return EvaluateRec(const_cast<BoundExpressionNode *>(expression->Expression()));
+    return EvaluateRec(
+        const_cast<BoundExpressionNode *>(expression->Expression()));
   }
   if (auto declaration = dynamic_cast<BoundVariableDeclarationNode *>(node)) {
-    auto value = EvaluateRec(const_cast<BoundExpressionNode *>(declaration->Initializer()));
+    auto value = EvaluateRec(
+        const_cast<BoundExpressionNode *>(declaration->Initializer()));
     declaration->Variable()->SetValue(value);
     return value;
   }

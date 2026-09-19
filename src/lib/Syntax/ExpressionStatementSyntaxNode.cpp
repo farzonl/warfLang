@@ -8,8 +8,8 @@ ExpressionStatementSyntaxNode::ExpressionStatementSyntaxNode(
     std::unique_ptr<ExpressionNode> expression)
     : StatementSyntaxNode(SyntaxKind::ExpressionStatement),
       mExpression(std::move(expression)) {
-        mVecExpressionNodes.push_back(mExpression.get());
-      }
+  mVecExpressionNodes.push_back(mExpression.get());
+}
 
 ExpressionNode *ExpressionStatementSyntaxNode::Expression() const {
   return mExpression.get();

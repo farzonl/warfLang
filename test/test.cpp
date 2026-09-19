@@ -266,8 +266,8 @@ TEST_CASE("Statements") {
 TEST_CASE("Block scopes") {
   SymbolTableMgr::init();
 
-  auto parentSyntax = SyntaxTree::Parse(
-      "scope_outer = 1 { scope_outer = 2 } scope_outer");
+  auto parentSyntax =
+      SyntaxTree::Parse("scope_outer = 1 { scope_outer = 2 } scope_outer");
   auto parentBinder = std::make_unique<Binder>();
   auto parentStatement =
       parentBinder->BindCompilationUnit(parentSyntax->Root());
@@ -278,8 +278,7 @@ TEST_CASE("Block scopes") {
   auto localSyntax = SyntaxTree::Parse("{ scope_inner = 3 }");
   auto localBinder = std::make_unique<Binder>();
   auto localStatement = localBinder->BindCompilationUnit(localSyntax->Root());
-  auto localEvaluator =
-      std::make_unique<Evaluator>(std::move(localStatement));
+  auto localEvaluator = std::make_unique<Evaluator>(std::move(localStatement));
   REQUIRE(3 == localEvaluator->Evaluate().asInt());
 
   auto lookupSyntax = SyntaxTree::Parse("scope_inner");

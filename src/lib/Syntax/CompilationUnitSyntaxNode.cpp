@@ -26,10 +26,9 @@ CompilationUnitSyntaxNode::CompilationUnitSyntaxNode(
   mStatements = TemplateList<std::unique_ptr<StatementSyntaxNode>>();
   std::vector<std::unique_ptr<StatementSyntaxNode>> statements;
   statements.push_back(std::move(statement));
-  mStatements = TemplateList<std::unique_ptr<StatementSyntaxNode>>(
-      std::move(statements));
-  mVecExpressionNodes.insert(mVecExpressionNodes.begin(),
-                             mStatements[0].get());
+  mStatements =
+      TemplateList<std::unique_ptr<StatementSyntaxNode>>(std::move(statements));
+  mVecExpressionNodes.insert(mVecExpressionNodes.begin(), mStatements[0].get());
 }
 
 const StatementSyntaxNode *CompilationUnitSyntaxNode::Statement() const {

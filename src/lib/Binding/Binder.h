@@ -10,8 +10,8 @@
 
 #include "BoundExpressionNode.h"
 #include "Error/Record.h"
-#include "Syntax/CompilationUnitSyntaxNode.h"
 #include "Symbol/Scope.h"
+#include "Syntax/CompilationUnitSyntaxNode.h"
 #include "Syntax/ExpressionNode.h"
 
 class LiteralExpressionNode;
@@ -29,7 +29,8 @@ public:
   std::unique_ptr<BoundExpressionNode> BindExpression(ExpressionNode *syntax);
   std::unique_ptr<BoundStatementNode>
   BindCompilationUnit(CompilationUnitSyntaxNode *syntax);
-  std::unique_ptr<BoundStatementNode> BindStatement(StatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindStatement(StatementSyntaxNode *syntax);
   const Records &Errors() const { return mRecords; }
   Binder();
 

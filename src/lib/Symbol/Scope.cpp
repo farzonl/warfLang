@@ -37,8 +37,7 @@ Scope::lookupLocal(const std::string &name) const {
                                       : variable->second;
 }
 
-std::shared_ptr<VariableSymbol>
-Scope::lookup(const std::string &name) const {
+std::shared_ptr<VariableSymbol> Scope::lookup(const std::string &name) const {
   auto variable = lookupLocal(name);
   if (variable != VariableSymbol::failSymbol()) {
     return variable;

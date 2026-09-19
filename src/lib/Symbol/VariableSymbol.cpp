@@ -9,7 +9,7 @@
 VariableSymbol::VariableSymbol(const std::string &name, bool isReadOnly,
                                Value::Type type)
     : mName(name), mType(type), mScope(nullptr), mValue(),
-      mIsReadOnly(isReadOnly){};
+      mIsReadOnly(isReadOnly) {};
 
 const std::string &VariableSymbol::Name() const { return mName; }
 Value::Type VariableSymbol::Type() const { return mType; }

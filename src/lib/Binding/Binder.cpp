@@ -177,14 +177,14 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   if (assignment->AssignmentToken()->Kind() == SyntaxKind::EqualsToken) {
     auto localVariable = mScope->lookupLocal(name);
     if (localVariable != VariableSymbol::failSymbol()) {
-      localVariable = std::make_shared<VariableSymbol>(
-          name, isReadOnly, boundExpression->Type());
+      localVariable = std::make_shared<VariableSymbol>(name, isReadOnly,
+                                                       boundExpression->Type());
       mScope->insert(localVariable);
     } else {
       auto variable = mScope->lookup(name);
       if (variable == VariableSymbol::failSymbol()) {
-        variable = std::make_shared<VariableSymbol>(
-            name, isReadOnly, boundExpression->Type());
+        variable = std::make_shared<VariableSymbol>(name, isReadOnly,
+                                                    boundExpression->Type());
         mScope->insert(variable);
       }
       localVariable = variable;

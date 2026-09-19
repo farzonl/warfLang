@@ -143,8 +143,7 @@ static const std::unordered_map<std::string, SyntaxKind> KeywordMap = {
 };
 
 static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
-    KeywordToStrMap = {
-};
+    KeywordToStrMap = {};
 
 static const std::unordered_map<std::string, SyntaxKind> SyntaxKindMap = {
 

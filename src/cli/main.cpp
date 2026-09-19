@@ -37,18 +37,22 @@ struct Flags {
 class ParseFile {
 public:
   ParseFile(const std::string &path,
-            std::function<void(std::string &, bool, std::stringstream &)> parseLineBehavior);
+            std::function<void(std::string &, bool, std::stringstream &)>
+                parseLineBehavior);
   bool parse(bool showTree);
 
 private:
   // TODO make parser hanle multiple files
   // std::vector<std::string> mInputFilePaths;
   std::string mInputFilePath;
-  std::function<void(std::string &, bool, std::stringstream &)> mParseLineBehavior;
+  std::function<void(std::string &, bool, std::stringstream &)>
+      mParseLineBehavior;
 };
 
-ParseFile::ParseFile(const std::string &path,
-                     std::function<void(std::string &, bool, std::stringstream &)> parseLineBehavior)
+ParseFile::ParseFile(
+    const std::string &path,
+    std::function<void(std::string &, bool, std::stringstream &)>
+        parseLineBehavior)
     : mInputFilePath(path), mParseLineBehavior(parseLineBehavior) {}
 
 // Braces can span multiple physical lines (e.g. a block statement), so we
@@ -127,16 +131,17 @@ ExpressionNode *ParseExpression(SyntaxTree *syntaxTree) {
   return nullptr;
 }
 
-void evaluate(std::string &line, bool showTree, std::stringstream& textBlock) {
+void evaluate(std::string &line, bool showTree, std::stringstream &textBlock) {
   auto globalScope = SymbolTableMgr::getGlobalScope();
-  //textBlock << input;
-  //std::string line = textBlock.str();
+  // textBlock << input;
+  // std::string line = textBlock.str();
   auto syntaxTree = SyntaxTree::Parse(line);
-  //if(!input.empty() && syntaxTree->Errors().empty()) {
-  //  return;
-  //}
+  // if(!input.empty() && syntaxTree->Errors().empty()) {
+  //   return;
+  // }
   globalScope->GetTextSpan()->updateTextSpan(0, line.size());
-  // Comment-only/blank lines parse to zero statements; nothing to bind, show, or evaluate.
+  // Comment-only/blank lines parse to zero statements; nothing to bind, show,
+  // or evaluate.
   if (syntaxTree->Root()->Statements().empty()) {
     return;
   }
@@ -166,7 +171,7 @@ void evaluate(std::string &line, bool showTree, std::stringstream& textBlock) {
   }
 }
 
-void consoleRead(bool &showTree, std::stringstream& textBlock) {
+void consoleRead(bool &showTree, std::stringstream &textBlock) {
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
   char *buffer = readline(">>> ");
 
@@ -205,7 +210,7 @@ void startRepl(bool showTree) {
   stifle_history(kMaxReplHistoryEntries);
 #endif
   WarfHelper::printVersion();
-  std::stringstream textBlock; 
+  std::stringstream textBlock;
   while (true) {
     try {
       consoleRead(showTree, textBlock);
@@ -251,7 +256,7 @@ int main(int argc, char **argv) {
   }
 
   if (isEval) {
-    //TODO we broke one line evaluate
+    // TODO we broke one line evaluate
     std::stringstream textBlock;
     evaluate(evalStr, showTree, textBlock);
     return 0;
@@ -261,7 +266,8 @@ int main(int argc, char **argv) {
     // Without a real interactive terminal, readline() can't block on input
     // the way the REPL expects; refuse to spin one up unattended.
     if (!isatty(fileno(stdin))) {
-      std::cerr << "stdin is not a terminal; refusing to start the REPL." << std::endl;
+      std::cerr << "stdin is not a terminal; refusing to start the REPL."
+                << std::endl;
       printUsage();
       return -1;
     }
