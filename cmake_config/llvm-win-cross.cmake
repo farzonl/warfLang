@@ -63,8 +63,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  ${COMPILE_FLAG}" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAG}" CACHE STRING "" FORCE)
 set(CMAKE_RC_FLAGS "${CMAKE_RC_FLAGS} -Xclang -ivfsoverlay -Xclang ${WiN_VFS_OVERLAY}")
 
-add_compile_options(
-    "SHELL:-Xclang --dependent-lib=libucrt$<$<CONFIG:Debug>:d>"
-    "SHELL:-Xclang --dependent-lib=libvcruntime$<$<CONFIG:Debug>:d>"
-    "SHELL:-Xclang --dependent-lib=oldnames"
-)
+set(DEPENDENT_LIB_FLAGS_COMMON "-Xclang --dependent-lib=oldnames")
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Xclang --dependent-lib=libucrtd -Xclang --dependent-lib=libvcruntimed ${DEPENDENT_LIB_FLAGS_COMMON}" CACHE STRING "" FORCE)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Xclang --dependent-lib=libucrtd -Xclang --dependent-lib=libvcruntimed ${DEPENDENT_LIB_FLAGS_COMMON}" CACHE STRING "" FORCE)
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Xclang --dependent-lib=libucrt -Xclang --dependent-lib=libvcruntime ${DEPENDENT_LIB_FLAGS_COMMON}" CACHE STRING "" FORCE)
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Xclang --dependent-lib=libucrt -Xclang --dependent-lib=libvcruntime ${DEPENDENT_LIB_FLAGS_COMMON}" CACHE STRING "" FORCE)
