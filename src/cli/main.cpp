@@ -42,7 +42,7 @@ public:
   bool parse(bool showTree);
 
 private:
-  // TODO make parser hanle multiple files
+  // TODO make parser handle multiple files
   // std::vector<std::string> mInputFilePaths;
   std::string mInputFilePath;
   std::function<void(std::string &, bool, std::stringstream &)>
@@ -135,9 +135,7 @@ void evaluate(std::string &line, bool showTree, std::stringstream &textBlock) {
   auto globalScope = SymbolTableMgr::getGlobalScope();
   std::string source = line;
   auto syntaxTree = SyntaxTree::Parse(source);
-  // if(!input.empty() && syntaxTree->Errors().empty()) {
-  //   return;
-  // }
+
   // Comment-only/blank lines parse to zero statements; nothing to bind, show,
   // or evaluate.
   if (syntaxTree->Root()->Statements().empty()) {
