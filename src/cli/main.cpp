@@ -5,6 +5,7 @@
 #include "Binding/Binder.h"
 #include "CodeAnalysis/Evaluator.h"
 #include "ExpressionStatementSyntaxNode.h"
+#include "IR/Ir.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
 #include "Version/version.h"
@@ -31,6 +32,7 @@ struct Flags {
   static const FlagName eval;
   static const FlagName repl;
   static const FlagName showTree;
+  static const FlagName emitIr;
   Flags() = delete;
 };
 
@@ -108,14 +110,17 @@ const Flags::FlagName Flags::help = {"-h", "--help"};
 const Flags::FlagName Flags::eval = {"-e", "--eval"};
 const Flags::FlagName Flags::repl = {"-r", "--repl"};
 const Flags::FlagName Flags::showTree = {"-s", "--show_tree"};
+const Flags::FlagName Flags::emitIr = {"", "--emit-ir"};
 
 void printUsage() {
   std::cout << "usage: ./Warf \n";
   std::cout << "       ./Warf <file_name>\n";
   std::cout << "       ./Warf <file_name> --show_tree\n";
+  std::cout << "       ./Warf <file_name> --emit-ir\n";
   std::cout << "       ./Warf --repl\n";
   std::cout << "       ./Warf --eval <string_to_evaluate>\n";
   std::cout << "       ./Warf --eval <string_to_evaluate> --show_tree\n";
+  std::cout << "       ./Warf --eval <string_to_evaluate> --emit-ir\n";
   std::cout << "       ./Warf -h\n";
   std::cout << "       ./Warf --help\n";
 }
@@ -131,7 +136,8 @@ ExpressionNode *ParseExpression(SyntaxTree *syntaxTree) {
   return nullptr;
 }
 
-void evaluate(std::string &line, bool showTree, std::stringstream &textBlock) {
+void evaluate(std::string &line, bool showTree, bool emitIr,
+              std::stringstream &textBlock) {
   auto globalScope = SymbolTableMgr::getGlobalScope();
   std::string source = line;
   auto syntaxTree = SyntaxTree::Parse(source);
@@ -166,6 +172,12 @@ void evaluate(std::string &line, bool showTree, std::stringstream &textBlock) {
   }
 
   if (syntaxTree->Errors().empty() && binder->Errors().empty()) {
+    if (emitIr) {
+      IrLowerer lowerer;
+      auto module = lowerer.Lower(boundStatement.get());
+      IrPrinter::Print(module);
+      return;
+    }
     auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
     Value result = eval->Evaluate();
     if (result.VType() != Value::Type::Unknown) {
@@ -212,7 +224,7 @@ void consoleRead(bool &showTree, std::stringstream &textBlock) {
   if (line == "#exit") {
     exit(0);
   }
-  evaluate(line, showTree, textBlock);
+  evaluate(line, showTree, false, textBlock);
 }
 
 void startRepl(bool showTree) {
@@ -237,7 +249,9 @@ int main(int argc, char **argv) {
   bool isEval = false;
   bool isRepl = false;
   bool showTree = false;
+  bool emitIr = false;
   int showTreeIndex = 0;
+  int emitIrIndex = 0;
   std::string evalStr;
   for (int i = 1; i < argc; i++) {
     if (Flags::help.shortName == argv[i] || Flags::help.name == argv[i]) {
@@ -255,6 +269,9 @@ int main(int argc, char **argv) {
                Flags::showTree.name == argv[i]) {
       showTree = true;
       showTreeIndex = i;
+    } else if (Flags::emitIr.name == argv[i]) {
+      emitIr = true;
+      emitIrIndex = i;
     } else if (Flags::repl.shortName == argv[i] ||
                Flags::repl.name == argv[i]) {
       isRepl = true;
@@ -268,10 +285,10 @@ int main(int argc, char **argv) {
   if (isEval) {
     // TODO we broke one line evaluate
     std::stringstream textBlock;
-    evaluate(evalStr, showTree, textBlock);
+    evaluate(evalStr, showTree, emitIr, textBlock);
     return 0;
   }
-  if (isRepl || argc == 1 || (showTree && argc == 2)) {
+  if (isRepl || argc == 1 || ((showTree || emitIr) && argc == 2)) {
 #if !defined(_WIN32)
     // Without a real interactive terminal, readline() can't block on input
     // the way the REPL expects; refuse to spin one up unattended.
@@ -290,9 +307,12 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  int filePathIndex = 1 == showTreeIndex ? 2 : 1;
+  int filePathIndex = (1 == showTreeIndex || 1 == emitIrIndex) ? 2 : 1;
   std::string filePath(argv[filePathIndex]);
-  ParseFile file(filePath, evaluate);
+  ParseFile file(filePath, [emitIr](std::string &line, bool showTree,
+                                    std::stringstream &textBlock) {
+    evaluate(line, showTree, emitIr, textBlock);
+  });
   file.parse(showTree);
   return 0;
 }
