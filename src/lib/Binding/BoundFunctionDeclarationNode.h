@@ -12,13 +12,10 @@
 
 class BoundFunctionDeclarationNode : public BoundStatementNode {
 public:
-  BoundFunctionDeclarationNode(std::shared_ptr<FunctionSymbol> function,
-                               std::unique_ptr<BoundStatementNode> body);
+  BoundFunctionDeclarationNode(std::shared_ptr<FunctionSymbol> function);
   virtual BoundNodeKind Kind() override;
   std::shared_ptr<FunctionSymbol> Function() const;
-  const BoundStatementNode *Body() const;
 
 private:
   std::shared_ptr<FunctionSymbol> mFunction;
-  std::unique_ptr<BoundStatementNode> mBody;
 };

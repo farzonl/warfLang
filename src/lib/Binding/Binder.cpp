@@ -170,21 +170,10 @@ Binder::BindFunctionDeclaration(FunctionDeclarationSyntaxNode *syntax) {
   }
 
   auto function = std::make_shared<FunctionSymbol>(syntax->Identifier()->Text(),
-                                                   parameters);
+                                                   parameters, syntax->Body());
   mScope->insert(function);
 
-  auto parentScope = mScope;
-  mScope = std::make_shared<Scope>(Scope::ScopeKind::Global, nullptr, "",
-                                   parentScope);
-  for (const auto &parameter : parameters) {
-    mScope->insert(parameter);
-  }
-  auto body = BindBlockStatement(
-      const_cast<BlockStatementSyntaxNode *>(syntax->Body()));
-  mScope = parentScope;
-
-  return std::make_unique<BoundFunctionDeclarationNode>(function,
-                                                        std::move(body));
+  return std::make_unique<BoundFunctionDeclarationNode>(function);
 }
 
 std::unique_ptr<BoundStatementNode>
@@ -322,8 +311,23 @@ Binder::BindCallExpression(CallExpressionNode *call) {
     return std::make_unique<BoundLiteralExpressionNode>(0);
   }
 
+  auto parameters = std::vector<std::shared_ptr<VariableSymbol>>();
+  auto parentScope = mScope;
+  mScope = std::make_shared<Scope>(Scope::ScopeKind::Global, nullptr, "",
+                                   parentScope);
+  for (size_t i = 0; i < function->Parameters().size(); i++) {
+    auto parameter = std::make_shared<VariableSymbol>(
+        function->Parameters()[i]->Name(), true, boundArguments[i]->Type());
+    parameters.push_back(parameter);
+    mScope->insert(parameter);
+  }
+  auto body = BindBlockStatement(
+      const_cast<BlockStatementSyntaxNode *>(function->Body()));
+  mScope = parentScope;
+
   return std::make_unique<BoundCallExpressionNode>(
-      name, std::move(boundArguments), Value::Type::Unknown);
+      name, std::move(boundArguments), std::move(parameters), std::move(body),
+      Value::Type::Unknown);
 }
 
 std::unique_ptr<BoundExpressionNode>

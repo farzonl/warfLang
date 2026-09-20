@@ -5,9 +5,8 @@
 #include "BoundFunctionDeclarationNode.h"
 
 BoundFunctionDeclarationNode::BoundFunctionDeclarationNode(
-    std::shared_ptr<FunctionSymbol> function,
-    std::unique_ptr<BoundStatementNode> body)
-    : BoundStatementNode(), mFunction(function), mBody(std::move(body)) {}
+    std::shared_ptr<FunctionSymbol> function)
+    : BoundStatementNode(), mFunction(function) {}
 
 BoundNodeKind BoundFunctionDeclarationNode::Kind() {
   return BoundNodeKind::FunctionDeclaration;
@@ -15,8 +14,4 @@ BoundNodeKind BoundFunctionDeclarationNode::Kind() {
 
 std::shared_ptr<FunctionSymbol> BoundFunctionDeclarationNode::Function() const {
   return mFunction;
-}
-
-const BoundStatementNode *BoundFunctionDeclarationNode::Body() const {
-  return mBody.get();
 }

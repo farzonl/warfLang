@@ -207,13 +207,13 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
       throw std::runtime_error("EvaluatorError: Unexpected function: " +
                                callExpression->Name());
     }
-    const auto &parameters = function->second->Function()->Parameters();
+    const auto &parameters = callExpression->Parameters();
     for (size_t i = 0; i < parameters.size(); i++) {
       parameters[i]->SetValue(
           EvaluateRec(callExpression->Arguments()[i].get()));
     }
     return EvaluateStatement(
-        const_cast<BoundStatementNode *>(function->second->Body()));
+        const_cast<BoundStatementNode *>(callExpression->Body()));
   }
   return Value();
 }
