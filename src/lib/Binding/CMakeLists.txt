@@ -7,6 +7,7 @@ include_directories(${WARF_CORE_SOURCE_DIR})
 set(SourceFiles
     Binder.cpp
     BoundBinaryExpressionNode.cpp
+    BoundCallExpressionNode.cpp
     BoundLiteralExpressionNode.cpp
     BoundUnaryExpressionNode.cpp
     BoundAssignmentExpressionNode.cpp
@@ -14,6 +15,7 @@ set(SourceFiles
     BoundExpressionStatementNode.cpp
     BoundBlockStatementNode.cpp
     BoundVariableDeclarationNode.cpp
+    BoundFunctionDeclarationNode.cpp
     BoundIfStatementNode.cpp
     BoundWhileStatementNode.cpp
     BoundForStatementNode.cpp
@@ -23,6 +25,7 @@ set(SourceFiles
 set(HeaderFiles
     Binder.h
     BoundBinaryExpressionNode.h
+    BoundCallExpressionNode.h
     BoundExpressionNode.h
     BoundExpressionStatementNode.h
     BoundBlockStatementNode.h
@@ -31,6 +34,7 @@ set(HeaderFiles
     BoundAssignmentExpressionNode.h
     BoundIdentifierExpressionNode.h
     BoundVariableDeclarationNode.h
+    BoundFunctionDeclarationNode.h
     BoundIfStatementNode.h
     BoundWhileStatementNode.h
     BoundForStatementNode.h

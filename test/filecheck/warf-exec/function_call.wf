@@ -1,0 +1,7 @@
+// RUN: %warf %s | %FileCheck %s
+
+function foo(arg) { arg } 
+
+foo(10)
+
+// CHECK: 10

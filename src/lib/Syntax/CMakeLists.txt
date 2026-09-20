@@ -13,11 +13,13 @@ set(SourceFiles Lexer.cpp
                 StatementSyntaxNode.cpp
                 ExpressionStatementSyntaxNode.cpp
                 VariableDeclarationSyntaxNode.cpp
+                FunctionDeclarationSyntaxNode.cpp
                 IfStatementSyntaxNode.cpp
                 WhileStatementSyntaxNode.cpp
                 ForStatementSyntaxNode.cpp
                 ExpressionNode.cpp
                 AssignmentExpressionNode.cpp
+                CallExpressionNode.cpp
                 LiteralExpressionNode.cpp
                 BinaryExpressionNode.cpp
                 UnaryExpressionNode.cpp
@@ -35,11 +37,13 @@ set(HeaderFiles Lexer.h
                 StatementSyntaxNode.h
                 ExpressionStatementSyntaxNode.h
                 VariableDeclarationSyntaxNode.h
+                FunctionDeclarationSyntaxNode.h
                 IfStatementSyntaxNode.h
                 WhileStatementSyntaxNode.h
                 ForStatementSyntaxNode.h
                 ExpressionNode.h
                 AssignmentExpressionNode.h
+                CallExpressionNode.h
                 LiteralExpressionNode.h
                 BinaryExpressionNode.h
                 UnaryExpressionNode.h

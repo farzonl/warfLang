@@ -1,0 +1,31 @@
+// RUN: %warf %s --show_tree | %FileCheck %s
+
+function foo(arg) { arg } foo(10)
+
+// CHECK: L--CompilationUnit
+// CHECK-NEXT: |--FunctionDeclaration
+// CHECK-NEXT: |   |--FunctionKeyword
+// CHECK-NEXT: |   |--IdentifierToken
+// CHECK-NEXT: |      foo
+// CHECK-NEXT: |   |--OpenParenthesisToken
+// CHECK-NEXT: |   |--IdentifierToken
+// CHECK-NEXT: |      arg
+// CHECK-NEXT: |   |--CloseParenthesisToken
+// CHECK-NEXT: |   L--BlockStatement
+// CHECK-NEXT: |       |--OpenBraceToken
+// CHECK-NEXT: |       |--ExpressionStatement
+// CHECK-NEXT: |       |   L--IdentifierExpression
+// CHECK-NEXT: |       |       L--IdentifierToken
+// CHECK-NEXT: |       |          arg
+// CHECK-NEXT: |       L--CloseBraceToken
+// CHECK-NEXT: |--ExpressionStatement
+// CHECK-NEXT: |   L--CallExpression
+// CHECK-NEXT: |       |--IdentifierToken
+// CHECK-NEXT: |          foo
+// CHECK-NEXT: |       |--OpenParenthesisToken
+// CHECK-NEXT: |       |--LiteralExpression
+// CHECK-NEXT: |       |   L--NumberToken
+// CHECK-NEXT: |       |      10
+// CHECK-NEXT: |       L--CloseParenthesisToken
+// CHECK-NEXT: L--EndOfFileToken
+// CHECK-NEXT: 10

@@ -6,8 +6,10 @@
 #include "Binding/BoundAssignmentExpressionNode.h"
 #include "Binding/BoundBinaryExpressionNode.h"
 #include "Binding/BoundBlockStatementNode.h"
+#include "Binding/BoundCallExpressionNode.h"
 #include "Binding/BoundExpressionStatementNode.h"
 #include "Binding/BoundForStatementNode.h"
+#include "Binding/BoundFunctionDeclarationNode.h"
 #include "Binding/BoundIdentifierExpressionNode.h"
 #include "Binding/BoundIfStatementNode.h"
 #include "Binding/BoundLiteralExpressionNode.h"
@@ -48,6 +50,10 @@ Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
         const_cast<BoundExpressionNode *>(declaration->Initializer()));
     declaration->Variable()->SetValue(value);
     return value;
+  }
+  if (auto declaration = dynamic_cast<BoundFunctionDeclarationNode *>(node)) {
+    mFunctions[declaration->Function()->Name()] = declaration;
+    return Value();
   }
   if (auto ifStatement = dynamic_cast<BoundIfStatementNode *>(node)) {
     auto condition = EvaluateRec(
@@ -193,6 +199,21 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
                                BoundBinaryKindStrMap.at(opKind));
       return Value();
     }
+  }
+  if (BoundCallExpressionNode *callExpression =
+          dynamic_cast<BoundCallExpressionNode *>(node)) {
+    auto function = mFunctions.find(callExpression->Name());
+    if (function == mFunctions.end()) {
+      throw std::runtime_error("EvaluatorError: Unexpected function: " +
+                               callExpression->Name());
+    }
+    const auto &parameters = function->second->Function()->Parameters();
+    for (size_t i = 0; i < parameters.size(); i++) {
+      parameters[i]->SetValue(
+          EvaluateRec(callExpression->Arguments()[i].get()));
+    }
+    return EvaluateStatement(
+        const_cast<BoundStatementNode *>(function->second->Body()));
   }
   return Value();
 }

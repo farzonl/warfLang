@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "FunctionSymbol.h"
 #include "TextSpan.h"
 #include "VariableSymbol.h"
 #include <memory>
@@ -23,6 +24,7 @@ private:
   std::string mName;
   std::shared_ptr<Scope> mParent;
   std::unordered_map<std::string, std::shared_ptr<VariableSymbol>> mVariables;
+  std::unordered_map<std::string, std::shared_ptr<FunctionSymbol>> mFunctions;
   Scope() = default;
 
 public:
@@ -31,8 +33,12 @@ public:
 
   const std::string &Name() const;
   void insert(std::shared_ptr<VariableSymbol> variable);
+  void insert(std::shared_ptr<FunctionSymbol> function);
   std::shared_ptr<VariableSymbol> lookupLocal(const std::string &name) const;
   std::shared_ptr<VariableSymbol> lookup(const std::string &name) const;
+  std::shared_ptr<FunctionSymbol>
+  lookupFunctionLocal(const std::string &name) const;
+  std::shared_ptr<FunctionSymbol> lookupFunction(const std::string &name) const;
   std::shared_ptr<Scope> Parent() const;
 
   std::shared_ptr<TextSpan> GetTextSpan();

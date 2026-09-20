@@ -10,7 +10,7 @@ BoundLiteralExpressionNode::BoundLiteralExpressionNode(
     : mValue(const_cast<Value &>(literal->LiteralToken()->GetValue())) {}
 
 BoundLiteralExpressionNode::BoundLiteralExpressionNode(int32_t v) : mValue() {
-  mValue = 0;
+  mValue = v;
 }
 
 BoundNodeKind BoundLiteralExpressionNode::Kind() {

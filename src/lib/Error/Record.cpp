@@ -74,3 +74,32 @@ void Records::ReportUndefinedIdentifier(
           << " Ending at: " << identifierToken->Span().End() << ".";
   Report(identifierToken->Span(), message.str());
 }
+
+void Records::ReportUndefinedFunction(
+    std::shared_ptr<SyntaxToken> identifierToken) {
+  std::stringstream message;
+  message << mPrefix << "Error: Undefined function " << identifierToken->Text()
+          << " Starting at Position " << identifierToken->Span().Start()
+          << " Ending at: " << identifierToken->Span().End() << ".";
+  Report(identifierToken->Span(), message.str());
+}
+
+void Records::ReportWrongArgumentCount(
+    std::shared_ptr<SyntaxToken> identifierToken, const std::string &name,
+    size_t expectedCount, size_t actualCount) {
+  std::stringstream message;
+  message << mPrefix << "Error: Function " << name << " requires "
+          << expectedCount << " argument(s) but was given " << actualCount
+          << ".";
+  Report(identifierToken->Span(), message.str());
+}
+
+void Records::ReportWrongArgumentType(
+    std::shared_ptr<SyntaxToken> identifierToken, const std::string &name,
+    Value::Type expectedType, Value::Type actualType) {
+  std::stringstream message;
+  message << mPrefix << "Error: Parameter " << name
+          << " requires a value of type " << expectedType
+          << " but was given a value of type " << actualType << ".";
+  Report(identifierToken->Span(), message.str());
+}

@@ -6,8 +6,10 @@
 #include "BoundAssignmentExpressionNode.h"
 #include "BoundBinaryExpressionNode.h"
 #include "BoundBlockStatementNode.h"
+#include "BoundCallExpressionNode.h"
 #include "BoundExpressionStatementNode.h"
 #include "BoundForStatementNode.h"
+#include "BoundFunctionDeclarationNode.h"
 #include "BoundIdentifierExpressionNode.h"
 #include "BoundIfStatementNode.h"
 #include "BoundLiteralExpressionNode.h"
@@ -17,8 +19,10 @@
 #include "Syntax/AssignmentExpressionNode.h"
 #include "Syntax/BinaryExpressionNode.h"
 #include "Syntax/BlockStatementSyntaxNode.h"
+#include "Syntax/CallExpressionNode.h"
 #include "Syntax/ExpressionStatementSyntaxNode.h"
 #include "Syntax/ForStatementSyntaxNode.h"
+#include "Syntax/FunctionDeclarationSyntaxNode.h"
 #include "Syntax/IdentifierExpressionNode.h"
 #include "Syntax/IfStatementSyntaxNode.h"
 #include "Syntax/LiteralExpressionNode.h"
@@ -55,6 +59,9 @@ Binder::BindStatement(StatementSyntaxNode *syntax) {
   case SyntaxKind::VariableDeclaration:
     return BindVariableDeclaration(
         dynamic_cast<VariableDeclarationSyntaxNode *>(syntax));
+  case SyntaxKind::FunctionDeclaration:
+    return BindFunctionDeclaration(
+        dynamic_cast<FunctionDeclarationSyntaxNode *>(syntax));
   case SyntaxKind::ExpressionStatement:
     return BindExpressionStatement(
         dynamic_cast<ExpressionStatementSyntaxNode *>(syntax));
@@ -155,6 +162,32 @@ Binder::BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax) {
 }
 
 std::unique_ptr<BoundStatementNode>
+Binder::BindFunctionDeclaration(FunctionDeclarationSyntaxNode *syntax) {
+  auto parameters = std::vector<std::shared_ptr<VariableSymbol>>();
+  for (const auto &parameter : syntax->Parameters()) {
+    parameters.push_back(std::make_shared<VariableSymbol>(
+        parameter->Text(), true, Value::Type::Unknown));
+  }
+
+  auto function = std::make_shared<FunctionSymbol>(syntax->Identifier()->Text(),
+                                                   parameters);
+  mScope->insert(function);
+
+  auto parentScope = mScope;
+  mScope = std::make_shared<Scope>(Scope::ScopeKind::Global, nullptr, "",
+                                   parentScope);
+  for (const auto &parameter : parameters) {
+    mScope->insert(parameter);
+  }
+  auto body = BindBlockStatement(
+      const_cast<BlockStatementSyntaxNode *>(syntax->Body()));
+  mScope = parentScope;
+
+  return std::make_unique<BoundFunctionDeclarationNode>(function,
+                                                        std::move(body));
+}
+
+std::unique_ptr<BoundStatementNode>
 Binder::BindExpressionStatement(ExpressionStatementSyntaxNode *syntax) {
   auto expression = BindExpression(syntax->Expression());
   return std::make_unique<BoundExpressionStatementNode>(std::move(expression));
@@ -182,6 +215,10 @@ Binder::BindExpression(ExpressionNode *node) {
   if (AssignmentExpressionNode *assignmentExpression =
           dynamic_cast<AssignmentExpressionNode *>(node)) {
     return std::move(BindAssignmentExpression(assignmentExpression));
+  }
+  if (CallExpressionNode *callExpression =
+          dynamic_cast<CallExpressionNode *>(node)) {
+    return std::move(BindCallExpression(callExpression));
   }
   if (IdentifierExpressionNode *identifierExpression =
           dynamic_cast<IdentifierExpressionNode *>(node)) {
@@ -263,6 +300,30 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
     return std::make_unique<BoundAssignmentExpressionNode>(
         existingVariable, std::move(boundExpression), boundOperator);
   }
+}
+
+std::unique_ptr<BoundExpressionNode>
+Binder::BindCallExpression(CallExpressionNode *call) {
+  auto boundArguments = std::vector<std::unique_ptr<BoundExpressionNode>>();
+  for (const auto &argument : call->Arguments()) {
+    boundArguments.push_back(BindExpression(argument.get()));
+  }
+
+  auto name = call->IdentifierToken()->Text();
+  auto function = mScope->lookupFunction(name);
+  if (function == FunctionSymbol::failSymbol()) {
+    mRecords.ReportUndefinedFunction(call->IdentifierToken());
+    return std::make_unique<BoundLiteralExpressionNode>(0);
+  }
+  if (boundArguments.size() != function->Parameters().size()) {
+    mRecords.ReportWrongArgumentCount(call->IdentifierToken(), name,
+                                      function->Parameters().size(),
+                                      boundArguments.size());
+    return std::make_unique<BoundLiteralExpressionNode>(0);
+  }
+
+  return std::make_unique<BoundCallExpressionNode>(
+      name, std::move(boundArguments), Value::Type::Unknown);
 }
 
 std::unique_ptr<BoundExpressionNode>

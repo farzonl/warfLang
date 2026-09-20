@@ -31,6 +31,15 @@ Value testCaseHelper(std::string s) {
   return eval->Evaluate();
 }
 
+Value testProgramHelper(std::string s) {
+  SymbolTableMgr::init();
+  auto syntaxTree = SyntaxTree::Parse(s);
+  auto binder = std::make_unique<Binder>();
+  auto boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
+  auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
+  return eval->Evaluate();
+}
+
 bool testCaseSyntaxErrors(std::string s, std::string errorStr) {
   SymbolTableMgr::init();
   auto syntaxTree = SyntaxTree::Parse(s);
@@ -320,6 +329,18 @@ TEST_CASE("Control flow statements") {
     auto statement = binder->BindCompilationUnit(syntax->Root());
     auto evaluator = std::make_unique<Evaluator>(std::move(statement));
     REQUIRE(6 == evaluator->Evaluate().asInt());
+  }
+}
+
+TEST_CASE("Function calls") {
+  SUBCASE("undefined function reports a binder error") {
+    REQUIRE(testCaseSyntaxErrors(
+        "missing()",
+        "BinderError: Undefined function missing Starting at Position 0 Ending "
+        "at: 6."));
+  }
+  SUBCASE("calls user-defined foo") {
+    REQUIRE(10 == testProgramHelper("function foo(a) { a } foo(10)").asInt());
   }
 }
 

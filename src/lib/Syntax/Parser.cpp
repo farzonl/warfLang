@@ -7,7 +7,9 @@
 // #include<iterator> // for back_inserter
 #include "AssignmentExpressionNode.h"
 #include "BinaryExpressionNode.h"
+#include "CallExpressionNode.h"
 #include "ForStatementSyntaxNode.h"
+#include "FunctionDeclarationSyntaxNode.h"
 #include "IdentifierExpressionNode.h"
 #include "IfStatementSyntaxNode.h"
 #include "Lexer.h"
@@ -112,6 +114,10 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
     auto boolToken = Match(Current()->Kind());
     return std::make_unique<LiteralExpressionNode>(boolToken);
   }
+  if (Current()->Kind() == SyntaxKind::IdentifierToken &&
+      Peek(1)->Kind() == SyntaxKind::OpenParenthesisToken) {
+    return ParseCallExpression();
+  }
   if (Current()->Kind() == SyntaxKind::IdentifierToken) {
     auto identifierToken = Match(Current()->Kind());
     return std::make_unique<IdentifierExpressionNode>(identifierToken);
@@ -119,6 +125,24 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
 
   auto numberToken = Match(SyntaxKind::NumberToken);
   return std::make_unique<LiteralExpressionNode>(numberToken);
+}
+
+std::unique_ptr<ExpressionNode> Parser::ParseCallExpression() {
+  auto identifier = Match(SyntaxKind::IdentifierToken);
+  auto openParenthesis = Match(SyntaxKind::OpenParenthesisToken);
+  auto arguments = std::vector<std::unique_ptr<ExpressionNode>>();
+  auto commas = std::vector<std::shared_ptr<SyntaxToken>>();
+  while (Current()->Kind() != SyntaxKind::CloseParenthesisToken &&
+         Current()->Kind() != SyntaxKind::EndOfFileToken) {
+    arguments.push_back(ParseAssignmentExpression());
+    if (Current()->Kind() != SyntaxKind::CloseParenthesisToken) {
+      commas.push_back(Match(SyntaxKind::CommaToken));
+    }
+  }
+  auto closeParenthesis = Match(SyntaxKind::CloseParenthesisToken);
+  return std::make_unique<CallExpressionNode>(
+      identifier, openParenthesis, std::move(arguments), std::move(commas),
+      closeParenthesis);
 }
 
 std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
@@ -169,9 +193,31 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseStatement() {
     return ParseWhileStatement();
   case SyntaxKind::ForKeyword:
     return ParseForStatement();
+  case SyntaxKind::FunctionKeyword:
+    return ParseFunctionDeclaration();
   default:
     return ParseExpressionStatement();
   }
+}
+
+std::unique_ptr<StatementSyntaxNode> Parser::ParseFunctionDeclaration() {
+  auto functionKeyword = Match(SyntaxKind::FunctionKeyword);
+  auto identifier = Match(SyntaxKind::IdentifierToken);
+  auto openParenthesis = Match(SyntaxKind::OpenParenthesisToken);
+  auto parameters = std::vector<std::shared_ptr<SyntaxToken>>();
+  auto commas = std::vector<std::shared_ptr<SyntaxToken>>();
+  while (Current()->Kind() != SyntaxKind::CloseParenthesisToken &&
+         Current()->Kind() != SyntaxKind::EndOfFileToken) {
+    parameters.push_back(Match(SyntaxKind::IdentifierToken));
+    if (Current()->Kind() != SyntaxKind::CloseParenthesisToken) {
+      commas.push_back(Match(SyntaxKind::CommaToken));
+    }
+  }
+  auto closeParenthesis = Match(SyntaxKind::CloseParenthesisToken);
+  auto body = ParseBlockStatement();
+  return std::make_unique<FunctionDeclarationSyntaxNode>(
+      functionKeyword, identifier, openParenthesis, std::move(parameters),
+      std::move(commas), closeParenthesis, std::move(body));
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseIfStatement() {

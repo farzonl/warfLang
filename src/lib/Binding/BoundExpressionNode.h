@@ -15,10 +15,12 @@ enum class BoundNodeKind {
   BinaryExpression,
   UnaryExpression,
   LiteralExpression,
+  CallExpression,
 
   // Statements
   BlockStatement,
   VariableDeclaration,
+  FunctionDeclaration,
   ExpressionStatement,
   IfStatement,
   WhileStatement,

@@ -30,6 +30,7 @@ class Parser {
   std::unique_ptr<ExpressionNode> ParseTerm();
   std::unique_ptr<ExpressionNode> ParseFactor();
   std::unique_ptr<ExpressionNode> ParsePrimaryExpression();
+  std::unique_ptr<ExpressionNode> ParseCallExpression();
   std::unique_ptr<ExpressionNode> ParseAssignmentExpression();
   std::unique_ptr<ExpressionNode>
   ParseBinaryExpression(int parentPrecedence = 0);
@@ -39,6 +40,7 @@ class Parser {
   std::unique_ptr<StatementSyntaxNode> ParseIfStatement();
   std::unique_ptr<StatementSyntaxNode> ParseWhileStatement();
   std::unique_ptr<StatementSyntaxNode> ParseForStatement();
+  std::unique_ptr<StatementSyntaxNode> ParseFunctionDeclaration();
   std::unique_ptr<StatementSyntaxNode> ParseVariableDeclaration();
   std::unique_ptr<ExpressionStatementSyntaxNode> ParseExpressionStatement();
 

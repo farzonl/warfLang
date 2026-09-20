@@ -61,4 +61,12 @@ public:
   ReportUndefinedBinaryOperator(std::shared_ptr<SyntaxToken> binaryOperator,
                                 Value::Type leftType, Value::Type rightType);
   void ReportUndefinedIdentifier(std::shared_ptr<SyntaxToken> identifierToken);
+  void ReportUndefinedFunction(std::shared_ptr<SyntaxToken> identifierToken);
+  void ReportWrongArgumentCount(std::shared_ptr<SyntaxToken> identifierToken,
+                                const std::string &name, size_t expectedCount,
+                                size_t actualCount);
+  void ReportWrongArgumentType(std::shared_ptr<SyntaxToken> identifierToken,
+                               const std::string &name,
+                               Value::Type expectedType,
+                               Value::Type actualType);
 };
