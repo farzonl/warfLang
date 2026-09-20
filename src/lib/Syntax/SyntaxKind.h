@@ -30,6 +30,7 @@ public:
     CloseParenthesisToken,
     OpenBraceToken,
     CloseBraceToken,
+    SemicolonToken,
     OpenBracketToken,
     CloseBracketToken,
     ColonToken,
@@ -58,6 +59,9 @@ public:
     BlockStatement,
     ExpressionStatement,
     VariableDeclaration,
+    IfStatement,
+    WhileStatement,
+    ForStatement,
     // Node
     CompilationUnit,
     // Expressions
@@ -203,6 +207,7 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::CloseBracketToken, "]"},
         {SyntaxKind::OpenBraceToken, "{"},
         {SyntaxKind::CloseBraceToken, "}"},
+        {SyntaxKind::SemicolonToken, ";"},
         {SyntaxKind::ColonToken, ":"},
         {SyntaxKind::CommaToken, ","},
         {SyntaxKind::TildeToken, "~"},
@@ -256,6 +261,7 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::CloseBracketToken, "CloseBracketToken"},
         {SyntaxKind::OpenBraceToken, "OpenBraceToken"},
         {SyntaxKind::CloseBraceToken, "CloseBraceToken"},
+        {SyntaxKind::SemicolonToken, "SemicolonToken"},
         {SyntaxKind::ColonToken, "ColonToken"},
         {SyntaxKind::CommaToken, "CommaToken"},
         {SyntaxKind::TildeToken, "TildeToken"},
@@ -299,6 +305,9 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::BlockStatement, "BlockStatement"},
         {SyntaxKind::ExpressionStatement, "ExpressionStatement"},
         {SyntaxKind::VariableDeclaration, "VariableDeclaration"},
+        {SyntaxKind::IfStatement, "IfStatement"},
+        {SyntaxKind::WhileStatement, "WhileStatement"},
+        {SyntaxKind::ForStatement, "ForStatement"},
         {SyntaxKind::LetKeyword, "LetKeyword"},
         {SyntaxKind::VarKeyword, "VarKeyword"}};
 

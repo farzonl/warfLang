@@ -14,6 +14,9 @@ set(SourceFiles
     BoundExpressionStatementNode.cpp
     BoundBlockStatementNode.cpp
     BoundVariableDeclarationNode.cpp
+    BoundIfStatementNode.cpp
+    BoundWhileStatementNode.cpp
+    BoundForStatementNode.cpp
     ValueType.cpp
     
 )
@@ -28,6 +31,9 @@ set(HeaderFiles
     BoundAssignmentExpressionNode.h
     BoundIdentifierExpressionNode.h
     BoundVariableDeclarationNode.h
+    BoundIfStatementNode.h
+    BoundWhileStatementNode.h
+    BoundForStatementNode.h
     ValueType.h
 )
 

@@ -36,6 +36,9 @@ class Parser {
 
   std::unique_ptr<StatementSyntaxNode> ParseStatement();
   std::unique_ptr<BlockStatementSyntaxNode> ParseBlockStatement();
+  std::unique_ptr<StatementSyntaxNode> ParseIfStatement();
+  std::unique_ptr<StatementSyntaxNode> ParseWhileStatement();
+  std::unique_ptr<StatementSyntaxNode> ParseForStatement();
   std::unique_ptr<StatementSyntaxNode> ParseVariableDeclaration();
   std::unique_ptr<ExpressionStatementSyntaxNode> ParseExpressionStatement();
 

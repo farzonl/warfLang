@@ -20,6 +20,9 @@ enum class BoundNodeKind {
   BlockStatement,
   VariableDeclaration,
   ExpressionStatement,
+  IfStatement,
+  WhileStatement,
+  ForStatement,
 };
 
 class BoundNode {

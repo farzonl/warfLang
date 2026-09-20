@@ -86,6 +86,10 @@ void Lexer::ReadToken(SyntaxKind &type) {
     type = SyntaxKind::CloseBraceToken;
     mPosition++;
     break;
+  case ';':
+    type = SyntaxKind::SemicolonToken;
+    mPosition++;
+    break;
   case ':':
     type = SyntaxKind::ColonToken;
     mPosition++;

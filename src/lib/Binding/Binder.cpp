@@ -7,20 +7,26 @@
 #include "BoundBinaryExpressionNode.h"
 #include "BoundBlockStatementNode.h"
 #include "BoundExpressionStatementNode.h"
+#include "BoundForStatementNode.h"
 #include "BoundIdentifierExpressionNode.h"
+#include "BoundIfStatementNode.h"
 #include "BoundLiteralExpressionNode.h"
 #include "BoundUnaryExpressionNode.h"
 #include "BoundVariableDeclarationNode.h"
+#include "BoundWhileStatementNode.h"
 #include "Syntax/AssignmentExpressionNode.h"
 #include "Syntax/BinaryExpressionNode.h"
 #include "Syntax/BlockStatementSyntaxNode.h"
 #include "Syntax/ExpressionStatementSyntaxNode.h"
+#include "Syntax/ForStatementSyntaxNode.h"
 #include "Syntax/IdentifierExpressionNode.h"
+#include "Syntax/IfStatementSyntaxNode.h"
 #include "Syntax/LiteralExpressionNode.h"
 #include "Syntax/ParenthesizedExpressionNode.h"
 #include "Syntax/StatementSyntaxNode.h"
 #include "Syntax/UnaryExpressionNode.h"
 #include "Syntax/VariableDeclarationSyntaxNode.h"
+#include "Syntax/WhileStatementSyntaxNode.h"
 
 #include "Symbol/SymbolTableMgr.h"
 #include "Symbol/VariableSymbol.h"
@@ -52,11 +58,67 @@ Binder::BindStatement(StatementSyntaxNode *syntax) {
   case SyntaxKind::ExpressionStatement:
     return BindExpressionStatement(
         dynamic_cast<ExpressionStatementSyntaxNode *>(syntax));
+  case SyntaxKind::IfStatement:
+    return BindIfStatement(dynamic_cast<IfStatementSyntaxNode *>(syntax));
+  case SyntaxKind::WhileStatement:
+    return BindWhileStatement(dynamic_cast<WhileStatementSyntaxNode *>(syntax));
+  case SyntaxKind::ForStatement:
+    return BindForStatement(dynamic_cast<ForStatementSyntaxNode *>(syntax));
   default:
     std::stringstream diagmsg;
     diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(syntax->Kind());
     throw std::runtime_error(diagmsg.str());
   }
+}
+
+std::unique_ptr<BoundStatementNode>
+Binder::BindIfStatement(IfStatementSyntaxNode *syntax) {
+  auto condition = BindExpression(syntax->Condition().get());
+  if (condition->Type() != Value::Type::Boolean) {
+    throw std::runtime_error("If condition must be Boolean");
+  }
+  auto thenStatement =
+      BindStatement(const_cast<StatementSyntaxNode *>(syntax->ThenStatement()));
+  std::unique_ptr<BoundStatementNode> elseStatement;
+  if (syntax->ElseStatement()) {
+    elseStatement = BindStatement(
+        const_cast<StatementSyntaxNode *>(syntax->ElseStatement()));
+  }
+  return std::make_unique<BoundIfStatementNode>(
+      std::move(condition), std::move(thenStatement), std::move(elseStatement));
+}
+
+std::unique_ptr<BoundStatementNode>
+Binder::BindWhileStatement(WhileStatementSyntaxNode *syntax) {
+  auto condition = BindExpression(syntax->Condition().get());
+  if (condition->Type() != Value::Type::Boolean) {
+    throw std::runtime_error("While condition must be Boolean");
+  }
+  auto body = BindStatement(const_cast<StatementSyntaxNode *>(syntax->Body()));
+  return std::make_unique<BoundWhileStatementNode>(std::move(condition),
+                                                   std::move(body));
+}
+
+std::unique_ptr<BoundStatementNode>
+Binder::BindForStatement(ForStatementSyntaxNode *syntax) {
+  auto parentScope = mScope;
+  mScope = std::make_shared<Scope>(Scope::ScopeKind::Global, nullptr, "",
+                                   parentScope);
+  std::unique_ptr<BoundStatementNode> initializer;
+  if (syntax->Initializer()) {
+    initializer =
+        BindStatement(const_cast<StatementSyntaxNode *>(syntax->Initializer()));
+  }
+  auto condition = BindExpression(syntax->Condition().get());
+  if (condition->Type() != Value::Type::Boolean) {
+    throw std::runtime_error("For condition must be Boolean");
+  }
+  auto increment = BindExpression(syntax->Increment().get());
+  auto body = BindStatement(const_cast<StatementSyntaxNode *>(syntax->Body()));
+  mScope = parentScope;
+  return std::make_unique<BoundForStatementNode>(
+      std::move(initializer), std::move(condition), std::move(increment),
+      std::move(body));
 }
 
 std::unique_ptr<BoundStatementNode>

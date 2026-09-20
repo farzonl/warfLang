@@ -81,6 +81,12 @@ TEST_CASE("Binary Expression") {
     REQUIRE(-8 == testCaseHelper("4*(3-5)").asInt());
   }
   SUBCASE("Simple Division") { REQUIRE(3 == testCaseHelper("9/3").asInt()); }
+  SUBCASE("Comparison operators") {
+    REQUIRE(testCaseHelper("1 < 2").asBool());
+    REQUIRE(testCaseHelper("2 <= 2").asBool());
+    REQUIRE_FALSE(testCaseHelper("2 > 2").asBool());
+    REQUIRE(testCaseHelper("2 >= 2").asBool());
+  }
   SUBCASE("Simple PMDAS Ordering") {
     REQUIRE(7 == testCaseHelper("4*1+3").asInt());
   }
@@ -284,6 +290,37 @@ TEST_CASE("Block scopes") {
   auto lookupSyntax = SyntaxTree::Parse("scope_inner");
   auto lookupBinder = std::make_unique<Binder>();
   REQUIRE_THROWS(lookupBinder->BindCompilationUnit(lookupSyntax->Root()));
+}
+
+TEST_CASE("Control flow statements") {
+  SUBCASE("if and else") {
+    SymbolTableMgr::init();
+    auto syntax = SyntaxTree::Parse(
+        "value = 0 if (1 < 2) { value = 4 } else { value = 5 } value");
+    auto binder = std::make_unique<Binder>();
+    auto statement = binder->BindCompilationUnit(syntax->Root());
+    REQUIRE(binder->Errors().empty());
+    auto evaluator = std::make_unique<Evaluator>(std::move(statement));
+    REQUIRE(4 == evaluator->Evaluate().asInt());
+  }
+  SUBCASE("while") {
+    SymbolTableMgr::init();
+    auto syntax =
+        SyntaxTree::Parse("value = 0 while (value < 3) { value += 1 } value");
+    auto binder = std::make_unique<Binder>();
+    auto statement = binder->BindCompilationUnit(syntax->Root());
+    auto evaluator = std::make_unique<Evaluator>(std::move(statement));
+    REQUIRE(3 == evaluator->Evaluate().asInt());
+  }
+  SUBCASE("for") {
+    SymbolTableMgr::init();
+    auto syntax = SyntaxTree::Parse("value = 0 for (index = 0; index < 3; "
+                                    "index += 1) { value += 2 } value");
+    auto binder = std::make_unique<Binder>();
+    auto statement = binder->BindCompilationUnit(syntax->Root());
+    auto evaluator = std::make_unique<Evaluator>(std::move(statement));
+    REQUIRE(6 == evaluator->Evaluate().asInt());
+  }
 }
 
 TEST_CASE("Assignment Expression") {

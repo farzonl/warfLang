@@ -7,12 +7,15 @@
 // #include<iterator> // for back_inserter
 #include "AssignmentExpressionNode.h"
 #include "BinaryExpressionNode.h"
+#include "ForStatementSyntaxNode.h"
 #include "IdentifierExpressionNode.h"
+#include "IfStatementSyntaxNode.h"
 #include "Lexer.h"
 #include "LiteralExpressionNode.h"
 #include "ParenthesizedExpressionNode.h"
 #include "Parser.h"
 #include "UnaryExpressionNode.h"
+#include "WhileStatementSyntaxNode.h"
 
 std::shared_ptr<SyntaxToken> Parser::Peek(int32_t offset) {
   int32_t index = mPosition + offset;
@@ -153,9 +156,65 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseStatement() {
   case SyntaxKind::LetKeyword:
   case SyntaxKind::VarKeyword:
     return ParseVariableDeclaration();
+  case SyntaxKind::IfKeyword:
+    return ParseIfStatement();
+  case SyntaxKind::WhileKeyword:
+    return ParseWhileStatement();
+  case SyntaxKind::ForKeyword:
+    return ParseForStatement();
   default:
     return ParseExpressionStatement();
   }
+}
+
+std::unique_ptr<StatementSyntaxNode> Parser::ParseIfStatement() {
+  auto ifKeyword = Match(SyntaxKind::IfKeyword);
+  auto openParenthesis = Match(SyntaxKind::OpenParenthesisToken);
+  auto condition = ParseAssignmentExpression();
+  auto closeParenthesis = Match(SyntaxKind::CloseParenthesisToken);
+  auto thenStatement = ParseStatement();
+  std::shared_ptr<SyntaxToken> elseKeyword;
+  std::unique_ptr<StatementSyntaxNode> elseStatement;
+  if (Current()->Kind() == SyntaxKind::ElseKeyword) {
+    elseKeyword = Match(SyntaxKind::ElseKeyword);
+    elseStatement = ParseStatement();
+  }
+  return std::make_unique<IfStatementSyntaxNode>(
+      ifKeyword, openParenthesis, std::move(condition), closeParenthesis,
+      std::move(thenStatement), elseKeyword, std::move(elseStatement));
+}
+
+std::unique_ptr<StatementSyntaxNode> Parser::ParseWhileStatement() {
+  auto whileKeyword = Match(SyntaxKind::WhileKeyword);
+  auto openParenthesis = Match(SyntaxKind::OpenParenthesisToken);
+  auto condition = ParseAssignmentExpression();
+  auto closeParenthesis = Match(SyntaxKind::CloseParenthesisToken);
+  auto body = ParseStatement();
+  return std::make_unique<WhileStatementSyntaxNode>(
+      whileKeyword, openParenthesis, std::move(condition), closeParenthesis,
+      std::move(body));
+}
+
+std::unique_ptr<StatementSyntaxNode> Parser::ParseForStatement() {
+  auto forKeyword = Match(SyntaxKind::ForKeyword);
+  auto openParenthesis = Match(SyntaxKind::OpenParenthesisToken);
+  std::unique_ptr<StatementSyntaxNode> initializer;
+  if (Current()->Kind() != SyntaxKind::SemicolonToken) {
+    initializer = Current()->Kind() == SyntaxKind::LetKeyword ||
+                          Current()->Kind() == SyntaxKind::VarKeyword
+                      ? ParseVariableDeclaration()
+                      : ParseExpressionStatement();
+  }
+  auto firstSemicolon = Match(SyntaxKind::SemicolonToken);
+  auto condition = ParseAssignmentExpression();
+  auto secondSemicolon = Match(SyntaxKind::SemicolonToken);
+  auto increment = ParseAssignmentExpression();
+  auto closeParenthesis = Match(SyntaxKind::CloseParenthesisToken);
+  auto body = ParseStatement();
+  return std::make_unique<ForStatementSyntaxNode>(
+      forKeyword, openParenthesis, std::move(initializer), firstSemicolon,
+      std::move(condition), secondSemicolon, std::move(increment),
+      closeParenthesis, std::move(body));
 }
 
 std::unique_ptr<BlockStatementSyntaxNode> Parser::ParseBlockStatement() {

@@ -1,0 +1,16 @@
+// RUN: %warf %s | %FileCheck %s
+
+value = 0
+if (1 < 2) { value = 4 } else { value = 5 }
+value
+
+while (value < 7) { value += 1 }
+value
+
+for (index = 0; index < 3; index += 1) { value += 2 }
+value
+
+// CHECK: 0
+// CHECK-NEXT: 4
+// CHECK-NEXT: 7
+// CHECK-NEXT: 13

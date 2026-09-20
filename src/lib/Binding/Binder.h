@@ -23,6 +23,9 @@ class StatementSyntaxNode;
 class BlockStatementSyntaxNode;
 class VariableDeclarationSyntaxNode;
 class ExpressionStatementSyntaxNode;
+class IfStatementSyntaxNode;
+class WhileStatementSyntaxNode;
+class ForStatementSyntaxNode;
 
 class Binder {
 public:
@@ -53,4 +56,10 @@ private:
   BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax);
   std::unique_ptr<BoundStatementNode>
   BindExpressionStatement(ExpressionStatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindIfStatement(IfStatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindWhileStatement(WhileStatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindForStatement(ForStatementSyntaxNode *syntax);
 };
