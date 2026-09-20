@@ -37,9 +37,16 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
-        sudo apt install clang-tools clang lld lldb  \
-        llvm-dev libclang-dev wget curl ca-certificates \
-        zip unzip cmake ninja-build
+        sudo apt install wget curl ca-certificates zip unzip cmake ninja-build
+        # Ubuntu's default clang package is too old: the MSVC STL headers in
+        # the xwin-provided sysroot require Clang 19+ (STL1000 static_assert).
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh 19 all
+        sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 100
+        sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-19 100
+        sudo update-alternatives --install /usr/bin/lld lld /usr/bin/lld-19 100
+        command -v llvm-rc-19 >/dev/null && sudo update-alternatives --install /usr/bin/llvm-rc llvm-rc /usr/bin/llvm-rc-19 100 || true
     - name: install Mac cross-build dependencies
       if: matrix.os == 'macos-latest'
       run: brew install llvm cmake ninja

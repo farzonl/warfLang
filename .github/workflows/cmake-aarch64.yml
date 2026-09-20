@@ -56,7 +56,7 @@ jobs:
         && sudo dpkg --add-architecture arm64 \
         && sudo apt-get update \
         && apt-get download libedit-dev:arm64 libbsd-dev:arm64 libncurses-dev:arm64 \
-        && for deb in *arm64.deb; do dpkg-deb -R "$deb" .; done \
+        && for deb in *arm64.deb; do rm -rf DEBIAN && dpkg-deb -R "$deb" .; done \
         && rm -rf usr/share *arm64.deb DEBIAN \
         && rsync -av usr ../ \
         && cd .. \
