@@ -99,7 +99,7 @@ jobs:
     - name: Run CLI FileCheck Test(s) on MacOS & Linux and Generate Profraw from cli input
       working-directory: ${{github.workspace}}
       run: |
-        LLVM_PROFILE_FILE="${{ env.APPNAME }}-%p.profraw" cmake --build build --target check-warf-cli
+        LLVM_PROFILE_FILE="${{ env.APPNAME }}-%p.profraw" cmake --build build --target check-warf
   
     - name: On Mac Generate Profdata, & html Coverage report
       if: matrix.os == 'macOS-latest'
