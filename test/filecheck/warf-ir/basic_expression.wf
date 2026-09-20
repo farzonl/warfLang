@@ -1,0 +1,10 @@
+// RUN: %warf %s --emit-ir | %FileCheck %s
+
+1 + 2
+
+// CHECK: func __main()
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   %0 = const 1
+// CHECK-NEXT:   %1 = const 2
+// CHECK-NEXT:   %2 = add %0 %1
+// CHECK-NEXT:   ret %2

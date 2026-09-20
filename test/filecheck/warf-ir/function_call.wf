@@ -1,0 +1,15 @@
+// RUN: %warf %s --emit-ir | %FileCheck %s
+
+function foo(arg) { arg }
+
+foo(10)
+
+// CHECK: func __main()
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   %0 = const 10
+// CHECK-NEXT:   %1 = call foo %0
+// CHECK-NEXT:   ret %1
+// CHECK-EMPTY:
+// CHECK-NEXT: func foo(%arg)
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   ret %arg

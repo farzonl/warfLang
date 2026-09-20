@@ -34,17 +34,20 @@
         constructor() {
             Module._InitWarf();
         }
-        Run(input, showSyntaxTree) {
+        Run(input, showSyntaxTree, showIR) {
             var length = lengthBytesUTF8(input) + 1; // Add 1 for the null terminator
             var buffer = _malloc(length);
             // Copy the string to memory
             stringToUTF8(input, buffer, length);
-            let results = Pointer_stringify(Module._RunWarf(buffer, showSyntaxTree));
+            let results = Pointer_stringify(Module._RunWarf(buffer, showSyntaxTree, showIR));
             _free(buffer);
             return results;
         }
         ShowTree() {
             return Pointer_stringify(Module._ShowSyntaxTree());
+        }
+        ShowIR() {
+            return Pointer_stringify(Module._ShowIR());
         }
     }
 
@@ -57,9 +60,11 @@
     function runWarf(form) {
         let input = form.elements[0].value;
         let showSyntaxTree = form.elements[1].checked;
-        output = g_WarfApi.Run(input, showSyntaxTree)
+        let showIR = form.elements[2].checked;
+        output = g_WarfApi.Run(input, showSyntaxTree, showIR)
 
         let syntaxTreeElement = document.getElementById("warfLangSyntaxTreeBox")
+        let irElement = document.getElementById("warfLangIRBox")
         let resultElement = document.getElementById("warfLangOutputBox")
         //resultElement.removeAttribute("hidden");
         resultElement.style="display:block;"
@@ -76,6 +81,15 @@
             syntaxTreeElement.style="display:none;"
         }
 
+        if(showIR) {
+            irElement.style="display:block;"
+            irElement.value = g_WarfApi.ShowIR();
+            irElement.rows = irElement.value.split('\n').length;
+
+        }else {
+            irElement.style="display:none;"
+        }
+
         // prevent form from refreshing
         return false;
     }
@@ -89,12 +103,17 @@
   <br>
   <input type="checkbox" id="showSyntaxTree">
   <label for="showSyntaxTree"> Show the Syntax Tree</label><br>
+    <input type="checkbox" id="showIR">
+    <label for="showIR"> Show IR</label><br>
   <input type="submit" value="Submit">
 </form>
 
 <p>Click the "Submit" to Run Warf.</p>
 
 <textarea id="warfLangSyntaxTreeBox" rows="4" cols="50" style="display:none;">
+</textarea>
+
+<textarea id="warfLangIRBox" rows="4" cols="50" style="display:none;">
 </textarea>
 
 <textarea id="warfLangOutputBox" rows="4" cols="50" style="display:none;">

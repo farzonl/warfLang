@@ -4,8 +4,10 @@
 // CHECK: usage: ./Warf
 // CHECK-NEXT: ./Warf <file_name>
 // CHECK-NEXT: ./Warf <file_name> --show_tree
+// CHECK-NEXT: ./Warf <file_name> --emit-ir
 // CHECK-NEXT: ./Warf --repl
 // CHECK-NEXT: ./Warf --eval <string_to_evaluate>
 // CHECK-NEXT: ./Warf --eval <string_to_evaluate> --show_tree
+// CHECK-NEXT: ./Warf --eval <string_to_evaluate> --emit-ir
 // CHECK-NEXT: ./Warf -h
 // CHECK-NEXT: ./Warf --help

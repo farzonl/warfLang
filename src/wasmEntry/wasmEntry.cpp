@@ -5,23 +5,37 @@
 #include <iostream>
 #include <sstream>
 #include <stdbool.h>
+#include <string.h>
 #include <string>
 
 #include <emscripten.h>
 
 #include "Binding/Binder.h"
 #include "Evaluator.h"
+#include "IR/Ir.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
 
 extern "C" {
 void InitWarf();
-char *RunWarf(char *input, bool showSyntaxTree);
+char *RunWarf(char *input, bool showSyntaxTree, bool showIR);
 char *ShowSyntaxTree();
+char *ShowIR();
 }
 
 char *g_ReturnBuffer = nullptr;
 char *g_showSyntaxTree = nullptr;
+char *g_showIR = nullptr;
+
+static void SetBuffer(char *&buffer, const std::string &value) {
+  if (buffer) {
+    delete[] buffer;
+    buffer = nullptr;
+  }
+
+  buffer = new char[value.size() + 1];
+  strcpy(buffer, value.c_str());
+}
 
 // EMSCRIPTEN_KEEPALIVE
 void InitWarf() { SymbolTableMgr::init(); }
@@ -30,39 +44,43 @@ void InitWarf() { SymbolTableMgr::init(); }
 char *ShowSyntaxTree() { return g_showSyntaxTree; }
 
 // EMSCRIPTEN_KEEPALIVE
-char *RunWarf(char *input, bool showSyntaxTree) {
+char *ShowIR() { return g_showIR; }
+
+// EMSCRIPTEN_KEEPALIVE
+char *RunWarf(char *input, bool showSyntaxTree, bool showIR) {
 
   std::string s(input);
 
-  if (g_ReturnBuffer) {
-    delete g_ReturnBuffer;
-    g_ReturnBuffer = nullptr;
-  }
-
-  if (g_showSyntaxTree && showSyntaxTree) {
-    delete g_showSyntaxTree;
-    g_showSyntaxTree = nullptr;
-  }
+  SetBuffer(g_ReturnBuffer, "");
+  SetBuffer(g_showSyntaxTree, "");
+  SetBuffer(g_showIR, "");
 
   auto syntaxTree = SyntaxTree::Parse(s);
   auto binder = std::make_unique<Binder>();
   auto boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
+
+  if (showIR) {
+    IrLowerer lowerer;
+    auto module = lowerer.Lower(boundStatement.get());
+
+    std::stringstream irStream;
+    IrPrinter::Print(module, irStream);
+    SetBuffer(g_showIR, irStream.str());
+  }
+
   auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
 
   std::stringstream outputStream;
   outputStream << eval->Evaluate() << std::endl;
   std::string outputStr = outputStream.str();
-  g_ReturnBuffer = new char(outputStr.size());
-  stpncpy(g_ReturnBuffer, outputStr.c_str(), outputStr.size());
+  SetBuffer(g_ReturnBuffer, outputStr);
 
   if (showSyntaxTree) {
     std::stringstream syntaxTreeStream;
     syntaxTree->PrintTree(syntaxTreeStream);
 
     std::string outputSyntaxTree = syntaxTreeStream.str();
-    g_showSyntaxTree = new char(outputSyntaxTree.size());
-    stpncpy(g_showSyntaxTree, outputSyntaxTree.c_str(),
-            outputSyntaxTree.size());
+    SetBuffer(g_showSyntaxTree, outputSyntaxTree);
   }
 
   return g_ReturnBuffer;

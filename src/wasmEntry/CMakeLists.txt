@@ -18,6 +18,7 @@ set(exports
    _InitWarf 
    _RunWarf
    _ShowSyntaxTree
+   _ShowIR
    _malloc
    _free
  )

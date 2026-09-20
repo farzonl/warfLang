@@ -38,12 +38,15 @@ class WarfLang {
     var buffer = _malloc(length);
     // Copy the string to memory
     stringToUTF8(input, buffer, length);
-    let results = Pointer_stringify(Module._RunWarf(buffer));
+    let results = Pointer_stringify(Module._RunWarf(buffer, false, false));
     _free(buffer);
     return results;
   }
   ShowTree() {
     return Pointer_stringify(Module._ShowSyntaxTree());
+  }
+  ShowIR() {
+    return Pointer_stringify(Module._ShowIR());
   }
 }
 function functionExists(f) {
@@ -57,6 +60,7 @@ function testFunctionBinding() {
   assert(functionExists(Module._InitWarf));
   assert(functionExists(Module._RunWarf));
   assert(functionExists(Module._ShowSyntaxTree));
+  assert(functionExists(Module._ShowIR));
 }
 
 function testValIsANumber() { 
