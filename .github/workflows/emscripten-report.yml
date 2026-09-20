@@ -12,6 +12,9 @@ on:
       - '**.h'
       - '**CMakeLists.txt'
       - .github/workflows/emscripten-report.yml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ${{ matrix.os }}

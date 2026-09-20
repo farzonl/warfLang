@@ -16,7 +16,10 @@ on:
       - '**.cpp'
       - '**.h'
       - '**CMakeLists.txt'
-      - .github/workflows/cmake-arch64.yml
+      - .github/workflows/cmake-aarch64.yml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
@@ -51,11 +54,13 @@ jobs:
         && cd ../../ \
         && mkdir tmp \
         && cd tmp \
+        && sudo sed -i -E 's/^deb(\s)/deb [arch=amd64]\1/' /etc/apt/sources.list \
         && printf 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main universe\n' | sudo tee /etc/apt/sources.list.d/arm64-ports.list \
         && sudo dpkg --add-architecture arm64 \
         && sudo apt-get update \
         && apt-get download libedit-dev:arm64 libbsd-dev:arm64 libncurses-dev:arm64 \
-        && for deb in *arm64.deb; do dpkg-deb -R "$deb" .; done \
+          libbsd0:arm64 libedit2:arm64 libmd0:arm64 libmd-dev:arm64 libtinfo6:arm64 \
+        && for deb in *arm64.deb; do rm -rf DEBIAN && dpkg-deb -R "$deb" .; done \
         && rm -rf usr/share *arm64.deb DEBIAN \
         && rsync -av usr ../ \
         && cd .. \

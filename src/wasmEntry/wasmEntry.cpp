@@ -46,8 +46,8 @@ char *RunWarf(char *input, bool showSyntaxTree) {
 
   auto syntaxTree = SyntaxTree::Parse(s);
   auto binder = std::make_unique<Binder>();
-  auto boundExpression = binder->BindExpression(syntaxTree->Root());
-  auto eval = std::make_unique<Evaluator>(std::move(boundExpression));
+  auto boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
+  auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
 
   std::stringstream outputStream;
   outputStream << eval->Evaluate() << std::endl;

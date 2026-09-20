@@ -4,8 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt install -y \
     clang-tools clang lld lldb llvm-dev libclang-dev \
-    wget curl ca-certificates zip unzip vim wine \
-    cmake msitools p7zip-full ninja-build
+    wget curl ca-certificates zip unzip wine \
+    cmake ninja-build
 
 ENV DEBIAN_FRONTEND=dialog
 ENV WORKDIR=root/project
@@ -21,12 +21,6 @@ SHELL ["/bin/bash", "-c"]
 RUN mkdir packages \
     && cd packages \
     && ./../scripts/download_win_sysroot.sh
-
-RUN cd packages \
-    && ./../scripts/vfs_overlay.sh
-
-RUN cd packages \
-    && python3 ../scripts/rename.py win_sysroot
 
 COPY test test
 COPY fuzz fuzz
@@ -48,9 +42,9 @@ RUN ninja -C./winBuild
 #    && apt install -y \
 #    wine32
 
-ENV WINEPATH="/root/project/packages/win_sysroot/MSVC/14.11.25547/lib/x64"
-ENV WINEPATH="$WINEPATH;/root/project/packages/win_sysroot/WINSDK/10.0.22621.0/lib/um/x64"
-ENV WINEPATH="$WINEPATH;/root/project/packages/win_sysroot/WINSDK/10.0.22621.0/lib/ucrt/x64"
+ENV WINEPATH="/root/project/packages/win_sysroot/crt/lib/x64"
+ENV WINEPATH="$WINEPATH;/root/project/packages/win_sysroot/sdk/lib/um/x64"
+ENV WINEPATH="$WINEPATH;/root/project/packages/win_sysroot/sdk/lib/ucrt/x64"
 RUN wine cmd /C winBuild/src/cli/Warf.exe -e "5*(2+3-1)" --show_tree
 RUN wine cmd /C winBuild/test/WarfLang_TEST.exe
 

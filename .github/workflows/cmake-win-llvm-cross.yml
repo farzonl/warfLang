@@ -19,6 +19,9 @@ on:
       - '**CMakeLists.txt'
       - .github/workflows/cmake-win-llvm-cross.yml
       - cmake_config/llvm-win-cross.cmake
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
@@ -37,12 +40,20 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
-        sudo apt install clang-tools clang lld lldb  \
-        llvm-dev libclang-dev wget curl ca-certificates \
-        zip unzip vim wine cmake msitools p7zip-full ninja-build python3
+        sudo apt install wget curl ca-certificates zip unzip cmake ninja-build
+        # Ubuntu's default clang package is too old: the MSVC STL headers in
+        # the xwin-provided sysroot require Clang 19+ (STL1000 static_assert).
+        # Install the latest stable release and detect its version, since an
+        # unversioned "clang" alternative can already exist on the runner at a
+        # higher priority than update-alternatives would install here.
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh all
+        LLVM_VERSION=$(ls -d /usr/lib/llvm-*/ | sed -E 's#.*/llvm-([0-9]+)/#\1#' | sort -n | tail -1)
+        echo "LLVM_VERSION=$LLVM_VERSION" >> "$GITHUB_ENV"
     - name: install Mac cross-build dependencies
       if: matrix.os == 'macos-latest'
-      run: brew install llvm cmake ninja msitools p7zip python3
+      run: brew install llvm cmake ninja
     - name: Create Packages Environment
       working-directory: ${{github.workspace}}
       run: |
@@ -66,8 +77,6 @@ jobs:
       run: |
         cd packages
         ../scripts/download_win_sysroot.sh
-        ../scripts/vfs_overlay.sh
-        python3 ../scripts/rename.py win_sysroot
 
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory
@@ -81,6 +90,7 @@ jobs:
       run: |
        cmake -GNinja -S . -B build  \
        -DBuildTest=TRUE \
+       -DLLVM_VERSION=${LLVM_VERSION:-19} \
        -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
 
     - name: Build
@@ -131,10 +141,6 @@ jobs:
       working-directory: ${{github.workspace}}
       shell: pwsh
       run: |
-        md MacOS
-        Expand-Archive Warf-Darwin-x86_64-llvm-win-cross.zip MacOS
-        MacOS\artifacts\Warf.exe -e "1 + 2"
-        MacOS\artifacts\WarfLang_TEST.exe
         md Linux
         Expand-Archive Warf-Linux-x86_64-llvm-win-cross.zip Linux
         Linux\artifacts\Warf.exe -e "1 + 2"

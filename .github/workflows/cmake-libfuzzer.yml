@@ -17,6 +17,9 @@ on:
       - '**.h'
       - '**CMakeLists.txt'
       - .github/workflows/cmake-libfuzzer.yml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release

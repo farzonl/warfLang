@@ -7,6 +7,9 @@ on:
       - '**.cpp'
       - '**.h'
       - .github/workflows/clang-format.yml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   formatting-check:
     name: Formatting Check

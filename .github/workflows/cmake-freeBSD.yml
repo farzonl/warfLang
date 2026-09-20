@@ -17,6 +17,9 @@ on:
       - '**.h'
       - '**CMakeLists.txt'
       - .github/workflows/cmake-freeBSD.yml
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
@@ -111,12 +114,8 @@ jobs:
           ${{ env.APPNAME }}-*.zip
   
   test:
-    # Disabled: this job reliably hangs/gets stuck booting the FreeBSD VM
-    # (vmactions/freebsd-vm on macos-12, which is also a deprecated runner
-    # image). Re-enable once a working runner/VM combination is confirmed.
-    if: false
     needs: [build]
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     name: Fetch & Run Tests on FreeBSD
     steps:
     - uses: actions/download-artifact@v4
@@ -124,9 +123,9 @@ jobs:
         name: Warf-freebsd-x86_64.zip
     - name: Test in FreeBSD
       id: test
-      uses: vmactions/freebsd-vm@v0
+      uses: vmactions/freebsd-vm@v1
       with:
-        usesh: true
+        release: "13.2"
         prepare: |
           pkg install -y unzip
 
