@@ -1,0 +1,19 @@
+// RUN: %warf %s --show_tree | %FileCheck %s
+
+if (1 < 2) { 3 }
+
+// CHECK: L--CompilationUnit
+// CHECK-NEXT: |--IfStatement
+// CHECK-NEXT: |--IfKeyword
+// CHECK-NEXT: if
+// CHECK-NEXT: |--OpenParenthesisToken
+// CHECK-NEXT: (
+// CHECK-NEXT: |--BinaryExpression
+// CHECK-NEXT: |--LiteralExpression
+// CHECK-NEXT: |--NumberToken
+// CHECK-NEXT: 1
+// CHECK-NEXT: |--LessToken
+// CHECK-NEXT: <
+// CHECK-NEXT: |--LiteralExpression
+// CHECK-NEXT: |--NumberToken
+// CHECK-NEXT: 2
