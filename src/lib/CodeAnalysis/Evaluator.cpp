@@ -8,8 +8,8 @@
 #include "Binding/BoundBlockStatementNode.h"
 #include "Binding/BoundExpressionStatementNode.h"
 #include "Binding/BoundForStatementNode.h"
-#include "Binding/BoundIfStatementNode.h"
 #include "Binding/BoundIdentifierExpressionNode.h"
+#include "Binding/BoundIfStatementNode.h"
 #include "Binding/BoundLiteralExpressionNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
 #include "Binding/BoundVariableDeclarationNode.h"
@@ -50,36 +50,36 @@ Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
     return value;
   }
   if (auto ifStatement = dynamic_cast<BoundIfStatementNode *>(node)) {
-    auto condition = EvaluateRec(const_cast<BoundExpressionNode *>(
-        ifStatement->Condition()));
+    auto condition = EvaluateRec(
+        const_cast<BoundExpressionNode *>(ifStatement->Condition()));
     if (condition.asBool()) {
-      return EvaluateStatement(const_cast<BoundStatementNode *>(
-          ifStatement->ThenStatement()));
+      return EvaluateStatement(
+          const_cast<BoundStatementNode *>(ifStatement->ThenStatement()));
     }
     if (ifStatement->ElseStatement()) {
-      return EvaluateStatement(const_cast<BoundStatementNode *>(
-          ifStatement->ElseStatement()));
+      return EvaluateStatement(
+          const_cast<BoundStatementNode *>(ifStatement->ElseStatement()));
     }
     return Value();
   }
   if (auto whileStatement = dynamic_cast<BoundWhileStatementNode *>(node)) {
     Value result;
-    while (EvaluateRec(const_cast<BoundExpressionNode *>(
-               whileStatement->Condition()))
+    while (EvaluateRec(
+               const_cast<BoundExpressionNode *>(whileStatement->Condition()))
                .asBool()) {
-      result = EvaluateStatement(const_cast<BoundStatementNode *>(
-          whileStatement->Body()));
+      result = EvaluateStatement(
+          const_cast<BoundStatementNode *>(whileStatement->Body()));
     }
     return result;
   }
   if (auto forStatement = dynamic_cast<BoundForStatementNode *>(node)) {
     Value result;
     if (forStatement->Initializer()) {
-      EvaluateStatement(const_cast<BoundStatementNode *>(
-          forStatement->Initializer()));
+      EvaluateStatement(
+          const_cast<BoundStatementNode *>(forStatement->Initializer()));
     }
-    while (EvaluateRec(const_cast<BoundExpressionNode *>(
-               forStatement->Condition()))
+    while (EvaluateRec(
+               const_cast<BoundExpressionNode *>(forStatement->Condition()))
                .asBool()) {
       result = EvaluateStatement(
           const_cast<BoundStatementNode *>(forStatement->Body()));

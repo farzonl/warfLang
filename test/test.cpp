@@ -305,8 +305,8 @@ TEST_CASE("Control flow statements") {
   }
   SUBCASE("while") {
     SymbolTableMgr::init();
-    auto syntax = SyntaxTree::Parse(
-        "value = 0 while (value < 3) { value += 1 } value");
+    auto syntax =
+        SyntaxTree::Parse("value = 0 while (value < 3) { value += 1 } value");
     auto binder = std::make_unique<Binder>();
     auto statement = binder->BindCompilationUnit(syntax->Root());
     auto evaluator = std::make_unique<Evaluator>(std::move(statement));
@@ -314,8 +314,8 @@ TEST_CASE("Control flow statements") {
   }
   SUBCASE("for") {
     SymbolTableMgr::init();
-    auto syntax = SyntaxTree::Parse(
-        "value = 0 for (index = 0; index < 3; index += 1) { value += 2 } value");
+    auto syntax = SyntaxTree::Parse("value = 0 for (index = 0; index < 3; "
+                                    "index += 1) { value += 2 } value");
     auto binder = std::make_unique<Binder>();
     auto statement = binder->BindCompilationUnit(syntax->Root());
     auto evaluator = std::make_unique<Evaluator>(std::move(statement));

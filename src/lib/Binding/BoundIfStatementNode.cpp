@@ -12,7 +12,9 @@ BoundIfStatementNode::BoundIfStatementNode(
       mThenStatement(std::move(thenStatement)),
       mElseStatement(std::move(elseStatement)) {}
 
-BoundNodeKind BoundIfStatementNode::Kind() { return BoundNodeKind::IfStatement; }
+BoundNodeKind BoundIfStatementNode::Kind() {
+  return BoundNodeKind::IfStatement;
+}
 
 const BoundExpressionNode *BoundIfStatementNode::Condition() const {
   return mCondition.get();

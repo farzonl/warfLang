@@ -3,30 +3,30 @@
 // license that can be found in the LICENSE file.
 
 #include "Binder.h"
-#include "BoundForStatementNode.h"
-#include "BoundIfStatementNode.h"
-#include "BoundWhileStatementNode.h"
-#include "Syntax/ForStatementSyntaxNode.h"
-#include "Syntax/IfStatementSyntaxNode.h"
-#include "Syntax/WhileStatementSyntaxNode.h"
 #include "BoundAssignmentExpressionNode.h"
 #include "BoundBinaryExpressionNode.h"
 #include "BoundBlockStatementNode.h"
 #include "BoundExpressionStatementNode.h"
+#include "BoundForStatementNode.h"
 #include "BoundIdentifierExpressionNode.h"
+#include "BoundIfStatementNode.h"
 #include "BoundLiteralExpressionNode.h"
 #include "BoundUnaryExpressionNode.h"
 #include "BoundVariableDeclarationNode.h"
+#include "BoundWhileStatementNode.h"
 #include "Syntax/AssignmentExpressionNode.h"
 #include "Syntax/BinaryExpressionNode.h"
 #include "Syntax/BlockStatementSyntaxNode.h"
 #include "Syntax/ExpressionStatementSyntaxNode.h"
+#include "Syntax/ForStatementSyntaxNode.h"
 #include "Syntax/IdentifierExpressionNode.h"
+#include "Syntax/IfStatementSyntaxNode.h"
 #include "Syntax/LiteralExpressionNode.h"
 #include "Syntax/ParenthesizedExpressionNode.h"
 #include "Syntax/StatementSyntaxNode.h"
 #include "Syntax/UnaryExpressionNode.h"
 #include "Syntax/VariableDeclarationSyntaxNode.h"
+#include "Syntax/WhileStatementSyntaxNode.h"
 
 #include "Symbol/SymbolTableMgr.h"
 #include "Symbol/VariableSymbol.h"
@@ -77,8 +77,8 @@ Binder::BindIfStatement(IfStatementSyntaxNode *syntax) {
   if (condition->Type() != Value::Type::Boolean) {
     throw std::runtime_error("If condition must be Boolean");
   }
-  auto thenStatement = BindStatement(
-      const_cast<StatementSyntaxNode *>(syntax->ThenStatement()));
+  auto thenStatement =
+      BindStatement(const_cast<StatementSyntaxNode *>(syntax->ThenStatement()));
   std::unique_ptr<BoundStatementNode> elseStatement;
   if (syntax->ElseStatement()) {
     elseStatement = BindStatement(
@@ -106,8 +106,8 @@ Binder::BindForStatement(ForStatementSyntaxNode *syntax) {
                                    parentScope);
   std::unique_ptr<BoundStatementNode> initializer;
   if (syntax->Initializer()) {
-    initializer = BindStatement(
-        const_cast<StatementSyntaxNode *>(syntax->Initializer()));
+    initializer =
+        BindStatement(const_cast<StatementSyntaxNode *>(syntax->Initializer()));
   }
   auto condition = BindExpression(syntax->Condition().get());
   if (condition->Type() != Value::Type::Boolean) {

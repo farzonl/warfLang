@@ -16,7 +16,8 @@ IfStatementSyntaxNode::IfStatementSyntaxNode(
       mIfKeyword(std::move(ifKeyword)),
       mOpenParenthesisToken(std::move(openParenthesisToken)),
       mCloseParenthesisToken(std::move(closeParenthesisToken)),
-      mCondition(std::move(condition)), mThenStatement(std::move(thenStatement)),
+      mCondition(std::move(condition)),
+      mThenStatement(std::move(thenStatement)),
       mElseKeyword(std::move(elseKeyword)),
       mElseStatement(std::move(elseStatement)) {
   mVecExpressionNodes = {mIfKeyword.get(), mOpenParenthesisToken.get(),

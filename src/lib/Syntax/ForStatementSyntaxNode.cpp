@@ -22,10 +22,10 @@ ForStatementSyntaxNode::ForStatementSyntaxNode(
       mCloseParenthesisToken(std::move(closeParenthesisToken)),
       mInitializer(std::move(initializer)), mCondition(std::move(condition)),
       mIncrement(std::move(increment)), mBody(std::move(body)) {
-  mVecExpressionNodes = {mForKeyword.get(), mOpenParenthesisToken.get(),
+  mVecExpressionNodes = {mForKeyword.get(),  mOpenParenthesisToken.get(),
                          mInitializer.get(), mFirstSemicolonToken.get(),
-                         mCondition.get(), mSecondSemicolonToken.get(),
-                         mIncrement.get(), mCloseParenthesisToken.get(),
+                         mCondition.get(),   mSecondSemicolonToken.get(),
+                         mIncrement.get(),   mCloseParenthesisToken.get(),
                          mBody.get()};
 }
 

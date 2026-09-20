@@ -12,7 +12,9 @@ BoundForStatementNode::BoundForStatementNode(
     : mInitializer(std::move(initializer)), mCondition(std::move(condition)),
       mIncrement(std::move(increment)), mBody(std::move(body)) {}
 
-BoundNodeKind BoundForStatementNode::Kind() { return BoundNodeKind::ForStatement; }
+BoundNodeKind BoundForStatementNode::Kind() {
+  return BoundNodeKind::ForStatement;
+}
 
 const BoundStatementNode *BoundForStatementNode::Initializer() const {
   return mInitializer.get();

@@ -49,20 +49,16 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
                                           BoundBinaryOperatorKind::BitwiseXor,
                                           Value::Type::Number),
 
-    std::make_shared<BoundBinaryOperator>(SyntaxKind::GreaterToken,
-                                          BoundBinaryOperatorKind::GreaterThan,
-                                          Value::Type::Number,
-                                          Value::Type::Number,
-                                          Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::GreaterToken, BoundBinaryOperatorKind::GreaterThan,
+        Value::Type::Number, Value::Type::Number, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::GreaterOrEqualsToken,
         BoundBinaryOperatorKind::GreaterThanOrEqualTo, Value::Type::Number,
         Value::Type::Number, Value::Type::Boolean),
-    std::make_shared<BoundBinaryOperator>(SyntaxKind::LessToken,
-                                          BoundBinaryOperatorKind::LessThan,
-                                          Value::Type::Number,
-                                          Value::Type::Number,
-                                          Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::LessToken, BoundBinaryOperatorKind::LessThan,
+        Value::Type::Number, Value::Type::Number, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::LessOrEqualsToken,
         BoundBinaryOperatorKind::LessThanOrEqualTo, Value::Type::Number,
