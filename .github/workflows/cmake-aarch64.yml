@@ -51,6 +51,7 @@ jobs:
         && cd ../../ \
         && mkdir tmp \
         && cd tmp \
+        && sudo sed -i -E 's/^deb(\s)/deb [arch=amd64]\1/' /etc/apt/sources.list \
         && printf 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main universe\n' | sudo tee /etc/apt/sources.list.d/arm64-ports.list \
         && sudo dpkg --add-architecture arm64 \
         && sudo apt-get update \
