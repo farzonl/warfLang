@@ -12,5 +12,8 @@ value
 
 // CHECK: 0
 // CHECK-NEXT: 4
+// CHECK-NEXT: 4
 // CHECK-NEXT: 7
+// CHECK-NEXT: 7
+// CHECK-NEXT: 13
 // CHECK-NEXT: 13

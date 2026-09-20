@@ -4,16 +4,23 @@ if (1 < 2) { 3 }
 
 // CHECK: L--CompilationUnit
 // CHECK-NEXT: |--IfStatement
-// CHECK-NEXT: |--IfKeyword
-// CHECK-NEXT: if
-// CHECK-NEXT: |--OpenParenthesisToken
-// CHECK-NEXT: (
-// CHECK-NEXT: |--BinaryExpression
-// CHECK-NEXT: |--LiteralExpression
-// CHECK-NEXT: |--NumberToken
-// CHECK-NEXT: 1
-// CHECK-NEXT: |--LessToken
-// CHECK-NEXT: <
-// CHECK-NEXT: |--LiteralExpression
-// CHECK-NEXT: |--NumberToken
-// CHECK-NEXT: 2
+// CHECK-NEXT: |   |--IfKeyword
+// CHECK-NEXT: |   |--OpenParenthesisToken
+// CHECK-NEXT: |   |--BinaryExpression
+// CHECK-NEXT: |   |   |--LiteralExpression
+// CHECK-NEXT: |   |   |   L--NumberToken
+// CHECK-NEXT: |   |   |      1
+// CHECK-NEXT: |   |   |--LessToken
+// CHECK-NEXT: |   |   L--LiteralExpression
+// CHECK-NEXT: |   |       L--NumberToken
+// CHECK-NEXT: |   |          2
+// CHECK-NEXT: |   |--CloseParenthesisToken
+// CHECK-NEXT: |   L--BlockStatement
+// CHECK-NEXT: |       |--OpenBraceToken
+// CHECK-NEXT: |       |--ExpressionStatement
+// CHECK-NEXT: |       |   L--LiteralExpression
+// CHECK-NEXT: |       |       L--NumberToken
+// CHECK-NEXT: |       |          3
+// CHECK-NEXT: |       L--CloseBraceToken
+// CHECK-NEXT: L--EndOfFileToken
+// CHECK-NEXT: 3
