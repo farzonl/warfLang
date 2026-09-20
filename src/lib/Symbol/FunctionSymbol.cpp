@@ -6,8 +6,9 @@
 
 FunctionSymbol::FunctionSymbol(
     const std::string &name,
-    std::vector<std::shared_ptr<VariableSymbol>> parameters)
-    : mName(name), mParameters(std::move(parameters)) {}
+    std::vector<std::shared_ptr<VariableSymbol>> parameters,
+    const BlockStatementSyntaxNode *body)
+    : mName(name), mParameters(std::move(parameters)), mBody(body) {}
 
 const std::string &FunctionSymbol::Name() const { return mName; }
 
@@ -15,3 +16,5 @@ const std::vector<std::shared_ptr<VariableSymbol>> &
 FunctionSymbol::Parameters() const {
   return mParameters;
 }
+
+const BlockStatementSyntaxNode *FunctionSymbol::Body() const { return mBody; }

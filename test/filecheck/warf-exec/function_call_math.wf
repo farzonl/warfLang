@@ -1,0 +1,16 @@
+// RUN: %warf %s | %FileCheck %s
+
+function foo(a,b,c) { 
+    a = a + b - c
+    a
+ }
+
+ function foo2(a,b,c) {
+    a + b == c
+ }
+
+foo(2,3,4)
+foo2(1,2,3)
+
+// CHECK: 1
+// CHECK: true
