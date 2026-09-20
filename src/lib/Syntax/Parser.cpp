@@ -40,8 +40,8 @@ std::shared_ptr<SyntaxToken> Parser::Match(SyntaxKind kind) {
                                  current->Kind(), kind);
 
   // A mismatched EOF is a terminal condition, not a token to consume. For any
-  // other unexpected token, advance so recovery keeps making forward progress and
-  // does not spin forever allocating AST nodes.
+  // other unexpected token, advance so recovery keeps making forward progress
+  // and does not spin forever allocating AST nodes.
   if (current->Kind() != SyntaxKind::EndOfFileToken) {
     mPosition++;
   }
