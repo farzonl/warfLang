@@ -66,7 +66,7 @@ if(WARF_ENABLE_FILECHECK_TESTS)
   add_warf_lit_suite(warf-sema warf-sema)
   add_warf_lit_suite(warf-exec warf-exec)
 
-  add_custom_target(check-warf-cli
+  add_custom_target(check-warf
     COMMAND ${WARF_LIT_ENV} ${WARF_LIT_EXECUTABLE} -sv ${CMAKE_CURRENT_SOURCE_DIR}/filecheck
     DEPENDS Warf
     USES_TERMINAL

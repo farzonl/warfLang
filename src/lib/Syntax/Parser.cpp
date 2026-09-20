@@ -32,14 +32,21 @@ std::shared_ptr<SyntaxToken> Parser::Next() {
 }
 
 std::shared_ptr<SyntaxToken> Parser::Match(SyntaxKind kind) {
-  if (Current()->Kind() == kind) {
+  auto current = Current();
+  if (current->Kind() == kind) {
     return Next();
   }
-  mRecords.ReportUnexpectedToken(Current()->Span().Start(),
-                                 Current()->Span().End(), Current()->Kind(),
-                                 kind);
-  return std::make_shared<SyntaxToken>(kind, Current()->Span().Start(),
-                                       Current()->Span().End(), "");
+  mRecords.ReportUnexpectedToken(current->Span().Start(), current->Span().End(),
+                                 current->Kind(), kind);
+
+  // A mismatched EOF is a terminal condition, not a token to consume. For any
+  // other unexpected token, advance so recovery keeps making forward progress
+  // and does not spin forever allocating AST nodes.
+  if (current->Kind() != SyntaxKind::EndOfFileToken) {
+    mPosition++;
+  }
+  return std::make_shared<SyntaxToken>(kind, current->Span().Start(),
+                                       current->Span().End(), "");
 }
 
 Parser::Parser(std::string text) : mTokens(), mPosition(0), mRecords("Parser") {
