@@ -3,18 +3,29 @@ if(APPLE)
     set(CMAKE_C_COMPILER "/usr/local/opt/llvm/bin/clang")
     set(CMAKE_CXX_COMPILER "/usr/local/opt/llvm/bin/clang++")
     set(CMAKE_RC_COMPILER "/usr/local/opt/llvm/bin/llvm-rc")
+    set(LLVM_LINKER_NAME "lld")
 elseif(UNIX AND NOT APPLE)
-    set(CMAKE_C_COMPILER "clang")
-    set(CMAKE_CXX_COMPILER "clang++")
-    set(CMAKE_LINKER "lld")
-    set(CMAKE_RC_COMPILER "llvm-rc")
+    # Use the versioned binaries directly: Ubuntu runner images can already
+    # have an unversioned "clang" alternative registered at a higher priority
+    # than the one the CI install step's LLVM install would provide, so the
+    # bare name is not reliable here. The MSVC STL headers in the xwin
+    # sysroot require Clang 19+ (STL1000 static_assert); LLVM_VERSION is
+    # passed in by the workflow (detected from the latest LLVM install),
+    # defaulting to 19 for local/manual configures.
+    if(NOT DEFINED LLVM_VERSION)
+        set(LLVM_VERSION 19)
+    endif()
+    set(CMAKE_C_COMPILER "clang-${LLVM_VERSION}")
+    set(CMAKE_CXX_COMPILER "clang++-${LLVM_VERSION}")
+    set(CMAKE_RC_COMPILER "llvm-rc-${LLVM_VERSION}")
+    set(LLVM_LINKER_NAME "lld-${LLVM_VERSION}")
 endif()
 
 set(TARGET_TRIPLE "x86_64-pc-win32")
 
-set(CMAKE_EXE_LINKER_FLAGS_INIT "-fuse-ld=lld")
-set(CMAKE_MODULE_LINKER_FLAGS_INIT "-fuse-ld=lld")
-set(CMAKE_SHARED_LINKER_FLAGS_INIT "-fuse-ld=lld")
+set(CMAKE_EXE_LINKER_FLAGS_INIT "-fuse-ld=${LLVM_LINKER_NAME}")
+set(CMAKE_MODULE_LINKER_FLAGS_INIT "-fuse-ld=${LLVM_LINKER_NAME}")
+set(CMAKE_SHARED_LINKER_FLAGS_INIT "-fuse-ld=${LLVM_LINKER_NAME}")
 
 set(CMAKE_SYSTEM_NAME "Windows")
 Set(CMAKE_CROSS_COMPILING TRUE)

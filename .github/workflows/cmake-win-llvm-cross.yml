@@ -43,13 +43,14 @@ jobs:
         sudo apt install wget curl ca-certificates zip unzip cmake ninja-build
         # Ubuntu's default clang package is too old: the MSVC STL headers in
         # the xwin-provided sysroot require Clang 19+ (STL1000 static_assert).
+        # Install the latest stable release and detect its version, since an
+        # unversioned "clang" alternative can already exist on the runner at a
+        # higher priority than update-alternatives would install here.
         wget https://apt.llvm.org/llvm.sh
         chmod +x llvm.sh
-        sudo ./llvm.sh 19 all
-        sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 100
-        sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-19 100
-        sudo update-alternatives --install /usr/bin/lld lld /usr/bin/lld-19 100
-        command -v llvm-rc-19 >/dev/null && sudo update-alternatives --install /usr/bin/llvm-rc llvm-rc /usr/bin/llvm-rc-19 100 || true
+        sudo ./llvm.sh all
+        LLVM_VERSION=$(ls -d /usr/lib/llvm-*/ | sed -E 's#.*/llvm-([0-9]+)/#\1#' | sort -n | tail -1)
+        echo "LLVM_VERSION=$LLVM_VERSION" >> "$GITHUB_ENV"
     - name: install Mac cross-build dependencies
       if: matrix.os == 'macos-latest'
       run: brew install llvm cmake ninja
@@ -89,6 +90,7 @@ jobs:
       run: |
        cmake -GNinja -S . -B build  \
        -DBuildTest=TRUE \
+       -DLLVM_VERSION=${LLVM_VERSION:-19} \
        -DCMAKE_TOOLCHAIN_FILE=cmake_config/llvm-win-cross.cmake
 
     - name: Build
