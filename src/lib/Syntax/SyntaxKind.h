@@ -59,6 +59,7 @@ public:
     BlockStatement,
     ExpressionStatement,
     VariableDeclaration,
+    FunctionDeclaration,
     IfStatement,
     WhileStatement,
     ForStatement,
@@ -71,6 +72,7 @@ public:
     ParenthesizedExpression,
     LiteralExpression,
     AssignmentExpression,
+    CallExpression,
     // Keywords
     BreakKeyword,
     ContinueKeyword,
@@ -305,9 +307,11 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::BlockStatement, "BlockStatement"},
         {SyntaxKind::ExpressionStatement, "ExpressionStatement"},
         {SyntaxKind::VariableDeclaration, "VariableDeclaration"},
+        {SyntaxKind::FunctionDeclaration, "FunctionDeclaration"},
         {SyntaxKind::IfStatement, "IfStatement"},
         {SyntaxKind::WhileStatement, "WhileStatement"},
         {SyntaxKind::ForStatement, "ForStatement"},
+        {SyntaxKind::CallExpression, "CallExpression"},
         {SyntaxKind::LetKeyword, "LetKeyword"},
         {SyntaxKind::VarKeyword, "VarKeyword"}};
 

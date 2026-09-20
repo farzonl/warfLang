@@ -19,7 +19,7 @@ Scope::Scope(ScopeKind scopeKind, std::shared_ptr<TextSpan> textSpan,
              std::string scopeName, std::shared_ptr<Scope> parent)
     : mScopeKind(scopeKind), mTextspan(textSpan),
       mName(ScopeKindToName.at(scopeKind) + scopeName), mParent(parent),
-      mVariables() {}
+      mVariables(), mFunctions() {}
 
 const std::string &Scope::Name() const { return mName; }
 
@@ -28,6 +28,10 @@ std::shared_ptr<TextSpan> Scope::GetTextSpan() { return mTextspan; }
 void Scope::insert(std::shared_ptr<VariableSymbol> variable) {
   variable->mScope = this;
   mVariables[variable->Name()] = variable;
+}
+
+void Scope::insert(std::shared_ptr<FunctionSymbol> function) {
+  mFunctions[function->Name()] = function;
 }
 
 std::shared_ptr<VariableSymbol>
@@ -44,6 +48,23 @@ std::shared_ptr<VariableSymbol> Scope::lookup(const std::string &name) const {
   }
   return mParent == nullptr ? VariableSymbol::failSymbol()
                             : mParent->lookup(name);
+}
+
+std::shared_ptr<FunctionSymbol>
+Scope::lookupFunctionLocal(const std::string &name) const {
+  auto function = mFunctions.find(name);
+  return function == mFunctions.end() ? FunctionSymbol::failSymbol()
+                                      : function->second;
+}
+
+std::shared_ptr<FunctionSymbol>
+Scope::lookupFunction(const std::string &name) const {
+  auto function = lookupFunctionLocal(name);
+  if (function != FunctionSymbol::failSymbol()) {
+    return function;
+  }
+  return mParent == nullptr ? FunctionSymbol::failSymbol()
+                            : mParent->lookupFunction(name);
 }
 
 std::shared_ptr<Scope> Scope::Parent() const { return mParent; }

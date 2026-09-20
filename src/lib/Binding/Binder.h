@@ -18,10 +18,12 @@ class LiteralExpressionNode;
 class UnaryExpressionNode;
 class BinaryExpressionNode;
 class AssignmentExpressionNode;
+class CallExpressionNode;
 class IdentifierExpressionNode;
 class StatementSyntaxNode;
 class BlockStatementSyntaxNode;
 class VariableDeclarationSyntaxNode;
+class FunctionDeclarationSyntaxNode;
 class ExpressionStatementSyntaxNode;
 class IfStatementSyntaxNode;
 class WhileStatementSyntaxNode;
@@ -49,11 +51,15 @@ private:
   std::unique_ptr<BoundExpressionNode>
   BindAssignmentExpression(AssignmentExpressionNode *assignment);
   std::unique_ptr<BoundExpressionNode>
+  BindCallExpression(CallExpressionNode *call);
+  std::unique_ptr<BoundExpressionNode>
   BindIdentifierExpression(IdentifierExpressionNode *identifier);
   std::unique_ptr<BoundStatementNode>
   BindBlockStatement(BlockStatementSyntaxNode *syntax);
   std::unique_ptr<BoundStatementNode>
   BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindFunctionDeclaration(FunctionDeclarationSyntaxNode *syntax);
   std::unique_ptr<BoundStatementNode>
   BindExpressionStatement(ExpressionStatementSyntaxNode *syntax);
   std::unique_ptr<BoundStatementNode>

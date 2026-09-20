@@ -42,7 +42,7 @@ public:
   bool parse(bool showTree);
 
 private:
-  // TODO make parser hanle multiple files
+  // TODO make parser handle multiple files
   // std::vector<std::string> mInputFilePaths;
   std::string mInputFilePath;
   std::function<void(std::string &, bool, std::stringstream &)>
@@ -133,18 +133,26 @@ ExpressionNode *ParseExpression(SyntaxTree *syntaxTree) {
 
 void evaluate(std::string &line, bool showTree, std::stringstream &textBlock) {
   auto globalScope = SymbolTableMgr::getGlobalScope();
-  // textBlock << input;
-  // std::string line = textBlock.str();
-  auto syntaxTree = SyntaxTree::Parse(line);
-  // if(!input.empty() && syntaxTree->Errors().empty()) {
-  //   return;
-  // }
-  globalScope->GetTextSpan()->updateTextSpan(0, line.size());
+  std::string source = line;
+  auto syntaxTree = SyntaxTree::Parse(source);
+
   // Comment-only/blank lines parse to zero statements; nothing to bind, show,
   // or evaluate.
   if (syntaxTree->Root()->Statements().empty()) {
     return;
   }
+  if (syntaxTree->Errors().empty() &&
+      syntaxTree->Root()->Statements().size() == 1 &&
+      syntaxTree->Root()->Statement()->Kind() ==
+          SyntaxKind::FunctionDeclaration) {
+    textBlock << line << " ";
+    return;
+  }
+  if (!textBlock.str().empty()) {
+    source = textBlock.str() + line;
+    syntaxTree = SyntaxTree::Parse(source);
+  }
+  globalScope->GetTextSpan()->updateTextSpan(0, source.size());
   auto binder = std::make_unique<Binder>();
   std::unique_ptr<BoundStatementNode> boundStatement;
   try {
@@ -160,7 +168,9 @@ void evaluate(std::string &line, bool showTree, std::stringstream &textBlock) {
   if (syntaxTree->Errors().empty() && binder->Errors().empty()) {
     auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
     Value result = eval->Evaluate();
-    std::cout << result << std::endl;
+    if (result.VType() != Value::Type::Unknown) {
+      std::cout << result << std::endl;
+    }
   } else {
     for (auto error : syntaxTree->Errors()) {
       std::cerr << error << std::endl;

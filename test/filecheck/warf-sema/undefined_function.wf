@@ -1,0 +1,6 @@
+// RUN: %warf %s 2>%t.err >/dev/null
+// RUN: %FileCheck %s < %t.err
+
+missing()
+
+// CHECK: BinderError: Undefined function missing Starting at Position 0 Ending at: 6.

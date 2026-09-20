@@ -6,6 +6,7 @@ include_directories(${WARF_CORE_SOURCE_DIR})
 
 set(SourceFiles
     Scope.cpp
+    FunctionSymbol.cpp
     SymbolTableMgr.cpp
     SymbolTable.cpp
     TextSpan.cpp
@@ -15,6 +16,7 @@ set(SourceFiles
 )
 set(HeaderFiles
     Scope.h
+    FunctionSymbol.h
     SymbolTableMgr.h
     SymbolTable.h
     TextSpan.h
