@@ -3,7 +3,7 @@
 # license that can be found in the LICENSE file.
 
 add_subdirectory(lib)
-if(NOT isEmscripten)
+if(NOT isEmscripten AND NOT CMAKE_CROSSCOMPILING AND NOT CMAKE_CROSS_COMPILING)
     find_package(LLVM CONFIG QUIET)
     if(NOT LLVM_FOUND)
         file(GLOB WARF_HOMEBREW_LLVM_CONFIGS

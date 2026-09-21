@@ -22,6 +22,7 @@ static void printUsage() {
   std::cout << "       warfc --help\n";
 }
 
+#if defined(WARF_ENABLE_LLVM_BACKEND)
 static std::string ShellQuote(const std::string &value) {
   std::string quoted = "'";
   for (char character : value) {
@@ -33,6 +34,7 @@ static std::string ShellQuote(const std::string &value) {
   }
   return quoted + "'";
 }
+#endif
 
 static std::string DefaultOutputPath(const std::string &inputPath) {
   const size_t slash = inputPath.find_last_of("/\\");
@@ -62,6 +64,7 @@ static bool ReadSourceFile(const std::string &path, std::string &source) {
   return !file.bad();
 }
 
+#if defined(WARF_ENABLE_LLVM_BACKEND)
 static bool WriteTextFile(const std::string &path, const std::string &text) {
   std::ofstream output(path);
   if (!output.is_open()) {
@@ -70,6 +73,7 @@ static bool WriteTextFile(const std::string &path, const std::string &text) {
   output << text;
   return !output.bad();
 }
+#endif
 
 static bool ReportDiagnostics(const SyntaxTree &syntaxTree,
                               const Binder &binder) {
@@ -85,6 +89,7 @@ static bool ReportDiagnostics(const SyntaxTree &syntaxTree,
   return hasErrors;
 }
 
+#if defined(WARF_ENABLE_LLVM_BACKEND)
 static bool CompileLLVM(const std::string &llvmIr,
                         const std::string &outputPath) {
   auto llvmPath = outputPath + ".ll";
@@ -99,6 +104,7 @@ static bool CompileLLVM(const std::string &llvmIr,
   std::remove(llvmPath.c_str());
   return result == 0;
 }
+#endif
 
 int main(int argc, char **argv) {
   std::string inputPath;

@@ -11,7 +11,6 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <unistd.h>
 
 static void printUsage() {
   std::cout << "usage: ./WarfIR --run <ir_file_name>\n";
