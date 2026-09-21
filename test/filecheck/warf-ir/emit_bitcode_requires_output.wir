@@ -1,0 +1,9 @@
+// RUN: not %warf-ir --emit-bc %s 2>%t.err >/dev/null
+// RUN: %FileCheck %s < %t.err
+
+func __main()
+entry:
+  %0 = const 1
+  ret %0
+
+// CHECK: Expected -o output for --emit-bc.

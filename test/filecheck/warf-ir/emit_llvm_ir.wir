@@ -1,0 +1,17 @@
+// REQUIRES: llvm-backend
+// RUN: %warf-ir --emit-llvm-ir %s | %FileCheck %s
+
+func __main()
+entry:
+  %0 = const 1
+  %1 = const 2
+  %2 = add %0 %1
+  ret %2
+
+// CHECK: ; ModuleID = 'warf'
+// CHECK-NEXT: source_filename = "warf"
+// CHECK-EMPTY:
+// CHECK-NEXT: define i32 @__main() {
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   ret i32 3
+// CHECK-NEXT: }

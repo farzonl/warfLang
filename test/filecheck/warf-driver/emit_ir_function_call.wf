@@ -1,8 +1,4 @@
-// RUN: %warf %s --emit-ir | %FileCheck %s
-
-function foo(arg) { arg }
-
-foo(10)
+// RUN: %warf --eval "function foo(arg) { arg } foo(10)" --emit-ir | %FileCheck %s
 
 // CHECK: func __main()
 // CHECK-NEXT: entry:

@@ -9,6 +9,7 @@
 #include "Binding/BoundExpressionNode.h"
 #include <iostream>
 #include <string>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -50,4 +51,28 @@ private:
 class IrPrinter {
 public:
   static void Print(const IrModule &module, std::ostream &out = std::cout);
+};
+
+class IrParser {
+public:
+  IrModule Parse(const std::string &text);
+
+private:
+  static std::string Trim(const std::string &text);
+  static std::vector<std::string> SplitWhitespace(const std::string &text);
+  static std::vector<std::string> ParseParameters(const std::string &text);
+};
+
+class IrInterpreter {
+public:
+  Value Execute(const IrModule &module);
+
+private:
+  const IrModule *mModule;
+
+  Value ExecuteFunction(const IrFunction &function,
+                        const std::vector<Value> &arguments);
+  Value EvaluateOperand(const std::string &operand,
+                        const std::unordered_map<std::string, Value> &values);
+  const IrFunction *FindFunction(const std::string &name) const;
 };

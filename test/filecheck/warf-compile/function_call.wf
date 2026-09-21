@@ -1,0 +1,11 @@
+// REQUIRES: llvm-backend
+// RUN: %warfc -o %t.exe %s
+// RUN: sh -c '%t.exe; echo $?' | %FileCheck %s
+
+function foo(a, b, c) {
+  a + b - c
+}
+
+foo(2, 3, 4)
+
+// CHECK: 1

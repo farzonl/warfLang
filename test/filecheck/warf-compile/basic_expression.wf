@@ -1,0 +1,7 @@
+// REQUIRES: llvm-backend
+// RUN: %warfc -o %t.exe %s
+// RUN: sh -c '%t.exe; echo $?' | %FileCheck %s
+
+1 + 2
+
+// CHECK: 3
