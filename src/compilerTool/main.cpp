@@ -17,9 +17,9 @@
 #include <string>
 
 static void printUsage() {
-  std::cout << "usage: warfc [-o output] <file_name>\n";
-  std::cout << "       warfc -h\n";
-  std::cout << "       warfc --help\n";
+  std::cout << "usage: Warfc [-o output] <file_name>\n";
+  std::cout << "       Warfc -h\n";
+  std::cout << "       Warfc --help\n";
 }
 
 #if defined(WARF_ENABLE_LLVM_BACKEND)

@@ -45,7 +45,7 @@ if(WARF_ENABLE_FILECHECK_TESTS)
     message(FATAL_ERROR "WARF_ENABLE_FILECHECK_TESTS is ON, but lit was not found. Install it with: python3 -m pip install lit")
   endif()
 
-  set(WARF_LIT_SITE_CONFIG_CONTENT "config.test_exec_root = r\"${CMAKE_CURRENT_BINARY_DIR}/filecheck\"\nconfig.substitutions.append((\"%warf-ir\", r\"$<TARGET_FILE:WarfIR>\"))\nconfig.substitutions.append((\"%warfc\", r\"$<TARGET_FILE:warfc>\"))\nconfig.substitutions.append((\"%warf\", r\"$<TARGET_FILE:Warf>\"))\nconfig.substitutions.append((\"%FileCheck\", r\"${WARF_FILECHECK_EXECUTABLE}\"))\n")
+  set(WARF_LIT_SITE_CONFIG_CONTENT "config.test_exec_root = r\"${CMAKE_CURRENT_BINARY_DIR}/filecheck\"\nconfig.substitutions.append((\"%warf-ir\", r\"$<TARGET_FILE:WarfIR>\"))\nconfig.substitutions.append((\"%warfc\", r\"$<TARGET_FILE:Warfc>\"))\nconfig.substitutions.append((\"%warf\", r\"$<TARGET_FILE:Warf>\"))\nconfig.substitutions.append((\"%FileCheck\", r\"${WARF_FILECHECK_EXECUTABLE}\"))\n")
   if(TARGET WarfLLVMBackend)
     string(APPEND WARF_LIT_SITE_CONFIG_CONTENT "config.available_features.add(\"llvm-backend\")\n")
   endif()
@@ -66,7 +66,7 @@ if(WARF_ENABLE_FILECHECK_TESTS)
   function(add_warf_lit_suite suite_name suite_dir)
     add_custom_target(check-${suite_name}
       COMMAND ${WARF_LIT_ENV} ${WARF_LIT_EXECUTABLE} -sv ${CMAKE_CURRENT_SOURCE_DIR}/filecheck/${suite_dir}
-      DEPENDS Warf WarfIR warfc
+      DEPENDS Warf WarfIR Warfc
       USES_TERMINAL
     )
   endfunction()
@@ -80,7 +80,7 @@ if(WARF_ENABLE_FILECHECK_TESTS)
 
   add_custom_target(check-warf
     COMMAND ${WARF_LIT_ENV} ${WARF_LIT_EXECUTABLE} -sv ${CMAKE_CURRENT_SOURCE_DIR}/filecheck
-    DEPENDS Warf WarfIR warfc
+    DEPENDS Warf WarfIR Warfc
     USES_TERMINAL
   )
 endif()
