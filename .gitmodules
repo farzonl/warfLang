@@ -1,0 +1,4 @@
+[submodule "coverage"]
+	path = coverage
+	url = https://github.com/farzonl/warfLang.git
+	branch = gh-pages-coverage
