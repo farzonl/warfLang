@@ -1,0 +1,13 @@
+// REQUIRES: llvm-backend, llvm-bitcode-tools
+// RUN: %warf-ir --emit-bc -o %t.bc %s
+// RUN: %llvm-dis %t.bc -o - | %FileCheck %s
+
+func __main()
+entry:
+  %0 = const 1
+  %1 = const 2
+  %2 = add %0 %1
+  ret %2
+
+// CHECK: define i32 @__main()
+// CHECK: ret i32 3

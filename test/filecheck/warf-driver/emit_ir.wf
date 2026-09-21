@@ -1,6 +1,4 @@
-// RUN: %warf %s --emit-ir | %FileCheck %s
-
-1 + 2
+// RUN: %warf --eval "1 + 2" --emit-ir | %FileCheck %s
 
 // CHECK: func __main()
 // CHECK-NEXT: entry:

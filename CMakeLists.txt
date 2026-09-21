@@ -5,6 +5,8 @@
 cmake_minimum_required(VERSION 3.22)
 project(WarfLang)
 
+option(WARF_ENABLE_LLVM_BACKEND "Build LLVM-backed WarfIR/warfc features" OFF)
+
 function(download_file url filename hash_type hash)
 
 if(NOT EXISTS ${filename})

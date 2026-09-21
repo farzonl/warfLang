@@ -3,7 +3,24 @@
 # license that can be found in the LICENSE file.
 
 add_subdirectory(lib)
+if(WARF_ENABLE_LLVM_BACKEND AND NOT isEmscripten AND NOT BUILD_FUZZER)
+    find_package(LLVM CONFIG QUIET)
+    if(NOT LLVM_FOUND)
+        file(GLOB WARF_HOMEBREW_LLVM_CONFIGS
+            /opt/homebrew/Cellar/llvm/*/lib/cmake/llvm
+            /usr/local/opt/llvm/lib/cmake/llvm
+        )
+        if(WARF_HOMEBREW_LLVM_CONFIGS)
+            find_package(LLVM CONFIG QUIET PATHS ${WARF_HOMEBREW_LLVM_CONFIGS})
+        endif()
+    endif()
+    if(LLVM_FOUND)
+        add_subdirectory(llvmBackend)
+    endif()
+endif()
 if(isEmscripten)
     add_subdirectory(wasmEntry)
 endif()
 add_subdirectory(cli)
+add_subdirectory(irTool)
+add_subdirectory(compilerTool)

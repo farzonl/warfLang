@@ -1,0 +1,17 @@
+// RUN: %warf-ir --run %s | %FileCheck %s
+
+func __main()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = const 4
+  %3 = call foo %0 %1 %2
+  ret %3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a %b
+  %1 = sub %0 %c
+  ret %1
+
+// CHECK: 1

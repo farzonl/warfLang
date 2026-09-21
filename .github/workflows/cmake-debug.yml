@@ -52,8 +52,17 @@ jobs:
     - name: Install Dependencies
       if: matrix.os == 'ubuntu-latest'
       run: |
-        sudo apt install libedit-dev
-  
+        sudo apt install libedit-dev llvm-dev
+        python3 -m pip install --user lit filecheck
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Install Dependencies (Mac)
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install llvm
+        python3 -m pip install --user lit filecheck --break-system-packages
+        echo "$(python3 -m site --user-base)/bin" >> $GITHUB_PATH
+
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory
       # We'll use this as our working directory for all subsequent commands
@@ -69,14 +78,14 @@ jobs:
           ${{ runner.OS }}-c++-packages-cache-Debug-
 
     - name: Configure CMake
-      # Use a bash shell so we can use the same syntax for environment variable
-      # access regardless of the host operating system
       shell: bash
       working-directory: ${{github.workspace}}/build
-      # Note the current convention is to use the -S and -B options here to specify source 
-      # and build directories, but this is only available with CMake 3.13 and higher.  
-      # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBuildTest=TRUE
+      run: |
+        LLVM_BACKEND_FLAGS=()
+        if [[ "${{ matrix.os }}" == "ubuntu-latest" || "${{ matrix.os }}" == "macos-latest" ]]; then
+          LLVM_BACKEND_FLAGS=("-DWARF_ENABLE_FILECHECK_TESTS=ON" "-DWARF_ENABLE_LLVM_BACKEND=ON")
+        fi
+        cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBuildTest=TRUE "${LLVM_BACKEND_FLAGS[@]}"
 
     - name: Build
       working-directory: ${{github.workspace}}/build
@@ -110,6 +119,12 @@ jobs:
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ./test/${{ matrix.artifact_out_dir}}${{ env.APPNAME }}Lang_TEST${{ matrix.artifact_exec_ext }}
+
+    - name: FileCheck
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
+      working-directory: ${{github.workspace}}/build
+      shell: bash
+      run: cmake --build . --target check-warf
     
     #- name: Linux Code Coverage
     #  if: matrix.os == 'ubuntu-latest'
