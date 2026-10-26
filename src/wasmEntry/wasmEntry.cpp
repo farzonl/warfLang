@@ -55,33 +55,59 @@ char *RunWarf(char *input, bool showSyntaxTree, bool showIR) {
   SetBuffer(g_showSyntaxTree, "");
   SetBuffer(g_showIR, "");
 
+  SymbolTableMgr::init();
   auto syntaxTree = SyntaxTree::Parse(s);
-  auto binder = std::make_unique<Binder>();
-  auto boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
-
-  if (showIR) {
-    IrLowerer lowerer;
-    auto module = lowerer.Lower(boundStatement.get());
-
-    std::stringstream irStream;
-    IrPrinter::Print(module, irStream);
-    SetBuffer(g_showIR, irStream.str());
-  }
-
-  auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
-
-  std::stringstream outputStream;
-  outputStream << eval->Evaluate() << std::endl;
-  std::string outputStr = outputStream.str();
-  SetBuffer(g_ReturnBuffer, outputStr);
 
   if (showSyntaxTree) {
     std::stringstream syntaxTreeStream;
     syntaxTree->PrintTree(syntaxTreeStream);
-
-    std::string outputSyntaxTree = syntaxTreeStream.str();
-    SetBuffer(g_showSyntaxTree, outputSyntaxTree);
+    SetBuffer(g_showSyntaxTree, syntaxTreeStream.str());
   }
 
+  auto binder = std::make_unique<Binder>();
+  std::unique_ptr<BoundStatementNode> boundStatement;
+  std::stringstream outputStream;
+
+  try {
+    if (syntaxTree->Errors().empty()) {
+      boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
+    }
+  } catch (const std::exception &error) {
+    outputStream << error.what() << std::endl;
+  }
+
+  if (!syntaxTree->Errors().empty() || !binder->Errors().empty()) {
+    for (const auto &error : syntaxTree->Errors()) {
+      outputStream << error << std::endl;
+    }
+    for (const auto &error : binder->Errors()) {
+      outputStream << error << std::endl;
+    }
+    SetBuffer(g_ReturnBuffer, outputStream.str());
+    return g_ReturnBuffer;
+  }
+
+  if (!boundStatement) {
+    SetBuffer(g_ReturnBuffer, outputStream.str());
+    return g_ReturnBuffer;
+  }
+
+  try {
+    if (showIR) {
+      IrLowerer lowerer;
+      auto module = lowerer.Lower(boundStatement.get());
+
+      std::stringstream irStream;
+      IrPrinter::Print(module, irStream);
+      SetBuffer(g_showIR, irStream.str());
+    }
+
+    auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
+    outputStream << eval->Evaluate() << std::endl;
+  } catch (const std::exception &error) {
+    outputStream << error.what() << std::endl;
+  }
+
+  SetBuffer(g_ReturnBuffer, outputStream.str());
   return g_ReturnBuffer;
 }

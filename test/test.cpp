@@ -538,6 +538,16 @@ TEST_CASE("IR Control Flow and Compound Assignments") {
                      "value = 0 for (index = 0; index < 3; index += 1) { "
                      "value += 2 } value")
                      .asInt());
+    const std::string multilineWhileWithSemicolon = "NUM = 10\n"
+                                                    "i = 0\n"
+                                                    "a = 0\n"
+                                                    "while(i < NUM) {\n"
+                                                    "  a = 3 * i + a;\n"
+                                                    "  i = i + 1\n"
+                                                    "}\n"
+                                                    "a";
+    REQUIRE(135 == testProgramHelper(multilineWhileWithSemicolon).asInt());
+    REQUIRE(135 == testIrRoundTripHelper(multilineWhileWithSemicolon).asInt());
   }
   SUBCASE("compound assignments") {
     const std::string program =

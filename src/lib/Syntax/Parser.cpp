@@ -184,6 +184,12 @@ std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
 std::unique_ptr<CompilationUnitSyntaxNode> Parser::ParseCompilationUnit() {
   auto statements = std::vector<std::unique_ptr<StatementSyntaxNode>>();
   while (Current()->Kind() != SyntaxKind::EndOfFileToken) {
+    while (Current()->Kind() == SyntaxKind::SemicolonToken) {
+      Next();
+    }
+    if (Current()->Kind() == SyntaxKind::EndOfFileToken) {
+      break;
+    }
     statements.push_back(ParseStatement());
   }
   auto endOfFileToken = Match(SyntaxKind::EndOfFileToken);
@@ -192,25 +198,38 @@ std::unique_ptr<CompilationUnitSyntaxNode> Parser::ParseCompilationUnit() {
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseStatement() {
+  std::unique_ptr<StatementSyntaxNode> statement;
   switch (Current()->Kind().GetValue()) {
   case SyntaxKind::OpenBraceToken:
-    return ParseBlockStatement();
+    statement = ParseBlockStatement();
+    break;
   case SyntaxKind::LetKeyword:
   case SyntaxKind::VarKeyword:
-    return ParseVariableDeclaration();
+    statement = ParseVariableDeclaration();
+    break;
   case SyntaxKind::IfKeyword:
-    return ParseIfStatement();
+    statement = ParseIfStatement();
+    break;
   case SyntaxKind::WhileKeyword:
-    return ParseWhileStatement();
+    statement = ParseWhileStatement();
+    break;
   case SyntaxKind::ForKeyword:
-    return ParseForStatement();
+    statement = ParseForStatement();
+    break;
   case SyntaxKind::ReturnKeyword:
-    return ParseReturnStatement();
+    statement = ParseReturnStatement();
+    break;
   case SyntaxKind::FunctionKeyword:
-    return ParseFunctionDeclaration();
+    statement = ParseFunctionDeclaration();
+    break;
   default:
-    return ParseExpressionStatement();
+    statement = ParseExpressionStatement();
+    break;
   }
+  while (Current()->Kind() == SyntaxKind::SemicolonToken) {
+    Next();
+  }
+  return statement;
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseReturnStatement() {
@@ -315,6 +334,13 @@ std::unique_ptr<BlockStatementSyntaxNode> Parser::ParseBlockStatement() {
   auto openBraceToken = Match(SyntaxKind::OpenBraceToken);
   while (Current()->Kind() != SyntaxKind::EndOfFileToken &&
          Current()->Kind() != SyntaxKind::CloseBraceToken) {
+    while (Current()->Kind() == SyntaxKind::SemicolonToken) {
+      Next();
+    }
+    if (Current()->Kind() == SyntaxKind::EndOfFileToken ||
+        Current()->Kind() == SyntaxKind::CloseBraceToken) {
+      break;
+    }
     auto statement = ParseStatement();
     statements.push_back(std::move(statement));
   }
