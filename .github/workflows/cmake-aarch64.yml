@@ -39,21 +39,24 @@ jobs:
         sudo apt install cmake ninja-build llvm-dev clang lld libc++-dev \
         libc++abi-dev zlib1g-dev git build-essential \
         ca-certificates crossbuild-essential-arm64 \
-        libstdc++-$GCC_VERS-dev-arm64-cross qemu-user wget rsync curl
+        qemu-user wget rsync curl
     - name: setup sysroot
       run: |
-        cd ${{github.workspace}} \
+        GCC_CROSS_DIR=$(ls -d /usr/lib/gcc-cross/aarch64-linux-gnu/[0-9]* | sort -V | tail -1) \
+        && cd ${{github.workspace}} \
         && mkdir -p sysroots/aarch64-linux-gnu/usr/aarch64-linux-gnu \
+        && mkdir -p sysroots/aarch64-linux-gnu/usr/lib/gcc-cross/aarch64-linux-gnu \
         && ln -snf ../lib sysroots/aarch64-linux-gnu/usr/aarch64-linux-gnu/lib \
         && ln -snf ../include sysroots/aarch64-linux-gnu/usr/aarch64-linux-gnu/include \
+        && ln -snf "$GCC_CROSS_DIR" sysroots/aarch64-linux-gnu/usr/lib/gcc-cross/aarch64-linux-gnu/$(basename "$GCC_CROSS_DIR") \
         && ln -snf usr/lib sysroots/aarch64-linux-gnu/lib \
         && cd sysroots/aarch64-linux-gnu/usr \
         && cp -r -v -L /usr/aarch64-linux-gnu/include /usr/aarch64-linux-gnu/lib . \
         && cd lib \
-        && cp -r -v -L /usr/lib/gcc-cross/aarch64-linux-gnu/$GCC_VERS/*gcc* . \
-        && cp -r -v -L /usr/lib/gcc-cross/aarch64-linux-gnu/$GCC_VERS/*crt* . \
-        && cp -r -v -L /usr/lib/gcc-cross/aarch64-linux-gnu/$GCC_VERS/libsupc++.a . \
-        && cp -r -v -L /usr/lib/gcc-cross/aarch64-linux-gnu/$GCC_VERS/libstdc++*  . \
+        && cp -r -v -L "$GCC_CROSS_DIR"/*gcc* . \
+        && cp -r -v -L "$GCC_CROSS_DIR"/*crt* . \
+        && cp -r -v -L "$GCC_CROSS_DIR"/libsupc++.a . \
+        && cp -r -v -L "$GCC_CROSS_DIR"/libstdc++*  . \
         && cd ../../ \
         && mkdir tmp \
         && cd tmp \
