@@ -74,9 +74,13 @@ LookupValue(const std::string &name,
   throw std::runtime_error("LLVM backend error: unknown value " + name + ".");
 }
 
+static bool HasTerminator(const llvm::BasicBlock *block) {
+  return !block->empty() && block->back().isTerminator();
+}
+
 static void EmitBranchIfUnterminated(llvm::IRBuilder<> &builder,
                                      llvm::BasicBlock *targetBlock) {
-  if (!builder.GetInsertBlock()->getTerminator()) {
+  if (!HasTerminator(builder.GetInsertBlock())) {
     builder.CreateBr(targetBlock);
   }
 }
@@ -238,7 +242,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         auto condValue = operand(0);
         auto trueBlock = LookupBlock(instruction.operands[1], blocks);
         auto falseBlock = LookupBlock(instruction.operands[2], blocks);
-        if (!builder.GetInsertBlock()->getTerminator()) {
+        if (!HasTerminator(builder.GetInsertBlock())) {
           auto condBool = builder.CreateICmpNE(
               condValue, llvm::ConstantInt::get(intType, 0), "cond");
           builder.CreateCondBr(condBool, trueBlock, falseBlock);
@@ -299,7 +303,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
       }
     }
 
-    if (!builder.GetInsertBlock()->getTerminator()) {
+    if (!HasTerminator(builder.GetInsertBlock())) {
       if (function.returnValue == kIrVoidValue) {
         builder.CreateRet(llvm::ConstantInt::get(intType, 0));
       } else {
