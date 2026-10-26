@@ -9,6 +9,7 @@ set(SourceFiles
 )
 set(HeaderFiles
     Ir.h
+    IrKind.h
 )
 
 add_library (WarfCore.IR OBJECT ${SourceFiles} ${HeaderFiles})

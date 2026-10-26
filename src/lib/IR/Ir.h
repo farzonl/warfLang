@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Binding/BoundExpressionNode.h"
+#include "IR/IrKind.h"
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -17,7 +18,7 @@ class BoundCallExpressionNode;
 
 struct IrInstruction {
   std::string result;
-  std::string op;
+  IrOpcode op;
   std::vector<std::string> operands;
 };
 
@@ -40,11 +41,25 @@ private:
   IrModule mModule;
   IrFunction *mCurrentFunction;
   int32_t mTempIndex;
+  int32_t mLabelIndex;
   std::unordered_set<std::string> mEmittedFunctions;
 
   void LowerStatement(BoundStatementNode *node);
   std::string LowerExpression(BoundExpressionNode *node);
   void LowerFunction(BoundCallExpressionNode *call);
+  void LowerLoop(IrLabelKind condKind, IrLabelKind bodyKind,
+                 IrLabelKind endKind, BoundStatementNode *initializer,
+                 BoundExpressionNode *condition, BoundStatementNode *body,
+                 BoundExpressionNode *increment);
+  void Emit(IrOpcode op, std::vector<std::string> operands,
+            std::string result = "");
+  void EmitAt(size_t index, IrOpcode op, std::vector<std::string> operands,
+              std::string result = "");
+  void EmitLabel(const std::string &label);
+  void EmitBranch(const std::string &targetLabel);
+  void EmitCondBranch(const std::string &condition,
+                      const std::string &trueLabel,
+                      const std::string &falseLabel);
   std::string NewTemp();
 };
 
@@ -74,5 +89,10 @@ private:
                         const std::vector<Value> &arguments);
   Value EvaluateOperand(const std::string &operand,
                         const std::unordered_map<std::string, Value> &values);
+  static Value EvaluateUnaryOp(IrOpcode op, Value operand);
+  static Value EvaluateBinaryOp(IrOpcode op, Value left, Value right);
+  static size_t
+  LookupLabel(const std::string &label,
+              const std::unordered_map<std::string, size_t> &labelMap);
   const IrFunction *FindFunction(const std::string &name) const;
 };
