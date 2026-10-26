@@ -24,37 +24,23 @@ static std::string CanonicalName(const std::string &name) {
   return "%" + CleanName(name);
 }
 
-static bool IsComparison(const std::string &op) {
-  return op == "eq" || op == "ne" || op == "lt" || op == "le" || op == "gt" ||
-         op == "ge";
-}
-
-static bool IsStoreOp(const std::string &op) {
-  return op == "store" || op == "store_add" || op == "store_sub" ||
-         op == "store_mul" || op == "store_div" || op == "store_band" ||
-         op == "store_bor" || op == "store_xor";
-}
-
-static llvm::CmpInst::Predicate PredicateFor(const std::string &op) {
-  if (op == "eq") {
+static llvm::CmpInst::Predicate PredicateFor(IrOpcode op) {
+  switch (op) {
+  case IrOpcode::Eq:
+    return llvm::CmpInst::ICMP_EQ;
+  case IrOpcode::Ne:
+    return llvm::CmpInst::ICMP_NE;
+  case IrOpcode::Lt:
+    return llvm::CmpInst::ICMP_SLT;
+  case IrOpcode::Le:
+    return llvm::CmpInst::ICMP_SLE;
+  case IrOpcode::Gt:
+    return llvm::CmpInst::ICMP_SGT;
+  case IrOpcode::Ge:
+    return llvm::CmpInst::ICMP_SGE;
+  default:
     return llvm::CmpInst::ICMP_EQ;
   }
-  if (op == "ne") {
-    return llvm::CmpInst::ICMP_NE;
-  }
-  if (op == "lt") {
-    return llvm::CmpInst::ICMP_SLT;
-  }
-  if (op == "le") {
-    return llvm::CmpInst::ICMP_SLE;
-  }
-  if (op == "gt") {
-    return llvm::CmpInst::ICMP_SGT;
-  }
-  if (op == "ge") {
-    return llvm::CmpInst::ICMP_SGE;
-  }
-  return llvm::CmpInst::ICMP_EQ;
 }
 
 static llvm::BasicBlock *
@@ -88,6 +74,67 @@ LookupValue(const std::string &name,
   throw std::runtime_error("LLVM backend error: unknown value " + name + ".");
 }
 
+static void EmitBranchIfUnterminated(llvm::IRBuilder<> &builder,
+                                     llvm::BasicBlock *targetBlock) {
+  if (!builder.GetInsertBlock()->getTerminator()) {
+    builder.CreateBr(targetBlock);
+  }
+}
+
+static llvm::Value *EmitUnaryOp(IrOpcode op, llvm::Value *operand,
+                                const std::string &resultName,
+                                llvm::Type *intType,
+                                llvm::IRBuilder<> &builder) {
+  switch (op) {
+  case IrOpcode::Copy:
+    return operand;
+  case IrOpcode::Neg:
+    return builder.CreateNeg(operand, resultName);
+  case IrOpcode::Not: {
+    auto compare =
+        builder.CreateICmpEQ(operand, llvm::ConstantInt::get(intType, 0));
+    return builder.CreateZExt(compare, intType, resultName);
+  }
+  case IrOpcode::BitwiseNot:
+    return builder.CreateNot(operand, resultName);
+  default:
+    throw std::runtime_error("LLVM backend error: unsupported instruction " +
+                             IrOpcodeToString(op) + ".");
+  }
+}
+
+static llvm::Value *EmitBinaryOp(IrOpcode op, llvm::Value *left,
+                                 llvm::Value *right,
+                                 const std::string &resultName,
+                                 llvm::Type *intType,
+                                 llvm::IRBuilder<> &builder) {
+  if (IsComparisonOp(op)) {
+    auto compare = builder.CreateICmp(PredicateFor(op), left, right);
+    return builder.CreateZExt(compare, intType, resultName);
+  }
+  switch (op) {
+  case IrOpcode::Add:
+    return builder.CreateAdd(left, right, resultName);
+  case IrOpcode::Sub:
+    return builder.CreateSub(left, right, resultName);
+  case IrOpcode::Mul:
+    return builder.CreateMul(left, right, resultName);
+  case IrOpcode::Div:
+    return builder.CreateSDiv(left, right, resultName);
+  case IrOpcode::BitwiseAnd:
+  case IrOpcode::And:
+    return builder.CreateAnd(left, right, resultName);
+  case IrOpcode::BitwiseOr:
+  case IrOpcode::Or:
+    return builder.CreateOr(left, right, resultName);
+  case IrOpcode::Xor:
+    return builder.CreateXor(left, right, resultName);
+  default:
+    throw std::runtime_error("LLVM backend error: unsupported instruction " +
+                             IrOpcodeToString(op) + ".");
+  }
+}
+
 static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
                                                  bool emitExecutableMain,
                                                  llvm::LLVMContext &context) {
@@ -101,9 +148,10 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     auto parameterTypes =
         std::vector<llvm::Type *>(function.parameters.size(), intType);
     auto functionType = llvm::FunctionType::get(intType, parameterTypes, false);
-    auto functionName = emitExecutableMain && function.name == "__main"
-                            ? "main"
-                            : function.name;
+    auto functionName =
+        emitExecutableMain && function.name == kIrMainFunctionName
+            ? "main"
+            : function.name;
     auto llvmFunction = llvm::Function::Create(
         functionType, llvm::Function::ExternalLinkage, functionName, *module);
     functionMap[function.name] = llvmFunction;
@@ -120,9 +168,11 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
       ++parameter;
     }
 
+    const auto &entryLabel = IrLabelPrefix(IrLabelKind::Entry);
     auto blocks = std::unordered_map<std::string, llvm::BasicBlock *>();
-    auto entryBlock = llvm::BasicBlock::Create(context, "entry", llvmFunction);
-    blocks["entry"] = entryBlock;
+    auto entryBlock =
+        llvm::BasicBlock::Create(context, entryLabel, llvmFunction);
+    blocks[entryLabel] = entryBlock;
 
     auto slotVarOrder = std::vector<std::string>();
     auto slotVarSet = std::unordered_set<std::string>();
@@ -135,7 +185,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     };
 
     for (const auto &instruction : function.instructions) {
-      if (instruction.op == "label" && !instruction.operands.empty()) {
+      if (instruction.op == IrOpcode::Label && !instruction.operands.empty()) {
         const auto &labelName = instruction.operands[0];
         if (blocks.find(labelName) == blocks.end()) {
           blocks[labelName] =
@@ -159,34 +209,33 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         auto allocaInst = builder.CreateAlloca(intType, nullptr,
                                                CleanName(varName) + ".addr");
         auto paramValue = values.find(varName);
-        if (paramValue != values.end()) {
-          builder.CreateStore(paramValue->second, allocaInst);
-        } else {
-          builder.CreateStore(llvm::ConstantInt::get(intType, 0), allocaInst);
-        }
+        llvm::Value *initialValue = paramValue != values.end()
+                                        ? paramValue->second
+                                        : llvm::ConstantInt::get(intType, 0);
+        builder.CreateStore(initialValue, allocaInst);
         slots[varName] = allocaInst;
       }
     }
 
     for (const auto &instruction : function.instructions) {
-      if (instruction.op == "label") {
+      auto operand = [&](size_t index) {
+        return LookupValue(instruction.operands[index], values, slots, intType,
+                           builder);
+      };
+
+      if (instruction.op == IrOpcode::Label) {
         auto nextBlock = LookupBlock(instruction.operands[0], blocks);
-        if (!builder.GetInsertBlock()->getTerminator()) {
-          builder.CreateBr(nextBlock);
-        }
+        EmitBranchIfUnterminated(builder, nextBlock);
         builder.SetInsertPoint(nextBlock);
         continue;
       }
-      if (instruction.op == "br") {
-        auto targetBlock = LookupBlock(instruction.operands[0], blocks);
-        if (!builder.GetInsertBlock()->getTerminator()) {
-          builder.CreateBr(targetBlock);
-        }
+      if (instruction.op == IrOpcode::Br) {
+        EmitBranchIfUnterminated(builder,
+                                 LookupBlock(instruction.operands[0], blocks));
         continue;
       }
-      if (instruction.op == "br_cond") {
-        auto condValue = LookupValue(instruction.operands[0], values, slots,
-                                     intType, builder);
+      if (instruction.op == IrOpcode::BrCond) {
+        auto condValue = operand(0);
         auto trueBlock = LookupBlock(instruction.operands[1], blocks);
         auto falseBlock = LookupBlock(instruction.operands[2], blocks);
         if (!builder.GetInsertBlock()->getTerminator()) {
@@ -199,125 +248,29 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
 
       llvm::Value *value = nullptr;
       auto resultName = CleanName(instruction.result);
-      if (instruction.op == "const") {
-        if (instruction.operands[0] == "true") {
+      if (instruction.op == IrOpcode::Const) {
+        if (instruction.operands[0] == kIrTrueLiteral) {
           value = llvm::ConstantInt::get(intType, 1);
-        } else if (instruction.operands[0] == "false") {
+        } else if (instruction.operands[0] == kIrFalseLiteral) {
           value = llvm::ConstantInt::get(intType, 0);
         } else {
           value = llvm::ConstantInt::get(intType,
                                          std::stoi(instruction.operands[0]));
         }
-      } else if (instruction.op == "copy" || instruction.op == "store") {
-        value = LookupValue(instruction.operands[0], values, slots, intType,
+      } else if (instruction.op == IrOpcode::Store) {
+        value = operand(0);
+      } else if (IsUnaryOp(instruction.op)) {
+        value = EmitUnaryOp(instruction.op, operand(0), resultName, intType,
                             builder);
-      } else if (instruction.op == "store_add") {
-        value = builder.CreateAdd(
-            LookupValue(instruction.result, values, slots, intType, builder),
-            LookupValue(instruction.operands[0], values, slots, intType,
-                        builder),
-            resultName);
-      } else if (instruction.op == "store_sub") {
-        value = builder.CreateSub(
-            LookupValue(instruction.result, values, slots, intType, builder),
-            LookupValue(instruction.operands[0], values, slots, intType,
-                        builder),
-            resultName);
-      } else if (instruction.op == "store_mul") {
-        value = builder.CreateMul(
-            LookupValue(instruction.result, values, slots, intType, builder),
-            LookupValue(instruction.operands[0], values, slots, intType,
-                        builder),
-            resultName);
-      } else if (instruction.op == "store_div") {
-        value = builder.CreateSDiv(
-            LookupValue(instruction.result, values, slots, intType, builder),
-            LookupValue(instruction.operands[0], values, slots, intType,
-                        builder),
-            resultName);
-      } else if (instruction.op == "store_band") {
-        value = builder.CreateAnd(
-            LookupValue(instruction.result, values, slots, intType, builder),
-            LookupValue(instruction.operands[0], values, slots, intType,
-                        builder),
-            resultName);
-      } else if (instruction.op == "store_bor") {
-        value = builder.CreateOr(
-            LookupValue(instruction.result, values, slots, intType, builder),
-            LookupValue(instruction.operands[0], values, slots, intType,
-                        builder),
-            resultName);
-      } else if (instruction.op == "store_xor") {
-        value = builder.CreateXor(
-            LookupValue(instruction.result, values, slots, intType, builder),
-            LookupValue(instruction.operands[0], values, slots, intType,
-                        builder),
-            resultName);
-      } else if (instruction.op == "neg") {
-        value = builder.CreateNeg(LookupValue(instruction.operands[0], values,
-                                              slots, intType, builder),
-                                  resultName);
-      } else if (instruction.op == "not") {
-        auto compare =
-            builder.CreateICmpEQ(LookupValue(instruction.operands[0], values,
-                                             slots, intType, builder),
-                                 llvm::ConstantInt::get(intType, 0));
-        value = builder.CreateZExt(compare, intType, resultName);
-      } else if (instruction.op == "bnot") {
-        value = builder.CreateNot(LookupValue(instruction.operands[0], values,
-                                              slots, intType, builder),
-                                  resultName);
-      } else if (instruction.op == "add") {
-        value = builder.CreateAdd(LookupValue(instruction.operands[0], values,
-                                              slots, intType, builder),
-                                  LookupValue(instruction.operands[1], values,
-                                              slots, intType, builder),
-                                  resultName);
-      } else if (instruction.op == "sub") {
-        value = builder.CreateSub(LookupValue(instruction.operands[0], values,
-                                              slots, intType, builder),
-                                  LookupValue(instruction.operands[1], values,
-                                              slots, intType, builder),
-                                  resultName);
-      } else if (instruction.op == "mul") {
-        value = builder.CreateMul(LookupValue(instruction.operands[0], values,
-                                              slots, intType, builder),
-                                  LookupValue(instruction.operands[1], values,
-                                              slots, intType, builder),
-                                  resultName);
-      } else if (instruction.op == "div") {
-        value = builder.CreateSDiv(LookupValue(instruction.operands[0], values,
-                                               slots, intType, builder),
-                                   LookupValue(instruction.operands[1], values,
-                                               slots, intType, builder),
-                                   resultName);
-      } else if (instruction.op == "band" || instruction.op == "and") {
-        value = builder.CreateAnd(LookupValue(instruction.operands[0], values,
-                                              slots, intType, builder),
-                                  LookupValue(instruction.operands[1], values,
-                                              slots, intType, builder),
-                                  resultName);
-      } else if (instruction.op == "bor" || instruction.op == "or") {
-        value = builder.CreateOr(LookupValue(instruction.operands[0], values,
-                                             slots, intType, builder),
-                                 LookupValue(instruction.operands[1], values,
-                                             slots, intType, builder),
-                                 resultName);
-      } else if (instruction.op == "xor") {
-        value = builder.CreateXor(LookupValue(instruction.operands[0], values,
-                                              slots, intType, builder),
-                                  LookupValue(instruction.operands[1], values,
-                                              slots, intType, builder),
-                                  resultName);
-      } else if (IsComparison(instruction.op)) {
-        auto compare =
-            builder.CreateICmp(PredicateFor(instruction.op),
-                               LookupValue(instruction.operands[0], values,
-                                           slots, intType, builder),
-                               LookupValue(instruction.operands[1], values,
-                                           slots, intType, builder));
-        value = builder.CreateZExt(compare, intType, resultName);
-      } else if (instruction.op == "call") {
+      } else if (IsBinaryOp(instruction.op)) {
+        value = EmitBinaryOp(instruction.op, operand(0), operand(1), resultName,
+                             intType, builder);
+      } else if (IsCompoundStoreOp(instruction.op)) {
+        auto current =
+            LookupValue(instruction.result, values, slots, intType, builder);
+        value = EmitBinaryOp(CompoundStoreToBinaryOp(instruction.op), current,
+                             operand(0), resultName, intType, builder);
+      } else if (instruction.op == IrOpcode::Call) {
         auto target = functionMap.find(instruction.operands[0]);
         if (target == functionMap.end()) {
           throw std::runtime_error("LLVM backend error: unknown function " +
@@ -325,14 +278,13 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         }
         auto arguments = std::vector<llvm::Value *>();
         for (size_t i = 1; i < instruction.operands.size(); i++) {
-          arguments.push_back(LookupValue(instruction.operands[i], values,
-                                          slots, intType, builder));
+          arguments.push_back(operand(i));
         }
         value = builder.CreateCall(target->second, arguments, resultName);
       } else {
         throw std::runtime_error(
-            "LLVM backend error: unsupported instruction " + instruction.op +
-            ".");
+            "LLVM backend error: unsupported instruction " +
+            IrOpcodeToString(instruction.op) + ".");
       }
 
       if (!instruction.result.empty()) {
@@ -348,7 +300,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     }
 
     if (!builder.GetInsertBlock()->getTerminator()) {
-      if (function.returnValue == "void") {
+      if (function.returnValue == kIrVoidValue) {
         builder.CreateRet(llvm::ConstantInt::get(intType, 0));
       } else {
         builder.CreateRet(
