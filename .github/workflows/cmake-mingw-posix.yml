@@ -23,10 +23,9 @@ concurrency:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  WINEPATH: "/usr/lib/gcc/x86_64-w64-mingw32/10-posix;/usr/x86_64-w64-mingw32/lib"
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: true
     steps:
@@ -73,8 +72,11 @@ jobs:
       run: |
         APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
         VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
+        MINGW_GCC_DIR=$(dirname $(x86_64-w64-mingw32-g++-posix -print-libgcc-file-name))
         echo "VERSION=$VER" >> $GITHUB_ENV
         echo "APPNAME=$APP" >> $GITHUB_ENV
+        echo "MINGW_GCC_DIR=$MINGW_GCC_DIR" >> $GITHUB_ENV
+        echo "WINEPATH=$MINGW_GCC_DIR;/usr/x86_64-w64-mingw32/lib" >> $GITHUB_ENV
     
     - name: Test mingw binary via wine
       working-directory: ${{github.workspace}}
@@ -87,8 +89,8 @@ jobs:
         cp build/src/lib/lib${{ env.APPNAME }}Core.a ${{github.workspace}}/artifacts
         cp build/src/cli/${{ env.APPNAME }}.exe ${{github.workspace}}/artifacts
         cp /usr/x86_64-w64-mingw32/lib/libwinpthread-1.dll ${{github.workspace}}/artifacts
-        cp /usr/lib/gcc/x86_64-w64-mingw32/10-posix/libgcc_s_seh-1.dll ${{github.workspace}}/artifacts
-        cp /usr/lib/gcc/x86_64-w64-mingw32/10-posix/libstdc++-6.dll ${{github.workspace}}/artifacts
+        cp ${{ env.MINGW_GCC_DIR }}/libgcc_s_seh-1.dll ${{github.workspace}}/artifacts
+        cp ${{ env.MINGW_GCC_DIR }}/libstdc++-6.dll ${{github.workspace}}/artifacts
         pushd ${{github.workspace}}
         zip -r ${{ env.APPNAME }}-Windows-mingw64.zip artifacts
         popd
