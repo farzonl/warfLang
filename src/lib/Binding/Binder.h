@@ -7,6 +7,9 @@
 #pragma once
 
 #include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "BoundExpressionNode.h"
 #include "Error/Record.h"
@@ -28,6 +31,7 @@ class ExpressionStatementSyntaxNode;
 class IfStatementSyntaxNode;
 class WhileStatementSyntaxNode;
 class ForStatementSyntaxNode;
+class ReturnStatementSyntaxNode;
 
 class Binder {
 public:
@@ -42,6 +46,9 @@ public:
 private:
   Records mRecords;
   std::shared_ptr<Scope> mScope;
+  std::vector<std::string> mActiveFunctionStack;
+  std::unordered_map<std::string, Value::Type> mActiveFunctionReturnTypes;
+  static Value::Type InferStatementType(const BoundStatementNode *node);
   std::unique_ptr<BoundExpressionNode>
   BindLiteralExpression(LiteralExpressionNode *literal);
   std::unique_ptr<BoundExpressionNode>
@@ -68,4 +75,6 @@ private:
   BindWhileStatement(WhileStatementSyntaxNode *syntax);
   std::unique_ptr<BoundStatementNode>
   BindForStatement(ForStatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindReturnStatement(ReturnStatementSyntaxNode *syntax);
 };

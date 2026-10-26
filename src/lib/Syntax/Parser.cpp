@@ -16,8 +16,19 @@
 #include "LiteralExpressionNode.h"
 #include "ParenthesizedExpressionNode.h"
 #include "Parser.h"
+#include "ReturnStatementSyntaxNode.h"
 #include "UnaryExpressionNode.h"
 #include "WhileStatementSyntaxNode.h"
+
+static Value::Type ParseTypeAnnotation(const std::string &text) {
+  if (text == "int" || text == "number") {
+    return Value::Type::Number;
+  }
+  if (text == "bool" || text == "boolean") {
+    return Value::Type::Boolean;
+  }
+  return Value::Type::Unknown;
+}
 
 std::shared_ptr<SyntaxToken> Parser::Peek(int32_t offset) {
   int32_t index = mPosition + offset;
@@ -173,6 +184,12 @@ std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
 std::unique_ptr<CompilationUnitSyntaxNode> Parser::ParseCompilationUnit() {
   auto statements = std::vector<std::unique_ptr<StatementSyntaxNode>>();
   while (Current()->Kind() != SyntaxKind::EndOfFileToken) {
+    while (Current()->Kind() == SyntaxKind::SemicolonToken) {
+      Next();
+    }
+    if (Current()->Kind() == SyntaxKind::EndOfFileToken) {
+      break;
+    }
     statements.push_back(ParseStatement());
   }
   auto endOfFileToken = Match(SyntaxKind::EndOfFileToken);
@@ -181,23 +198,50 @@ std::unique_ptr<CompilationUnitSyntaxNode> Parser::ParseCompilationUnit() {
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseStatement() {
+  std::unique_ptr<StatementSyntaxNode> statement;
   switch (Current()->Kind().GetValue()) {
   case SyntaxKind::OpenBraceToken:
-    return ParseBlockStatement();
+    statement = ParseBlockStatement();
+    break;
   case SyntaxKind::LetKeyword:
   case SyntaxKind::VarKeyword:
-    return ParseVariableDeclaration();
+    statement = ParseVariableDeclaration();
+    break;
   case SyntaxKind::IfKeyword:
-    return ParseIfStatement();
+    statement = ParseIfStatement();
+    break;
   case SyntaxKind::WhileKeyword:
-    return ParseWhileStatement();
+    statement = ParseWhileStatement();
+    break;
   case SyntaxKind::ForKeyword:
-    return ParseForStatement();
+    statement = ParseForStatement();
+    break;
+  case SyntaxKind::ReturnKeyword:
+    statement = ParseReturnStatement();
+    break;
   case SyntaxKind::FunctionKeyword:
-    return ParseFunctionDeclaration();
+    statement = ParseFunctionDeclaration();
+    break;
   default:
-    return ParseExpressionStatement();
+    statement = ParseExpressionStatement();
+    break;
   }
+  while (Current()->Kind() == SyntaxKind::SemicolonToken) {
+    Next();
+  }
+  return statement;
+}
+
+std::unique_ptr<StatementSyntaxNode> Parser::ParseReturnStatement() {
+  auto returnKeyword = Match(SyntaxKind::ReturnKeyword);
+  std::unique_ptr<ExpressionNode> expression;
+  if (Current()->Kind() != SyntaxKind::CloseBraceToken &&
+      Current()->Kind() != SyntaxKind::EndOfFileToken &&
+      Current()->Kind() != SyntaxKind::SemicolonToken) {
+    expression = ParseAssignmentExpression();
+  }
+  return std::make_unique<ReturnStatementSyntaxNode>(returnKeyword,
+                                                     std::move(expression));
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseFunctionDeclaration() {
@@ -205,19 +249,34 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseFunctionDeclaration() {
   auto identifier = Match(SyntaxKind::IdentifierToken);
   auto openParenthesis = Match(SyntaxKind::OpenParenthesisToken);
   auto parameters = std::vector<std::shared_ptr<SyntaxToken>>();
+  auto parameterTypes = std::vector<Value::Type>();
   auto commas = std::vector<std::shared_ptr<SyntaxToken>>();
   while (Current()->Kind() != SyntaxKind::CloseParenthesisToken &&
          Current()->Kind() != SyntaxKind::EndOfFileToken) {
     parameters.push_back(Match(SyntaxKind::IdentifierToken));
+    if (Current()->Kind() == SyntaxKind::ColonToken) {
+      Next();
+      auto typeToken = Match(SyntaxKind::IdentifierToken);
+      parameterTypes.push_back(ParseTypeAnnotation(typeToken->Text()));
+    } else {
+      parameterTypes.push_back(Value::Type::Unknown);
+    }
     if (Current()->Kind() != SyntaxKind::CloseParenthesisToken) {
       commas.push_back(Match(SyntaxKind::CommaToken));
     }
   }
   auto closeParenthesis = Match(SyntaxKind::CloseParenthesisToken);
+  auto returnType = Value::Type::Unknown;
+  if (Current()->Kind() == SyntaxKind::ColonToken) {
+    Next();
+    auto returnTypeToken = Match(SyntaxKind::IdentifierToken);
+    returnType = ParseTypeAnnotation(returnTypeToken->Text());
+  }
   auto body = ParseBlockStatement();
   return std::make_unique<FunctionDeclarationSyntaxNode>(
       functionKeyword, identifier, openParenthesis, std::move(parameters),
-      std::move(commas), closeParenthesis, std::move(body));
+      std::move(commas), closeParenthesis, std::move(body),
+      std::move(parameterTypes), returnType);
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseIfStatement() {
@@ -275,6 +334,13 @@ std::unique_ptr<BlockStatementSyntaxNode> Parser::ParseBlockStatement() {
   auto openBraceToken = Match(SyntaxKind::OpenBraceToken);
   while (Current()->Kind() != SyntaxKind::EndOfFileToken &&
          Current()->Kind() != SyntaxKind::CloseBraceToken) {
+    while (Current()->Kind() == SyntaxKind::SemicolonToken) {
+      Next();
+    }
+    if (Current()->Kind() == SyntaxKind::EndOfFileToken ||
+        Current()->Kind() == SyntaxKind::CloseBraceToken) {
+      break;
+    }
     auto statement = ParseStatement();
     statements.push_back(std::move(statement));
   }

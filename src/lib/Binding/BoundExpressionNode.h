@@ -25,6 +25,7 @@ enum class BoundNodeKind {
   IfStatement,
   WhileStatement,
   ForStatement,
+  ReturnStatement,
 };
 
 class BoundNode {

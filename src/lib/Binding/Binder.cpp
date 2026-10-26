@@ -13,6 +13,7 @@
 #include "BoundIdentifierExpressionNode.h"
 #include "BoundIfStatementNode.h"
 #include "BoundLiteralExpressionNode.h"
+#include "BoundReturnStatementNode.h"
 #include "BoundUnaryExpressionNode.h"
 #include "BoundVariableDeclarationNode.h"
 #include "BoundWhileStatementNode.h"
@@ -27,6 +28,7 @@
 #include "Syntax/IfStatementSyntaxNode.h"
 #include "Syntax/LiteralExpressionNode.h"
 #include "Syntax/ParenthesizedExpressionNode.h"
+#include "Syntax/ReturnStatementSyntaxNode.h"
 #include "Syntax/StatementSyntaxNode.h"
 #include "Syntax/UnaryExpressionNode.h"
 #include "Syntax/VariableDeclarationSyntaxNode.h"
@@ -71,11 +73,67 @@ Binder::BindStatement(StatementSyntaxNode *syntax) {
     return BindWhileStatement(dynamic_cast<WhileStatementSyntaxNode *>(syntax));
   case SyntaxKind::ForStatement:
     return BindForStatement(dynamic_cast<ForStatementSyntaxNode *>(syntax));
+  case SyntaxKind::ReturnStatement:
+    return BindReturnStatement(
+        dynamic_cast<ReturnStatementSyntaxNode *>(syntax));
   default:
     std::stringstream diagmsg;
     diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(syntax->Kind());
     throw std::runtime_error(diagmsg.str());
   }
+}
+
+Value::Type Binder::InferStatementType(const BoundStatementNode *node) {
+  if (!node) {
+    return Value::Type::Unknown;
+  }
+  if (auto *ret = dynamic_cast<const BoundReturnStatementNode *>(node)) {
+    return ret->Expression()
+               ? const_cast<BoundExpressionNode *>(ret->Expression())->Type()
+               : Value::Type::Unknown;
+  }
+  if (auto *exprStmt =
+          dynamic_cast<const BoundExpressionStatementNode *>(node)) {
+    return const_cast<BoundExpressionNode *>(exprStmt->Expression())->Type();
+  }
+  if (auto *varDecl =
+          dynamic_cast<const BoundVariableDeclarationNode *>(node)) {
+    return const_cast<BoundExpressionNode *>(varDecl->Initializer())->Type();
+  }
+  if (auto *ifStmt = dynamic_cast<const BoundIfStatementNode *>(node)) {
+    auto thenType = InferStatementType(ifStmt->ThenStatement());
+    if (thenType != Value::Type::Unknown) {
+      return thenType;
+    }
+    return InferStatementType(ifStmt->ElseStatement());
+  }
+  if (auto *block = dynamic_cast<const BoundBlockStatementNode *>(node)) {
+    const BoundStatementNode *lastStmt = nullptr;
+    for (const auto &stmt : block->Statements()) {
+      lastStmt = stmt.get();
+      if (auto *ret =
+              dynamic_cast<const BoundReturnStatementNode *>(stmt.get())) {
+        if (ret->Expression()) {
+          auto exprType =
+              const_cast<BoundExpressionNode *>(ret->Expression())->Type();
+          if (exprType != Value::Type::Unknown) {
+            return exprType;
+          }
+        }
+      }
+      if (auto *ifStmt =
+              dynamic_cast<const BoundIfStatementNode *>(stmt.get())) {
+        auto ifType = InferStatementType(ifStmt);
+        if (ifType != Value::Type::Unknown) {
+          return ifType;
+        }
+      }
+    }
+    if (lastStmt) {
+      return InferStatementType(lastStmt);
+    }
+  }
+  return Value::Type::Unknown;
 }
 
 std::unique_ptr<BoundStatementNode>
@@ -86,6 +144,15 @@ Binder::BindIfStatement(IfStatementSyntaxNode *syntax) {
   }
   auto thenStatement =
       BindStatement(const_cast<StatementSyntaxNode *>(syntax->ThenStatement()));
+  if (!mActiveFunctionStack.empty()) {
+    const auto &fnName = mActiveFunctionStack.back();
+    if (mActiveFunctionReturnTypes[fnName] == Value::Type::Unknown) {
+      auto thenType = InferStatementType(thenStatement.get());
+      if (thenType != Value::Type::Unknown) {
+        mActiveFunctionReturnTypes[fnName] = thenType;
+      }
+    }
+  }
   std::unique_ptr<BoundStatementNode> elseStatement;
   if (syntax->ElseStatement()) {
     elseStatement = BindStatement(
@@ -164,16 +231,35 @@ Binder::BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax) {
 std::unique_ptr<BoundStatementNode>
 Binder::BindFunctionDeclaration(FunctionDeclarationSyntaxNode *syntax) {
   auto parameters = std::vector<std::shared_ptr<VariableSymbol>>();
-  for (const auto &parameter : syntax->Parameters()) {
+  const auto &paramTypes = syntax->ParameterTypes();
+  for (size_t i = 0; i < syntax->Parameters().size(); i++) {
+    Value::Type paramType =
+        i < paramTypes.size() ? paramTypes[i] : Value::Type::Unknown;
     parameters.push_back(std::make_shared<VariableSymbol>(
-        parameter->Text(), true, Value::Type::Unknown));
+        syntax->Parameters()[i]->Text(), false, paramType));
   }
 
-  auto function = std::make_shared<FunctionSymbol>(syntax->Identifier()->Text(),
-                                                   parameters, syntax->Body());
+  auto function =
+      std::make_shared<FunctionSymbol>(syntax->Identifier()->Text(), parameters,
+                                       syntax->Body(), syntax->ReturnType());
   mScope->insert(function);
 
   return std::make_unique<BoundFunctionDeclarationNode>(function);
+}
+
+std::unique_ptr<BoundStatementNode>
+Binder::BindReturnStatement(ReturnStatementSyntaxNode *syntax) {
+  std::unique_ptr<BoundExpressionNode> expr;
+  if (syntax->Expression()) {
+    expr = BindExpression(const_cast<ExpressionNode *>(syntax->Expression()));
+    if (!mActiveFunctionStack.empty() && expr->Type() != Value::Type::Unknown) {
+      const auto &fnName = mActiveFunctionStack.back();
+      if (mActiveFunctionReturnTypes[fnName] == Value::Type::Unknown) {
+        mActiveFunctionReturnTypes[fnName] = expr->Type();
+      }
+    }
+  }
+  return std::make_unique<BoundReturnStatementNode>(std::move(expr));
 }
 
 std::unique_ptr<BoundStatementNode>
@@ -311,23 +397,62 @@ Binder::BindCallExpression(CallExpressionNode *call) {
     return std::make_unique<BoundLiteralExpressionNode>(0);
   }
 
+  for (size_t i = 0; i < function->Parameters().size(); i++) {
+    auto expectedType = function->Parameters()[i]->Type();
+    if (expectedType != Value::Type::Unknown &&
+        boundArguments[i]->Type() != expectedType) {
+      mRecords.ReportWrongArgumentType(call->IdentifierToken(),
+                                       function->Parameters()[i]->Name(),
+                                       expectedType, boundArguments[i]->Type());
+      return std::make_unique<BoundLiteralExpressionNode>(0);
+    }
+  }
+
+  auto activeIt = mActiveFunctionReturnTypes.find(name);
+  if (activeIt != mActiveFunctionReturnTypes.end()) {
+    Value::Type returnType = activeIt->second;
+    if (returnType == Value::Type::Unknown) {
+      returnType = function->ReturnType();
+    }
+    if (returnType == Value::Type::Unknown && !boundArguments.empty()) {
+      returnType = boundArguments[0]->Type();
+    }
+    return std::make_unique<BoundCallExpressionNode>(
+        name, std::move(boundArguments),
+        std::vector<std::shared_ptr<VariableSymbol>>{}, nullptr, returnType);
+  }
+
   auto parameters = std::vector<std::shared_ptr<VariableSymbol>>();
   auto parentScope = mScope;
   mScope = std::make_shared<Scope>(Scope::ScopeKind::Global, nullptr, "",
                                    parentScope);
   for (size_t i = 0; i < function->Parameters().size(); i++) {
+    auto expectedType = function->Parameters()[i]->Type();
+    auto paramType = expectedType != Value::Type::Unknown
+                         ? expectedType
+                         : boundArguments[i]->Type();
     auto parameter = std::make_shared<VariableSymbol>(
-        function->Parameters()[i]->Name(), true, boundArguments[i]->Type());
+        function->Parameters()[i]->Name(), false, paramType);
     parameters.push_back(parameter);
     mScope->insert(parameter);
   }
+
+  mActiveFunctionReturnTypes[name] = function->ReturnType();
+  mActiveFunctionStack.push_back(name);
   auto body = BindBlockStatement(
       const_cast<BlockStatementSyntaxNode *>(function->Body()));
   mScope = parentScope;
 
+  Value::Type returnType = mActiveFunctionReturnTypes[name];
+  if (returnType == Value::Type::Unknown) {
+    returnType = InferStatementType(body.get());
+  }
+  mActiveFunctionStack.pop_back();
+  mActiveFunctionReturnTypes.erase(name);
+
   return std::make_unique<BoundCallExpressionNode>(
       name, std::move(boundArguments), std::move(parameters), std::move(body),
-      Value::Type::Unknown);
+      returnType);
 }
 
 std::unique_ptr<BoundExpressionNode>

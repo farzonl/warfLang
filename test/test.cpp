@@ -538,11 +538,62 @@ TEST_CASE("IR Control Flow and Compound Assignments") {
                      "value = 0 for (index = 0; index < 3; index += 1) { "
                      "value += 2 } value")
                      .asInt());
+    const std::string multilineWhileWithSemicolon = "NUM = 10\n"
+                                                    "i = 0\n"
+                                                    "a = 0\n"
+                                                    "while(i < NUM) {\n"
+                                                    "  a = 3 * i + a;\n"
+                                                    "  i = i + 1\n"
+                                                    "}\n"
+                                                    "a";
+    REQUIRE(135 == testProgramHelper(multilineWhileWithSemicolon).asInt());
+    REQUIRE(135 == testIrRoundTripHelper(multilineWhileWithSemicolon).asInt());
   }
   SUBCASE("compound assignments") {
     const std::string program =
         "a = 4 a += 2 a -= 1 a *= 4 a /= 2 a &= 7 a |= 8 a ^= 5 a";
     REQUIRE(15 == testProgramHelper(program).asInt());
     REQUIRE(15 == testIrRoundTripHelper(program).asInt());
+  }
+}
+
+TEST_CASE("Functions, Return Statements, Types, and Recursion") {
+  SUBCASE("explicit return and early return") {
+    const std::string program =
+        "function abs(x: int): int { if (x < 0) { return -x } return x } "
+        "abs(-7) + abs(5)";
+    REQUIRE(12 == testProgramHelper(program).asInt());
+    REQUIRE(12 == testIrRoundTripHelper(program).asInt());
+  }
+  SUBCASE("boolean return and composition") {
+    const std::string program =
+        "function isPositive(x: int): bool { return x > 0 } "
+        "res = 0 if (isPositive(3) && !isPositive(-1)) { res = 42 } res";
+    REQUIRE(42 == testProgramHelper(program).asInt());
+    REQUIRE(42 == testIrRoundTripHelper(program).asInt());
+  }
+  SUBCASE("recursion: factorial and fibonacci") {
+    const std::string factProg =
+        "function fact(n: int): int { if (n <= 1) { return 1 } return n * "
+        "fact(n - 1) } fact(5)";
+    REQUIRE(120 == testProgramHelper(factProg).asInt());
+    REQUIRE(120 == testIrRoundTripHelper(factProg).asInt());
+
+    const std::string fibProg =
+        "function fib(n: int): int { if (n <= 1) { return n } return fib(n - "
+        "1) + fib(n - 2) } fib(6)";
+    REQUIRE(8 == testProgramHelper(fibProg).asInt());
+    REQUIRE(8 == testIrRoundTripHelper(fibProg).asInt());
+  }
+  SUBCASE("wrong argument type diagnostic") {
+    SymbolTableMgr::init();
+    auto syntaxTree = SyntaxTree::Parse(
+        "function inc(x: int): int { return x + 1 } inc(true)");
+    auto binder = std::make_unique<Binder>();
+    binder->BindCompilationUnit(syntaxTree->Root());
+    REQUIRE_FALSE(binder->Errors().empty());
+    REQUIRE(binder->Errors()[0].Message() ==
+            "BinderError: Parameter x requires a value of type Number "
+            "but was given a value of type Boolean.");
   }
 }

@@ -17,10 +17,12 @@ class FunctionSymbol {
 public:
   FunctionSymbol(const std::string &name,
                  std::vector<std::shared_ptr<VariableSymbol>> parameters,
-                 const BlockStatementSyntaxNode *body);
+                 const BlockStatementSyntaxNode *body,
+                 Value::Type returnType = Value::Type::Unknown);
   const std::string &Name() const;
   const std::vector<std::shared_ptr<VariableSymbol>> &Parameters() const;
   const BlockStatementSyntaxNode *Body() const;
+  Value::Type ReturnType() const;
   static std::shared_ptr<FunctionSymbol> failSymbol() {
     static auto fail = std::make_shared<FunctionSymbol>(
         "unknown", std::vector<std::shared_ptr<VariableSymbol>>(), nullptr);
@@ -31,4 +33,5 @@ private:
   std::string mName;
   std::vector<std::shared_ptr<VariableSymbol>> mParameters;
   const BlockStatementSyntaxNode *mBody;
+  Value::Type mReturnType;
 };
