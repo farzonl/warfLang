@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Binding/ValueType.h"
 #include "BlockStatementSyntaxNode.h"
 #include "StatementSyntaxNode.h"
 #include "SyntaxToken.h"
@@ -21,11 +22,15 @@ public:
       std::vector<std::shared_ptr<SyntaxToken>> parameters,
       std::vector<std::shared_ptr<SyntaxToken>> commas,
       std::shared_ptr<SyntaxToken> closeParenthesis,
-      std::unique_ptr<BlockStatementSyntaxNode> body);
+      std::unique_ptr<BlockStatementSyntaxNode> body,
+      std::vector<Value::Type> parameterTypes = {},
+      Value::Type returnType = Value::Type::Unknown);
   virtual ~FunctionDeclarationSyntaxNode() {}
 
   std::shared_ptr<SyntaxToken> Identifier();
   const std::vector<std::shared_ptr<SyntaxToken>> &Parameters() const;
+  const std::vector<Value::Type> &ParameterTypes() const;
+  Value::Type ReturnType() const;
   const BlockStatementSyntaxNode *Body() const;
 
 private:
@@ -36,4 +41,6 @@ private:
   std::vector<std::shared_ptr<SyntaxToken>> mCommas;
   std::shared_ptr<SyntaxToken> mCloseParenthesis;
   std::unique_ptr<BlockStatementSyntaxNode> mBody;
+  std::vector<Value::Type> mParameterTypes;
+  Value::Type mReturnType;
 };

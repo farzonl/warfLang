@@ -181,6 +181,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     auto slotVarOrder = std::vector<std::string>();
     auto slotVarSet = std::unordered_set<std::string>();
     auto defCounts = std::unordered_map<std::string, size_t>();
+    auto defBlock = std::unordered_map<std::string, std::string>();
     auto addSlotVar = [&](const std::string &varName) {
       auto canonical = CanonicalName(varName);
       if (slotVarSet.insert(canonical).second) {
@@ -188,6 +189,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
       }
     };
 
+    std::string currentBlockName = entryLabel;
     for (const auto &instruction : function.instructions) {
       if (instruction.op == IrOpcode::Label && !instruction.operands.empty()) {
         const auto &labelName = instruction.operands[0];
@@ -195,14 +197,34 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
           blocks[labelName] =
               llvm::BasicBlock::Create(context, labelName, llvmFunction);
         }
+        currentBlockName = labelName;
         continue;
+      }
+      for (const auto &op : instruction.operands) {
+        if (!op.empty() && op[0] == '%') {
+          auto canonical = CanonicalName(op);
+          auto it = defBlock.find(canonical);
+          if (it != defBlock.end() && it->second != entryLabel &&
+              it->second != currentBlockName) {
+            addSlotVar(canonical);
+          }
+        }
       }
       if (!instruction.result.empty()) {
         auto canonical = CanonicalName(instruction.result);
         defCounts[canonical]++;
+        defBlock[canonical] = currentBlockName;
         if (IsStoreOp(instruction.op) || defCounts[canonical] > 1) {
           addSlotVar(canonical);
         }
+      }
+    }
+    if (!function.returnValue.empty() && function.returnValue[0] == '%') {
+      auto canonical = CanonicalName(function.returnValue);
+      auto it = defBlock.find(canonical);
+      if (it != defBlock.end() && it->second != entryLabel &&
+          it->second != currentBlockName) {
+        addSlotVar(canonical);
       }
     }
 
@@ -231,6 +253,17 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         auto nextBlock = LookupBlock(instruction.operands[0], blocks);
         EmitBranchIfUnterminated(builder, nextBlock);
         builder.SetInsertPoint(nextBlock);
+        continue;
+      }
+      if (HasTerminator(builder.GetInsertBlock())) {
+        continue;
+      }
+      if (instruction.op == IrOpcode::Ret) {
+        if (instruction.operands[0] == kIrVoidValue) {
+          builder.CreateRet(llvm::ConstantInt::get(intType, 0));
+        } else {
+          builder.CreateRet(operand(0));
+        }
         continue;
       }
       if (instruction.op == IrOpcode::Br) {

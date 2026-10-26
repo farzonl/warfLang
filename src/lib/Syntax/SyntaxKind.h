@@ -63,6 +63,7 @@ public:
     IfStatement,
     WhileStatement,
     ForStatement,
+    ReturnStatement,
     // Node
     CompilationUnit,
     // Expressions
@@ -311,6 +312,7 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::IfStatement, "IfStatement"},
         {SyntaxKind::WhileStatement, "WhileStatement"},
         {SyntaxKind::ForStatement, "ForStatement"},
+        {SyntaxKind::ReturnStatement, "ReturnStatement"},
         {SyntaxKind::CallExpression, "CallExpression"},
         {SyntaxKind::LetKeyword, "LetKeyword"},
         {SyntaxKind::VarKeyword, "VarKeyword"}};

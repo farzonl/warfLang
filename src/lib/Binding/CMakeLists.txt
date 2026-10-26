@@ -19,6 +19,7 @@ set(SourceFiles
     BoundIfStatementNode.cpp
     BoundWhileStatementNode.cpp
     BoundForStatementNode.cpp
+    BoundReturnStatementNode.cpp
     ValueType.cpp
     
 )
@@ -38,6 +39,7 @@ set(HeaderFiles
     BoundIfStatementNode.h
     BoundWhileStatementNode.h
     BoundForStatementNode.h
+    BoundReturnStatementNode.h
     ValueType.h
 )
 

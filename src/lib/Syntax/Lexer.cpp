@@ -25,6 +25,9 @@ void Lexer::ReadToken(SyntaxKind &type) {
     type = SyntaxKind::EndOfFileToken;
     break;
   case ' ':
+  case '\t':
+  case '\r':
+  case '\n':
     type = SyntaxKind::WhiteSpaceToken;
     mPosition++;
     break;

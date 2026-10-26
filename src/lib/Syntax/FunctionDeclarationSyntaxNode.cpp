@@ -11,12 +11,14 @@ FunctionDeclarationSyntaxNode::FunctionDeclarationSyntaxNode(
     std::vector<std::shared_ptr<SyntaxToken>> parameters,
     std::vector<std::shared_ptr<SyntaxToken>> commas,
     std::shared_ptr<SyntaxToken> closeParenthesis,
-    std::unique_ptr<BlockStatementSyntaxNode> body)
+    std::unique_ptr<BlockStatementSyntaxNode> body,
+    std::vector<Value::Type> parameterTypes, Value::Type returnType)
     : StatementSyntaxNode(SyntaxKind::FunctionDeclaration),
       mFunctionKeyword(functionKeyword), mIdentifier(identifier),
       mOpenParenthesis(openParenthesis), mParameters(std::move(parameters)),
       mCommas(std::move(commas)), mCloseParenthesis(closeParenthesis),
-      mBody(std::move(body)) {
+      mBody(std::move(body)), mParameterTypes(std::move(parameterTypes)),
+      mReturnType(returnType) {
   mVecExpressionNodes.push_back(mFunctionKeyword.get());
   mVecExpressionNodes.push_back(mIdentifier.get());
   mVecExpressionNodes.push_back(mOpenParenthesis.get());
@@ -37,6 +39,15 @@ std::shared_ptr<SyntaxToken> FunctionDeclarationSyntaxNode::Identifier() {
 const std::vector<std::shared_ptr<SyntaxToken>> &
 FunctionDeclarationSyntaxNode::Parameters() const {
   return mParameters;
+}
+
+const std::vector<Value::Type> &
+FunctionDeclarationSyntaxNode::ParameterTypes() const {
+  return mParameterTypes;
+}
+
+Value::Type FunctionDeclarationSyntaxNode::ReturnType() const {
+  return mReturnType;
 }
 
 const BlockStatementSyntaxNode *FunctionDeclarationSyntaxNode::Body() const {

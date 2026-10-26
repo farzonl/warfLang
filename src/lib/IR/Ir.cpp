@@ -13,6 +13,7 @@
 #include "Binding/BoundIdentifierExpressionNode.h"
 #include "Binding/BoundIfStatementNode.h"
 #include "Binding/BoundLiteralExpressionNode.h"
+#include "Binding/BoundReturnStatementNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
 #include "Binding/BoundVariableDeclarationNode.h"
 #include "Binding/BoundWhileStatementNode.h"
@@ -175,6 +176,16 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
     }
     return;
   }
+  if (auto returnStatement = dynamic_cast<BoundReturnStatementNode *>(node)) {
+    std::string value = kIrVoidValue;
+    if (returnStatement->Expression()) {
+      value = LowerExpression(
+          const_cast<BoundExpressionNode *>(returnStatement->Expression()));
+    }
+    Emit(IrOpcode::Ret, {value});
+    mCurrentFunction->returnValue = value;
+    return;
+  }
   if (auto expression = dynamic_cast<BoundExpressionStatementNode *>(node)) {
     mCurrentFunction->returnValue = LowerExpression(
         const_cast<BoundExpressionNode *>(expression->Expression()));
@@ -209,27 +220,48 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
     LowerStatement(
         const_cast<BoundStatementNode *>(ifStatement->ThenStatement()));
     auto thenReturn = mCurrentFunction->returnValue;
+    bool thenTerminated =
+        !mCurrentFunction->instructions.empty() &&
+        mCurrentFunction->instructions.back().op == IrOpcode::Ret;
     auto thenJumpIndex = mCurrentFunction->instructions.size();
-    EmitBranch(endLabel);
+    if (!thenTerminated) {
+      EmitBranch(endLabel);
+    }
 
     std::string elseReturn;
     size_t elseJumpIndex = 0;
+    bool elseTerminated = false;
     if (ifStatement->ElseStatement()) {
       mCurrentFunction->returnValue.clear();
       EmitLabel(elseLabel);
       LowerStatement(
           const_cast<BoundStatementNode *>(ifStatement->ElseStatement()));
       elseReturn = mCurrentFunction->returnValue;
+      elseTerminated =
+          !mCurrentFunction->instructions.empty() &&
+          mCurrentFunction->instructions.back().op == IrOpcode::Ret;
       elseJumpIndex = mCurrentFunction->instructions.size();
-      EmitBranch(endLabel);
+      if (!elseTerminated) {
+        EmitBranch(endLabel);
+      }
     }
 
-    EmitLabel(endLabel);
+    if (!thenTerminated ||
+        (ifStatement->ElseStatement() ? !elseTerminated : true)) {
+      EmitLabel(endLabel);
+    }
     if (ifStatement->ElseStatement()) {
-      if (thenReturn == elseReturn) {
+      if (thenTerminated && !elseTerminated) {
+        mCurrentFunction->returnValue =
+            elseReturn.empty() ? prevReturn : elseReturn;
+      } else if (!thenTerminated && elseTerminated) {
         mCurrentFunction->returnValue =
             thenReturn.empty() ? prevReturn : thenReturn;
-      } else if (!thenReturn.empty() && !elseReturn.empty()) {
+      } else if (thenReturn == elseReturn) {
+        mCurrentFunction->returnValue =
+            thenReturn.empty() ? prevReturn : thenReturn;
+      } else if (!thenReturn.empty() && !elseReturn.empty() &&
+                 !thenTerminated && !elseTerminated) {
         auto resultTemp = NewTemp();
         EmitAt(elseJumpIndex, IrOpcode::Store, {elseReturn}, resultTemp);
         EmitAt(thenJumpIndex, IrOpcode::Store, {thenReturn}, resultTemp);
@@ -240,7 +272,7 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
       }
     } else if (!prevReturn.empty()) {
       mCurrentFunction->returnValue = prevReturn;
-    } else if (!thenReturn.empty()) {
+    } else if (!thenReturn.empty() && !thenTerminated) {
       auto resultTemp = NewTemp();
       EmitAt(thenJumpIndex, IrOpcode::Store, {thenReturn}, resultTemp);
       EmitAt(branchIndex, IrOpcode::Const, {"0"}, resultTemp);
@@ -310,7 +342,8 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
 }
 
 void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
-  if (mEmittedFunctions.find(call->Name()) != mEmittedFunctions.end()) {
+  if (!call->Body() ||
+      mEmittedFunctions.find(call->Name()) != mEmittedFunctions.end()) {
     return;
   }
 
@@ -368,7 +401,10 @@ void IrPrinter::Print(const IrModule &module, std::ostream &out) {
       }
       out << std::endl;
     }
-    out << "  ret " << function.returnValue << std::endl;
+    if (function.instructions.empty() ||
+        function.instructions.back().op != IrOpcode::Ret) {
+      out << "  ret " << function.returnValue << std::endl;
+    }
     if (i + 1 < module.functions.size()) {
       out << std::endl;
     }
@@ -413,7 +449,9 @@ IrModule IrParser::Parse(const std::string &text) {
     }
 
     if (line.rfind("ret ", 0) == 0) {
-      currentFunction->returnValue = Trim(line.substr(4));
+      auto retVal = Trim(line.substr(4));
+      currentFunction->instructions.push_back({"", IrOpcode::Ret, {retVal}});
+      currentFunction->returnValue = retVal;
       continue;
     }
 
@@ -576,6 +614,12 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
 
     if (instruction.op == IrOpcode::Label) {
       continue;
+    }
+    if (instruction.op == IrOpcode::Ret) {
+      if (instruction.operands[0] == kIrVoidValue) {
+        return Value();
+      }
+      return operand(0);
     }
     if (instruction.op == IrOpcode::Br) {
       ip = LookupLabel(instruction.operands[0], labelMap);

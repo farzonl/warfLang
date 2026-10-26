@@ -40,6 +40,7 @@ class Parser {
   std::unique_ptr<StatementSyntaxNode> ParseIfStatement();
   std::unique_ptr<StatementSyntaxNode> ParseWhileStatement();
   std::unique_ptr<StatementSyntaxNode> ParseForStatement();
+  std::unique_ptr<StatementSyntaxNode> ParseReturnStatement();
   std::unique_ptr<StatementSyntaxNode> ParseFunctionDeclaration();
   std::unique_ptr<StatementSyntaxNode> ParseVariableDeclaration();
   std::unique_ptr<ExpressionStatementSyntaxNode> ParseExpressionStatement();

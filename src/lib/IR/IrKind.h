@@ -45,6 +45,7 @@ enum class IrOpcode : uint8_t {
   Label,
   Br,
   BrCond,
+  Ret,
 };
 
 enum class IrLabelKind : uint8_t {
@@ -111,6 +112,7 @@ static const std::unordered_map<IrOpcode, std::string, IrOpcodeHash>
         {IrOpcode::Label, "label"},
         {IrOpcode::Br, "br"},
         {IrOpcode::BrCond, "br_cond"},
+        {IrOpcode::Ret, "ret"},
 };
 
 static const std::unordered_map<std::string, IrOpcode> StrToIrOpcodeMap = {
@@ -148,6 +150,7 @@ static const std::unordered_map<std::string, IrOpcode> StrToIrOpcodeMap = {
     {"label", IrOpcode::Label},
     {"br", IrOpcode::Br},
     {"br_cond", IrOpcode::BrCond},
+    {"ret", IrOpcode::Ret},
 };
 
 static const std::unordered_map<IrLabelKind, std::string, IrLabelKindHash>
