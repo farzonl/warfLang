@@ -14,14 +14,25 @@
 #include <llvm/Support/raw_ostream.h>
 #include <stdexcept>
 #include <unordered_map>
+#include <unordered_set>
 
 static std::string CleanName(const std::string &name) {
   return name.rfind("%", 0) == 0 ? name.substr(1) : name;
 }
 
+static std::string CanonicalName(const std::string &name) {
+  return "%" + CleanName(name);
+}
+
 static bool IsComparison(const std::string &op) {
   return op == "eq" || op == "ne" || op == "lt" || op == "le" || op == "gt" ||
          op == "ge";
+}
+
+static bool IsStoreOp(const std::string &op) {
+  return op == "store" || op == "store_add" || op == "store_sub" ||
+         op == "store_mul" || op == "store_div" || op == "store_band" ||
+         op == "store_bor" || op == "store_xor";
 }
 
 static llvm::CmpInst::Predicate PredicateFor(const std::string &op) {
@@ -46,14 +57,31 @@ static llvm::CmpInst::Predicate PredicateFor(const std::string &op) {
   return llvm::CmpInst::ICMP_EQ;
 }
 
+static llvm::BasicBlock *
+LookupBlock(const std::string &name,
+            const std::unordered_map<std::string, llvm::BasicBlock *> &blocks) {
+  auto block = blocks.find(name);
+  if (block != blocks.end()) {
+    return block->second;
+  }
+  throw std::runtime_error("LLVM backend error: unknown label " + name + ".");
+}
+
 static llvm::Value *
 LookupValue(const std::string &name,
-            const std::unordered_map<std::string, llvm::Value *> &values) {
+            const std::unordered_map<std::string, llvm::Value *> &values,
+            const std::unordered_map<std::string, llvm::AllocaInst *> &slots,
+            llvm::Type *intType, llvm::IRBuilder<> &builder) {
+  auto canonical = CanonicalName(name);
+  auto slot = slots.find(canonical);
+  if (slot != slots.end()) {
+    return builder.CreateLoad(intType, slot->second, CleanName(name));
+  }
   auto value = values.find(name);
   if (value != values.end()) {
     return value->second;
   }
-  auto cleanValue = values.find("%" + CleanName(name));
+  auto cleanValue = values.find(canonical);
   if (cleanValue != values.end()) {
     return cleanValue->second;
   }
@@ -88,13 +116,87 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     for (const auto &parameterName : function.parameters) {
       parameter->setName(CleanName(parameterName));
       values[parameterName] = &*parameter;
+      values[CanonicalName(parameterName)] = &*parameter;
       ++parameter;
     }
 
-    auto block = llvm::BasicBlock::Create(context, "entry", llvmFunction);
-    builder.SetInsertPoint(block);
+    auto blocks = std::unordered_map<std::string, llvm::BasicBlock *>();
+    auto entryBlock = llvm::BasicBlock::Create(context, "entry", llvmFunction);
+    blocks["entry"] = entryBlock;
+
+    auto slotVarOrder = std::vector<std::string>();
+    auto slotVarSet = std::unordered_set<std::string>();
+    auto defCounts = std::unordered_map<std::string, size_t>();
+    auto addSlotVar = [&](const std::string &varName) {
+      auto canonical = CanonicalName(varName);
+      if (slotVarSet.insert(canonical).second) {
+        slotVarOrder.push_back(canonical);
+      }
+    };
 
     for (const auto &instruction : function.instructions) {
+      if (instruction.op == "label" && !instruction.operands.empty()) {
+        const auto &labelName = instruction.operands[0];
+        if (blocks.find(labelName) == blocks.end()) {
+          blocks[labelName] =
+              llvm::BasicBlock::Create(context, labelName, llvmFunction);
+        }
+        continue;
+      }
+      if (!instruction.result.empty()) {
+        auto canonical = CanonicalName(instruction.result);
+        defCounts[canonical]++;
+        if (IsStoreOp(instruction.op) || defCounts[canonical] > 1) {
+          addSlotVar(canonical);
+        }
+      }
+    }
+
+    builder.SetInsertPoint(entryBlock);
+    auto slots = std::unordered_map<std::string, llvm::AllocaInst *>();
+    if (blocks.size() > 1) {
+      for (const auto &varName : slotVarOrder) {
+        auto allocaInst = builder.CreateAlloca(intType, nullptr,
+                                               CleanName(varName) + ".addr");
+        auto paramValue = values.find(varName);
+        if (paramValue != values.end()) {
+          builder.CreateStore(paramValue->second, allocaInst);
+        } else {
+          builder.CreateStore(llvm::ConstantInt::get(intType, 0), allocaInst);
+        }
+        slots[varName] = allocaInst;
+      }
+    }
+
+    for (const auto &instruction : function.instructions) {
+      if (instruction.op == "label") {
+        auto nextBlock = LookupBlock(instruction.operands[0], blocks);
+        if (!builder.GetInsertBlock()->getTerminator()) {
+          builder.CreateBr(nextBlock);
+        }
+        builder.SetInsertPoint(nextBlock);
+        continue;
+      }
+      if (instruction.op == "br") {
+        auto targetBlock = LookupBlock(instruction.operands[0], blocks);
+        if (!builder.GetInsertBlock()->getTerminator()) {
+          builder.CreateBr(targetBlock);
+        }
+        continue;
+      }
+      if (instruction.op == "br_cond") {
+        auto condValue = LookupValue(instruction.operands[0], values, slots,
+                                     intType, builder);
+        auto trueBlock = LookupBlock(instruction.operands[1], blocks);
+        auto falseBlock = LookupBlock(instruction.operands[2], blocks);
+        if (!builder.GetInsertBlock()->getTerminator()) {
+          auto condBool = builder.CreateICmpNE(
+              condValue, llvm::ConstantInt::get(intType, 0), "cond");
+          builder.CreateCondBr(condBool, trueBlock, falseBlock);
+        }
+        continue;
+      }
+
       llvm::Value *value = nullptr;
       auto resultName = CleanName(instruction.result);
       if (instruction.op == "const") {
@@ -107,51 +209,113 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
                                          std::stoi(instruction.operands[0]));
         }
       } else if (instruction.op == "copy" || instruction.op == "store") {
-        value = LookupValue(instruction.operands[0], values);
+        value = LookupValue(instruction.operands[0], values, slots, intType,
+                            builder);
+      } else if (instruction.op == "store_add") {
+        value = builder.CreateAdd(
+            LookupValue(instruction.result, values, slots, intType, builder),
+            LookupValue(instruction.operands[0], values, slots, intType,
+                        builder),
+            resultName);
+      } else if (instruction.op == "store_sub") {
+        value = builder.CreateSub(
+            LookupValue(instruction.result, values, slots, intType, builder),
+            LookupValue(instruction.operands[0], values, slots, intType,
+                        builder),
+            resultName);
+      } else if (instruction.op == "store_mul") {
+        value = builder.CreateMul(
+            LookupValue(instruction.result, values, slots, intType, builder),
+            LookupValue(instruction.operands[0], values, slots, intType,
+                        builder),
+            resultName);
+      } else if (instruction.op == "store_div") {
+        value = builder.CreateSDiv(
+            LookupValue(instruction.result, values, slots, intType, builder),
+            LookupValue(instruction.operands[0], values, slots, intType,
+                        builder),
+            resultName);
+      } else if (instruction.op == "store_band") {
+        value = builder.CreateAnd(
+            LookupValue(instruction.result, values, slots, intType, builder),
+            LookupValue(instruction.operands[0], values, slots, intType,
+                        builder),
+            resultName);
+      } else if (instruction.op == "store_bor") {
+        value = builder.CreateOr(
+            LookupValue(instruction.result, values, slots, intType, builder),
+            LookupValue(instruction.operands[0], values, slots, intType,
+                        builder),
+            resultName);
+      } else if (instruction.op == "store_xor") {
+        value = builder.CreateXor(
+            LookupValue(instruction.result, values, slots, intType, builder),
+            LookupValue(instruction.operands[0], values, slots, intType,
+                        builder),
+            resultName);
       } else if (instruction.op == "neg") {
-        value = builder.CreateNeg(LookupValue(instruction.operands[0], values),
+        value = builder.CreateNeg(LookupValue(instruction.operands[0], values,
+                                              slots, intType, builder),
                                   resultName);
       } else if (instruction.op == "not") {
         auto compare =
-            builder.CreateICmpEQ(LookupValue(instruction.operands[0], values),
+            builder.CreateICmpEQ(LookupValue(instruction.operands[0], values,
+                                             slots, intType, builder),
                                  llvm::ConstantInt::get(intType, 0));
         value = builder.CreateZExt(compare, intType, resultName);
       } else if (instruction.op == "bnot") {
-        value = builder.CreateNot(LookupValue(instruction.operands[0], values),
+        value = builder.CreateNot(LookupValue(instruction.operands[0], values,
+                                              slots, intType, builder),
                                   resultName);
       } else if (instruction.op == "add") {
-        value = builder.CreateAdd(LookupValue(instruction.operands[0], values),
-                                  LookupValue(instruction.operands[1], values),
+        value = builder.CreateAdd(LookupValue(instruction.operands[0], values,
+                                              slots, intType, builder),
+                                  LookupValue(instruction.operands[1], values,
+                                              slots, intType, builder),
                                   resultName);
       } else if (instruction.op == "sub") {
-        value = builder.CreateSub(LookupValue(instruction.operands[0], values),
-                                  LookupValue(instruction.operands[1], values),
+        value = builder.CreateSub(LookupValue(instruction.operands[0], values,
+                                              slots, intType, builder),
+                                  LookupValue(instruction.operands[1], values,
+                                              slots, intType, builder),
                                   resultName);
       } else if (instruction.op == "mul") {
-        value = builder.CreateMul(LookupValue(instruction.operands[0], values),
-                                  LookupValue(instruction.operands[1], values),
+        value = builder.CreateMul(LookupValue(instruction.operands[0], values,
+                                              slots, intType, builder),
+                                  LookupValue(instruction.operands[1], values,
+                                              slots, intType, builder),
                                   resultName);
       } else if (instruction.op == "div") {
-        value = builder.CreateSDiv(LookupValue(instruction.operands[0], values),
-                                   LookupValue(instruction.operands[1], values),
+        value = builder.CreateSDiv(LookupValue(instruction.operands[0], values,
+                                               slots, intType, builder),
+                                   LookupValue(instruction.operands[1], values,
+                                               slots, intType, builder),
                                    resultName);
       } else if (instruction.op == "band" || instruction.op == "and") {
-        value = builder.CreateAnd(LookupValue(instruction.operands[0], values),
-                                  LookupValue(instruction.operands[1], values),
+        value = builder.CreateAnd(LookupValue(instruction.operands[0], values,
+                                              slots, intType, builder),
+                                  LookupValue(instruction.operands[1], values,
+                                              slots, intType, builder),
                                   resultName);
       } else if (instruction.op == "bor" || instruction.op == "or") {
-        value = builder.CreateOr(LookupValue(instruction.operands[0], values),
-                                 LookupValue(instruction.operands[1], values),
+        value = builder.CreateOr(LookupValue(instruction.operands[0], values,
+                                             slots, intType, builder),
+                                 LookupValue(instruction.operands[1], values,
+                                             slots, intType, builder),
                                  resultName);
       } else if (instruction.op == "xor") {
-        value = builder.CreateXor(LookupValue(instruction.operands[0], values),
-                                  LookupValue(instruction.operands[1], values),
+        value = builder.CreateXor(LookupValue(instruction.operands[0], values,
+                                              slots, intType, builder),
+                                  LookupValue(instruction.operands[1], values,
+                                              slots, intType, builder),
                                   resultName);
       } else if (IsComparison(instruction.op)) {
         auto compare =
             builder.CreateICmp(PredicateFor(instruction.op),
-                               LookupValue(instruction.operands[0], values),
-                               LookupValue(instruction.operands[1], values));
+                               LookupValue(instruction.operands[0], values,
+                                           slots, intType, builder),
+                               LookupValue(instruction.operands[1], values,
+                                           slots, intType, builder));
         value = builder.CreateZExt(compare, intType, resultName);
       } else if (instruction.op == "call") {
         auto target = functionMap.find(instruction.operands[0]);
@@ -161,7 +325,8 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         }
         auto arguments = std::vector<llvm::Value *>();
         for (size_t i = 1; i < instruction.operands.size(); i++) {
-          arguments.push_back(LookupValue(instruction.operands[i], values));
+          arguments.push_back(LookupValue(instruction.operands[i], values,
+                                          slots, intType, builder));
         }
         value = builder.CreateCall(target->second, arguments, resultName);
       } else {
@@ -171,14 +336,24 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
       }
 
       if (!instruction.result.empty()) {
-        values[instruction.result] = value;
+        auto canonical = CanonicalName(instruction.result);
+        auto slot = slots.find(canonical);
+        if (slot != slots.end()) {
+          builder.CreateStore(value, slot->second);
+        } else {
+          values[instruction.result] = value;
+          values[canonical] = value;
+        }
       }
     }
 
-    if (function.returnValue == "void") {
-      builder.CreateRet(llvm::ConstantInt::get(intType, 0));
-    } else {
-      builder.CreateRet(LookupValue(function.returnValue, values));
+    if (!builder.GetInsertBlock()->getTerminator()) {
+      if (function.returnValue == "void") {
+        builder.CreateRet(llvm::ConstantInt::get(intType, 0));
+      } else {
+        builder.CreateRet(
+            LookupValue(function.returnValue, values, slots, intType, builder));
+      }
     }
   }
 

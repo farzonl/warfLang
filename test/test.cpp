@@ -5,10 +5,12 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "Binding/Binder.h"
 #include "CodeAnalysis/Evaluator.h"
+#include "IR/Ir.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/ExpressionStatementSyntaxNode.h"
 #include "Syntax/SyntaxTree.h"
 #include <doctest/doctest.h>
+#include <sstream>
 
 ExpressionNode *ParseExpression(SyntaxTree *syntaxTree) {
   auto root = syntaxTree->Root();
@@ -495,5 +497,52 @@ TEST_CASE("Runtime Exceptions") {
   }
   SUBCASE("Exceptions") {
     REQUIRE(testCaseSyntaxErrors("1 / 0", "Logial error: Divide by zero."));
+  }
+}
+
+static Value testIrRoundTripHelper(const std::string &source) {
+  SymbolTableMgr::init();
+  auto syntaxTree = SyntaxTree::Parse(source);
+  auto binder = std::make_unique<Binder>();
+  auto boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
+  IrLowerer lowerer;
+  auto lowered = lowerer.Lower(boundStatement.get());
+  std::stringstream irStream;
+  IrPrinter::Print(lowered, irStream);
+  IrParser parser;
+  auto parsed = parser.Parse(irStream.str());
+  IrInterpreter interpreter;
+  return interpreter.Execute(parsed);
+}
+
+TEST_CASE("IR Control Flow and Compound Assignments") {
+  SUBCASE("if and else") {
+    REQUIRE(4 == testIrRoundTripHelper(
+                     "value = 0 if (1 < 2) { value = 4 } else { value = 5 } "
+                     "value")
+                     .asInt());
+    REQUIRE(5 == testIrRoundTripHelper(
+                     "value = 0 if (2 < 1) { value = 4 } else { value = 5 } "
+                     "value")
+                     .asInt());
+    REQUIRE(20 == testIrRoundTripHelper(
+                      "function max(a, b) { if (a > b) { a } else { b } } "
+                      "max(10, 20)")
+                      .asInt());
+  }
+  SUBCASE("while and for loops") {
+    REQUIRE(3 == testIrRoundTripHelper(
+                     "value = 0 while (value < 3) { value += 1 } value")
+                     .asInt());
+    REQUIRE(6 == testIrRoundTripHelper(
+                     "value = 0 for (index = 0; index < 3; index += 1) { "
+                     "value += 2 } value")
+                     .asInt());
+  }
+  SUBCASE("compound assignments") {
+    const std::string program =
+        "a = 4 a += 2 a -= 1 a *= 4 a /= 2 a &= 7 a |= 8 a ^= 5 a";
+    REQUIRE(15 == testProgramHelper(program).asInt());
+    REQUIRE(15 == testIrRoundTripHelper(program).asInt());
   }
 }

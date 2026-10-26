@@ -40,6 +40,7 @@ private:
   IrModule mModule;
   IrFunction *mCurrentFunction;
   int32_t mTempIndex;
+  int32_t mLabelIndex;
   std::unordered_set<std::string> mEmittedFunctions;
 
   void LowerStatement(BoundStatementNode *node);

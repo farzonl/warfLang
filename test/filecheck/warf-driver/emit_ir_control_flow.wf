@@ -1,0 +1,45 @@
+// RUN: %warf --eval "value = 0 if (1 < 2) { value = 4 } else { value = 5 } while (value < 7) { value += 1 } for (index = 0; index < 3; index += 1) { value += 2 } value" --emit-ir | %FileCheck %s
+
+// CHECK: func __main()
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   %0 = const 0
+// CHECK-NEXT:   %value = store %0
+// CHECK-NEXT:   %1 = const 1
+// CHECK-NEXT:   %2 = const 2
+// CHECK-NEXT:   %3 = lt %1 %2
+// CHECK-NEXT:   br_cond %3 then0 else0
+// CHECK-NEXT: then0:
+// CHECK-NEXT:   %4 = const 4
+// CHECK-NEXT:   %value = store %4
+// CHECK-NEXT:   br end0
+// CHECK-NEXT: else0:
+// CHECK-NEXT:   %5 = const 5
+// CHECK-NEXT:   %value = store %5
+// CHECK-NEXT:   br end0
+// CHECK-NEXT: end0:
+// CHECK-NEXT:   br while_cond1
+// CHECK-NEXT: while_cond1:
+// CHECK-NEXT:   %6 = const 7
+// CHECK-NEXT:   %7 = lt %value %6
+// CHECK-NEXT:   br_cond %7 while_body1 while_end1
+// CHECK-NEXT: while_body1:
+// CHECK-NEXT:   %8 = const 1
+// CHECK-NEXT:   %value = store_add %8
+// CHECK-NEXT:   br while_cond1
+// CHECK-NEXT: while_end1:
+// CHECK-NEXT:   %9 = const 0
+// CHECK-NEXT:   %index = store %9
+// CHECK-NEXT:   br for_cond2
+// CHECK-NEXT: for_cond2:
+// CHECK-NEXT:   %10 = const 3
+// CHECK-NEXT:   %11 = lt %index %10
+// CHECK-NEXT:   br_cond %11 for_body2 for_end2
+// CHECK-NEXT: for_body2:
+// CHECK-NEXT:   %12 = const 2
+// CHECK-NEXT:   %value = store_add %12
+// CHECK-NEXT:   %13 = const 1
+// CHECK-NEXT:   %index = store_add %13
+// CHECK-NEXT:   br for_cond2
+// CHECK-NEXT: for_end2:
+// CHECK-NEXT:   ret %value
+

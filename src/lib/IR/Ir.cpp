@@ -8,11 +8,14 @@
 #include "Binding/BoundBlockStatementNode.h"
 #include "Binding/BoundCallExpressionNode.h"
 #include "Binding/BoundExpressionStatementNode.h"
+#include "Binding/BoundForStatementNode.h"
 #include "Binding/BoundFunctionDeclarationNode.h"
 #include "Binding/BoundIdentifierExpressionNode.h"
+#include "Binding/BoundIfStatementNode.h"
 #include "Binding/BoundLiteralExpressionNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
 #include "Binding/BoundVariableDeclarationNode.h"
+#include "Binding/BoundWhileStatementNode.h"
 #include <algorithm>
 #include <cctype>
 #include <sstream>
@@ -100,6 +103,7 @@ IrModule IrLowerer::Lower(BoundStatementNode *root) {
   mModule = IrModule();
   mEmittedFunctions.clear();
   mTempIndex = 0;
+  mLabelIndex = 0;
   mModule.functions.push_back(IrFunction{"__main", {}, {}, ""});
   mCurrentFunction = &mModule.functions.back();
   LowerStatement(root);
@@ -130,6 +134,128 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
     return;
   }
   if (dynamic_cast<BoundFunctionDeclarationNode *>(node)) {
+    return;
+  }
+  if (auto ifStatement = dynamic_cast<BoundIfStatementNode *>(node)) {
+    auto id = mLabelIndex++;
+    auto thenLabel = "then" + std::to_string(id);
+    auto elseLabel = "else" + std::to_string(id);
+    auto endLabel = "end" + std::to_string(id);
+
+    auto condition = LowerExpression(
+        const_cast<BoundExpressionNode *>(ifStatement->Condition()));
+    auto branchIndex = mCurrentFunction->instructions.size();
+    if (ifStatement->ElseStatement()) {
+      mCurrentFunction->instructions.push_back(
+          {"", "br_cond", {condition, thenLabel, elseLabel}});
+    } else {
+      mCurrentFunction->instructions.push_back(
+          {"", "br_cond", {condition, thenLabel, endLabel}});
+    }
+
+    auto prevReturn = mCurrentFunction->returnValue;
+    mCurrentFunction->returnValue.clear();
+    mCurrentFunction->instructions.push_back({"", "label", {thenLabel}});
+    LowerStatement(
+        const_cast<BoundStatementNode *>(ifStatement->ThenStatement()));
+    auto thenReturn = mCurrentFunction->returnValue;
+    auto thenJumpIndex = mCurrentFunction->instructions.size();
+    mCurrentFunction->instructions.push_back({"", "br", {endLabel}});
+
+    std::string elseReturn;
+    size_t elseJumpIndex = 0;
+    if (ifStatement->ElseStatement()) {
+      mCurrentFunction->returnValue.clear();
+      mCurrentFunction->instructions.push_back({"", "label", {elseLabel}});
+      LowerStatement(
+          const_cast<BoundStatementNode *>(ifStatement->ElseStatement()));
+      elseReturn = mCurrentFunction->returnValue;
+      elseJumpIndex = mCurrentFunction->instructions.size();
+      mCurrentFunction->instructions.push_back({"", "br", {endLabel}});
+    }
+
+    mCurrentFunction->instructions.push_back({"", "label", {endLabel}});
+    if (ifStatement->ElseStatement()) {
+      if (thenReturn == elseReturn) {
+        mCurrentFunction->returnValue =
+            thenReturn.empty() ? prevReturn : thenReturn;
+      } else if (!thenReturn.empty() && !elseReturn.empty()) {
+        auto resultTemp = NewTemp();
+        mCurrentFunction->instructions.insert(
+            mCurrentFunction->instructions.begin() +
+                static_cast<std::ptrdiff_t>(elseJumpIndex),
+            {resultTemp, "store", {elseReturn}});
+        mCurrentFunction->instructions.insert(
+            mCurrentFunction->instructions.begin() +
+                static_cast<std::ptrdiff_t>(thenJumpIndex),
+            {resultTemp, "store", {thenReturn}});
+        mCurrentFunction->returnValue = resultTemp;
+      } else {
+        mCurrentFunction->returnValue =
+            !thenReturn.empty() ? thenReturn : elseReturn;
+      }
+    } else {
+      if (!prevReturn.empty()) {
+        mCurrentFunction->returnValue = prevReturn;
+      } else if (!thenReturn.empty()) {
+        auto resultTemp = NewTemp();
+        mCurrentFunction->instructions.insert(
+            mCurrentFunction->instructions.begin() +
+                static_cast<std::ptrdiff_t>(thenJumpIndex),
+            {resultTemp, "store", {thenReturn}});
+        mCurrentFunction->instructions.insert(
+            mCurrentFunction->instructions.begin() +
+                static_cast<std::ptrdiff_t>(branchIndex),
+            {resultTemp, "const", {"0"}});
+        mCurrentFunction->returnValue = resultTemp;
+      }
+    }
+    return;
+  }
+  if (auto whileStatement = dynamic_cast<BoundWhileStatementNode *>(node)) {
+    auto id = mLabelIndex++;
+    auto condLabel = "while_cond" + std::to_string(id);
+    auto bodyLabel = "while_body" + std::to_string(id);
+    auto endLabel = "while_end" + std::to_string(id);
+
+    mCurrentFunction->instructions.push_back({"", "br", {condLabel}});
+    mCurrentFunction->instructions.push_back({"", "label", {condLabel}});
+    auto condition = LowerExpression(
+        const_cast<BoundExpressionNode *>(whileStatement->Condition()));
+    mCurrentFunction->instructions.push_back(
+        {"", "br_cond", {condition, bodyLabel, endLabel}});
+
+    mCurrentFunction->instructions.push_back({"", "label", {bodyLabel}});
+    LowerStatement(const_cast<BoundStatementNode *>(whileStatement->Body()));
+    mCurrentFunction->instructions.push_back({"", "br", {condLabel}});
+
+    mCurrentFunction->instructions.push_back({"", "label", {endLabel}});
+    return;
+  }
+  if (auto forStatement = dynamic_cast<BoundForStatementNode *>(node)) {
+    auto id = mLabelIndex++;
+    auto condLabel = "for_cond" + std::to_string(id);
+    auto bodyLabel = "for_body" + std::to_string(id);
+    auto endLabel = "for_end" + std::to_string(id);
+
+    if (forStatement->Initializer()) {
+      LowerStatement(
+          const_cast<BoundStatementNode *>(forStatement->Initializer()));
+    }
+    mCurrentFunction->instructions.push_back({"", "br", {condLabel}});
+    mCurrentFunction->instructions.push_back({"", "label", {condLabel}});
+    auto condition = LowerExpression(
+        const_cast<BoundExpressionNode *>(forStatement->Condition()));
+    mCurrentFunction->instructions.push_back(
+        {"", "br_cond", {condition, bodyLabel, endLabel}});
+
+    mCurrentFunction->instructions.push_back({"", "label", {bodyLabel}});
+    LowerStatement(const_cast<BoundStatementNode *>(forStatement->Body()));
+    LowerExpression(
+        const_cast<BoundExpressionNode *>(forStatement->Increment()));
+    mCurrentFunction->instructions.push_back({"", "br", {condLabel}});
+
+    mCurrentFunction->instructions.push_back({"", "label", {endLabel}});
     return;
   }
   mCurrentFunction->instructions.push_back({"", "unsupported_statement", {}});
@@ -192,7 +318,9 @@ void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
   auto savedFunctionIndex =
       static_cast<size_t>(mCurrentFunction - mModule.functions.data());
   auto savedTempIndex = mTempIndex;
+  auto savedLabelIndex = mLabelIndex;
   mTempIndex = 0;
+  mLabelIndex = 0;
 
   auto parameters = std::vector<std::string>();
   for (const auto &parameter : call->Parameters()) {
@@ -208,6 +336,7 @@ void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
 
   mCurrentFunction = &mModule.functions[savedFunctionIndex];
   mTempIndex = savedTempIndex;
+  mLabelIndex = savedLabelIndex;
 }
 
 std::string IrLowerer::NewTemp() { return "%" + std::to_string(mTempIndex++); }
@@ -225,6 +354,10 @@ void IrPrinter::Print(const IrModule &module, std::ostream &out) {
     out << ")" << std::endl;
     out << "entry:" << std::endl;
     for (const auto &instruction : function.instructions) {
+      if (instruction.op == "label") {
+        out << instruction.operands[0] << ":" << std::endl;
+        continue;
+      }
       out << "  ";
       if (!instruction.result.empty()) {
         out << instruction.result << " = ";
@@ -269,6 +402,12 @@ IrModule IrParser::Parse(const std::string &text) {
 
     if (!currentFunction) {
       throw std::runtime_error("IR parse error: instruction before function.");
+    }
+
+    if (line.back() == ':') {
+      auto labelName = Trim(line.substr(0, line.size() - 1));
+      currentFunction->instructions.push_back({"", "label", {labelName}});
+      continue;
     }
 
     if (line.rfind("ret ", 0) == 0) {
@@ -356,8 +495,38 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
     values[function.parameters[i]] = arguments[i];
   }
 
-  for (const auto &instruction : function.instructions) {
-    if (instruction.op == "const") {
+  auto labelMap = std::unordered_map<std::string, size_t>();
+  for (size_t i = 0; i < function.instructions.size(); i++) {
+    const auto &inst = function.instructions[i];
+    if (inst.op == "label" && !inst.operands.empty()) {
+      labelMap[inst.operands[0]] = i;
+    }
+  }
+
+  for (size_t ip = 0; ip < function.instructions.size(); ip++) {
+    const auto &instruction = function.instructions[ip];
+    if (instruction.op == "label") {
+      continue;
+    } else if (instruction.op == "br") {
+      auto target = labelMap.find(instruction.operands[0]);
+      if (target == labelMap.end()) {
+        throw std::runtime_error("IR error: unknown label " +
+                                 instruction.operands[0] + ".");
+      }
+      ip = target->second;
+      continue;
+    } else if (instruction.op == "br_cond") {
+      auto cond = EvaluateOperand(instruction.operands[0], values);
+      bool isTrue = cond.isBool() ? cond.asBool() : (cond.asInt() != 0);
+      const auto &labelName =
+          isTrue ? instruction.operands[1] : instruction.operands[2];
+      auto target = labelMap.find(labelName);
+      if (target == labelMap.end()) {
+        throw std::runtime_error("IR error: unknown label " + labelName + ".");
+      }
+      ip = target->second;
+      continue;
+    } else if (instruction.op == "const") {
       Value value;
       if (instruction.operands[0] == "true") {
         value = true;

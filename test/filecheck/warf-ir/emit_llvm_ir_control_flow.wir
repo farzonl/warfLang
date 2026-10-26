@@ -1,0 +1,44 @@
+// REQUIRES: llvm-backend
+// RUN: %warf-ir --emit-llvm-ir %s | %FileCheck %s
+
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+  %value = store %4
+  br end0
+else0:
+  %5 = const 5
+  %value = store %5
+  br end0
+end0:
+  %6 = const 3
+  %value = store_add %6
+  ret %value
+
+// CHECK: define i32 @__main() {
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   %value.addr = alloca i32, align 4
+// CHECK-NEXT:   store i32 0, ptr %value.addr, align 4
+// CHECK-NEXT:   store i32 0, ptr %value.addr, align 4
+// CHECK-NEXT:   br i1 true, label %then0, label %else0
+// CHECK: then0:
+// CHECK-NEXT:   store i32 4, ptr %value.addr, align 4
+// CHECK-NEXT:   br label %end0
+// CHECK: else0:
+// CHECK-NEXT:   store i32 5, ptr %value.addr, align 4
+// CHECK-NEXT:   br label %end0
+// CHECK: end0:
+// CHECK-NEXT:   %value = load i32, ptr %value.addr, align 4
+// CHECK-NEXT:   %value1 = add i32 %value, 3
+// CHECK-NEXT:   store i32 %value1, ptr %value.addr, align 4
+// CHECK-NEXT:   %value2 = load i32, ptr %value.addr, align 4
+// CHECK-NEXT:   ret i32 %value2
+// CHECK-NEXT: }
+
