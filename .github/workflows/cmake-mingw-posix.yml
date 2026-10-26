@@ -26,7 +26,7 @@ env:
   WINEPATH: "/usr/lib/gcc/x86_64-w64-mingw32/10-posix;/usr/x86_64-w64-mingw32/lib"
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: true
     steps:

@@ -20,12 +20,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-latest]
+        os: [ubuntu-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
     
     - name: Install dependencies (Linux)
-      if: matrix.os == 'ubuntu-22.04'
+      if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt install llvm-dev python3 libedit-dev
         python3 -m pip install --user lit filecheck
@@ -61,7 +61,7 @@ jobs:
               -DCMAKE_CXX_COMPILER=$(brew --prefix llvm)/bin/clang++
   
     - name: Configure CMake (Linux)
-      if: matrix.os == 'ubuntu-22.04'
+      if: matrix.os == 'ubuntu-latest'
       # Use a bash shell so we can use the same syntax for environment variable
       # access regardless of the host operating system
       shell: bash
@@ -85,7 +85,7 @@ jobs:
       run: cmake --build . --config $BUILD_TYPE
    
     - name: Set variables (Mac\Linux)
-      if: matrix.os == 'ubuntu-22.04' || matrix.os == 'macOS-latest'
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
       run: |
         APP=$(cat $GITHUB_WORKSPACE/src/lib/Version/appName.txt)
         VER=$(cat $GITHUB_WORKSPACE/src/lib/Version/version.txt)
@@ -110,7 +110,7 @@ jobs:
         $(brew --prefix llvm)/bin/llvm-cov show -output-dir=build/out/report -format=html -instr-profile=${{ env.APPNAME }}.profdata -object=build/test/${{ env.APPNAME }}Lang_TEST build/src/cli/${{ env.APPNAME }} ${{github.workspace}}/src
     
     - name: On Linux Generate Profdata, & html Coverage report
-      if: matrix.os == 'ubuntu-22.04'
+      if: matrix.os == 'ubuntu-latest'
       working-directory: ${{github.workspace}}
       run: |
         llvm-profdata merge -sparse ${{ env.APPNAME }}*.profraw ${{ env.APPNAME }}Lang.profraw  -o ${{ env.APPNAME }}.profdata
@@ -126,7 +126,7 @@ jobs:
         git commit -m 'deploy'
 
     - name: Force push to destination branch
-      if: matrix.os == 'ubuntu-22.04'
+      if: matrix.os == 'ubuntu-latest'
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
