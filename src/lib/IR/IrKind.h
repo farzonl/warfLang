@@ -263,4 +263,3 @@ inline IrOpcode CompoundStoreToBinaryOp(IrOpcode op) {
     return IrOpcode::Unknown;
   }
 }
-
