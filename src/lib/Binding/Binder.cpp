@@ -6,7 +6,10 @@
 #include "BoundAssignmentExpressionNode.h"
 #include "BoundBinaryExpressionNode.h"
 #include "BoundBlockStatementNode.h"
+#include "BoundBreakStatementNode.h"
 #include "BoundCallExpressionNode.h"
+#include "BoundContinueStatementNode.h"
+#include "BoundDoWhileStatementNode.h"
 #include "BoundExpressionStatementNode.h"
 #include "BoundForStatementNode.h"
 #include "BoundFunctionDeclarationNode.h"
@@ -20,7 +23,10 @@
 #include "Syntax/AssignmentExpressionNode.h"
 #include "Syntax/BinaryExpressionNode.h"
 #include "Syntax/BlockStatementSyntaxNode.h"
+#include "Syntax/BreakStatementSyntaxNode.h"
 #include "Syntax/CallExpressionNode.h"
+#include "Syntax/ContinueStatementSyntaxNode.h"
+#include "Syntax/DoWhileStatementSyntaxNode.h"
 #include "Syntax/ExpressionStatementSyntaxNode.h"
 #include "Syntax/ForStatementSyntaxNode.h"
 #include "Syntax/FunctionDeclarationSyntaxNode.h"
@@ -71,8 +77,16 @@ Binder::BindStatement(StatementSyntaxNode *syntax) {
     return BindIfStatement(dynamic_cast<IfStatementSyntaxNode *>(syntax));
   case SyntaxKind::WhileStatement:
     return BindWhileStatement(dynamic_cast<WhileStatementSyntaxNode *>(syntax));
+  case SyntaxKind::DoWhileStatement:
+    return BindDoWhileStatement(
+        dynamic_cast<DoWhileStatementSyntaxNode *>(syntax));
   case SyntaxKind::ForStatement:
     return BindForStatement(dynamic_cast<ForStatementSyntaxNode *>(syntax));
+  case SyntaxKind::BreakStatement:
+    return BindBreakStatement(dynamic_cast<BreakStatementSyntaxNode *>(syntax));
+  case SyntaxKind::ContinueStatement:
+    return BindContinueStatement(
+        dynamic_cast<ContinueStatementSyntaxNode *>(syntax));
   case SyntaxKind::ReturnStatement:
     return BindReturnStatement(
         dynamic_cast<ReturnStatementSyntaxNode *>(syntax));
@@ -168,9 +182,24 @@ Binder::BindWhileStatement(WhileStatementSyntaxNode *syntax) {
   if (condition->Type() != Value::Type::Boolean) {
     throw std::runtime_error("While condition must be Boolean");
   }
+  mLoopDepth++;
   auto body = BindStatement(const_cast<StatementSyntaxNode *>(syntax->Body()));
+  mLoopDepth--;
   return std::make_unique<BoundWhileStatementNode>(std::move(condition),
                                                    std::move(body));
+}
+
+std::unique_ptr<BoundStatementNode>
+Binder::BindDoWhileStatement(DoWhileStatementSyntaxNode *syntax) {
+  mLoopDepth++;
+  auto body = BindStatement(const_cast<StatementSyntaxNode *>(syntax->Body()));
+  mLoopDepth--;
+  auto condition = BindExpression(syntax->Condition().get());
+  if (condition->Type() != Value::Type::Boolean) {
+    throw std::runtime_error("DoWhile condition must be Boolean");
+  }
+  return std::make_unique<BoundDoWhileStatementNode>(std::move(body),
+                                                     std::move(condition));
 }
 
 std::unique_ptr<BoundStatementNode>
@@ -188,11 +217,29 @@ Binder::BindForStatement(ForStatementSyntaxNode *syntax) {
     throw std::runtime_error("For condition must be Boolean");
   }
   auto increment = BindExpression(syntax->Increment().get());
+  mLoopDepth++;
   auto body = BindStatement(const_cast<StatementSyntaxNode *>(syntax->Body()));
+  mLoopDepth--;
   mScope = parentScope;
   return std::make_unique<BoundForStatementNode>(
       std::move(initializer), std::move(condition), std::move(increment),
       std::move(body));
+}
+
+std::unique_ptr<BoundStatementNode>
+Binder::BindBreakStatement(BreakStatementSyntaxNode *syntax) {
+  if (mLoopDepth == 0) {
+    mRecords.ReportInvalidBreakOrContinue(syntax->BreakKeyword());
+  }
+  return std::make_unique<BoundBreakStatementNode>();
+}
+
+std::unique_ptr<BoundStatementNode>
+Binder::BindContinueStatement(ContinueStatementSyntaxNode *syntax) {
+  if (mLoopDepth == 0) {
+    mRecords.ReportInvalidBreakOrContinue(syntax->ContinueKeyword());
+  }
+  return std::make_unique<BoundContinueStatementNode>();
 }
 
 std::unique_ptr<BoundStatementNode>
@@ -343,31 +390,27 @@ Binder::BindBinaryExpression(BinaryExpressionNode *binary) {
 std::unique_ptr<BoundExpressionNode>
 Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   std::string name = assignment->IdentifierToken()->Text();
-  bool isReadOnly = false; // TODO remove this line temp to fix compile issue
   auto boundExpression = BindExpression(assignment->Expression());
   const std::shared_ptr<BoundAssignmentOperator> boundOperator =
       BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Kind(),
                                     boundExpression->Type());
+  std::shared_ptr<VariableSymbol> existingVariable = mScope->lookup(name);
+  if (existingVariable != VariableSymbol::failSymbol() &&
+      existingVariable->IsReadOnly()) {
+    mRecords.ReportCannotAssign(assignment->IdentifierToken());
+    return boundExpression;
+  }
+
   if (assignment->AssignmentToken()->Kind() == SyntaxKind::EqualsToken) {
-    auto localVariable = mScope->lookupLocal(name);
-    if (localVariable != VariableSymbol::failSymbol()) {
-      localVariable = std::make_shared<VariableSymbol>(name, isReadOnly,
-                                                       boundExpression->Type());
-      mScope->insert(localVariable);
-    } else {
-      auto variable = mScope->lookup(name);
-      if (variable == VariableSymbol::failSymbol()) {
-        variable = std::make_shared<VariableSymbol>(name, isReadOnly,
-                                                    boundExpression->Type());
-        mScope->insert(variable);
-      }
-      localVariable = variable;
+    if (existingVariable == VariableSymbol::failSymbol() ||
+        existingVariable->Type() != boundExpression->Type()) {
+      existingVariable = std::make_shared<VariableSymbol>(
+          name, false, boundExpression->Type());
+      mScope->insert(existingVariable);
     }
     return std::make_unique<BoundAssignmentExpressionNode>(
-        localVariable, std::move(boundExpression), boundOperator);
+        existingVariable, std::move(boundExpression), boundOperator);
   } else {
-
-    std::shared_ptr<VariableSymbol> existingVariable = mScope->lookup(name);
     if (existingVariable == VariableSymbol::failSymbol()) {
       mRecords.ReportUndefinedIdentifier(assignment->IdentifierToken());
       throw std::runtime_error("Failed to Bind LiteralExpression");

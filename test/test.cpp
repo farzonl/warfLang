@@ -597,3 +597,77 @@ TEST_CASE("Functions, Return Statements, Types, and Recursion") {
             "but was given a value of type Boolean.");
   }
 }
+
+TEST_CASE("Loop Control (break, continue, do-while) and let Immutability") {
+  SUBCASE("break and continue in while loop") {
+    const std::string program = "i = 0 sum = 0 "
+                                "while (i < 10) { "
+                                "  i += 1 "
+                                "  if (i == 3) { continue } "
+                                "  if (i == 6) { break } "
+                                "  sum += i "
+                                "} sum";
+    // i = 1 (sum=1), i = 2 (sum=3), i = 3 (continue), i = 4 (sum=7), i = 5
+    // (sum=12), i = 6 (break)
+    REQUIRE(12 == testProgramHelper(program).asInt());
+    REQUIRE(12 == testIrRoundTripHelper(program).asInt());
+  }
+  SUBCASE("break and continue in for loop") {
+    const std::string program = "sum = 0 "
+                                "for (var k = 0; k < 10; k += 1) { "
+                                "  if (k == 2) { continue } "
+                                "  if (k == 5) { break } "
+                                "  sum += k "
+                                "} sum";
+    // k = 0 (sum=0), k = 1 (sum=1), k = 2 (continue), k = 3 (sum=4), k = 4
+    // (sum=8), k = 5 (break)
+    REQUIRE(8 == testProgramHelper(program).asInt());
+    REQUIRE(8 == testIrRoundTripHelper(program).asInt());
+  }
+  SUBCASE("do-while loop with break and continue") {
+    const std::string program = "n = 0 total = 0 "
+                                "do { "
+                                "  n += 1 "
+                                "  if (n == 2) { continue } "
+                                "  total += 10 "
+                                "  if (n == 4) { break } "
+                                "} while (n < 10) "
+                                "total";
+    // n=1 (+10), n=2 (continue), n=3 (+10), n=4 (+10, break) -> total = 30
+    REQUIRE(30 == testProgramHelper(program).asInt());
+    REQUIRE(30 == testIrRoundTripHelper(program).asInt());
+  }
+  SUBCASE("break and continue outside loop report binder error") {
+    SymbolTableMgr::init();
+    auto breakTree = SyntaxTree::Parse("break");
+    auto breakBinder = std::make_unique<Binder>();
+    breakBinder->BindCompilationUnit(breakTree->Root());
+    REQUIRE_FALSE(breakBinder->Errors().empty());
+    REQUIRE(breakBinder->Errors()[0].Message() ==
+            "BinderError: The keyword break can only be used inside of loops.");
+
+    auto contTree = SyntaxTree::Parse("continue");
+    auto contBinder = std::make_unique<Binder>();
+    contBinder->BindCompilationUnit(contTree->Root());
+    REQUIRE_FALSE(contBinder->Errors().empty());
+    REQUIRE(
+        contBinder->Errors()[0].Message() ==
+        "BinderError: The keyword continue can only be used inside of loops.");
+  }
+  SUBCASE("let immutability enforcement") {
+    SymbolTableMgr::init();
+    auto assignTree = SyntaxTree::Parse("let c = 10 c = 20");
+    auto assignBinder = std::make_unique<Binder>();
+    assignBinder->BindCompilationUnit(assignTree->Root());
+    REQUIRE_FALSE(assignBinder->Errors().empty());
+    REQUIRE(assignBinder->Errors()[0].Message() ==
+            "BinderError: Variable c is read-only and cannot be assigned to.");
+
+    auto compoundTree = SyntaxTree::Parse("let d = 5 { d += 1 }");
+    auto compoundBinder = std::make_unique<Binder>();
+    compoundBinder->BindCompilationUnit(compoundTree->Root());
+    REQUIRE_FALSE(compoundBinder->Errors().empty());
+    REQUIRE(compoundBinder->Errors()[0].Message() ==
+            "BinderError: Variable d is read-only and cannot be assigned to.");
+  }
+}

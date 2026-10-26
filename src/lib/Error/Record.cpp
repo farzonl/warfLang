@@ -103,3 +103,18 @@ void Records::ReportWrongArgumentType(
           << " but was given a value of type " << actualType << ".";
   Report(identifierToken->Span(), message.str());
 }
+
+void Records::ReportCannotAssign(std::shared_ptr<SyntaxToken> identifierToken) {
+  std::stringstream message;
+  message << mPrefix << "Error: Variable " << identifierToken->Text()
+          << " is read-only and cannot be assigned to.";
+  Report(identifierToken->Span(), message.str());
+}
+
+void Records::ReportInvalidBreakOrContinue(
+    std::shared_ptr<SyntaxToken> keywordToken) {
+  std::stringstream message;
+  message << mPrefix << "Error: The keyword " << keywordToken->Text()
+          << " can only be used inside of loops.";
+  Report(keywordToken->Span(), message.str());
+}

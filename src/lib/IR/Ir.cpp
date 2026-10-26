@@ -6,7 +6,10 @@
 #include "Binding/BoundAssignmentExpressionNode.h"
 #include "Binding/BoundBinaryExpressionNode.h"
 #include "Binding/BoundBlockStatementNode.h"
+#include "Binding/BoundBreakStatementNode.h"
 #include "Binding/BoundCallExpressionNode.h"
+#include "Binding/BoundContinueStatementNode.h"
+#include "Binding/BoundDoWhileStatementNode.h"
 #include "Binding/BoundExpressionStatementNode.h"
 #include "Binding/BoundForStatementNode.h"
 #include "Binding/BoundFunctionDeclarationNode.h"
@@ -103,6 +106,7 @@ static std::string ValueText(Value value) {
 IrModule IrLowerer::Lower(BoundStatementNode *root) {
   mModule = IrModule();
   mEmittedFunctions.clear();
+  mLoopStack.clear();
   mTempIndex = 0;
   mLabelIndex = 0;
   mModule.functions.push_back(IrFunction{kIrMainFunctionName, {}, {}, ""});
@@ -151,6 +155,8 @@ void IrLowerer::LowerLoop(IrLabelKind condKind, IrLabelKind bodyKind,
   auto condLabel = MakeIrLabel(condKind, id);
   auto bodyLabel = MakeIrLabel(bodyKind, id);
   auto endLabel = MakeIrLabel(endKind, id);
+  auto continueLabel =
+      increment ? MakeIrLabel(IrLabelKind::ForInc, id) : condLabel;
 
   if (initializer) {
     LowerStatement(initializer);
@@ -161,11 +167,40 @@ void IrLowerer::LowerLoop(IrLabelKind condKind, IrLabelKind bodyKind,
   EmitCondBranch(condValue, bodyLabel, endLabel);
 
   EmitLabel(bodyLabel);
+  mLoopStack.push_back({endLabel, continueLabel, false});
   LowerStatement(body);
+  bool usedContinue = mLoopStack.back().usedContinue;
+  mLoopStack.pop_back();
   if (increment) {
+    if (usedContinue) {
+      EmitBranch(continueLabel);
+      EmitLabel(continueLabel);
+    }
     LowerExpression(increment);
   }
   EmitBranch(condLabel);
+  EmitLabel(endLabel);
+}
+
+void IrLowerer::LowerDoWhile(BoundStatementNode *body,
+                             BoundExpressionNode *condition) {
+  auto id = mLabelIndex++;
+  auto bodyLabel = MakeIrLabel(IrLabelKind::DoBody, id);
+  auto condLabel = MakeIrLabel(IrLabelKind::DoCond, id);
+  auto endLabel = MakeIrLabel(IrLabelKind::DoEnd, id);
+
+  EmitBranch(bodyLabel);
+  EmitLabel(bodyLabel);
+  mLoopStack.push_back({endLabel, condLabel, false});
+  LowerStatement(body);
+  bool usedContinue = mLoopStack.back().usedContinue;
+  mLoopStack.pop_back();
+  if (usedContinue) {
+    EmitBranch(condLabel);
+    EmitLabel(condLabel);
+  }
+  auto condValue = LowerExpression(condition);
+  EmitCondBranch(condValue, bodyLabel, endLabel);
   EmitLabel(endLabel);
 }
 
@@ -173,6 +208,19 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
   if (auto block = dynamic_cast<BoundBlockStatementNode *>(node)) {
     for (const auto &statement : block->Statements()) {
       LowerStatement(statement.get());
+    }
+    return;
+  }
+  if (dynamic_cast<BoundBreakStatementNode *>(node)) {
+    if (!mLoopStack.empty()) {
+      EmitBranch(mLoopStack.back().breakLabel);
+    }
+    return;
+  }
+  if (dynamic_cast<BoundContinueStatementNode *>(node)) {
+    if (!mLoopStack.empty()) {
+      mLoopStack.back().usedContinue = true;
+      EmitBranch(mLoopStack.back().continueLabel);
     }
     return;
   }
@@ -222,7 +270,7 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
     auto thenReturn = mCurrentFunction->returnValue;
     bool thenTerminated =
         !mCurrentFunction->instructions.empty() &&
-        mCurrentFunction->instructions.back().op == IrOpcode::Ret;
+        IsTerminatorOp(mCurrentFunction->instructions.back().op);
     auto thenJumpIndex = mCurrentFunction->instructions.size();
     if (!thenTerminated) {
       EmitBranch(endLabel);
@@ -237,9 +285,8 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
       LowerStatement(
           const_cast<BoundStatementNode *>(ifStatement->ElseStatement()));
       elseReturn = mCurrentFunction->returnValue;
-      elseTerminated =
-          !mCurrentFunction->instructions.empty() &&
-          mCurrentFunction->instructions.back().op == IrOpcode::Ret;
+      elseTerminated = !mCurrentFunction->instructions.empty() &&
+                       IsTerminatorOp(mCurrentFunction->instructions.back().op);
       elseJumpIndex = mCurrentFunction->instructions.size();
       if (!elseTerminated) {
         EmitBranch(endLabel);
@@ -285,6 +332,12 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
         IrLabelKind::WhileCond, IrLabelKind::WhileBody, IrLabelKind::WhileEnd,
         nullptr, const_cast<BoundExpressionNode *>(whileStatement->Condition()),
         const_cast<BoundStatementNode *>(whileStatement->Body()), nullptr);
+    return;
+  }
+  if (auto doWhileStatement = dynamic_cast<BoundDoWhileStatementNode *>(node)) {
+    LowerDoWhile(
+        const_cast<BoundStatementNode *>(doWhileStatement->Body()),
+        const_cast<BoundExpressionNode *>(doWhileStatement->Condition()));
     return;
   }
   if (auto forStatement = dynamic_cast<BoundForStatementNode *>(node)) {
@@ -352,8 +405,10 @@ void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
       static_cast<size_t>(mCurrentFunction - mModule.functions.data());
   auto savedTempIndex = mTempIndex;
   auto savedLabelIndex = mLabelIndex;
+  auto savedLoopStack = std::move(mLoopStack);
   mTempIndex = 0;
   mLabelIndex = 0;
+  mLoopStack.clear();
 
   auto parameters = std::vector<std::string>();
   for (const auto &parameter : call->Parameters()) {
@@ -370,6 +425,7 @@ void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
   mCurrentFunction = &mModule.functions[savedFunctionIndex];
   mTempIndex = savedTempIndex;
   mLabelIndex = savedLabelIndex;
+  mLoopStack = std::move(savedLoopStack);
 }
 
 std::string IrLowerer::NewTemp() { return "%" + std::to_string(mTempIndex++); }

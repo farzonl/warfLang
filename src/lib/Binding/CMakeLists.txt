@@ -18,7 +18,10 @@ set(SourceFiles
     BoundFunctionDeclarationNode.cpp
     BoundIfStatementNode.cpp
     BoundWhileStatementNode.cpp
+    BoundDoWhileStatementNode.cpp
     BoundForStatementNode.cpp
+    BoundBreakStatementNode.cpp
+    BoundContinueStatementNode.cpp
     BoundReturnStatementNode.cpp
     ValueType.cpp
     
@@ -38,7 +41,10 @@ set(HeaderFiles
     BoundFunctionDeclarationNode.h
     BoundIfStatementNode.h
     BoundWhileStatementNode.h
+    BoundDoWhileStatementNode.h
     BoundForStatementNode.h
+    BoundBreakStatementNode.h
+    BoundContinueStatementNode.h
     BoundReturnStatementNode.h
     ValueType.h
 )

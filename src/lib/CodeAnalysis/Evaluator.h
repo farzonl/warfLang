@@ -37,5 +37,7 @@ private:
       mActiveCallNodes;
   std::vector<std::unordered_map<VariableSymbol *, Value>> mCallFrames;
   bool mHasReturnValue = false;
+  bool mShouldBreak = false;
+  bool mShouldContinue = false;
   Value mReturnValue;
 };

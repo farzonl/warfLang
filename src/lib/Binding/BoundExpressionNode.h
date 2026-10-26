@@ -24,7 +24,10 @@ enum class BoundNodeKind {
   ExpressionStatement,
   IfStatement,
   WhileStatement,
+  DoWhileStatement,
   ForStatement,
+  BreakStatement,
+  ContinueStatement,
   ReturnStatement,
 };
 
