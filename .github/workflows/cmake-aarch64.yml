@@ -43,7 +43,10 @@ jobs:
     - name: setup sysroot
       run: |
         cd ${{github.workspace}} \
-        && mkdir -p sysroots/aarch64-linux-gnu/usr \
+        && mkdir -p sysroots/aarch64-linux-gnu/usr/aarch64-linux-gnu \
+        && ln -snf ../lib sysroots/aarch64-linux-gnu/usr/aarch64-linux-gnu/lib \
+        && ln -snf ../include sysroots/aarch64-linux-gnu/usr/aarch64-linux-gnu/include \
+        && ln -snf usr/lib sysroots/aarch64-linux-gnu/lib \
         && cd sysroots/aarch64-linux-gnu/usr \
         && cp -r -v -L /usr/aarch64-linux-gnu/include /usr/aarch64-linux-gnu/lib . \
         && cd lib \
@@ -54,8 +57,10 @@ jobs:
         && cd ../../ \
         && mkdir tmp \
         && cd tmp \
-        && sudo sed -i -E 's/^deb(\s)/deb [arch=amd64]\1/' /etc/apt/sources.list \
-        && printf 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-security main universe\n' | sudo tee /etc/apt/sources.list.d/arm64-ports.list \
+        && if [ -f /etc/apt/sources.list ]; then sudo sed -i -E 's/^deb(\s)/deb [arch=amd64]\1/' /etc/apt/sources.list; fi \
+        && if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then sudo sed -i '/^Architectures:/d; /^Components:/a Architectures: amd64' /etc/apt/sources.list.d/ubuntu.sources; fi \
+        && CODENAME=$(. /etc/os-release && echo "$VERSION_CODENAME") \
+        && printf "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports %s main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports %s-updates main universe\ndeb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports %s-security main universe\n" "$CODENAME" "$CODENAME" "$CODENAME" | sudo tee /etc/apt/sources.list.d/arm64-ports.list \
         && sudo dpkg --add-architecture arm64 \
         && sudo apt-get update \
         && apt-get download libedit-dev:arm64 libbsd-dev:arm64 libncurses-dev:arm64 \
