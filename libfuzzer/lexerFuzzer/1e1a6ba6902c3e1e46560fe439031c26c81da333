@@ -1,0 +1,1 @@
+scope_out 2; { scope_Inner = 2; scope_outer = scope_Inner + 3 }; scope_outer

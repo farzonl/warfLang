@@ -1,0 +1,1 @@
+func foo(a:int, b: int): int { if (a > b) {urn a } else { return b } foo(10, 20)

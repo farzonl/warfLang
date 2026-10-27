@@ -1,0 +1,5 @@
+func @branch(%x) {
+entry:
+  %c = lt %_bb
+else_bb:
+  %e = sub ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ}

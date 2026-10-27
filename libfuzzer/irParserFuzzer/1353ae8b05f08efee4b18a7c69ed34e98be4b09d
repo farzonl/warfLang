@@ -1,0 +1,29 @@
+func __main() store %4
+  br end0
+funelse0:
+ % 5 = const 5
+  %value = store %5
+  br e_body1 while_end1
+while_bodyfunc @main() {
+entry:
+  %0 = con%t: = add %x, 1
+  jmp merge_bb
+else_bb
+  c __mainfßunc __most 1
+ÒÖ
+entry:öÚfunc __main()r
+ey:t
+n  %0 %e = sub %x, 1
+  jmp merge_bb
+merge_ain()r
+ey:t
+n  %0 %e = sub %x, 1
+  jmp merge_bb
+merge_bb:
+  ret %x
+}
+t 2
+  %valye 1
+  jmp merge_bb
+else_bb
+= 

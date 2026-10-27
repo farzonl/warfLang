@@ -1,0 +1,19 @@
+func __main()
+e”‹†func main()
+entry:
+  %1 = const 0
+  %value = store %00
+then0rÿÿÿÿÿÿÿÿÿÿe %00
+then0:
+  %v4 = const 4
+  %value = store %3
+  br end0
+else0:
+  %5 =pppppp %in t %6
+ %va  b+_c  %value = store_add %12
+  %13 = const º
+ ppppppppprpppppp %index = store_add %26
+  br for_cond2 5
+  %
+\or_end2:
+  ret '%value

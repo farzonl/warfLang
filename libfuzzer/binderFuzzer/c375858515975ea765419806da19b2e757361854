@@ -1,0 +1,4 @@
+function foo(a, b, c) {
+  a }
+
+foo(3, 3, 4)

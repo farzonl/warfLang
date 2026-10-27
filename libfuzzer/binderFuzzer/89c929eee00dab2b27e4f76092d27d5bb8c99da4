@@ -1,0 +1,12 @@
+// Top-level comment before˜function declaration
+function computeWithComments(base: i,nt limit: int): int {
+  // Initialize accumulator
+  var acc = base
+  // Loorn final value
+  return acc
+}
+
+// Multi††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††††-line exprvarar bLonus = 5
+bonus += 3 // now 8
+
+computeWithComments(start, 4)`+ bonus

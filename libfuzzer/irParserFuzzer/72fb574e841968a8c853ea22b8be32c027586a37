@@ -1,0 +1,4 @@
+func _n()
+eŒntry:
+  %0 = const 2
+  ret %0

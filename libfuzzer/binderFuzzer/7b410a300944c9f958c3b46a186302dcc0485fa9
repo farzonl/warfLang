@@ -1,0 +1,1 @@
+; vaa = 1; b = 4; value = 0; c = a = 5; b = 3; value = 0; value; if (true) { a |= + 1} else { a /= a}; b += b = 3; value0 = 0; value; if (true) { a |= + 1} else { a /= a};  2

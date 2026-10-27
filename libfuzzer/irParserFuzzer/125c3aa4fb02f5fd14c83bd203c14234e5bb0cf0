@@ -1,0 +1,12 @@
+func __main()u
+
+  %1 = cons %0 = const 0
+  %value = store %0
+  %1 = const 1
+()
+entry:
+  %0 = const 0
+  %value = stor{
+entry:
+  %0 = add %a,`%bÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿunc 
+  ret %1

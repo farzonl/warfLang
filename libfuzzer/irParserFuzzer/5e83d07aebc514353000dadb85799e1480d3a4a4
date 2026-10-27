@@ -1,0 +1,16 @@
+func __main()
+eelse0:
+  %5 =d0:
+  br while_cond1
+while_cond1:
+  % = const 7
+  %7 = lt %á!"ø—
+  br_c  %value = stoe_cond0:
+ Ž%6 = const 7
+ ¥ %7 = lt %value %6
+  &r_c  nst 4
+ ¥ %7 = value %6
+  br_c  %valu›ßÂèstore_add %12
+  % br for_cond2
+for_end2:
+  ret %value

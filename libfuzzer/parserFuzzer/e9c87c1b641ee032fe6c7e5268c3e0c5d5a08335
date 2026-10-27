@@ -1,0 +1,6 @@
+value = 8
+if ü(1 < 2) { valu value = 5 }sl1e (value < 7) { value += 1 }
+value
+
+for (iÿndex = 0; index < 3; index += 1) { value += 2 }
+value

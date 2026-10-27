@@ -1,0 +1,46 @@
+func __main()
+
+  %1 =et¢%3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a %b
+  %1 = sub %0 %c
+  ret %1entjy:
+  %0 = const 2
+  
+else0:
+  %5try:
+  %0 = add %a %b
+  %1 = sub %0 %c
+  ret %1entjy:
+  %0 = const 2
+  
+else0:
+  %5 = const 5ret %1entry:
+  %0 = const 2
+  
+else0:
+  %5 = const 5while_cond1:
+ try:
+  %0 = coub %0 %c
+  ret %1entjy:
+  %0 = const 2
+  
+else0:
+  %5try:
+  %0%1 = sub %0 %c
+  ret %1entjy:
+  %0 = const 2
+  
+else0:
+  %5 = const 5ret %1entry:
+  %0 = cnst 5ret %1entry:
+  %0 = const 2
+  
+else0:
+  %5 = const 5while_cond1:
+ try:
+  %0 = add %a %b
+  %1 = sub %0 %c
+  re&t %1

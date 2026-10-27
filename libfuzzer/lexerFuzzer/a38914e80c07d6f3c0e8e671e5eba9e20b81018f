@@ -1,0 +1,1 @@
+n foo(arg) { arg } foo(10)

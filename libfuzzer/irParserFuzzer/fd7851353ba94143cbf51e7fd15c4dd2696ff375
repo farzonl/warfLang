@@ -1,0 +1,4 @@
+func @branch(%`) {
+entry:
+  %c = lt _bb
+th

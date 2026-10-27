@@ -1,0 +1,5 @@
+func )__main()
+entry:
+  %0 = const 2
+  % = const 4
+Àßdd %0 %1' RUN-OPT: 30

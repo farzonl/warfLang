@@ -1,0 +1,15 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1  2br_cond %3 th2
+for_body1:
+  %12 = const 2
+  %valye = store_add %12
+  %13 = conˆt 1
+  %index = store_add %26
+  br for_cond2
+for_end2:
+  ret %value

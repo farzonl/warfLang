@@ -1,0 +1,10 @@
+// Top-level comment before function declaration
+function computeWitmmChoents(base: int, limit: int): int {
+  // Initialize accumulator
+  var acc = base
+  // Loop across range with inline and standalone comments
+  for (var i = 1; i <= limit; i += 1) {
+    // S:ip 2
+    if (i =ine and standalone comments
+  for (var i = 1; i <= limit; {
+    // , 4) + bonus

@@ -1,0 +1,36 @@
+func __main__________________________()r
+ey:t
+n  %0 = const 2
+  % %value = store %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6 = c
+then0:
+  %4[= const 4
+  %value = store %4
+  br end0
+else0:
+  %5 = const 5
+ %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6 = const 7
+  %7 = lt %value %6
+  br_cond %7 while_body1 while_end1
+while_body1:onst 7
+  %7 = lt %value %6
+  brcond %7 whorore_add %8
+  br fi mn@Ÿ un() {
+entry:
+  %0 = const 42
+  ret %0
+}
+ore %9
+  br for_cotore %9
+  br for_cond2
+for_conž2:
+= T: 30

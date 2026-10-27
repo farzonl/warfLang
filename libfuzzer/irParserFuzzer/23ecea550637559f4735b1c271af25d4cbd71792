@@ -1,0 +1,7 @@
+func __main()
+ententry:
+  %0 = c0
+t nc @brast 0
+t nc @brancn()
+ db ryncn()
+ db ry

@@ -1,0 +1,41 @@
+func __main()
+entry:
+fun __main()
+ety:
+  %0 = const 2
+  j%1func __main()
+
+  %1 =et¢%3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a %b
+  %1 = sub %0 %c
+  ret %1entjy:
+  %0 = Const 2
+  
+else0:
+( %5try:
+  %0 = add %a %b
+  %1 = sub %0 %c
+  ret %1entjy:
+  %0 = const 2
+  
+else0:
+  %5 = const 5ret %1entry:
+  %0 = const 2
+  
+else0:
+  %5 = const 5while_cond1:
+ try:
+  %0 = const 5ret %1entry:
+  %0 = const 2
+  
+else0 %c
+func foo(%a, %b, %c)
+eyhen0:
+  %4 = const ,
+ func __ma %value =ein()
+entryCyntry:
+:
+    %%0

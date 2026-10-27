@@ -1,0 +1,4 @@
+func @main() {
+entrconsi 42
+  t %0
+}

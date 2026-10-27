@@ -1,0 +1,1 @@
+function isPos(x: int): bool24ntifierExpressibool ¶0return x > 0 } res a

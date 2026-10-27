@@ -1,0 +1,20 @@
+func __main()
+
+  br end0
+el  br end0onst 5
+  %value = s
+  b = alue = store %5
+  b = store %4
+  br end0
+else0:
+  %5 = const 5
+  %value = 
+  %10 = const stoel  br end0
+else0:
+  %5 = const 5
+ av% lue = store %5
+  b = alue = stoRe %5
+  b = store %4
+  br for_cond2
+for_end2:
+  ret %value

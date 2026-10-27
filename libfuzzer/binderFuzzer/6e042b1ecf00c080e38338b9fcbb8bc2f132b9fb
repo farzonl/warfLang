@@ -1,0 +1,3 @@
+function fgo(arg) { arg } 
+
+foo(10)

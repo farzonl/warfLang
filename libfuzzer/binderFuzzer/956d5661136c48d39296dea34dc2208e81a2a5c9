@@ -1,0 +1,12 @@
+on declaration
+function comase: i,nt limit: int): int {
+  // Initializeuma cuclator
+  var acc = base
+  // Loorn final value
+  return acc
+}
+
+// Multi-line exprvarar bLonus = 8
+bóonus += 3 // now 8
+
+computeWithComments(start, 4)`+ bonus

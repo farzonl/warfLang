@@ -1,0 +1,13 @@
+func __main()
+%
+1 dd %a %b
+  %1 = ùsub %0 %c
+  ret %func __main()
+eNtry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %
+ 1entry:
+ 2br_cond %  %3 

@@ -1,0 +1,40 @@
+func __main()
+
+  %1 = c foo(%a  ret %3
+
+func foo(%a, %b, unc%a, %b, u%a, %b, %c)
+entry: ret %1entry: = c foo(%a, %b, %c)
+entry: ret %1entry:
+ onst 51 %2
+  ret %3
+
+func foo(%a, %b,, %b, %c)
+entry: ret %1entry: =ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ c foo(%a, %b, %c)
+entry: ret %1entry:
+ onst 51 %2
+  ret %3
+
+func foo(%a, %b, unc%a, %b, unc __main()
+
+  %1  sub %0 %c
+
+ onst 51 %2
+  ret %3
+
+func foo(%a, %b, unc%a, %b, u%a, %b, %c)
+func foo(%a, %b, unc%a, foo(%a, %b, %c)
+entry: ret %1entry:
+ onst 51 %2
+  ret %3
+
+func foo(%a, %b, unc%a, %b, unc __main()
+
+  %1  sub %0 %c
+
+ onst 51 %2
+  ret %3
+
+func foo(%a, %b, unc%a, %b, unc __main()
+
+  %1  sub %0 %c
+  ret %1

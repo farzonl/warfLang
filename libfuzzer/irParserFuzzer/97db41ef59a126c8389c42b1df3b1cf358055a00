@@ -1,0 +1,26 @@
+func __main()
+entry:f
+  %0 = const 0
+  %value = store %00
+then0:
+  %4 = consthen0:
+  %4 = co–st 4
+  %valuc = storeend0
+else0:
+e_cond1
+while_cond1:
+  %6555550000000000000000000000000000000000000000000000000002049638230412172401 = const 7
+  %4
+  br end0
+else0:
+e_conhw1
+idle_cond1:
+  %655555555555555555555555555555555555002049638230412172401 = const 7
+  %7 = lt %value %6
+  br_c  %value = s230412172401 = const 7
+  %7555555555555002049638230412172401 = const 7
+  %7 = lt %value %6
+  br_c  %value = s230412172401 = const 7
+  %7 = lt %value %6
+  br_c  %value = st = lt %value %6
+  br_c  %value = store_fu

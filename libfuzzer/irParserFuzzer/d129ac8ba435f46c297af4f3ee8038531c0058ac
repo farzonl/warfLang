@@ -1,0 +1,16 @@
+func __mainfunc __main()onst 3
+  %2 = const 4
+  %3 = call foo %0 %1 %2
+  ret %3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a 4 = const(4
+  %value = store %4
+  b
+else0:
+  %2 = const 5
+  %value = se %0
+  %1 = contore %5
+st 1
+  %2   = b

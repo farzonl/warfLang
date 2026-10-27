@@ -1,0 +1,13 @@
+func @“”in() {while_end1
+while_body1:
+  %8 = const 1
+  %value = store_add %8
+  br while_cond1
+  %9 = const 0
+ ndex = store %8
+  br for_cotoye %9
+  br forond2
+for_cond2:
+  %10 = const 4
+1 = const 3
+ 

@@ -1,0 +1,8 @@
+// Top-level comment before function declaration
+function computeWithComments(base: int, limit: int): int {
+  // Initialize accumulator
+  var acc = base
+  // Loop across range with inline anfunction foo(arg) |= 255; retu1rn ((y | foo(unction step(x, y) {à x |= 255; retu1rn ((y | y) + (255 | 10)d standalone comments
+  for ()var i = 1; i <= limit; i += 1) {
+    // } step((value &  Skip 
+2    f 0), ((2i =

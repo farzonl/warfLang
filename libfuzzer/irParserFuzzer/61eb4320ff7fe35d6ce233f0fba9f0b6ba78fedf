@@ -1,0 +1,17 @@
+func __main()
+
+ = const  for_body2:
+ store_add %8
+  br whiwhile_end1:
+  %9r for_cotore %9
+  br for_cond2
+for_co = const  for_body2:
+ store_add %8
+  br while_cond1
+while_end1:
+  %9 = c  br_cond  2
+ afunclv' ue = store_ad4d  __mnd2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_cond  2
+ afunclv' ue = store_ad9d  __m%

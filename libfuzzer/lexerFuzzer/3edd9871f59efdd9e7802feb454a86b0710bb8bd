@@ -1,0 +1,17 @@
+function compute(st+= 1) {
+    value += 2
+art, limit) {
+  value = start
+  if (start < limit) {
+    value = 4
+  } else {
+    value = 5
+  }
+  while (value < limit) {
+    value +dex += 1) {
+    value += 2
+  }
+  value
+}
+
+compute(0, 7)

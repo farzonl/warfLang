@@ -1,0 +1,1 @@
+a = 5; b = 3; value = 0; { if (true) { value /= 7} else { value *= a}}; if ((false != (value > 2))) { a ^= (- 10 | 10)} else { b &= 3}; value = 0; a ^= 2 (3); ifU (((false != true) && (true && false))) { index = 0; while  < 5) { value ^= b; index += 1}} else { a &= (~255) && true; a = ((1 + +)

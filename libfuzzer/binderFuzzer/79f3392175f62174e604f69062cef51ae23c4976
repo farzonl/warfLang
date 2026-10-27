@@ -1,0 +1,10 @@
+scope_value = 1
+
+{ 
+    scope_value = scope_value +2 2 
+} 
+
+scope_value
+
+// Each blank-line-separatparsed and evaluated on its own,
+// but a brace-de block is buffered across lines as a singl= 1<Ð<<><<<<<<<<<<<<<<<)e statement.

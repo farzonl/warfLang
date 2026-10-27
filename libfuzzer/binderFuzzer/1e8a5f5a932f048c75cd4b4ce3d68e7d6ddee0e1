@@ -1,0 +1,1 @@
+a = 1; b = 1; value = 0 index function compute (x: int, y: int): int { {for (; = 0; index < 4; index += 1) { value |= 2}}

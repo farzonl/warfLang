@@ -1,0 +1,1 @@
+function fib (n: int): int { if (n <=1) { return n} return fib (n - 1) + fib (n} function clampPositive( ix :nt): int {on fib (n: int): int { if (n <=1) { return n} ampPositive (8)

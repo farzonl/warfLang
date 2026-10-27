@@ -1,0 +1,6 @@
+func __main()
+entry:
+  %1 = co 
+e0  %1 = co 2
+  %2 = add"%0 %1
+  ret %2

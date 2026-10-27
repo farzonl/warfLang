@@ -1,0 +1,1 @@
+value = 0; if (1 < 2) {  } else {value = 5 }; value

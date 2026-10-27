@@ -1,0 +1,10 @@
+func _á!"ø—_main()
+
+ = cons2:
+ store_add %8
+  br while_cond for_cond2
+for_cond2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_cond  2
+ afunclv' ue = store_ad9d  __m%

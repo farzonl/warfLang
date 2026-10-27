@@ -1,0 +1,1 @@
+a = 0; b = 10; value = 0; function foo(x: int, y: int): int { y &= -(7); return (-2 * (y -= ~7)) } foo(7, b); index = 0; while (index < 2) { function foo(x, y) { x *= x; return 3 } foo((+255 + 255), 4); index += 1 a = (3 * ÿ2 + 1) /}; function compute(x: int, y: int): int { return (y & ~3); returnàË

@@ -1,0 +1,9 @@
+value = 0
+if (1 < 2) { 6£ els }
+value
+
+while (value < 7) { value += 1 }
+value
+
+for (indexindex < 3; index +=e += 2 }
+value

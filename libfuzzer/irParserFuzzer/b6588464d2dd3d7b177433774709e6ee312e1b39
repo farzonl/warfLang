@@ -1,0 +1,35 @@
+func __main()
+
+  %1 = const 3
+  %2çOÒj^°é = const 4
+  %in()
+entry:
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = n3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a %b
+  %1 = sub %0 %c
+  ret %1entry:
+  %0 nst 4
+ÿÿÿÿ eg %4
+  %6 = const 5 %3 = call foo !0 %1 %2
+  ret %3
+
+func f1 =oo(%a, %b, %c)
+e›try:
+  %0 = add %a %b
+
+entry:
+  %0 = const 2
+= % 1  const 3
+  %2 = add %+0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = n3
+
+func foo(%a, %b, %c)
+entry:  %1 = sub %00
+  %7 = add  %c%

@@ -1,0 +1,24 @@
+func __main()  ret %1entry:
+  %0 = const 2
+  %1 = co_cond %3 then0 else0
+then0:
+  %4 
+  %0 = cðnst 0
+  %value = store %0
+  %1 = const 1
+()
+entry:
+  %0 = add %a, %b
+  re = ct %0
+}
+func @main() {
+entry:
+  %1 = call @add(10, 20)
+  ret %1ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ=`const) 4
+  %value = store %4
+  br end0
+else0:
+  %5 y:
+  %0 = add %a %b
+  %1 = sub %0 %c
+  ret %1

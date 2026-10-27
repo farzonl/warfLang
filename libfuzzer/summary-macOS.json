@@ -1,0 +1,21 @@
+{
+  "mode": "libfuzzer",
+  "os": "macOS",
+  "fuzzers": [
+    "binderFuzzer",
+    "irParserFuzzer",
+    "lexerFuzzer",
+    "parserFuzzer"
+  ],
+  "timeout_seconds": 180,
+  "per_fuzzer_timeout_seconds": 45,
+  "corpus_size": 4091,
+  "corpus_by_fuzzer": {
+    "binderFuzzer": 908,
+    "irParserFuzzer": 1001,
+    "lexerFuzzer": 1526,
+    "parserFuzzer": 656
+  },
+  "findings_count": 0,
+  "findings": []
+}

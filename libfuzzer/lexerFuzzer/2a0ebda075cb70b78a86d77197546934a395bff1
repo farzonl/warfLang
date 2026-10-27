@@ -1,0 +1,1 @@
+function computeLoopControl (limit: int): int { ; i += 1) { if (i == 2) { continue} if (i == 2) { break} total += i} var count = 0 do { count += 1 if (count == 2)al}, computeLoopControl (10)

@@ -1,0 +1,18 @@
+func @add(%a, %b) ()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+()
+entry:
+  %0 = const 0
+  %value = stor{
+entry:
+  %0 = add %a, %b
+  re = ct %0
+}
+func @main() {
+entry:
+  %1 = cÿÿÿÿÿÿÿÿÿÿÿÿÿÿ0)
+  ret %1ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+}

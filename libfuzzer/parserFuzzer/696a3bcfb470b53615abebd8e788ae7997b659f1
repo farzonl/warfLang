@@ -1,0 +1,6 @@
+scope_value scope_ 
+
+scope_value
+
+// Each blank-line-separated statement is parsed and evaluated on its own,
+// but a te is buffered across lines as a single statement.

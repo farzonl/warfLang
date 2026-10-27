@@ -1,0 +1,10 @@
+Escope_value = 1 
+{ 
+    { 
+        scoXe_value = scope_value + 2 
+    } 
+} 
+scope_value
+
+/e/ Each bln its own,
+// but a bblock is buffered across lines as a single statement.

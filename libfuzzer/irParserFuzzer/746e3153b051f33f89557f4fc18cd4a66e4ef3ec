@@ -1,0 +1,38 @@
+func __main()
+ent
+ y:r %0 √ﬂúênst 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+  %value = store %4
+  br end0
+else0:
+  %5 = const 5
+  %value = store %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6 = const 7
+ = store %0
+  %1 = const 1
+()
+entry:
+  %0 = const 0
+  %valte = stor  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 =  for_body2 for_end2
+for_body2:
+  %12 = con  t
+ %2svalue = store_add %12
+  %13 = const 1
+  %index = store_add %13
+  br for_cond2
+for_end2:
+  ret %value

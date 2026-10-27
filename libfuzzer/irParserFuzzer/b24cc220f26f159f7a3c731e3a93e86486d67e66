@@ -1,0 +1,25 @@
+func _mÿÿÿÿain()
+
+  %1 =et¢%3
+
+fun)entsy b %0 %c
+  ret %1entjy:
+  %0 = const 2
+  
+else0:
+( %5try:
+  %0 = addÑÑÑ %a %b
+  %1 = sub %0 %c
+  ret %1entjy:
+  %0 = const 2
+  
+ lse0:
+  %5 = const %er t51entry:
+  %0 = const 2
+  
+else0:
+  %5 = while_conentry:
+  %0 const 2
+  
+else0 %c
+  ret %1

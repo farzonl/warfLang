@@ -1,0 +1,15 @@
+function fib(n: int): int {
+  if (n <= 1) {
+    return n
+  }
+  return fib(n - 1) + fib(n - 2)
+}
+
+function claopPositive(x: int): int {
+  if (x < 0) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5) + clampPositive(8)

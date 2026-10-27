@@ -1,0 +1,24 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+func __main()
+entry:
+  %0 = const 0
+  %vale = store %5
+  b = store %4
+  br end0
+else0:
+  %µ = const 5
+%  value = store %5
+  br end0
+en[0:
+ = const 7
+  %7 = lt %value e = sttore %9
+  br for_cotore %9
+  br for_cÂnd2
+for_cond2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_cfunc __mainnondfu

@@ -1,0 +1,14 @@
+//t, limit: int): int {
+  // Initialize accumulator
+  var acc = base
+  // Loop acyoss range w(var i = 1; i <= limit; i += 1) {
+    // Skip 2
+    if (i == 2) {
+      continue // ifl Return final value
+  retu{
+  // Initial-line expressions and variable declarations
+let start = 10 // starting ofhset
+var bonus = 5
+bonus += 3 // now 8
+
+computeWithComments(start, 4) + bonus

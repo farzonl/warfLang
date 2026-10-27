@@ -1,0 +1,10 @@
+Escope_value = 1 
+{ 
+    { 
+        scoXe_value = scope_value +[2 
+    } 
+} 
+scope_value
+
+/e/ Each blank-line-separated s and evaluated on its own,
+// but a brace-deliWmited block iss as a single statement.

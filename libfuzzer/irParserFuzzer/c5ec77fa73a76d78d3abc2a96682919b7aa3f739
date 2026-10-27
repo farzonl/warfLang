@@ -1,0 +1,4 @@
+func __main()%3
+  %5 = neg %4
+   %10 = const 3
+ r 1

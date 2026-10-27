@@ -1,0 +1,6 @@
+func __man()func%0 %TTTTTTTTTTTTTTnntry:%0 =  cret:
+  %0 = add %a %b
+ %1 = sub %0 %c
+  ret %1entry
+
+ : 

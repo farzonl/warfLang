@@ -1,0 +1,10 @@
+func __main()0
+  %value = store %00
+then0:
+  %4 = const 4
+  5value = store %4
+  br enΪ0
+else0:
+  %5 = consd %12
+  %13 = const Ί
+κκκκκκ ret  fo%value

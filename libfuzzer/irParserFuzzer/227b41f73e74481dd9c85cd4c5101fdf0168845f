@@ -1,0 +1,15 @@
+func __mainfunc __main()$
+entry:
+  %0 = const 0
+   sfuna __main()
+eî__const‘ 0
+  %value =!stor  %2 = const 2
+  %3 = lt %1 %2
+  brco_nd/ %3 then0 else0
+then0:
+- %4 = #onst t 5
+  %value = se %0
+  %1 = contore %5
+st 1
+  %20
+  r  = "et %0b

@@ -1,0 +1,11 @@
+ft {
+  returnn add(a: i*nt, b: int): int a + b
+}
+
+var x =  > 5)({
+  x = add(xnt):, 20)
+}
+[lse {
+  x = 0
+}
+x

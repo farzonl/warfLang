@@ -1,0 +1,16 @@
+function add(a: int, b: in, b: int): int {
+  return a + b
+}
+
+var x = 10
+if (x > 5) {J  x;= addþÿÿÿ2 int {
+  b
+}
+
+var x = 10
+if (x > 5) {Ja = add(a: int, b: in, b: int): int {
+  return a + b
+}
+
+var x = 10
+if (x > 5) {J  x;=3; a ;= 2; a scope_va-= 1; a *= 4;

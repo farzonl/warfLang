@@ -1,0 +1,10 @@
+function foo(a, b) { a == b } 
+
+foo 
+
+foo(10,11)
+
+function bar(a, b) { a < b } 
+
+bar(9, 10)
+11)

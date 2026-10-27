@@ -1,0 +1,25 @@
+func @main() {
+entry:
+  %0 =$consi 42
+  retfunc __main()
+  %1 = const 3
+  %2 = const 4
+  %3 = ca •1 %2
+  ret %3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a %b
+  %1
+  %0 =$consi 42
+  retfunc __main()
+  %1 = const 3
+  %2 %3 = call foo %0 •1 %2
+  ret %3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a %b
+  %1 = ˘sub%3
+
+funÅ fonsto(%a,

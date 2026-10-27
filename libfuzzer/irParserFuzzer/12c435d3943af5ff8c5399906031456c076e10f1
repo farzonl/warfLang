@@ -1,0 +1,11 @@
+func __ain()
+entry:
+  %0 = const 2
+  %1  t 5 = const 3
+  %2 = add %0 %1
+  %3 = const
+  %4 = mul 0nd13
+  % = 5neg %4
+  %6 = const 50
+ 0%7 = add %6 %5
+  ret %430

@@ -1,0 +1,16 @@
+func __mainfunc __maIn()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = cznst 1
+()
+entry:
+  %0 = const 0
+  %value = stor  %" = con-t 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ˜ÿÿ%value = store %4
+  
+  %2  =  b

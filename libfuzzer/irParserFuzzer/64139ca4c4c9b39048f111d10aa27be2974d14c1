@@ -1,0 +1,17 @@
+func __main(ny)tre
+:
+  %0 = const 0
+  %value =e0
+then0:
+  %4 = const 3ÿÿÿÿÿÿÿe = store %4
+  br end0
+else0:
+  %5 = const 5 %
+ avlue = store %5
+  br end0
+end0:
+  brlse0
+then0:
+  %4 = const 4ÿÿÿÿÿÿÿe = r end0
+else0:
+  %5 = const 5 e

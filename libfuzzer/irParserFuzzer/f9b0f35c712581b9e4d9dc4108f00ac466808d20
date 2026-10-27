@@ -1,0 +1,4 @@
+func _main()
+entry:
+ &value = store_add %6  b0 w 2
+t %value

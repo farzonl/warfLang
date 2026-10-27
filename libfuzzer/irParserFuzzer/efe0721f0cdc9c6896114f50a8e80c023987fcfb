@@ -1,0 +1,13 @@
+func __nfunc __main()
+entry:
+ lse0
+then0:
+ = contore %5
+st 1
+  %2  = %5
+st 1
+ then0:
+ = contore %5
+st 1
+  2  = %5
+2  

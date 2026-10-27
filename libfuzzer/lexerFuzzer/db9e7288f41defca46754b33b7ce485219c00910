@@ -1,0 +1,1 @@
+a = 5; b = 1; value = 0; { if ((false && true)) { value += value } else { a += 3 } }; var z = 10; if (((true != false) != (3 > a))) { function foo(x, y) { x /= y; return  }y foo((+4 ^ a), 42) } else { var y ='0 }; functios(x, y) { i'ndex = 0; while (index < 5) { x *= y; index += 1 }; return ~(~(42)) } abs((+(5) * (0 ^ 1)), ((3 / 255) * ~42)); (+(10) - 0)

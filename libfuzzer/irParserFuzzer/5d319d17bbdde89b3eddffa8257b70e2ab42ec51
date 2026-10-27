@@ -1,0 +1,31 @@
+func __main()r
+ey:t
+n  %0 = const 2
+  % %value = store %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6 = const 7
+  %7 = lt %value %6
+  br_cond %7 while_body1 while_end1
+while_body1:
+  %8 = const 1
+  %value = store_add %8
+  br while_cond1
+while_end1:
+  %9 = const 0
+ ndex = store %9
+  br for_cotore %9
+  br for_cond2
+forore_add %8
+  br while_cond1
+while_end1:
+  %9 = const 0
+ ndex = store %9
+  br for_cotore %9
+  br for_cond2
+for_cond2:
+  %10 = const 3
+1 = const 3
+  %2 = T: 30

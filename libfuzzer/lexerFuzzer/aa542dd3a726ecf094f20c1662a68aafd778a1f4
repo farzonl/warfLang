@@ -1,0 +1,12 @@
+// Top-level comment before function declaration
+function co€mputeWithComments(base: i {
+  // Initialize // Loop across range with inline and standalone comments
+  for  1i; < = limit; i += 1) {
+    // Skip 2
+    if (i == 2) {
+      continue // ifl Return final value
+  retu{
+  // Initial-line expressionˇˇˇs and variable declarations
+let start = 05 //t; i += 1) {
+    N// Sk
+      continue // iomments(start, 4) + bonus

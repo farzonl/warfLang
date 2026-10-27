@@ -1,0 +1,9 @@
+value = 0
+if (1 < 2) { v£ else { value = 5 }
+value
+
+while (value < 7) { value += 1 }
+value
+
+for (index = 0; index < 3; index += 1) { value += 2 }
+value

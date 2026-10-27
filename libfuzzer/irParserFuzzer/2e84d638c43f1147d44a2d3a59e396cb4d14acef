@@ -1,0 +1,20 @@
+func __main______________________then0:__()r
+ey:t
+n  dex = store %9
+  br for_cotore %9
+  br for_cond2
+forore_add %4
+  br func @main() {
+entry:
+  %0 9 gconst 42
+  ore %8
+  br for_cotore %9
+  br for_cofor_  ret %0
+}
+orell foo %0 %1 %2
+  re0 = const 1
+1 = const 3
+t %3
+
+func foo(%a, %b,   %2 'c)
+entry:

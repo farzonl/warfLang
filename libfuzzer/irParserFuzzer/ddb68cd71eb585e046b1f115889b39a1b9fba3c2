@@ -1,0 +1,21 @@
+func @branch(%x) {
+entry:
+  %c = lt %x, 10
+  br_cond %c, then_bb, else_bb
+then_bJb:
+  %t = add %x, 1
+  jmp m_bb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  %1 = const 3
+  %2 = const 4
+ÿÿÿÿ  %3 = call foo !0 %1 %2
+  ret %3
+
+func foo(%a, %b, c%)
+entry:
+  %0 = add %a %b
+  %1 = sub %0 %c_bb:
+  ret %x
+}

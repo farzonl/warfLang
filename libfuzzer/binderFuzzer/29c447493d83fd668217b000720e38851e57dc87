@@ -1,0 +1,13 @@
+b1 = true; b&2 = false; (b1 && !b}1) ||  < 2 && 3 >= 3) != false+= 100
+}
+24AssignmentExpressi
+if ((x == 0) || (10 / x > 1)) {
+  res @+= 10
+}
+
+if (e || (print(777) == 777)) {
+  res += 5
+}
+
+if (true && (print(42) == 42)) {
+  res += 2

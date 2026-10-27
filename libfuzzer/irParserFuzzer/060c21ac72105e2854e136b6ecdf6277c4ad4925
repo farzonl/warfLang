@@ -1,0 +1,6 @@
+func @branch(%x) {
+entry:
+  %c = lt = store %0
+  %1 = const try:1
+  %0 = const 0stor  %2 
+  %c = lt %x,= co 1n0

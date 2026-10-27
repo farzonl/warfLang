@@ -1,0 +1,8 @@
+func __main()Ì
+  %2 = const st 33
+  %5 = neg %4
+  %6 = const 50
+  %7 = add %6 %5
+  ret %7
+
+// RUN-OPT: 30
