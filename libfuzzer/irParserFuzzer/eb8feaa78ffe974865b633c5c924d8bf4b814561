@@ -1,0 +1,11 @@
+func __main()
+entl e2¸ %3
+=%0 = const 2
+  %1%1
+  %3 = const 4
+  %4 = mul %3 %3
+  %5 = neg %4
+  %6 = = neg %4
+  %6 =ÿÿÿÿ0
+  ×7 = Àdd %/
+/ RUN-OPT: %4

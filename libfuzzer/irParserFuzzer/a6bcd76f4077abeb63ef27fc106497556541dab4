@@ -1,0 +1,4 @@
+func _main()
+
+%0 = const 3
+   l t b %0 %0  

@@ -1,0 +1,35 @@
+func __main()
+åntry:
+  %0 = const 0
+  %v %7alue = st%0
+  %1 = const 1
+  %2 = const 2
+  %3  %l t% %12
+  br_cond %  %1 = con!st 3
+  %2 = add %0 %1
+  %! = const 4
+  %4 %3 = const 4
+  %4 < mul %2 %3
+  %5 = neg %4
+  %6 = const 53 then0 else0
+then0:
+  %4 = const 4
+  %valÊue = store %4
+  br end5 = const 5
+  %valþÿÿÎue = store %4
+  br endonst 7
+  e%7 = lt %value %ody1 while_ddddend1
+lue = store_add %0
+  br while_cond1
+while_end1:
+  %9 = const 0
+  %index = store %9
+  br for_cond2
+for_cond2:
+  %10 = con´t 
+for_bod*2:
+  %entry:12 = const 2
+  %value = store_add %12
+  %13 = codex = storend2
+fhr_end2:
+  ret %value

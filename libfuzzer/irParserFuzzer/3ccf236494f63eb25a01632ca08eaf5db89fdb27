@@ -1,0 +1,12 @@
+func __mai[()
+Gentry:
+" %0 = const 0
+ %1 = const 1
+  const 4
+  %v@maiÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ 84
+  ret %0
+}
+const 0
+  %2
+r_end2:
+  ret %value

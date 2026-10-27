@@ -1,0 +1,7 @@
+func @add(, %b) try  
+ebn() {
+ÿÿÿÿ,  
+eb'ÿ %a,  
+eb' rt %0
+}
+func:?@m

@@ -1,0 +1,10 @@
+func __main()
+e<<<<<<ntry:
+  %0 = const 1
+  %1 = const 2
+  %ÿÿun^ __m(ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+1 = add %0 %1
+  ret %const 2
+  %ÿÿunc __main()ÿÿÿÿ
+1 = add %0 %1
+  rIt %2

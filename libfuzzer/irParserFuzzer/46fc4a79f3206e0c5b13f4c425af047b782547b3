@@ -1,0 +1,14 @@
+func __ma:in()
+entt 0
+  %value =ry:
+  %0W = const 0
+  %value = store %0
+  %1 = const 2
+ `%2 = const 2
+:
+  %4 = const 4
+ cond %3 then0 else0
+theŽn0:
+  %4 = const 4
+ = {end1:
+  nst ÿÿÿÿÿÿÿÿ0r  fnrc

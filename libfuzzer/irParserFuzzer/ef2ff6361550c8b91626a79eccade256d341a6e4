@@ -1,0 +1,7 @@
+func __main()
+entry:f
+  %0 = const 0
+  %vauue = sto const 4
+1:
+  %6555555555555555ÿÿÿ/55550000008390! = lt %value %6
+  br%@_c  = storalue

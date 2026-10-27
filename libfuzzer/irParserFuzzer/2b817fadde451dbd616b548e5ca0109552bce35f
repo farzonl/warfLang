@@ -1,0 +1,28 @@
+func __main()
+entry:
+  %0 = const 0
+  %value =%eeeeee3 the = const 3
+  %2  c __main()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %! = const 4
+  %4 %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 =%2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+  %e %4
+  br end0
+else0:
+  %5 = t 2
+ ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÃt 2
+  neg %4
+S  e_ëo5 = neg %4
+  %6 =ÿÿÿÿÿÿÿÿÿÿco5 = neg %4
+  %6 =ÿ
+ 0

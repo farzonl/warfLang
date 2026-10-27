@@ -1,0 +1,8 @@
+func in()
+entryre %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+ br•d %3 tlen0 elen4 = mul %2 %3
+  %5 = neg %3
+ 

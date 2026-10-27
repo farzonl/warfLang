@@ -1,0 +1,7 @@
+func __main()
+entry:
+ ÿÿÿ9 %0 = const 0
+  %vald2:
+  %10 = const 3
+  %11 = lt %ind:
+  %12f2  %vàlue = store_ad›˜st 1%value

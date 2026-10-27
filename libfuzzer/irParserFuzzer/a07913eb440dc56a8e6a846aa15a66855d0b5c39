@@ -1,0 +1,14 @@
+func __ÿÿÿÿÿÿÿmain()
+entry:
+  %0 y:ÿÿÿÿÿÿÿÿÿÿÿÿ %8 = const @ const 0
+  |||||||||||||||||||||%value = store %0
+  %1 @@@@@@ÿÿÿÿÿÿÿÿÿÿÿÿ %8ÿÿÿ %8 = const = const 0
+  %value = store %0
+  %1 
+
+
+
+e’‹Œ:r
+entryaddbr for_conä2
+for_end2:
+  ret %value

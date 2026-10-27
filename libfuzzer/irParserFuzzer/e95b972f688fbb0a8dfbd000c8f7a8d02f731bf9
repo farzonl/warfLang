@@ -1,0 +1,18 @@
+func [_main()
+ %ÐßÂßconst 84
+ :
+  = neg %45
+  ret %
+//% dd %6 %5
+  ret %
+//% R
+ :
+   ne-OP 3
+  ret %
+//% R
+ :
+  = ne_ %4
+  %6 = cˆnst 50 = ad2
+ :
+  = ne-OP 3
+ 0ÐßÂ}

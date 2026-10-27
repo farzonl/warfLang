@@ -1,0 +1,22 @@
+func @add(%a, %b) {
+enÿÿÿÿÿÿÿÿÿÿÿÿÿÿin() {
+entry:๛ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ 3ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ et%)
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  4
+  %1 = c %1 main()
+entry:
+  %0 = const$0
+  %value = store %0
+  %q = const 1
+  %2 = const= ad__mรรรรรรรรรรrstoรรรรรรรรรรรรรรรรรรรรรรa1, (
+  %0 = const 2
+  %1 = ct 3
+  %2  %%113 = const 4
+  %4 = m0 = cofunc nst@$in( ){
+fen 4
+  %1# = c %1 ? const
+  
+  %q = c

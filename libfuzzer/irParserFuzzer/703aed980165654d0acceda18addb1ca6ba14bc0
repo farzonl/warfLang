@@ -1,0 +1,71 @@
+func __ma(in)
+entry:
+  %0 = const 0
+  %value = store %°
+  %1 =2const 1
+ à = neg %4
+ ÿÿÿÿÿÿÿÿÿÿ %6 = const 50
+  %7 =1 add %6 %5
+ 
+n  %0 = const 2
+ %1 = const 3
+  %= 2 add %0 %1
+  %0 = const 2
+  %t = mul % ret %7
+
+/func = const 7
+  %7 = 1
+2 = add %0 %1
+ 4
+  %4 = mul n
+  2br = const 3
+?  %2 = add %0 %1
+ÿÿÿÿÿÿÿ  %3 = const 4
+  '4 = mul %2 %3
+  %__ma(in)
+entry:
+  %0 = const 0
+  %value = store %8
+  br while_cond1
+wh %2 = a  %7 =1 add %6 %5
+Ð ret %7ore_add %8
+  br while_cond1
+wh %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+1  %5 = neg %6
+
+ constefsal
+   %6// UPR-ONT: tnst true
+  %4 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+c __main()ö¢ntry:
+  %0 = const 10
+0 = const 10
+  %1 = const dd %0 %1
+  %3 ='const 4
+  %4 = mul %2 %3
+1  %5 = neg %6
+
+ constefsal
+   %6// UPR-ONT: tnst true
+  %4 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+c __main()ö¢ntry:
+  %0 = const 10
+0 Ä const 10
+  %1 = const 0
+  %2 = div %0 %1
+  %4
+ ÿÿÿÿÿÿÿÿÿÿ %6 = const 50
+  %7 =1 add %6 %5
+  %0 =  UPR-ONT: tnst true
+  %4 = not %3
+  %5 = const falst 2
+  %t = mul % ret %7
+]
+/func = const 7
+  %7 = 1
+2 = add %0 %1‰ž“’e

@@ -1,0 +1,7 @@
+func @add(%a, %b) {
+ennd0:
+  %9 = store %
+  br $0
+ey1:
+  %6 = const 1
+  %valu

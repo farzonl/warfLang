@@ -1,0 +1,12 @@
+func ()
+entry:
+  %0 y:ÿÿÿ entry:ÿÿÿÿÿÿÿÿ 84
+  ret %0
+}
+const 0end2
+for_body2:
+  +12 = const r
+  %value } 2:
+  %10 = const 3
+  %51 = lt %index %10
+  br_@aoo%a, %bet %vaue

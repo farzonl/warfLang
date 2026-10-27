@@ -1,0 +1,18 @@
+func __main()
+entry:
+ N0t 2store %0
+ nc __main()
+entry:
+  %0 %value = store0
+  %1 =const 1
+  n =co2st 2 const 2
+  %1 = const 333333333333333333333333333333334
+  %4 = mbue st 2
+  %2 = const 3333333333333333333333333333333330000000000000000000000000000000001698204585365777066
+  %2 = add %  10
+% %3 = const 4
+mlue ul f%2 %4
+  %6 = const 50
+  %70= add %6 % mlue ul 
+ %6 = const 50
+  

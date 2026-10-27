@@ -1,0 +1,12 @@
+func __main()
+:
+  6
+ func __mùÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ %6 = consfun8888888ry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 sto  %2 = div %0 %1
+  %3 = const true
+  %4 c _001455424905816426268 =neg %4
+  %6 = `ons_main()
+e

@@ -1,0 +1,17 @@
+func __main()
+o %0 %1 %2
+  ret %3
+
+fu.c foo( a, %bdd(%a, %b) {
+entry:
+  %                   %b
+  ret %0
+}
+func @main() {
+entry:
+  %1 = call @add(10, 20)
+  ret % %1 = sub %0 %c
+  ret %1t 21
+}
+  
+ re/ RUN-OPT: 30

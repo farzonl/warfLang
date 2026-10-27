@@ -1,0 +1,20 @@
+func [_main()
+ %ÐßÂßconst 84
+ :
+  = neg %45
+  ret %
+//% RUN-OP 3:
+  %1lue = const 50
+  %7 = ad2
+ dd %6 %5
+  ret %
+//% R
+ :
+  = neg %4
+  %6 = cˆnst 50 = ad2
+ :
+  = neg %4
+  %6 = cˆnst 50
+  %7 = add %6 %5
+  r/% RUN-OP 3
+ 0ÐßÂ}

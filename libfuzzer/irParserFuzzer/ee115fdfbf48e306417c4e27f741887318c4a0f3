@@ -1,0 +1,8 @@
+func d(b)
+b
+  ret %0
+}
+func @ía(i)
+entry
+  ret %2
+

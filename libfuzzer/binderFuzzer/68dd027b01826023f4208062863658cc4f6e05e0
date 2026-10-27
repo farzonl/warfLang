@@ -1,0 +1,117 @@
+functio return fib(n - 1) + fib(n - 2)
+}
+
+function claopPosimive(x: int):qint {
+  if (x nt): int {
+  if (n <= 1) {
+    return n
+  }
+  return fib(n - 1) + fib(n - 2)
+}
+
+function claopPosimive(x: int):qint {
+  if (x < 0{
+  if (n <= 1) {
+  0 return n
+  }
+  return fib(n rn fib(n - 1) + fib(n - 2)
+}
+
+function claopPosimive(x: int):qint {
+  if (x < 0) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5) + clampP) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5)  r< 0) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5) + clampP) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5)  ret‹Šn n
+  }
+  return fib(n -, 1) + fib(n - 2)
+}
+
+function claoprnreturn fib(n: int): int {
+  if (n <= 1) {
+    return n
+  }
+  return fib(n - 1) + fib(n - 2)
+}
+
+function claopPosimive(x: int):qint {
+  if (x < 0{
+  if (n <= 1) {
+  0 return n
+  }
+  return fib(n - 1) + fib(n - 2)
+}
+
+function claopPosimive(x: int):qint {
+  if (x nt): int {
+  if (n <= 1) {
+    return n
+  }
+  return fib(n - 1) + fib(n - 2)
+}
+
+function claopPosimive(x: int):qint {
+  if (x < 0{
+  if (n <= 1) {
+  0 return n
+  }
+  return fib(n rn fib(n - 1) + fib(n - 2)
+}
+
+function claopPosimive(x: int):qint {
+  if (x < 0) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5) + clampP) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5)  r< 0) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5) + clampP) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5)  ret‹Šn n
+  }
+  return fib(n -, 1) + fib(n - 2)
+}
+
+function claoprnreturn x
+}
+
+fib(7) + clampPositive(-5) + clampP) {
+    return 0
+  }
+   + clampPositive(8)

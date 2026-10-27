@@ -1,0 +1,12 @@
+func __main()
+entry:
+  %0 Ãßœ—nst 0
+  %value = store %0
+  %1 = c  br_cond %3 then0 else0then0:
+  %4 = const 2
+  %1 = co2 = ae%7dd %0 %1
+  %3 = const 4
+  %4  %5 = neg %4
+  !6 = cons5
+  :
+  ret %vilue

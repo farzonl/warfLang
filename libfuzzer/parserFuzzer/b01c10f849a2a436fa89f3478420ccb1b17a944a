@@ -1,0 +1,16 @@
+// Top-lÿÿÿÿ ccumulator
+  var ac += 1) {
+    // Skip 2
+    if (i =ÃßÍÖß„õá     continue // inline comment after continue
+    }
+    acc += i // add current index
+  }
+  // Return final vaue
+  return a/cc
+}
+
+// Multimline expressions and variable declarations
+let start = 98 // ------------------------------starting offset
+var bonus = 1 // now 8
+
+computeWithComments(start, 4) + bonus

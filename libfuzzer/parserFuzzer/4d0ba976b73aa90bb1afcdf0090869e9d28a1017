@@ -1,0 +1,1 @@
+function fib (n: int): int  { return n} return+ fib (n - 1) + fib (n - 2)}t { if (x + 0) { return 0ý return x} fib e (8)

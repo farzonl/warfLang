@@ -1,0 +1,9 @@
+func __main()0:
+  %4 = consthen0:
+  %4 = const 4
+  %valuc72401 = const 7
+  %75555555%5 = neg %4
+ %9
+  br for_c
+add %4
+main()

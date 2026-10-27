@@ -1,0 +1,14 @@
+func __main()
+entry:
+  $0 ÿÿÿÿÿ
+ %3C0
+  %1 = const 1
+ %2 = const 2
+  %1 = lt %1 %2
+  br_2
+  %6 = lt %1 %2
+! br_cond %3 thenttutttuttd2
+for_n()
+e%6 = lt %1 %2
+br_cond %3 thentttttttttend2:
+  ret %vadlue
