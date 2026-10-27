@@ -107,11 +107,10 @@ static llvm::Value *EmitUnaryOp(IrOpcode op, llvm::Value *operand,
   }
 }
 
-static llvm::Value *EmitBinaryOp(IrOpcode op, llvm::Value *left,
-                                 llvm::Value *right,
-                                 const std::string &resultName,
-                                 llvm::Type *intType,
-                                 llvm::IRBuilder<> &builder) {
+static llvm::Value *
+EmitBinaryOp(IrOpcode op, llvm::Value *left, llvm::Value *right,
+             const std::string &resultName, llvm::Type *intType,
+             llvm::IRBuilder<> &builder, llvm::Module *module) {
   if (IsComparisonOp(op)) {
     auto compare = builder.CreateICmp(PredicateFor(op), left, right);
     return builder.CreateZExt(compare, intType, resultName);
@@ -124,7 +123,39 @@ static llvm::Value *EmitBinaryOp(IrOpcode op, llvm::Value *left,
   case IrOpcode::Mul:
     return builder.CreateMul(left, right, resultName);
   case IrOpcode::Div:
-    return builder.CreateSDiv(left, right, resultName);
+  case IrOpcode::Mod: {
+    auto &context = builder.getContext();
+    auto isZero = builder.CreateICmpEQ(
+        right, llvm::ConstantInt::get(intType, 0), "is_divzero");
+
+    auto *llvmFunction = builder.GetInsertBlock()->getParent();
+    auto *errBlock =
+        llvm::BasicBlock::Create(context, "divzero.err", llvmFunction);
+    auto *contBlock =
+        llvm::BasicBlock::Create(context, "divzero.cont", llvmFunction);
+
+    builder.CreateCondBr(isZero, errBlock, contBlock);
+
+    builder.SetInsertPoint(errBlock);
+    auto printfType = llvm::FunctionType::get(
+        intType, {llvm::PointerType::getUnqual(context)}, true);
+    auto printfFunc = module->getOrInsertFunction("printf", printfType);
+    auto msgPtr = builder.CreateGlobalString("Logial error: Divide by zero.\n",
+                                             ".divzero.msg");
+    builder.CreateCall(printfFunc, {msgPtr});
+
+    auto voidType = llvm::Type::getVoidTy(context);
+    auto exitType = llvm::FunctionType::get(voidType, {intType}, false);
+    auto exitFunc = module->getOrInsertFunction("exit", exitType);
+    builder.CreateCall(exitFunc, {llvm::ConstantInt::get(intType, 1)});
+    builder.CreateUnreachable();
+
+    builder.SetInsertPoint(contBlock);
+    if (op == IrOpcode::Div) {
+      return builder.CreateSDiv(left, right, resultName);
+    }
+    return builder.CreateSRem(left, right, resultName);
+  }
   case IrOpcode::BitwiseAnd:
   case IrOpcode::And:
     return builder.CreateAnd(left, right, resultName);
@@ -309,12 +340,13 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
                             builder);
       } else if (IsBinaryOp(instruction.op)) {
         value = EmitBinaryOp(instruction.op, operand(0), operand(1), resultName,
-                             intType, builder);
+                             intType, builder, module.get());
       } else if (IsCompoundStoreOp(instruction.op)) {
         auto current =
             LookupValue(instruction.result, values, slots, intType, builder);
         value = EmitBinaryOp(CompoundStoreToBinaryOp(instruction.op), current,
-                             operand(0), resultName, intType, builder);
+                             operand(0), resultName, intType, builder,
+                             module.get());
       } else if (instruction.op == IrOpcode::Print) {
         auto printfType = llvm::FunctionType::get(
             intType, {llvm::PointerType::getUnqual(context)}, true);

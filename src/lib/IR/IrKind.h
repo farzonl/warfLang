@@ -22,6 +22,7 @@ enum class IrOpcode : uint8_t {
   Sub,
   Mul,
   Div,
+  Mod,
   Eq,
   Ne,
   And,
@@ -38,6 +39,7 @@ enum class IrOpcode : uint8_t {
   StoreSub,
   StoreMul,
   StoreDiv,
+  StoreMod,
   StoreBitwiseAnd,
   StoreBitwiseOr,
   StoreXor,
@@ -96,6 +98,7 @@ static const std::unordered_map<IrOpcode, std::string, IrOpcodeHash>
         {IrOpcode::Sub, "sub"},
         {IrOpcode::Mul, "mul"},
         {IrOpcode::Div, "div"},
+        {IrOpcode::Mod, "mod"},
         {IrOpcode::Eq, "eq"},
         {IrOpcode::Ne, "ne"},
         {IrOpcode::And, "and"},
@@ -112,6 +115,7 @@ static const std::unordered_map<IrOpcode, std::string, IrOpcodeHash>
         {IrOpcode::StoreSub, "store_sub"},
         {IrOpcode::StoreMul, "store_mul"},
         {IrOpcode::StoreDiv, "store_div"},
+        {IrOpcode::StoreMod, "store_mod"},
         {IrOpcode::StoreBitwiseAnd, "store_band"},
         {IrOpcode::StoreBitwiseOr, "store_bor"},
         {IrOpcode::StoreXor, "store_xor"},
@@ -135,6 +139,7 @@ static const std::unordered_map<std::string, IrOpcode> StrToIrOpcodeMap = {
     {"sub", IrOpcode::Sub},
     {"mul", IrOpcode::Mul},
     {"div", IrOpcode::Div},
+    {"mod", IrOpcode::Mod},
     {"eq", IrOpcode::Eq},
     {"ne", IrOpcode::Ne},
     {"and", IrOpcode::And},
@@ -151,6 +156,7 @@ static const std::unordered_map<std::string, IrOpcode> StrToIrOpcodeMap = {
     {"store_sub", IrOpcode::StoreSub},
     {"store_mul", IrOpcode::StoreMul},
     {"store_div", IrOpcode::StoreDiv},
+    {"store_mod", IrOpcode::StoreMod},
     {"store_band", IrOpcode::StoreBitwiseAnd},
     {"store_bor", IrOpcode::StoreBitwiseOr},
     {"store_xor", IrOpcode::StoreXor},
@@ -231,6 +237,7 @@ inline bool IsBinaryOp(IrOpcode op) {
   case IrOpcode::Sub:
   case IrOpcode::Mul:
   case IrOpcode::Div:
+  case IrOpcode::Mod:
   case IrOpcode::And:
   case IrOpcode::Or:
   case IrOpcode::BitwiseAnd:
@@ -248,6 +255,7 @@ inline bool IsCompoundStoreOp(IrOpcode op) {
   case IrOpcode::StoreSub:
   case IrOpcode::StoreMul:
   case IrOpcode::StoreDiv:
+  case IrOpcode::StoreMod:
   case IrOpcode::StoreBitwiseAnd:
   case IrOpcode::StoreBitwiseOr:
   case IrOpcode::StoreXor:
@@ -275,6 +283,8 @@ inline IrOpcode CompoundStoreToBinaryOp(IrOpcode op) {
     return IrOpcode::Mul;
   case IrOpcode::StoreDiv:
     return IrOpcode::Div;
+  case IrOpcode::StoreMod:
+    return IrOpcode::Mod;
   case IrOpcode::StoreBitwiseAnd:
     return IrOpcode::BitwiseAnd;
   case IrOpcode::StoreBitwiseOr:

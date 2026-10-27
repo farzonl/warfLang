@@ -17,6 +17,7 @@ enum class BoundAssignmentOperatorKind {
   SubtractAndAssign,
   MultiplyAndAssign,
   DivideAndAssign,
+  ModuloAndAssign,
   BitwiseAndAndAssign,
   BitwiseOrAndAssign,
   BitwiseXorAndAssign,

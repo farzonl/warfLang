@@ -128,6 +128,17 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
     }
     result = left.asInt() / right.asInt();
     return true;
+  case IrOpcode::Mod:
+    if (!left.isInt() || !right.isInt() || right.asInt() == 0) {
+      return false;
+    }
+    if (left.asInt() == std::numeric_limits<int32_t>::min() &&
+        right.asInt() == -1) {
+      result = 0;
+      return true;
+    }
+    result = left.asInt() % right.asInt();
+    return true;
   case IrOpcode::BitwiseAnd:
     if (!left.isInt() || !right.isInt()) {
       return false;

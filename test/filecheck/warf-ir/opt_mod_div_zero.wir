@@ -1,0 +1,19 @@
+// RUN: %warf-ir --opt --emit-ir %s | %FileCheck %s --check-prefix=OPT-IR
+// RUN: not %warf-ir --opt --run %s 2>%t.err >/dev/null
+// RUN: %FileCheck %s --check-prefix=CHECK-ERR < %t.err
+
+func __main()
+entry:
+  %0 = const 17
+  %1 = const 0
+  %2 = mod %0 %1
+  ret %2
+
+// OPT-IR: func __main()
+// OPT-IR-NEXT: entry:
+// OPT-IR-NEXT:   %0 = const 17
+// OPT-IR-NEXT:   %1 = const 0
+// OPT-IR-NEXT:   %2 = mod %0 %1
+// OPT-IR-NEXT:   ret %2
+
+// CHECK-ERR: Logial error: Divide by zero.

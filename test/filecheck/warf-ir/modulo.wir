@@ -1,0 +1,40 @@
+// REQUIRES: llvm-backend
+// RUN: %warf-ir --run %s | %FileCheck %s --check-prefix=EXEC
+// RUN: %warf-ir --opt --emit-ir %s | %FileCheck %s --check-prefix=OPT
+// RUN: %warf-ir --emit-llvm-ir %s | %FileCheck %s --check-prefix=LLVM
+
+func mod_func(%a, %b)
+entry:
+  %res = mod %a %b
+  ret %res
+
+func __main()
+entry:
+  %0 = const 17
+  %1 = const 5
+  %2 = mod %0 %1
+  ret %2
+
+// EXEC: 2
+
+// OPT: func __main()
+// OPT: entry:
+// OPT-NEXT:   %2 = const 2
+// OPT-NEXT:   ret %2
+
+// LLVM: ; ModuleID = 'warf'
+// LLVM: @.divzero.msg = private unnamed_addr constant [{{.*}}] c"Logial error: Divide by zero.\0A\00"
+// LLVM: define i32 @mod_func(i32 %a, i32 %b) {
+// LLVM-NEXT: entry:
+// LLVM-NEXT:   %is_divzero = icmp eq i32 %b, 0
+// LLVM-NEXT:   br i1 %is_divzero, label %divzero.err, label %divzero.cont
+// LLVM: divzero.err:
+// LLVM-NEXT:   %0 = call i32 (ptr, ...) @printf(ptr @.divzero.msg)
+// LLVM-NEXT:   call void @exit(i32 1)
+// LLVM-NEXT:   unreachable
+// LLVM: divzero.cont:
+// LLVM-NEXT:   %res = srem i32 %a, %b
+// LLVM-NEXT:   ret i32 %res
+// LLVM-NEXT: }
+// LLVM: declare i32 @printf(ptr, ...)
+// LLVM: declare void @exit(i32)

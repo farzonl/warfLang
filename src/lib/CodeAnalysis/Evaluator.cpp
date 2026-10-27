@@ -207,6 +207,9 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
     case BoundAssignmentOperatorKind::DivideAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() / rightSide;
       break;
+    case BoundAssignmentOperatorKind::ModuloAndAssign:
+      returnValue = assignmentExpression->Variable()->GetValue() % rightSide;
+      break;
     case BoundAssignmentOperatorKind::BitwiseAndAndAssign:
       returnValue = assignmentExpression->Variable()->GetValue() & rightSide;
       break;
@@ -266,6 +269,8 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
       return left * right;
     case BoundBinaryOperatorKind::Division:
       return left / right;
+    case BoundBinaryOperatorKind::Modulo:
+      return left % right;
     case BoundBinaryOperatorKind::Equals:
       return left == right;
     case BoundBinaryOperatorKind::NotEquals:

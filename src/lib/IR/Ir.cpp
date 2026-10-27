@@ -36,6 +36,8 @@ static IrOpcode BinaryOpcodeFor(BoundBinaryOperatorKind kind) {
     return IrOpcode::Mul;
   case BoundBinaryOperatorKind::Division:
     return IrOpcode::Div;
+  case BoundBinaryOperatorKind::Modulo:
+    return IrOpcode::Mod;
   case BoundBinaryOperatorKind::Equals:
     return IrOpcode::Eq;
   case BoundBinaryOperatorKind::NotEquals:
@@ -88,6 +90,8 @@ static IrOpcode AssignmentOpcodeFor(BoundAssignmentOperatorKind kind) {
     return IrOpcode::StoreMul;
   case BoundAssignmentOperatorKind::DivideAndAssign:
     return IrOpcode::StoreDiv;
+  case BoundAssignmentOperatorKind::ModuloAndAssign:
+    return IrOpcode::StoreMod;
   case BoundAssignmentOperatorKind::BitwiseAndAndAssign:
     return IrOpcode::StoreBitwiseAnd;
   case BoundAssignmentOperatorKind::BitwiseOrAndAssign:
@@ -634,6 +638,8 @@ Value IrInterpreter::EvaluateBinaryOp(IrOpcode op, Value left, Value right) {
     return left * right;
   case IrOpcode::Div:
     return left / right;
+  case IrOpcode::Mod:
+    return left % right;
   case IrOpcode::Eq:
     return left == right;
   case IrOpcode::Ne:

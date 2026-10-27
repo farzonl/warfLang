@@ -7,7 +7,9 @@
 #pragma once
 
 #include <cassert>
+#include <cstdint>
 #include <iostream>
+#include <limits>
 #include <string>
 #include <unordered_map>
 
@@ -117,6 +119,21 @@ public:
     }
     Value value;
     value = this->asInt() / v.asInt();
+    return value;
+  }
+
+  Value operator%(const Value &v) {
+    if (v.asInt() == 0) {
+      throw std::runtime_error("Logial error: Divide by zero.");
+    }
+    if (this->asInt() == std::numeric_limits<int32_t>::min() &&
+        v.asInt() == -1) {
+      Value value;
+      value = 0;
+      return value;
+    }
+    Value value;
+    value = this->asInt() % v.asInt();
     return value;
   }
 

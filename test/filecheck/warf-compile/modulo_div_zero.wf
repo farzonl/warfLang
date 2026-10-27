@@ -1,0 +1,9 @@
+// REQUIRES: llvm-backend
+// RUN: %warfc -o %t.exe %s
+// RUN: sh -c '%t.exe 2>&1; echo exit=$?' | %FileCheck %s
+
+print(17 % 0)
+0
+
+// CHECK: Logial error: Divide by zero.
+// CHECK-NEXT: exit=1

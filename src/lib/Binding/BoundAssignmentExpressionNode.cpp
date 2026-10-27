@@ -19,6 +19,8 @@ const std::shared_ptr<BoundAssignmentOperator>
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::SlashEqualsToken,
                                                   Value::Type::Number),
         std::make_shared<BoundAssignmentOperator>(
+            SyntaxKind::PercentEqualsToken, Value::Type::Number),
+        std::make_shared<BoundAssignmentOperator>(
             SyntaxKind::AmpersandEqualsToken, Value::Type::Number),
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::PipeEqualsToken,
                                                   Value::Type::Number),
@@ -59,6 +61,9 @@ void BoundAssignmentOperator::setOperatorKind() {
     break;
   case SyntaxKind::SlashEqualsToken:
     mAssigmentKind = BoundAssignmentOperatorKind::DivideAndAssign;
+    break;
+  case SyntaxKind::PercentEqualsToken:
+    mAssigmentKind = BoundAssignmentOperatorKind::ModuloAndAssign;
     break;
   case SyntaxKind::AmpersandEqualsToken:
     mAssigmentKind = BoundAssignmentOperatorKind::BitwiseAndAndAssign;

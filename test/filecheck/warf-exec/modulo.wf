@@ -1,0 +1,56 @@
+// RUN: %warf %s | %FileCheck %s
+
+17 % 5
+10 % 3
+20 % 4
+0 % 7
+
+-17 % 5
+17 % -5
+-17 % -5
+0 % -5
+
+1 + 17 % 5
+17 % 5 * 3
+17 * 5 % 4
+20 / 3 % 2
+(1 + 17) % 5
+17 % (2 + 3)
+
+x = 17
+x %= 5
+x
+
+y = -17
+y %= 5
+y
+
+z = 100
+z %= 30
+z %= 4
+z
+
+// CHECK: 2
+// CHECK-NEXT: 1
+// CHECK-NEXT: 0
+// CHECK-NEXT: 0
+// CHECK-NEXT: -2
+// CHECK-NEXT: 2
+// CHECK-NEXT: -2
+// CHECK-NEXT: 0
+// CHECK-NEXT: 3
+// CHECK-NEXT: 6
+// CHECK-NEXT: 1
+// CHECK-NEXT: 0
+// CHECK-NEXT: 3
+// CHECK-NEXT: 2
+// CHECK-NEXT: 17
+// CHECK-NEXT: 2
+// CHECK-NEXT: 2
+// CHECK-NEXT: -17
+// CHECK-NEXT: -2
+// CHECK-NEXT: -2
+// CHECK-NEXT: 100
+// CHECK-NEXT: 10
+// CHECK-NEXT: 2
+// CHECK-NEXT: 2

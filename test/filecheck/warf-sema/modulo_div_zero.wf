@@ -1,0 +1,4 @@
+// RUN: %warf --eval "17 % 0" 2>&1 | %FileCheck %s
+// RUN: %warf --eval "x = 17; x %= 0" 2>&1 | %FileCheck %s
+
+// CHECK: Logial error: Divide by zero.
