@@ -194,14 +194,15 @@ void Lexer::ReadToken(SyntaxKind &type) {
   }
 }
 void Lexer::ParseLetters(SyntaxKind &type) {
-  if (isalpha(CurrentToken())) {
+  if (isalpha(static_cast<unsigned char>(CurrentToken()))) {
     ReadIdentifierOrKeyword(type);
   }
 }
 
 void Lexer::ReadIdentifierOrKeyword(SyntaxKind &type) {
   int32_t start = mPosition;
-  while (isalpha(CurrentToken()) || isdigit(CurrentToken()) ||
+  while (isalpha(static_cast<unsigned char>(CurrentToken())) ||
+         isdigit(static_cast<unsigned char>(CurrentToken())) ||
          CurrentToken() == '_') {
     mPosition++;
   }
@@ -229,12 +230,21 @@ void Lexer::ReadIdentifierOrKeyword(SyntaxKind &type) {
 //   2) we have an off by one error, where a valid int is now not possible.
 void Lexer::ParseNumber(SyntaxKind &type) {
   int32_t posStart = mPosition;
-  while (isdigit(CurrentToken())) {
+  while (isdigit(static_cast<unsigned char>(CurrentToken()))) {
     mPosition++;
   }
   const char *startPointer = mText.c_str() + posStart;
   std::string numberStr(startPointer, mPosition - posStart);
-  int64_t val = static_cast<int64_t>(std::stoll(numberStr, nullptr, 10));
+  int64_t val = 0;
+  try {
+    val = static_cast<int64_t>(std::stoll(numberStr, nullptr, 10));
+  } catch (const std::exception &) {
+    mRecords.ReportOverflow(posStart, mPosition,
+                            std::numeric_limits<int64_t>::max());
+    mValue = 0;
+    type = SyntaxKind::NumberToken;
+    return;
+  }
 
   if (val <= static_cast<int64_t>(std::numeric_limits<int32_t>::min())) {
     // underflow

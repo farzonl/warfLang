@@ -33,9 +33,19 @@ static Value::Type ParseTypeAnnotation(const std::string &text) {
   return Value::Type::Unknown;
 }
 
+namespace {
+struct ParseDepthGuard {
+  int32_t &depth;
+  explicit ParseDepthGuard(int32_t &d) : depth(d) { ++depth; }
+  ~ParseDepthGuard() { --depth; }
+};
+} // namespace
+
 std::shared_ptr<SyntaxToken> Parser::Peek(int32_t offset) {
   int32_t index = mPosition + offset;
-  assert(index < mTokens.size());
+  if (index >= static_cast<int32_t>(mTokens.size())) {
+    return mTokens.back();
+  }
   return mTokens[index];
 }
 
@@ -87,6 +97,20 @@ Parser::Parser(std::string text) : mTokens(), mPosition(0), mRecords("Parser") {
 
 std::unique_ptr<ExpressionNode>
 Parser::ParseBinaryExpression(int parentPrecedence) {
+  if (mDepth >= kMaxParseDepth) {
+    auto current = Current();
+    mRecords.ReportUnexpectedToken(current->Span().Start(),
+                                   current->Span().End(), current->Kind(),
+                                   SyntaxKind::NumberToken);
+    if (current->Kind() != SyntaxKind::EndOfFileToken) {
+      Next();
+    }
+    auto tok = std::make_shared<SyntaxToken>(SyntaxKind::NumberToken,
+                                             current->Span().Start(),
+                                             current->Span().End(), "");
+    return std::make_unique<LiteralExpressionNode>(tok);
+  }
+  ParseDepthGuard depthGuard(mDepth);
   std::unique_ptr<ExpressionNode> left = nullptr;
   int unaryOperatorPrecedence =
       SyntaxOrder::GetUnaryOperatorPrecedence(Current()->Kind());
@@ -160,6 +184,20 @@ std::unique_ptr<ExpressionNode> Parser::ParseCallExpression() {
 }
 
 std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
+  if (mDepth >= kMaxParseDepth) {
+    auto current = Current();
+    mRecords.ReportUnexpectedToken(current->Span().Start(),
+                                   current->Span().End(), current->Kind(),
+                                   SyntaxKind::NumberToken);
+    if (current->Kind() != SyntaxKind::EndOfFileToken) {
+      Next();
+    }
+    auto tok = std::make_shared<SyntaxToken>(SyntaxKind::NumberToken,
+                                             current->Span().Start(),
+                                             current->Span().End(), "");
+    return std::make_unique<LiteralExpressionNode>(tok);
+  }
+  ParseDepthGuard depthGuard(mDepth);
   if (Peek(0)->Kind() != SyntaxKind::IdentifierToken) {
     return ParseBinaryExpression();
   }
@@ -201,6 +239,21 @@ std::unique_ptr<CompilationUnitSyntaxNode> Parser::ParseCompilationUnit() {
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseStatement() {
+  if (mDepth >= kMaxParseDepth) {
+    auto current = Current();
+    mRecords.ReportUnexpectedToken(current->Span().Start(),
+                                   current->Span().End(), current->Kind(),
+                                   SyntaxKind::SemicolonToken);
+    if (current->Kind() != SyntaxKind::EndOfFileToken) {
+      Next();
+    }
+    auto tok = std::make_shared<SyntaxToken>(SyntaxKind::NumberToken,
+                                             current->Span().Start(),
+                                             current->Span().End(), "");
+    return std::make_unique<ExpressionStatementSyntaxNode>(
+        std::make_unique<LiteralExpressionNode>(tok));
+  }
+  ParseDepthGuard depthGuard(mDepth);
   std::unique_ptr<StatementSyntaxNode> statement;
   switch (Current()->Kind().GetValue()) {
   case SyntaxKind::OpenBraceToken:
