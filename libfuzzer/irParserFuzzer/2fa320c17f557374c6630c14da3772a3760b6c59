@@ -1,0 +1,5 @@
+
+func foo(%a, %b, %2)  r 
+
+func f(%a, %b, %a, %b, tc)
+  %%
