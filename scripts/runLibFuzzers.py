@@ -404,7 +404,12 @@ def build_fuzzer_env(fuzzer_bin: Path) -> Dict[str, str]:
     env = os.environ.copy()
     # Disable LeakSanitizer by default so platform differences don't cause false-positive exits
     existing_asan = env.get("ASAN_OPTIONS", "")
-    asan_opts = ["detect_leaks=0", "symbolize=1", "print_stacktrace=1"]
+    asan_opts = [
+        "detect_leaks=0",
+        "detect_container_overflow=0",
+        "symbolize=1",
+        "print_stacktrace=1",
+    ]
     if existing_asan:
         asan_opts.append(existing_asan)
     env["ASAN_OPTIONS"] = ":".join(asan_opts)

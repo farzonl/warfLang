@@ -1,0 +1,21 @@
+// RUN: %warf-ir --opt --emit-ir %s | %FileCheck %s
+
+func @add(%%) }   
+func @main( ){          
+}
+func __main()
+entry:
+  %0 = const 42   
+  ret %0   
+
+// CHECK: func @add(%%)
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   ret
+// CHECK: func @main()
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   unknown
+// CHECK-NEXT:   ret
+// CHECK: func __main()
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   %0 = const 42
+// CHECK-NEXT:   ret %0

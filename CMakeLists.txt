@@ -94,8 +94,12 @@ if (BUILD_FUZZER AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT isEmscripten
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,fuzzer-no-link -fno-omit-frame-pointer -g")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,fuzzer-no-link -fno-omit-frame-pointer -g")
   if(WIN32)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Xclang -gcodeview")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xclang -gcodeview")
+    # Disable MSVC STL contiguous-container ASan annotations when linking
+    # against the uninstrumented static CRT (libcpmt.lib), where extern
+    # template string/stream methods (e.g. std::getline) resize buffers
+    # without updating container shadow bytes.
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Xclang -gcodeview -D_DISABLE_STRING_ANNOTATION=1 -D_DISABLE_VECTOR_ANNOTATION=1")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xclang -gcodeview -D_DISABLE_STRING_ANNOTATION=1 -D_DISABLE_VECTOR_ANNOTATION=1")
   endif()
   add_subdirectory (fuzz)
 endif()
