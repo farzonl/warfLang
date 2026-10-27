@@ -1,0 +1,17 @@
+// REQUIRES: llvm-backend
+// RUN: %warfc -o %t.exe %s
+// RUN: %t.exe | %FileCheck %s
+
+import "../Inputs/import_math.wf"
+import "../Inputs/import_base.wf"
+
+print(baseOffset)
+print(bonusValue)
+print(scaleAndOffset(4, 3, baseOffset))
+print(computeTotal(2, 3, baseOffset, bonusValue))
+0
+
+// CHECK: 10
+// CHECK-NEXT: 5
+// CHECK-NEXT: 22
+// CHECK-NEXT: 38

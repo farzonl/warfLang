@@ -10,12 +10,15 @@
 #endif
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
+#include <cctype>
 #include <cstdio>
 #include <cstdlib>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <unordered_set>
 
 static void printUsage() {
   std::cout << "usage: Warfc [-O|--opt] [--emit-ir|--emit-llvm-ir] [-o output] "
@@ -47,16 +50,142 @@ static std::string DefaultOutputPath(const std::string &inputPath) {
   return inputPath.substr(0, dot);
 }
 
-static bool ReadSourceFile(const std::string &path, std::string &source) {
+static std::string StripCommentAndTrim(const std::string &line) {
+  std::string text = line;
+  bool inString = false;
+  size_t commentPos = std::string::npos;
+  for (size_t i = 0; i < text.size(); i++) {
+    if (text[i] == '\\' && inString && i + 1 < text.size()) {
+      i++;
+      continue;
+    }
+    if (text[i] == '"') {
+      inString = !inString;
+      continue;
+    }
+    if (!inString && text[i] == '/' && i + 1 < text.size() &&
+        text[i + 1] == '/') {
+      commentPos = i;
+      break;
+    }
+  }
+  if (commentPos != std::string::npos) {
+    text = text.substr(0, commentPos);
+  }
+  size_t start = 0;
+  while (start < text.size() &&
+         std::isspace(static_cast<unsigned char>(text[start]))) {
+    start++;
+  }
+  size_t end = text.size();
+  while (end > start &&
+         std::isspace(static_cast<unsigned char>(text[end - 1]))) {
+    end--;
+  }
+  return text.substr(start, end - start);
+}
+
+static bool StartsWithKeyword(const std::string &text,
+                              const std::string &keyword) {
+  if (text.size() < keyword.size() ||
+      text.compare(0, keyword.size(), keyword) != 0) {
+    return false;
+  }
+  if (text.size() == keyword.size()) {
+    return true;
+  }
+  unsigned char nextChar = static_cast<unsigned char>(text[keyword.size()]);
+  return !std::isalnum(nextChar) && nextChar != '_';
+}
+
+static bool TryParseImportPath(const std::string &line,
+                               std::string &importPath) {
+  std::string trimmed = StripCommentAndTrim(line);
+  while (!trimmed.empty() &&
+         (trimmed.back() == ';' ||
+          std::isspace(static_cast<unsigned char>(trimmed.back())))) {
+    trimmed.pop_back();
+  }
+  if (!StartsWithKeyword(trimmed, "import")) {
+    return false;
+  }
+  size_t pos = 6;
+  while (pos < trimmed.size() &&
+         std::isspace(static_cast<unsigned char>(trimmed[pos]))) {
+    pos++;
+  }
+  if (pos + 2 > trimmed.size() || trimmed[pos] != '"' ||
+      trimmed.back() != '"') {
+    return false;
+  }
+  std::string rawPath = trimmed.substr(pos + 1, trimmed.size() - pos - 2);
+  if (rawPath.empty() || rawPath.find('"') != std::string::npos) {
+    return false;
+  }
+  importPath = rawPath;
+  return true;
+}
+
+static std::string NormalizeImportKey(const std::filesystem::path &path) {
+  std::error_code ec;
+  auto absPath = std::filesystem::absolute(path, ec);
+  if (ec) {
+    return path.lexically_normal().string();
+  }
+  auto canonicalPath = std::filesystem::weakly_canonical(absPath, ec);
+  if (ec) {
+    return absPath.lexically_normal().string();
+  }
+  return canonicalPath.string();
+}
+
+static bool ReadSourceFileWithImports(const std::string &path,
+                                      std::ostringstream &stream,
+                                      std::unordered_set<std::string> &visited,
+                                      bool isImported) {
+  std::filesystem::path fsPath(path);
+  std::string key = NormalizeImportKey(fsPath);
+  if (visited.find(key) != visited.end()) {
+    return true;
+  }
+
   std::ifstream file(path);
   if (!file.is_open()) {
+    if (isImported) {
+      std::cerr << "Failed to open imported file: " << path << std::endl;
+    }
     return false;
   }
 
-  std::stringstream stream;
-  stream << file.rdbuf();
-  source = stream.str();
+  visited.insert(key);
+  std::filesystem::path baseDir = fsPath.parent_path();
+  std::string line;
+  while (std::getline(file, line)) {
+    std::string importedRelPath;
+    if (TryParseImportPath(line, importedRelPath)) {
+      std::filesystem::path resolvedPath =
+          baseDir.empty() ? std::filesystem::path(importedRelPath)
+                          : (baseDir / importedRelPath);
+      if (!ReadSourceFileWithImports(resolvedPath.string(), stream, visited,
+                                     true)) {
+        return false;
+      }
+      continue;
+    }
+    stream << line << "\n";
+  }
+
   return !file.bad();
+}
+
+static bool ReadSourceFile(const std::string &path, std::string &source) {
+  std::ostringstream stream;
+  std::unordered_set<std::string> visited;
+  if (!ReadSourceFileWithImports(path, stream, visited, false)) {
+    return false;
+  }
+  source = stream.str();
+  return true;
 }
 
 #if defined(WARF_ENABLE_LLVM_BACKEND)

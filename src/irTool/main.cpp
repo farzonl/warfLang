@@ -10,12 +10,15 @@
 #endif
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
+#include <cctype>
 #include <cstdlib>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <memory>
 #include <sstream>
 #include <string>
+#include <unordered_set>
 
 static void printUsage() {
   std::cout << "usage: ./WarfIR [--opt|-O] --run <ir_or_wf_file_name>\n";
@@ -33,15 +36,141 @@ static bool HasWfExtension(const std::string &path) {
   return path.size() >= 3 && path.compare(path.size() - 3, 3, ".wf") == 0;
 }
 
-static bool ReadSourceFile(const std::string &path, std::string &source) {
-  std::ifstream file(path);
-  if (!file.is_open()) {
+static std::string StripComment(const std::string &line) {
+  bool inString = false;
+  for (size_t i = 0; i < line.size(); i++) {
+    if (line[i] == '\\' && inString && i + 1 < line.size()) {
+      i++;
+      continue;
+    }
+    if (line[i] == '"') {
+      inString = !inString;
+      continue;
+    }
+    if (!inString && line[i] == '/' && i + 1 < line.size() &&
+        line[i + 1] == '/') {
+      return line.substr(0, i);
+    }
+  }
+  return line;
+}
+
+static std::string StripCommentAndTrim(const std::string &line) {
+  std::string text = StripComment(line);
+  size_t start = 0;
+  while (start < text.size() &&
+         std::isspace(static_cast<unsigned char>(text[start]))) {
+    start++;
+  }
+  size_t end = text.size();
+  while (end > start &&
+         std::isspace(static_cast<unsigned char>(text[end - 1]))) {
+    end--;
+  }
+  return text.substr(start, end - start);
+}
+
+static bool StartsWithKeyword(const std::string &text,
+                              const std::string &keyword) {
+  if (text.size() < keyword.size() ||
+      text.compare(0, keyword.size(), keyword) != 0) {
     return false;
   }
-  std::stringstream stream;
-  stream << file.rdbuf();
-  source = stream.str();
+  if (text.size() == keyword.size()) {
+    return true;
+  }
+  unsigned char nextChar = static_cast<unsigned char>(text[keyword.size()]);
+  return !std::isalnum(nextChar) && nextChar != '_';
+}
+
+static bool TryParseImportPath(const std::string &line,
+                               std::string &importPath) {
+  std::string trimmed = StripCommentAndTrim(line);
+  while (!trimmed.empty() &&
+         (trimmed.back() == ';' ||
+          std::isspace(static_cast<unsigned char>(trimmed.back())))) {
+    trimmed.pop_back();
+  }
+  if (!StartsWithKeyword(trimmed, "import")) {
+    return false;
+  }
+  size_t pos = 6;
+  while (pos < trimmed.size() &&
+         std::isspace(static_cast<unsigned char>(trimmed[pos]))) {
+    pos++;
+  }
+  if (pos + 2 > trimmed.size() || trimmed[pos] != '"' ||
+      trimmed.back() != '"') {
+    return false;
+  }
+  std::string rawPath = trimmed.substr(pos + 1, trimmed.size() - pos - 2);
+  if (rawPath.empty() || rawPath.find('"') != std::string::npos) {
+    return false;
+  }
+  importPath = rawPath;
+  return true;
+}
+
+static std::string NormalizeImportKey(const std::filesystem::path &path) {
+  std::error_code ec;
+  auto absPath = std::filesystem::absolute(path, ec);
+  if (ec) {
+    return path.lexically_normal().string();
+  }
+  auto canonicalPath = std::filesystem::weakly_canonical(absPath, ec);
+  if (ec) {
+    return absPath.lexically_normal().string();
+  }
+  return canonicalPath.string();
+}
+
+static bool ReadSourceFileWithImports(const std::string &path,
+                                      std::ostringstream &stream,
+                                      std::unordered_set<std::string> &visited,
+                                      bool isImported) {
+  std::filesystem::path fsPath(path);
+  std::string key = NormalizeImportKey(fsPath);
+  if (visited.find(key) != visited.end()) {
+    return true;
+  }
+
+  std::ifstream file(path);
+  if (!file.is_open()) {
+    if (isImported) {
+      std::cerr << "Failed to open imported file: " << path << std::endl;
+    }
+    return false;
+  }
+
+  visited.insert(key);
+  std::filesystem::path baseDir = fsPath.parent_path();
+  std::string line;
+  while (std::getline(file, line)) {
+    std::string importedRelPath;
+    if (TryParseImportPath(line, importedRelPath)) {
+      std::filesystem::path resolvedPath =
+          baseDir.empty() ? std::filesystem::path(importedRelPath)
+                          : (baseDir / importedRelPath);
+      if (!ReadSourceFileWithImports(resolvedPath.string(), stream, visited,
+                                     true)) {
+        return false;
+      }
+      continue;
+    }
+    stream << line << "\n";
+  }
+
   return !file.bad();
+}
+
+static bool ReadSourceFile(const std::string &path, std::string &source) {
+  std::ostringstream stream;
+  std::unordered_set<std::string> visited;
+  if (!ReadSourceFileWithImports(path, stream, visited, false)) {
+    return false;
+  }
+  source = stream.str();
+  return true;
 }
 
 static bool LowerSourceToModule(const std::string &source, IrModule &module) {
@@ -66,23 +195,51 @@ static bool LowerSourceToModule(const std::string &source, IrModule &module) {
   return true;
 }
 
-static bool ReadFile(const std::string &path, std::string &text) {
+static bool ReadFileWithImports(const std::string &path,
+                                std::ostringstream &stream,
+                                std::unordered_set<std::string> &visited,
+                                bool isImported) {
+  std::filesystem::path fsPath(path);
+  std::string key = NormalizeImportKey(fsPath);
+  if (visited.find(key) != visited.end()) {
+    return true;
+  }
   std::ifstream file(path);
   if (!file.is_open()) {
+    if (isImported) {
+      std::cerr << "Failed to open imported file: " << path << std::endl;
+    }
     return false;
   }
 
-  std::stringstream stream;
+  visited.insert(key);
+  std::filesystem::path baseDir = fsPath.parent_path();
   std::string line;
   while (std::getline(file, line)) {
-    auto comment = line.find("//");
-    if (comment != std::string::npos) {
-      line = line.substr(0, comment);
+    std::string importedRelPath;
+    if (TryParseImportPath(line, importedRelPath)) {
+      std::filesystem::path resolvedPath =
+          baseDir.empty() ? std::filesystem::path(importedRelPath)
+                          : (baseDir / importedRelPath);
+      if (!ReadFileWithImports(resolvedPath.string(), stream, visited, true)) {
+        return false;
+      }
+      continue;
     }
-    stream << line << std::endl;
+    stream << StripComment(line) << std::endl;
+  }
+
+  return !file.bad();
+}
+
+static bool ReadFile(const std::string &path, std::string &text) {
+  std::ostringstream stream;
+  std::unordered_set<std::string> visited;
+  if (!ReadFileWithImports(path, stream, visited, false)) {
+    return false;
   }
   text = stream.str();
-  return !file.bad();
+  return true;
 }
 
 static bool WriteTextFile(const std::string &path, const std::string &text) {

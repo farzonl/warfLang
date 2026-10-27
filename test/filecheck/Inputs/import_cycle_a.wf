@@ -1,0 +1,5 @@
+import "import_cycle_b.wf"
+
+function cycleA(n: int): int {
+  return cycleB(n) + 1
+}
