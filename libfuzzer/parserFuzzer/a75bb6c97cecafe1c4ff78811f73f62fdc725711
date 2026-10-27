@@ -1,0 +1,48 @@
+E 1 
+{ 
+        } 
+} 
+ q
+0io
+print("hello world")
+print("escaped:\n\t\"quote\" ŽŽŽŽŽŽŽŽŽŽ( (((((((((((((((((and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(~ame: string): string {
+  return "hi " + name
+ == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middl} 
+0 
+{e"
+s += " end"
+print(s)
+
+fun orld" }l
+print(f() == h())
+
+1

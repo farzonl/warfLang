@@ -1,0 +1,33 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there""quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "aba
+"bc"c" + ""
+
+"
+"quoteello " + "world"
+"" + "aba
+ello world"
+""
+"hello\nworld"
+"tab\there""quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "aba
+"bc"c" + ""
+
+"
+"quote: \"hi\""
+"backslash: \\"
+
+"bc"c" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+let s1 = "== "wa“““““ion nction st) = false; function (s3)

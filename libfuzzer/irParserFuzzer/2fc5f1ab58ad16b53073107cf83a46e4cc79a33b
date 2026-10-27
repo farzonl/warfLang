@@ -1,0 +1,22 @@
+func __m.ain()
+entry:
+  %0 = _0 ÿÿ
+ %3n0
+  %1 = const 1
+ %2 = const 2
+  %1 = lt %1 %2
+ st`r  %ÎßÂÅœßß%1 = lt %1 %2
+
+tcp  %1 = lt %1 %2
+  br_`old %3 thyC  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+!  br_`old %3 thyCst`r  %2 =:cpns= const 0
+  %value = st %2 = const 2
+  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`cpns= const st 2
+  %6 = lt %1 %2
+!func __main() br
+e=

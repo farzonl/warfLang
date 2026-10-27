@@ -1,0 +1,131 @@
+"hello world"
+""
+"èello\nworldd"
+"tab\there"
+"quote:"
+"backslash: \\"
+
+"hellþ " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bw"
+"a" != "a"
+
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b:"
+"backslash: \\"
+
+"hellþ " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bw"
+"a" != "a"
+
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s0 = "wf
+ral"et s4 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warf0ang"
+
+print(llo world"
+""
+"hello\nworldd"
+"tab\there"
+"quote:"
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bw"
+"a" != "a"
+
+let s1 = "wf
+ral"et \"hi\""
+"bacg"
+
+print(llo world"
+""
+"hello\nworldd"
+"tab\there"
+"quote:"
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bw"
+"a" != "a"
+
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s0 = "wf
+ral"et s2 = "lang"
+let s3 = s1 + s2
+s3
+ote:"
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bw"
+"a" != "a"
+
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s0 = "wf
+ral"et s2 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "w3rf0ang""mesage from print")
+print(s)

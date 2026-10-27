@@ -1,0 +1,112 @@
+"hello world"
+""
+"èello\nworldd"
+"tab\there"
+"qu”te:"
+"backslash: \\"
+
+"hellþ " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bw"
+"a" != "a"
+
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b:"
+"backslash: \\"
+
+"hellþ " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bw"
+"a" != "`"
+
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+letØŒÏß= "wf
+ral"et s1 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warf0ang"
+
+print(llo world"
+""
+"hello\nworldd"
+"tab\there"
+"quote:"
+"backslash:  == "a"
+"a" == "b:"
+"backslash: \\"
+
+"hellþ " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bw"
+"a" != "a"
+
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "ag"
+let s3 = s1 + s2
+s3
+s3 == "w3rf0ang""mesa; vqlue mpute mpuge n"
+"a" != "b"
+"a" != "a"
+
+let s0 = "wf
+ral"et s4 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warf0ang"
+
+print(llo world"
+""
+"hello\nworldd"
+"tab\there"
+#"quote:"
+"backslash: \\"
+
+"hello " + "world
+te]_om"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bw"
+"a" != "a"
+
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+p
+"hello " + 

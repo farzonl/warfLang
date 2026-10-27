@@ -1,0 +1,35 @@
+1&1 /1&1 / 1 + 0&1 1&1 +/ 0 1 /1 / 1 + 0&1 1&1 + 1 / 0&1 / 0/ nt("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty 1&1 + 1 /  0&1  1&1 1&1 + 0&1 1&1 ")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  prmntprint("a is foo")
+}
+if (a != b) {
+  + 1print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+function h():  / 0&1string { return "world" }
+print(f() / 0/ 0 + 1 == h())
+
+0 &1 / 0/ 0

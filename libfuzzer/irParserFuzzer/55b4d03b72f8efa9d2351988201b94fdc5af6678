@@ -1,0 +1,15 @@
+func __m(ian)re:yt
+n  %& = const 0
+  %v%valutry:
+  %0 = const 0val eu= s%0=ÿÿonst 42 = lt %val%6 = func _¡Š 4 const 3
+  %2 = add %0 %1
+  %3 %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+ (%5 = neg %3
+  = add %6 %5
+  ret %7
+
+// RUN-o(%5 =  br for_cond2
+for_end3:
+  ret %value

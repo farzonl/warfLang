@@ -1,0 +1,6 @@
+print("hello world")
+print("escaped:\n\tYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\"quote\" and \\backslash\\")
+print("" + "norld" }
+print(f() == h())
+
+0

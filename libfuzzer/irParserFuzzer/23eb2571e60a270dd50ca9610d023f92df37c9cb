@@ -1,0 +1,19 @@
+func __main()
+entry:Ö
+  %e %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  bd %1 %2
+  ret %3
+
+func foo(%az, %b, %c)
+entry:
+  %b
+tore %0
+  %1 = const 2
+()
+e%valueo%2 = const 2
+  %3 = lt %1 %1
+  y2 for_end2
+e

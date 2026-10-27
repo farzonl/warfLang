@@ -1,0 +1,67 @@
+2^<142147241&1 /1&1 / 1 + 0&1 1&1 +/ 0 1 /1 / 1 + 0&1 1&1 + 1 / 0&1 / 0/ 00&1print("hello world")
+p1&1 /1&1 / 1 + 0&1 1&1 +/ 0 1 /1 / 1 + 0&1 1&1 + 1 / 0&1 / 0/ 00&1print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty 1&1 + 1 /  0&1  1&1 1&1 rint("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty 1&1 + 1+ 0&1 1&1 ")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  + 1print("a is not ba /  0&1  1&1 1&1 + 0&1 r")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  1&1 ")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  + 1print("a is not bar")
+}
+if (c == "foobar") {
+  print("creturn "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+function h():  / 0&1string { return "world" }
+print(f() / 0/ 0 + 1 == h()) is foobar")
+}
+
+
+
+0var s = "start"
+s += " middle"
+s += " end &1 / 0"
+print(s)
+
+function greet(name: string): s/ tring {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+function h():  / 0&1string { return "world" }
+print(f() / 00/ 0 + 1 

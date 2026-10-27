@@ -1,0 +1,54 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "fookkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk") {
+  print(ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿnt(c)
+
+if (a == "fookkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk") {
+  print(ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿorld")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+ÿÿÿÿÿÿÿÿ"a is foo")
+}
+if (a != b) {
+  print("a is not bar"e: string): string {
+  return "hi not bar")
+}
+if (c ==h(): string { return "world"d")
+print("escaped:\n\t\"quote\" and a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "fookkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk") {
+  print(ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿnt(c)
+
+if (a == "fookkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk") {
+  print(ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿorld")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+ÿÿÿÿÿÿÿÿ"a is foo")
+}
+if (a != b) {
+  print("a is not bar"e: string): string {
+  return "hi not bar")
+}
+if (c ==h(): string { return "world"  }
+print(f() == h())
+
+0

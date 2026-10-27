@@ -1,0 +1,5 @@
+func __ain()
+en|r 2
+ onst 7
+ %%1 = add %2
+%10 = add

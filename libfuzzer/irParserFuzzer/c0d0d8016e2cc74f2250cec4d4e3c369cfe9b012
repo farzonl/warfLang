@@ -1,0 +1,7 @@
+func ain()
+  %st 0)
+ent e4
+t(2
+  %st 1
+()
+ent %

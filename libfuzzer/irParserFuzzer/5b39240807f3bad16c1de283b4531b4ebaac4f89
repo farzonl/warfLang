@@ -1,0 +1,19 @@
+func __main()
+entrycnst 0
+  %val %‚
+  %1 = cons0:
+  %3 = const 2
+rrrrrrrrrrŸrr%1%4 =  ne %3 %3
+ %4 =  ne %3 %3
+ul4
+d2:
+  ret %valq ne %3 %3
+ul45cnst 0
+  %val %‚
+  %1 = cons0:
+  %3 = const 2
+rrrrrrrrrrŸrr%1%4 =  ne %3 %3
+  = = cons0:
+  %3 = const 2
+rrrrrrrrrrŸrr%r%4 =  ne %3 %3
+  %5 =  ret %valq:

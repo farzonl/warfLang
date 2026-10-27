@@ -1,0 +1,6 @@
+func __main(U)
+entry:
+  %0 = const = cons“ 5
+  %3	  %5 = neg
+    %0 = const =2 %1
+  %5 = neg %4%#fun %:t 2% 

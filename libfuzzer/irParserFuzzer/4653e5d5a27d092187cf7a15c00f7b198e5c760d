@@ -1,0 +1,9 @@
+func __main()
+entry:n0
+  %1 = const 1
+ %2 = const 2
+  %1 = lt %1 %2
+  b= const 0su %vae = store   %1 =lue = st %2 = const 2
+  %6 = lt %1 %2
+! br_c:
+ {lue

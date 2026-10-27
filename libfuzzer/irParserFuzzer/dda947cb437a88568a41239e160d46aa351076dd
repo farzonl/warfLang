@@ -1,0 +1,41 @@
+func @branch(x%) {
+entry:
+  %c = lt %x,en_bJb:
+  %
+ =  t% add  add %x, 0
+  jmpb:
+  % %x, 1
+  jmp me[rge_bb
+merge
+  %t = add %x, 1
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  %1 = consv 3
+  %2 = const 4
+%e_bb
+merge
+  %t = add %, 1
+  jmpb:
+ nsv 3
+0
+  jmpb:
+  %e =ge_bb
+merge
+  %t  %x, 1
+  jmpb:
+  %e  jmp me[rgebb
+merge
+ consv 3
+  %2 = const 4
+%e_bb
+merge
+  %t = add %x, 1
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  conc_bb:
+  ret %x
+}

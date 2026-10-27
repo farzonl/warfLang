@@ -1,0 +1,15 @@
+func __main()
+%ntry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+ %3 = lt %1 %onst 1
+  %index = store_add %d2
+for_cond2:
+  %10 = const 6
+  %1_bo””””””””””””””dy1:
+  %12 = const 2
+  %valye = store_add
+  %index = store 2:
+  ret %value

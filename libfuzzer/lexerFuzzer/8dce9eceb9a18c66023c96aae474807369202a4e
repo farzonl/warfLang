@@ -1,0 +1,15 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+le tb = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo"hello" }
+function h(): string { return µworld" }
+print(f() == h())
+
+0

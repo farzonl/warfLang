@@ -1,0 +1,12 @@
+print("hn-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + bion greet(name: string): string {
+  return "hi " + name
+ == "foobar") {
+  print("c is foobar")
+nt(f() == h())
+
+1

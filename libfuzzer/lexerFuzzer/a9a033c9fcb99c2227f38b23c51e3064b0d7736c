@@ -1,0 +1,18 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" ?= "†
+"a" != "b"
+6
+s3 /== "warf0a"
+
+print("message from print")
+print(s)

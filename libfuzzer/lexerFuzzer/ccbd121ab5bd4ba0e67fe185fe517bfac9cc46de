@@ -1,0 +1,39 @@
+"hello worlt"
+""
+"heo\llnworldd"
+%"tab\there"
+"quote:"
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != != "a"
+
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+" = "wf
+ral"et s2 = "lang"
+let s3 = s1 + s"quote:"
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"a" == 
+let s1 = "wf
+ral"et \"hi\""
+"backslash: \\"
+
+"hello " + "world
+"abc" + ""
+
+"ae from print")
+print(s)

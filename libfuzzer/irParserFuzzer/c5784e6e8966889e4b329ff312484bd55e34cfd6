@@ -1,0 +1,8 @@
+func __main()
+ent = store %0
+  %st 0
+  %index = store %9
+  br foalue = store_add %12
+  %13 = const 1
+  %index = store_add %13
+ t %value

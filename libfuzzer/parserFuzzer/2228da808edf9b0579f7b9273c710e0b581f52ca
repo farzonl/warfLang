@@ -1,0 +1,24 @@
+print("hello world")
+print("escaped:\n\t foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+ == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+funrld" }
+print(f() == h())
+
+1

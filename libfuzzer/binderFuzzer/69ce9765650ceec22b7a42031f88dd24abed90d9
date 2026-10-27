@@ -1,0 +1,7 @@
+e: string): string {
+  return "hi " + name
+}
+print(greet(""))
+
+function f(): string { return "hello" }
+function h():  / 0&1string { retur<<Å
