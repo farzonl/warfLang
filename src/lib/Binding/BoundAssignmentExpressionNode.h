@@ -59,6 +59,9 @@ public:
   BoundExpressionNode *BoundExpression();
   std::string Identifier();
   virtual Value::Type Type() override;
+  virtual Value::Type ElementType() const override {
+    return mBoundExpression->ElementType();
+  }
   std::shared_ptr<VariableSymbol> Variable();
   BoundAssignmentOperatorKind OperatorKind();
 

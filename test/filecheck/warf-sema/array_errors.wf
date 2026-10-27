@@ -1,0 +1,17 @@
+// RUN: %warf -e "[1, true]" 2>&1 | %FileCheck %s --check-prefix=HETERO-ARRAY
+// RUN: %warf -e "arr = [1, 2]; arr[true]" 2>&1 | %FileCheck %s --check-prefix=INDEX-TYPE
+// RUN: %warf -e "x = 5; x[0]" 2>&1 | %FileCheck %s --check-prefix=NON-ARRAY-INDEX
+// RUN: %warf -e "arr = [1, 2]; arr[0] = true" 2>&1 | %FileCheck %s --check-prefix=ELEM-ASSIGN-TYPE
+// RUN: %warf -e "num = 42; len(num)" 2>&1 | %FileCheck %s --check-prefix=LEN-TYPE
+// RUN: %warf -e "a = [1, 2]; len(a, a)" 2>&1 | %FileCheck %s --check-prefix=LEN-ARITY
+// RUN: %warf -e "arr = [10, 20]; arr[5]" 2>&1 | %FileCheck %s --check-prefix=OOB-READ
+// RUN: %warf -e "arr = [10, 20]; arr[-1] = 99" 2>&1 | %FileCheck %s --check-prefix=OOB-WRITE
+
+// HETERO-ARRAY: BinderError: Array elements must have homogeneous type Number but found Boolean.
+// INDEX-TYPE: BinderError: Array index requires a value of type Number but was given a value of type Boolean.
+// NON-ARRAY-INDEX: BinderError: Cannot index value of type Number.
+// ELEM-ASSIGN-TYPE: BinderError: Array element assignment requires a value of type Number but was given a value of type Boolean.
+// LEN-TYPE: BinderError: Parameter arr requires a value of type Array but was given a value of type Number.
+// LEN-ARITY: BinderError: Function len requires 1 argument(s) but was given 2.
+// OOB-READ: EvaluatorError: Array index out of bounds.
+// OOB-WRITE: EvaluatorError: Array index out of bounds.

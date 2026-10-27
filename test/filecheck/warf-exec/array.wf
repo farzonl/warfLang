@@ -1,0 +1,16 @@
+// RUN: %warf %s | %FileCheck %s
+
+a = [10, 20, 30]
+a[1] = 25
+len(a) + a[0] + a[1] + a[2]
+
+b = [true, false, true]
+b[1] = true
+b[0] && b[1] && b[2]
+
+// CHECK: [10, 20, 30]
+// CHECK-NEXT: 25
+// CHECK-NEXT: 68
+// CHECK-NEXT: [true, false, true]
+// CHECK-NEXT: true
+// CHECK-NEXT: true

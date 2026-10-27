@@ -16,6 +16,9 @@ enum class BoundNodeKind {
   UnaryExpression,
   LiteralExpression,
   CallExpression,
+  ArrayLiteralExpression,
+  IndexExpression,
+  IndexAssignmentExpression,
 
   // Statements
   BlockStatement,
@@ -42,6 +45,7 @@ class BoundExpressionNode : public BoundNode {
 public:
   BoundExpressionNode() = default;
   virtual Value::Type Type() = 0;
+  virtual Value::Type ElementType() const { return Value::Type::Unknown; }
   virtual ~BoundExpressionNode() {}
 };
 

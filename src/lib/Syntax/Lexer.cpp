@@ -90,6 +90,14 @@ void Lexer::ReadToken(SyntaxKind &type) {
     type = SyntaxKind::CloseParenthesisToken;
     mPosition++;
     break;
+  case '[':
+    type = SyntaxKind::OpenBracketToken;
+    mPosition++;
+    break;
+  case ']':
+    type = SyntaxKind::CloseBracketToken;
+    mPosition++;
+    break;
   case '{':
     type = SyntaxKind::OpenBraceToken;
     mPosition++;

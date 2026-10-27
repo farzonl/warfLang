@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include "Binder.h"
+#include "BoundArrayLiteralExpressionNode.h"
 #include "BoundAssignmentExpressionNode.h"
 #include "BoundBinaryExpressionNode.h"
 #include "BoundBlockStatementNode.h"
@@ -15,11 +16,14 @@
 #include "BoundFunctionDeclarationNode.h"
 #include "BoundIdentifierExpressionNode.h"
 #include "BoundIfStatementNode.h"
+#include "BoundIndexAssignmentExpressionNode.h"
+#include "BoundIndexExpressionNode.h"
 #include "BoundLiteralExpressionNode.h"
 #include "BoundReturnStatementNode.h"
 #include "BoundUnaryExpressionNode.h"
 #include "BoundVariableDeclarationNode.h"
 #include "BoundWhileStatementNode.h"
+#include "Syntax/ArrayLiteralExpressionNode.h"
 #include "Syntax/AssignmentExpressionNode.h"
 #include "Syntax/BinaryExpressionNode.h"
 #include "Syntax/BlockStatementSyntaxNode.h"
@@ -32,6 +36,8 @@
 #include "Syntax/FunctionDeclarationSyntaxNode.h"
 #include "Syntax/IdentifierExpressionNode.h"
 #include "Syntax/IfStatementSyntaxNode.h"
+#include "Syntax/IndexAssignmentExpressionNode.h"
+#include "Syntax/IndexExpressionNode.h"
 #include "Syntax/LiteralExpressionNode.h"
 #include "Syntax/ParenthesizedExpressionNode.h"
 #include "Syntax/ReturnStatementSyntaxNode.h"
@@ -268,7 +274,8 @@ Binder::BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax) {
   auto varType = syntax->TypeAnnotation() != Value::Type::Unknown
                      ? syntax->TypeAnnotation()
                      : initializer->Type();
-  auto variable = std::make_shared<VariableSymbol>(name, isReadOnly, varType);
+  auto variable = std::make_shared<VariableSymbol>(name, isReadOnly, varType,
+                                                   initializer->ElementType());
 
   mScope->insert(variable);
 
@@ -344,6 +351,18 @@ Binder::BindExpression(ExpressionNode *node) {
           dynamic_cast<ParenthesizedExpressionNode *>(node)) {
     return std::move(BindExpression(parenthesizedExpression->Expression()));
   }
+  if (ArrayLiteralExpressionNode *arrayLiteralExpression =
+          dynamic_cast<ArrayLiteralExpressionNode *>(node)) {
+    return std::move(BindArrayLiteralExpression(arrayLiteralExpression));
+  }
+  if (IndexExpressionNode *indexExpression =
+          dynamic_cast<IndexExpressionNode *>(node)) {
+    return std::move(BindIndexExpression(indexExpression));
+  }
+  if (IndexAssignmentExpressionNode *indexAssignmentExpression =
+          dynamic_cast<IndexAssignmentExpressionNode *>(node)) {
+    return std::move(BindIndexAssignmentExpression(indexAssignmentExpression));
+  }
   if (AssignmentExpressionNode *assignmentExpression =
           dynamic_cast<AssignmentExpressionNode *>(node)) {
     return std::move(BindAssignmentExpression(assignmentExpression));
@@ -398,6 +417,71 @@ Binder::BindBinaryExpression(BinaryExpressionNode *binary) {
 }
 
 std::unique_ptr<BoundExpressionNode>
+Binder::BindArrayLiteralExpression(ArrayLiteralExpressionNode *arrayLiteral) {
+  auto boundElements = std::vector<std::unique_ptr<BoundExpressionNode>>();
+  for (const auto &element : arrayLiteral->Elements()) {
+    boundElements.push_back(BindExpression(element.get()));
+  }
+  Value::Type elementType = Value::Type::Number;
+  if (!boundElements.empty()) {
+    elementType = boundElements[0]->Type();
+    for (size_t i = 1; i < boundElements.size(); i++) {
+      if (boundElements[i]->Type() != elementType) {
+        mRecords.ReportHeterogeneousArray(arrayLiteral->OpenBracket()->Span(),
+                                          elementType,
+                                          boundElements[i]->Type());
+      }
+    }
+  }
+  return std::make_unique<BoundArrayLiteralExpressionNode>(
+      std::move(boundElements), elementType);
+}
+
+std::unique_ptr<BoundExpressionNode>
+Binder::BindIndexExpression(IndexExpressionNode *indexExpression) {
+  auto boundTarget = BindExpression(indexExpression->Target());
+  auto boundIndex = BindExpression(indexExpression->Index());
+  if (boundTarget->Type() != Value::Type::Array) {
+    mRecords.ReportCannotIndexType(indexExpression->OpenBracket()->Span(),
+                                   boundTarget->Type());
+  }
+  if (boundIndex->Type() != Value::Type::Number) {
+    mRecords.ReportInvalidArrayIndexType(indexExpression->OpenBracket()->Span(),
+                                         boundIndex->Type());
+  }
+  Value::Type elementType = boundTarget->ElementType() != Value::Type::Unknown
+                                ? boundTarget->ElementType()
+                                : Value::Type::Number;
+  return std::make_unique<BoundIndexExpressionNode>(
+      std::move(boundTarget), std::move(boundIndex), elementType);
+}
+
+std::unique_ptr<BoundExpressionNode> Binder::BindIndexAssignmentExpression(
+    IndexAssignmentExpressionNode *indexAssignment) {
+  auto *indexExpr = indexAssignment->IndexExpression();
+  auto boundTarget = BindExpression(indexExpr->Target());
+  auto boundIndex = BindExpression(indexExpr->Index());
+  auto boundValue = BindExpression(indexAssignment->ValueExpression());
+  if (boundTarget->Type() != Value::Type::Array) {
+    mRecords.ReportCannotIndexType(indexExpr->OpenBracket()->Span(),
+                                   boundTarget->Type());
+  }
+  if (boundIndex->Type() != Value::Type::Number) {
+    mRecords.ReportInvalidArrayIndexType(indexExpr->OpenBracket()->Span(),
+                                         boundIndex->Type());
+  }
+  if (boundTarget->Type() == Value::Type::Array &&
+      boundTarget->ElementType() != Value::Type::Unknown &&
+      boundValue->Type() != boundTarget->ElementType()) {
+    mRecords.ReportArrayElementTypeMismatch(
+        indexAssignment->EqualsToken()->Span(), boundTarget->ElementType(),
+        boundValue->Type());
+  }
+  return std::make_unique<BoundIndexAssignmentExpressionNode>(
+      std::move(boundTarget), std::move(boundIndex), std::move(boundValue));
+}
+
+std::unique_ptr<BoundExpressionNode>
 Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   std::string name = assignment->IdentifierToken()->Text();
   auto boundExpression = BindExpression(assignment->Expression());
@@ -414,9 +498,10 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
                                       boundExpression->Type(),
                                       boundExpression->Type());
     if (existingVariable == VariableSymbol::failSymbol() ||
-        existingVariable->Type() != boundExpression->Type()) {
+        existingVariable->Type() != boundExpression->Type() ||
+        existingVariable->ElementType() != boundExpression->ElementType()) {
       existingVariable = std::make_shared<VariableSymbol>(
-          name, false, boundExpression->Type());
+          name, false, boundExpression->Type(), boundExpression->ElementType());
       mScope->insert(existingVariable);
     }
     return std::make_unique<BoundAssignmentExpressionNode>(
@@ -461,6 +546,23 @@ Binder::BindCallExpression(CallExpressionNode *call) {
       return std::make_unique<BoundCallExpressionNode>(
           name, std::move(boundArguments),
           std::vector<std::shared_ptr<VariableSymbol>>{}, nullptr, argType);
+    }
+    if (name == "len") {
+      if (boundArguments.size() != 1) {
+        mRecords.ReportWrongArgumentCount(call->IdentifierToken(), name, 1,
+                                          boundArguments.size());
+        return std::make_unique<BoundLiteralExpressionNode>(0);
+      }
+      if (boundArguments[0]->Type() != Value::Type::Array) {
+        mRecords.ReportWrongArgumentType(call->IdentifierToken(), "arr",
+                                         Value::Type::Array,
+                                         boundArguments[0]->Type());
+        return std::make_unique<BoundLiteralExpressionNode>(0);
+      }
+      return std::make_unique<BoundCallExpressionNode>(
+          name, std::move(boundArguments),
+          std::vector<std::shared_ptr<VariableSymbol>>{}, nullptr,
+          Value::Type::Number);
     }
     mRecords.ReportUndefinedFunction(call->IdentifierToken());
     return std::make_unique<BoundLiteralExpressionNode>(0);
@@ -507,7 +609,8 @@ Binder::BindCallExpression(CallExpressionNode *call) {
                          ? expectedType
                          : boundArguments[i]->Type();
     auto parameter = std::make_shared<VariableSymbol>(
-        function->Parameters()[i]->Name(), false, paramType);
+        function->Parameters()[i]->Name(), false, paramType,
+        boundArguments[i]->ElementType());
     parameters.push_back(parameter);
     mScope->insert(parameter);
   }

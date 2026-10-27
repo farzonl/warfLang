@@ -10,14 +10,16 @@
 #include <cstdint>
 #include <iostream>
 #include <limits>
+#include <memory>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 #include "Syntax/SyntaxKind.h"
 
 class Value {
 public:
-  enum class Type { Unknown, Number, Boolean, String };
+  enum class Type { Unknown, Number, Boolean, String, Array };
 
 private:
   union uValue {
@@ -27,34 +29,51 @@ private:
   Type type;
   uValue val;
   std::string str;
+  std::shared_ptr<std::vector<Value>> array;
 
 public:
-  Value() : type(Type::Unknown), val(), str() {}
-  Value(bool b) : type(Type::Boolean), val(), str() { val.boolean = b; }
-  Value(int32_t i) : type(Type::Number), val(), str() { val.integer = i; }
-  Value(std::string s) : type(Type::String), val(), str(std::move(s)) {}
-  explicit Value(const char *s) : type(Type::String), val(), str(s) {}
+  Value() : type(Type::Unknown), val(), str(), array(nullptr) {}
+  Value(bool b) : type(Type::Boolean), val(), str(), array(nullptr) {
+    val.boolean = b;
+  }
+  Value(int32_t i) : type(Type::Number), val(), str(), array(nullptr) {
+    val.integer = i;
+  }
+  Value(std::string s)
+      : type(Type::String), val(), str(std::move(s)), array(nullptr) {}
+  explicit Value(const char *s)
+      : type(Type::String), val(), str(s), array(nullptr) {}
 
   Value &operator=(int32_t i) {
     val.integer = i;
     str.clear();
+    array.reset();
     type = Type::Number;
     return *this;
   }
   Value &operator=(bool b) {
     val.boolean = b;
     str.clear();
+    array.reset();
     type = Type::Boolean;
     return *this;
   }
   Value &operator=(std::string s) {
     str = std::move(s);
+    array.reset();
     type = Type::String;
     return *this;
   }
   Value &operator=(const char *s) {
     str = s;
+    array.reset();
     type = Type::String;
+    return *this;
+  }
+  Value &operator=(std::shared_ptr<std::vector<Value>> arr) {
+    str.clear();
+    array = std::move(arr);
+    type = Type::Array;
     return *this;
   }
 
@@ -209,7 +228,7 @@ public:
     return value;
   }
 
-  Type VType() { return type; }
+  Type VType() const { return type; }
 
   int asInt() const {
     assert(type == Type::Number);
@@ -223,9 +242,14 @@ public:
     assert(type == Type::String);
     return str;
   }
+  const std::shared_ptr<std::vector<Value>> &asArray() const {
+    assert(type == Type::Array);
+    return array;
+  }
   bool isInt() const { return type == Type::Number; }
   bool isBool() const { return type == Type::Boolean; }
   bool isString() const { return type == Type::String; }
+  bool isArray() const { return type == Type::Array; }
   friend class SyntaxToken;
   friend std::ostream &operator<<(std::ostream &out, const Value v);
 };
@@ -240,6 +264,18 @@ inline std::ostream &operator<<(std::ostream &out, const Value v) {
     break;
   case Value::Type::String:
     out << v.asString();
+    break;
+  case Value::Type::Array:
+    out << "[";
+    if (v.array) {
+      for (size_t i = 0; i < v.array->size(); ++i) {
+        if (i > 0) {
+          out << ", ";
+        }
+        out << (*v.array)[i];
+      }
+    }
+    out << "]";
     break;
   default:
     throw std::runtime_error("Unsupported Literal Value.");
@@ -257,6 +293,9 @@ inline std::ostream &operator<<(std::ostream &out, const Value::Type t) {
     break;
   case Value::Type::String:
     out << "String";
+    break;
+  case Value::Type::Array:
+    out << "Array";
     break;
   default:
     throw std::runtime_error("Unsupported Literal type.");

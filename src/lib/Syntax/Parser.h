@@ -32,6 +32,7 @@ class Parser {
   std::unique_ptr<ExpressionNode> ParseTerm();
   std::unique_ptr<ExpressionNode> ParseFactor();
   std::unique_ptr<ExpressionNode> ParsePrimaryExpression();
+  std::unique_ptr<ExpressionNode> ParseArrayLiteralExpression();
   std::unique_ptr<ExpressionNode> ParseCallExpression();
   std::unique_ptr<ExpressionNode> ParseAssignmentExpression();
   std::unique_ptr<ExpressionNode>

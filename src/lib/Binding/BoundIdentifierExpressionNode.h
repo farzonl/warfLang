@@ -17,6 +17,9 @@ public:
   virtual ~BoundIdentifierExpressionNode() {}
   virtual BoundNodeKind Kind() override;
   virtual Value::Type Type() override;
+  virtual Value::Type ElementType() const override {
+    return mVariable->ElementType();
+  }
   std::string Name() { return mVariable->Name(); }
   std::shared_ptr<VariableSymbol> Variable() { return mVariable; }
 

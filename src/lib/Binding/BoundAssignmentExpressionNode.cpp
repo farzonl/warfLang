@@ -16,6 +16,8 @@ const std::shared_ptr<BoundAssignmentOperator>
                                                   Value::Type::Boolean),
         std::make_shared<BoundAssignmentOperator>(
             SyntaxKind::EqualsToken, Value::Type::String, Value::Type::String),
+        std::make_shared<BoundAssignmentOperator>(
+            SyntaxKind::EqualsToken, Value::Type::Array, Value::Type::Array),
         std::make_shared<BoundAssignmentOperator>(SyntaxKind::PlusEqualsToken,
                                                   Value::Type::Number,
                                                   Value::Type::Number),

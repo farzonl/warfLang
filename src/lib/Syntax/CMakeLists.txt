@@ -22,6 +22,9 @@ set(SourceFiles Lexer.cpp
                 ContinueStatementSyntaxNode.cpp
                 ReturnStatementSyntaxNode.cpp
                 ExpressionNode.cpp
+                ArrayLiteralExpressionNode.cpp
+                IndexExpressionNode.cpp
+                IndexAssignmentExpressionNode.cpp
                 AssignmentExpressionNode.cpp
                 CallExpressionNode.cpp
                 LiteralExpressionNode.cpp
@@ -50,6 +53,9 @@ set(HeaderFiles Lexer.h
                 ContinueStatementSyntaxNode.h
                 ReturnStatementSyntaxNode.h
                 ExpressionNode.h
+                ArrayLiteralExpressionNode.h
+                IndexExpressionNode.h
+                IndexAssignmentExpressionNode.h
                 AssignmentExpressionNode.h
                 CallExpressionNode.h
                 LiteralExpressionNode.h

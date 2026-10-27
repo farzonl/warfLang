@@ -80,6 +80,9 @@ public:
     LiteralExpression,
     AssignmentExpression,
     CallExpression,
+    ArrayLiteralExpression,
+    IndexExpression,
+    IndexAssignmentExpression,
     // Keywords
     BreakKeyword,
     ContinueKeyword,
@@ -330,6 +333,9 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::ContinueStatement, "ContinueStatement"},
         {SyntaxKind::ReturnStatement, "ReturnStatement"},
         {SyntaxKind::CallExpression, "CallExpression"},
+        {SyntaxKind::ArrayLiteralExpression, "ArrayLiteralExpression"},
+        {SyntaxKind::IndexExpression, "IndexExpression"},
+        {SyntaxKind::IndexAssignmentExpression, "IndexAssignmentExpression"},
         {SyntaxKind::LetKeyword, "LetKeyword"},
         {SyntaxKind::VarKeyword, "VarKeyword"}};
 

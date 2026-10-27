@@ -1,0 +1,9 @@
+// REQUIRES: llvm-backend
+// RUN: %warfc -o %t.exe %s
+// RUN: sh -c '%t.exe; echo $?' | %FileCheck %s
+
+a = [10, 20, 30]
+a[1] = 25
+len(a) + a[0] + a[1] + a[2]
+
+// CHECK: 68

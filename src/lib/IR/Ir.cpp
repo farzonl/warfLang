@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include "Ir.h"
+#include "Binding/BoundArrayLiteralExpressionNode.h"
 #include "Binding/BoundAssignmentExpressionNode.h"
 #include "Binding/BoundBinaryExpressionNode.h"
 #include "Binding/BoundBlockStatementNode.h"
@@ -15,6 +16,8 @@
 #include "Binding/BoundFunctionDeclarationNode.h"
 #include "Binding/BoundIdentifierExpressionNode.h"
 #include "Binding/BoundIfStatementNode.h"
+#include "Binding/BoundIndexAssignmentExpressionNode.h"
+#include "Binding/BoundIndexExpressionNode.h"
 #include "Binding/BoundLiteralExpressionNode.h"
 #include "Binding/BoundReturnStatementNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
@@ -394,6 +397,38 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
   if (auto identifier = dynamic_cast<BoundIdentifierExpressionNode *>(node)) {
     return GetVariableName(identifier->Variable().get(), identifier->Name());
   }
+  if (auto arrayLiteral =
+          dynamic_cast<BoundArrayLiteralExpressionNode *>(node)) {
+    auto elemValues = std::vector<std::string>();
+    elemValues.reserve(arrayLiteral->Elements().size());
+    for (const auto &element : arrayLiteral->Elements()) {
+      elemValues.push_back(LowerExpression(element.get()));
+    }
+    auto arrTemp = NewTemp();
+    Emit(IrOpcode::ArrayNew, {std::to_string(arrayLiteral->Elements().size())},
+         arrTemp);
+    for (size_t i = 0; i < elemValues.size(); i++) {
+      auto idxTemp = NewTemp();
+      Emit(IrOpcode::Const, {std::to_string(i)}, idxTemp);
+      Emit(IrOpcode::ArraySet, {arrTemp, idxTemp, elemValues[i]});
+    }
+    return arrTemp;
+  }
+  if (auto indexExpr = dynamic_cast<BoundIndexExpressionNode *>(node)) {
+    auto target = LowerExpression(indexExpr->Target());
+    auto index = LowerExpression(indexExpr->Index());
+    auto result = NewTemp();
+    Emit(IrOpcode::ArrayGet, {target, index}, result);
+    return result;
+  }
+  if (auto indexAssign =
+          dynamic_cast<BoundIndexAssignmentExpressionNode *>(node)) {
+    auto target = LowerExpression(indexAssign->Target());
+    auto index = LowerExpression(indexAssign->Index());
+    auto value = LowerExpression(indexAssign->ValueExpression());
+    Emit(IrOpcode::ArraySet, {target, index, value});
+    return value;
+  }
   if (auto unary = dynamic_cast<BoundUnaryExpressionNode *>(node)) {
     auto operand = LowerExpression(unary->Operand());
     auto result = NewTemp();
@@ -440,6 +475,13 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
       auto arg = LowerExpression(call->Arguments()[0].get());
       auto result = NewTemp();
       Emit(IrOpcode::Print, {arg}, result);
+      return result;
+    }
+    if (call->Name() == "len" && !call->Body() &&
+        mEmittedFunctions.find("len") == mEmittedFunctions.end()) {
+      auto arg = LowerExpression(call->Arguments()[0].get());
+      auto result = NewTemp();
+      Emit(IrOpcode::ArrayLen, {arg}, result);
       return result;
     }
     LowerFunction(call);
@@ -829,6 +871,55 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
       auto val = operand(0);
       std::cout << val << std::endl;
       values[instruction.result] = val;
+      continue;
+    }
+    if (instruction.op == IrOpcode::ArrayNew) {
+      int32_t size = operand(0).asInt();
+      if (size < 0) {
+        throw std::runtime_error("IR error: negative array size.");
+      }
+      auto arr = std::make_shared<std::vector<Value>>(static_cast<size_t>(size),
+                                                      Value());
+      for (auto &elem : *arr) {
+        elem = 0;
+      }
+      Value val;
+      val = std::move(arr);
+      values[instruction.result] = val;
+      continue;
+    }
+    if (instruction.op == IrOpcode::ArrayLen) {
+      auto target = operand(0);
+      const auto &arr = target.asArray();
+      Value lenVal;
+      lenVal = static_cast<int32_t>(arr ? arr->size() : 0);
+      values[instruction.result] = lenVal;
+      continue;
+    }
+    if (instruction.op == IrOpcode::ArrayGet) {
+      auto target = operand(0);
+      auto index = operand(1);
+      const auto &arr = target.asArray();
+      int32_t idx = index.asInt();
+      if (!arr || idx < 0 || static_cast<size_t>(idx) >= arr->size()) {
+        throw std::runtime_error("IR error: array index out of bounds.");
+      }
+      values[instruction.result] = (*arr)[static_cast<size_t>(idx)];
+      continue;
+    }
+    if (instruction.op == IrOpcode::ArraySet) {
+      auto target = operand(0);
+      auto index = operand(1);
+      auto val = operand(2);
+      const auto &arr = target.asArray();
+      int32_t idx = index.asInt();
+      if (!arr || idx < 0 || static_cast<size_t>(idx) >= arr->size()) {
+        throw std::runtime_error("IR error: array index out of bounds.");
+      }
+      (*arr)[static_cast<size_t>(idx)] = val;
+      if (!instruction.result.empty()) {
+        values[instruction.result] = val;
+      }
       continue;
     }
     if (instruction.op == IrOpcode::Call) {
