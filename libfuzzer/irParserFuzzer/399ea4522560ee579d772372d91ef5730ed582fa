@@ -1,0 +1,14 @@
+func __main()
+entry:_body2:be %0
+  %0 = const 1
+(~nôry:
+  %0 = const 0
+  0:
+ 0
+  %0 = const 1
+(~
+š‘try:
+  %0 = const 0
+  %valu = c
+entry:
+  %0 = c for_cva

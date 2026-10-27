@@ -1,0 +1,6 @@
+func @br!n(%x) 
+:
+  %t = add %x, 1pm
+b:
+  %e = sub %x, 13
+  %2 = const e

@@ -1,0 +1,4 @@
+func _()
+e:
+ %0 = const 
+   %5 = store 4 %3   0

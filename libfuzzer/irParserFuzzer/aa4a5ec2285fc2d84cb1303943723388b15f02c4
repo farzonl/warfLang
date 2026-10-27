@@ -1,0 +1,8 @@
+func __main()r
+ey:t
+n%0 = const 2
+  %1true = const 3
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %onc 

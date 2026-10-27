@@ -1,0 +1,7 @@
+func __main()
+% %5
+  %1 = const 1
+  %2 = const 4
+  %3 = lt %1 %2
+%4 = mul %2 %3
+  %5  he

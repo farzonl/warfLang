@@ -1,0 +1,10 @@
+a = [10, 20, 30]
+a[1] = 25
+len(a) + a[0] + a[1] + a[2]
+
+b = [true, false, true]
+b[1] = true
+b+ 0[0]a[1] + a[2]
+
+b = [true, false, true]
+b[1] = true && b[1] +0&& b[2]

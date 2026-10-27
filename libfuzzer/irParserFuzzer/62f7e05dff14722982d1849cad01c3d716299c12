@@ -1,0 +1,5 @@
+func ]_main()iv %0 1
+ %3 = const true
+ f
+  bnot %3
+ %5 = const  c

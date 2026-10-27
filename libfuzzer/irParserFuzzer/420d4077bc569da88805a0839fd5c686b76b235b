@@ -1,0 +1,6 @@
+func main()
+0
+  %value = store %0
+   %8 = const
+ %value =  const 7
+  e
