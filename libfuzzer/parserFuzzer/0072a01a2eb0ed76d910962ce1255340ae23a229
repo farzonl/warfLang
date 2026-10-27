@@ -1,0 +1,14 @@
+a = 5; b = 3; value = 0; }
+
+function isPositive(x: int): bool {
+ function abs(x: int)
+  if (x < 0): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPoistive(x: int): bool {
+  return x >  1) {
+    - 1) + fib i(n

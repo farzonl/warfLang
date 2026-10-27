@@ -1,0 +1,10 @@
+0 /5  /0/s1%5ÿÿÿö// 1. Two-level shadowing: outer int,ÿÿÿö inner int
+var x: intÚÂßÎÏõ„õ  let x: int = 25
+  print(x)
+}
+p5)
+
+// 2. Two-level shado0/1wing acrossvar den(base: int): int {
+  var delta: in0 1 1 5  5 ;;;;;;;;;;;;;;;;;;<;;;;;;;;;;;;;;;;;;;;n t = 7  {
+    l0et delta: int = 50
+* fa4    a()base = base

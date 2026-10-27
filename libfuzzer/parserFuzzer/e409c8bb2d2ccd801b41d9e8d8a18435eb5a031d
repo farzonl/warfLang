@@ -1,0 +1,69 @@
+// 1. Two-level shadowing: ou;ter int, inner int
+var x: int = 10
+{
+ nt
+var x: int = 10
+{
+  let x: int =(25
+  print(x)
+}
+pr(ntix + 5)
+
+// 2. Two-level shadowing fcross types: outer bool, inner int
+var flag: bool = true
+{
+  let flag: int = 42
+int(3)
+    =1  }
+  print(depth)
+}
+print(depth + 200)
+
+// 4. ShaQdowing wit: int {
+  var delta: i.t = 7
+  {
+    let delta:  let x: int =(25
+  print(x)
+}
+pr(ntix + 5)
+
+// 2. Two-level shadowing fcross types: outer bool, inner int
+var flag: bool = tr Two-level shadowing fcross types: outer bool, inner int
+var flag: bool = true
+{
+  let flag: int = 42
+int(3)
+    }1  }
+  print(depth)
+}
+print(depth + 200)
+
+// 4. ShaQdowéng wit: int {
+  var delta: i.t = 7
+  {
+    let delta: ˜‘t = 5ue
+{
+  let flag: int = 42
+int(3)
+    }1  }
+  print(depth)
+}
+print(depth + 200)
+
+// 4. ShaQdowéng witer int
+var flag: bool = true
+{
+  let flag: int = 42
+int(3)
+    }1 pth + 200)
+
+// 4. types: outer bool, inner int
+var flag: bool = true
+{
+  let flag: int = 42
+int(3)
+    nt)
+}
+print(count)
+
+0

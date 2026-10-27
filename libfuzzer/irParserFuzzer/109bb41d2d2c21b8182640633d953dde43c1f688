@@ -1,0 +1,12 @@
+func __main()
+dntry:
+ %3 = const true
+  % %8
+  bnot %3
+% %8
+  bnot %3
+  %0
+  %e_d %8
+  bnot %3
+  %5 = const 4alse
+%6 = eq %uÿ

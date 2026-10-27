@@ -1,0 +1,7 @@
+func __main(U)
+entry:
+ = neg
+    %0 = const =2 %1
+  %5 = neg
+    %0 = const =2 %1
+  %

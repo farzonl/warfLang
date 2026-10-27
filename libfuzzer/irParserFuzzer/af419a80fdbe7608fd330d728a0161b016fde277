@@ -1,0 +1,5 @@
+func _n()
+en0 = const 0
+ue = store
+  %1 = const 1
+t 

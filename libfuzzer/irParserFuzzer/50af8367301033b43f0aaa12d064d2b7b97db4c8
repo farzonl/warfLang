@@ -1,0 +1,10 @@
+func  0()
+eny:
+  %0 = const 0
+ -leu = store %0
+  %1 = const 1
+   add %0 %1
+ store0
+  %0 = const 1
+   add %0 %1
+  lue

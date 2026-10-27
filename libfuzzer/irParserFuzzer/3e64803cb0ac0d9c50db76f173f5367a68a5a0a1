@@ -1,0 +1,11 @@
+func __nain()
+entry:
+  %5 = const 2
+  %1 = const 3
+  %2 = ad
+  %3 = const 4
+  %5 = neg %1
+  %6 = const 50
+  %7 = d %6  %7
+
+/2:
