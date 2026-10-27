@@ -47,11 +47,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Cache Linux apt packages
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/apt-cache
+          key: ${{ runner.os }}-genetic-fuzzer-apt-cache-v1-${{ hashFiles('.github/workflows/genetic-fuzzer.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-genetic-fuzzer-apt-cache-v1-
+
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            llvm-dev llvm clang libedit-dev ninja-build python3
+          if compgen -G "${{ github.workspace }}/apt-cache/*.deb" > /dev/null && sudo DEBIAN_FRONTEND=noninteractive dpkg -i "${{ github.workspace }}/apt-cache"/*.deb; then
+            echo "Installed dependencies from cached .deb archives"
+          else
+            sudo rm -f /etc/apt/apt.conf.d/docker-clean
+            mkdir -p "${{ github.workspace }}/apt-cache/partial"
+            sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update
+            sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-upgrade \
+              -o Dpkg::Use-Pty=0 \
+              -o APT::Keep-Downloaded-Packages=true \
+              -o Acquire::Retries=3 \
+              -o Acquire::http::Timeout=30 \
+              -o Acquire::https::Timeout=30 \
+              -o Dir::Cache::archives="${{ github.workspace }}/apt-cache" \
+              llvm-dev llvm clang libedit-dev ninja-build python3
+          fi
+          sudo rm -rf "${{ github.workspace }}/apt-cache/lock" "${{ github.workspace }}/apt-cache/partial"
+          mkdir -p "${{ github.workspace }}/apt-cache"
+          sudo chown -R "$USER:$USER" "${{ github.workspace }}/apt-cache"
 
       - name: Restore persistent fuzz corpus from ${{ env.CORPUS_BRANCH }}
         env:
