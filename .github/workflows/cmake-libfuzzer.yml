@@ -136,6 +136,12 @@ jobs:
       run:  |
         mkdir ${{github.workspace}}/artifacts
         cp build/fuzz/*Fuzzer ${{github.workspace}}/artifacts
+        if [ "$(uname -s)" = "Darwin" ]; then
+          export PATH="$(brew --prefix llvm)/bin:$PATH"
+          for f in ${{github.workspace}}/artifacts/*Fuzzer; do
+            dsymutil "$f" || true
+          done
+        fi
         pushd ${{github.workspace}}
         zip -r ${{ env.APPNAME }}-$(uname -s)-libfuzzers-$(uname -m).zip artifacts
         popd
@@ -145,6 +151,11 @@ jobs:
       run: |
         [system.io.directory]::CreateDirectory("${{github.workspace}}/artifacts")
         Copy-Item "build/fuzz/*Fuzzer${{ matrix.artifact_exec_ext }}" -Destination "${{github.workspace}}/artifacts"
+        Get-ChildItem -Path "build/fuzz/*.pdb" -ErrorAction SilentlyContinue | Copy-Item -Destination "${{github.workspace}}/artifacts"
+        $asanDll = Get-ChildItem -Path "C:\Program Files\LLVM\lib\clang\*\lib\windows\clang_rt.asan_dynamic-x86_64.dll" -ErrorAction SilentlyContinue | Select-Object -First 1
+        if ($asanDll) {
+          Copy-Item $asanDll.FullName -Destination "${{github.workspace}}/artifacts"
+        }
         Compress-Archive -Path ${{github.workspace}}/artifacts/* -DestinationPath ${{ env.APPNAME }}-${{matrix.artifact_os_name}}-libfuzzers-${{matrix.artifact_arch}}.zip
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v4

@@ -89,9 +89,14 @@ if (BUILD_FUZZER AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT isEmscripten
   # uninstrumented objects (MSVC: "/failifmismatch: mismatch detected for
   # 'annotate_string'"). Building the library with -fsanitize=fuzzer also
   # gives libFuzzer real coverage feedback from the code under test, not just
-  # the thin harness file.
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,fuzzer-no-link")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,fuzzer-no-link")
+  # the thin harness file. Include debug symbols and frame pointers project-wide
+  # so libFuzzer/ASan crash call stacks symbolize WarfCore frames accurately.
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,fuzzer-no-link -fno-omit-frame-pointer -g")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,fuzzer-no-link -fno-omit-frame-pointer -g")
+  if(WIN32)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Xclang -gcodeview")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xclang -gcodeview")
+  endif()
   add_subdirectory (fuzz)
 endif()
 
