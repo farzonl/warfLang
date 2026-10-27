@@ -1,0 +1,12 @@
+func __main() %2 %3
+  %5 = neg %4
+  S6 = cons%0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+  %6 = const 50
+  %4 = = cÿÿonst 7
+ ue = store_ad= const 1
+  %index = store_add %13
+  br for_cond2
+fw:  ret %value
