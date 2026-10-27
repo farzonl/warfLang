@@ -9,9 +9,11 @@
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/SyntaxTree.h"
 #include "Version/version.h"
+#include <cctype>
 #include <fstream>
 #include <functional>
 #include <sstream>
+#include <vector>
 
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
 #include <editline/readline.h>
@@ -75,6 +77,51 @@ static int32_t CountUnmatchedBraces(const std::string &line) {
   return delta;
 }
 
+static std::string StripCommentAndTrim(const std::string &line) {
+  std::string text = line;
+  auto commentPos = text.find("//");
+  if (commentPos != std::string::npos) {
+    text = text.substr(0, commentPos);
+  }
+  size_t start = 0;
+  while (start < text.size() &&
+         std::isspace(static_cast<unsigned char>(text[start]))) {
+    start++;
+  }
+  size_t end = text.size();
+  while (end > start &&
+         std::isspace(static_cast<unsigned char>(text[end - 1]))) {
+    end--;
+  }
+  return text.substr(start, end - start);
+}
+
+static bool StartsWithKeyword(const std::string &text,
+                              const std::string &keyword) {
+  if (text.size() < keyword.size() ||
+      text.compare(0, keyword.size(), keyword) != 0) {
+    return false;
+  }
+  if (text.size() == keyword.size()) {
+    return true;
+  }
+  unsigned char nextChar = static_cast<unsigned char>(text[keyword.size()]);
+  return !std::isalnum(nextChar) && nextChar != '_';
+}
+
+static bool StatementStartsWithKeyword(const std::string &statement,
+                                       const std::string &keyword) {
+  std::stringstream stream(statement);
+  std::string line;
+  while (std::getline(stream, line)) {
+    std::string trimmed = StripCommentAndTrim(line);
+    if (!trimmed.empty()) {
+      return StartsWithKeyword(trimmed, keyword);
+    }
+  }
+  return false;
+}
+
 bool ParseFile::parse(bool showTree) {
   std::ifstream file(mInputFilePath);
   if (!file.is_open()) {
@@ -82,17 +129,39 @@ bool ParseFile::parse(bool showTree) {
     return false;
   }
 
+  std::vector<std::string> lines;
   std::string line;
+  while (getline(file, line)) {
+    lines.push_back(line);
+  }
+
   std::stringstream textBlock;
   std::string statement;
   int32_t braceDepth = 0;
-  while (getline(file, line)) {
-    braceDepth += CountUnmatchedBraces(line);
+  for (size_t i = 0; i < lines.size(); i++) {
+    braceDepth += CountUnmatchedBraces(lines[i]);
     if (!statement.empty()) {
       statement += "\n";
     }
-    statement += line;
+    statement += lines[i];
     if (braceDepth <= 0) {
+      std::string nextTrimmed;
+      for (size_t j = i + 1; j < lines.size(); j++) {
+        nextTrimmed = StripCommentAndTrim(lines[j]);
+        if (!nextTrimmed.empty()) {
+          break;
+        }
+      }
+      bool continuesWithElse = StartsWithKeyword(nextTrimmed, "else");
+      std::string currentTrimmed = StripCommentAndTrim(lines[i]);
+      bool continuesWithWhile = StartsWithKeyword(nextTrimmed, "while") &&
+                                StatementStartsWithKeyword(statement, "do") &&
+                                !currentTrimmed.empty() &&
+                                currentTrimmed.back() == '}';
+      if (continuesWithElse || continuesWithWhile) {
+        braceDepth = 0;
+        continue;
+      }
       mParseLineBehavior(statement, showTree, textBlock);
       statement.clear();
       braceDepth = 0;
@@ -147,7 +216,7 @@ void evaluate(std::string &line, bool showTree, bool emitIr,
   if (syntaxTree->Root()->Statements().empty()) {
     return;
   }
-  if (syntaxTree->Errors().empty() &&
+  if (!emitIr && syntaxTree->Errors().empty() &&
       syntaxTree->Root()->Statements().size() == 1 &&
       syntaxTree->Root()->Statement()->Kind() ==
           SyntaxKind::FunctionDeclaration) {
@@ -309,6 +378,17 @@ int main(int argc, char **argv) {
 
   int filePathIndex = (1 == showTreeIndex || 1 == emitIrIndex) ? 2 : 1;
   std::string filePath(argv[filePathIndex]);
+  if (emitIr) {
+    std::ifstream inputFile(filePath);
+    if (inputFile.is_open()) {
+      std::stringstream buffer;
+      buffer << inputFile.rdbuf();
+      std::string wholeFile = buffer.str();
+      std::stringstream textBlock;
+      evaluate(wholeFile, showTree, emitIr, textBlock);
+    }
+    return 0;
+  }
   ParseFile file(filePath, [emitIr](std::string &line, bool showTree,
                                     std::stringstream &textBlock) {
     evaluate(line, showTree, emitIr, textBlock);

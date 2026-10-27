@@ -1,0 +1,26 @@
+// RUN: %warf %s --emit-ir | %FileCheck %s
+
+function add(a: int, b: int): int {
+  return a + b
+}
+
+var x = 10
+if (x > 5) {
+  x = add(x, 20)
+}
+else {
+  x = 0
+}
+x
+
+// CHECK: func __main()
+// CHECK-NEXT: entry:
+// CHECK: %x = store
+// CHECK: call add
+// CHECK: ret %x
+// CHECK-EMPTY:
+// CHECK-NEXT: func add(%a, %b)
+// CHECK-NEXT: entry:
+// CHECK-NEXT:   %0 = add %a %b
+// CHECK-NEXT:   ret %0
+// CHECK-NOT: func __main()

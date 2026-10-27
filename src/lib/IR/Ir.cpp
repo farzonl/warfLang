@@ -368,6 +368,26 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
     return result;
   }
   if (auto binary = dynamic_cast<BoundBinaryExpressionNode *>(node)) {
+    if (binary->OperatorKind() == BoundBinaryOperatorKind::LogicalAnd ||
+        binary->OperatorKind() == BoundBinaryOperatorKind::LogicalOr) {
+      auto id = mLabelIndex++;
+      auto rhsLabel = MakeIrLabel(IrLabelKind::LogicRhs, id);
+      auto endLabel = MakeIrLabel(IrLabelKind::LogicEnd, id);
+      auto left = LowerExpression(binary->Left());
+      auto result = NewTemp();
+      Emit(IrOpcode::Store, {left}, result);
+      if (binary->OperatorKind() == BoundBinaryOperatorKind::LogicalAnd) {
+        EmitCondBranch(left, rhsLabel, endLabel);
+      } else {
+        EmitCondBranch(left, endLabel, rhsLabel);
+      }
+      EmitLabel(rhsLabel);
+      auto right = LowerExpression(binary->Right());
+      Emit(IrOpcode::Store, {right}, result);
+      EmitBranch(endLabel);
+      EmitLabel(endLabel);
+      return result;
+    }
     auto left = LowerExpression(binary->Left());
     auto right = LowerExpression(binary->Right());
     auto result = NewTemp();
