@@ -454,6 +454,7 @@ def run_single_fuzzer(
     crashes_dir: Path,
     os_name: str,
     max_restarts: int = 3,
+    startup_failures: Optional[List[str]] = None,
 ) -> Tuple[int, List[LibFuzzerFinding]]:
     """Run a single libFuzzer binary for up to `budget_seconds`, capturing crashes."""
     fuzzer_name = fuzzer_bin.stem if fuzzer_bin.suffix.lower() == ".exe" else fuzzer_bin.name
@@ -585,10 +586,12 @@ def run_single_fuzzer(
         elif returncode != 0:
             if is_startup_or_loader_failure(returncode, output):
                 print(
-                    f"Warning: {fuzzer_name} exited with code {returncode} at startup "
+                    f"Error: {fuzzer_name} exited with code {returncode} at startup "
                     f"(missing runtime library/DLL or empty output); skipping issue filing.",
                     file=sys.stderr,
                 )
+                if startup_failures is not None:
+                    startup_failures.append(f"{fuzzer_name} (exit code {returncode})")
                 break
             call_stack = extract_call_stack(output)
             kind, description = extract_crash_metadata(fuzzer_name, output)
@@ -765,6 +768,7 @@ def main() -> int:
 
     all_findings: List[LibFuzzerFinding] = []
     corpus_counts: Dict[str, int] = {}
+    startup_failures: List[str] = []
 
     with tempfile.TemporaryDirectory(prefix="warf_libfuzzer_seeds_") as tmp_seed_root:
         for fuzzer_bin in fuzzer_bins:
@@ -791,6 +795,7 @@ def main() -> int:
                 seed_dir=fuzzer_seed_dir,
                 crashes_dir=crashes_dir,
                 os_name=os_name,
+                startup_failures=startup_failures,
             )
             corpus_counts[fuzzer_name] = final_count
             all_findings.extend(findings)
@@ -845,6 +850,7 @@ def main() -> int:
         "per_fuzzer_timeout_seconds": per_fuzzer_budget,
         "corpus_size": total_corpus,
         "corpus_by_fuzzer": corpus_counts,
+        "startup_failures": startup_failures,
         "findings_count": len(unique_findings),
         "findings": [
             {
@@ -879,6 +885,14 @@ def main() -> int:
             run_url=args.run_url,
             dry_run=args.dry_run_issues,
         )
+
+    if startup_failures:
+        print(
+            f"Error: {len(startup_failures)} fuzzer(s) failed at startup: "
+            f"{', '.join(startup_failures)}",
+            file=sys.stderr,
+        )
+        return 1
 
     return 0
 
