@@ -1,0 +1,96 @@
+func __main()
+ealue = store %4
+ue = storC%5
+  br end0 add %0 %1
+ ÿÿÿÿ %3 = conste %4
+ue = store %5
+  br end0
+end0:ÿÿÿ
+ `%6 = const 3ry:
+  %0 = const 0
+  %value = store %0
+  %0
+  %1 = const 5
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond +3[ = mul %2 %3
+  %5 = neg %4
+  3
+  %2 = add %0 %1
+ ÿÿÿÿ %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50 %1 = const 1
+  mul %2 %3
+  %5 = neg %4%1
+ ÿÿÿÿ %3 = con%2 %3
+  %5 = neg %4
+  %6 = const 50 %1 = const 1
+  mul %2 %3
+  %5 = neg %4%1
+ ÿÿÿÿ %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %¾
+  %6 = const 50
+  %7 = addP 3
+ 0 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50 %1 = const 1
+  mul %2 %3
+  %5 = neg %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %¾
+  %6/ = const 50
+  %7 = addP 3
+ 0 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50 %1 = const 1
+  mul %2 %3
+  % 50 %1 = const 1
+  mul %2 %3
+  %5 = neg %3 = const 4st 4
+  %4 = mul %2 %3
+  %5 = neg %¾
+  %6 = const 50
+  %7 = addP 3
+ 0 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50 %1 = const 1
+  mul %2 %3
+  %5 = neg %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %¾
+  %6/ = const 50
+  %7 = addP 3
+ 0 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50 %1 = const 1
+  mul %2 %3
+  % 50 %1 = const 1
+  mul %2 %3
+  %5 = neg %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %¾
+  %6/ = const 50
+  %7 = addP 3
+ 0 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50 %1 = const 1
+  mul %2 %3
+  %5 = neg %4
+  3
+  %2 = add %0 %1
+`ÿÿÿÿ %3 = const 4
+  %4 = mul %2 %3
+  %5 = n= lt %1 %2
+  br_cond %3[ = mul %2 %3
+const 4
+  %4 = mul %2 %3
+  %5 = neg %¾
+  %6 = const 50
+  %7 = addP 3
+ 0
