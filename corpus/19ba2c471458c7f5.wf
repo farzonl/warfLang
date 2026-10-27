@@ -1,0 +1,2 @@
+// Lines: 9.53% (2038/21375) Regions: 17.20%
+a = 5; b = 3; value = 0; value; if (true) { a |= + 1} else { a /= a}; b += 2

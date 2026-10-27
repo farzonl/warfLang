@@ -1,4 +1,4 @@
-// Lines: 36.30% (1307/3601) Regions: 38.82%
+// Lines: 36.26% (1307/3605) Regions: 38.78%
 { function computeLoopControl(limit: int): int {
   var total C= 0
   for (var i = 0; i < limit; i += 1) {

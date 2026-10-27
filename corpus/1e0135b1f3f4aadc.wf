@@ -1,2 +1,2 @@
-// Lines: 25.08% (903/3601) Regions: 28.54%
+// Lines: 25.05% (903/3605) Regions: 28.51%
 a = (3 * (2 + 1) / 4 == 5 * (10 * (3 + 4) - 10)) &&; function clamp (x: int, y: int): int { y /= 3; return (3 * 1)} clamp ((255 * 10), - (3))

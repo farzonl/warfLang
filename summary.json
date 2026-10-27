@@ -1,35 +1,28 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 179,
-  "findings_count": 2,
+  "corpus_size": 205,
+  "findings_count": 1,
   "cumulative_coverage": {
-    "lines_covered": 3717,
-    "lines_total": 21366,
-    "lines_percent": 17.396798652064028,
-    "regions_covered": 2216,
-    "regions_total": 7651,
-    "regions_percent": 28.96353417853875,
-    "branches_covered": 1382,
+    "lines_covered": 3734,
+    "lines_total": 21375,
+    "lines_percent": 17.469005847953216,
+    "regions_covered": 2224,
+    "regions_total": 7655,
+    "regions_percent": 29.052906596995427,
+    "branches_covered": 1388,
     "branches_total": 2179,
-    "branches_percent": 63.42358880220284
+    "branches_percent": 63.69894446994034
   },
   "best_single_program": "a = 5; b = 1; value = 0; function baz (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x |= x}; return + ((x & y))} baz (7,) 1); if (true) { a = 2} else { function abs (x: int, y: int): int { y -= y; return + (~5)} abs ((4 | 42), (5 & + 10) -}; |= (value ^= 4); computeLoopControl n: int): int { if (n <= 1) { return; c = 0; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false 2147483648)) + 4) -; let y = 10",
-  "best_single_coverage_percent": 36.850874757011944,
+  "best_single_coverage_percent": 36.809986130374476,
   "findings": [
     {
-      "kind": "crash",
-      "fingerprint": "84071549d4d2efc0",
-      "description": "Crash/Unhandled error in `Warf --eval` (exit -6)",
-      "program": "a = 1; b = 1; value = 0; a += ((b / value) & 2); ((b - 7) ^ +(value))",
-      "details": "terminate called after throwing an instance of 'std::runtime_error'\n  what():  Logial error: Divide by zero."
-    },
-    {
-      "kind": "crash",
-      "fingerprint": "cea1712793bf6e3b",
-      "description": "Crash in `Warf --eval --show_tree` (exit -6)",
-      "program": "a = 1; b = 1; value = 0; a += ((b / value) & 2); ((b - 7) ^ +(value))",
-      "details": "terminate called after throwing an instance of 'std::runtime_error'\n  what():  Logial error: Divide by zero."
+      "kind": "hang",
+      "fingerprint": "de9ead1f1fc4fc1a",
+      "description": "Timeout in `Warf --eval`",
+      "program": "a = 0; b = 10; value = 0; for (index = 0; index < 5; index += 1) { for (index = 0; index < 3; index += 1) { a &= value } }; a &= 0; function foo(x: int, y: int): int { var c = (false != true); return 2 } foo(~3, 0); a = -(4); (3 - (7 ^ 3))",
+      "details": ""
     }
   ]
 }

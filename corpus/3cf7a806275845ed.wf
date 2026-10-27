@@ -1,0 +1,2 @@
+// Lines: 10.37% (2217/21375) Regions: 18.34%
+a = 1; b = 4; value = 0; c = 0; while (c < 4) { a += value; c += 1 }; var index = 3; { { b /= -2 } }; 1

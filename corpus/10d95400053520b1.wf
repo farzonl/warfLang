@@ -1,2 +1,2 @@
-// Lines: 25.60% (922/3601) Regions: 29.76%
+// Lines: 28.99% (1045/3605) Regions: 34.13%
 a = 1; b = 1; value = 0; a += ((b / value) & 2); ((b - 7) ^ +(value))
