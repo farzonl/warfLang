@@ -53,7 +53,7 @@ cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug \
 ninja -C./build
 LLVM_PROFILE_FILE="Warflang.profraw" ./build/test/WarfLang_TEST
 $(brew --prefix llvm)/bin/llvm-profdata merge -sparse WarfLang.profraw -o WarfLang.profdata
-$(brew --prefix llvm)/bin/llvm-cov show -output-dir=out/report -format=html -instr-profile=Warf.profdata -object=build/test/WarfLang_TEST build/src/cli/Warf src/
+$(brew --prefix llvm)/bin/llvm-cov show --show-directory-coverage -output-dir=out/report -format=html -instr-profile=Warf.profdata -object=build/test/WarfLang_TEST build/src/cli/Warf src/
 ```
 
 ### Run Clang Tidy
