@@ -1,0 +1,2 @@
+// Lines: 32.84% (1217/3706) Regions: 36.35%
+a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true false))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; if (isPos (3) && !isPos (- 1)) { res = 1} res} else { = -= (10 | 10)}; for (z value 0; z < 3; z += 1) { value += 42}

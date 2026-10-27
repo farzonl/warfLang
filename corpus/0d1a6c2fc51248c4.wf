@@ -1,2 +1,2 @@
-// Lines: 10.87% (2329/21433) Regions: 19.76%
+// Lines: 10.84% (2332/21515) Regions: 19.66%
 function foo(a: int, b: int): int { if (a > b) { return a } else { return b } } foo(10, 20)

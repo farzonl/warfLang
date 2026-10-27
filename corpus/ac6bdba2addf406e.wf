@@ -1,0 +1,2 @@
+// Lines: 37.97% (1407/3706) Regions: 41.51%
+if (!(!(true))) { a = 1; b = 1; value = 0; function bar(x: int, y: int): int { i = 0; while (i < 1) { y += y; i += 1 }; return y } bar(+42, 7); for) index = 0; index < 1; index += 1) { for (z = 0; z < 1; z += 1) { value /= - 10}}; for (index = 0; index < 4; index = 0; while (index < 3) { if (true ({ value *= 3} else { a -= value}; index += 1}; if { (3 == (2 * 7))) { function foo (x, y) { x += - 4; return (42 - 4)} foo (((value ^= a}}; value

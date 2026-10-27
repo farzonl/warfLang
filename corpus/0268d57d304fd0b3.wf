@@ -1,2 +1,2 @@
-// Lines: 25.31% (927/3663) Regions: 29.56%
+// Lines: 25.12% (931/3706) Regions: 29.32%
 if (((10 != value) != (42 >= x))) { function isPos(x: int): bool { return x > 0 } res = 0; if (isPos(3) && !isPos(-1)) { res = 1 } res } else { value -= (10 | 10) }

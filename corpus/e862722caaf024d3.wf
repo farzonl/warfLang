@@ -1,0 +1,2 @@
+// Lines: 35.11% (1301/3706) Regions: 39.36%
+if (false) { a = 1; b = 1; value = 0; let x = false; function step(x, y) { x |= 255; return ((y | y) + (255 | 10)) } step((value & 0), (255 ^ (~3 * 42))); b |= (b ^ (+255 * b)); (10 * (42 / 5)) } else { b &= -(+1) }

@@ -1,20 +1,28 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 305,
-  "findings_count": 0,
+  "corpus_size": 327,
+  "findings_count": 1,
   "cumulative_coverage": {
-    "lines_covered": 3776,
-    "lines_total": 21433,
-    "lines_percent": 17.617692343582327,
-    "regions_covered": 2240,
-    "regions_total": 7677,
-    "regions_percent": 29.178064348052622,
-    "branches_covered": 1398,
-    "branches_total": 2193,
-    "branches_percent": 63.748290013679885
+    "lines_covered": 3827,
+    "lines_total": 21515,
+    "lines_percent": 17.78759005345108,
+    "regions_covered": 2259,
+    "regions_total": 7721,
+    "regions_percent": 29.257868151793808,
+    "branches_covered": 1413,
+    "branches_total": 2243,
+    "branches_percent": 62.99598751671868
   },
-  "best_single_program": "a = 5; b = 1; value = 0; function baz (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x |= x}; return + ((x & y))} baz (7,) 1); if (true) { a = 2} else { function abs (x: int, y: int): int { y -= y; return + (~5)} abs ((4 | 42), (5 & + 10) -}; |= (value ^= 4); computeLoopControl n: int): int { if (n <= 1) { return; c = 0; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false 2147483648)) + 4) -; let y = 10",
-  "best_single_coverage_percent": 36.58203658203658,
-  "findings": []
+  "best_single_program": "function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= { value *= 3} else { a -= value}; index += 1}; if ((3 == (2 * 7))) { true && (true && false))) { index = 0; += if (((false != truB) && (true (n <= 1) { return; c = 0; b = 3; value = 0; a ^= + (3 j; if (",
+  "best_single_coverage_percent": 35.483000539665404,
+  "findings": [
+    {
+      "kind": "differential",
+      "fingerprint": "59665c3c178257c8",
+      "description": "Mismatch between `Warf --eval` ('') and `WarfIR --run` ('0')",
+      "program": "a = 1; b = 1; value = 0; function bar(x: int, y: int): int { i = 0; while (i < 1) { y += y; i += 1 }; if (false) { for (z = 0; z < 2; z += 1) { b *= 5}} else { if ((1 == 2)) { a -= + 4} else { value ^= a}}; value }",
+      "details": "Emitted IR:\nfunc __main()\nentry:\n  %0 = const 1\n  %a = store %0\n  %1 = const 1\n  %b = store %1\n  %2 = const 0\n  %value = store %2\n  ret %value\n"
+    }
+  ]
 }

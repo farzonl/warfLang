@@ -1,0 +1,2 @@
+// Lines: 27.25% (1010/3706) Regions: 30.56%
+{ a = (3 * (2 + 1) / 4 == 5 * (10 * (3 + 4)) { if ((false == true)) { value = 5} else { b /= 1}}; if (false) { for (z = 0; z < 2; z += 1) { b *= 5}} else { if ((1 == 2)) { a -= + 4} else { value ^= a}}; value }

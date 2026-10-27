@@ -1,0 +1,2 @@
+// Lines: 36.16% (1340/3706) Regions: 40.51%
+if ((true != (true == false))) { a = 1; b = 1; value = 0; function step(x, y) { if (!(true)) { y &= -7 } else { y -= 10 }; return ~(5) } step(-(2), (a &= +(0))); function step(x, y) { if ((y < y)) { y &= 4 } else { y *= 7 }; return ((4 * 5) / +2) } step((b /= 5), 4); y = ~(~(3)); { y = 5 }; (5 ^ 2) } else { { value -= value } }
