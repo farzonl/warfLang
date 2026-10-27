@@ -77,8 +77,7 @@ struct HasSetStepLimit<T, Limit,
                        std::void_t<decltype(std::declval<T>().SetStepLimit(
                            std::declval<Limit>()))>> : std::true_type {};
 
-template <typename T>
-void ApplyStepLimit(T &target, int stepLimit) {
+template <typename T> void ApplyStepLimit(T &target, int stepLimit) {
   if (stepLimit <= 0) {
     return;
   }
@@ -93,15 +92,13 @@ void ApplyStepLimit(T &target, int stepLimit) {
   }
 }
 
-template <typename T, typename = void>
-struct HasSpanField : std::false_type {};
+template <typename T, typename = void> struct HasSpanField : std::false_type {};
 
 template <typename T>
 struct HasSpanField<T, std::void_t<decltype(std::declval<T>().span)>>
     : std::true_type {};
 
-template <typename Inst>
-TextSpan GetInstructionSpan(const Inst &inst) {
+template <typename Inst> TextSpan GetInstructionSpan(const Inst &inst) {
   if constexpr (HasSpanField<Inst>::value) {
     return inst.span;
   } else {
@@ -166,12 +163,16 @@ std::string EscapeJsonString(const std::string &str) {
         }
         if (seqLen == 3) {
           unsigned char c1 = static_cast<unsigned char>(str[i + 1]);
-          if (c == 0xE0 && c1 < 0xA0) valid = false;
-          if (c == 0xED && c1 > 0x9F) valid = false;
+          if (c == 0xE0 && c1 < 0xA0)
+            valid = false;
+          if (c == 0xED && c1 > 0x9F)
+            valid = false;
         } else if (seqLen == 4) {
           unsigned char c1 = static_cast<unsigned char>(str[i + 1]);
-          if (c == 0xF0 && c1 < 0x90) valid = false;
-          if (c == 0xF4 && c1 > 0x8F) valid = false;
+          if (c == 0xF0 && c1 < 0x90)
+            valid = false;
+          if (c == 0xF4 && c1 > 0x8F)
+            valid = false;
         }
       }
 
@@ -312,8 +313,7 @@ void CollectBoundSymbols(const BoundStatementNode *stmt,
     for (const auto &child : block->Statements()) {
       CollectBoundSymbols(child.get(), vars, funcs);
     }
-  } else if (auto *ifStmt =
-                 dynamic_cast<const BoundIfStatementNode *>(stmt)) {
+  } else if (auto *ifStmt = dynamic_cast<const BoundIfStatementNode *>(stmt)) {
     CollectBoundSymbols(ifStmt->ThenStatement(), vars, funcs);
     if (ifStmt->ElseStatement()) {
       CollectBoundSymbols(ifStmt->ElseStatement(), vars, funcs);
@@ -360,8 +360,8 @@ void CollectBoundSymbols(const BoundStatementNode *stmt,
         params.push_back({pName, pType});
       }
       sig += "): " + retType;
-      funcs[name] = {name, sig, retType, "User-defined function " + name, -1, -1,
-                     params};
+      funcs[name] = {name, sig, retType, "User-defined function " + name,
+                     -1,   -1,  params};
       if (fn->Body()) {
         try {
           Binder fnBinder;
@@ -389,8 +389,7 @@ void CollectSyntaxSymbols(SyntaxNode *node, const std::string &src,
       if (name.empty()) {
         int32_t s = idToken->Span().Start();
         int32_t len = idToken->Span().Length();
-        if (s >= 0 && len > 0 &&
-            static_cast<size_t>(s + len) <= src.size()) {
+        if (s >= 0 && len > 0 && static_cast<size_t>(s + len) <= src.size()) {
           name = src.substr(s, len);
         }
       }
@@ -423,8 +422,7 @@ void CollectSyntaxSymbols(SyntaxNode *node, const std::string &src,
       if (name.empty()) {
         int32_t s = idToken->Span().Start();
         int32_t len = idToken->Span().Length();
-        if (s >= 0 && len > 0 &&
-            static_cast<size_t>(s + len) <= src.size()) {
+        if (s >= 0 && len > 0 && static_cast<size_t>(s + len) <= src.size()) {
           name = src.substr(s, len);
         }
       }
@@ -433,9 +431,9 @@ void CollectSyntaxSymbols(SyntaxNode *node, const std::string &src,
         int32_t e = -1;
         ComputeNodeSpan(fnNode, s, e);
         std::string retType = ValueTypeToString(fnNode->ReturnType());
-        std::string sig = (fnNode->IsExtern() ? "extern function "
-                                              : "function ") +
-                          name + "(";
+        std::string sig =
+            (fnNode->IsExtern() ? "extern function " : "function ") + name +
+            "(";
         std::vector<std::pair<std::string, std::string>> params;
         for (size_t i = 0; i < fnNode->Parameters().size(); ++i) {
           if (i > 0) {
@@ -785,8 +783,9 @@ const char *ExecuteWarf(const char *source, int engine, int stepLimit) {
          << "  \"result\": \"\",\n"
          << "  \"resultType\": \"unknown\",\n"
          << "  \"error\": \""
-         << EscapeJsonString(errorStream.str().empty() ? "No statement to execute"
-                                                      : errorStream.str())
+         << EscapeJsonString(errorStream.str().empty()
+                                 ? "No statement to execute"
+                                 : errorStream.str())
          << "\",\n"
          << "  \"elapsedMs\": " << elapsedMs << ",\n"
          << "  \"engine\": " << engine << ",\n"
@@ -930,8 +929,8 @@ const char *AnalyzeWarf(const char *source) {
     int32_t len = err.Span().Length();
     int32_t e = (s >= 0 && len >= 0) ? (s + len) : -1;
     LineColumn startLC = TextSpan::ComputeLineColumn(src, s >= 0 ? s : 0);
-    LineColumn endLC = TextSpan::ComputeLineColumn(
-        src, e >= 0 ? e : (s >= 0 ? s : 0));
+    LineColumn endLC =
+        TextSpan::ComputeLineColumn(src, e >= 0 ? e : (s >= 0 ? s : 0));
     if (!firstDiag) {
       diagJson << ",\n";
     }
@@ -952,8 +951,8 @@ const char *AnalyzeWarf(const char *source) {
     int32_t len = err.Span().Length();
     int32_t e = (s >= 0 && len >= 0) ? (s + len) : -1;
     LineColumn startLC = TextSpan::ComputeLineColumn(src, s >= 0 ? s : 0);
-    LineColumn endLC = TextSpan::ComputeLineColumn(
-        src, e >= 0 ? e : (s >= 0 ? s : 0));
+    LineColumn endLC =
+        TextSpan::ComputeLineColumn(src, e >= 0 ? e : (s >= 0 ? s : 0));
     if (!firstDiag) {
       diagJson << ",\n";
     }
@@ -971,8 +970,7 @@ const char *AnalyzeWarf(const char *source) {
   }
   diagJson << "\n  ]";
 
-  bool hasErrors =
-      !syntaxTree->Errors().empty() || !binder->Errors().empty();
+  bool hasErrors = !syntaxTree->Errors().empty() || !binder->Errors().empty();
 
   // 3. AST Nodes
   std::vector<AstItem> astItems;
@@ -1143,8 +1141,7 @@ const char *AnalyzeWarf(const char *source) {
     firstFn = false;
     const auto &f = pair.second;
     symbolsJson << "      {\n"
-                << "        \"name\": \"" << EscapeJsonString(f.name)
-                << "\",\n"
+                << "        \"name\": \"" << EscapeJsonString(f.name) << "\",\n"
                 << "        \"kind\": \"function\",\n"
                 << "        \"signature\": \"" << EscapeJsonString(f.signature)
                 << "\",\n"
