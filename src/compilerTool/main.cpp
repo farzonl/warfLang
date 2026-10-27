@@ -18,7 +18,8 @@
 #include <string>
 
 static void printUsage() {
-  std::cout << "usage: Warfc [-O|--opt] [-o output] <file_name>\n";
+  std::cout << "usage: Warfc [-O|--opt] [--emit-ir|--emit-llvm-ir] [-o output] "
+               "<file_name>\n";
   std::cout << "       Warfc -h\n";
   std::cout << "       Warfc --help\n";
 }
@@ -102,6 +103,8 @@ static bool CompileLLVM(const std::string &llvmIr,
 
 int main(int argc, char **argv) {
   bool optimize = false;
+  bool emitIr = false;
+  bool emitLlvmIr = false;
   std::string inputPath;
   std::string outputPath;
 
@@ -113,6 +116,14 @@ int main(int argc, char **argv) {
     }
     if (arg == "-O" || arg == "--opt") {
       optimize = true;
+      continue;
+    }
+    if (arg == "--emit-ir") {
+      emitIr = true;
+      continue;
+    }
+    if (arg == "--emit-llvm-ir" || arg == "--emit-llvm") {
+      emitLlvmIr = true;
       continue;
     }
     if (arg == "-o") {
@@ -135,7 +146,7 @@ int main(int argc, char **argv) {
     printUsage();
     return 0;
   }
-  if (outputPath.empty()) {
+  if (!emitIr && !emitLlvmIr && outputPath.empty()) {
     outputPath = DefaultOutputPath(inputPath);
   }
 
@@ -159,8 +170,32 @@ int main(int argc, char **argv) {
   if (optimize) {
     IrOptimizer::OptimizeInPlace(module);
   }
+  if (emitIr) {
+    if (outputPath.empty() || outputPath == "-") {
+      IrPrinter::Print(module);
+    } else {
+      std::stringstream out;
+      IrPrinter::Print(module, out);
+      std::ofstream output(outputPath);
+      if (!output.is_open()) {
+        std::cerr << "Failed to write IR: " << outputPath << std::endl;
+        return -1;
+      }
+      output << out.str();
+    }
+    return 0;
+  }
 #if defined(WARF_ENABLE_LLVM_BACKEND)
-  auto llvmIr = LlvmBackend::EmitLLVM(module, true);
+  auto llvmIr = LlvmBackend::EmitLLVM(module, !emitLlvmIr);
+  if (emitLlvmIr) {
+    if (outputPath.empty() || outputPath == "-") {
+      std::cout << llvmIr;
+    } else if (!WriteTextFile(outputPath, llvmIr)) {
+      std::cerr << "Failed to write LLVM IR: " << outputPath << std::endl;
+      return -1;
+    }
+    return 0;
+  }
   if (!CompileLLVM(llvmIr, outputPath)) {
     std::cerr << "Failed to compile executable." << std::endl;
     return -1;
