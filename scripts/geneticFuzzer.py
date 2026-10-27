@@ -127,12 +127,22 @@ class CoverageMetrics:
         return self.lines_percent
 
 
+def finding_fingerprint(kind: str, description: str) -> str:
+    """Compute a stable 16-character hex fingerprint for deduplicating findings."""
+    return hashlib.sha256(f"{kind}:{description}".encode("utf-8")).hexdigest()[:16]
+
+
 @dataclass
 class Finding:
     kind: str  # "crash", "hang", "differential", "ir_error"
     program: str
     description: str
     details: str = ""
+    fingerprint: str = ""
+
+    def __post_init__(self) -> None:
+        if not self.fingerprint:
+            self.fingerprint = finding_fingerprint(self.kind, self.description)
 
 
 @dataclass
@@ -401,28 +411,37 @@ class WarfGenerator:
         return (child or parent1)[: self.max_len]
 
 
+def strip_fuzzer_and_lit_headers(text: str) -> str:
+    """Strip lit directives and fuzzer-generated metadata header comments from a `.wf` program."""
+    code_lines: List[str] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if (
+            stripped.startswith("// RUN:")
+            or stripped.startswith("// REQUIRES:")
+            or stripped.startswith("// CHECK")
+            or stripped.startswith("// Lines:")
+            or stripped.startswith("// KIND:")
+            or stripped.startswith("// DESCRIPTION:")
+            or stripped.startswith("// FINGERPRINT:")
+        ):
+            continue
+        code_lines.append(line)
+    return "\n".join(code_lines).strip()
+
+
 def load_seeds_from_directory(seed_dir: Path) -> List[str]:
-    """Load `.wf` programs from a directory (e.g. `test/filecheck`), stripping lit comments."""
+    """Load `.wf` programs from a directory (e.g. `test/filecheck` or persistent corpus), stripping lit and fuzzer headers."""
     seeds: List[str] = []
     if not seed_dir.exists():
         return seeds
 
     for wf_path in sorted(seed_dir.rglob("*.wf")):
         try:
-            raw_lines = wf_path.read_text(encoding="utf-8", errors="ignore").splitlines()
+            raw_text = wf_path.read_text(encoding="utf-8", errors="ignore")
         except OSError:
             continue
-        code_lines: List[str] = []
-        for line in raw_lines:
-            stripped = line.strip()
-            if (
-                stripped.startswith("// RUN:")
-                or stripped.startswith("// REQUIRES:")
-                or stripped.startswith("// CHECK")
-            ):
-                continue
-            code_lines.append(line)
-        program = "\n".join(code_lines).strip()
+        program = strip_fuzzer_and_lit_headers(raw_text)
         if program:
             seeds.append(program)
     return seeds
@@ -556,9 +575,25 @@ class WarfFuzzerHarness:
         self.seen_segments: Set[Tuple[str, int, int]] = set()
         self.seen_Error_signatures: Set[str] = set()
         self.corpus: List[Tuple[str, CoverageMetrics]] = []
+        self._corpus_index: Dict[str, int] = {}
         self.findings: List[Finding] = []
         self._finding_hashes: Set[str] = set()
         self.coverage_supported = True
+
+    def add_to_corpus(self, program: str, cov: Optional[CoverageMetrics] = None) -> None:
+        clean = strip_fuzzer_and_lit_headers(program)
+        if not clean:
+            return
+        metrics = cov or CoverageMetrics()
+        digest = hashlib.sha256(clean.encode("utf-8")).hexdigest()[:16]
+        if digest in self._corpus_index:
+            idx = self._corpus_index[digest]
+            _, prev_cov = self.corpus[idx]
+            if metrics.lines_total > 0 and prev_cov.lines_total == 0:
+                self.corpus[idx] = (clean, metrics)
+            return
+        self._corpus_index[digest] = len(self.corpus)
+        self.corpus.append((clean, metrics))
 
     def _resolve_tool(self, tool_name: str) -> str:
         if self.llvm_dir and (self.llvm_dir / tool_name).exists():
@@ -935,7 +970,7 @@ class WarfFuzzerHarness:
             result.fitness = max(0.0, 100.0 - (cov_score + bonus))
 
         if result.discovered_new_coverage or not self.corpus:
-            self.corpus.append((program, result.individual_coverage))
+            self.add_to_corpus(program, result.individual_coverage)
 
         return result
 
@@ -1006,27 +1041,67 @@ def save_outputs(
     output_dir: Path,
     harness: WarfFuzzerHarness,
     best_individual: Optional[Individual],
+    existing_corpus_dir: Optional[Path] = None,
 ) -> None:
-    """Persist interesting corpus inputs, crash/differential reproducers, and summary JSON."""
+    """Persist content-addressed corpus inputs, crash/differential reproducers, and summary JSON."""
     corpus_dir = output_dir / "corpus"
     findings_dir = output_dir / "findings"
     corpus_dir.mkdir(parents=True, exist_ok=True)
     findings_dir.mkdir(parents=True, exist_ok=True)
 
-    for idx, (prog, cov) in enumerate(harness.corpus, start=1):
-        digest = hashlib.sha256(prog.encode("utf-8")).hexdigest()[:10]
-        wf_file = corpus_dir / f"id_{idx:04d}_{digest}.wf"
-        header = (
-            f"// Lines: {cov.lines_percent:.2f}% ({cov.lines_covered}/{cov.lines_total}) "
-            f"Regions: {cov.regions_percent:.2f}%\n"
-        )
-        wf_file.write_text(header + prog + "\n", encoding="utf-8")
+    # Load any existing corpus files first so the corpus grows monotonically
+    # without duplicate files or accumulated `// Lines:` headers across CI runs.
+    merged_corpus: Dict[str, Tuple[str, Optional[CoverageMetrics], Optional[str]]] = {}
+    source_dirs: List[Path] = []
+    if existing_corpus_dir and existing_corpus_dir.exists():
+        source_dirs.append(existing_corpus_dir)
+    if corpus_dir.exists():
+        source_dirs.append(corpus_dir)
 
-    for idx, finding in enumerate(harness.findings, start=1):
-        digest = hashlib.sha256(finding.program.encode("utf-8")).hexdigest()[:10]
-        f_path = findings_dir / f"{finding.kind}_{idx:03d}_{digest}.wf"
+    for src_dir in source_dirs:
+        for wf_path in sorted(src_dir.rglob("*.wf")):
+            try:
+                raw_text = wf_path.read_text(encoding="utf-8", errors="ignore")
+            except OSError:
+                continue
+            clean_prog = strip_fuzzer_and_lit_headers(raw_text)
+            if not clean_prog:
+                continue
+            digest = hashlib.sha256(clean_prog.encode("utf-8")).hexdigest()[:16]
+            existing_header = None
+            for line in raw_text.splitlines():
+                if line.strip().startswith("// Lines:"):
+                    existing_header = line.strip() + "\n"
+                    break
+            merged_corpus[digest] = (clean_prog, None, existing_header)
+
+    for prog, cov in harness.corpus:
+        clean_prog = strip_fuzzer_and_lit_headers(prog)
+        if not clean_prog:
+            continue
+        digest = hashlib.sha256(clean_prog.encode("utf-8")).hexdigest()[:16]
+        prev = merged_corpus.get(digest)
+        prev_header = prev[2] if prev else None
+        if cov.lines_total > 0 or cov.regions_total > 0 or prev is None:
+            merged_corpus[digest] = (clean_prog, cov, prev_header)
+
+    for digest, (clean_prog, cov, existing_header) in sorted(merged_corpus.items()):
+        wf_file = corpus_dir / f"{digest}.wf"
+        if cov is not None and (cov.lines_total > 0 or cov.regions_total > 0 or not existing_header):
+            header = (
+                f"// Lines: {cov.lines_percent:.2f}% ({cov.lines_covered}/{cov.lines_total}) "
+                f"Regions: {cov.regions_percent:.2f}%\n"
+            )
+        else:
+            header = existing_header or "// Lines: 0.00% (0/0) Regions: 0.00%\n"
+        wf_file.write_text(header + clean_prog + "\n", encoding="utf-8")
+
+    for finding in harness.findings:
+        fp = finding.fingerprint or finding_fingerprint(finding.kind, finding.description)
+        f_path = findings_dir / f"{finding.kind}_{fp}.wf"
         content = [
             f"// KIND: {finding.kind}",
+            f"// FINGERPRINT: {fp}",
             f"// DESCRIPTION: {finding.description}",
         ]
         if finding.details:
@@ -1039,7 +1114,7 @@ def save_outputs(
     summary = {
         "mode": harness.mode,
         "total_runs": harness.runs,
-        "corpus_size": len(harness.corpus),
+        "corpus_size": len(merged_corpus),
         "findings_count": len(harness.findings),
         "cumulative_coverage": {
             "lines_covered": harness.cumulative_metrics.lines_covered,
@@ -1061,8 +1136,10 @@ def save_outputs(
         "findings": [
             {
                 "kind": f.kind,
+                "fingerprint": f.fingerprint or finding_fingerprint(f.kind, f.description),
                 "description": f.description,
                 "program": f.program,
+                "details": f.details,
             }
             for f in harness.findings
         ],
@@ -1072,6 +1149,153 @@ def save_outputs(
     )
 
 
+def format_finding_issue(
+    finding: Dict[str, str],
+    run_url: Optional[str] = None,
+) -> Tuple[str, str, str]:
+    """Return `(fingerprint, issue_title, issue_body)` for a fuzzer finding."""
+    kind = finding.get("kind", "crash")
+    description = finding.get("description", "Unhandled fuzzer finding")
+    program = finding.get("program", "")
+    details = finding.get("details", "")
+    fingerprint = finding.get("fingerprint") or finding_fingerprint(kind, description)
+
+    raw_title = f"[Fuzzer][{fingerprint}] {kind}: {description}"
+    title = raw_title if len(raw_title) <= 200 else raw_title[:197] + "..."
+
+    body_lines = [
+        f"<!-- fuzzer-fingerprint: {fingerprint} -->",
+        "## Automated Genetic Fuzzer Finding",
+        "",
+        f"- **Kind**: `{kind}`",
+        f"- **Fingerprint**: `{fingerprint}`",
+        f"- **Description**: {description}",
+    ]
+    if run_url:
+        body_lines.append(f"- **Workflow Run**: {run_url}")
+    body_lines.extend([
+        "",
+        "### Reproducer (`.wf`)",
+        "```warf",
+        program,
+        "```",
+    ])
+    if details:
+        body_lines.extend([
+            "",
+            "### Details / Output",
+            "```text",
+            details,
+            "```",
+        ])
+    return fingerprint, title, "\n".join(body_lines) + "\n"
+
+
+def file_github_issues_for_findings(
+    findings: Sequence[Dict[str, str]],
+    repo: Optional[str] = None,
+    run_url: Optional[str] = None,
+    dry_run: bool = False,
+) -> int:
+    """Deduplicate and file GitHub issues via `gh` CLI for discovered findings."""
+    if not findings:
+        print("No fuzzer findings to report as GitHub issues.")
+        return 0
+
+    if not repo:
+        repo = os.environ.get("GITHUB_REPOSITORY")
+    if not run_url:
+        server = os.environ.get("GITHUB_SERVER_URL", "https://github.com")
+        run_id = os.environ.get("GITHUB_RUN_ID")
+        if repo and run_id:
+            run_url = f"{server}/{repo}/actions/runs/{run_id}"
+
+    created_count = 0
+    for finding in findings:
+        fingerprint, title, body = format_finding_issue(finding, run_url=run_url)
+        if dry_run:
+            print(f"[DRY-RUN] Would check/file GitHub issue: {title}")
+            created_count += 1
+            continue
+
+        # Search open issues for the deduplication fingerprint
+        search_cmd = [
+            "gh",
+            "issue",
+            "list",
+            "--state",
+            "open",
+            "--search",
+            f"{fingerprint} in:title,body",
+            "--json",
+            "number,title,body,url",
+        ]
+        if repo:
+            search_cmd.extend(["--repo", repo])
+
+        try:
+            proc = subprocess.run(
+                search_cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=30.0,
+            )
+            if proc.returncode == 0 and proc.stdout.strip():
+                existing_issues = json.loads(proc.stdout)
+                duplicate = next(
+                    (
+                        iss
+                        for iss in existing_issues
+                        if fingerprint in iss.get("title", "")
+                        or fingerprint in iss.get("body", "")
+                    ),
+                    None,
+                )
+                if duplicate is not None:
+                    print(
+                        f"Skipping duplicate finding {fingerprint}: "
+                        f"already open as issue #{duplicate.get('number')} ({duplicate.get('url', '')})"
+                    )
+                    continue
+        except (subprocess.SubprocessError, json.JSONDecodeError, OSError) as exc:
+            print(f"Warning: failed to query existing GitHub issues for {fingerprint}: {exc}", file=sys.stderr)
+
+        create_cmd = [
+            "gh",
+            "issue",
+            "create",
+            "--title",
+            title,
+            "--body",
+            body,
+        ]
+        if repo:
+            create_cmd.extend(["--repo", repo])
+
+        try:
+            cproc = subprocess.run(
+                create_cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=30.0,
+            )
+            if cproc.returncode == 0:
+                created_count += 1
+                print(f"Filed GitHub issue for finding {fingerprint}: {cproc.stdout.strip()}")
+            else:
+                print(
+                    f"Warning: `gh issue create` failed for {fingerprint} (exit {cproc.returncode}): "
+                    f"{cproc.stderr.strip()}",
+                    file=sys.stderr,
+                )
+        except (subprocess.SubprocessError, OSError) as exc:
+            print(f"Warning: failed to create GitHub issue for {fingerprint}: {exc}", file=sys.stderr)
+
+    return created_count
+
+
 def build_arg_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="geneticFuzzer",
@@ -1079,11 +1303,15 @@ def build_arg_parser() -> argparse.ArgumentParser:
     )
     p.add_argument(
         "llvm_path",
+        nargs="?",
+        default=None,
         type=str,
         help="Path to LLVM bin directory containing llvm-profdata and llvm-cov.",
     )
     p.add_argument(
         "warf_cli_path",
+        nargs="?",
+        default=None,
         type=str,
         help="Path to the instrumented Warf CLI executable.",
     )
@@ -1165,7 +1393,14 @@ def build_arg_parser() -> argparse.ArgumentParser:
         dest="seed_dir",
         type=str,
         default="test/filecheck",
-        help="Directory of `.wf` test files to seed initial population (default: test/filecheck).",
+        help="Directory (or comma-separated directories) of `.wf` test files to seed initial population (default: test/filecheck).",
+    )
+    p.add_argument(
+        "--corpus-dir",
+        dest="corpus_dir",
+        type=str,
+        default=None,
+        help="Optional persistent corpus directory of `.wf` files to load before fuzzing and merge with on output.",
     )
     p.add_argument(
         "--output-dir",
@@ -1173,6 +1408,41 @@ def build_arg_parser() -> argparse.ArgumentParser:
         type=str,
         default=None,
         help="Optional directory to save corpus `.wf` files, crash/divergence reproducers, and summary.json.",
+    )
+    p.add_argument(
+        "--file-github-issues",
+        dest="file_github_issues",
+        action="store_true",
+        default=False,
+        help="Automatically deduplicate and file GitHub issues for any discovered findings via `gh` CLI.",
+    )
+    p.add_argument(
+        "--file-github-issues-from",
+        dest="file_github_issues_from",
+        type=str,
+        default=None,
+        help="Standalone mode: read findings from an existing summary.json and file deduplicated GitHub issues.",
+    )
+    p.add_argument(
+        "--repo",
+        dest="repo",
+        type=str,
+        default=None,
+        help="GitHub repository (`owner/name`) for issue filing (defaults to $GITHUB_REPOSITORY).",
+    )
+    p.add_argument(
+        "--run-url",
+        dest="run_url",
+        type=str,
+        default=None,
+        help="Optional CI workflow run URL to include in filed GitHub issues.",
+    )
+    p.add_argument(
+        "--dry-run-issues",
+        dest="dry_run_issues",
+        action="store_true",
+        default=False,
+        help="Print GitHub issue titles/fingerprints that would be filed without invoking `gh`.",
     )
     p.add_argument(
         "--no-differential",
@@ -1192,6 +1462,21 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
 
 def run_fuzzer(args: argparse.Namespace) -> int:
+    if args.file_github_issues_from:
+        summary_path = Path(args.file_github_issues_from)
+        if not summary_path.exists():
+            print(f"Summary file not found: {summary_path}", file=sys.stderr)
+            return 1
+        data = json.loads(summary_path.read_text(encoding="utf-8"))
+        findings_list = data.get("findings", [])
+        file_github_issues_for_findings(
+            findings_list,
+            repo=args.repo,
+            run_url=args.run_url,
+            dry_run=args.dry_run_issues,
+        )
+        return 0
+
     global LLVM_PATH, WARF_CLI_PATH, TargetLen
     LLVM_PATH = args.llvm_path
     WARF_CLI_PATH = args.warf_cli_path
@@ -1214,14 +1499,23 @@ def run_fuzzer(args: argparse.Namespace) -> int:
 
     start_time = time.monotonic()
     best_individual: Optional[Individual] = None
+    existing_corpus_path = Path(args.corpus_dir) if args.corpus_dir else None
 
     try:
-        # Assemble seed pool from CLI seed, `.wf` files in seed_dir, and built-in grammar templates
+        # Assemble seed pool from CLI seed, persistent corpus, `.wf` files in seed_dir, and built-in templates
         seed_programs: List[str] = []
         if args.startingSeed:
-            seed_programs.append(args.startingSeed)
+            seed_programs.append(strip_fuzzer_and_lit_headers(args.startingSeed))
+        if existing_corpus_path and existing_corpus_path.exists():
+            persisted_seeds = load_seeds_from_directory(existing_corpus_path)
+            seed_programs.extend(persisted_seeds)
+            for cprog in persisted_seeds:
+                harness.add_to_corpus(cprog[: args.targetLen])
         if args.seed_dir:
-            seed_programs.extend(load_seeds_from_directory(Path(args.seed_dir)))
+            for part in args.seed_dir.split(","):
+                part = part.strip()
+                if part:
+                    seed_programs.extend(load_seeds_from_directory(Path(part)))
         seed_programs.extend(BUILTIN_TEMPLATES)
 
         # Deduplicate preserving order
@@ -1367,12 +1661,35 @@ def run_fuzzer(args: argparse.Namespace) -> int:
         print(f"Corpus Entries      : {len(harness.corpus)}")
         print(f"Findings Discovered : {len(harness.findings)}")
         for idx, f in enumerate(harness.findings, start=1):
-            print(f"  [{idx}] ({f.kind}) {f.description} | Program: {f.program!r}")
+            print(f"  [{idx}] ({f.kind}) [{f.fingerprint}] {f.description} | Program: {f.program!r}")
 
         if args.output_dir:
             out_path = Path(args.output_dir)
-            save_outputs(out_path, harness, best_individual)
+            save_outputs(
+                out_path,
+                harness,
+                best_individual,
+                existing_corpus_dir=existing_corpus_path,
+            )
             print(f"Saved corpus and findings to: {out_path}")
+
+        if args.file_github_issues and harness.findings:
+            finding_dicts = [
+                {
+                    "kind": f.kind,
+                    "fingerprint": f.fingerprint,
+                    "description": f.description,
+                    "program": f.program,
+                    "details": f.details,
+                }
+                for f in harness.findings
+            ]
+            file_github_issues_for_findings(
+                finding_dicts,
+                repo=args.repo,
+                run_url=args.run_url,
+                dry_run=args.dry_run_issues,
+            )
 
         return 0
     finally:
@@ -1382,6 +1699,8 @@ def run_fuzzer(args: argparse.Namespace) -> int:
 def main() -> None:
     parser = build_arg_parser()
     args = parser.parse_args()
+    if not args.file_github_issues_from and (not args.llvm_path or not args.warf_cli_path):
+        parser.error("the following arguments are required: llvm_path, warf_cli_path")
     sys.exit(run_fuzzer(args))
 
 

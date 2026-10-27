@@ -1,0 +1,152 @@
+name: Genetic Fuzzer & Corpus Persistence
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      generations:
+        description: 'Maximum number of generations to evolve'
+        required: false
+        default: '20'
+        type: string
+      population_size:
+        description: 'Number of individuals per generation'
+        required: false
+        default: '24'
+        type: string
+      timeout:
+        description: 'Overall fuzzing wall-clock timeout in seconds'
+        required: false
+        default: '180'
+        type: string
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**'
+      - 'scripts/geneticFuzzer.py'
+      - '.github/workflows/genetic-fuzzer.yml'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUILD_TYPE: Release
+  CORPUS_BRANCH: fuzz-corpus
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            llvm-dev llvm clang libedit-dev ninja-build python3
+
+      - name: Restore persistent fuzz corpus from ${{ env.CORPUS_BRANCH }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git ls-remote --exit-code --heads origin "${CORPUS_BRANCH}" >/dev/null 2>&1; then
+            git clone --depth=1 --branch "${CORPUS_BRANCH}" \
+              "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" fuzz-corpus
+          else
+            mkdir -p fuzz-corpus
+            git -C fuzz-corpus init
+            git -C fuzz-corpus checkout --orphan "${CORPUS_BRANCH}"
+            git -C fuzz-corpus remote add origin \
+              "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          fi
+          mkdir -p fuzz-corpus/corpus
+          EXISTING_COUNT=$(find fuzz-corpus/corpus -name '*.wf' | wc -l | tr -d ' ')
+          echo "Restored ${EXISTING_COUNT} persistent corpus inputs from ${CORPUS_BRANCH}."
+
+      - name: Configure and build instrumented Warf, WarfIR, and Warfc
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" \
+            -DCMAKE_C_COMPILER=clang \
+            -DCMAKE_CXX_COMPILER=clang++ \
+            -DCMAKE_CXX_FLAGS="-fprofile-instr-generate -fcoverage-mapping" \
+            -DWARF_ENABLE_LLVM_BACKEND=ON
+          cmake --build build --config "${BUILD_TYPE}" --target Warf WarfIR Warfc
+
+      - name: Run coverage-guided genetic fuzzer
+        run: |
+          GENERATIONS="${{ inputs.generations || '20' }}"
+          POPULATION_SIZE="${{ inputs.population_size || '24' }}"
+          TIMEOUT="${{ inputs.timeout || '180' }}"
+          LLVM_BINDIR="$(llvm-config --bindir)"
+
+          python3 scripts/geneticFuzzer.py \
+            "${LLVM_BINDIR}" \
+            build/src/cli/Warf \
+            --warf-ir-path build/src/irTool/WarfIR \
+            --warfc-path build/src/compilerTool/Warfc \
+            --mode corpus \
+            --generations "${GENERATIONS}" \
+            --population-size "${POPULATION_SIZE}" \
+            --timeout "${TIMEOUT}" \
+            --seed-dir test/filecheck \
+            --corpus-dir fuzz-corpus/corpus \
+            --output-dir fuzz-output
+
+      - name: Upload fuzzing output artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: genetic-fuzzer-output-${{ github.run_id }}
+          path: fuzz-output/
+          retention-days: 14
+
+      - name: Merge and persist corpus to ${{ env.CORPUS_BRANCH }} branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p fuzz-corpus/corpus
+          cp -f fuzz-output/corpus/*.wf fuzz-corpus/corpus/ 2>/dev/null || true
+          cp -f fuzz-output/summary.json fuzz-corpus/summary.json 2>/dev/null || true
+
+          cd fuzz-corpus
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add corpus summary.json
+
+          TOTAL_CORPUS=$(find corpus -name '*.wf' | wc -l | tr -d ' ')
+          if git diff --cached --quiet; then
+            echo "No corpus changes to push (${TOTAL_CORPUS} total corpus inputs)."
+          else
+            git commit -m "Update genetic fuzzer corpus (${TOTAL_CORPUS} inputs, run ${GITHUB_RUN_ID})"
+            git push origin "HEAD:refs/heads/${CORPUS_BRANCH}" || (
+              git fetch origin "${CORPUS_BRANCH}" &&
+              git checkout -B "${CORPUS_BRANCH}" "origin/${CORPUS_BRANCH}" &&
+              cp -f ../fuzz-output/corpus/*.wf corpus/ 2>/dev/null || true &&
+              cp -f ../fuzz-output/summary.json summary.json 2>/dev/null || true &&
+              git add corpus summary.json &&
+              git commit -m "Update genetic fuzzer corpus (${TOTAL_CORPUS} inputs, run ${GITHUB_RUN_ID})" &&
+              git push origin "HEAD:refs/heads/${CORPUS_BRANCH}"
+            )
+            echo "Persisted ${TOTAL_CORPUS} corpus inputs to ${CORPUS_BRANCH}."
+          fi
+
+      - name: File deduplicated GitHub issues for discovered findings
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -f fuzz-output/summary.json ]; then
+            python3 scripts/geneticFuzzer.py \
+              --file-github-issues-from fuzz-output/summary.json \
+              --repo "${GITHUB_REPOSITORY}" \
+              --run-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          fi
