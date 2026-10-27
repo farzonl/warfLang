@@ -1,0 +1,7 @@
+func __()<<<<<ntry:
+  %0 = const 1
+  %1 = const 2
+( = add %0 %1
+
+2 = add %0 %1
+ t %2

@@ -1,0 +1,9 @@
+func __m%6ain()
+ЋжР2y:
+  %0 = const "hello "
+  %1 = const "world"
+0 = lo %1 %2
+sub %0 %0 
+  %0 = %st 2
+  %0   %2 = add %0 
+  trcmp(ptr, ptr)

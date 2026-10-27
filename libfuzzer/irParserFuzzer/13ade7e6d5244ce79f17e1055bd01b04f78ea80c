@@ -1,0 +1,13 @@
+func __main()
+entry:lue = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 theso cnt 2
+  %3 = lt %1 %2
+  eo*st 2
+  %3 = lt %1 %2
+!r_condst 2
+  %3 = lt %1 %2
+!r_cond %3 then0 e”onstndex = store %1st 1
+  %3 = store = ce)nvalue

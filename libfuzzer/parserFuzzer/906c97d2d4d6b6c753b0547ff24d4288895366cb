@@ -1,0 +1,39 @@
+print("hello world")
+printÞÝnt("c is foobar")
+}
+
+varÿÿÿÿÿÿÿÿÿßÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ s = "start"
+sçÔÂßÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿûÿÿÿÿÿÿÿÿ s = "start"
+s += " m/iddle"
+s += " end"
+print(s)
+
+function greet(name: string): strin)
+
+functio += " end"
+print(s)
+
+function greet(name: string): strÿÿ{
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+funÿÿÿÿÿÿÿÿÿÿÿÿ s = "start"
+s += " m/iddle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+fut(s)
+
+function greet(name: string): string {
+  return "string { return "hEllo" }
+functionÕ h(): string { return "world" }
+print(f()ynt h())
+
+5

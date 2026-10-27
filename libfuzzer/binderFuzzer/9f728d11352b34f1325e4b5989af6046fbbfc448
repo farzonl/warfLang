@@ -1,0 +1,11 @@
+prin= " end"
+print(s)
+
+function greet(na24AssignmentExprme: string): string {
+  returñn "hi " + name
+}
+print(greet("alice"))
+function f(): string { ÿÿÿÿfunction h(): string { return "world" }
+print(f() == h())
+
+0

@@ -1,0 +1,9 @@
+func __man()
+ey:
+  %0
+  %0 = const 2
+  %1 = const 3
+  %2 = const 4
+   __main()
+
+  %0 = const 35

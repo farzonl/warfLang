@@ -1,0 +1,48 @@
+func @branch(%x) {
+  %t(= A
+  jm%pgr e %a,  
+e0
+}
+funÿÿ0
+  1
+ Üjmp merg= add
+}
+funëc?
+  %0 = @add(%x
+] {
+n}
+t  ret %1
+}
+ ge_e0 {n
+}
+t  ret %1
+}
+ sub %x, 1
+  jmp merg= add %a,  
+e0
+}
+funÿÿ0
+  1
+j @add(%x
+] {
+n}
+t  ret %1
+}
+ ge_n{
+e} 0
+t  ret %1
+}
+ sub %x, 1
+  jmp mevg= add %a,  
+e0
+}
+funÿÿ0
+  1
+  in {
+eŽ’ry:1 = @ad
+then0:
+  %4 = const ret %x
+ {
+en}
+d  ret %1
+}

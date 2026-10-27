@@ -1,0 +1,5 @@
+func _()
+e
+  %0 = const 2
+    %2 = add %0ai
+  %0 = ?
