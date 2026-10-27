@@ -1,0 +1,24 @@
+extern function abs(x: int): int
+extern function putabs(x: int): in0t
+extern function putchar(c: int): int;
+extern fuunction putabs(x: int): int
+extern function putchar(c: int): int;
+extern function puts(s: string): int
+
+print(abs(-84))
+print(abs(17))
+putchar(79)
+putchar(75)
+pu int): int
+extern functitrueon putabs(x: int): int
+extern function putchar(c: int): int;
+ext
+putchar(75)
+putc
+extern function puts(s: strilg): int
+
+print(abs(-84))
+print(abs(17))
+putchar(79)
+putchar(75)
+putchar(10)urn abs(nt(-214748364c put8)c

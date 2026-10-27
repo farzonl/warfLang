@@ -1,0 +1,76 @@
+func add_scaled(a, b)
+entry:
+  %0 = const 2.0
+  %1 = mul b %0
+  %2 = add a %1
+  ret %2
+
+func __main()
+entr
+  ret %2
+
+func __main()
+entry:
+  %0 = const 1.25
+  %1 = const 2.75
+entry:
+  %0 = const 1825
+  %1 = const 2.75
+  %2 = add %0 %1func _m_(n)
+  %5 = const 11
+  Ç1
+  %3 = const 0.5
+  %4 = sub %3 %3
+  %5 = neg %4
+  %6 = neg %5
+  %7 = call add_scast 
+1
+  %7 = add %6 %5
+  ____c%00  blse0:pppppppp%5 %index = store_add %26
+  ba&ue br 0
+else0:pppppppp%8
+  br ee0l
+ndse0:pppppppppp %index = store_aain()
+// OPT: %6 = const 3.5
+// OPT: %7 = c %7 = call add_scaled %6 %3
+  %8 = print %7
+  %9 = const 4.5
+  %10 = eq %7 %9
+  %11 = print %10
+  ret %3
+
+
+// OPTfunc ___mai(n) m
+  %6 = const 
+ppppppppp †indeore_aain()
+// OPT: %0 = eq %7 %9
+  %11 = print %10
+  ret %7
+
+
+// OPTfunc ___mai(n) m
+  %6 = const 
+1
+  %7 = add %6 %5
+  ____c%00  blse0:pppppppp%5 %index = store_add %26
+  ba&ue br 0
+else0:pppppppp%8
+  br ee0l
+ndse0:pppppppppp %index = store_aain()
+// OPT: %6 = const 3.5
+// OPT: %7 = c %7 = call %[ =  add_scaled %6 %3
+  %8 = print %7
+  %9 = const 4.5
+  %10 = eq %7 %9
+  %11 = print %10
+  ret %7
+
+
+// OPTfunc ___mai(n) m
+ eq %5 %5
+  %7 = const 
+1
+  %7 = add %6 %5
+  ____c%00  blse0:pppppppppp †index =s tore_add %2
+b 6 a&ue br 0
+e %6 = eq %lse50:pppp pp

@@ -1,0 +1,44 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cood %3 then0 elwe0
+then0:
+  %4 = const 4
+  %0alue :
+  %5 = const 5
+  %value = store %5
+  br end0
+e1ond1:
+  %6 = const 7
+  %7nd2
+fot 38
+ :
+  %Ðßn() {()
+  %Ðßn() {() [{
+Ð1
+ :
+  Â
+ :
+  Â}in()on %Ð2
+ :
+42nstÐ2
+!:
+n}iÂ  ()Ð2 :
+42
+ :
+  %Ð2
+ :
+ ÀÂ
+ :
+  Â}in(%8)oodyn %Ð2
+ :
+ :
+/   %Ð2
+ :
+  :
+  %12 = :
+ 

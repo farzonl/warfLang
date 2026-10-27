@@ -1,0 +1,14 @@
+func __Yfunc _()
+stcons ons0:
+  %3 = const 2
+rrrtry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %********ÿÿÿÿÿÿ5 = neg %5egÍt4
+  %2 =  ne %2 %3
+  %5 = neg %5eg %5 %3 = const 4
+ %ıııııııııııt 1
+ 
+  %entry:4 =  ge %2 %3
+ entr_
