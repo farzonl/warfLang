@@ -9,11 +9,11 @@
   ],
   "timeout_seconds": 180,
   "per_fuzzer_timeout_seconds": 45,
-  "corpus_size": 109206,
+  "corpus_size": 109185,
   "corpus_by_fuzzer": {
     "binderFuzzer": 16729,
-    "irParserFuzzer": 50444,
-    "lexerFuzzer": 26298,
+    "irParserFuzzer": 50439,
+    "lexerFuzzer": 26282,
     "parserFuzzer": 15735
   },
   "startup_failures": [],
@@ -26,7 +26,7 @@
       "description": "binderFuzzer: crash",
       "program": "if (false) { a = 1; b = 1; value = 0; let x = false; function step(x, y) { x |= 255; return ((y | y) + (255 | 10)) } step((value & 0), (255 ^ (~3 * 42))); b |= (b ^ (+255 * b)); (10 * (42 / 5)) } else { b &= -(+1) }",
       "call_stack": "",
-      "details": "OS: Windows\nFuzzer: binderFuzzer\nExit Code: 2147483651\nArtifact: binderFuzzer-crash-0369d497ca55f13e43b261fc1d4303f098620733\nHex (first 512B): 6966202866616c736529207b2061203d20313b2062203d20313b2076616c7565203d20303b206c65742078203d2066616c73653b2066756e6374696f6e207374657028782c207929207b2078207c3d203235353b2072657475726e20282879207c207929202b2028323535207c2031302929207d2073746570282876616c756520262030292c2028323535205e20287e33202a2034322929293b2062207c3d202862205e20282b323535202a206229293b20283130202a20283432202f20352929207d20656c7365207b206220263d202d282b3129207d\n\nINFO: Running with entropic power schedule (0xFF, 100).\nINFO: Seed: 1286155645\nINFO: Loaded 1 modules   (27842 inline 8-bit counters): 27842 [00007FF74027F1C8, 00007FF740285E8A), \nINFO: Loaded 1 PC tables (27842 PCs): 27842 [00007FF7401AC298,00007FF740218EB8), \nD:\\a\\warfLang\\warfLang\\fuzzer-artifact\\extracted\\binderFuzzer.exe: Running 1 inputs 1 time(s) each.\nRunning: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\warf_libfuzzer_seeds_arp_on73\\binderFuzzer\\0369d497ca55f13e43b261fc1d4303f098620733"
+      "details": "OS: Windows\nFuzzer: binderFuzzer\nExit Code: 2147483651\nArtifact: binderFuzzer-crash-0369d497ca55f13e43b261fc1d4303f098620733\nHex (first 512B): 6966202866616c736529207b2061203d20313b2062203d20313b2076616c7565203d20303b206c65742078203d2066616c73653b2066756e6374696f6e207374657028782c207929207b2078207c3d203235353b2072657475726e20282879207c207929202b2028323535207c2031302929207d2073746570282876616c756520262030292c2028323535205e20287e33202a2034322929293b2062207c3d202862205e20282b323535202a206229293b20283130202a20283432202f20352929207d20656c7365207b206220263d202d282b3129207d\n\nINFO: Running with entropic power schedule (0xFF, 100).\nINFO: Seed: 1291991023\nINFO: Loaded 1 modules   (27994 inline 8-bit counters): 27994 [00007FF782994208, 00007FF78299AF62), \nINFO: Loaded 1 PC tables (27994 PCs): 27994 [00007FF7828C0A98,00007FF78292E038), \nD:\\a\\warfLang\\warfLang\\fuzzer-artifact\\extracted\\binderFuzzer.exe: Running 1 inputs 1 time(s) each.\nRunning: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\warf_libfuzzer_seeds_4immygd_\\binderFuzzer\\0369d497ca55f13e43b261fc1d4303f098620733"
     },
     {
       "fuzzer": "parserFuzzer",
@@ -35,7 +35,7 @@
       "description": "parserFuzzer: libFuzzer: timeout after",
       "program": "",
       "call_stack": "",
-      "details": "OS: Windows\nFuzzer: parserFuzzer\nExit Code: 124\n\nINFO: Running with entropic power schedule (0xFF, 100).\nINFO: Seed: 2572765417\nINFO: Loaded 1 modules   (12270 inline 8-bit counters): 12270 [00007FF6A6ED6988, 00007FF6A6ED9976), \nINFO: Loaded 1 PC tables (12270 PCs): 12270 [00007FF6A6E69738,00007FF6A6E99618), \nINFO:    15735 files found in D:\\a\\warfLang\\warfLang\\fuzz-corpus\\libfuzzer\\parserFuzzer\nINFO:      589 files found in C:\\Users\\runneradmin\\AppData\\Local\\Temp\\warf_libfuzzer_seeds_arp_on73\\parserFuzzer\nINFO: -max_len is not provided; libFuzzer will not generate inputs larger than 4096 bytes\nINFO: seed corpus: files: 16324 min: 1b max: 2120b total: 4574471b rss: 93Mb\n#4096\tpulse  cov: 1681 ft: 6863 corp: 690/8772b exec/s: 2048 rss: 205Mb\n#8192\tpulse  cov: 1779 ft: 8782 corp: 953/26Kb exec/s: 1024 rss: 498Mb\n\nERROR: libFuzzer: timeout after 75 seconds (process wrapper)"
+      "details": "OS: Windows\nFuzzer: parserFuzzer\nExit Code: 124\n\nINFO: Running with entropic power schedule (0xFF, 100).\nINFO: Seed: 2822541458\nINFO: Loaded 1 modules   (12321 inline 8-bit counters): 12321 [00007FF6F4F37988, 00007FF6F4F3A9A9), \nINFO: Loaded 1 PC tables (12321 PCs): 12321 [00007FF6F4ECAB38,00007FF6F4EFAD48), \nINFO:    15735 files found in D:\\a\\warfLang\\warfLang\\fuzz-corpus\\libfuzzer\\parserFuzzer\nINFO:      589 files found in C:\\Users\\runneradmin\\AppData\\Local\\Temp\\warf_libfuzzer_seeds_4immygd_\\parserFuzzer\nINFO: -max_len is not provided; libFuzzer will not generate inputs larger than 4096 bytes\nINFO: seed corpus: files: 16324 min: 1b max: 2120b total: 4574471b rss: 93Mb\n#4096\tpulse  cov: 1681 ft: 6829 corp: 700/8851b exec/s: 1365 rss: 205Mb\n#8192\tpulse  cov: 1779 ft: 8783 corp: 962/27Kb exec/s: 744 rss: 498Mb\n\nERROR: libFuzzer: timeout after 75 seconds (process wrapper)"
     }
   ]
 }
