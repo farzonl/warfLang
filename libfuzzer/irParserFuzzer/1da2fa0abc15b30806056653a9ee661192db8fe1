@@ -1,0 +1,11 @@
+func __min()
+entry:
+ entry:
+ add Re
+  bd e0
+ry:
+ add 
+  %6 = const 
+0
+  %7 = add %6 % 
+ r e tbst  

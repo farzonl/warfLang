@@ -1,0 +1,6 @@
+func _n()
+
+%0 st 2
+  3
+  l t 21-&unc a %b
+  %1 = sub 8 %0  

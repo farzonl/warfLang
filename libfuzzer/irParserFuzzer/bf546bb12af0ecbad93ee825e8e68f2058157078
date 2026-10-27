@@ -1,0 +1,11 @@
+func __ma:in()
+%0W = const 0
+  %value = store %0
+  %1 = const 2
+ `%2 = const 2
+:
+  %4 = const 4
+ cond %3 then0 Žn0:
+  %4 = const 4
+ = {end1:
+  nst ÿÿÿÿÿÿÿÿ0c

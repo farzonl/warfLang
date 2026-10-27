@@ -1,0 +1,6 @@
+func __main()
+e 3
+%5 = neg %4
+  %6 = const 50
+  %7 = add Ê%6 %5
+  | %  = mul %20

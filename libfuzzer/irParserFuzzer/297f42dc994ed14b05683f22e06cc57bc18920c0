@@ -1,0 +1,22 @@
+func __main()
+entry:
+  %0 
+then0:
+  %4 = const 4
+  %value 0 %5888
+ ÿÿÿÿÿÿÃt 4
+  neg %4
+  %6 = c7
+
+// RUN-OP :rÿÿAt 2
+  neg %4
+e_ëo5 = neg %4
+  neg %4
+  st 2
+ "ÿÿÿÿÿÿÿÿÿÿÿÿÿÃt 2
+  neg %4
+  %6 =ÿÿÿÿÿÿÿÿÿWÃt 3
+  neg %4
+S  e_ëo5 = neg %4
+  %6 ÿÿÿÿÿ=ÿÿÿÿÿco2 = neg %4
+  %  

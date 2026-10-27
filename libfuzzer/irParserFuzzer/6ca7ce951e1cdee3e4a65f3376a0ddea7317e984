@@ -1,0 +1,4 @@
+func @min()#?
+}
+const 2
+  %2 = add 
