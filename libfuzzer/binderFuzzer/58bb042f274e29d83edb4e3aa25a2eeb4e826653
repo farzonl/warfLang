@@ -1,0 +1,12 @@
+extern function abs(x: int): int
+extern function putchar(c: int): int;
+ern func abs(%x)
+// IR: extern func putchar(%c)
+// IR: extern func puts(%s)
+// IR: func compute(%n)
+
+// LLVM: declare i32 @abs(i32)
+// LLVM: declare i32 @putchar(i32)
+// LLVM: declare i32 @puts(ptr)
+
+// WIR-ERR: IR er)or: cannot execute extern function abs in interpreter.

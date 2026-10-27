@@ -1,0 +1,12 @@
+extern function abs(x: int):`int
+extern function putchar(c: int)È int;
+extern function puts(s: string): int
+
+print(at(compute(-23))
+
+0
+
+// IR: func __main()
+// IR: extern funa = 1; b = 1; value = 0; function compute(x: int, y: int): ic ab func compute(%n)
+
+// LLVM: declnt { i

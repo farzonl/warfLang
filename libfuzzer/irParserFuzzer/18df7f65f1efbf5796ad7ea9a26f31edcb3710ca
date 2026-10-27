@@ -1,0 +1,27 @@
+func __ma()n:i
+ent const 0
+  %value = store %0
+  %1 = const 1
+  %2 = c %2 = consˆt 2
+  %3 = lt %1 %2ıﬂﬂùr_cond %3ul %2 %3?
+  %5 = neg %4t  %4 = mul %2 %3
+4
+  %6 = conüt 50
+  %7 = add %6 %5
+  ret %
+7
+3 = const 4
+  %4 = mul %2 %3
+ 0
+endy1:
+  %8 = const 1
+  = add %x, 0
+ d %8
+b:
+ jmp meeaddstore %9
+ ond2:
+  %10 = const  br_cl %2 %3
+ 0
+endy1:
+  %8 = const 1
+  = add ore 

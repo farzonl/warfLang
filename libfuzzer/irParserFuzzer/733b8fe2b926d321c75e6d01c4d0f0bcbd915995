@@ -1,0 +1,65 @@
+func __m.ain()
+entry:
+  %0 = _0 ÿÿ
+ %3n0
+  %1 = const 1
+ %2 = const 2
+  %1 = lt %1 %2
+  br_`ond % %1 %2
+!func __main_____________entryCst`r  %2 =:cp  %1 = lt %1 %2
+  br_`old %3 thyC  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+!  br_`old %3 thyCst`r  %2 =:cpns= const 0
+  %value = stor  %2 = const 2
+  %6 = lt %yC  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+!  br_`old %3 thyCst`r  %2 =:cpns= const 0
+  %value = stor  %2 = const 2
+  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+!func __main_____________entryCst`r  %2 =:cp  %1 = lt %1 %2
+  br_`old %3 thyC  %6 = lt %1 %2
+ %2 =:cp  %br_`ond % %1 %2
+!func __main_____________entryCst`r  %2 =:cp  %1 = lt %1 %2
+  br_`old %3 thyC  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+!  br_`old %3 thyCst`r  %2 =:cpns= const 0
+  %value = stor  %2 = const 2
+  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+!func __main_____________entryCst`r  %2 =:cp  %1 = lt %1 %2
+  br_`old %3 thyC  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+! r_`old %3 thyCst`r  %2 =:cpns= const 0
+  %value = stor  %2 = const 2
+  %6 = lt %1 %2
+ %2 =:cp  %1 = lt1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+!func1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+!  br_`old %3 thyCst`r  %2 =:cpns= const 0
+  %value = stor  %2 = const 2
+  %6 = lt %1 %2
+ %2 =:cp  %1 = lt1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`o%2 =:cpns= const st 2
+  %6 = lt %1 %2
+!func __main() br
+e=

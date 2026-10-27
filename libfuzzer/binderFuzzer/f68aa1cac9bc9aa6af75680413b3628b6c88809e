@@ -1,0 +1,163 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bÙ
+"a" != "a"
+
+let s1 = "warf"
+let s2 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {
+  return "hi " + name
+}
+greet("alice")
+
+funci\""
+"backslash: \\"
+
+"hello " + "world"
+""—+ "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bÙ
+"a" != "a"
+
+let s1 = "warf"
+let s: = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {
+  return "hi " + name
+}
+greet("alice")
+
+function pi2ck(c: bool) {
+  if tion pi2ck(c: bool) {
+  if (c) {
+    return "first"
+  }
+  return "second"
+}
+pick(true)
+pick(false)
+
+vadow_x: string = "hello"
+}
+shadow_x + 5
+
+var shado ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bÙ
+"a" != "a"
+
+let s1 = "warf"
+let s2 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {öá return "hi " + name
+}
+greet("alice")
+
+funci\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bÙ
+"a" != "a"
+
+let s1 = "warf"
+let s: = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {
+  return "hi " + name
+}
+greet("alice")
+
+function pi2ck(c: bool) {
+  if tion pi2ck(c: bool) {
+  if (c) {
+    return "first"
+  }
+  return "second"
+}
+pick(true)
+pick(false)
+
+vadow_x: stw_s: string = "outer"
+{
+  let shadohhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhht = 42
+}
+shadow_s + "!"

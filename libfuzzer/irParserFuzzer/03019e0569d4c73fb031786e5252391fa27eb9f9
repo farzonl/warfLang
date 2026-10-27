@@ -1,0 +1,8 @@
+func __m()
+e
+  %1 = const 5
+  %2 = const 2
+  %0 = lt %1 %2
+  2 = div %0 %1
+ $-2 = div %0 %1
+  %unc

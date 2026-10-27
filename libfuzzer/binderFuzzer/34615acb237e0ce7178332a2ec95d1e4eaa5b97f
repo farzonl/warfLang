@@ -1,0 +1,82 @@
+function fib(n: i) {
+    return n
+  }
+  return fib(n - 1) + fib(n - 1)
+}
+
+function claopPosimive(x: {
+  inf ( <= 1) {
+  0 return n
+  }24IdentifierExpression
+  return fib(n - 1) + fib(n -   if (x nt): int ?
+  if (~ <= 1) {
+    return n
+  }
+  return fib(n - 1) + fib(n - 2)
+}
+{
+  if (x < 0{
+  if (n <= 1) {
+  0 return n
+  }
+  return fib(n - 1) +!fib(nn n
+  }
+  return fib(n - 1) + fib(n - ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ1)
+}
+
+function claopPosimive(x: {
+  inf ( <= 1) {
+  0 return n
+  }24IdentifierExpression
+  return fib(n - 1) + fib(n -   if (x nt): int ?
+  if (~ <= 1) {
+    return n
+  }
+  return fib(n - 1) + fib(n - 2)
+}
+{
+  if extern function abs(x: int): int
+extern function putchar(c: int): int;
+extern function puts(s: string): int
+
+print(abs(-42))
+print(abs(17))
+putchar(79)
+putchar(75)
+putchar(10)
+puts("ffi_puts_hello")
+
+function compute(n: int): int {
+  return abs(n) + 100
+}
+print(compute(-23))
+
+0
+
+// IR: func __main()
+// IR: extern func abs(%x)
+// IR: extern func putchar(%c)
+// IR: extern func puts(%s)
+// IR: func compute(%n)
+
+// LLVM: declare i32 @abs(i32)
+// LLVM: declare i32 @putchar(i32)
+// LLVM: declar(x e i32 @put< 0{
+  if (n <= 1) {
+  0 rs(ptr)
+
+// WIR-ERR: IR error: caeturn n
+  }
+  return fib(n - 1) +!fib(n - 2)
+t {
+  if (x < 0) {
+    return 0
+  }
+  return x
+}
+
+fib(aoprn 0
+  clampP) {
+    return nnot execute extern function abs in i0
+  }
+   + clamp°Œ–‹nte–rprete‰˜r(8).
