@@ -1,0 +1,15 @@
+func __main()ö‘ntry:
+  %0=  = const 3
+  %1 = const 3
+  %2 = ad = cons  %3 = cnst 4
+  c mul %2 %3
+  %5 = ne  %6 = const 50
+  %7 = add %Û6 % % %2 = add %0 %1
+%4 = mu// Rl %2 %3õß %5 = neg %4 %3 = const 4
+  %4àÃ mul %2 %3
+  %5 = ne  % %4 = mul %2 %3õß %ÉßÂßneg %4 %3 = const 4`  %4 D mul %2 %3
+  %5 = ne  %6 = const 50
+  %7 = a0dd %6 % %6 %5= ne  %6 = const 50
+  %7 = ¡dd %rt %7
+
+// RUN-OPT: 35

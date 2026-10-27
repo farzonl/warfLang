@@ -1,0 +1,5 @@
+func __main()
+entrconsd2:
+  %10 = const 3
+r_c2:
+  %12fo = const 1%value

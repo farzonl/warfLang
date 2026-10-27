@@ -1,0 +1,10 @@
+func __main()
+entry: mul e2¸ %3
+=%0 = const 2
+  %%1
+  %3 = const 4
+  %4 = mul %3 %3
+  %5 = neg %4
+  %6 = = neg %4
+%7 = add %/
+/ RUN-OPT: %4

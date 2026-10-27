@@ -1,0 +1,4 @@
+func _*_main()
+stovalue = store_add %= 
+  %value = store_add %>
+  re

@@ -1,0 +1,81 @@
+func __mai()()
+e%3
+  %27
+ mai()(/
+entry:
+  %0 = const 2
+  %1ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ nst 2
+  %1 = const 3
+  %1 = add %0 %1
+  %3 = const!4
+  %4 =  mul %2 %3
+= neg %  %3 = conj" 4
+  %4 =  mul %2 %3
+  %54
+  %4 = == const 3
+  %2 = add %0 %1
+  %onst 4
+  %4 nst 1
+  %2 = const 2
+  %: = lt %1 %2
+ cr b_ = const 1
+  %: = gt %1 %2
+%ÚÎ %1
+ ÿÿÿÿÿÿÿ br_c = const t %1 %2
+ cr b_ = const 1
+  %: = gt %1 %2
+%ÚÎ %2
+ ÿÿÿÿÿÿÿ br_c = const 1
+  %: =st  %: = lt %1 %2
+ cr b_ = const 1
+  %: = gt %1 %2
+%ÚÎ %1
+ ÿÿÿÿÿÿÿ br_c = const 1
+  %: =st 2
+  %1 = const 3
+  %2 = add %02 = add %0 %1
+  %onst 4
+  %4
+  %2 = const 2
+ÿÿÿÿÿÿÿt %1 %2
+ cr b_ = const 1
+  %: = gt %1 %2
+%ÚÎ %2
+ ÿÿÿÿÿÿÿ br_c = const 1
+  %: =st  %: =4 = == const 3
+  %2 = add %0 %1
+  %onst 4
+  %4 nst 1
+  %2 = const 2
+  %: = lt %1 %2
+ cr b_ = const 1
+  %: = gt %1 %2
+%ÚÎ %1
+ ÿÿÿÿÿÿÿ br_c = const t %1 %2
+ cr b_ = const 1
+  %: = gt %1 %2
+%ÚÎ %2
+ ÿÿÿÿÿÿÿ br_c = const 1
+  %: =st  %: = lt %1 %2
+ cr b_ = const 1
+  %: = gt %1 %2
+%ÚÎ %1
+ ÿÿÿÿÿÿÿ br_c = const 1
+  %: =st 2
+  %1 = const 3
+  %2 = add %02 = add %0 %1
+  %onst 4
+  %4
+  %2 = const 2
+ÿÿÿÿÿÿÿt %1 %2
+ cr b_ = c %lt %1 %2
+ cr b_ = const 1
+  %: = gt %1 %2
+%ÚÎ %2
+ ÿÿÿÿÿÿÿ br_c = const 1
+  %: =st 2
+  %1 = const 3
+  %2 = add %02 = add %0 %1
+  %onst 4
+  %4 =func X_ mul %1 %3
+  %
