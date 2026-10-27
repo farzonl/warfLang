@@ -1,0 +1,9 @@
+func _()
+entr  %6 = const 3
+  %value = st 4
+  valuå = store %8
+%6 stos
+0:5 = const 5
+   %v:
+  ßÚÉ = const 3
+  %value = store_add %= cons  ret

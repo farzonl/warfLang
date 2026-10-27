@@ -1,0 +1,30 @@
+func __main()
+entry:
+" % %2 = const 2
+  %3 = lcond %3 õ:
+  %4 = const 4
+  :v¦¦¦¦¦¦¦¦¦¦¦¦¦¦­¦¦¦¦¦¦¦¦¦¦¦¦¦ %4 = neg %4
+  %6 =ÿÿÿÿÿÿÿÿÿÿ %0 = c cml %2 %3
+  %5 = neg %4
+  %6 =ÿÿÿÿÿÿtore %5
+d0
+end0:ÿÿÿ¦¦¦¦¦¦Ÿ¦¦¦¦¦alue = store %4
+  br end0
+ela2 
+()
+ealue = store %8
+ue = store %5
+  br= const 1
+  2 = add %0 %1
+  %3 = const 4
+  %4 = :
+ lul %2 %3
+ ö %5 = neg %4
+  %6 1ÿÿÿÿÿÿÿÿml %2 %3
+  %5 = neg %4
+  %6 
+  %7 = add
+  rlue = store %5
+d0
+end0: = const 3
+  %value = store_add %6

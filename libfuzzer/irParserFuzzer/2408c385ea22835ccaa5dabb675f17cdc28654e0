@@ -1,0 +1,11 @@
+func __main()
+e  % = const 1
+  %2 = const 2
+=    %1
+  %3 = const 4
+  %4 = mul %2 %3
+  %:5 = neg %4
+nst 4
+ ul %2 %3
+  %5 = neg %4
+  %lue

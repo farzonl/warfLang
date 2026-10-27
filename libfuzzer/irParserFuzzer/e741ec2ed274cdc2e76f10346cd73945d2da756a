@@ -1,0 +1,10 @@
+func __main()
+
+  %1 = const 2
+  %2 = const 4
+  %3 = %+ %2 Ÿ›r %3
+
+func foo(%a, %1, %c)
+e:  %8 = const 2
+  %1 = const 3
+ c

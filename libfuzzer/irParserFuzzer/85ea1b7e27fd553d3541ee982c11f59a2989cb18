@@ -1,0 +1,4 @@
+func __maiÿ()
+en  %value = store %0
+  +%1 = const 1
+  %2
