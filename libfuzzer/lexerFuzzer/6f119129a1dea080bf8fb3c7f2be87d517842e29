@@ -1,0 +1,15 @@
+|{;"*Öfunction circle_area(r: float): float {
+  let pi: f64 = 3.14
+  return pi * r * r
+}
+
+let a = circle_area(2.0)
+print(a)
+
+var x: float = 10.5
+x += 1.5
+x -= 2.™™™™™™™™™™™™™ÿÿ1uteLoopControolu< l‘im; reÿt; if (start < l"1,3 (3{; valuññññ =Rÿÿ l-q
+ vaÿÿÿÿoÿÿÿÿÿÿÿÿÿÿruteLoopControl1F0)alue = ÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁÁ4;im; reÿt; if (start < l"1,3 (3{; valuññññ =Rÿ = 4;.} e]lse {; !vavvalu< lšimÿtoÿ2!= 3.5) {
+  print(2)
+}
+if (x < 3.0 && x <= 2.5 && x > 2.0 && ÿÿÿÿÿÿt < lšimit) {;ËÕÕÕÏÏ03ÏÏiÎ0\10\0 vun¤‹n cÿÿÿ1uteLoopControolu\0P<x  >
