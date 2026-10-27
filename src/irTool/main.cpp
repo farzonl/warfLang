@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include "IR/Ir.h"
+#include "IR/IrOptimizer.h"
 #if defined(WARF_ENABLE_LLVM_BACKEND)
 #include "LlvmBackend.h"
 #endif
@@ -13,9 +14,13 @@
 #include <string>
 
 static void printUsage() {
-  std::cout << "usage: ./WarfIR --run <ir_file_name>\n";
-  std::cout << "       ./WarfIR --emit-llvm-ir [-o output] <ir_file_name>\n";
-  std::cout << "       ./WarfIR --emit-bc -o output <ir_file_name>\n";
+  std::cout << "usage: ./WarfIR [--opt|-O] --run <ir_file_name>\n";
+  std::cout
+      << "       ./WarfIR [--opt|-O] [--emit-ir] [-o output] <ir_file_name>\n";
+  std::cout << "       ./WarfIR [--opt|-O] --emit-llvm-ir [-o output] "
+               "<ir_file_name>\n";
+  std::cout
+      << "       ./WarfIR [--opt|-O] --emit-bc -o output <ir_file_name>\n";
   std::cout << "       ./WarfIR -h\n";
   std::cout << "       ./WarfIR --help\n";
 }
@@ -50,8 +55,10 @@ static bool WriteTextFile(const std::string &path, const std::string &text) {
 
 int main(int argc, char **argv) {
   bool run = false;
+  bool emitIr = false;
   bool emitLlvmIr = false;
   bool emitBitcode = false;
+  bool optimize = false;
   std::string filePath;
   std::string outputPath;
 
@@ -63,6 +70,14 @@ int main(int argc, char **argv) {
     }
     if (arg == "--run") {
       run = true;
+      continue;
+    }
+    if (arg == "--emit-ir") {
+      emitIr = true;
+      continue;
+    }
+    if (arg == "--opt" || arg == "-O") {
+      optimize = true;
       continue;
     }
     if (arg == "--emit-llvm-ir") {
@@ -93,10 +108,15 @@ int main(int argc, char **argv) {
     printUsage();
     return 0;
   }
-  if ((run ? 1 : 0) + (emitLlvmIr ? 1 : 0) + (emitBitcode ? 1 : 0) != 1) {
-    std::cerr
-        << "Expected exactly one action: --run, --emit-llvm-ir, or --emit-bc."
-        << std::endl;
+  if (optimize && !run && !emitIr && !emitLlvmIr && !emitBitcode) {
+    emitIr = true;
+  }
+  if ((run ? 1 : 0) + (emitIr ? 1 : 0) + (emitLlvmIr ? 1 : 0) +
+          (emitBitcode ? 1 : 0) !=
+      1) {
+    std::cerr << "Expected exactly one action: --run, --emit-ir, "
+                 "--emit-llvm-ir, or --emit-bc."
+              << std::endl;
     printUsage();
     return -1;
   }
@@ -113,6 +133,23 @@ int main(int argc, char **argv) {
 
   IrParser parser;
   auto module = parser.Parse(text);
+  if (optimize) {
+    IrOptimizer::OptimizeInPlace(module);
+  }
+
+  if (emitIr) {
+    if (outputPath.empty() || outputPath == "-") {
+      IrPrinter::Print(module);
+    } else {
+      std::stringstream out;
+      IrPrinter::Print(module, out);
+      if (!WriteTextFile(outputPath, out.str())) {
+        std::cerr << "Failed to write IR: " << outputPath << std::endl;
+        return -1;
+      }
+    }
+    return 0;
+  }
 
   if (run) {
     IrInterpreter interpreter;
