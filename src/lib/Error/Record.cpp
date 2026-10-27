@@ -144,6 +144,24 @@ void Records::ReportWrongFunctionReturnType(std::shared_ptr<SyntaxToken> token,
   Report(token ? token->Span() : TextSpan(0, 0), message.str());
 }
 
+void Records::ReportExternFunctionMissingParameterType(
+    std::shared_ptr<SyntaxToken> paramToken, const std::string &fnName,
+    const std::string &paramName) {
+  std::stringstream message;
+  message << mPrefix << "Error: Extern function " << fnName << " parameter "
+          << paramName << " requires an explicit type annotation.";
+  Report(paramToken ? paramToken->Span() : TextSpan(0, 0), message.str());
+}
+
+void Records::ReportExternFunctionMissingReturnType(
+    std::shared_ptr<SyntaxToken> identifierToken, const std::string &fnName) {
+  std::stringstream message;
+  message << mPrefix << "Error: Extern function " << fnName
+          << " requires an explicit return type annotation.";
+  Report(identifierToken ? identifierToken->Span() : TextSpan(0, 0),
+         message.str());
+}
+
 void Records::ReportCannotAssign(std::shared_ptr<SyntaxToken> identifierToken) {
   std::stringstream message;
   message << mPrefix << "Error: Variable " << identifierToken->Text()

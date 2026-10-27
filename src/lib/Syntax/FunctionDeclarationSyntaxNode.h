@@ -24,7 +24,8 @@ public:
       std::shared_ptr<SyntaxToken> closeParenthesis,
       std::unique_ptr<BlockStatementSyntaxNode> body,
       std::vector<Value::Type> parameterTypes = {},
-      Value::Type returnType = Value::Type::Unknown);
+      Value::Type returnType = Value::Type::Unknown,
+      std::shared_ptr<SyntaxToken> externKeyword = nullptr);
   virtual ~FunctionDeclarationSyntaxNode() {}
 
   std::shared_ptr<SyntaxToken> Identifier();
@@ -32,8 +33,11 @@ public:
   const std::vector<Value::Type> &ParameterTypes() const;
   Value::Type ReturnType() const;
   const BlockStatementSyntaxNode *Body() const;
+  bool IsExtern() const;
+  std::shared_ptr<SyntaxToken> ExternKeyword() const;
 
 private:
+  std::shared_ptr<SyntaxToken> mExternKeyword;
   std::shared_ptr<SyntaxToken> mFunctionKeyword;
   std::shared_ptr<SyntaxToken> mIdentifier;
   std::shared_ptr<SyntaxToken> mOpenParenthesis;

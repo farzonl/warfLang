@@ -28,6 +28,9 @@ struct IrFunction {
   std::vector<std::string> parameters;
   std::vector<IrInstruction> instructions;
   std::string returnValue;
+  bool isExtern = false;
+  std::vector<Value::Type> parameterTypes = {};
+  Value::Type returnType = Value::Type::Unknown;
 };
 
 struct IrModule {

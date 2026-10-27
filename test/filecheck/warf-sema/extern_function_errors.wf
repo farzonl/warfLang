@@ -1,0 +1,13 @@
+// RUN: %warf -e "extern function foo(x): int" 2>&1 | %FileCheck %s --check-prefix=MISSING-PARAM-TYPE
+// RUN: %warf -e "extern function bar(x: int)" 2>&1 | %FileCheck %s --check-prefix=MISSING-RET-TYPE
+// RUN: %warf -e "extern function abs(x: int): int; abs(1, 2)" 2>&1 | %FileCheck %s --check-prefix=WRONG-ARITY
+// RUN: %warf -e "extern function abs(x: int): int; abs(true)" 2>&1 | %FileCheck %s --check-prefix=WRONG-ARG-TYPE
+// RUN: %warf -e "extern function abs(x: int): int; let b: bool = abs(-5)" 2>&1 | %FileCheck %s --check-prefix=WRONG-RET-VAR-TYPE
+// RUN: %warf -e "extern function abs(x: int): int; abs(-5)" 2>&1 | %FileCheck %s --check-prefix=INTERP-EXTERN-CALL
+
+// MISSING-PARAM-TYPE: BinderError: Extern function foo parameter x requires an explicit type annotation.
+// MISSING-RET-TYPE: BinderError: Extern function bar requires an explicit return type annotation.
+// WRONG-ARITY: BinderError: Function abs requires 1 argument(s) but was given 2.
+// WRONG-ARG-TYPE: BinderError: Parameter x requires a value of type Number but was given a value of type Boolean.
+// WRONG-RET-VAR-TYPE: BinderError: Variable b requires a value of type Boolean but was given a value of type Number.
+// INTERP-EXTERN-CALL: EvaluatorError: Cannot execute extern function abs in interpreter.

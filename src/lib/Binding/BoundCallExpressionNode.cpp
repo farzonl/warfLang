@@ -8,10 +8,10 @@ BoundCallExpressionNode::BoundCallExpressionNode(
     std::string name,
     std::vector<std::unique_ptr<BoundExpressionNode>> arguments,
     std::vector<std::shared_ptr<VariableSymbol>> parameters,
-    std::unique_ptr<BoundStatementNode> body, Value::Type type)
+    std::unique_ptr<BoundStatementNode> body, Value::Type type, bool isExtern)
     : BoundExpressionNode(), mName(std::move(name)),
       mArguments(std::move(arguments)), mParameters(std::move(parameters)),
-      mBody(std::move(body)), mType(type) {}
+      mBody(std::move(body)), mType(type), mIsExtern(isExtern) {}
 
 BoundNodeKind BoundCallExpressionNode::Kind() {
   return BoundNodeKind::CallExpression;
@@ -34,3 +34,5 @@ BoundCallExpressionNode::Parameters() const {
 const BoundStatementNode *BoundCallExpressionNode::Body() const {
   return mBody.get();
 }
+
+bool BoundCallExpressionNode::IsExtern() const { return mIsExtern; }

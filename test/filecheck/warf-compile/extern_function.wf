@@ -1,0 +1,45 @@
+// REQUIRES: llvm-backend
+// RUN: %warf %s --emit-ir > %t.wir
+// RUN: %FileCheck %s --check-prefix=IR < %t.wir
+// RUN: %warf-ir --emit-llvm-ir %t.wir | %FileCheck %s --check-prefix=LLVM
+// RUN: not %warf-ir --run %t.wir 2>&1 | %FileCheck %s --check-prefix=WIR-ERR
+// RUN: %warfc -o %t.exe %s
+// RUN: %t.exe | %FileCheck %s
+// RUN: %warfc -O -o %t.opt.exe %s
+// RUN: %t.opt.exe | %FileCheck %s
+
+extern function abs(x: int): int
+extern function putchar(c: int): int;
+extern function puts(s: string): int
+
+print(abs(-42))
+print(abs(17))
+putchar(79)
+putchar(75)
+putchar(10)
+puts("ffi_puts_hello")
+
+function compute(n: int): int {
+  return abs(n) + 100
+}
+print(compute(-23))
+
+0
+
+// IR: func __main()
+// IR: extern func abs(%x)
+// IR: extern func putchar(%c)
+// IR: extern func puts(%s)
+// IR: func compute(%n)
+
+// LLVM: declare i32 @abs(i32)
+// LLVM: declare i32 @putchar(i32)
+// LLVM: declare i32 @puts(ptr)
+
+// WIR-ERR: IR error: cannot execute extern function abs in interpreter.
+
+// CHECK: 42
+// CHECK-NEXT: 17
+// CHECK-NEXT: OK
+// CHECK-NEXT: ffi_puts_hello
+// CHECK-NEXT: 123

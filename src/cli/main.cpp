@@ -321,8 +321,12 @@ void evaluate(std::string &line, bool showTree, bool emitIr,
       syntaxTree->Root()->Statements().size() == 1 &&
       syntaxTree->Root()->Statement()->Kind() ==
           SyntaxKind::FunctionDeclaration) {
-    textBlock << line << "\n";
-    return;
+    auto testBinder = std::make_unique<Binder>();
+    testBinder->BindCompilationUnit(syntaxTree->Root());
+    if (testBinder->Errors().empty()) {
+      textBlock << line << "\n";
+      return;
+    }
   }
   if (!textBlock.str().empty()) {
     source = textBlock.str() + line;

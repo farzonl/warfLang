@@ -79,6 +79,11 @@ public:
                                      const std::string &fnName,
                                      Value::Type expectedType,
                                      Value::Type actualType);
+  void ReportExternFunctionMissingParameterType(
+      std::shared_ptr<SyntaxToken> paramToken, const std::string &fnName,
+      const std::string &paramName);
+  void ReportExternFunctionMissingReturnType(
+      std::shared_ptr<SyntaxToken> identifierToken, const std::string &fnName);
   void ReportCannotAssign(std::shared_ptr<SyntaxToken> identifierToken);
   void ReportInvalidBreakOrContinue(std::shared_ptr<SyntaxToken> keywordToken);
   void ReportHeterogeneousArray(TextSpan span, Value::Type expectedType,
