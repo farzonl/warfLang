@@ -1,0 +1,8 @@
+"hello world"
+""
+"hello"
+"backslash: \\ckslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc"

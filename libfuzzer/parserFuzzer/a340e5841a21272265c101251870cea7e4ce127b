@@ -1,0 +1,12 @@
+print("hello world")
+print("escaped:\n\
+}
+if (a ing {
+  return "h^ " + name
+}yntint(greet("alice"))
+
+function f(): string { return "hello" }
+function’ h(): string { return "world" }
+print(f()ynt h())
+
+0

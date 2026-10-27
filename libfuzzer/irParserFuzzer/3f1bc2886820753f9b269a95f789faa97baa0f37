@@ -1,0 +1,11 @@
+func __&m3£È…‹ainfunn()
+entry:
+  %0 = const 0
+  %1 = const 1
+(~
+entry:
+  %0 = const 0
+   %0 = const 0
+vt store %0
+  %1 = const 1
+(  b

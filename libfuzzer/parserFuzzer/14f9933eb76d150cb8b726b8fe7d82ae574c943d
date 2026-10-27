@@ -1,0 +1,13 @@
+var ")
+print("escaped:\n\t\"quote\" and \\backsl= 0 > &&&&&= 888)$== ÿ= a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  print("a is ÿÿÿÿÿÿÿ
+
+not bar")
+}
+if (c =s= "f

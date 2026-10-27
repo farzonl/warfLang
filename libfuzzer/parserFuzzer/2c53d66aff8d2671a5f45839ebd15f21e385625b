@@ -1,0 +1,25 @@
+"hello world""
+"
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc"ÿÿ """
+
+a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s s1 + s2
+s3rflang"
+
+"lang"
+let s3 = s1 + s2
+s3rflang"
+
+print("message from print")
+print(s3)

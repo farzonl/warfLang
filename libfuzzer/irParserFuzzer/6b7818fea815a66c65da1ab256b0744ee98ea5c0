@@ -1,0 +1,9 @@
+func __min()
+entry:
+  %0 = const 2
+  l %3
+  %5 = neg  
+4t 
+0
+  %7 = add 6 func %5
+  ret %7

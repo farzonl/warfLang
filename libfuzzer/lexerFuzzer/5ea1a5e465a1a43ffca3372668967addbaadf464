@@ -1,0 +1,67 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"ΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩtab\there"
+"quote: \"hi\""
+"backslash" + "world"
+"1ello\nworld"
+"tab\therello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"rld"
+"ta"
+""
+"hello\nworld"
+"taüb\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"ello\nwoab\there"
+"quote: \"hi\""
+"backslash: \\"
+" ello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"rld"
+"tab\there"
+"quote: \"hi\""
+"backslash: true
+"helΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩtab\there"
+"quote: \ΩΩΩΩΩΩΩΩΩΩΩΩΩΩtab\therb\there"
+"quote: \"hi\""
+"backslash: true
+"helΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩtab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hell"
+
+"rld"
+"tab\there"
+"quote: \"hi\""
+"backslash: true
+"helΩΩΩΩΩΩΩΩΩΩΩ[ΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩtab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + 1<\\"
+
+"Kld"
+"tab\there"
+"quote: \"hi\""
+"backslash: true
+"helΩΩΩΩΩΩΩΩΩΩΩ[ΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩΩˇˇˇˇˇˇˇΩΩΩΩΩΩΩΩΩΩΩtab\there"
+"quote: \"hi\"¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨"
+"backslash: \\"
+
+"hello " + 1<)<)<<(-(ov

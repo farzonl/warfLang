@@ -1,0 +1,17 @@
+b1 = true; b2 ="hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" ==  false; ("bb1 && !b2) ! fals"
+"a"e !arflang"
+
+print("message from print")
+print(s3)

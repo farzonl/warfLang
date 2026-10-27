@@ -1,0 +1,30 @@
+b1Ã= true; b2 ="hello world"
+"+
+"hello\nworld"
+"tab\there+
+"quote: \"hi\""
+"bacjslash: \\"
+
+"helue; b2 ="hello world"
+"+
+"hello\nworld"
+"tab\there+
+"quote: \"hi\""
+"bacjslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" ==  false; ("bb1 && !b2) ! fals"
+"alo " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" ==  false; ("bb1 && !b2) ! fals"
+"a"e !arflang"
+
+ïrint("message from print")
+pri47241nt(s3)

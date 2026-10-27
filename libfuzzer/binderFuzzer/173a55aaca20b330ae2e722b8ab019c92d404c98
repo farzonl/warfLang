@@ -1,0 +1,23 @@
+a = 4; a   8; a = 4; a + 2 1; a += 2; a 2; a -= 1; a += 2; a -= 1; a *= 4; a /=  8; ; a /=  8; a -= 1;print("hello=if world")
+print("esca4;  8; a = 4; a + 2a = 4; a ==~1ÈßžßÒÂßÎ; a *= 4; a /=  8; a -= 1;print("hello=if world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+prin{
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+funct
+print(f() == h( a *= 4;  8; a = 4; a + 2; a  5; ~a

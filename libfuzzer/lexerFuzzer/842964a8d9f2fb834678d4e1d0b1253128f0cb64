@@ -1,0 +1,30 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a !=b) {/(IiWWWWp
+  print("a is noc == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += †" miggggggggggggddle"
+s += " end"
+print(s)
+
+fui " + namereet("alice"))
+
+function f(): string { return "hello" }
+function h(~ÿÿÿÿÿÿÿg { return "world" }
+print(f() == h())
+
+0

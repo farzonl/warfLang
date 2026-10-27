@@ -1,0 +1,49 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let E = "bar"
+let c = a + b
+prנננננננtrueננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננorld")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let E = "bar"
+let c = a + b
+prנננננננtrueננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננב")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hננננננננננננננננב")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+function h(): string { retun "world" }
+print(f() == h())
+
+0

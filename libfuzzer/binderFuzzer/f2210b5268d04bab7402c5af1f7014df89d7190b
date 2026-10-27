@@ -1,0 +1,35 @@
+a = 18BoundStatementNdoeStatementNdoelue = a =undStatementNdoeule = a = 0; b =a = 18BoundStatementNdoeStatementNdoelue = a =undStatementNdoelue = a = 0; b =a =tementNdoelueb =a = 18BoundStatemtementNdoelue = a =undSBounSateetmdntNdoeStatementNdoelue = a =undStatementNdoelue = a = 0; b =a =tementNmentNdoelue = a = 0; b =a =tementNdoSpatementelue = a = 0; b =a = 5;naryExpressionNodentNdoelue = a = 5;b = a = 5; b ntNdoeStatementNdoelue = a =undSpatementNdoelue = a = 0; b =a =l= a =undStateme19UnaryExpressindStateme19UnaryExpressiOnNodentNdoelue = a = 0; b =a = 5; b  4 0;a =l= a =undStateme19UnaryExpressionNodentNdoelue = a = 0; b =a = 5; b ntNdoeStatemeprint("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+function h(): string { return "world" }
+pntNdoelue = a =undSelue = a =rint(f() undStatementNdoelue = a = 0; b =a =keme== hntNdoelu())
+
+e = a = 0; b =a = 18BoryExpressionNodentNdoelue = a = 01 /  001 / 0 /5 / 501 / 1 / 0 /5  00 /  01 /  01 / 501 / 1 / 0 /5  00 /  00 /  01 / 0  /  01 /  01 / 0 /1 / 0 /5 / 501 / 1 / 0 /5  00 /  01 /  01/ 501; b =a = 5; b   / 1 / 0 /1 / 0 /5 / 501 / 1 / 0  01 / 0 4 0;

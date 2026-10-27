@@ -1,0 +1,35 @@
+print("hello w2rld")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-ea = 18BoundStatementNdoeStatementNdoelueundStatemeundStatementNdoeStatementNdoelue = a =undSBoundStatementNdoeStatementNdoelue = a =unlStatementNdoelue = a = 0; b =a =tementNmentNdoelue = a = 0; b =a =tementNdoelue = a = 0; b =a = 18BoundStatementNdoeStctementNdoenue = a =undSpatementNdoelue = a = 0; b =a =l= a =undStateme19UnaryExpressionNodentNdoelue = UnaryExpressionNodentNdoelue = a mpty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function @reet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+fu= 0; b =a = 5; b  4 0; b =a = 5; b l= a =undStateme19UnaryExprezsionNodentNdoeluse = a = 0; b =a = 5; b  4 0;a =l= a =undStateme19UnaryExNdoeStatementNdoelue = a =undSpatementNdo=lue = a = 0; b =a =l= a =undStateme19UnaryExpressionNodentNdoelue = a = 0; b =a = 5; b  4 0;a =l= nction h(): string { return "world" }
+print(f() ==a ementNdoeStatementNdoelue = a =undStatementNdoeule = a = 0; b =a = 18BoundStatementN h())doeStatementNdoelue = a =undStatem
+entNdoelue = a = 0; b =a a = 0; b =a =tementNdoelue = a = 0; b =a = 18BoryExpRessionNod
+entNdoelue = a = 0; b =a = 5; b  4 0; b 0=a = 5; b  4

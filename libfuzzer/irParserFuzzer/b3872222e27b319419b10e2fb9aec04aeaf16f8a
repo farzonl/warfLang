@@ -1,0 +1,8 @@
+func __main()
+2  tentry:
+  %cojs0:
+  %3 = const 2
+  le %3 %3
+  %2 =ÿeg 3 = const 2
+  le %3 %3
+ %3 %3

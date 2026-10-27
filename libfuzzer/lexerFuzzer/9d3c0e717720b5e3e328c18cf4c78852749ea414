@@ -1,0 +1,9 @@
+print("hello varworld")
+print("escaped:\n\t\"quot^\" and \\backslash\\")
+print("" + "non-empty")
+
+let int("es%aped:\n\t\"quote\" and \\backslash\\")
+let b = "bar"
+l== h())
+
+1

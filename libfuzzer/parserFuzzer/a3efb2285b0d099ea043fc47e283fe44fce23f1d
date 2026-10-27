@@ -1,0 +1,31 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == " "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "aa"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s0 = "warf"
+let s2 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)

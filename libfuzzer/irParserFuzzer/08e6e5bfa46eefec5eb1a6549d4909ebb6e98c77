@@ -1,0 +1,7 @@
+func __main()
+% = const 33
+  %5 = neg %4
+  %6 =const 
+0
+  %7 = add %5 
+  retst  

@@ -1,0 +1,41 @@
+func __main()
+ealue = st0
+end0:ÿÿÿ
+ `%6 = const 3ry:
+  %0 = const 0
+  %value = store %0
+  %0
+  %1 = const 5
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3[ = mul %2 %3
+  enadd %0 %1
+ ÿÿÿÿ %3 = const 4
+  %4 = mul %2 %3
+  %5 =  gne%
+¾  %6 = const 50
+  %7 = addP 3
+ 0 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50 %1 = const 1
+  mul %2 %3
+  %5 = neg %4
+  3
+  %  %4 = mul %2 %3
+  %5 = neg %¾
+  %6 = const 50
+  %7 = addP 3
+ 0 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50 %1 = const 1
+  mul %2 %3
+  %5 = neg %4
+  3
+  %2 = add %0 %1
+ ÿÿÿÿ %3 = const 4
+  %4 = mul %2 %3
+  %5 0
+  %7 = addP 3
+ 0

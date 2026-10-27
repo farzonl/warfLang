@@ -1,0 +1,55 @@
+func __mainfunc __main()st1
+ ()
+entry:‹
+ ‹
+ ()
+ 2
++
+   const1
+ ()
+entry:‹
+ ‹%0 =s= const1
+(()
+ 2try:‹
+ ‹
+ ()
+ 2
+0
+   const1
+ ()
+entry:‹
+ ‹%0 
+ ()
+entry:‹
+ ‹
+ ()
+ 2
++
+   const1
+ ()
+entyr‹:
+ ‹%0nst1
+ (co ()
+entry:‹
+ ‹%0 = cons const1
+= const1
+(()
+ 2try:‹
+ ‹
+ ()
+ 2
+0
+   const1
+ ()
+entry:‹
+ ‹%0 
+ ()
+entry:‹
+ ‹
+ ()
+ 2
++
+   const1
+ ( ()
+ ond 4
+ b*

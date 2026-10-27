@@ -1,0 +1,15 @@
+func [_main()
+ %ÐßÂsoßnct 42
+ :
+  = ng %22
+  ret %
+//% RUN-OP lue = const 50 %5
+  ret %
+//% ]= const 50
+  %7 = add%6 %5
+  ret %
+//% 6 = ]ˆnst 50
+  d %6 %5
+  ret %
+//% RUN-OP 4
+ 0ÐßÂ}

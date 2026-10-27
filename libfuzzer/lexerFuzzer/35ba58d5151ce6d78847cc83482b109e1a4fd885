@@ -1,0 +1,20 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let int("escaped:\n\t\"quote\" and \\backslash\\")
+printa = "foo"
+let"escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let int("escaped:\n\t\"quote\" and \\backslash\\")
+printa = "foo"
+let b = "bar"
+let))
+
+): string { return "world" }
+print(f() == h())
+
+1

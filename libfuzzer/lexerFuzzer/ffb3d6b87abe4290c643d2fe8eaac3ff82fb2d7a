@@ -1,0 +1,13 @@
+"hello world
+"backslash: \\"
+
+"hello " + "world"
+"슬tab\there"
+ \"hi\""
+"backslash: |슬슬슬슬슬슬슬슬슬슬슬tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"슬tab\there"
+"quote: 쎶hi\<)<)<<(-(ov

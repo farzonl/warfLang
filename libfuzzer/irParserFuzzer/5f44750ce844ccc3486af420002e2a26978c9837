@@ -1,0 +1,8 @@
+func __main()entry:
+  %5 = const false
+  %6 = eq %5 %5
+ : trnst 10
+  %1 not %3
+  %5 = const false
+  %6 = eq %5 %5
+  r#et  RUN-OPT: true

@@ -1,0 +1,23 @@
+func [_main()÷n0 %1
+  %3 = const true
+  %4 =%1
+
+// RUNtrue
+  %4 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+  ret %6
+
+//st 50
+  %7 = add %6 %5
+  rÿet %
+/4Ót %3
+  %5st false
+  %6 = eq %4 %5
+  ret %6
+
+//+7 = add %6 %5
+  ret %
+//% RUN-OP 3
+ai 6
+w0ÐßÂ}

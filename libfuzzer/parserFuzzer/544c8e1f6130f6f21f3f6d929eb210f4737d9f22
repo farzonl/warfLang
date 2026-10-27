@@ -1,0 +1,38 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatename: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f( = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): sjring {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

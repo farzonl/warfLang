@@ -1,0 +1,5 @@
+func O_n()
+entry:f,
+  %0 = const 0 
+  %6500550000000068447807 = lt value %6
+  be

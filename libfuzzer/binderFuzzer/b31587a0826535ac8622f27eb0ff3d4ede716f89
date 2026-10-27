@@ -1,0 +1,17 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" !arflang"
+
+print("message nt")
+print(s3)

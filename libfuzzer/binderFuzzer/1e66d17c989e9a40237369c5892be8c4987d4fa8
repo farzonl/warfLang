@@ -1,0 +1,8 @@
+"hello world"
+""
+"hello\nw: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc"

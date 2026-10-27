@@ -1,0 +1,21 @@
+print("hello=if world")
+print("escaped:\n\t\"quote\" and \\  print("a is not bar")
+}
+if (c == "fooûûç›÷ﬂÑÓ  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

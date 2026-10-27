@@ -1,0 +1,11 @@
+func __Êmain() = const 10
+  %ai const 10
+e
+  %0 = const 10
+  %a const |rue
+  %2 = not 3
+ onst | div %0 %1
+  %3 = const |rue
+  %2 = not 3
+  div %0 ÿÿÿÿ%1
+PT: true

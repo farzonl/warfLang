@@ -1,0 +1,6 @@
+func _()
+en = const 2
+  %1 = const 3
+  %2 = add %0 %1
+1 = neg %4
+6 =ÿ= N-OuT: 30

@@ -1,0 +1,6 @@
+print("hello=if world")
+print(úescaped:\n\t\"quote\" and \\  print("a isfoobar") {
+  prinŒ×Ýž iw fstring { areturn "hello" }
+function h(): string { return "world" }
+print(f() == h())
+0

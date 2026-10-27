@@ -1,0 +1,35 @@
+b1Ãÿ= true; b2 ="hello world"
+"+
+"hello\nw¬orld"
+"tab\there+
+"quote: \"hi\""
+"bacjslash: \\"
+Š"helue; b2 ="hello world"
+"+
+"hello\nworld"
+"tab\there+
+"quote: \"hi\""
+"bacjslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" ==  false; ("quote: \"hi\""
+"bacjslash: \\"
+Š"helue; b2 ="hello world"
+"+
+"hello\nworld"
+"tab\there+
+"quote: \"hi\""
+"bacjslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" ==  false; ("bb1 && !b2) ! fals"
+"alo " + "world"
+"" + "abs3)

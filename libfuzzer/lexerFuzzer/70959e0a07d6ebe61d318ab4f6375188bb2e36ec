@@ -1,0 +1,7 @@
+print("hello world")
+pruote\" and \\backslash" + "strings")
+
+let int("—Œœš›Å\n\tquote\" and \("concatenated " + "sÜtrings")
+let int("escaped:\n\tquote\" and \\t("cs")
+
+let int("escaped:\n\tquote\" and \\backf()

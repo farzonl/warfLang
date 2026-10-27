@@ -1,0 +1,40 @@
+print("hello=if world")
+print("escaped:\n\t\"qello=if world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-euote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo)
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar`")
+}
+
+var s = "start"
+s caped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-euote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo)
+}
+iJJJJJJJJJJorld" }
+print(f() == h())
+
+0
