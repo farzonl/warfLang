@@ -1,0 +1,7 @@
+func __main() å
+rnt= store %5
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond%4 =  le %3 %3
+  _n()e–Žry:3e

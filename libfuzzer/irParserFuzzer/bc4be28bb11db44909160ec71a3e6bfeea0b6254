@@ -1,0 +1,9 @@
+func __main()0+ = cst 1
+ "%G`= sct nth%n0:
+  %4 = const 4
+ %3
+  %5 = const false
+  %7 = eq %4 %5
+ÿÿÿÿ  %5 = const false
+  %6. = eq %4 %5
+  rÿÿÿÿÿÿÿ/]RUN__Tue

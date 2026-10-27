@@ -1,0 +1,4 @@
+func in()
+5
+  b = store 3
+%0 = const  zcons 

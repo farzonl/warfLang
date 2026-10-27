@@ -1,0 +1,10 @@
+func __mai*()
+entry:
+  %5 = const false
+  Â%6 = eq %5 %5
+ : trnst 10
+  true
+  %4 = not %3
+  %5 = const false
+  %6 = eq %5 %5
+ true

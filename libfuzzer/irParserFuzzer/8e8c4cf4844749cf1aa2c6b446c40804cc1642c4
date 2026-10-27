@@ -1,0 +1,5 @@
+func @add(%abç) {
+  %0 = add %a,%b
+}
+func @()
+e

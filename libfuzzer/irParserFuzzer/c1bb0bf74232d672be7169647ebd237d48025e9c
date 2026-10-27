@@ -1,0 +1,9 @@
+func __main()
+entry:
+  e %0
+  %1 = const 1
+  %2 = const 2
+  %3ÿÿÿÿÿÿÿÿÿÿÿÿÿÿlue 2
+  %1 = lt %1 %2
+  br_c then = lt %1 %2
+  boret %value

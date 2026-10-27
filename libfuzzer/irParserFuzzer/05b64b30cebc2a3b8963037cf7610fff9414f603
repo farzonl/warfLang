@@ -1,0 +1,11 @@
+func __mnfuc __ma–‘()
+entryC
+  ,0 = const 1
+st 2
+  % = const 3
+  %2 dd %0 %1
+  %s“ 4  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 
+0
+  %7 = add %6 %5 

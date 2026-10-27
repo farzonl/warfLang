@@ -1,0 +1,13 @@
+func [_main()
+entrÿ>
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+3 =ul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  = a = contÿ s
+2 %1 = const 3
+  %2 = 7
+
+// RUN-OPT: 30
