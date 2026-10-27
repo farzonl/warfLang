@@ -266,7 +266,8 @@ TEST_CASE("Evaluator Step Budget Limit") {
     } catch (const std::runtime_error &e) {
       caught = true;
       std::string msg = e.what();
-      REQUIRE(msg.find("EvaluatorError: Step limit exceeded.") != std::string::npos);
+      REQUIRE(msg.find("EvaluatorError: Step limit exceeded.") !=
+              std::string::npos);
     }
     REQUIRE(caught);
     REQUIRE(eval.StepCount() > 20);
@@ -289,7 +290,8 @@ TEST_CASE("Evaluator Step Budget Limit") {
     } catch (const std::runtime_error &e) {
       caught = true;
       std::string msg = e.what();
-      REQUIRE(msg.find("EvaluatorError: Step limit exceeded.") != std::string::npos);
+      REQUIRE(msg.find("EvaluatorError: Step limit exceeded.") !=
+              std::string::npos);
     }
     REQUIRE(caught);
   }
@@ -309,7 +311,8 @@ TEST_CASE("Evaluator Step Budget Limit") {
     } catch (const std::runtime_error &e) {
       caught = true;
       std::string msg = e.what();
-      REQUIRE(msg.find("EvaluatorError: Step limit exceeded.") != std::string::npos);
+      REQUIRE(msg.find("EvaluatorError: Step limit exceeded.") !=
+              std::string::npos);
     }
     REQUIRE(caught);
   }
@@ -329,7 +332,8 @@ TEST_CASE("Evaluator Step Budget Limit") {
     } catch (const std::runtime_error &e) {
       caught = true;
       std::string msg = e.what();
-      REQUIRE(msg.find("EvaluatorError: Step limit exceeded.") != std::string::npos);
+      REQUIRE(msg.find("EvaluatorError: Step limit exceeded.") !=
+              std::string::npos);
     }
     REQUIRE(caught);
   }

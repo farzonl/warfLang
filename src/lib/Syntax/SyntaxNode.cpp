@@ -16,9 +16,11 @@ TextSpan SyntaxNode::Span() const {
   int32_t maxEnd = -1;
 
   for (const auto *child : mVecExpressionNodes) {
-    if (!child) continue;
+    if (!child)
+      continue;
     TextSpan childSpan = child->Span();
-    if (childSpan.Length() <= 0 && childSpan.Start() == 0 && childSpan.End() == -1) {
+    if (childSpan.Length() <= 0 && childSpan.Start() == 0 &&
+        childSpan.End() == -1) {
       continue;
     }
     if (minStart == -1 || childSpan.Start() < minStart) {
@@ -36,7 +38,8 @@ TextSpan SyntaxNode::Span() const {
   return TextSpan(minStart, maxEnd);
 }
 
-void SyntaxNode::CollectLeafTokens(std::vector<const SyntaxToken *> &leaves) const {
+void SyntaxNode::CollectLeafTokens(
+    std::vector<const SyntaxToken *> &leaves) const {
   if (auto *token = dynamic_cast<const SyntaxToken *>(this)) {
     leaves.push_back(token);
     return;

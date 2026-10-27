@@ -39,10 +39,12 @@ Value Evaluator::Evaluate(uint64_t maxSteps) {
   return EvaluateRec(dynamic_cast<BoundExpressionNode *>(mRoot.get()));
 }
 
-Evaluator::Evaluator(std::unique_ptr<BoundExpressionNode> root, uint64_t maxSteps)
+Evaluator::Evaluator(std::unique_ptr<BoundExpressionNode> root,
+                     uint64_t maxSteps)
     : mRoot(std::move(root)), mMaxSteps(maxSteps) {}
 
-Evaluator::Evaluator(std::unique_ptr<BoundStatementNode> root, uint64_t maxSteps)
+Evaluator::Evaluator(std::unique_ptr<BoundStatementNode> root,
+                     uint64_t maxSteps)
     : mRoot(std::move(root)), mMaxSteps(maxSteps) {}
 
 void Evaluator::CheckStepBudget() {

@@ -74,7 +74,8 @@ Binder::BindStatement(StatementSyntaxNode *syntax) {
   std::unique_ptr<BoundStatementNode> bound;
   switch (syntax->Kind().GetValue()) {
   case SyntaxKind::BlockStatement:
-    bound = BindBlockStatement(dynamic_cast<BlockStatementSyntaxNode *>(syntax));
+    bound =
+        BindBlockStatement(dynamic_cast<BlockStatementSyntaxNode *>(syntax));
     break;
   case SyntaxKind::VariableDeclaration:
     bound = BindVariableDeclaration(
@@ -92,7 +93,8 @@ Binder::BindStatement(StatementSyntaxNode *syntax) {
     bound = BindIfStatement(dynamic_cast<IfStatementSyntaxNode *>(syntax));
     break;
   case SyntaxKind::WhileStatement:
-    bound = BindWhileStatement(dynamic_cast<WhileStatementSyntaxNode *>(syntax));
+    bound =
+        BindWhileStatement(dynamic_cast<WhileStatementSyntaxNode *>(syntax));
     break;
   case SyntaxKind::DoWhileStatement:
     bound = BindDoWhileStatement(
@@ -102,15 +104,16 @@ Binder::BindStatement(StatementSyntaxNode *syntax) {
     bound = BindForStatement(dynamic_cast<ForStatementSyntaxNode *>(syntax));
     break;
   case SyntaxKind::BreakStatement:
-    bound = BindBreakStatement(dynamic_cast<BreakStatementSyntaxNode *>(syntax));
+    bound =
+        BindBreakStatement(dynamic_cast<BreakStatementSyntaxNode *>(syntax));
     break;
   case SyntaxKind::ContinueStatement:
     bound = BindContinueStatement(
         dynamic_cast<ContinueStatementSyntaxNode *>(syntax));
     break;
   case SyntaxKind::ReturnStatement:
-    bound = BindReturnStatement(
-        dynamic_cast<ReturnStatementSyntaxNode *>(syntax));
+    bound =
+        BindReturnStatement(dynamic_cast<ReturnStatementSyntaxNode *>(syntax));
     break;
   default:
     std::stringstream diagmsg;
