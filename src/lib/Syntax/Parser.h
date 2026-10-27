@@ -19,7 +19,7 @@
 #include "Error/Record.h"
 
 class Parser {
-  static constexpr int32_t kMaxParseDepth = 128;
+  static constexpr int32_t kMaxParseDepth = 64;
   std::vector<std::shared_ptr<SyntaxToken>> mTokens;
   int32_t mPosition;
   int32_t mDepth = 0;

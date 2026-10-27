@@ -124,6 +124,7 @@ IrModule IrLowerer::Lower(BoundStatementNode *root) {
   mLoopStack.clear();
   mTempIndex = 0;
   mLabelIndex = 0;
+  mLowerDepth = 0;
   mVariableNames.clear();
   mVariableNameCounts.clear();
   mModule.functions.push_back(IrFunction{kIrMainFunctionName, {}, {}, ""});
@@ -244,7 +245,20 @@ void IrLowerer::LowerDoWhile(BoundStatementNode *body,
   EmitLabel(endLabel);
 }
 
+namespace {
+struct LowerDepthGuard {
+  int32_t &depth;
+  explicit LowerDepthGuard(int32_t &d) : depth(d) { ++depth; }
+  ~LowerDepthGuard() { --depth; }
+};
+} // namespace
+
 void IrLowerer::LowerStatement(BoundStatementNode *node) {
+  if (!node || mLowerDepth >= kMaxLowerDepth) {
+    Emit(IrOpcode::UnsupportedStatement, {});
+    return;
+  }
+  LowerDepthGuard depthGuard(mLowerDepth);
   if (auto block = dynamic_cast<BoundBlockStatementNode *>(node)) {
     for (const auto &statement : block->Statements()) {
       LowerStatement(statement.get());
@@ -392,6 +406,12 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
 }
 
 std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
+  if (!node || mLowerDepth >= kMaxLowerDepth) {
+    auto result = NewTemp();
+    Emit(IrOpcode::Unknown, {}, result);
+    return result;
+  }
+  LowerDepthGuard depthGuard(mLowerDepth);
   if (auto literal = dynamic_cast<BoundLiteralExpressionNode *>(node)) {
     auto result = NewTemp();
     Emit(IrOpcode::Const, {ValueText(literal->GetValue())}, result);

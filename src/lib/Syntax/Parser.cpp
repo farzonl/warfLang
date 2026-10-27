@@ -147,12 +147,24 @@ Parser::ParseBinaryExpression(int parentPrecedence) {
   } else {
     left = ParsePrimaryExpression();
   }
+  int32_t binaryChainDepth = 0;
   while (true) {
     int precedence =
         SyntaxOrder::GetBinaryOperatorPrecedence(Current()->Kind());
     if (precedence == 0 || precedence <= parentPrecedence) {
       break;
     }
+    if (mDepth + binaryChainDepth >= kMaxParseDepth) {
+      auto current = Current();
+      mRecords.ReportUnexpectedToken(current->Span().Start(),
+                                     current->Span().End(), current->Kind(),
+                                     SyntaxKind::SemicolonToken);
+      if (current->Kind() != SyntaxKind::EndOfFileToken) {
+        Next();
+      }
+      break;
+    }
+    binaryChainDepth++;
     auto operatorToken = Next();
     std::unique_ptr<ExpressionNode> right = ParseBinaryExpression(precedence);
     left = std::make_unique<BinaryExpressionNode>(
@@ -193,7 +205,19 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
     primary = std::make_unique<LiteralExpressionNode>(numberToken);
   }
 
+  int32_t indexChainDepth = 0;
   while (Current()->Kind() == SyntaxKind::OpenBracketToken) {
+    if (mDepth + indexChainDepth >= kMaxParseDepth) {
+      auto current = Current();
+      mRecords.ReportUnexpectedToken(current->Span().Start(),
+                                     current->Span().End(), current->Kind(),
+                                     SyntaxKind::SemicolonToken);
+      if (current->Kind() != SyntaxKind::EndOfFileToken) {
+        Next();
+      }
+      break;
+    }
+    indexChainDepth++;
     auto openBracket = Match(SyntaxKind::OpenBracketToken);
     auto index = ParseAssignmentExpression();
     auto closeBracket = Match(SyntaxKind::CloseBracketToken);
