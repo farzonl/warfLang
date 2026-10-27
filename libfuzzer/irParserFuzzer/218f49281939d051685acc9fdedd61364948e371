@@ -1,0 +1,33 @@
+func __main()
+entry:
+  %0 = const 10
+  %1 = co1
+  %3 = const true
+  %3 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+  ret %6
+
+// RUNtrue
+  %4 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+  ret %6
+
+// RUN-OPT: trret %6
+
+// RUNtrue
+  %, = not  %4 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+  ret %6
+
+// RUN-OPT: trret %6
+
+// RUNtrue
+  %, = not %3
+  %5 = const false
+  %6 = eq %4 %5
+  ret %6
+
+// RUN-OPT: true

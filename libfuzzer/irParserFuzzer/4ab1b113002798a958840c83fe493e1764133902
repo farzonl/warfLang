@@ -1,0 +1,20 @@
+func __main()
+o %0 %1 %2
+  ret %3
+
+func foo( a, %b, %c)
+entry:
+ = add %a %b
+ func @add(%a, %b) {
+entry:
+  %0 = add %a, %b
+  ret %0
+}
+func @main(0, 20)
+  ret % %1 = sub %5 %c
+  ret %1t 21
+}
+  
+
+
+// RUN-OPT: 30

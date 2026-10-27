@@ -1,0 +1,14 @@
+func __munc __main()
+entry:
+ entry:
+ add 0
+â %store
+  bd e0
+ry:
+ add %0 %1
+  %2 % 
+ 53g% e= 4n
+  %6 = const 
+0
+  %7 = add %6 %5 
+ r e tbst  

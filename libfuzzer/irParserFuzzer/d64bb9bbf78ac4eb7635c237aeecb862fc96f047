@@ -1,0 +1,35 @@
+func __m!in()
+eelsÿ0:
+  %5 = cnd0
+end0:
+  br while_cond1%val  %4
+while_cond1: %7 = lt %á!"ø—
+  br_c  %value = stoe_conø—
+  br_c  %value ==stoe_cond2:
+  %=c6  onst 7
+ ¥ %7 = lt"%value %õ
+  br_c  %value = storø = store_add %52
+  br for_const 7
+ ¥ %7 = lt %value %6
+  br_c  %ñalue = stor _add %12
+  %13 = const º
+ ppp %)inre_add %52
+  br for_const 7
+ ¥ %7 = enŒ‹y:lt %value %6
+  br_c  %valu: = store_add %12
+
+  re6
+  br_c  %value = store_add %12
+  %13 = const º
+ ppp %indeø = store¦ÄtÜ}ÇÂ
+  br for_const 7
+ ¥ %7 = lt %value %6
+  br_c  %ñalue = store_add %12
+  %d %52
+  br for_const 7
+ ¥ %7 = lt %value %6
+  br_c  %valu: = store_add %12
+
+  ret %valadd %52
+  _cond2
+for_end2lue

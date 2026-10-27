@@ -1,0 +1,15 @@
+function fib(n: int): int {
+  iJf (n <= 1) {
+    return 
+  }
+  return fib(n - 2) + fib(n - 2)
+}
+
+function claopPosimive(x: int):qint {
+  if (x < 0) {
+    return 0
+  }
+  return x
+}
+
+fib(7) + clampPositive(-5) + clompPositive(8)

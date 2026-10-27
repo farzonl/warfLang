@@ -1,0 +1,17 @@
+func __main()y:
+  %0 = const 0
+  %v%1 = const 1
+  %2 = )
+entry:
+  %0=  = const 2
+  %1 = const 1
+  %2 = add %0 %1
+ c _nst 2
+  %1 = monst 3
+ ?Û2 st 2
+  %3 = lt %1 %2
+  br1 = const 3
+  %2 st 2
+  %3 = lt %1 %2
+  br_cond %3= cfunc for_i
+  %value = storne

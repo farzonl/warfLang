@@ -1,0 +1,13 @@
+func __jain()
+entry:
+  %0 =Z˜`×Jue = store %0
+  %1 = const 1
+  %2 = con2st 
+  %3 = lt %1 %2
+  b:
+  %4 = const 4
+ %value = store %4
+  br end0
+els
+  %1 st
+%21    = store_add %6 %value

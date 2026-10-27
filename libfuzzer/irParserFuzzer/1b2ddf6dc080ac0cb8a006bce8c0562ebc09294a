@@ -1,0 +1,25 @@
+func __main()
+ent e2
+  00 %0
+  %3 = const 8
+  %2 = juadd %6 % 
+  ret %7
+
+/func = const 7
+ ($
+entry:
+  %0 = con= const %value  const 50%7 = add_main()r
+ey:t
+n  %0 = const 2
+   =àœ‘Œ‹ß•rue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+  %2 = div t t
+rue  %4 = not %3
+  %5 = conmt false
+  %3 = eq %4 %5
+  ret %3
+
+// RUN-OPT: true

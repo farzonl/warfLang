@@ -1,0 +1,5 @@
+function foo(a, b, c) {
+ +- c
+}
+
+foo(2, 3, ~1 )

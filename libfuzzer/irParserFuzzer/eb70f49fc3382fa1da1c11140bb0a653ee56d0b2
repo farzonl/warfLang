@@ -1,0 +1,22 @@
+func __main()
+ent e2
+  %in()
+entry:
+  %0 = const 2
+  %1 = cod %0 %1
+  %3 
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = const 4
+  %2 = mul %2 %3
+  % %4 = not %3
+ue
+  %4 = not %3
+  %Y = cons0
+  %2 = div)t true
+  %4 = not %3
+  %5 = conmt false
+  %6 = eq %4 %5
+  ret %3
+
+// RUN-OPT: try:

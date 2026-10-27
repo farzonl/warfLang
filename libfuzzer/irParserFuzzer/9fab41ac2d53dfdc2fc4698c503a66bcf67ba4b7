@@ -1,0 +1,10 @@
+func __mainfunc __main()
+enŒrœr‘Œ‡ 2
+  %st 1
+()
+ %1 = const 1
+ %2 = const 3
+  %2 = lt %1 %2
+  b==  st 2
+  %6 = lt %1 %2
+!ttttttu %val.ue

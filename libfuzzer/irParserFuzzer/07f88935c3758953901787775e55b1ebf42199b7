@@ -1,0 +1,7 @@
+func __mn()
+entry:
+  %0 = const 0
+ func __main()
+entry:
+  %0 = const 0
+ %valu  %e = sv

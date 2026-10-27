@@ -1,0 +1,44 @@
+func __main()
+ent e2
+  %0 = ntry:
+  const 10
+  st 0
+  %2 %3 then0 else0
+th%n0:
+  %4 = const 4
+ s
+  %88eg %4
+  %6 = `o %3
+  %5 = const false
+  %7 = eq %4 %5
+ onst 4
+ s
+  %888#888888880000000001455424905816426268 = neg %4
+  %6 = `o %3
+  %5 = const false
+  %7 = eq %4 %5
+  rÿÿÿÿÿÿÿ)
+entry:
+  const 10
+  %1 = const 0
+  %2 %3 then0 else0
+th%n0:
+  %4 = const 4
+ s
+  %888#888888880000000001455424905816426268 = neg %4
+  %6 = `o %3
+  %5 = const false
+  %6 = eq %4 %5
+  r rÿÿÿÿÿÿÿ)
+entry:
+  const 10
+  %1 = const 0
+  %2 %3 then0 else0
+th%n0:
+  %4 = const 4
+ s
+  %888#888888880000000001455424905816426268 = neg %4
+  %6 = `o %3
+  %5 = const false
+  %6 = eq %4 %5
+  rÿÿÿÿÿÿÿ/ RUN RUN-__Tue

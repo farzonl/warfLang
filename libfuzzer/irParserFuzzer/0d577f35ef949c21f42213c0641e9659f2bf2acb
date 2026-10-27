@@ -1,0 +1,82 @@
+func _mainfunc __main()
+en2
+  %st 1
+()
+ent %2
+  %st 1
+()
+ent %2
+  brainfunc __const 2
+  %st  2
+  %st 1
+()
+ent %2
+  st 2
+  %st 1
+()
+ent %2
+  %st 1
+()
+ent %2
+const 2
+  %st  2
+  %st 1
+()
+ent %2
+  %st 1
+()
+ent %2
+  brainain()__cons%st 1
+()
+ent %2
+  brainain()__constnc __main()
+entryt 2
+  %st 1
+()
+eonst 2
+  %st 1
+()
+ent %2
+  %st 1
+()
+ent %2
+  brainfunc __const 2
+  %st  2
+  %st 1
+()
+ent %2
+  st 2
+  %st 1
+()
+ent %2
+  %st 1
+()
+ent %1
+  brainfunc __const 2
+  %st  2
+  %st 1
+()
+ent %2
+  %st 1
+()
+ent %2
+  brainain()__cons%st 1
+()
+ent %2
+  brainain()__const 2
+  %st 1
+()
+ent %2
+@ {eg %4
+ (8% 4
+  neg %4
+  %6 = c7
+
+// RUN-OP try:
+  %0 = ÿÿÿÿÿÿÿÃt 2
+  neg %%2
+  %st 1
+()
+ent %
+  add %12
+  %1Å = c b
