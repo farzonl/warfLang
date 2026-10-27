@@ -13,10 +13,12 @@
 
 class VariableDeclarationSyntaxNode : public StatementSyntaxNode {
 public:
-  VariableDeclarationSyntaxNode(std::shared_ptr<SyntaxToken> keyword,
-                                std::shared_ptr<SyntaxToken> identifier,
-                                std::shared_ptr<SyntaxToken> equalsToken,
-                                std::unique_ptr<ExpressionNode> initializer);
+  VariableDeclarationSyntaxNode(
+      std::shared_ptr<SyntaxToken> keyword,
+      std::shared_ptr<SyntaxToken> identifier,
+      std::shared_ptr<SyntaxToken> equalsToken,
+      std::unique_ptr<ExpressionNode> initializer,
+      Value::Type typeAnnotation = Value::Type::Unknown);
 
   virtual ~VariableDeclarationSyntaxNode() {}
 
@@ -24,10 +26,12 @@ public:
   std::shared_ptr<SyntaxToken> Identifier();
   std::shared_ptr<SyntaxToken> EqualsToken();
   const ExpressionNode *Initializer() const;
+  Value::Type TypeAnnotation() const;
 
 private:
   std::shared_ptr<SyntaxToken> mKeyword;
   std::shared_ptr<SyntaxToken> mIdentifier;
   std::shared_ptr<SyntaxToken> mEqualsToken;
   std::unique_ptr<ExpressionNode> mInitializer;
+  Value::Type mTypeAnnotation;
 };

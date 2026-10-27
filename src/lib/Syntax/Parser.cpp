@@ -454,10 +454,16 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseVariableDeclaration() {
                       : SyntaxKind::VarKeyword;
   auto keyword = Match(expected);
   auto identifier = Match(SyntaxKind::IdentifierToken);
+  Value::Type typeAnnotation = Value::Type::Unknown;
+  if (Current()->Kind() == SyntaxKind::ColonToken) {
+    Next();
+    auto typeToken = Match(SyntaxKind::IdentifierToken);
+    typeAnnotation = ParseTypeAnnotation(typeToken->Text());
+  }
   auto equals = Match(SyntaxKind::EqualsToken);
   auto initializer = ParseAssignmentExpression();
   return std::make_unique<VariableDeclarationSyntaxNode>(
-      keyword, identifier, equals, std::move(initializer));
+      keyword, identifier, equals, std::move(initializer), typeAnnotation);
 }
 
 std::unique_ptr<ExpressionStatementSyntaxNode>

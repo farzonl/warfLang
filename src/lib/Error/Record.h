@@ -70,6 +70,14 @@ public:
                                const std::string &name,
                                Value::Type expectedType,
                                Value::Type actualType);
+  void ReportWrongVariableType(std::shared_ptr<SyntaxToken> identifierToken,
+                               const std::string &name,
+                               Value::Type expectedType,
+                               Value::Type actualType);
+  void ReportWrongFunctionReturnType(std::shared_ptr<SyntaxToken> token,
+                                     const std::string &fnName,
+                                     Value::Type expectedType,
+                                     Value::Type actualType);
   void ReportCannotAssign(std::shared_ptr<SyntaxToken> identifierToken);
   void ReportInvalidBreakOrContinue(std::shared_ptr<SyntaxToken> keywordToken);
 };

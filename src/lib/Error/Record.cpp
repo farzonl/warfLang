@@ -117,6 +117,27 @@ void Records::ReportWrongArgumentType(
   Report(identifierToken->Span(), message.str());
 }
 
+void Records::ReportWrongVariableType(
+    std::shared_ptr<SyntaxToken> identifierToken, const std::string &name,
+    Value::Type expectedType, Value::Type actualType) {
+  std::stringstream message;
+  message << mPrefix << "Error: Variable " << name
+          << " requires a value of type " << expectedType
+          << " but was given a value of type " << actualType << ".";
+  Report(identifierToken->Span(), message.str());
+}
+
+void Records::ReportWrongFunctionReturnType(std::shared_ptr<SyntaxToken> token,
+                                            const std::string &fnName,
+                                            Value::Type expectedType,
+                                            Value::Type actualType) {
+  std::stringstream message;
+  message << mPrefix << "Error: Function " << fnName
+          << " requires a return value of type " << expectedType
+          << " but was given a value of type " << actualType << ".";
+  Report(token ? token->Span() : TextSpan(0, 0), message.str());
+}
+
 void Records::ReportCannotAssign(std::shared_ptr<SyntaxToken> identifierToken) {
   std::stringstream message;
   message << mPrefix << "Error: Variable " << identifierToken->Text()

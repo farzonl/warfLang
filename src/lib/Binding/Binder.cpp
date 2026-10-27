@@ -158,15 +158,6 @@ Binder::BindIfStatement(IfStatementSyntaxNode *syntax) {
   }
   auto thenStatement =
       BindStatement(const_cast<StatementSyntaxNode *>(syntax->ThenStatement()));
-  if (!mActiveFunctionStack.empty()) {
-    const auto &fnName = mActiveFunctionStack.back();
-    if (mActiveFunctionReturnTypes[fnName] == Value::Type::Unknown) {
-      auto thenType = InferStatementType(thenStatement.get());
-      if (thenType != Value::Type::Unknown) {
-        mActiveFunctionReturnTypes[fnName] = thenType;
-      }
-    }
-  }
   std::unique_ptr<BoundStatementNode> elseStatement;
   if (syntax->ElseStatement()) {
     elseStatement = BindStatement(
@@ -266,8 +257,18 @@ Binder::BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax) {
   auto initializer =
       BindExpression(const_cast<ExpressionNode *>(syntax->Initializer()));
 
-  auto variable =
-      std::make_shared<VariableSymbol>(name, isReadOnly, initializer->Type());
+  if (syntax->TypeAnnotation() != Value::Type::Unknown &&
+      initializer->Type() != Value::Type::Unknown &&
+      syntax->TypeAnnotation() != initializer->Type()) {
+    mRecords.ReportWrongVariableType(syntax->Identifier(), name,
+                                     syntax->TypeAnnotation(),
+                                     initializer->Type());
+  }
+
+  auto varType = syntax->TypeAnnotation() != Value::Type::Unknown
+                     ? syntax->TypeAnnotation()
+                     : initializer->Type();
+  auto variable = std::make_shared<VariableSymbol>(name, isReadOnly, varType);
 
   mScope->insert(variable);
 
@@ -299,10 +300,19 @@ Binder::BindReturnStatement(ReturnStatementSyntaxNode *syntax) {
   std::unique_ptr<BoundExpressionNode> expr;
   if (syntax->Expression()) {
     expr = BindExpression(const_cast<ExpressionNode *>(syntax->Expression()));
-    if (!mActiveFunctionStack.empty() && expr->Type() != Value::Type::Unknown) {
-      const auto &fnName = mActiveFunctionStack.back();
-      if (mActiveFunctionReturnTypes[fnName] == Value::Type::Unknown) {
-        mActiveFunctionReturnTypes[fnName] = expr->Type();
+  }
+  if (!mActiveFunctionStack.empty()) {
+    const auto &fnName = mActiveFunctionStack.back();
+    auto expectedType = mActiveFunctionReturnTypes[fnName];
+    auto actualType = expr ? expr->Type() : Value::Type::Unknown;
+    if (expectedType == Value::Type::Unknown) {
+      if (actualType != Value::Type::Unknown) {
+        mActiveFunctionReturnTypes[fnName] = actualType;
+      }
+    } else {
+      if (actualType != Value::Type::Unknown && actualType != expectedType) {
+        mRecords.ReportWrongFunctionReturnType(syntax->ReturnKeyword(), fnName,
+                                               expectedType, actualType);
       }
     }
   }
@@ -391,9 +401,6 @@ std::unique_ptr<BoundExpressionNode>
 Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   std::string name = assignment->IdentifierToken()->Text();
   auto boundExpression = BindExpression(assignment->Expression());
-  const std::shared_ptr<BoundAssignmentOperator> boundOperator =
-      BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Kind(),
-                                    boundExpression->Type());
   std::shared_ptr<VariableSymbol> existingVariable = mScope->lookup(name);
   if (existingVariable != VariableSymbol::failSymbol() &&
       existingVariable->IsReadOnly()) {
@@ -402,6 +409,10 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
   }
 
   if (assignment->AssignmentToken()->Kind() == SyntaxKind::EqualsToken) {
+    const std::shared_ptr<BoundAssignmentOperator> boundOperator =
+        BoundAssignmentOperator::Bind(SyntaxKind::EqualsToken,
+                                      boundExpression->Type(),
+                                      boundExpression->Type());
     if (existingVariable == VariableSymbol::failSymbol() ||
         existingVariable->Type() != boundExpression->Type()) {
       existingVariable = std::make_shared<VariableSymbol>(
@@ -414,6 +425,16 @@ Binder::BindAssignmentExpression(AssignmentExpressionNode *assignment) {
     if (existingVariable == VariableSymbol::failSymbol()) {
       mRecords.ReportUndefinedIdentifier(assignment->IdentifierToken());
       throw std::runtime_error("Failed to Bind LiteralExpression");
+    }
+    const std::shared_ptr<BoundAssignmentOperator> boundOperator =
+        BoundAssignmentOperator::Bind(assignment->AssignmentToken()->Kind(),
+                                      existingVariable->Type(),
+                                      boundExpression->Type());
+    if (boundOperator == BoundAssignmentOperator::GetBindFailure()) {
+      mRecords.ReportUndefinedBinaryOperator(assignment->AssignmentToken(),
+                                             existingVariable->Type(),
+                                             boundExpression->Type());
+      return boundExpression;
     }
     return std::make_unique<BoundAssignmentExpressionNode>(
         existingVariable, std::move(boundExpression), boundOperator);
