@@ -1,0 +1,4 @@
+func _in()à3
+  %3 = const 0
+  bnot 3
+ &%

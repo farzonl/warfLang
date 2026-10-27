@@ -1,0 +1,3 @@
+func __m¢in()
+entry:eq %2 "hello \orld"
+)
