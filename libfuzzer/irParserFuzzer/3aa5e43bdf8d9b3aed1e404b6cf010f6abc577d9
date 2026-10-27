@@ -1,0 +1,14 @@
+func __maimØin()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = const 4
+  %2 = mul %2 %3
+  %5 = neg %4 %= ad d 0%%1
+  %3 = const 8
+  %2 = mul %2 %3
+  %5 = neg ,4 %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50þÿÿ ret %1

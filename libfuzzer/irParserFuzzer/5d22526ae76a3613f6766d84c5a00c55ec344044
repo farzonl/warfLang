@@ -1,0 +1,6 @@
+func _%0 = const unc _main()
+%0 = const 2
+t 2 cn%12
+t 2 cn%1 = sub %0 %0  
+t 2 cn%12
+t 2 cn%1 = sub %0 %0  

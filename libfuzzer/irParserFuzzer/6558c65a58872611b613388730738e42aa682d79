@@ -1,0 +1,5 @@
+func ()
+eny:
+  %0 = const 2
+   = = const 3
+  %2 = c %1
