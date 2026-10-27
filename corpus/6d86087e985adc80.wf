@@ -1,0 +1,2 @@
+// Lines: 26.97% (1258/4665) Regions: 28.86%
+a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false)) 1 { index = 0; while (index < 5) { value &= b; index +=)}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) {: int): int { i = 0; while (i < 1) { y += y; i += 1}; return y} bar (+ 42, 7); function foo (x: int, y: int): int { _a = !(false); return (- (+ 42) + 5)} foo (5, 10); (+ (42) | (a ^ 1))

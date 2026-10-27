@@ -1,2 +1,2 @@
-// Lines: 14.22% (3326/23395) Regions: 24.05%
+// Lines: 14.22% (3329/23404) Regions: 24.08%
 a = 1; b = 1; value = 0; function bar(x: int, y: int): int { i = 0; while (i < 1) { y += y; i += 1 }; return y } bar(+42, 7); function foo(x: int, y: int): int { _a = !(false); return (-(+42) + 5) } foo(5, 10); (+(42) | (a ^ 1))

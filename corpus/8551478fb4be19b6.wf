@@ -1,0 +1,2 @@
+// Lines: 24.95% (1164/4665) Regions: 27.56%
+a = 1; b = 1; value = 0; function compute(x: int, y: ino): int { if ((0 >= 255)) { y = 255 }; ret!urn ((y - ~5) / x) } compute((b / a), 0); y = 5; 4

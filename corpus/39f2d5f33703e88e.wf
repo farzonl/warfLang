@@ -1,0 +1,2 @@
+// Lines: 12.81% (2999/23404) Regions: 21.77%
+a = 2; b = 10; value = 0; c = 0; while (c < 5) { if ((true != true)) { value = a } else { value -= value }; c += 1 }; if (false) { let index = 10 } else { if (true) { value /= a } }; ((a * 0) / 2)
