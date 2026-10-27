@@ -17,7 +17,7 @@
 
 class Value {
 public:
-  enum class Type { Unknown, Number, Boolean };
+  enum class Type { Unknown, Number, Boolean, String };
 
 private:
   union uValue {
@@ -26,23 +26,44 @@ private:
   };
   Type type;
   uValue val;
+  std::string str;
 
 public:
-  Value() : type(Type::Unknown), val() {}
+  Value() : type(Type::Unknown), val(), str() {}
+  Value(bool b) : type(Type::Boolean), val(), str() { val.boolean = b; }
+  Value(int32_t i) : type(Type::Number), val(), str() { val.integer = i; }
+  Value(std::string s) : type(Type::String), val(), str(std::move(s)) {}
+  explicit Value(const char *s) : type(Type::String), val(), str(s) {}
 
   Value &operator=(int32_t i) {
     val.integer = i;
+    str.clear();
     type = Type::Number;
     return *this;
   }
   Value &operator=(bool b) {
     val.boolean = b;
+    str.clear();
     type = Type::Boolean;
+    return *this;
+  }
+  Value &operator=(std::string s) {
+    str = std::move(s);
+    type = Type::String;
+    return *this;
+  }
+  Value &operator=(const char *s) {
+    str = s;
+    type = Type::String;
     return *this;
   }
 
   Value operator+(const Value &v) {
     Value value;
+    if (this->isString() && v.isString()) {
+      value = this->asString() + v.asString();
+      return value;
+    }
     value = this->asInt() + v.asInt();
     return value;
   }
@@ -144,6 +165,8 @@ public:
       value.val.boolean = this->val.integer == v.val.integer;
     } else if (this->isBool() && v.isBool()) {
       value.val.boolean = this->val.boolean == v.val.boolean;
+    } else if (this->isString() && v.isString()) {
+      value.val.boolean = this->str == v.str;
     } else {
       value.val.boolean = false;
     }
@@ -157,6 +180,8 @@ public:
       value.val.boolean = this->val.integer != v.val.integer;
     } else if (this->isBool() && v.isBool()) {
       value.val.boolean = this->val.boolean != v.val.boolean;
+    } else if (this->isString() && v.isString()) {
+      value.val.boolean = this->str != v.str;
     } else {
       value.val.boolean = false;
     }
@@ -194,8 +219,13 @@ public:
     assert(type == Type::Boolean);
     return val.boolean;
   }
+  const std::string &asString() const {
+    assert(type == Type::String);
+    return str;
+  }
   bool isInt() const { return type == Type::Number; }
   bool isBool() const { return type == Type::Boolean; }
+  bool isString() const { return type == Type::String; }
   friend class SyntaxToken;
   friend std::ostream &operator<<(std::ostream &out, const Value v);
 };
@@ -207,6 +237,9 @@ inline std::ostream &operator<<(std::ostream &out, const Value v) {
     break;
   case Value::Type::Number:
     out << v.asInt();
+    break;
+  case Value::Type::String:
+    out << v.asString();
     break;
   default:
     throw std::runtime_error("Unsupported Literal Value.");
@@ -222,9 +255,11 @@ inline std::ostream &operator<<(std::ostream &out, const Value::Type t) {
   case Value::Type::Number:
     out << "Number";
     break;
+  case Value::Type::String:
+    out << "String";
+    break;
   default:
     throw std::runtime_error("Unsupported Literal type.");
-    ;
   }
   return out;
 }

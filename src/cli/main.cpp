@@ -64,14 +64,25 @@ ParseFile::ParseFile(
 // complete. Text after "//" is a comment and must not affect the count.
 static int32_t CountUnmatchedBraces(const std::string &line) {
   int32_t delta = 0;
+  bool inString = false;
   for (size_t i = 0; i < line.size(); i++) {
-    if (line[i] == '/' && i + 1 < line.size() && line[i + 1] == '/') {
-      break;
+    if (line[i] == '\\' && inString && i + 1 < line.size()) {
+      i++;
+      continue;
     }
-    if (line[i] == '{') {
-      delta++;
-    } else if (line[i] == '}') {
-      delta--;
+    if (line[i] == '"') {
+      inString = !inString;
+      continue;
+    }
+    if (!inString) {
+      if (line[i] == '/' && i + 1 < line.size() && line[i + 1] == '/') {
+        break;
+      }
+      if (line[i] == '{') {
+        delta++;
+      } else if (line[i] == '}') {
+        delta--;
+      }
     }
   }
   return delta;
@@ -79,7 +90,23 @@ static int32_t CountUnmatchedBraces(const std::string &line) {
 
 static std::string StripCommentAndTrim(const std::string &line) {
   std::string text = line;
-  auto commentPos = text.find("//");
+  bool inString = false;
+  size_t commentPos = std::string::npos;
+  for (size_t i = 0; i < text.size(); i++) {
+    if (text[i] == '\\' && inString && i + 1 < text.size()) {
+      i++;
+      continue;
+    }
+    if (text[i] == '"') {
+      inString = !inString;
+      continue;
+    }
+    if (!inString && text[i] == '/' && i + 1 < text.size() &&
+        text[i + 1] == '/') {
+      commentPos = i;
+      break;
+    }
+  }
   if (commentPos != std::string::npos) {
     text = text.substr(0, commentPos);
   }

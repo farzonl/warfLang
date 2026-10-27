@@ -54,6 +54,7 @@ public:
   }
   void RemoveNumericOverflow(TextSpan span);
   void ReportBadCharacter(int position, char character);
+  void ReportUnterminatedString(TextSpan span);
   void ReportUnexpectedToken(int32_t start, int32_t end, SyntaxKind actual,
                              SyntaxKind expected);
   void ReportUndefinedUnaryOperator(std::shared_ptr<SyntaxToken> unaryOperator,
@@ -70,6 +71,14 @@ public:
                                const std::string &name,
                                Value::Type expectedType,
                                Value::Type actualType);
+  void ReportWrongVariableType(std::shared_ptr<SyntaxToken> identifierToken,
+                               const std::string &name,
+                               Value::Type expectedType,
+                               Value::Type actualType);
+  void ReportWrongFunctionReturnType(std::shared_ptr<SyntaxToken> token,
+                                     const std::string &fnName,
+                                     Value::Type expectedType,
+                                     Value::Type actualType);
   void ReportCannotAssign(std::shared_ptr<SyntaxToken> identifierToken);
   void ReportInvalidBreakOrContinue(std::shared_ptr<SyntaxToken> keywordToken);
 };

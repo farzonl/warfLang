@@ -1,0 +1,33 @@
+// RUN: %warf -e "\"unterminated" 2>&1 | %FileCheck %s --check-prefix=UNTERM
+// RUN: %warf -e "\"hello\" + 42" 2>&1 | %FileCheck %s --check-prefix=STR-ADD-NUM
+// RUN: %warf -e "42 + \"hello\"" 2>&1 | %FileCheck %s --check-prefix=NUM-ADD-STR
+// RUN: %warf -e "\"a\" - \"b\"" 2>&1 | %FileCheck %s --check-prefix=STR-SUB
+// RUN: %warf -e "\"a\" * 3" 2>&1 | %FileCheck %s --check-prefix=STR-MUL
+// RUN: %warf -e "\"a\" / \"b\"" 2>&1 | %FileCheck %s --check-prefix=STR-DIV
+// RUN: %warf -e " -\"hello\"" 2>&1 | %FileCheck %s --check-prefix=STR-NEG
+// RUN: %warf -e "let s: string = 42;" 2>&1 | %FileCheck %s --check-prefix=VAR-STR-INT
+// RUN: %warf -e "let n: int = \"hello\";" 2>&1 | %FileCheck %s --check-prefix=VAR-INT-STR
+// RUN: %warf -e "var b: bool = \"world\";" 2>&1 | %FileCheck %s --check-prefix=VAR-BOOL-STR
+// RUN: %warf -e "var s: str = 100;" 2>&1 | %FileCheck %s --check-prefix=VAR-STR-ALIAS
+// RUN: %warf -e "var x = 5; x += \"foo\";" 2>&1 | %FileCheck %s --check-prefix=COMPOUND-INT-STR
+// RUN: %warf -e "var s = \"foo\"; s += 5;" 2>&1 | %FileCheck %s --check-prefix=COMPOUND-STR-INT
+// RUN: %warf -e "function f(): string { return 123; } f()" 2>&1 | %FileCheck %s --check-prefix=RET-STR-INT
+// RUN: %warf -e "function g(): int { return \"hi\"; } g()" 2>&1 | %FileCheck %s --check-prefix=RET-INT-STR
+// RUN: %warf -e "function f(c: bool) { if (c) { return \"hi\"; } return 42; } f(true)" 2>&1 | %FileCheck %s --check-prefix=RET-INCONSISTENT
+
+// UNTERM: LexerError: Unterminated string literal.
+// STR-ADD-NUM: BinderError: Binary operator + is not defined for types String and Number.
+// NUM-ADD-STR: BinderError: Binary operator + is not defined for types Number and String.
+// STR-SUB: BinderError: Binary operator - is not defined for types String and String.
+// STR-MUL: BinderError: Binary operator * is not defined for types String and Number.
+// STR-DIV: BinderError: Binary operator / is not defined for types String and String.
+// STR-NEG: BinderError: Unary operator - is not defined for type String.
+// VAR-STR-INT: BinderError: Variable s requires a value of type String but was given a value of type Number.
+// VAR-INT-STR: BinderError: Variable n requires a value of type Number but was given a value of type String.
+// VAR-BOOL-STR: BinderError: Variable b requires a value of type Boolean but was given a value of type String.
+// VAR-STR-ALIAS: BinderError: Variable s requires a value of type String but was given a value of type Number.
+// COMPOUND-INT-STR: BinderError: Binary operator += is not defined for types Number and String.
+// COMPOUND-STR-INT: BinderError: Binary operator += is not defined for types String and Number.
+// RET-STR-INT: BinderError: Function f requires a return value of type String but was given a value of type Number.
+// RET-INT-STR: BinderError: Function g requires a return value of type Number but was given a value of type String.
+// RET-INCONSISTENT: BinderError: Function f requires a return value of type String but was given a value of type Number.

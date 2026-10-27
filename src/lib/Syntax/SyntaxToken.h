@@ -29,6 +29,7 @@ public:
   const TextSpan &Span() const;
   std::string Text() const;
   SyntaxToken(SyntaxKind synKind, int startPos, int endPos, std::string text);
+  SyntaxToken(SyntaxKind synKind, int startPos, int endPos, const char *text);
   SyntaxToken(SyntaxKind synKind, int startPos, int endPos, Value value);
   virtual ~SyntaxToken() {}
 };

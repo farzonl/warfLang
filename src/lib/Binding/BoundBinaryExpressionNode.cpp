@@ -11,6 +11,9 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
     std::make_shared<BoundBinaryOperator>(SyntaxKind::PlusToken,
                                           BoundBinaryOperatorKind::Addition,
                                           Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::PlusToken,
+                                          BoundBinaryOperatorKind::Addition,
+                                          Value::Type::String),
     std::make_shared<BoundBinaryOperator>(SyntaxKind::MinusToken,
                                           BoundBinaryOperatorKind::Subtraction,
                                           Value::Type::Number),
@@ -30,11 +33,17 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
         SyntaxKind::EqualsEqualsToken, BoundBinaryOperatorKind::Equals,
         Value::Type::Boolean, Value::Type::Boolean, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::EqualsEqualsToken, BoundBinaryOperatorKind::Equals,
+        Value::Type::String, Value::Type::String, Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
         SyntaxKind::BangEqualsToken, BoundBinaryOperatorKind::NotEquals,
         Value::Type::Number, Value::Type::Number, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::BangEqualsToken, BoundBinaryOperatorKind::NotEquals,
         Value::Type::Boolean, Value::Type::Boolean, Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::BangEqualsToken, BoundBinaryOperatorKind::NotEquals,
+        Value::Type::String, Value::Type::String, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(SyntaxKind::AmpersandAmpersandToken,
                                           BoundBinaryOperatorKind::LogicalAnd,
                                           Value::Type::Boolean),

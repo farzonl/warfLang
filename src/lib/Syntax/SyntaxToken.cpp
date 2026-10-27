@@ -19,6 +19,10 @@ SyntaxToken::SyntaxToken(SyntaxKind synKind, int startPos, int endPos,
     : SyntaxNode(synKind), mTextSpan(startPos, endPos), mText(text) {}
 
 SyntaxToken::SyntaxToken(SyntaxKind synKind, int startPos, int endPos,
+                         const char *text)
+    : SyntaxNode(synKind), mTextSpan(startPos, endPos), mText(text) {}
+
+SyntaxToken::SyntaxToken(SyntaxKind synKind, int startPos, int endPos,
                          Value value)
     : SyntaxNode(synKind), mTextSpan(startPos, endPos), mText(), mValue(value) {
 }

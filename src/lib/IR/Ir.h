@@ -15,6 +15,7 @@
 #include <vector>
 
 class BoundCallExpressionNode;
+class VariableSymbol;
 
 struct IrInstruction {
   std::string result;
@@ -43,6 +44,8 @@ private:
   int32_t mTempIndex;
   int32_t mLabelIndex;
   std::unordered_set<std::string> mEmittedFunctions;
+  std::unordered_map<const VariableSymbol *, std::string> mVariableNames;
+  std::unordered_map<std::string, size_t> mVariableNameCounts;
   struct LoopTargets {
     std::string breakLabel;
     std::string continueLabel;
@@ -50,6 +53,8 @@ private:
   };
   std::vector<LoopTargets> mLoopStack;
 
+  std::string GetVariableName(const VariableSymbol *variable,
+                              const std::string &fallbackName = "");
   void LowerStatement(BoundStatementNode *node);
   std::string LowerExpression(BoundExpressionNode *node);
   void LowerFunction(BoundCallExpressionNode *call);

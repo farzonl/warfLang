@@ -21,6 +21,7 @@ private:
   void ReadToken(SyntaxKind &type);
   void ParseNumber(SyntaxKind &type);
   void ParseLetters(SyntaxKind &type);
+  void ParseString(SyntaxKind &type);
   void ReadIdentifierOrKeyword(SyntaxKind &type);
 
 public:

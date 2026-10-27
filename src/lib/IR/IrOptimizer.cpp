@@ -39,6 +39,10 @@ bool TryParseConstValue(const std::string &text, Value &out) {
     out = false;
     return true;
   }
+  if (text.size() >= 2 && text.front() == '"' && text.back() == '"') {
+    out = UnescapeIrString(text);
+    return true;
+  }
   if (text.empty()) {
     return false;
   }
@@ -60,13 +64,16 @@ std::string FormatConstValue(const Value &value) {
   if (value.isBool()) {
     return value.asBool() ? kIrTrueLiteral : kIrFalseLiteral;
   }
+  if (value.isString()) {
+    return EscapeIrString(value.asString());
+  }
   return std::to_string(value.asInt());
 }
 
 bool TryEvaluateUnary(IrOpcode op, const Value &operand, Value &result) {
   switch (op) {
   case IrOpcode::Copy:
-    if (!operand.isInt() && !operand.isBool()) {
+    if (!operand.isInt() && !operand.isBool() && !operand.isString()) {
       return false;
     }
     result = operand;
@@ -98,6 +105,10 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
                        Value &result) {
   switch (op) {
   case IrOpcode::Add:
+    if (left.isString() && right.isString()) {
+      result = left.asString() + right.asString();
+      return true;
+    }
     if (!left.isInt() || !right.isInt()) {
       return false;
     }
@@ -163,11 +174,19 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
                             : (left.asBool() == right.asBool());
       return true;
     }
+    if (left.isString() && right.isString()) {
+      result = (left.asString() == right.asString());
+      return true;
+    }
     return false;
   case IrOpcode::Ne:
     if ((left.isInt() && right.isInt()) || (left.isBool() && right.isBool())) {
       result = left.isInt() ? (left.asInt() != right.asInt())
                             : (left.asBool() != right.asBool());
+      return true;
+    }
+    if (left.isString() && right.isString()) {
+      result = (left.asString() != right.asString());
       return true;
     }
     return false;
@@ -241,6 +260,15 @@ bool FoldConstants(IrFunction &function) {
     }
   };
 
+  auto resolveConst = [&](const std::string &operand, Value &val) -> bool {
+    auto it = constants.find(operand);
+    if (it != constants.end()) {
+      val = it->second;
+      return true;
+    }
+    return TryParseConstValue(operand, val);
+  };
+
   bool changed = false;
   for (auto &inst : function.instructions) {
     if (inst.op == IrOpcode::Label) {
@@ -261,10 +289,10 @@ bool FoldConstants(IrFunction &function) {
     }
 
     if (IsUnaryOp(inst.op) && inst.operands.size() == 1) {
-      auto it = constants.find(inst.operands[0]);
+      Value operandVal;
       Value folded;
-      if (it != constants.end() &&
-          TryEvaluateUnary(inst.op, it->second, folded)) {
+      if (resolveConst(inst.operands[0], operandVal) &&
+          TryEvaluateUnary(inst.op, operandVal, folded)) {
         inst.op = IrOpcode::Const;
         inst.operands = {FormatConstValue(folded)};
         changed = true;
@@ -278,11 +306,12 @@ bool FoldConstants(IrFunction &function) {
     }
 
     if (IsBinaryOp(inst.op) && inst.operands.size() == 2) {
-      auto leftIt = constants.find(inst.operands[0]);
-      auto rightIt = constants.find(inst.operands[1]);
+      Value leftVal;
+      Value rightVal;
       Value folded;
-      if (leftIt != constants.end() && rightIt != constants.end() &&
-          TryEvaluateBinary(inst.op, leftIt->second, rightIt->second, folded)) {
+      if (resolveConst(inst.operands[0], leftVal) &&
+          resolveConst(inst.operands[1], rightVal) &&
+          TryEvaluateBinary(inst.op, leftVal, rightVal, folded)) {
         inst.op = IrOpcode::Const;
         inst.operands = {FormatConstValue(folded)};
         changed = true;

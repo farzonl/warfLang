@@ -20,6 +20,7 @@
 #include "Binding/BoundUnaryExpressionNode.h"
 #include "Binding/BoundVariableDeclarationNode.h"
 #include "Binding/BoundWhileStatementNode.h"
+#include "Symbol/VariableSymbol.h"
 #include <algorithm>
 #include <cctype>
 #include <iostream>
@@ -103,6 +104,9 @@ static IrOpcode AssignmentOpcodeFor(BoundAssignmentOperatorKind kind) {
 }
 
 static std::string ValueText(Value value) {
+  if (value.isString()) {
+    return EscapeIrString(value.asString());
+  }
   std::stringstream stream;
   stream << value;
   return stream.str();
@@ -114,6 +118,8 @@ IrModule IrLowerer::Lower(BoundStatementNode *root) {
   mLoopStack.clear();
   mTempIndex = 0;
   mLabelIndex = 0;
+  mVariableNames.clear();
+  mVariableNameCounts.clear();
   mModule.functions.push_back(IrFunction{kIrMainFunctionName, {}, {}, ""});
   mCurrentFunction = &mModule.functions.back();
   LowerStatement(root);
@@ -121,6 +127,29 @@ IrModule IrLowerer::Lower(BoundStatementNode *root) {
     mCurrentFunction->returnValue = kIrVoidValue;
   }
   return std::move(mModule);
+}
+
+std::string IrLowerer::GetVariableName(const VariableSymbol *variable,
+                                       const std::string &fallbackName) {
+  if (!variable) {
+    return fallbackName.empty() ? "%unknown" : "%" + fallbackName;
+  }
+  auto it = mVariableNames.find(variable);
+  if (it != mVariableNames.end()) {
+    return it->second;
+  }
+  const auto &baseName =
+      variable->Name().empty() ? fallbackName : variable->Name();
+  if (baseName.empty()) {
+    return "%unknown";
+  }
+  auto &count = mVariableNameCounts[baseName];
+  std::string name = (count == 0)
+                         ? ("%" + baseName)
+                         : ("%" + baseName + "." + std::to_string(count));
+  count++;
+  mVariableNames[variable] = name;
+  return name;
 }
 
 void IrLowerer::Emit(IrOpcode op, std::vector<std::string> operands,
@@ -247,7 +276,7 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
   if (auto declaration = dynamic_cast<BoundVariableDeclarationNode *>(node)) {
     auto value = LowerExpression(
         const_cast<BoundExpressionNode *>(declaration->Initializer()));
-    auto varName = "%" + declaration->Variable()->Name();
+    auto varName = GetVariableName(declaration->Variable().get());
     Emit(IrOpcode::Store, {value}, varName);
     mCurrentFunction->returnValue = varName;
     return;
@@ -363,7 +392,7 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
     return result;
   }
   if (auto identifier = dynamic_cast<BoundIdentifierExpressionNode *>(node)) {
-    return "%" + identifier->Name();
+    return GetVariableName(identifier->Variable().get(), identifier->Name());
   }
   if (auto unary = dynamic_cast<BoundUnaryExpressionNode *>(node)) {
     auto operand = LowerExpression(unary->Operand());
@@ -400,7 +429,8 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
   }
   if (auto assignment = dynamic_cast<BoundAssignmentExpressionNode *>(node)) {
     auto value = LowerExpression(assignment->BoundExpression());
-    auto result = "%" + assignment->Identifier();
+    auto result =
+        GetVariableName(assignment->Variable().get(), assignment->Identifier());
     Emit(AssignmentOpcodeFor(assignment->OperatorKind()), {value}, result);
     return result;
   }
@@ -438,13 +468,18 @@ void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
   auto savedTempIndex = mTempIndex;
   auto savedLabelIndex = mLabelIndex;
   auto savedLoopStack = std::move(mLoopStack);
+  auto savedVariableNames = std::move(mVariableNames);
+  auto savedVariableNameCounts = std::move(mVariableNameCounts);
   mTempIndex = 0;
   mLabelIndex = 0;
   mLoopStack.clear();
+  mVariableNames.clear();
+  mVariableNameCounts.clear();
 
   auto parameters = std::vector<std::string>();
   for (const auto &parameter : call->Parameters()) {
-    parameters.push_back("%" + parameter->Name());
+    parameters.push_back(
+        GetVariableName(parameter.get(), parameter ? parameter->Name() : ""));
   }
 
   mModule.functions.push_back(IrFunction{call->Name(), parameters, {}, ""});
@@ -458,6 +493,8 @@ void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
   mTempIndex = savedTempIndex;
   mLabelIndex = savedLabelIndex;
   mLoopStack = std::move(savedLoopStack);
+  mVariableNames = std::move(savedVariableNames);
+  mVariableNameCounts = std::move(savedVariableNameCounts);
 }
 
 std::string IrLowerer::NewTemp() { return "%" + std::to_string(mTempIndex++); }
@@ -578,11 +615,45 @@ std::string IrParser::Trim(const std::string &text) {
 }
 
 std::vector<std::string> IrParser::SplitWhitespace(const std::string &text) {
-  auto result = std::vector<std::string>();
-  std::stringstream stream(text);
-  std::string part;
-  while (stream >> part) {
-    result.push_back(part);
+  std::vector<std::string> result;
+  size_t i = 0;
+  size_t n = text.size();
+  while (i < n) {
+    while (i < n && std::isspace(static_cast<unsigned char>(text[i]))) {
+      i++;
+    }
+    if (i >= n) {
+      break;
+    }
+    if (text[i] == '"') {
+      size_t start = i++;
+      bool closed = false;
+      while (i < n) {
+        if (text[i] == '\\') {
+          i++;
+          if (i < n) {
+            i++;
+          }
+        } else if (text[i] == '"') {
+          i++;
+          closed = true;
+          break;
+        } else {
+          i++;
+        }
+      }
+      if (!closed) {
+        throw std::runtime_error(
+            "IR parse error: unterminated string literal.");
+      }
+      result.push_back(text.substr(start, i - start));
+    } else {
+      size_t start = i;
+      while (i < n && !std::isspace(static_cast<unsigned char>(text[i]))) {
+        i++;
+      }
+      result.push_back(text.substr(start, i - start));
+    }
   }
   return result;
 }
@@ -725,6 +796,10 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
         value = true;
       } else if (instruction.operands[0] == kIrFalseLiteral) {
         value = false;
+      } else if (instruction.operands[0].size() >= 2 &&
+                 instruction.operands[0].front() == '"' &&
+                 instruction.operands[0].back() == '"') {
+        value = UnescapeIrString(instruction.operands[0]);
       } else {
         value = static_cast<int32_t>(std::stoll(instruction.operands[0]));
       }
@@ -786,10 +861,25 @@ Value IrInterpreter::EvaluateOperand(
     const std::string &operand,
     const std::unordered_map<std::string, Value> &values) {
   auto value = values.find(operand);
-  if (value == values.end()) {
-    throw std::runtime_error("IR error: unknown value " + operand + ".");
+  if (value != values.end()) {
+    return value->second;
   }
-  return value->second;
+  if (operand == kIrTrueLiteral) {
+    return true;
+  }
+  if (operand == kIrFalseLiteral) {
+    return false;
+  }
+  if (operand.size() >= 2 && operand.front() == '"' && operand.back() == '"') {
+    return UnescapeIrString(operand);
+  }
+  if (!operand.empty() &&
+      (std::isdigit(static_cast<unsigned char>(operand[0])) ||
+       (operand[0] == '-' && operand.size() > 1 &&
+        std::isdigit(static_cast<unsigned char>(operand[1]))))) {
+    return static_cast<int32_t>(std::stoll(operand));
+  }
+  throw std::runtime_error("IR error: unknown value " + operand + ".");
 }
 
 const IrFunction *IrInterpreter::FindFunction(const std::string &name) const {

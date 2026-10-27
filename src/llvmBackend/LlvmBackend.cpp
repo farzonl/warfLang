@@ -43,6 +43,15 @@ static llvm::CmpInst::Predicate PredicateFor(IrOpcode op) {
   }
 }
 
+static bool IsStringLiteral(const std::string &s) {
+  return s.size() >= 2 && s.front() == '"' && s.back() == '"';
+}
+
+struct SlotInfo {
+  llvm::AllocaInst *allocaInst;
+  llvm::Type *type;
+};
+
 static llvm::BasicBlock *
 LookupBlock(const std::string &name,
             const std::unordered_map<std::string, llvm::BasicBlock *> &blocks) {
@@ -56,12 +65,22 @@ LookupBlock(const std::string &name,
 static llvm::Value *
 LookupValue(const std::string &name,
             const std::unordered_map<std::string, llvm::Value *> &values,
-            const std::unordered_map<std::string, llvm::AllocaInst *> &slots,
+            const std::unordered_map<std::string, SlotInfo> &slots,
             llvm::Type *intType, llvm::IRBuilder<> &builder) {
+  if (IsStringLiteral(name)) {
+    return builder.CreateGlobalString(UnescapeIrString(name), ".str");
+  }
+  if (name == kIrTrueLiteral) {
+    return llvm::ConstantInt::get(intType, 1);
+  }
+  if (name == kIrFalseLiteral) {
+    return llvm::ConstantInt::get(intType, 0);
+  }
   auto canonical = CanonicalName(name);
   auto slot = slots.find(canonical);
   if (slot != slots.end()) {
-    return builder.CreateLoad(intType, slot->second, CleanName(name));
+    return builder.CreateLoad(slot->second.type, slot->second.allocaInst,
+                              CleanName(name));
   }
   auto value = values.find(name);
   if (value != values.end()) {
@@ -70,6 +89,12 @@ LookupValue(const std::string &name,
   auto cleanValue = values.find(canonical);
   if (cleanValue != values.end()) {
     return cleanValue->second;
+  }
+  if (!name.empty() && (std::isdigit(static_cast<unsigned char>(name[0])) ||
+                        (name[0] == '-' && name.size() > 1 &&
+                         std::isdigit(static_cast<unsigned char>(name[1]))))) {
+    return llvm::ConstantInt::get(intType,
+                                  static_cast<int32_t>(std::stoll(name)));
   }
   throw std::runtime_error("LLVM backend error: unknown value " + name + ".");
 }
@@ -111,6 +136,57 @@ static llvm::Value *
 EmitBinaryOp(IrOpcode op, llvm::Value *left, llvm::Value *right,
              const std::string &resultName, llvm::Type *intType,
              llvm::IRBuilder<> &builder, llvm::Module *module) {
+  auto &context = builder.getContext();
+  auto ptrType = llvm::PointerType::getUnqual(context);
+
+  if (left->getType()->isPointerTy() || right->getType()->isPointerTy()) {
+    if (op == IrOpcode::Add) {
+      auto sizeType = builder.getInt64Ty();
+      auto strlenType = llvm::FunctionType::get(sizeType, {ptrType}, false);
+      auto strlenFunc = module->getOrInsertFunction("strlen", strlenType);
+
+      auto mallocType = llvm::FunctionType::get(ptrType, {sizeType}, false);
+      auto mallocFunc = module->getOrInsertFunction("malloc", mallocType);
+
+      auto strcpyType =
+          llvm::FunctionType::get(ptrType, {ptrType, ptrType}, false);
+      auto strcpyFunc = module->getOrInsertFunction("strcpy", strcpyType);
+
+      auto strcatType =
+          llvm::FunctionType::get(ptrType, {ptrType, ptrType}, false);
+      auto strcatFunc = module->getOrInsertFunction("strcat", strcatType);
+
+      auto len1 = builder.CreateCall(strlenFunc, {left}, "len1");
+      auto len2 = builder.CreateCall(strlenFunc, {right}, "len2");
+      auto sumLen = builder.CreateAdd(len1, len2, "sumlen");
+      auto totalLen = builder.CreateAdd(
+          sumLen, llvm::ConstantInt::get(sizeType, 1), "totallen");
+      auto newBuf = builder.CreateCall(
+          mallocFunc, {totalLen}, resultName.empty() ? "strbuf" : resultName);
+      builder.CreateCall(strcpyFunc, {newBuf, left});
+      builder.CreateCall(strcatFunc, {newBuf, right});
+      return newBuf;
+    }
+    if (op == IrOpcode::Eq || op == IrOpcode::Ne) {
+      auto strcmpType =
+          llvm::FunctionType::get(intType, {ptrType, ptrType}, false);
+      auto strcmpFunc = module->getOrInsertFunction("strcmp", strcmpType);
+      auto cmpRes = builder.CreateCall(strcmpFunc, {left, right}, "strcmp.res");
+      if (op == IrOpcode::Eq) {
+        auto isEqual = builder.CreateICmpEQ(
+            cmpRes, llvm::ConstantInt::get(intType, 0), "streq");
+        return builder.CreateZExt(isEqual, intType, resultName);
+      } else {
+        auto isNotEqual = builder.CreateICmpNE(
+            cmpRes, llvm::ConstantInt::get(intType, 0), "strne");
+        return builder.CreateZExt(isNotEqual, intType, resultName);
+      }
+    }
+    throw std::runtime_error(
+        "LLVM backend error: unsupported binary operation on strings " +
+        IrOpcodeToString(op) + ".");
+  }
+
   if (IsComparisonOp(op)) {
     auto compare = builder.CreateICmp(PredicateFor(op), left, right);
     return builder.CreateZExt(compare, intType, resultName);
@@ -177,12 +253,197 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
   module->setSourceFileName("warf");
   llvm::IRBuilder<> builder(context);
   auto intType = llvm::Type::getInt32Ty(context);
+  auto ptrType = llvm::PointerType::getUnqual(context);
   auto functionMap = std::unordered_map<std::string, llvm::Function *>();
 
+  // Module-level type inference to identify string variables, parameters, and
+  // return types
+  std::unordered_map<std::string, std::unordered_set<std::string>>
+      functionStringVars;
+  std::unordered_map<std::string, bool> functionReturnsString;
+  std::unordered_map<std::string, const IrFunction *> functionTable;
   for (const auto &function : irModule.functions) {
-    auto parameterTypes =
-        std::vector<llvm::Type *>(function.parameters.size(), intType);
-    auto functionType = llvm::FunctionType::get(intType, parameterTypes, false);
+    functionTable[function.name] = &function;
+  }
+
+  auto isStringOperand = [&](const std::string &fnName,
+                             const std::string &operand) -> bool {
+    if (IsStringLiteral(operand)) {
+      return true;
+    }
+    auto canonical = CanonicalName(operand);
+    auto it = functionStringVars.find(fnName);
+    if (it != functionStringVars.end()) {
+      return it->second.count(canonical) > 0;
+    }
+    return false;
+  };
+
+  auto markString = [&](const std::string &fnName,
+                        const std::string &varName) -> bool {
+    if (!varName.empty() && !IsStringLiteral(varName) &&
+        varName != kIrVoidValue && varName != kIrTrueLiteral &&
+        varName != kIrFalseLiteral) {
+      if (!(std::isdigit(static_cast<unsigned char>(varName[0])) ||
+            (varName[0] == '-' && varName.size() > 1 &&
+             std::isdigit(static_cast<unsigned char>(varName[1]))))) {
+        return functionStringVars[fnName].insert(CanonicalName(varName)).second;
+      }
+    }
+    return false;
+  };
+
+  auto markReturnsString = [&](const std::string &fnName) -> bool {
+    if (!functionReturnsString[fnName]) {
+      functionReturnsString[fnName] = true;
+      return true;
+    }
+    return false;
+  };
+
+  bool changed = true;
+  while (changed) {
+    changed = false;
+    for (const auto &function : irModule.functions) {
+      const auto &fnName = function.name;
+
+      if (!function.returnValue.empty() &&
+          function.returnValue != kIrVoidValue) {
+        if (isStringOperand(fnName, function.returnValue)) {
+          if (markReturnsString(fnName)) {
+            changed = true;
+          }
+        }
+      }
+
+      for (const auto &instruction : function.instructions) {
+        if (instruction.op == IrOpcode::Const &&
+            !instruction.operands.empty()) {
+          if (IsStringLiteral(instruction.operands[0])) {
+            if (markString(fnName, instruction.result)) {
+              changed = true;
+            }
+          }
+        } else if ((instruction.op == IrOpcode::Copy ||
+                    instruction.op == IrOpcode::Store) &&
+                   !instruction.operands.empty()) {
+          if (isStringOperand(fnName, instruction.operands[0])) {
+            if (markString(fnName, instruction.result)) {
+              changed = true;
+            }
+          }
+          if (isStringOperand(fnName, instruction.result)) {
+            if (markString(fnName, instruction.operands[0])) {
+              changed = true;
+            }
+          }
+        } else if (instruction.op == IrOpcode::Add &&
+                   instruction.operands.size() >= 2) {
+          bool op0Str = isStringOperand(fnName, instruction.operands[0]);
+          bool op1Str = isStringOperand(fnName, instruction.operands[1]);
+          bool resStr = isStringOperand(fnName, instruction.result);
+          if (op0Str || op1Str || resStr) {
+            if (markString(fnName, instruction.result))
+              changed = true;
+            if (markString(fnName, instruction.operands[0]))
+              changed = true;
+            if (markString(fnName, instruction.operands[1]))
+              changed = true;
+          }
+        } else if (instruction.op == IrOpcode::StoreAdd &&
+                   !instruction.operands.empty()) {
+          bool resStr = isStringOperand(fnName, instruction.result);
+          bool op0Str = isStringOperand(fnName, instruction.operands[0]);
+          if (resStr || op0Str) {
+            if (markString(fnName, instruction.result))
+              changed = true;
+            if (markString(fnName, instruction.operands[0]))
+              changed = true;
+          }
+        } else if ((instruction.op == IrOpcode::Eq ||
+                    instruction.op == IrOpcode::Ne) &&
+                   instruction.operands.size() >= 2) {
+          bool op0Str = isStringOperand(fnName, instruction.operands[0]);
+          bool op1Str = isStringOperand(fnName, instruction.operands[1]);
+          if (op0Str && !op1Str) {
+            if (markString(fnName, instruction.operands[1]))
+              changed = true;
+          } else if (op1Str && !op0Str) {
+            if (markString(fnName, instruction.operands[0]))
+              changed = true;
+          }
+        } else if (instruction.op == IrOpcode::Print &&
+                   !instruction.operands.empty()) {
+          if (isStringOperand(fnName, instruction.operands[0])) {
+            if (markString(fnName, instruction.result))
+              changed = true;
+          }
+          if (isStringOperand(fnName, instruction.result)) {
+            if (markString(fnName, instruction.operands[0]))
+              changed = true;
+          }
+        } else if (instruction.op == IrOpcode::Ret &&
+                   !instruction.operands.empty()) {
+          if (instruction.operands[0] != kIrVoidValue) {
+            if (isStringOperand(fnName, instruction.operands[0])) {
+              if (markReturnsString(fnName))
+                changed = true;
+            }
+            if (functionReturnsString[fnName]) {
+              if (markString(fnName, instruction.operands[0]))
+                changed = true;
+            }
+          }
+        } else if (instruction.op == IrOpcode::Call &&
+                   !instruction.operands.empty()) {
+          const auto &targetName = instruction.operands[0];
+          auto calleeIt = functionTable.find(targetName);
+          if (calleeIt != functionTable.end()) {
+            const auto *callee = calleeIt->second;
+            for (size_t i = 1; i < instruction.operands.size(); ++i) {
+              size_t paramIdx = i - 1;
+              if (paramIdx < callee->parameters.size()) {
+                const auto &arg = instruction.operands[i];
+                const auto &param = callee->parameters[paramIdx];
+                if (isStringOperand(fnName, arg)) {
+                  if (markString(callee->name, param))
+                    changed = true;
+                }
+                if (isStringOperand(callee->name, param)) {
+                  if (markString(fnName, arg))
+                    changed = true;
+                }
+              }
+            }
+            if (functionReturnsString[callee->name]) {
+              if (markString(fnName, instruction.result))
+                changed = true;
+            }
+            if (isStringOperand(fnName, instruction.result)) {
+              if (markReturnsString(callee->name))
+                changed = true;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  for (const auto &function : irModule.functions) {
+    auto parameterTypes = std::vector<llvm::Type *>();
+    parameterTypes.reserve(function.parameters.size());
+    for (const auto &paramName : function.parameters) {
+      bool isStr = isStringOperand(function.name, paramName);
+      parameterTypes.push_back(isStr ? static_cast<llvm::Type *>(ptrType)
+                                     : static_cast<llvm::Type *>(intType));
+    }
+    llvm::Type *returnType = intType;
+    if (function.name != kIrMainFunctionName &&
+        functionReturnsString[function.name]) {
+      returnType = ptrType;
+    }
+    auto functionType =
+        llvm::FunctionType::get(returnType, parameterTypes, false);
     auto functionName =
         emitExecutableMain && function.name == kIrMainFunctionName
             ? "main"
@@ -267,18 +528,28 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
       }
     }
 
+    const auto &stringVars = functionStringVars[function.name];
+
     builder.SetInsertPoint(entryBlock);
-    auto slots = std::unordered_map<std::string, llvm::AllocaInst *>();
+    auto slots = std::unordered_map<std::string, SlotInfo>();
     if (blocks.size() > 1) {
       for (const auto &varName : slotVarOrder) {
-        auto allocaInst = builder.CreateAlloca(intType, nullptr,
+        bool isStr = stringVars.count(varName) > 0;
+        llvm::Type *slotType = isStr ? static_cast<llvm::Type *>(ptrType)
+                                     : static_cast<llvm::Type *>(intType);
+        auto allocaInst = builder.CreateAlloca(slotType, nullptr,
                                                CleanName(varName) + ".addr");
         auto paramValue = values.find(varName);
-        llvm::Value *initialValue = paramValue != values.end()
-                                        ? paramValue->second
-                                        : llvm::ConstantInt::get(intType, 0);
+        llvm::Value *initialValue = nullptr;
+        if (paramValue != values.end()) {
+          initialValue = paramValue->second;
+        } else if (isStr) {
+          initialValue = llvm::ConstantPointerNull::get(ptrType);
+        } else {
+          initialValue = llvm::ConstantInt::get(intType, 0);
+        }
         builder.CreateStore(initialValue, allocaInst);
-        slots[varName] = allocaInst;
+        slots[varName] = {allocaInst, slotType};
       }
     }
 
@@ -301,7 +572,19 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         if (instruction.operands[0] == kIrVoidValue) {
           builder.CreateRet(llvm::ConstantInt::get(intType, 0));
         } else {
-          builder.CreateRet(operand(0));
+          auto retVal = operand(0);
+          if (function.name == kIrMainFunctionName &&
+              retVal->getType()->isPointerTy()) {
+            builder.CreateRet(llvm::ConstantInt::get(intType, 0));
+          } else if (llvmFunction->getReturnType() == intType &&
+                     retVal->getType()->isPointerTy()) {
+            builder.CreateRet(builder.CreatePtrToInt(retVal, intType));
+          } else if (llvmFunction->getReturnType() == ptrType &&
+                     retVal->getType() == intType) {
+            builder.CreateRet(builder.CreateIntToPtr(retVal, ptrType));
+          } else {
+            builder.CreateRet(retVal);
+          }
         }
         continue;
       }
@@ -329,6 +612,9 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
           value = llvm::ConstantInt::get(intType, 1);
         } else if (instruction.operands[0] == kIrFalseLiteral) {
           value = llvm::ConstantInt::get(intType, 0);
+        } else if (IsStringLiteral(instruction.operands[0])) {
+          value = builder.CreateGlobalString(
+              UnescapeIrString(instruction.operands[0]), ".str");
         } else {
           value = llvm::ConstantInt::get(
               intType,
@@ -349,11 +635,16 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
                              operand(0), resultName, intType, builder,
                              module.get());
       } else if (instruction.op == IrOpcode::Print) {
+        auto printedVal = operand(0);
         auto printfType = llvm::FunctionType::get(
             intType, {llvm::PointerType::getUnqual(context)}, true);
         auto printfFunc = module->getOrInsertFunction("printf", printfType);
-        auto fmtPtr = builder.CreateGlobalString("%d\n", ".printf.fmt");
-        auto printedVal = operand(0);
+        llvm::Value *fmtPtr = nullptr;
+        if (printedVal->getType()->isPointerTy()) {
+          fmtPtr = builder.CreateGlobalString("%s\n", ".printf.str.fmt");
+        } else {
+          fmtPtr = builder.CreateGlobalString("%d\n", ".printf.fmt");
+        }
         builder.CreateCall(printfFunc, {fmtPtr, printedVal}, resultName);
         value = printedVal;
       } else if (instruction.op == IrOpcode::Call) {
@@ -362,11 +653,26 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
           throw std::runtime_error("LLVM backend error: unknown function " +
                                    instruction.operands[0] + ".");
         }
+        auto *targetFn = target->second;
+        auto *targetFnType = targetFn->getFunctionType();
         auto arguments = std::vector<llvm::Value *>();
         for (size_t i = 1; i < instruction.operands.size(); i++) {
-          arguments.push_back(operand(i));
+          auto *argVal = operand(i);
+          size_t paramIdx = i - 1;
+          if (paramIdx < targetFnType->getNumParams()) {
+            auto *expectedType = targetFnType->getParamType(paramIdx);
+            if (argVal->getType() != expectedType) {
+              if (expectedType == ptrType && argVal->getType() == intType) {
+                argVal = builder.CreateIntToPtr(argVal, ptrType);
+              } else if (expectedType == intType &&
+                         argVal->getType() == ptrType) {
+                argVal = builder.CreatePtrToInt(argVal, intType);
+              }
+            }
+          }
+          arguments.push_back(argVal);
         }
-        value = builder.CreateCall(target->second, arguments, resultName);
+        value = builder.CreateCall(targetFn, arguments, resultName);
       } else {
         throw std::runtime_error(
             "LLVM backend error: unsupported instruction " +
@@ -377,7 +683,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         auto canonical = CanonicalName(instruction.result);
         auto slot = slots.find(canonical);
         if (slot != slots.end()) {
-          builder.CreateStore(value, slot->second);
+          builder.CreateStore(value, slot->second.allocaInst);
         } else {
           values[instruction.result] = value;
           values[canonical] = value;
@@ -389,8 +695,20 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
       if (function.returnValue == kIrVoidValue) {
         builder.CreateRet(llvm::ConstantInt::get(intType, 0));
       } else {
-        builder.CreateRet(
-            LookupValue(function.returnValue, values, slots, intType, builder));
+        auto retVal =
+            LookupValue(function.returnValue, values, slots, intType, builder);
+        if (function.name == kIrMainFunctionName &&
+            retVal->getType()->isPointerTy()) {
+          builder.CreateRet(llvm::ConstantInt::get(intType, 0));
+        } else if (llvmFunction->getReturnType() == intType &&
+                   retVal->getType()->isPointerTy()) {
+          builder.CreateRet(builder.CreatePtrToInt(retVal, intType));
+        } else if (llvmFunction->getReturnType() == ptrType &&
+                   retVal->getType() == intType) {
+          builder.CreateRet(builder.CreateIntToPtr(retVal, ptrType));
+        } else {
+          builder.CreateRet(retVal);
+        }
       }
     }
   }

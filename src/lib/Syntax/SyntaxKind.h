@@ -55,6 +55,7 @@ public:
     GreaterToken,
     GreaterOrEqualsToken,
     NumberToken,
+    StringToken,
     // Not Real Tokens
     IdentifierToken,
     // Statements
@@ -296,6 +297,7 @@ static const std::unordered_map<SyntaxKind, std::string, SyntaxKind::Hash>
         {SyntaxKind::GreaterToken, "GreaterToken"},
         {SyntaxKind::GreaterOrEqualsToken, "GreaterOrEqualsToken"},
         {SyntaxKind::NumberToken, "NumberToken"},
+        {SyntaxKind::StringToken, "StringToken"},
         {SyntaxKind::BinaryExpression, "BinaryExpression"},
         {SyntaxKind::UnaryExpression, "UnaryExpression"},
         {SyntaxKind::ParenthesizedExpression, "ParenthesizedExpression"},
