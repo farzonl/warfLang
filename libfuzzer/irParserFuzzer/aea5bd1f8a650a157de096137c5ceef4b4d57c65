@@ -1,0 +1,6 @@
+func _ __in()
+entry:
+  %3 = const 2
+rrrrrr1rrrrrr%4 =  ne %3 %3
+re:
+K  ret 

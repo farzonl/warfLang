@@ -1,0 +1,7 @@
+func __ma()
+ry:
+  %0 = const 1
+  %1 = crnsp 2
+  %2 = aco 2
+  %2 = add % %1
+ 5 2

@@ -1,0 +1,41 @@
+func __mainfumn _ac_in()st1
+ ()
+entry:Ü
+ Ü%0 = cons const1
+ ()
+ 2
+0
+  
+ ()
+entry:Ü
+ Ü%0const1
+ ()
+ntnst1
+ ()
+ 2
+0const1
+ ()
+entry:Ü
+%0 = cons const1
+ ()
+ 2
+0
+   const1
+ ()
+entry:Ü
+ Ü%0  2
+0const1
+ ()
+entry:Ü
+%0 = co const1
+ ()
+ 1
+ ()
+entry:Ü
+ Ü%0 = cons= const1
+ ()
+ 2
+0
+  = store  %3o :
+ n%54
+ b*

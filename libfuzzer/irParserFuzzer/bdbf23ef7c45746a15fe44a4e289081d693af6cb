@@ -1,0 +1,8 @@
+func ain()
+entry  %0 = c%3
+ ()
+entry:
+  %0 = c%3
+  %5 = ne %1
+%6 = 1  %5
+  %7 = add : 30

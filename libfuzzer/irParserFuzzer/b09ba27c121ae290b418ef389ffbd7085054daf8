@@ -1,0 +1,6 @@
+func __main();entry:
+  %0 = const 0
+ 2
+  %1 = const 3
+  %2222ret 2222222223 = add %0 %1
+0)

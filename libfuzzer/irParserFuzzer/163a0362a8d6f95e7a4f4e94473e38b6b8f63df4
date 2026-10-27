@@ -1,0 +1,6 @@
+func __main()
+
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+ br elenW4 = mul %2 %3 

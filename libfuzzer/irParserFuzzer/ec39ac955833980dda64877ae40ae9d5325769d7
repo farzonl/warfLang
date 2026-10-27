@@ -1,0 +1,164 @@
+func __main()
+entry:
+  %0 e = ntore %0
+  %1 =re %0
+  %1 = const 1
+  %2 = conzt 2
+  %3 = lt %1 %2
+  br_3
+ %65 %valu2
+  
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  bn_cond   %0 = const 0
+  % 2
+  % 2
+  %: = lt %1? %2
+e’ry:ond   %0 = constr_cond   const 1
+  %/ = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   %0 = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ2
+  % 2
+  %: = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_ 0
+  %v = const 2
+  %: = lt }%1 %2
+  br_cond   %0 = const 0
+  %value = store % 0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_% 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 1
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   װֿ = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ6 %5
+  re
+  %50
+  %7 = add %6 %5
+  ההההההההההההההההההההההההההההההההה = const 50
+  %7 = add %6 %0%5
+  re
+  %50
+  %7 = add %6 %5
+  re
+  %0 = const = neg %4
+  %6 = const 50
+ 3 = l  t=%1 %2
+  br_cond   %0 = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ2
+  % 2
+  %: = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+# %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = ltalue = store %0
+  %1 = const 1
+  %2  %1 %2
+  %_co = lt %1 %2
+  br_cond   %0 = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ2
+  % 2
+  %: = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+   %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %:
+  %0=:
+  %0 = const 0
+  %valu2
+  
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  bn_cond   %0 = const 0
+  % 2
+  % 2
+  %: = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_ 0
+  %v = const 2
+  %: = lt }%1 %2
+  br_cond   %0 = const 0
+  %value = store % 0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br 1
+  %2 = const 2
+  % 2
+  %: : = const 1
+  %2 = const 2
+  % 2
+  %: = =lt %1 %2
+  b0
+ e %value = store %0
+  %1 = con

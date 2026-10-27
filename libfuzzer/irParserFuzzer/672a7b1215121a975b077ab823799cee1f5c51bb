@@ -1,0 +1,15 @@
+func __main()
+dntry:
+  %3 = const true
+  %4 = r_cond   %0
+  %indebr fod %8
+  bnot %3
+  %0
+  %indd e_da热热热热热萻t true
+  %4 = r热热热萻t true
+  %4 = r_cond   %0
+  %indebr fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 %5
+  re骀骀骀骀骀骀骀骀骀骀骀骀骀骀骀骀骀骀骀骀鎍lue
