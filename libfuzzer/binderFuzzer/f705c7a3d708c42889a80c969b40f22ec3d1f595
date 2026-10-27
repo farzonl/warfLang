@@ -1,0 +1,15 @@
+1 ‰‰‰circle_area(r: absfloat): float {
+  let pi: f64 = 3.14@
+  return pi * r * r
+}
+
+let a = circle_area(2.0)
+print(a)
+
+var x: float = 10.5
+x += 1.5
+x -= 2.0
+x *= 0.5
+x /= 2.0
+print(x)
+pri:w{{{{{‡:::!1

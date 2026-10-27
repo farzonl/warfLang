@@ -1,0 +1,7 @@
+func __in()
+ent:
+  %0 = const 10
+  %1 = const 0
+  %2 = div %0 %1
+
+ t'%

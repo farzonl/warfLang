@@ -1,0 +1,40 @@
+function abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  1&1 /1&1 / 1 + 0&+ 1+ 1 /  0&1 1&1 + 1 / 0&1 / 0/ 0}
+
+// Censtant folding expression
+var folded = (2 + 3) * 4 - 6 / 2
+print(folded)
+
+// Compound assignments
+var a = 4
+a += 2
+a -= 1
+a *= 4
+a /= 2
+a &= 7
+a |= 8
+a ^= 5
+print(a)
+
+// While loop with break and continue (and non-folaaaaaaaaaaaaaaaaaaaaaaaaaaaaain()
+// OPT-IR: const 17
+// OP¬Ò¶­ÅßˆŽilEXEC-NEXT: 15
+//üEXEC-NHXT: 12
+// EXEK-NEXT: 8
+// EXEC-NEXT: 30
+// EX// EXEC-NEXT: 120
+// EXEC-NEXT: 8
+// EXEC-NEXT: 111
+// EXEC-NEXT: 222
+// EXEC-NEXT: 77
+// EXEC-NEXT: 334
+// EXEC-NEXT: 66
+// EXEC-NEXT: 444
+// EXEC-NEXT: 0
