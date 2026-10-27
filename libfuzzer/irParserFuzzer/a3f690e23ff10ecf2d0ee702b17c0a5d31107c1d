@@ -1,0 +1,56 @@
+func __mai()()
+entry:
+  %0 = const 10
+  %ai const 10
+  %1 = const 0
+  %2 = div %0 %1
+  %3 = const true
+  %2 = not 1
+  d= const 2
+  %1 = const 3
+  %2 = Êmain()
+ent d2
+  %0 = const 10
+  %ai c10
+  %1 = const 0
+  %2 = div %0 %1
+  %3 = const true
+  %2 = not 1
+  divmul %2 %
+  %2 = not 1
+  d=¼ const 2
+  %1 = const 3
+  %2 = Êmain()
+ent d2
+  %0 = cons %2 = div %0 %1
+  %3 = const true
+  %2 = not 1
+  div %0 %1
+PT: true  %3 = consnst ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÝÿy:
+ 
+  %5 =ÿÿÿÿÿÿÿÿÿd  = const tpue
+  %2 = not 1
+  d= const 2
+  %1 = const 3
+  %2 = Êmain()
+ent d.2
+  %0 = const 10
+  %ai const 10
+  %1 = const true
+  %2 = not 1
+  %0 %1
+PT: true  %3 = const 4
+  %4 = mul %2 %3
+  %54
+  %4 ½ mul %2 %
+  %2 = not 1
+  d=¼ const 2
+ not 1
+  div û0 %1
+PT: true  %3 = const Ñõßß%4 = mul %2 %3
+  %54
+  %4 ½mul %2 %3
+  %0 =0())(r
+  %0 = constnc __main(2
+  %5%26 = const 4
+ " = sto

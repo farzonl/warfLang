@@ -1,0 +1,6 @@
+func X_main()
+0
+  = cst 4
+  %4 = mul %2 %3
+ %5 = neg %4
+ %6 0

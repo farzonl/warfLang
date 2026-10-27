@@ -1,0 +1,7 @@
+fadd:{
+  ret8n a + b
+}x = .C5
+if 
+{  xx = 0
+}
+x

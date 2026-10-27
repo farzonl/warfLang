@@ -1,0 +1,11 @@
+func _func __mqin()
+entry:
+0
+ %lue$= store %0
+  %¦ =n 2
+  %1 = const 3
+  %2 
+%4 = eq %1 "h\ello woèld"
+  r const "hello "
+  %1 = const "w\\\\\\\\\\\\\\T\o world"
+  ret % ÿt

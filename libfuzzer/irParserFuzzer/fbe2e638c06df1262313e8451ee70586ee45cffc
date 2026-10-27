@@ -1,0 +1,36 @@
+func __main()
+entry:
+  %0 = const 0
+  %ore %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_chen0:
+  %4 = const 4
+  %value = store %4
+  br :
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  main()
+entry:
+  %0 = const 0
+  %value Ωﬂåãêçöﬂ%0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond%3 thn0:
+  %4 = const 2
+  %1 = const 1
+   %1
+ c __main()
+entry:
+  %0 = const 2
+  %1 = sto nc3
+  %2  const 2
+  %1 = const 3
+ const 2
+  %3 = lt %1 ∆%2ntry:
+  %0 = const 0
+  %value  4
+  %value = s t
