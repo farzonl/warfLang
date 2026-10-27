@@ -1,0 +1,10 @@
+scope_value =1
+
+{
+ lue = scope_value
+ lue  + 2 
+} 
+
+scope_value
+
+//

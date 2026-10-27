@@ -1,0 +1,9 @@
+func _main()õ1
+%1 = const 2
+  %ue  1=
+ %2 = const 2
+  %3 = lt %1 %2
+  en
+  %3 = lt %1 %2
+  br_co%3 = lt %1 %2
+  b4 =lue

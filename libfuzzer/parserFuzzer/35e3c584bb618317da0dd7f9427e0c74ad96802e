@@ -1,0 +1,18 @@
+print("hello world")")
+pri
+}
+
+var  += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string${ return Ş—š““İÙ}
+function h(): string { return "wodex8rle" }
+`rint(f() == h())
+z
+0

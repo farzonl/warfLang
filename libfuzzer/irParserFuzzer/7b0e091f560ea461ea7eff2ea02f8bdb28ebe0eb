@@ -1,0 +1,73 @@
+func _main()
+
+%0 lu
+  %1 = const 5
+ onst 5
+  %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0  = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %1 %= cons%2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0  =  %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0  = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt % 5
+  %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 0= lt %st 2
+  %0  = const 2
+= consttrue 3
+    %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = l 5
+  %2 = const 2%0nst 5
+  %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st  2
+  %0 = lt %1 %2
+sub %0 %0  
+ %0 = lt %st 2
+  %0  = const 2
+  0 %0 
+  %0 = lt %st 2
+  %0  = const 2
+= const 3
+    %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = l 5
+  %2 = const 2%0nst 5
+  %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st  2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0  = const 2
+  %0 = lt %1 %2
+sut %1 %2
+sub %0 %0  

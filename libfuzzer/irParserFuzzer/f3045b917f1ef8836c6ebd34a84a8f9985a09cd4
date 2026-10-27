@@ -1,0 +1,11 @@
+func __main()
+le__main()
+entry:
+  %0 = const "hello "
+  %1 = const "world"
+  %2 = add %0 %1
+  %3 =t %
+%4 = eq %2 int %2  
+%4 = eq %1 "h\ello world"
+  LLVM: declare onst "world = eq %1 "h\ehlo world"
+  ret % ÿÿÿÿÿÿ šor, ptr)

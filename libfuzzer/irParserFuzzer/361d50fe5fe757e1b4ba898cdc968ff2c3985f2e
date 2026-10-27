@@ -1,0 +1,4 @@
+func _n()
+ens 0 = store
+  %1 = const 1
+os 
