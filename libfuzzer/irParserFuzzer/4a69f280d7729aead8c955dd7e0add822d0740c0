@@ -1,0 +1,25 @@
+func __m!in()
+eelsÿ0:
+  %5 = cnd0
+en%7 = lt %á!"ø—
+  br_c  %va%7 = lt %á!"ø—
+  br_c  %value = stoe_conø#
+  br_c  %value ==stoe_cond2:
+c6  onst 7
+ ¥ %7 = lt"%value %õ
+  br_c  %value = or_const 7
+ ¥ %7 = lt %value %6
+  br_c  %ñalue = stor  store br  e%;0
+  %1 = consry:
+  6
+ func __m
+e%6
+  br_c  %valu: = store_add %12
+
+  re6
+  br_c  %value = store6
+  br_c  %valu: = store_add %12
+
+  ret %valadd %52
+  _cond2
+for_end2lue

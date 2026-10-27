@@ -1,0 +1,11 @@
+func __mainfunc __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+()entry:
+ÿÿÿ  %0 = const 0
+  %value = stor  %2 =:cost 1
+()
+entr %0 = const 0
+  %value = rots  %2 =:co~s    b

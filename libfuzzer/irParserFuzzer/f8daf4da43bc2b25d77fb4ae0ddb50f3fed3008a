@@ -1,0 +1,22 @@
+func __main()
+t 1
+  %st 
+1()
+e%st 1
+()
+e2
+  b()
+t 1
+  %st 
+1()
+e%st 1
+()
+e2
+  brnst 2
+  %st 1
+()2ent % 2
+  %st 0
+()
+e%st 1
+()
+ent adb

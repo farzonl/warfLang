@@ -1,0 +1,1 @@
+function inc(xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF: int): int { return x + 2} inc(true)

@@ -1,0 +1,7 @@
+func _()ÿÿÿ  th
+  %st 0
+z %2 = di  %1 = const 1
+ %2 = const 2
+  %1 = lt %2 %2
+  br_`ond  = band %1 %1
+ 

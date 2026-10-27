@@ -1,0 +1,26 @@
+func __mai()()
+
+ ÿÿÿÿÿÿÿ br_c = const 1
+  %: =st 2
+  %1 = const 3
+  %2 = add %02 = addst 3
+  %2 = add %0 %1
+  %onst 4
+  %4 nst 1
+  %2 = const 2
+  %: = lt %1 %2
+ cr b_ = const 1
+  %@: = gt %1 %2
+%ÚÎ %2
+ ÿÿÿÿÿÿÿ br_c = constst 0
+  %: = gt %1 %2
+%ÚÎ %1
+ ÿ  %2 = add %0 %1
+  %onst 4
+  %4 nst 1
+  %2 = const 2
+  %: = lt %1 %2
+ cr b_ = conwt 1
+  %: = gt %1 %2
+!ÚÎ %2
+ ÿÿÿÿÿÿÿ br_c = const%

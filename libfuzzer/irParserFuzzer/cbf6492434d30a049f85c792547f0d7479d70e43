@@ -1,0 +1,8 @@
+func __main()3
+  % = const 2
+  %1 = const 3
+  %2const 2
+  %3 = lt -1 %2
+
+  %1 = sub %0 %c
+  ret %1
