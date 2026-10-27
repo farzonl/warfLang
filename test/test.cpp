@@ -113,3 +113,31 @@ TEST_CASE("Compilation Chain and SymbolTableMgr C++ APIs") {
     REQUIRE(20 == list[1]);
   }
 }
+
+TEST_CASE("Parser Deep Nesting Stack Overflow Regression (Issue #86)") {
+  const std::string deepParens =
+      std::string(4000, '(') + "1" + std::string(4000, ')');
+  auto tree1 = SyntaxTree::Parse(deepParens);
+  REQUIRE(tree1 != nullptr);
+  REQUIRE_FALSE(tree1->Errors().empty());
+
+  const std::string deepUnary = std::string(4000, '-') + "1";
+  auto tree2 = SyntaxTree::Parse(deepUnary);
+  REQUIRE(tree2 != nullptr);
+  REQUIRE_FALSE(tree2->Errors().empty());
+
+  std::string deepAssign;
+  for (int i = 0; i < 2000; ++i) {
+    deepAssign += "a = ";
+  }
+  deepAssign += "1";
+  auto tree3 = SyntaxTree::Parse(deepAssign);
+  REQUIRE(tree3 != nullptr);
+  REQUIRE_FALSE(tree3->Errors().empty());
+
+  const std::string deepBlocks =
+      std::string(2000, '{') + "1" + std::string(2000, '}');
+  auto tree4 = SyntaxTree::Parse(deepBlocks);
+  REQUIRE(tree4 != nullptr);
+  REQUIRE_FALSE(tree4->Errors().empty());
+}

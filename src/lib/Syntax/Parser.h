@@ -19,8 +19,10 @@
 #include "Error/Record.h"
 
 class Parser {
+  static constexpr int32_t kMaxParseDepth = 128;
   std::vector<std::shared_ptr<SyntaxToken>> mTokens;
   int32_t mPosition;
+  int32_t mDepth = 0;
   Records mRecords;
   std::shared_ptr<SyntaxToken> Peek(int32_t offset);
   std::shared_ptr<SyntaxToken> Current();
