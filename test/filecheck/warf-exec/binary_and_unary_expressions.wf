@@ -1,0 +1,57 @@
+// RUN: %warf %s | %FileCheck %s
+
+-1
+1 + 3
+4 - 3
+3 - 4
+4 * 3
+4 * -5
+4 * (-5)
+4 * (3 - 5)
+9 / 3
+4 * 1 + 3
+4 * (1 + 3)
+-(1 + 3)
+1 | 2
+3 | 1
+3 | 2
+1 & 2
+3 & 1
+3 & 2
+1 ^ 2
+3 ^ 1
+3 ^ 2
+b1 = 1
+b2 = -1
+-b1
+-b2
++b1
++b2
+
+// CHECK: -1
+// CHECK-NEXT: 4
+// CHECK-NEXT: 1
+// CHECK-NEXT: -1
+// CHECK-NEXT: 12
+// CHECK-NEXT: -20
+// CHECK-NEXT: -20
+// CHECK-NEXT: -8
+// CHECK-NEXT: 3
+// CHECK-NEXT: 7
+// CHECK-NEXT: 16
+// CHECK-NEXT: -4
+// CHECK-NEXT: 3
+// CHECK-NEXT: 3
+// CHECK-NEXT: 3
+// CHECK-NEXT: 0
+// CHECK-NEXT: 1
+// CHECK-NEXT: 2
+// CHECK-NEXT: 3
+// CHECK-NEXT: 2
+// CHECK-NEXT: 1
+// CHECK-NEXT: 1
+// CHECK-NEXT: -1
+// CHECK-NEXT: -1
+// CHECK-NEXT: 1
+// CHECK-NEXT: 1
+// CHECK-NEXT: -1

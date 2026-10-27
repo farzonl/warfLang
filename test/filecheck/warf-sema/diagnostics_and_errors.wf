@@ -1,0 +1,24 @@
+// RUN: %warf -e "1 ? 2" 2>&1 | %FileCheck %s --check-prefix=BAD-CHAR
+// RUN: %warf -e "a = ((1 + 2)" 2>&1 | %FileCheck %s --check-prefix=UNEXPECTED-EOF
+// RUN: %warf -e "1 == true" 2>&1 | %FileCheck %s --check-prefix=BINARY-TYPE
+// RUN: %warf -e "a += 1" 2>&1 | %FileCheck %s --check-prefix=COMPOUND-UNDEF
+// RUN: %warf -e "{ scope_inner = 3 }" >/dev/null
+// RUN: %warf -e "scope_inner" 2>&1 | %FileCheck %s --check-prefix=SCOPE-UNDEF
+// RUN: %warf -e "function inc(x: int): int { return x + 1 } inc(true)" 2>&1 | %FileCheck %s --check-prefix=ARG-TYPE
+// RUN: %warf -e "break" 2>&1 | %FileCheck %s --check-prefix=BREAK-OUTSIDE
+// RUN: %warf -e "continue" 2>&1 | %FileCheck %s --check-prefix=CONTINUE-OUTSIDE
+// RUN: %warf -e "let c = 10 c = 20" 2>&1 | %FileCheck %s --check-prefix=LET-ASSIGN
+// RUN: %warf -e "let d = 5 { d += 1 }" 2>&1 | %FileCheck %s --check-prefix=LET-COMPOUND
+// RUN: %warf -e "print(1, 2)" 2>&1 | %FileCheck %s --check-prefix=PRINT-ARITY
+
+// BAD-CHAR: LexerError: Bad character input: ?.
+// UNEXPECTED-EOF: ParserError: Unexpected token: < EndOfFileToken > Expected: < CloseParenthesisToken >
+// BINARY-TYPE: BinderError: Binary operator == is not defined for types Number and Boolean.
+// COMPOUND-UNDEF: BinderError: Undefined name a Starting at Position 0 Ending at: 0.
+// SCOPE-UNDEF: BinderError: Undefined name scope_inner Starting at Position 0 Ending at: 10.
+// ARG-TYPE: BinderError: Parameter x requires a value of type Number but was given a value of type Boolean.
+// BREAK-OUTSIDE: BinderError: The keyword break can only be used inside of loops.
+// CONTINUE-OUTSIDE: BinderError: The keyword continue can only be used inside of loops.
+// LET-ASSIGN: BinderError: Variable c is read-only and cannot be assigned to.
+// LET-COMPOUND: BinderError: Variable d is read-only and cannot be assigned to.
+// PRINT-ARITY: BinderError: Function print requires 1 argument(s) but was given 2.
