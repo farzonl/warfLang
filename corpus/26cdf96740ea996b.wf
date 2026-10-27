@@ -1,2 +1,2 @@
-// Lines: 24.01% (830/3457) Regions: 27.38%
+// Lines: 23.81% (830/3486) Regions: 27.12%
 a = 1; b = 1; value = 0 index function compute (x: int, y: int): int { { for (; = 0; index < 4; index += 1) { value |= 2}}

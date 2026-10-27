@@ -1,2 +1,2 @@
-// Lines: 32.92% (1138/3457) Regions: 36.39%
+// Lines: 32.64% (1138/3486) Regions: 36.03%
 if ((true == (true || false))) { a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false))) { inex = 0; while (index < 5) { value &= b; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index 10; value = 0; function step (x, y) { if ((false && false)) { x; while (index < 5) { value &= b; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index 10; value = 0; function step (x, y) { if ((false && false)) { x += 7}; return 7} step (((10 ^ 5)
