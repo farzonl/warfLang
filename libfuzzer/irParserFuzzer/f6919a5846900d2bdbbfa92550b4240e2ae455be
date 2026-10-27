@@ -1,0 +1,140 @@
+func __main()
+then0:
+  %0=:
+  %0 = const 0
+  %valu2
+  
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  bn_cond   %0  % = const 0
+  % 2
+  % 2
+  %: = lt %1 %2
+e’Žry:ond   %0 = constr_cond   const 1
+  %/ = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   %0 = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ2
+  % 2
+  %: = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_ 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 1
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   %0 = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ2
+  % 2
+  %: = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   ÔÏ = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ2
+  % 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   = lt %1 %2
+  br_cond   %0 = const 1
+ alu2
+  
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  bn_cond   %0 = const 0
+  % 2
+  % 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   %0 = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ2
+  % 2
+  %: = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+# %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  %_co = lt %2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 1
+  % 2
+# 1 %2
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0

@@ -1,0 +1,29 @@
+func __main()
+en)try:
+  %t 2
+  %1 = const 3
+  %2const 4  %4= m ul0%2 %3
+  0
+  %valuf = store %0
+  %1- %: = const 1
+  const 4
+  %value = storfunfunc __mainQ)
+entry:
+  %1lud = store %0
+  %1 = const 1
+  const 4
+  %value = store_end1:
+  %9 =%7onÿÿst Ô
+  %index t 1
+  const 4
+  %value = storfunfunc __main()bentry:
+  %1lue = store %0
+  %1 = const 1
+  const 4
+  %value =ÿÿÿ@ÿÿÿÿ%5 = neg %4
+  %6 = const (0
+  %7 = add %6 %5
+] ret %
+7
+// RUN-OP 3
+ 0

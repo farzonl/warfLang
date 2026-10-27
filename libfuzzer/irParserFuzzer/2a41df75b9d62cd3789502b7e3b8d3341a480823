@@ -1,0 +1,17 @@
+func __main()
+entry:
+  %0 = const 0onst 1
+ ¥  %value %6
+  br_c  %value = store_add %12st º
+ ppp %indeø = store_add %52
+  br forr_c$ %value = store_add %12
+
+ ppp %indeø = store_add %52 %6
+  br_c  %value = store_add %12
+  %13 = const º
+ ppp %indeø = store_add %br for_const 7
+ ¥ %nnc try6 = lt %value %6
+  br_c$ %value = store_add %t21
+ const 4
+  %2 t 1
+  %value = store_add ret %value

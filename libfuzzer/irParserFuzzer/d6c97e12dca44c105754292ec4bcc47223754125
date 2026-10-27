@@ -1,0 +1,8 @@
+func =  _aim_n()
+å
+re0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+   $4 =  ne %2 %3
+  = ly:%5 
