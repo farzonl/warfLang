@@ -39,10 +39,12 @@ public:
   IrModule Lower(BoundStatementNode *root);
 
 private:
+  static constexpr int32_t kMaxLowerDepth = 64;
   IrModule mModule;
   IrFunction *mCurrentFunction;
   int32_t mTempIndex;
   int32_t mLabelIndex;
+  int32_t mLowerDepth = 0;
   std::unordered_set<std::string> mEmittedFunctions;
   std::unordered_map<const VariableSymbol *, std::string> mVariableNames;
   std::unordered_map<std::string, size_t> mVariableNameCounts;
