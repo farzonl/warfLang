@@ -1,0 +1,58 @@
+func __main()
+entry:()
+entry:
+  %0 = const 0
+t nc @brt nc 
+  %0 = const 0
+t nc @branch(%x) {
+entry:jmp me[rge = sub %5 {0
+t nc @branch(%x) 
+end0:
+ %x, 1
+end0
+end0:
+  br whilX2öZ[ð else_bb
+t = const 0
+t nc @branch(%x= const 0
+t nc @b= lt %x, 1
+end0
+end0 :
+
+entry-
+  %0 = const 0
+t nc @branch(%x) {
+entry:jmp me[try:jmp me[rge = sub %5 {0
+t nc @branch(%x) 
+end0:
+ %x, 1
+end0
+end0:
+  br whilX2öZ[ð else_bb
+t = const 0
+t nc @branch(%x= const 0
+t nc @b= lt %x, 1
+end0
+end0 :
+
+entry-
+  %0 = const 0
+t nc @branch(%x) {
+entry:jmp me[rge = su)
+eîtry:
+rge = su)
+eîtry:
+  %0 = const 0
+t nc @ su)
+eîtry:
+  %0 = const 0
+t nc @b= ltàÑx, 1
+ennst 0
+t nc br whilX2ö:bmp me[rge = su)
+eîtry:
+  %0 = const 0
+t nc @ su)
+eîtry:
+  %0 = const 0
+t nc @b= ltàÑx, 1
+ennst 0
+t nc br whilX2öZ[ð el%c_fbtry:un

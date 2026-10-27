@@ -1,0 +1,31 @@
+print("hello world"funbtion))
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatename: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f( = "foo"
+let b = "bar"
+let c = a +ib
+ prnt(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  print("a is not bar")
+}
+i,f (c == "foobar") {
+  print("c is foobar")
+}¸
+va
+}
+print(greet("alice"))
+
+function f(): string { function)ello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

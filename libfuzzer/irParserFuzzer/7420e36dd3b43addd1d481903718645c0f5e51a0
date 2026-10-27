@@ -1,0 +1,6 @@
+func add_scaled(a, b)
+entry:
+  %0 ="const 2.0  %1 = mul b %0
+  %2 =创创创创窗  %0 = const 1.25
+  %1 = const 2.75
+  %

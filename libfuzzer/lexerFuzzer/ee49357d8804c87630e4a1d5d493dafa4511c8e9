@@ -1,0 +1,18 @@
+function c= 3.14
+  return pi * r * r
+}
+
+let _area(2.0)
+2.0
+print(x)
+print(-x)
+
+if (x == 2.5) {
+  print(1)
+}
+if (x != 3.5) {
+ / / print(23.0 && x <= 2.5 && x > 2.0 && x >= 2.5) {
+  print(3)
+}
+
+0

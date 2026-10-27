@@ -1,0 +1,51 @@
+func add_scaled(a, b)
+entry:
+  %0  = = const 2.0
+  %1 = mul b %0
+  %2 = add a %1
+  ret %2
+
+func __main()
+entry:
+  %0 = const 1.25
+  %1 = const 2.37
+  %2 = add %0 %1
+  %3 = const 0.5
+  %4 = sub %2 %3
+  %5 = neg %4
+  %6 = neg %5
+  %7 = call add_scaled %6 %3
+  %8 = print %7
+  %9 = const 4.5
+  %10 = eq %7 %9
+  %11 = print %10
+  ret %7
+
+
+// OPTfunc ___mai(n) m
+  %6 = const 
+1
+  %7 = add %6 %5
+  ____c%00  blse0:pppppppppp %index = stre_add %26
+  ba&ue br 0
+else0:ppppppppppp %index = store_add
+then0:
+  else0:ppppppp p%ppindex 50 = store_add %26: func __m
+  ba&ue = store %8
+  bfunc __mainr ee0l
+ndse0:pppp()
+entry:
+  %0 = const 0
+ R = store %0
+  %1 = const 2
+  %2 = const 2
+  %3 = lt %1 %2
+:
+  %4:
+  %5  %4pppppp %index = store_aain()
+// OPT: %6 = const 3.5
+// OPT: %7 = mul %2 % = ca¦dd %23
+d2 5
+ 2
+for_ll add_scaled %6end %2:
+  3reet %value
