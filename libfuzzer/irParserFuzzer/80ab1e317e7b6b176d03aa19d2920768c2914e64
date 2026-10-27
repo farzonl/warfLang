@@ -1,0 +1,9 @@
+func __()
+then0:%3 = c[onstry:
+  %0 = const 1.25
+  t 2
+  %1 = const 3
+ÿÿÿÿÿÿÿ dd
+   0
+  %2 = div %0 %1
+5 = div %0 %tru

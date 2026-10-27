@@ -1,0 +1,10 @@
+func @add(%c, ­)
+ånt6
+  %valþÿ
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  b
+  %4 =  le %3 %3
+  % co =  le %3 %3
+  %5 _add

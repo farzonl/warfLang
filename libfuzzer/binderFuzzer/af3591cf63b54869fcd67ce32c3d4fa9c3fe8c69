@@ -1,0 +1,19 @@
+"hello wo77 ÿÿ; a  a			a &=8 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~7`7777777777777= 1Z b = 4lo " + "wor24AssignmentExprabc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "31102a77= 1Z b = 4lo " + "wor24AssignmentExprabc" + ""
+
+"a" 
+"a" != "b"
+"a" != "31102a"
+
+let s1 = "warf"
+let s2 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("mÓessage frgm print")
+print(s3)

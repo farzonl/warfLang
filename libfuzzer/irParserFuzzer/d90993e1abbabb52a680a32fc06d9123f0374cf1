@@ -1,0 +1,5 @@
+func __main(= cons 5)we %5t%0
+  %1 = const 5
+   %0 = lt %1 2
+mod %0 %0
+  r  ÿ	0

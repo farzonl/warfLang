@@ -1,0 +1,6 @@
+function f(): in{
+  return true
+}
+
+print(f())
+0

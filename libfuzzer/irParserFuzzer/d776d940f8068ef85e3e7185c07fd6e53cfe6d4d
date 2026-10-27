@@ -1,0 +1,13 @@
+func _ai(n) m
+  %6 = const 
+1
+  %7 = add %6 %5
+  ____c%00  blse0:pppppppppp %index = store_add  ba&ue br 0
+else0:ppppppppppp %index = store_add
+then0:
+  else0:pppppppppp %index 50 = store_add %26
+  ba&ue = ee0l
+ndse0:pppppppppp %index = store_add %25
+ 2
+for_end2:
+  ret %value

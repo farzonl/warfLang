@@ -1,0 +1,1 @@
+function inc(x: inext): int { return  0 } inc(true)
