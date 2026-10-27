@@ -1,0 +1,15 @@
+// RUN: %warf -e "1.5 + 2" 2>&1 | %FileCheck %s --check-prefix=MIXED-ADD
+// RUN: %warf -e "~1.5" 2>&1 | %FileCheck %s --check-prefix=BITNOT-FLOAT
+// RUN: %warf -e "1.5 % 0.5" 2>&1 | %FileCheck %s --check-prefix=MOD-FLOAT
+// RUN: %warf -e "let x: int = 3.14" 2>&1 | %FileCheck %s --check-prefix=VAR-TYPE
+// RUN: %warf -e "let y: float = 42" 2>&1 | %FileCheck %s --check-prefix=FLOAT-VAR-INT
+// RUN: %warf -e "function f(a: float): float { return a } f(10)" 2>&1 | %FileCheck %s --check-prefix=PARAM-TYPE
+// RUN: %warf -e "function g(): float { return 10 } g()" 2>&1 | %FileCheck %s --check-prefix=RET-TYPE
+
+// MIXED-ADD: BinderError: Binary operator + is not defined for types Float and Number.
+// BITNOT-FLOAT: BinderError: Unary operator ~ is not defined for type Float.
+// MOD-FLOAT: BinderError: Binary operator % is not defined for types Float and Float.
+// VAR-TYPE: BinderError: Variable x requires a value of type Number but was given a value of type Float.
+// FLOAT-VAR-INT: BinderError: Variable y requires a value of type Float but was given a value of type Number.
+// PARAM-TYPE: BinderError: Parameter a requires a value of type Float but was given a value of type Number.
+// RET-TYPE: BinderError: Function g requires a return value of type Float but was given a value of type Number.

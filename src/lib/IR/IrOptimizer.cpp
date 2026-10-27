@@ -43,6 +43,16 @@ bool TryParseConstValue(const std::string &text, Value &out) {
     out = UnescapeIrString(text);
     return true;
   }
+  if (IsIrFloatLiteral(text)) {
+    char *endPtr = nullptr;
+    errno = 0;
+    double parsed = std::strtod(text.c_str(), &endPtr);
+    if (errno != 0 || endPtr != text.c_str() + text.size()) {
+      return false;
+    }
+    out = parsed;
+    return true;
+  }
   if (text.empty()) {
     return false;
   }
@@ -64,6 +74,9 @@ std::string FormatConstValue(const Value &value) {
   if (value.isBool()) {
     return value.asBool() ? kIrTrueLiteral : kIrFalseLiteral;
   }
+  if (value.isFloat()) {
+    return FormatIrFloat(value.asFloat());
+  }
   if (value.isString()) {
     return EscapeIrString(value.asString());
   }
@@ -73,12 +86,17 @@ std::string FormatConstValue(const Value &value) {
 bool TryEvaluateUnary(IrOpcode op, const Value &operand, Value &result) {
   switch (op) {
   case IrOpcode::Copy:
-    if (!operand.isInt() && !operand.isBool() && !operand.isString()) {
+    if (!operand.isInt() && !operand.isFloat() && !operand.isBool() &&
+        !operand.isString()) {
       return false;
     }
     result = operand;
     return true;
   case IrOpcode::Neg:
+    if (operand.isFloat()) {
+      result = -operand.asFloat();
+      return true;
+    }
     if (!operand.isInt()) {
       return false;
     }
@@ -109,6 +127,10 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
       result = left.asString() + right.asString();
       return true;
     }
+    if (left.isFloat() && right.isFloat()) {
+      result = left.asFloat() + right.asFloat();
+      return true;
+    }
     if (!left.isInt() || !right.isInt()) {
       return false;
     }
@@ -116,6 +138,10 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
                                   static_cast<int64_t>(right.asInt()));
     return true;
   case IrOpcode::Sub:
+    if (left.isFloat() && right.isFloat()) {
+      result = left.asFloat() - right.asFloat();
+      return true;
+    }
     if (!left.isInt() || !right.isInt()) {
       return false;
     }
@@ -123,6 +149,10 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
                                   static_cast<int64_t>(right.asInt()));
     return true;
   case IrOpcode::Mul:
+    if (left.isFloat() && right.isFloat()) {
+      result = left.asFloat() * right.asFloat();
+      return true;
+    }
     if (!left.isInt() || !right.isInt()) {
       return false;
     }
@@ -130,6 +160,13 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
                                   static_cast<int64_t>(right.asInt()));
     return true;
   case IrOpcode::Div:
+    if (left.isFloat() && right.isFloat()) {
+      if (right.asFloat() == 0.0) {
+        return false;
+      }
+      result = left.asFloat() / right.asFloat();
+      return true;
+    }
     if (!left.isInt() || !right.isInt() || right.asInt() == 0) {
       return false;
     }
@@ -174,6 +211,10 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
                             : (left.asBool() == right.asBool());
       return true;
     }
+    if (left.isFloat() && right.isFloat()) {
+      result = (left.asFloat() == right.asFloat());
+      return true;
+    }
     if (left.isString() && right.isString()) {
       result = (left.asString() == right.asString());
       return true;
@@ -183,6 +224,10 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
     if ((left.isInt() && right.isInt()) || (left.isBool() && right.isBool())) {
       result = left.isInt() ? (left.asInt() != right.asInt())
                             : (left.asBool() != right.asBool());
+      return true;
+    }
+    if (left.isFloat() && right.isFloat()) {
+      result = (left.asFloat() != right.asFloat());
       return true;
     }
     if (left.isString() && right.isString()) {
@@ -203,24 +248,40 @@ bool TryEvaluateBinary(IrOpcode op, const Value &left, const Value &right,
     result = left.asBool() || right.asBool();
     return true;
   case IrOpcode::Gt:
+    if (left.isFloat() && right.isFloat()) {
+      result = left.asFloat() > right.asFloat();
+      return true;
+    }
     if (!left.isInt() || !right.isInt()) {
       return false;
     }
     result = left.asInt() > right.asInt();
     return true;
   case IrOpcode::Lt:
+    if (left.isFloat() && right.isFloat()) {
+      result = left.asFloat() < right.asFloat();
+      return true;
+    }
     if (!left.isInt() || !right.isInt()) {
       return false;
     }
     result = left.asInt() < right.asInt();
     return true;
   case IrOpcode::Le:
+    if (left.isFloat() && right.isFloat()) {
+      result = left.asFloat() <= right.asFloat();
+      return true;
+    }
     if (!left.isInt() || !right.isInt()) {
       return false;
     }
     result = left.asInt() <= right.asInt();
     return true;
   case IrOpcode::Ge:
+    if (left.isFloat() && right.isFloat()) {
+      result = left.asFloat() >= right.asFloat();
+      return true;
+    }
     if (!left.isInt() || !right.isInt()) {
       return false;
     }

@@ -254,6 +254,24 @@ void Lexer::ParseNumber(SyntaxKind &type) {
     mPosition++;
   }
   const char *startPointer = mText.c_str() + posStart;
+  if (CurrentToken() == '.' &&
+      mPosition + 1 < static_cast<int32_t>(mText.length()) &&
+      isdigit(static_cast<unsigned char>(mText[mPosition + 1]))) {
+    mPosition++;
+    while (isdigit(static_cast<unsigned char>(CurrentToken()))) {
+      mPosition++;
+    }
+    std::string floatStr(startPointer, mPosition - posStart);
+    double dval = 0.0;
+    try {
+      dval = std::stod(floatStr);
+    } catch (const std::exception &) {
+      dval = 0.0;
+    }
+    mValue = dval;
+    type = SyntaxKind::FloatToken;
+    return;
+  }
   std::string numberStr(startPointer, mPosition - posStart);
   int64_t val = 0;
   try {
@@ -350,8 +368,9 @@ std::unique_ptr<SyntaxToken> Lexer::NextToken() {
   int32_t tokenStartPos = mPosition;
   ReadToken(type);
   int32_t tokenEndPos = mPosition;
-  if (type == SyntaxKind::NumberToken || type == SyntaxKind::TrueKeyword ||
-      type == SyntaxKind::FalseKeyword || type == SyntaxKind::StringToken) {
+  if (type == SyntaxKind::NumberToken || type == SyntaxKind::FloatToken ||
+      type == SyntaxKind::TrueKeyword || type == SyntaxKind::FalseKeyword ||
+      type == SyntaxKind::StringToken) {
     return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
                                          mValue);
   }
