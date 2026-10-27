@@ -1,0 +1,25 @@
+func O_man()
+ent kËnst  1 
+%2 = const 2
+  %3 = lt %2 %2
+ %5 %4= const 2
+  %3 = lt %2 %2
+ %5 %
+entry:
+  %0 = const 2.0  
+entry:
+  %0 = const 1.25
+  %1%¶3
+ = coNst 2.75
+  %2 d% 0=ad  ÿÿÿÿÿ%1
+  %3 = const 0.5
+  %4 = sub %2 %3
+  %5 = neg %4
+ %6 = neg %2.75%7 %3
+  e %3 %3
+ulfunc _main()
+entry:
+  %0 = const
+  %2 = add %0 %1
+  %7 = const u =
+ %7 = a qe%6 %3

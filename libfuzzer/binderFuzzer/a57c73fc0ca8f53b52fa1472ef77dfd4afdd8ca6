@@ -1,0 +1,1 @@
+a = 1; b = 4; value = 0; index = 0; while (index < 5) { n = 0; while (index < 5) { n x = 0; while (index < 4) { a &= (255 | 2); index += 1 }; value = (b + ~2); index += 1 };x = 0; while (index < 4) { a &= (255 | 2); index += 1 }; v= (b + ~2); index += 1 }; index = 0; while (index < 4) { a &= (255 | 2); index += 1 }; value *= ~(5); (+4 ^ ~(4))

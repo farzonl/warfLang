@@ -1,0 +1,9 @@
+func ()
+dnry:
+  1
+  %3 = const 4
+$ ”ind8
+  bnot %3
+  rfod#8
+  bnot %3
+e

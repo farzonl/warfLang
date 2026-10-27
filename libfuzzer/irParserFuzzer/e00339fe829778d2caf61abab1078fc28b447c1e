@@ -1,0 +1,8 @@
+func __mani()
+entry:
+ =  %1 = const 1
+  %2 = const 2
+ %1 %2
+ %trse0
+then5:
+  %4 = const 4 %2 @ 

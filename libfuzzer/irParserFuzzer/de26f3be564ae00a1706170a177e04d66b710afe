@@ -1,0 +1,15 @@
+func __main()
+entry:Ö0
+  %1 = const 1
+  %2 = const 2
+  lt %1 %2
+  bdí %1 %2
+  ret %3
+
+func foo(%az, %b, 'c)
+y:
+  %b%0
+  %1 = const 2
+(va 2
+%3 = lt %1 %1
+$ y2 foe

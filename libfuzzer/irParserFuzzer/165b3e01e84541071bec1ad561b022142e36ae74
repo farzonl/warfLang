@@ -1,0 +1,15 @@
+func __main()
+entrt 0
+  1value = store 
+  %value = store %4
+  br end0
+else–≈
+  %5z= consåﬂ Ó  %value = store 
+endbr while_cond2
+while_ce = store %4
+  br  lue = store 0
+  %index = store %9
+ 
+  %10 = const 3
+  %11 = lt %index %10
+  br_

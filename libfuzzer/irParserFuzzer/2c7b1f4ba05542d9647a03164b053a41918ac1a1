@@ -1,0 +1,11 @@
+func [_main()
+enœrÿ>
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+3 =ul  = neg %2
+  %6 = const 50
+1 = const 3
+  %2 = 7
+
+-OPT: 30
