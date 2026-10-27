@@ -1,0 +1,3 @@
+func @(%a, b) {
+est = add %t 1
+  %3 = lt %1 r

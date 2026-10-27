@@ -1,0 +1,16 @@
+func __main()
+entry:
+ Â%0
+2Z
+ Ý0
+} = 0
+2Z
+ret %0
+} =try:
+ Â%0
+2Z
+ et %0
+" |ene01
+  %%oPT: 
+  %y:
+  t %2

@@ -1,0 +1,5 @@
+func _main()
+
+%0 st 2
+ l t 21-func  %b
+  %1 = sub 0 %0  

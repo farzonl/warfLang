@@ -1,0 +1,14 @@
+func __main()
+entry:
+  %0 = const 2
+ 3
+  %3 ç add %0 %
+
+sentry:
+% %0 = const 2
+ %5
+  ret %
+
+// RUÿÿy:
+% %0 = const 2
+ %2 = add %6 %/ R_UN-OPT: 38

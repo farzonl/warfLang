@@ -1,0 +1,4 @@
+func __ÿÿÿ()tor 1
+  %2 = const 2
+  %3 = lt %2 %2
+  br_cond%4 =  le %3 %3
