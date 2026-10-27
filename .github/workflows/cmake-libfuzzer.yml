@@ -57,11 +57,35 @@ jobs:
             artifact_arch: x86_64
     steps:
     - uses: actions/checkout@v2
+    - name: Cache Linux apt packages
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/cache@v3
+      with:
+        path: ${{ github.workspace }}/apt-cache
+        key: ${{ runner.os }}-libfuzzer-apt-cache-v1-${{ hashFiles('.github/workflows/cmake-libfuzzer.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-libfuzzer-apt-cache-v1-
     - name: Install Dependencies (Linux)
       if: matrix.os == 'ubuntu-latest'
       run: |
-        sudo apt install build-essential cmake \
-        ca-certificates llvm clang libedit-dev ninja-build
+        if compgen -G "${{ github.workspace }}/apt-cache/*.deb" > /dev/null && sudo DEBIAN_FRONTEND=noninteractive dpkg -i "${{ github.workspace }}/apt-cache"/*.deb; then
+          echo "Installed Linux dependencies from cached .deb archives"
+        else
+          sudo rm -f /etc/apt/apt.conf.d/docker-clean
+          mkdir -p "${{ github.workspace }}/apt-cache/partial"
+          sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-upgrade \
+            -o Dpkg::Use-Pty=0 \
+            -o APT::Keep-Downloaded-Packages=true \
+            -o Acquire::Retries=3 \
+            -o Acquire::http::Timeout=30 \
+            -o Acquire::https::Timeout=30 \
+            -o Dir::Cache::archives="${{ github.workspace }}/apt-cache" \
+            llvm clang libedit-dev ninja-build
+        fi
+        sudo rm -rf "${{ github.workspace }}/apt-cache/lock" "${{ github.workspace }}/apt-cache/partial"
+        mkdir -p "${{ github.workspace }}/apt-cache"
+        sudo chown -R "$USER:$USER" "${{ github.workspace }}/apt-cache"
     - name: Install Dependencies (Mac)
       if: matrix.os == 'macos-15'
       run: |
@@ -182,12 +206,36 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Cache Linux runtime apt packages
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/apt-cache
+          key: ${{ runner.os }}-libfuzzer-runtime-apt-cache-v1-${{ hashFiles('.github/workflows/cmake-libfuzzer.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-libfuzzer-runtime-apt-cache-v1-
+
       - name: Install Runtime Dependencies (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            llvm libedit-dev unzip python3
+          if compgen -G "${{ github.workspace }}/apt-cache/*.deb" > /dev/null && sudo DEBIAN_FRONTEND=noninteractive dpkg -i "${{ github.workspace }}/apt-cache"/*.deb; then
+            echo "Installed Linux runtime dependencies from cached .deb archives"
+          else
+            sudo rm -f /etc/apt/apt.conf.d/docker-clean
+            mkdir -p "${{ github.workspace }}/apt-cache/partial"
+            sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update
+            sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-upgrade \
+              -o Dpkg::Use-Pty=0 \
+              -o APT::Keep-Downloaded-Packages=true \
+              -o Acquire::Retries=3 \
+              -o Acquire::http::Timeout=30 \
+              -o Acquire::https::Timeout=30 \
+              -o Dir::Cache::archives="${{ github.workspace }}/apt-cache" \
+              llvm libedit-dev unzip python3
+          fi
+          sudo rm -rf "${{ github.workspace }}/apt-cache/lock" "${{ github.workspace }}/apt-cache/partial"
+          mkdir -p "${{ github.workspace }}/apt-cache"
+          sudo chown -R "$USER:$USER" "${{ github.workspace }}/apt-cache"
 
       - name: Install Runtime Dependencies (Mac)
         if: matrix.os == 'macos-15'
