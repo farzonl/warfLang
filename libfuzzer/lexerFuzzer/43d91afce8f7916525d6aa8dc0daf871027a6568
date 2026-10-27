@@ -1,0 +1,13 @@
+"hello world
+"backslash: \\"
+
+"hello " + "Aorld"
+"½½tab\there"
+ \"hi\""
+"backslash: |½ý½ta
+"hello " + "Aorld"
+"ab\there"
+ \"hi\""
+"backslash: |½½½tab\there"
+"4(-(ob\there"
+"4(-(ov

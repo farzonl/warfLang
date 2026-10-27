@@ -1,0 +1,7 @@
+func __main())
+  ret %  sub dd %a, %b
+  ret %0
+}
+func @call @add(10, 20)
+  ret % %! = sub %0 %c
+  re30

@@ -1,0 +1,16 @@
+"heÿÿÿÿÿÿÿÿÿÿÿnworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\" + "nudoerabc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+let s1 = "warf"
+let s2 = "lang"
+let s3 = s1f"
+let s2 3 == "warflang"
+
+print("message from print")
+print(s3)

@@ -1,0 +1,8 @@
+func __main()n()
+entry:
+  %3 = const 2
+r %3 =
+  %2 =  ne %3 %3
+hen0t4
+  %8 =  le %2 %3
+  %5val%e

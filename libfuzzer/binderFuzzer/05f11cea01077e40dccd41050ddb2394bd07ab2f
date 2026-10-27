@@ -1,0 +1,8 @@
+"hello world"
+""
+"4ExpressionNodelo\nw: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc"

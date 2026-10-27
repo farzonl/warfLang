@@ -1,0 +1,8 @@
+"hello world"
+"a ,,s,0i,~a,0lo,0i,~a,0lo\nw=: \"hi\""
+"backslash: \\"
+
+"ehllo " + "wo’rld"
+""  + "wo’ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿrld"
+"" + "abc"
+"abc"

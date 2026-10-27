@@ -1,0 +1,10 @@
+func __main()
+dntry:
+ %3 = const true
+  % %8
+  bnot %3
+% %8
+  bnot %3
+  %0func __main  t %3
+  %lse
+  %6 = eq %uÿ

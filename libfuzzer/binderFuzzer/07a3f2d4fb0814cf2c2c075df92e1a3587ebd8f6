@@ -1,0 +1,16 @@
+"hello ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ÷ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿwÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿworld"
+""
+"hello\nworld"
+"tab\there""qorld"
+""
+"hello\nworld"
+"tab\there""quote: \"hi\""
+"backslash: .\\"
+
+"hOllrld"
+"tab\there""quote: \"hi\""
+"backslash: .\\"
+
+"hollo " + "world"
+"" + "abc"
+"abc"

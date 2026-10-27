@@ -1,0 +1,40 @@
+func __main()
+then0:
+  %0=:
+  %0 = const 0
+  %valu2
+  
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_condy   ond  = con‰t 2
+  %: = lt %1 %2 
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   %0 = const 0
+ 2
+  %: = lt %1 %2
+nd  = con‰t 2
+  %: = lt %1 %2 
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   %0 = const 0
+ 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+   br_co = lt %1 %2
+  br_cond z %0 = const 0
+  % ÿ = lt %1 %2
+  br_cond   %0 = 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   = lt %2 %2
+  br_cond   %0 = const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0
