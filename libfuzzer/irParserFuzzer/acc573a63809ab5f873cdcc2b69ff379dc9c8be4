@@ -1,0 +1,54 @@
+func __main()
+c
+  2
+  
+
+// RUN-OPT RUN-OPT:etet %0t 2
+  
+
+// R%0 %c0
+  ret %1t 2
+  
+
+// RT×éÿÔTþÿÿÿÿÿÿ2
+  
+
+// RUN
+  
+
+ýÿÿ÷U×éÿÔTþÿÿÿÿ%1t 2
+  
+
+// RU×éÿÔTþ%6ÿÿÿÿ2
+  
+
+/= sub 
+´func foo %
+  2
+  
+
+// RUN-OPT:etet %0t 2
+  
+
+// R% %1t 2
+  
+
+// RT×éÿÔTþÿÿÿÿÿÿ2
+  
+
+// RUN
+  
+
+ÿÿÿ÷U×éÿÔTþÿÿÿÿÿÿ2
+  
+
+// RUN-OPT: /2
+  
+
+// RUN
+  
+
+ÿÿÿ÷U×éÿÔT2
+  
+
+// RUN-OPT: 0

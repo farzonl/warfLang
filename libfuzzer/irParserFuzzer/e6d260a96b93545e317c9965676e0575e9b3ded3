@@ -1,0 +1,20 @@
+func __main()r
+ey:t
+n  %0 = const 2
+  % %value = store %7
+  bend0
+end0:
+  br wh
+  %8 = const 1
+  %value = store_add %8
+  j_cond1
+while_end1:
+  %9 = const 0
+ ndex = store %9
+  br forcond2:
+  %10 = const 3
+1 = co1
+%5
+  ret %7
+
+/UN-OPT: 30

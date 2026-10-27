@@ -1,0 +1,27 @@
+1 function foo(a, b, c) {
+  a 4 1;- c
+}
+
+111
+1 == 1 && true
+1 
+255 == 255
+true == false
+!true == true
+false == true
+1 == 2
+true != true
+false != false
+1 != 1
+255 != 255
+true != false
+!true != true
+false != true
+1 != 2
+1 != 111
+1 == 1 && true
+1 == 1 && 2 == 2
+1 == 1 && false
+11 == 1 || 2 == 3
+false || 2 == 2
+1 ==foo(2, 3, 41 )

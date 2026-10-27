@@ -1,0 +1,4 @@
+func __main()
+e:
+  %10 = const 3
+  %11 = lt %rndex %10

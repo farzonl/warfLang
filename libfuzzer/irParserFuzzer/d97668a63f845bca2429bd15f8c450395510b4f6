@@ -1,0 +1,7 @@
+func min()
+entry% 0
+0then0:
+  %4 = const 2
+  %7dd %0%5 = neg %4
+
+ ilqe

@@ -1,0 +1,5 @@
+func @d(%an()rÿÿÿÿy
+e
+  %0 = const 6
+:
+ %0 = add

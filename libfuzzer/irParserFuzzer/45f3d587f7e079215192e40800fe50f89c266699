@@ -1,0 +1,19 @@
+func __main()
+enTry:
+  %2 = const 0
+  %vafu.c alue = store %0
+  % %2 = const 0
+  %vafu.c alue = store %0
+  %1 = const 0
+  %0 = const 2
+  %3 = gt %1 %2
+  br_nst 2
+  %3 = gt %1 %2
+coueÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+ c	lfun1 = const 0
+  %0 = const 2
+  %3 = gt %1 %2
+  br_nst 2
+  %3 = gt %1 %2
+coueÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+ c	lfunc un_

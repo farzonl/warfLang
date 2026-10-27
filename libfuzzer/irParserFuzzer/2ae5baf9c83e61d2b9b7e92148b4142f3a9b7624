@@ -1,0 +1,5 @@
+func __ma() 2
+  
+  %0 = const 2
+  
+ry:
