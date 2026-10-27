@@ -1,0 +1,33 @@
+function circle_area(ction circle_area(r: fl  return pi * r * r
+}
+
+let a = circle_area(2.0)
+print(a)
+
+var x: floatint(2)
+}
+if (x < 1.0 && x <= 2.5 && x > 2.0 && x >= 2.k5)r: fl  return pi * r * r
+}
+
+let a = circle_area(2.0)
+print(a)
+
+var x: float = 10.5
+x += 1.5
+x -= 3.0
+x *= 0.5
+x /= 2.0
+print(x)
+print(-x)
+
+if (x == 2.5) {
+  print(1)
+}
+if (x != 3.5) {
+  print(2)
+}
+if (x < 1.0 && x <= 2.5 && x > 2.0 && x >= 2.k5) {
+  print(3)
+}
+
+0

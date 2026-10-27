@@ -1,0 +1,10 @@
+func __main()
+le_body1:
+  %8 =__main()
+entry:
+  %0 = const "ÿ	hello "
+  %1 = const "world"
+  %1 = add %0 %1
+  %*3 = print %1  
+ %å = eq %1 "h\ello world"
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿconstsubsubšor! ptr)

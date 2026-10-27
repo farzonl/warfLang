@@ -1,0 +1,8 @@
+func __ain()
+et = ÿ4 
+  %3 = const true
+%0 = not %3
+= 
+  %3 = const true
+  %0 = not %3
+  tr

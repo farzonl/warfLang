@@ -1,0 +1,3 @@
+func ()
+ %5 = const 1
+f = t 0e

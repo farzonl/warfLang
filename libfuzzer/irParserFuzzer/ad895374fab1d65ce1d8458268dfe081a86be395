@@ -1,0 +1,6 @@
+func __man()0:
+  :
+  %4 =
+ neg 74
+bfor_cadd %4
+maret in()

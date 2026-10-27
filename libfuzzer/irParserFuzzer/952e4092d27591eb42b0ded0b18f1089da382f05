@@ -1,0 +1,8 @@
+func __mnfunc __ma–‘()
+entryC
+  ,0  const 1
+st 2 
+ % = const mul %2 %3
+  %5 = neg %4cons 0
+@t
+  %7 = add %6 %5 

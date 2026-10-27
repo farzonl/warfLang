@@ -1,0 +1,41 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backsla)h: \\"
+
+"hello " + "world"
+"" + "abc"
+&"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "az"
+
+let s2 = "fra"w
+let s2int(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: str "second"
+}
+pick(true)
+pick(false)
+
+var shadow_x: int = 11
+{
+  let shadow_x: string = "hello"
+}
+shadow_ng = "outer"
+{
+  let shadow_s: int = 42
+}
+shadow_s + "!"

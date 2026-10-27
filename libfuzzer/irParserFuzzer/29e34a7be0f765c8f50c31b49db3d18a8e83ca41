@@ -1,0 +1,5 @@
+func __min()t 0
+  %0 = const 17
+  %1 = const 0
+  %2 = mod %0 %1
+  ret %2

@@ -1,0 +1,6 @@
+extern function abs(x: int): int
+extern fun/ /ction ?utchar(c: int): i/ nt;
+extern function puts(s: string): int
+
+print(abs(-r(%c)
+// IR: .
