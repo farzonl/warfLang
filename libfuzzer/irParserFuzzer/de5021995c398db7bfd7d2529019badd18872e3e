@@ -1,0 +1,9 @@
+func __main()
+"_cond2
+
+ %1: = const 22
+  %13 = const  00 %in
+for2:
+  %1: = const 2
+ffun2:
+  %1: = cone

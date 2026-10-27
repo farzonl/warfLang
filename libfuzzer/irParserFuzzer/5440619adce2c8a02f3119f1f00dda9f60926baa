@@ -1,0 +1,18 @@
+func _^main()
+entry: 1 = const 4
+  %20= adfunc _[main()
+ealucconst02
+ÿÿ %3 = const 4
+  mul %2 %3
+  %5 = neg %5
+  3
+0  %2 = add %0 %1
+ ÿÿÿÿ %3ore %4
+ueconst 2
+  %3 = lt %0 %2
+  br_cond %$g)Ë)¨ %2 %3
+  %5 = neg %4
+  3
+  %r 
+  %6 = const 50
+ %0 %

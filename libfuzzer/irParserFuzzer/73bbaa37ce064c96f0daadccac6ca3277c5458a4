@@ -1,0 +1,15 @@
+func __main()
+entry:
+  %0 = const 1
+  %v¤lue = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_o0d %3 then0 else0teh
+An0:
+  %4 = const 4
+  %value = store %4
+  br end0:
+  %5 = co 2
+  % %value = nd0:
+ %value

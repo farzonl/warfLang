@@ -1,0 +1,21 @@
+func __main()
+ent‡†Åõ  %0 = const 10
+  %0 = const 0
+3 =onst 0
+  %2 = div %0 %1
+  %3 = const true
+  %3 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+t!%6
+4£ = not %3
+  %5 = const false
+  %6 = eq %N-OPt‡†ÅT: trret %6
+
+// RUNtrue
+  %4 = not %3
+  %5 = const
+  %6 = eq %4 %5
+  ret %6
+
+// RUN-OPT: true

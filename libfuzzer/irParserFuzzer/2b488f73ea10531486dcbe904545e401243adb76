@@ -1,0 +1,13 @@
+func __main()
+ent e2
+  %0 = sco
+  %2 %3 then0 else0
+th%n0:
+  %4 = const 4
+ s268 = neg %4
+  %6 = 3
+  %5 = const false
+  %6 = eq %4 %5
+ðÿÿÿ  rÿÿÿÿÿÿse
+  %6 = eq %4 %5
+  rÿÿÿÿÿÿÿ/ RUN RUn-OPTue

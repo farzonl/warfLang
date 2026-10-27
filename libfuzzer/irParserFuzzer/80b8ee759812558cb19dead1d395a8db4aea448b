@@ -1,0 +1,9 @@
+func __main()
+dntry:
+  1
+  %3 = const 4
+= mindebr8
+  bnot %3
+  %br fod #8
+  bnot %3
+  %5 =!const fe

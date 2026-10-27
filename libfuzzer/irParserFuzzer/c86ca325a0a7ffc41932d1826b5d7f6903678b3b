@@ -1,0 +1,29 @@
+func __main()
+en =  %1 = 
+func foo(%a, %b,ei(t %c)  re
+en =  %1 = 
+func foo(%a, %b,ei(t %c)  ret %3
+
+func foo(%a, %)), c %c)o((t %c)  ret %3
+
+func foo(%a, %), %c)c)  ret %3
+
+func foo(%a,t %c)  ret %3
+
+func foo(%a, %)), c %c)  ret %3
+
+func foo(%a, %), %c)
+entry:
+  %0 t %3
+
+func foo(%a, %)), c %c)o((t %c)  ret %3
+
+func foo(%a, %), %c)c)  ret %3
+
+func foo(%a,t %c)  ret %3
+
+func foo(%a, %)), c %c)  ret %3
+
+func foo(%a, %), %c)
+entry:
+  %0 = add %
