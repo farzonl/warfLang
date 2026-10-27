@@ -1,0 +1,2 @@
+// Lines: 27.75% (1247/4493) Regions: 30.74%
+a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false))) { index (+ (42) | (a ^ 1)); function inc(x: int): int { return x + 1 } inc(true)

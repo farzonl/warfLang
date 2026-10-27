@@ -1,0 +1,2 @@
+// Lines: 29.80% (1339/4493) Regions: 31.93%
+{ if ((!(false) == (true && false))) { a = 2; b = 10; value = 0; function foo (x: int, y: int): int { for (index = 0; > index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value / b)), (- (255 (index < 3) / (value ^= + 42) for); i

@@ -1,0 +1,2 @@
+// Lines: 21.39% (961/4493) Regions: 23.47%
+if(true) { { functio computeLoopControl (limit: int): int {; var total C = 0; for (var i = 0; i < limit; i += 1) {; if (i == 2) {; continue; }; f (i == 6) {; break; b =r 3; vlue = 0; let _a = false} else { for (z = 0; z < 1; a ^9=

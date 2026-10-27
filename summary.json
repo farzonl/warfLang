@@ -1,20 +1,20 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 385,
+  "corpus_size": 403,
   "findings_count": 0,
   "cumulative_coverage": {
-    "lines_covered": 4036,
-    "lines_total": 22233,
-    "lines_percent": 18.15319570008546,
-    "regions_covered": 2448,
-    "regions_total": 8319,
-    "regions_percent": 29.426613775694193,
-    "branches_covered": 1526,
-    "branches_total": 2733,
-    "branches_percent": 55.836077570435414
+    "lines_covered": 4170,
+    "lines_total": 22819,
+    "lines_percent": 18.27424514658837,
+    "regions_covered": 2572,
+    "regions_total": 8674,
+    "regions_percent": 29.65183306433018,
+    "branches_covered": 1618,
+    "branches_total": 2991,
+    "branches_percent": 54.09562019391508
   },
   "best_single_program": "{ a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && 255))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~false * 1)}; index = 0; value = 0; for (index = 0; index < 4; index += 1) { let x = (value = value)}; if ((- 42 < (4 * 1))) { if (false) { 1) { let x = (value = value)}; if ((- 42 < (4 * 1))) { if (false) { b &= ~7}} else { function compute (x: int, y: int): int { x *= + 7; return + (255)} compute (255, (+ 7 / 42))}; index = 0; b = 3; if (((false (((false !=",
-  "best_single_coverage_percent": 37.99556759418862,
+  "best_single_coverage_percent": 34.78744713999555,
   "findings": []
 }

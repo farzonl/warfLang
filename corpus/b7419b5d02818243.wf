@@ -1,0 +1,2 @@
+// Lines: 40.46% (1818/4493) Regions: 42.46%
+a = 1; b = 1; value = 0; a /= (255 - (value * 0)); function compute(x, y) { c = 0; while (c < 3) { x = 3; c += 1 }; return ((255 ^ 5) - ~(7)) } compute((+(3) + (value | a)), (0 & (a & 2))); b /= ((0 & value) & +(255)); i = 0; while (i < 4) { b = ~(5); i += 1 }; +((4 + a))
