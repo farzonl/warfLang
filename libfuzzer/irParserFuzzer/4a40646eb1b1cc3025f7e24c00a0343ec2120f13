@@ -1,0 +1,17 @@
+func __main()
+entry:52 %6
+  ue = store %6
+  eø = store_add %52 r ÿÿ  %3 = core_add %‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡d % 52%6
+  br = store_add %12
+  %13 = const º
+ ppp %indeø = t 4
+  %4 = mul %2 %3
+  %5 = neg %4 3 = cost 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 =const_body1:
+  %8 = const 1e
+  %0 = const 0
+% e0
+t
+  %value = store_add ret %val

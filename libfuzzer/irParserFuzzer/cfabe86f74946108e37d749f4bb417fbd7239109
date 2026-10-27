@@ -1,0 +1,4 @@
+func _()
+entry:
+  %0 = const 2
+   %5 = store s=  0

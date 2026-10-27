@@ -1,0 +1,4 @@
+// TopBBBBBBBBBd variable declarations
+let start = 84 // starting offset
+var bonus = 5
+bonus += 3 // ts(base: ithComments(start% 6) + bonus

@@ -1,0 +1,4 @@
+func _ain()
+
+%0 = const 2
+t 2 cn%1 = sub %0 %0  

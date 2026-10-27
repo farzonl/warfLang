@@ -1,0 +1,1 @@
+a = 1; b = 1; value = 0; function compute(x: int, y: int): int { { y = 254 }; return; return((y - ~5) / x) } compute((a), 0); return;
