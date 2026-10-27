@@ -1,0 +1,58 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 = "warf"
+let s2 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {
+  return "hi " + name
+}
+greet("alice")
+
+function pick(c: bool) {
+  if (c) {
+    return "first"
+  }
+  return "second"
+}
+pick(true)
+pick(false)
+
+var shadow_x: int = 10
+{
+  let shadow_x: string = "hello"
+}
+shadow_x + 5
+
+var shadow_s: string = "outer"
+{
+  let shadow_s: inhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhht = 42
+}
+shadow_s + "!"

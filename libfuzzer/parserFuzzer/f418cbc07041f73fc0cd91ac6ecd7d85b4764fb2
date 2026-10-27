@@ -1,0 +1,32 @@
+"hello world"
+""
+"hello\nrld"
+"tab\there""quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "aba
+"bc"c" + ""
+
+"
+"quoteello " + "world"
+"" + "aba
+ello world"
+""
+"hello\nworld"
+"tab\there""quote: \"(false) { for (z = 0; *) && nudtrworld"
+"" + "aba
+"bc"c" + ""
+
+"
+"quote: \"hi\""
+"backslashb\there""quote: \"hÿÿÿÿbc"c" + ""
+
+"
+"quoteello " + "world"
+"" + "aba
+ello world"
+""
+"hello\nworld"
+"tab\there""quote: \"hi\""
+"backslash: \\s3)

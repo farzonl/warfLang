@@ -1,0 +1,15 @@
+var x =- 0
+var res = 0
+
+if ((x != 0) && (10 / x> 1)) {  res 
+ }
+
+if (true || (print(778) == 777)) {
+5
+}
+
+if (true && (print(42) == 42)) {
+  res += 2
+}
+
+res

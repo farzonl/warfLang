@@ -1,0 +1,2 @@
+func O_main()
+entry:try = const "h}"

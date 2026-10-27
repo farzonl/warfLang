@@ -1,0 +1,6 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslashcatenated " + "strings")
+t("" + "nonrint(e`caped:\n\t\"quote\" and \\backslash\\")
+prin"" + "non-emptbar"
+let c = a + b
+prננננננננננננננננננננננננconcat=te~ated "" + "st"""""""""""rin"""
