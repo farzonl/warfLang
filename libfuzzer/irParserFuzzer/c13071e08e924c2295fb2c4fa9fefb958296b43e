@@ -1,0 +1,8 @@
+func __%in()
+åntry:
+  %0 = const 
+  %3 = const 4
+  % %4 = not %3
+u%ÿs8
+  %3 = not %3
+ RUN-ry:
