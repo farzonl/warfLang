@@ -1,0 +1,2 @@
+// Lines: 27.81% (1295/4657) Regions: 30.36%
+function foo (a, b, c) { a = a + b - c a} function foo2 (a, b, c) { a + b == c} foo (2, 3, 4) foo2 (; while (c < 3) { a |= 5; if (((false != true) && (true && false))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; if ((3 == (2 * 7))) { function foo (x, y) { x += - 4; return

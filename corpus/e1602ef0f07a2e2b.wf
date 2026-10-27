@@ -1,0 +1,2 @@
+// Lines: 15.72% (3677/23395) Regions: 25.97%
+a = 5; b = 10; value = 0; { c = (7 * 1) }; if (!(false)) { for (index = 0; index < 4; index += 1) { a = ~42 } } else { y = (4 | 2) }; if ((0 < +3)) { function compute(x: int, y: int): int { x += +1; return (7 / 3) } compute(value, (value * 3)) }; for (z = 0; z < 4; z += 1) { var res = 42 }; -(value)

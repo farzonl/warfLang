@@ -1,2 +1,2 @@
-// Lines: 18.68% (863/4619) Regions: 20.93%
+// Lines: 18.62% (867/4657) Regions: 20.83%
 if (((value &= x) < a)) { a = (3 * (2 + 1) / 4 == 5 * (10 * (3 + 2 | 4) } else { for (index = 0; index < 4; index += 1) { value |= 2 } }

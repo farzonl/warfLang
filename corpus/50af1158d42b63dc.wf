@@ -1,0 +1,2 @@
+// Lines: 27.34% (1273/4657) Regions: 29.57%
+{ function foo (a: int, b: int): int { if (a > b) { return a} else { return b}} foo (10, 20); if (((3 + 0) < 4)) / (value ^= - 42) for); |= (value ^= 4) (a > b) { return a} else { return b}} foo (10, 20); index += 1) { x += 0}; if (((3 + 0) < 4)) { function compute (x, y) y |= ~3; return + (255)} compute7 (3 limit) { value += 1} for (index = 0; return 7} foo ((42 ^ (value * b)), (- (255) / (value ^= - 42))); val; 1 / 0

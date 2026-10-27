@@ -1,0 +1,2 @@
+// Lines: 28.65% (1334/4657) Regions: 30.76%
+a = 2; b = 1; value = 0; var b = ((42 / 42) | +(4)); b = (42 / 4); function baz(x: int, y: int): int { return -(y); return y } baz((2 | -(2)), (value &= (0 * 0))); if (false) { let index = (10 <= b) } else { if ((10 <= b)) { b *= 1 } else { b |= 2 } }; (value += 7)

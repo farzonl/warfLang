@@ -1,0 +1,2 @@
+// Lines: 9.69% (2266/23395) Regions: 17.19%
+a = 2; b = 3; value = 0; var value = value; let z = +((4 ^ 10)); ((255 & -0) - value)

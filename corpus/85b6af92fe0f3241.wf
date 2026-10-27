@@ -1,0 +1,2 @@
+// Lines: 29.27% (1363/4657) Regions: 31.37%
+function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; for (var i = 0; let res = value; let z = (value >= a)

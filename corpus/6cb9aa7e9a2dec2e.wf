@@ -1,0 +1,2 @@
+// Lines: 24.46% (1139/4657) Regions: 26.39%
+a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= let res = value; let z = (value >= a)

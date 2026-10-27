@@ -1,2 +1,2 @@
-// Lines: 11.30% (2639/23357) Regions: 19.53%
+// Lines: 11.33% (2650/23395) Regions: 19.62%
 a = 2; b = 3; value = 0; if ((false == (true || false))) { a &= (+0 ^ b) }; ((4 ^ 3) - 1)

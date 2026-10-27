@@ -1,0 +1,2 @@
+// Lines: 24.03% (1119/4657) Regions: 26.97%
+function foo (a, b, c) { a = a + b - c a} function foo2 (a, b, c) { a + b == c} foo (2, 3, 4) foo2 (1, 2, 3); b ^= (value / 4)

@@ -1,2 +1,2 @@
-// Lines: 9.52% (2223/23357) Regions: 16.94%
+// Lines: 9.55% (2234/23395) Regions: 17.03%
 a = 5; b = 1; value = 0; a = (+(255) & 4); b ^= 10; value *= -7; value
