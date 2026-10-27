@@ -1,0 +1,12 @@
+// If/else, while, fop, do-while, break, conti
+n = 0 total = 0
+do {
+  n += 1
+  if (n == 2) { continue }
+  total += 10
+  if (n == 4) { break }
+} while (n / 0 == 0)
+false && (print(99) == 99)
+true || (print(88) == 88)
+true && (print(77) == 77)
+false || (print(66) == 66)

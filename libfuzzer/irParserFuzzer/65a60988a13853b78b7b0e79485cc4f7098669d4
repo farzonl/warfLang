@@ -1,0 +1,19 @@
+func __main()
+entry:
+  %0ppp %indeø = store_add %52 %6
+  ue = store %6
+  eø = store_add %52 r 
+o:ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ  %3 = const 4e %6
+  br_c$ %value = store_add %12
+( %1 wh3 = const º
+'ppp %indeø = store_add %52 %6
+  br = store_add %12
+  %13 = const º
+ ppp %ind 4
+  %4 = mul %2 %3
+  %5 = neg %4 %3 = cost 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 =const_body1:
+  %8 = const 1
+  %value = store_add ret %val

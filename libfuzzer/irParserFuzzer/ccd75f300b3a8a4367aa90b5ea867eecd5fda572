@@ -1,0 +1,4 @@
+func @fd(%a,)t
+  %0 = const ýÿÿÿ2
+ nst  / = add %
+  %3 = lt %1 r

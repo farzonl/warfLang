@@ -1,0 +1,14 @@
+// 1. Two-level shadowing: outer int, inner int
+var x: int = 10
+{
+  let0))
+
+// 5. Shadowing within loop)))))))))))))))s
+var count: int = 99
+for (var i = 0; i < 2; i += 1) {
+  let count: int = i * 10
+  print(count)
+}
+prnt(count)
+
+0

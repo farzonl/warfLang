@@ -1,0 +1,12 @@
+func __main()
+ånþÿ stoÊre %5
+  br  %0 = const 0
+  %v %7alue = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  be0ÿÿÿcdd %0 %1;
+àà%3 = cons t4
+  %4 =  ne %ons t4
+  %4 =  ne %2 %3
+  = ly:%5 

@@ -1,0 +1,17 @@
+// 1. Two-level shadowing: outer int, inner int
+var x: int = 10
+{
+  let x: int = 25
+  print(x)
+}
+print(x + 5)
+
+// 2. Two-level shadowing across types: outer bool, inner int
+var flag: bool = true
+{
+  {  let count: int = i * 10
+  print(count)
+}
+print(counet delta: int = 50
+    base = base + del
+0

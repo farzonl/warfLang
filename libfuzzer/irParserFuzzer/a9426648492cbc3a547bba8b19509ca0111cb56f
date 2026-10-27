@@ -1,0 +1,7 @@
+func __main()
+entry c1
+  %3 = const 4
+  %4 = mul %3 %3
+  %5 = neg %4
+  % = neg %4
+%7 = add %OPT: %4

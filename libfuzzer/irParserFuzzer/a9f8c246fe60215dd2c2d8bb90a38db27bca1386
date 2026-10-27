@@ -1,0 +1,21 @@
+func __main()
+entr0 = const 0
+  %value = store %0
+  %1 = const 0
+  const 4
+  %v % %1 %2
+  br_cond   %0
+  i%ndex = store %9
+  br fod %8
+  br e %0
+  %1 = const 0
+  const 4
+  %v % %1 %2
+  br_cond   %0
+ store %9
+  br fod %8
+  br whi
+const 0
+  whi
+const 0
+  lue

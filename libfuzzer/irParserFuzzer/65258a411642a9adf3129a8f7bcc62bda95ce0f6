@@ -1,0 +1,8 @@
+func _main()
+entry:
+  %0)  = const 0
+  %0
+then0:
+  %4 = const 4
+ d 
+el

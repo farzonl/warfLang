@@ -1,0 +1,5 @@
+func __main()
+e = const 0
+  %value = store   %1st 1
+  %2 = const cost 4
+  

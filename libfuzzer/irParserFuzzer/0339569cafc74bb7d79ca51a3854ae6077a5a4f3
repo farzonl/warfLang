@@ -1,0 +1,3 @@
+func @ax()
+  %5 = const 0
+e = t 0en__

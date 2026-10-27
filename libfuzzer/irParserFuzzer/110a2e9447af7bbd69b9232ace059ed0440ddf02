@@ -1,0 +1,5 @@
+func __main()
+en|r 2
+st 7
+ %%1 = add %2
+%10 = add

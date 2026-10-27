@@ -1,0 +1,3 @@
+func @(% %f)!{
+  ret {%b
+  ret co
