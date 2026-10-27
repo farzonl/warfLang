@@ -1,0 +1,2 @@
+// Lines: 14.57% (3115/21375) Regions: 24.86%
+a = 0; b = 3; value = 0; if (!((a == 255))) { function foo(x, y) { x += 2; return (y * 10) } foo((1 + 4), -(10)) } else { if ((b != a)) { a *= 1 } else { b |= b } }; for (z = 0; z < 5; z += 1) { { a /= b } }; if (false) { if ((false == false)) { b |= b } else { b |= 4 } } else { if ((1 == ~2)) { a ^= -7 } else { b ^= 255 } }; (~(-1) ^ (a | a))

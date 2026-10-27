@@ -1,0 +1,2 @@
+// Lines: 7.73% (1652/21375) Regions: 14.54%
+a = 1; b = 3; value = 0; let x = (b * 1); b

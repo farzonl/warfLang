@@ -1,0 +1,2 @@
+// Lines: 22.14% (798/3605) Regions: 25.33%
+{ a = 5; b = 4; value = 0; for (; a = (value *= value) }

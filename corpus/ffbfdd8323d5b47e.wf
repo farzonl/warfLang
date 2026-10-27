@@ -1,0 +1,2 @@
+// Lines: 32.62% (1176/3605) Regions: 35.84%
+a = 5; b = 4; value = 0; for (z = 0; z < 5; z += 1) { if ((false == true)) { value = 5} else { b /= 1}}; z += 1) { if ((false == true)) { value = 5} else { b /= 1}}; if (false) { for (z = 0; z < 2; z += 1) { b *= 5}} else { if ((1 == 2)) { a -= + 4} else { value ^= a}}; value; function baz (x: int, y: int): int { y *= 5; return + (5)} baz (~(a), (42 + 4))

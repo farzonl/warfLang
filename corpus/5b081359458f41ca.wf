@@ -1,0 +1,2 @@
+// Lines: 34.59% (1247/3605) Regions: 37.56%
+if (((-10 >= 7) != true)) { { function isPos (x: int): bool { return x > 0} res = 0; if (true) { a = 2} else { function == (x: int, y: int): int { y -= y; return + (~5)} abs ((4 | 42), (5 & + 10) -}; } (value ^= 4); index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; if ((3 == (2 * 7))) { function foo (x, y) { x += - 4; value = 0; a ^= + (3); return (42 - 4) } foo((b | value), 42) }; value } else { { b += 4 } }

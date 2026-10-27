@@ -1,18 +1,18 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 233,
+  "corpus_size": 259,
   "findings_count": 0,
   "cumulative_coverage": {
-    "lines_covered": 3756,
+    "lines_covered": 3722,
     "lines_total": 21375,
-    "lines_percent": 17.5719298245614,
-    "regions_covered": 2230,
+    "lines_percent": 17.412865497076023,
+    "regions_covered": 2204,
     "regions_total": 7655,
-    "regions_percent": 29.131286740692357,
-    "branches_covered": 1397,
+    "regions_percent": 28.791639451338995,
+    "branches_covered": 1377,
     "branches_total": 2179,
-    "branches_percent": 64.11197797154658
+    "branches_percent": 63.19412574575494
   },
   "best_single_program": "a = 5; b = 1; value = 0; function baz (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x |= x}; return + ((x & y))} baz (7,) 1); if (true) { a = 2} else { function abs (x: int, y: int): int { y -= y; return + (~5)} abs ((4 | 42), (5 & + 10) -}; |= (value ^= 4); computeLoopControl n: int): int { if (n <= 1) { return; c = 0; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false 2147483648)) + 4) -; let y = 10",
   "best_single_coverage_percent": 36.809986130374476,

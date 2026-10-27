@@ -1,0 +1,2 @@
+// Lines: 34.26% (1235/3605) Regions: 37.36%
+if ((+255 <= 0)) { a = 5; b = 4; value = 0; for (z = 0; z < 5; z += 1){ if ((false == true)) { value = 5} else { b /= 1}}; return 7} foo ((42 ^ (value / b)), (- (255) / (value ^= - 42) for); |= (value ^= 4); computeLoopControl n: int): int { if (n <= 1) { return; c = 0; b =) } else { var _a = (4 >= a) }

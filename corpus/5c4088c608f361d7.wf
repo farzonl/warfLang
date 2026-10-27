@@ -1,0 +1,2 @@
+// Lines: 34.51% (1244/3605) Regions: 37.60%
+if (!((true || false))) { function isPos (x 0 int): bool { return x > 0} res = 0; if (function baz (x: int, y: int): int { for (index = 0; index < 2; i += 1) { if (i == 2) { continue} f (i == 6) { break} total += i} var count =: do { count += 1 if (count == 2) { continue; index += 1) { i = 0; while (i < 3) { b &= 7; i += 1}}; if ((false != true)) { i = 0; while (i < 5) { value = 7; i += 1}}; { for (z = 0; z < 2; z += 1) { b |= 4}}; ((10 & 42) & b); function step (x, y) { if ((false && false)) { x += 7}; ret
