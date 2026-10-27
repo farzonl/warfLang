@@ -1,0 +1,42 @@
+func __maiin()st1
+ ()
+entry:Ü
+ Ü%0 = cons const1
+ ()
+ 1
+0
+  
+ ()
+entry:Ü
+ Ü%0const1
+ ()
+ntnst1
+ ()
+ 2
+0const1
+ ()
+entry: const1
+ ()
+ 2
+0
+   const1
+ ()
+entry:Ü
+ Ü%0 = cons= const1
+ ()
+ 2
+0
+  =(store  %3o :
+ nin()st1
+ ()
+entry:Ü
+ Ü%0 = cons const1
+ ()
+ 1
+0
+  
+ ()
+entry:Ü
+ Ü%0const1
+ %54
+0 b*

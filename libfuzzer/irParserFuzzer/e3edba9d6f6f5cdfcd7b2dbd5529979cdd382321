@@ -1,0 +1,17 @@
+func _func __main()
+entcons2
+  %ct 1
+ %1 = const 1
+ %2 = const 3
+  %2 = lt %1 %2
+  b= stor  %2con=  st "
+  %6 = lt %1 %2
+fÿÿÿÿÿÿÿc __main()
+entcons2
+  %st 0
+ %1nst 1
+ %2 = const 3
+  %2 = lt %1 %2
+  b= stor  %2con=  2
+ ts  %6 = lt %1 %2
+!tttttt%va!ttttttu %val.ue

@@ -1,0 +1,15 @@
+func __main()
+entry= const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  nd %2 %3
+  %5 = neg %4t  %4 = mul %2const 4
+  %4 = mul %1 %3
+ 0
+e0d0:
+  br whidd %8
+b:
+  %tàÂß dmp con
+ "st 

@@ -1,0 +1,2 @@
+func @add(%a, %b) {
+entry1                                                                 = add0 %13 c

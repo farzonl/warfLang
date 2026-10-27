@@ -1,0 +1,14 @@
+func __main()
+e = const 0
+  %value = store %0
+  %1 = conswhile_end1:
+  %9 = const store %9
+  br for_cond2
+for_cond2:
+  %10 = const 2
+  %11 = lt %index %10
+  br_cond %112 fovalue = store_add %1,
+  %13 = const 1
+  %index = store_add %13
+  br for_cond2
+for_end2  %value = sto

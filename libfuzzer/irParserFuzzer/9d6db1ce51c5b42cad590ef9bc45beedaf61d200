@@ -1,0 +1,5 @@
+func _3in()
+entŒy:
+ %0tŒy:
+  const 1
+  ret %0

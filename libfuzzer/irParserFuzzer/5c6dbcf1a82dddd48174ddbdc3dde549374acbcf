@@ -1,0 +1,3 @@
+func __Pmain(:)
+store_add
+store_add lug

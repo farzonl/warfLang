@@ -1,0 +1,28 @@
+func __main()
+entry:
+  %0 =Ÿconst 0
+  %value =%eeeeee3 then0 else0
+then0:
+  %4 = const 4
+  %value 0 %5888
+ ÿÿÿÿÿÿÃt 4
+  neg %4
+  %6 = c7
+
+// RUN-OP try:
+  %0 = ÿÿÿÿÿÿÿÃt 2
+  neg %4
+e_ëo5 = neg %4
+  neg %4
+  %6 = c7
+
+// RUain(
+ne)try:
+  %0 = const 2
+ "ÿÿÿÿÿÿÿÿÿÿÿÿÿÃt 2
+  neg %4
+  %6 =ÿÿÿÿÿÿÿÿÿÿÃt 2
+  neg %4
+S  e_ëo5 = neg %4
+  %6 ÿÿÿÿÿ=ÿÿÿÿÿco5 = neg %4
+  % 0

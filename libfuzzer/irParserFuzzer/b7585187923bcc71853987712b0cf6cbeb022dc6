@@ -1,0 +1,8 @@
+func __main()
+entrqre %0
+ %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+ brnd %3 0:
+  %ul %2 neg %3
+ 

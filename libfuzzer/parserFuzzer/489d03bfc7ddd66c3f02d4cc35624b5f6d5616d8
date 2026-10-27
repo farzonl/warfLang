@@ -1,0 +1,42 @@
+a = 5; b = 3; value = 0; a ^= + (3); Âf (((false != true) && (true && false)< 5{ true) && (true && false)< 5{ ifw (true) { value *= 3 }es {elue && (trueon abq(x: int): int {
+  if (x < 0) {
+    return {1S  }
+  return x
+}
+
+function isPositive(x: int): bool {
+ function abs(x: int): int {
+  if (x < 0): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPoistive(x: int): bool {
+  return x > 0
+}
+
+func‘tion f i return x >f (n <= 1) {
+    ret  return fib(n ;^c) + felue && (trueon abq(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+ function abs(x: int): int {
+  if (x < 0): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPoistive(x: int): bool {
+  return x > 0
+}
+
+func‘tion f i return x >f (n <= 1) {
+    ret  return fib(n ;^c) + fib i(n

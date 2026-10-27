@@ -1,0 +1,12 @@
+func __main()
+ent e 
+  %in()
+entry:
+  %0 = const 
+  %3 = const 4
+  %2 = mul %2 %3
+  % %4 = not %3
+ue
+  %4 = = div true
+  %3 = not %3
+ RUN-OPT: try:

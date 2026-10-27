@@ -1,0 +1,5 @@
+func _ain() 2
+  
+  %0 = const 2
+  
+ry:
