@@ -140,6 +140,22 @@ TEST_CASE("Comments") {
   }
 }
 
+TEST_CASE("TextSpan Line and Column Tracking") {
+  const std::string src = "let a = 10\nvar b = 20\na + b";
+  // Line 1: "let a = 10" (indices 0..9, '\n' at 10)
+  // Line 2: "var b = 20" (indices 11..20, '\n' at 21)
+  // Line 3: "a + b"      (indices 22..26)
+  REQUIRE(LineColumn{1, 1} == TextSpan::ComputeLineColumn(src, 0));
+  REQUIRE(LineColumn{1, 5} == TextSpan::ComputeLineColumn(src, 4));
+  REQUIRE(LineColumn{2, 1} == TextSpan::ComputeLineColumn(src, 11));
+  REQUIRE(LineColumn{3, 5} == TextSpan::ComputeLineColumn(src, 26));
+
+  TextSpan spanSecondLineVar(15, 16); // 'b' on line 2, col 5
+  REQUIRE(LineColumn{2, 5} == spanSecondLineVar.StartLineColumn(src));
+  REQUIRE(LineColumn{2, 5} == spanSecondLineVar.EndLineColumn(src));
+  REQUIRE("2:5" == spanSecondLineVar.FormatLocation(src));
+}
+
 TEST_CASE("Boolean Expression") {
   SUBCASE("types defined") {
     REQUIRE(testCaseHelper("true").asBool());

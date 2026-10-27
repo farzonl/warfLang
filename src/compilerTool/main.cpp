@@ -52,14 +52,7 @@ static bool ReadSourceFile(const std::string &path, std::string &source) {
   }
 
   std::stringstream stream;
-  std::string line;
-  while (std::getline(file, line)) {
-    auto comment = line.find("//");
-    if (comment != std::string::npos) {
-      line = line.substr(0, comment);
-    }
-    stream << line << " ";
-  }
+  stream << file.rdbuf();
   source = stream.str();
   return !file.bad();
 }
