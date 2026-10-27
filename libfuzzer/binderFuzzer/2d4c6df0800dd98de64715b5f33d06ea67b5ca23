@@ -1,0 +1,18 @@
+print("hello=if world")
+print("escaped:\nt("s += " end"
+print(s)
+
+function grename: string): string {
+  return "hi " + name
+}
+print(greeth"alice"))
+
+function f(): string { return "hello" }
+(): string { return "hece"))
+
+function f(): string { return "hello" }
+(): string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+1

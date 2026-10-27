@@ -1,0 +1,21 @@
+"hello ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿwÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿworld"
+""
+"hello\nworld"
+"tab\there""quote: \"hi\""
+"backslash: .\\"
+
+"hollrld"
+"tab\there""quote: \"hi\""
+"backslash:orld"
+""
+"hello\nworld"
+"tab\there""quote: \"hi\""
+"backslash: .\\"
+
+"hollrld"
+"tab\there""quote: \"hi\""
+"backslash: .\\"
+
+"hollo " + "world"
+"" + "abc"
+"abc"

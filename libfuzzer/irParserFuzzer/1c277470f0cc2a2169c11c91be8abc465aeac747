@@ -1,0 +1,6 @@
+func __main()
+entry:
+  %0 = const ""
+  %1 = const "world"
+  %4%2 = add %0 %0
+  %3  %ce i87 @st)  rcmp ct

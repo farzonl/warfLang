@@ -1,0 +1,12 @@
+func __main()
+try:
+  %0 = const 0
+  re %0
+  %1 = const 1
+  %2 = const 2
+n0:
+  %4 = const 4
+  = ÿÿÿö %4 
+ 
+  %6 = const 3
+ $%value = sto %6
