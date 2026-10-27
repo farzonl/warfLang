@@ -1173,6 +1173,38 @@ def save_outputs(
     )
 
 
+def _extract_call_stack_from_text(text: str) -> str:
+    """Fallback extractor for `#N 0x...` call stack frames from raw crash output."""
+    if not text:
+        return ""
+    frame_re = re.compile(r"^\s*#\d+\s+0x[0-9a-fA-F]+(?:\s+in\s+|\s+\()[^\r\n]+")
+    header_re = re.compile(
+        r"^(?:==\d+==(?:ERROR|WARNING):.*|"
+        r"(?:freed|previously allocated|allocated) by thread .*|"
+        r"Address 0x[0-9a-fA-F]+ is .*|"
+        r"SUMMARY:\s+\w+Sanitizer:.*|"
+        r".*runtime error:.*|"
+        r"Assertion failed:.*)$"
+    )
+    collected: List[str] = []
+    pending_header: Optional[str] = None
+    has_frames = False
+    for line in text.splitlines():
+        stripped = line.strip()
+        if frame_re.match(line):
+            if pending_header is not None:
+                collected.append(pending_header)
+                pending_header = None
+            collected.append(f"    {stripped}")
+            has_frames = True
+        elif header_re.match(stripped):
+            if stripped.startswith("SUMMARY:"):
+                collected.append(stripped)
+            else:
+                pending_header = stripped
+    return "\n".join(collected) if has_frames else ""
+
+
 def format_finding_issue(
     finding: Dict[str, str],
     run_url: Optional[str] = None,
@@ -1182,28 +1214,45 @@ def format_finding_issue(
     description = finding.get("description", "Unhandled fuzzer finding")
     program = finding.get("program", "")
     details = finding.get("details", "")
+    fuzzer_name = finding.get("fuzzer", "").strip()
+    call_stack = finding.get("call_stack", "").strip() or _extract_call_stack_from_text(details)
     fingerprint = finding.get("fingerprint") or finding_fingerprint(kind, description)
 
     raw_title = f"[Fuzzer][{fingerprint}] {kind}: {description}"
     title = raw_title if len(raw_title) <= 200 else raw_title[:197] + "..."
 
+    heading = "## Automated LibFuzzer Finding" if fuzzer_name else "## Automated Genetic Fuzzer Finding"
     body_lines = [
         f"<!-- fuzzer-fingerprint: {fingerprint} -->",
-        "## Automated Genetic Fuzzer Finding",
+        heading,
         "",
+    ]
+    if fuzzer_name:
+        body_lines.append(f"- **Fuzzer**: `{fuzzer_name}`")
+    body_lines.extend([
         f"- **Kind**: `{kind}`",
         f"- **Fingerprint**: `{fingerprint}`",
         f"- **Description**: {description}",
-    ]
+    ])
     if run_url:
         body_lines.append(f"- **Workflow Run**: {run_url}")
+    repro_ext = ".wir" if "ir" in fuzzer_name.lower() else ".wf"
+    repro_lang = "text" if repro_ext == ".wir" else "warf"
     body_lines.extend([
         "",
-        "### Reproducer (`.wf`)",
-        "```warf",
+        f"### Reproducer (`{repro_ext}`)",
+        f"```{repro_lang}",
         program,
         "```",
     ])
+    if call_stack:
+        body_lines.extend([
+            "",
+            "### Call Stack",
+            "```text",
+            call_stack,
+            "```",
+        ])
     if details:
         body_lines.extend([
             "",

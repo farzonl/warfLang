@@ -77,6 +77,19 @@ ASAN_SUMMARY_RE = re.compile(
 ASAN_ERROR_RE = re.compile(r"ERROR:\s+(AddressSanitizer|UndefinedBehaviorSanitizer):\s+([^\s:]+)")
 LIBFUZZER_ERROR_RE = re.compile(r"ERROR:\s+libFuzzer:\s+([^\r\n(]+)")
 STACK_FRAME_RE = re.compile(r"^\s*#\d+\s+0x[0-9a-fA-F]+\s+in\s+([^\r\n]+)")
+RAW_STACK_LINE_RE = re.compile(r"^\s*#\d+\s+0x[0-9a-fA-F]+(?:\s+in\s+|\s+\()[^\r\n]+")
+CRASH_BANNER_RE = re.compile(
+    r"(?:==\d+==(?:ERROR|WARNING):|UndefinedBehaviorSanitizer:|AddressSanitizer:|"
+    r"Assertion failed|runtime error:|ALARM: working on the last Unit)"
+)
+STACK_SECTION_HEADER_RE = re.compile(
+    r"^(?:==\d+==(?:ERROR|WARNING):.*|"
+    r"(?:freed|previously allocated|allocated) by thread .*|"
+    r"Address 0x[0-9a-fA-F]+ is .*|"
+    r"SUMMARY:\s+\w+Sanitizer:.*|"
+    r".*runtime error:.*|"
+    r"Assertion failed:.*)$"
+)
 RUNNING_INPUT_RE = re.compile(r"^Running:\s+(.+)$", re.MULTILINE)
 
 IGNORED_FRAME_PREFIXES = (
@@ -110,6 +123,7 @@ class LibFuzzerFinding:
     program: str
     details: str
     fingerprint: str
+    call_stack: str = ""
     artifact_path: Optional[Path] = None
 
 
@@ -291,15 +305,113 @@ def format_crashing_input(data: bytes) -> Tuple[str, str]:
     return escaped, hex_preview
 
 
+def extract_call_stack(output_text: str) -> str:
+    """Extract formatted sanitizer/libFuzzer call stack lines from `output_text`."""
+    if not output_text:
+        return ""
+    collected: List[str] = []
+    pending_header: Optional[str] = None
+    has_frames = False
+
+    for line in output_text.splitlines():
+        stripped = line.strip()
+        if RAW_STACK_LINE_RE.match(line):
+            if pending_header is not None:
+                collected.append(pending_header)
+                pending_header = None
+            collected.append(f"    {stripped}")
+            has_frames = True
+        elif STACK_SECTION_HEADER_RE.match(stripped):
+            if stripped.startswith("SUMMARY:"):
+                collected.append(stripped)
+            else:
+                pending_header = stripped
+
+    if not has_frames:
+        return ""
+    return "\n".join(collected)
+
+
+def extract_crash_report(output_text: str, max_lines: int = 160) -> str:
+    """Extract the relevant crash report section from libFuzzer/sanitizer output."""
+    lines = output_text.strip().splitlines()
+    if not lines:
+        return ""
+    for idx, line in enumerate(lines):
+        if CRASH_BANNER_RE.search(line):
+            start = max(0, idx - 2)
+            return "\n".join(lines[start : start + max_lines])
+    return "\n".join(lines[-max_lines:])
+
+
+def is_startup_or_loader_failure(returncode: int, output_text: str) -> bool:
+    """Return True if a fuzzer process failed at startup (e.g. missing DLL/shared lib) without running inputs."""
+    # Windows STATUS_DLL_NOT_FOUND (0xC0000135 = 3221225781 / -1073741515)
+    if returncode in (3221225781, -1073741515, 126, 127):
+        return True
+    lower_out = output_text.lower()
+    loader_markers = (
+        "error while loading shared libraries",
+        "dyld: library not loaded",
+        "dyld[",
+        "library not loaded:",
+        "status_dll_not_found",
+    )
+    if any(m in lower_out for m in loader_markers):
+        return True
+    # If there is no output at all and no stack trace, the process died before libFuzzer initialized
+    if not output_text.strip():
+        return True
+    return False
+
+
+def replay_crash_artifact(
+    fuzzer_bin: Path,
+    artifact_path: Path,
+    env: Dict[str, str],
+    timeout: int = 15,
+) -> str:
+    """Re-run `fuzzer_bin` on a single `artifact_path` to capture a dedicated symbolized call stack."""
+    cmd = [
+        str(fuzzer_bin.resolve()),
+        f"-timeout={max(5, timeout - 5)}",
+        str(artifact_path.resolve()),
+    ]
+    try:
+        proc = subprocess.run(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            errors="replace",
+            env=env,
+            timeout=timeout,
+        )
+        return proc.stdout or ""
+    except subprocess.TimeoutExpired as exc:
+        raw_out = exc.stdout or b""
+        if isinstance(raw_out, bytes):
+            return raw_out.decode("utf-8", errors="replace")
+        return raw_out
+    except OSError:
+        return ""
+
+
 def build_fuzzer_env(fuzzer_bin: Path) -> Dict[str, str]:
     """Construct environment variables for running a libFuzzer binary."""
     env = os.environ.copy()
     # Disable LeakSanitizer by default so platform differences don't cause false-positive exits
     existing_asan = env.get("ASAN_OPTIONS", "")
-    asan_opts = ["detect_leaks=0", "symbolize=1"]
+    asan_opts = ["detect_leaks=0", "symbolize=1", "print_stacktrace=1"]
     if existing_asan:
         asan_opts.append(existing_asan)
     env["ASAN_OPTIONS"] = ":".join(asan_opts)
+
+    existing_ubsan = env.get("UBSAN_OPTIONS", "")
+    ubsan_opts = ["print_stacktrace=1", "symbolize=1"]
+    if existing_ubsan:
+        ubsan_opts.append(existing_ubsan)
+    env["UBSAN_OPTIONS"] = ":".join(ubsan_opts)
 
     bin_dir = str(fuzzer_bin.parent.resolve())
     if platform.system() == "Darwin":
@@ -310,10 +422,17 @@ def build_fuzzer_env(fuzzer_bin: Path) -> Dict[str, str]:
         env["LD_LIBRARY_PATH"] = f"{bin_dir}:{ld}" if ld else bin_dir
     elif platform.system() == "Windows":
         path_val = env.get("PATH", "")
-        llvm_win_bin = r"C:\Program Files\LLVM\bin"
+        llvm_win_root = Path(r"C:\Program Files\LLVM")
+        llvm_win_bin = llvm_win_root / "bin"
         extra_paths = [bin_dir]
-        if os.path.isdir(llvm_win_bin):
-            extra_paths.append(llvm_win_bin)
+        if llvm_win_bin.is_dir():
+            extra_paths.append(str(llvm_win_bin))
+        # Also include Clang's Windows sanitizer runtime dir (for clang_rt.asan_dynamic-x86_64.dll)
+        clang_lib_root = llvm_win_root / "lib" / "clang"
+        if clang_lib_root.is_dir():
+            for win_rt_dir in sorted(clang_lib_root.glob("*/lib/windows"), reverse=True):
+                if win_rt_dir.is_dir():
+                    extra_paths.append(str(win_rt_dir))
         env["PATH"] = ";".join(extra_paths + ([path_val] if path_val else []))
 
     symbolizer = shutil.which("llvm-symbolizer", path=env.get("PATH"))
@@ -425,20 +544,29 @@ def run_single_fuzzer(
                 except OSError:
                     raw_bytes = b""
                 program_str, hex_preview = format_crashing_input(raw_bytes)
-                kind, description = extract_crash_metadata(fuzzer_name, output, art_path.name)
+                art_output = output
+                call_stack = extract_call_stack(art_output)
+                if not call_stack or len(new_artifacts) > 1:
+                    replayed = replay_crash_artifact(
+                        fuzzer_bin, art_path, env, timeout=max(10, per_input_timeout + 5)
+                    )
+                    if replayed.strip():
+                        art_output = replayed
+                        call_stack = extract_call_stack(art_output) or call_stack
+                kind, description = extract_crash_metadata(fuzzer_name, art_output, art_path.name)
                 fp = finding_fingerprint(kind, description)
                 if fp in seen_fingerprints:
                     continue
                 seen_fingerprints.add(fp)
                 added_new_finding = True
-                tail_details = "\n".join(out_lines[-80:])
+                crash_report = extract_crash_report(art_output)
                 details = (
                     f"OS: {os_name}\n"
                     f"Fuzzer: {fuzzer_name}\n"
                     f"Exit Code: {returncode}\n"
                     f"Artifact: {art_path.name} ({len(raw_bytes)} bytes)\n"
                     f"Hex (first 512B): {hex_preview}\n\n"
-                    f"{tail_details}"
+                    f"{crash_report}"
                 )
                 findings.append(
                     LibFuzzerFinding(
@@ -448,21 +576,30 @@ def run_single_fuzzer(
                         program=program_str,
                         details=details,
                         fingerprint=fp,
+                        call_stack=call_stack,
                         artifact_path=art_path,
                     )
                 )
         elif returncode != 0:
+            if is_startup_or_loader_failure(returncode, output):
+                print(
+                    f"Warning: {fuzzer_name} exited with code {returncode} at startup "
+                    f"(missing runtime library/DLL or empty output); skipping issue filing.",
+                    file=sys.stderr,
+                )
+                break
+            call_stack = extract_call_stack(output)
             kind, description = extract_crash_metadata(fuzzer_name, output)
             fp = finding_fingerprint(kind, description)
             if fp not in seen_fingerprints:
                 seen_fingerprints.add(fp)
                 added_new_finding = True
-                tail_details = "\n".join(out_lines[-80:])
+                crash_report = extract_crash_report(output)
                 details = (
                     f"OS: {os_name}\n"
                     f"Fuzzer: {fuzzer_name}\n"
                     f"Exit Code: {returncode}\n\n"
-                    f"{tail_details}"
+                    f"{crash_report}"
                 )
                 findings.append(
                     LibFuzzerFinding(
@@ -472,6 +609,7 @@ def run_single_fuzzer(
                         program="",
                         details=details,
                         fingerprint=fp,
+                        call_stack=call_stack,
                     )
                 )
 
@@ -681,10 +819,19 @@ def main() -> int:
             "",
             f.program,
             "",
+        ]
+        if f.call_stack:
+            f_content.extend([
+                "/* CALL STACK:",
+                f.call_stack,
+                "*/",
+                "",
+            ])
+        f_content.extend([
             "/* DETAILS:",
             f.details,
             "*/",
-        ]
+        ])
         f_path.write_text("\n".join(f_content) + "\n", encoding="utf-8")
 
     total_corpus = sum(corpus_counts.values())
@@ -704,6 +851,7 @@ def main() -> int:
                 "fingerprint": f.fingerprint,
                 "description": f.description,
                 "program": f.program,
+                "call_stack": f.call_stack,
                 "details": f.details,
             }
             for f in unique_findings
