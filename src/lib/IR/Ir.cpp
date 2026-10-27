@@ -22,6 +22,7 @@
 #include "Binding/BoundWhileStatementNode.h"
 #include <algorithm>
 #include <cctype>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -380,6 +381,13 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
     return result;
   }
   if (auto call = dynamic_cast<BoundCallExpressionNode *>(node)) {
+    if (call->Name() == "print" && !call->Body() &&
+        mEmittedFunctions.find("print") == mEmittedFunctions.end()) {
+      auto arg = LowerExpression(call->Arguments()[0].get());
+      auto result = NewTemp();
+      Emit(IrOpcode::Print, {arg}, result);
+      return result;
+    }
     LowerFunction(call);
     auto arguments = std::vector<std::string>{call->Name()};
     for (const auto &argument : call->Arguments()) {
@@ -717,6 +725,12 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
       values[instruction.result] = EvaluateBinaryOp(
           CompoundStoreToBinaryOp(instruction.op),
           EvaluateOperand(instruction.result, values), operand(0));
+      continue;
+    }
+    if (instruction.op == IrOpcode::Print) {
+      auto val = operand(0);
+      std::cout << val << std::endl;
+      values[instruction.result] = val;
       continue;
     }
     if (instruction.op == IrOpcode::Call) {

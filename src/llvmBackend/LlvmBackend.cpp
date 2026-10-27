@@ -315,6 +315,14 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
             LookupValue(instruction.result, values, slots, intType, builder);
         value = EmitBinaryOp(CompoundStoreToBinaryOp(instruction.op), current,
                              operand(0), resultName, intType, builder);
+      } else if (instruction.op == IrOpcode::Print) {
+        auto printfType = llvm::FunctionType::get(
+            intType, {llvm::PointerType::getUnqual(context)}, true);
+        auto printfFunc = module->getOrInsertFunction("printf", printfType);
+        auto fmtPtr = builder.CreateGlobalStringPtr("%d\n", ".printf.fmt");
+        auto printedVal = operand(0);
+        builder.CreateCall(printfFunc, {fmtPtr, printedVal}, resultName);
+        value = printedVal;
       } else if (instruction.op == IrOpcode::Call) {
         auto target = functionMap.find(instruction.operands[0]);
         if (target == functionMap.end()) {

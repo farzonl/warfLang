@@ -430,6 +430,17 @@ Binder::BindCallExpression(CallExpressionNode *call) {
   auto name = call->IdentifierToken()->Text();
   auto function = mScope->lookupFunction(name);
   if (function == FunctionSymbol::failSymbol()) {
+    if (name == "print") {
+      if (boundArguments.size() != 1) {
+        mRecords.ReportWrongArgumentCount(call->IdentifierToken(), name, 1,
+                                          boundArguments.size());
+        return std::make_unique<BoundLiteralExpressionNode>(0);
+      }
+      auto argType = boundArguments[0]->Type();
+      return std::make_unique<BoundCallExpressionNode>(
+          name, std::move(boundArguments),
+          std::vector<std::shared_ptr<VariableSymbol>>{}, nullptr, argType);
+    }
     mRecords.ReportUndefinedFunction(call->IdentifierToken());
     return std::make_unique<BoundLiteralExpressionNode>(0);
   }
