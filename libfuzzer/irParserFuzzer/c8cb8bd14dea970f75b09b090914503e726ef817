@@ -1,0 +1,24 @@
+func __mae_main()
+eN%1 = con f1/ to__main()
+entry:
+  %0 = const 1.25
+  %1 = const 2.75
+  %2 = add %0 %1
+  %3 = co
+ s3t %2 = add %0 %1
+  %3 = const 41
+  %4 = mul %2 %3
+  %5 = neg =2 nst 0.5
+ *%4 = sub %2 %3
+  %5 = neg %4
+  %5 = neg %2 nst 0.5
+ *%4 = sub %2 %3
+  %5 = neg %4
+  %3
+ 
+  %13 Ãßœ= print %7
+  %z = re_adconst d %14.5
+  %10 .5
+ *%4 = sub %2 %3
+  %5 = neg %4
+  %5 = neg=%33

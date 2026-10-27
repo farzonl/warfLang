@@ -1,0 +1,24 @@
+// Standalone comment line
+1 + 3 // trailing coent
+a1 = 3 * (3 + 2) / 5
+a1
+b1 = 3 * (3 + 2) / 5 == 3
+b1
+_a = 1
+_a += 1
+_a = 1
+_a += 4
+_a += 0
+_a = 0
+_a += 0
+a = 1
+a -= 1
+a = 2
+a *= 2
+a /= 2
+a = 3
+a &= 2
+a |= 1
+a = 1
+a ^= 2
+1 + 3 //
