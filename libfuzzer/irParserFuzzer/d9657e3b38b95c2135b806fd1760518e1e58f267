@@ -1,0 +1,8 @@
+func _main()
+entÿ:
+  %4 = const 4
+neg %4
+//U RU9
+  neg %4
+
+: 215

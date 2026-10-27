@@ -1,0 +1,17 @@
+func __main()
+entry:lue = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 eyCst`r   const 2
+  %3 = lt %1 %2
+  else0
+th  %0 stt 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 = const 2
+  %3 = lt %1 %2
+!r_cond %3 then0 elëëëßÂß”onstndex = store %1 = const 1
+  %2  const 1
+  %3 = store %0t%0 = cons 1
+  ttttttttt_envalue

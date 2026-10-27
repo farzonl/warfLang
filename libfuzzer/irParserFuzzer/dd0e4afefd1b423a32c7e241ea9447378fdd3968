@@ -1,0 +1,43 @@
+func __main()
+=entry = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %ile_coe_cond1
+while_cond1:
+  %6 0ÐßÂ}
+t 2
+  %1 nd0
+end0:-OP 3
+ 0ÐßÂ}
+t 2
+  %1 =
+  br -OP 3
+ 0Ð}
+t d0
+end0:
+  -OP 3
+ 0Ð}
+t 2
+  %1 = c ÿend0
+r`-OP 3
+ 0ÐßÂ}
+t 2
+  %1 =_cond1
+d1:  %1
+//% RUN-OP 3 0ÐßÂ}
+t 2
+  %1 = c end0
+end0:
+  br -OP 3
+ 0Ð}
+t 2
+  %1 = c end0
+r`-OP 3
+ 0ÐßÂ}
+t 2
+  %1 = c enp0
+end0:
+  br %%va  %2st 7
+  
+  ÛÎßÈ const 3
+ 0

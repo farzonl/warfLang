@@ -1,0 +1,12 @@
+func __main()
+entry:
+  %0 = consod2:
+  %10 = const 3
+  %11 = lt %index %10
+  b2 %11 for_body2 forÿÿÿ2
+%or_body2:
+  %12 = const 2
+  %func [_mr_orÿÿÿ3
+for_body2:
+  %12 =¼  %8_body2:
+  ai%1

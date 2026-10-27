@@ -1,0 +1,66 @@
+// If/else, while, for, do-while, break, continue
+i = 0 sum = 0
+while (i < 10) {
+ value = 0 sum = 0
+while (i < 10) {
+ value = 0; if (1 < 2) { valte = 4 } else { value= 5 }; value sum += i
+}
+sum
+
+sum2 = 0
+for (var k = 0; k < 10; k += 1) {
+  if (k == 2) { continue }
+  if (k == 5) { break }
+  sum2 += k
+}
+sum2
+
+n = 0 total = 0
+do {
+  n += 1
+  if (n == 2) { continue }
+  total += 10
+  if (n == 4) { break }
+} while (n < 10)
+total
+
+// Ex|| (1 / 0 == 0)
+x = 0
+(x != 0) && (10 / x > 1)
+(x == 0) || (10 / x > 1)
+true && true && false
+false || false || true
+true && false && (1 / 0 == 0)
+f= 0; if (1 < 2) { valte = 4 } else { value= 5 }; value sum += i
+}
+sum
+
+sum2 = 0
+for (var k = 0; k < 10; k += 1) {
+  if (k == 2) { continue }
+  if (k == 5) { break }
+  sum2 += k
+}
+sum2
+
+n = 0 total = 0
+do {
+  n += 1
+  if (n == 2) { continue }
+  total += 10
+  if (n == 4) { break }
+} while (n < 10)
+total
+
+// Ex|| (1 / 0 == 0)
+x = 0
+(x != 0) && (10 / x > 1)
+(x == 0) || (10 / x > 1)
+true && true && false
+false || false || true
+true && false && (1 / 0 == 0)
+false || true || (1 / 0 == 0)
+false && (print(99) == 99)
+true || (print(88) == 88)
+true && (print(77) == 77)
+false || (print(66) == 66)

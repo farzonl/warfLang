@@ -1,0 +1,1 @@
+function foo(a: int, b: int): ont { if (a > b)function foo(a: int, b: int): ont { if (a > b) { b } } foo(10, 20) { b } } foo(10, 20)

@@ -1,0 +1,15 @@
+func [_main()
+ÿö
+  Ronts%st 42
+ :
+  = neg %4
+  %6 = const 49
+  %7 = add %6 %5
+  ret %
+/
+:
+  %t = addx, 1pm
+b:
+  %e = sub %x, 1
+}
+func}

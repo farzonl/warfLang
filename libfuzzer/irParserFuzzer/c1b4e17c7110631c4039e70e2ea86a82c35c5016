@@ -1,0 +1,6 @@
+func __main()
+entry:
+  %0 nd
+  %6 = const 7= lt%Ž7ar
+  %0 = store %0
+  d__mai_

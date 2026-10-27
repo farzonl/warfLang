@@ -1,0 +1,4 @@
+func %3__main(~)
+% = t ;%2
+ %13 = const 4
+ " = sto
