@@ -52,6 +52,7 @@ public:
   void ReportUnderflow(int32_t start, int32_t end, int64_t num) {
     ReportRangError(start, end, num, "underflow");
   }
+  void RemoveNumericOverflow(TextSpan span);
   void ReportBadCharacter(int position, char character);
   void ReportUnexpectedToken(int32_t start, int32_t end, SyntaxKind actual,
                              SyntaxKind expected);

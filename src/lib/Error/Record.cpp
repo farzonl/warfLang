@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include "Record.h"
+#include <algorithm>
 #include <sstream>
 
 Record::Record(TextSpan span, std::string message)
@@ -28,6 +29,18 @@ void Records::ReportRangError(int32_t start, int32_t end, int64_t num,
   message << mPrefix << "Error: The number " << num << " is a Numeric "
           << overunder << ".";
   Report(TextSpan(start, end), message.str());
+}
+
+void Records::RemoveNumericOverflow(TextSpan span) {
+  this->vec.erase(std::remove_if(this->vec.begin(), this->vec.end(),
+                                 [&](const Record &r) {
+                                   return r.Span().Start() == span.Start() &&
+                                          r.Span().End() == span.End() &&
+                                          r.Message().find(
+                                              "Numeric overflow") !=
+                                              std::string::npos;
+                                 }),
+                  this->vec.end());
 }
 
 void Records::ReportBadCharacter(int position, char character) {

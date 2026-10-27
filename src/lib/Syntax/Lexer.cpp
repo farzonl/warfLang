@@ -252,10 +252,19 @@ void Lexer::ParseNumber(SyntaxKind &type) {
     mValue = 0;
     type = SyntaxKind::NumberToken;
     return;
-  } else if (val >= static_cast<int64_t>(std::numeric_limits<int32_t>::max())) {
-    // overflow
+  } else if (val >
+             static_cast<int64_t>(std::numeric_limits<int32_t>::max()) + 1) {
+    // strict overflow (> 2147483648)
     mRecords.ReportOverflow(posStart, mPosition, val);
     mValue = 0;
+    type = SyntaxKind::NumberToken;
+    return;
+  } else if (val ==
+             static_cast<int64_t>(std::numeric_limits<int32_t>::max()) + 1) {
+    // val == 2147483648: tentative overflow (canceled if preceded by unary
+    // minus)
+    mRecords.ReportOverflow(posStart, mPosition, val);
+    mValue = static_cast<int32_t>(val);
     type = SyntaxKind::NumberToken;
     return;
   }

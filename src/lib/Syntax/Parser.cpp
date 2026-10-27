@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+#include <limits>
 #include <sstream>
 // #include<algorithm> // for copy() and assign()
 // #include<iterator> // for back_inserter
@@ -119,6 +120,16 @@ Parser::ParseBinaryExpression(int parentPrecedence) {
     auto operatorToken = Next();
     std::unique_ptr<ExpressionNode> operand =
         ParseBinaryExpression(unaryOperatorPrecedence);
+    if (operatorToken->Kind() == SyntaxKind::MinusToken) {
+      if (auto lit = dynamic_cast<LiteralExpressionNode *>(operand.get())) {
+        if (lit->LiteralToken()->Kind() == SyntaxKind::NumberToken &&
+            lit->LiteralToken()->GetValue().isInt() &&
+            lit->LiteralToken()->GetValue().asInt() ==
+                std::numeric_limits<int32_t>::min()) {
+          mRecords.RemoveNumericOverflow(lit->LiteralToken()->Span());
+        }
+      }
+    }
     left = std::make_unique<UnaryExpressionNode>(operatorToken,
                                                  std::move(operand));
   } else {

@@ -338,6 +338,7 @@ int main(int argc, char **argv) {
         return -1;
       }
       evalStr = std::string(argv[i + 1]);
+      i++;
     } else if (Flags::showTree.shortName == argv[i] ||
                Flags::showTree.name == argv[i]) {
       showTree = true;

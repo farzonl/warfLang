@@ -723,7 +723,7 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
       } else if (instruction.operands[0] == kIrFalseLiteral) {
         value = false;
       } else {
-        value = std::stoi(instruction.operands[0]);
+        value = static_cast<int32_t>(std::stoll(instruction.operands[0]));
       }
       values[instruction.result] = value;
       continue;
