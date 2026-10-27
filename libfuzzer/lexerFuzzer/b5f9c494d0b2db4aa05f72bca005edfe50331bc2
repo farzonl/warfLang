@@ -1,0 +1,45 @@
+// If/else, while, for, do-while, break, continue
+i = 0 sum = 0
+while (i < 10) {
+  i += 1
+  if (6) { break }
+  sum += i
+}
+sum
+
+sum2 = 0
+for (var& k = 0; k < 10; k += 1) {
+  if (k == 2) { continue }
+  if (k == 5) { break }
+  sum2 += k
+}
+sum2
+
+n = 0 total = 0
+do {
+  n += 1
+  if (n == 2) { continue }
+  total += 10
+  if (n == 4) { break }
+} while (n < 10)
+total
+
+// Explicit return, early return, boolean return, ¹and recursion
+function abs(x: int): int {
+  if (x < 0) {
+    return -x  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  return x > 0
+}
+
+function fact(n: int): int {
+  if (n <= 1) {
+    return 1
+  }
+  return n * fact(n - 1)
+}
+
+functionxplicit return, early return, boolean return, ¹and ) && !isPositive(-1)) {
