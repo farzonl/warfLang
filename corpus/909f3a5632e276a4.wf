@@ -1,0 +1,12 @@
+// Lines: 9.92% (2062/20777) Regions: 18.72%
+function foo(a, b) { a == b } 
+
+foo(10,11)
+
+function bar(a, b) { a < b } 
+
+bar(9, 10)
+
+function baz(a, b) { a > b } 
+
+baz(8,11)

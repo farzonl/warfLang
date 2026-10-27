@@ -1,0 +1,35 @@
+{
+  "mode": "corpus",
+  "total_runs": 423,
+  "corpus_size": 51,
+  "findings_count": 2,
+  "cumulative_coverage": {
+    "lines_covered": 3792,
+    "lines_total": 20777,
+    "lines_percent": 18.250950570342205,
+    "regions_covered": 2204,
+    "regions_total": 7184,
+    "regions_percent": 30.679287305122493,
+    "branches_covered": 1386,
+    "branches_total": 1757,
+    "branches_percent": 78.88446215139442
+  },
+  "best_single_program": "function computeLoopControl(limit: int): int {\n  var total = 0\n  for (var i = 0; i < limit; i += 1) {\n    if (i == 2) {\n      continue\n    }\n    if (i == 6) {\n      break\n    }\n    total += i\n  }\n\n  var count = 0\n  do {\n    count += 1\n    if (count == 2) {\n      continue\n    }\n    total += 10\n  } while (count < 3)\n\n  return total\n}\n\ncomputeLoopControl(10)",
+  "best_single_coverage_percent": 13.745969100447612,
+  "findings": [
+    {
+      "kind": "crash",
+      "fingerprint": "c82699ae3403b89b",
+      "description": "Crash in `Warf --eval --show_tree` (exit -11)",
+      "program": "function computeLoopControl(limit: int): int {\n  var total = 0\n  for (var i = 0; i < limit; i += 1) {\n    if (i == 2) {\n      continue\n    }\n    if (i == 6) {\n      break\n    }\n    total += i\n  }\n\n  var count = 0\n  do {\n    count += 1\n    if (count == 2) {\n      continue\n    }\n    total += 10\n  } while (count < 3)\n\n  return total\n}\n\ncomputeLoopControl(10)",
+      "details": ""
+    },
+    {
+      "kind": "hang",
+      "fingerprint": "de9ead1f1fc4fc1a",
+      "description": "Timeout in `Warf --eval`",
+      "program": "a = 5; b = 4; value = 0; c = 0; while (c < 3) { var c = +(5); c += 1 }; if ((true && false)) { value /= 2}",
+      "details": ""
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+// Lines: 32.50% (1108/3409) Regions: 35.56%
+function compute (start, limit) {; value = start; if (start < limit) {; value = 4;} else {; value = 5;}; while (value < limit) {;}; if (i < 6) {; break;}; total += i;}; var count = 0; do {; count += 1; if (count == 2) {; continue;}; total += 10;} while (count < 3); return total;}; computeLoopControl (10)

@@ -1,0 +1,11 @@
+// Lines: 7.67% (1593/20777) Regions: 14.89%
+scope_value = 1 
+{ 
+    { 
+        scope_value = scope_value + 2 
+    } 
+} 
+scope_value
+
+// Each blank-line-separated statement is parsed and evaluated on its own,
+// but a brace-delimited block is buffered across lines as a single statement.

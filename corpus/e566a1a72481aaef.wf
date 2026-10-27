@@ -1,0 +1,2 @@
+// Lines: 37.14% (1266/3409) Regions: 40.68%
+if (!((true != true))) { a = 2; b = 10; value = 0; function foo (x: int, y: int): int { for index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value * b)), (- (255) / (value ^= - 42))); value = 0; function foo (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value * b)), (- (255) function pair (a: int, b: int): int int { return a + (10 * (3 + 4) - 10)) &&; 1 == true

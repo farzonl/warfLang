@@ -1,0 +1,10 @@
+// Lines: 10.77% (2237/20777) Regions: 19.52%
+value = 0
+if (1 < 2) { value = 4 } else { value = 5 }
+value
+
+while (value < 7) { value += 1 }
+value
+
+for (index = 0; index < 3; index += 1) { value += 2 }
+value

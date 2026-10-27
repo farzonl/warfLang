@@ -1,0 +1,2 @@
+// Lines: 22.79% (777/3409) Regions: 26.01%
+a = 1 + { value += 2} value} compute (0, 7); c = 0; while (c < 2) { value = 1; c += 1}

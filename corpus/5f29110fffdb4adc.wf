@@ -1,0 +1,2 @@
+// Lines: 39.34% (1341/3409) Regions: 42.61%
+if (!((true != true))) { a = 2; b = 10; value = 0; function foo (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value * b)), (- (255) / (value ^= - 42))); value = 0; function foo (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value * b)), (- (255) / (value ^= - 42))); b |= (value ^= 4); var res = (+ (255)}; total += 10; } while (count < 3); return total; }; computeLoopControl n: int): int { if (n <= 1) { return

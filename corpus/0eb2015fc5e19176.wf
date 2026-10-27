@@ -1,0 +1,2 @@
+// Lines: 3.87% (799/20655) Regions: 7.68%
+function foo (arg) { arg}

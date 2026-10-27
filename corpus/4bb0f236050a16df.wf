@@ -1,0 +1,18 @@
+// Lines: 13.08% (2718/20777) Regions: 23.23%
+function compute(start, limit) {
+  value = start
+  if (start < limit) {
+    value = 4
+  } else {
+    value = 5
+  }
+  while (value < limit) {
+    value += 1
+  }
+  for (index = 0; index < 3; index += 1) {
+    value += 2
+  }
+  value
+}
+
+compute(0, 7)
