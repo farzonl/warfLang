@@ -1,0 +1,33 @@
+"hello world"
+""
+"h== "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 = "wf
+ral"et s2 = "lang"
+let""
+
+"a" == "a"
+"a" == "b"
+"wa" != "b"
+"a" != "e"-
+let$s1 = "wf
+ral"et \"hi\""
+
+
+"hel"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 = "wf
+ral"et s2 = "lang"
+letùs3 = s1 + s2
+s3
+s3 == "warf0ang"
+
+print("message from print")print(s)

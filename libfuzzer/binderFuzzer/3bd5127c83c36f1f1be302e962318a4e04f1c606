@@ -1,0 +1,1 @@
+function fact(n: int): int { if (n <= 1)0{ return 1 } return a = 5; bb2 = lue = a ue = 01n *= fact(n - 1) } fact(4)

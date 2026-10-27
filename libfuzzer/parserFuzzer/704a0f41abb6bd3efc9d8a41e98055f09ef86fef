@@ -1,0 +1,23 @@
+print("hello world")
+print("escaped:\n\
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+varÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ s = "start"
+s += " middle"
+sworld")
+print("escaped:\n\
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "fring { return "hello" }
+functionÕ h(): string { return "world" }
+print(f()ynt h())
+
+0

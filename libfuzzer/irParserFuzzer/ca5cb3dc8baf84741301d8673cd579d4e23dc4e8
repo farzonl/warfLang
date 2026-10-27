@@ -1,0 +1,51 @@
+func __main()
+entry:
+  %0 = const 2
+  = const 3
+  %2 = add )%0 %1
+ c __)
+entry:
+0 ,%° = const 2
+  %1 = const 4
+  %2 = add %0 %1
+  %3 = cost 8
+  %2 = add %0 %1
+ c __main()
+entry:
+  ,%0nst 3
+  %2 = add %0 %1
+  ;%3 = const 4
+  %4 = 
+  %6st 3
+  %2 = add %0 %1
+  = add %0 %1
+ c __main()
+t 3
+  %2 = add %0 %1
+ c __mai()
+t 3
+  %2 = add %0 %1
+ add %0 %1
+  %3 = c  %
+entry:
+  ,%0nst 3
+  %2 = add %0 %1
+  %3%2 = add %0 %1
+ c __main()
+t 3
+  %2 = add %0 %1
+ c __main()
+en 4
+  %2 = add %0 %1
+  %3 = c  %5 = 2 = add 30y:
+ add %0 %1
+%30y:
+ add %1 %1
+  %=   %1 = nst 2
+OPT: 30y:
+ add %0 %1
+%30y:
+ add %0 %1
+  %=const 2
+  %2 = add %0 %1
+ N-OPT: 30

@@ -1,0 +1,26 @@
+ =" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 = "warf"
+let s2 = "lang"
+let s3\"
+
+"hello " + *world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 = "warf"
+let s2 = "lang"
+let s3 = s1 + s1
+ = s1 + s2
+;o 2}.}true

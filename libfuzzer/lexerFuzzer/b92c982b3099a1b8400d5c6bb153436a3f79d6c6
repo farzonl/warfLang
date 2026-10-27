@@ -1,0 +1,14 @@
+prin int|a|("escaped:\n\tquote\" and \\t("escaped:\n\t\"quote\" and \\backslash\\")
+p rint
+let int/("escaped:\n\tquote\" and \\t("escaped:\n\t\"quote«Ý and \\backslash\\")
+print("" + "non-emp^^^^^^^^nt("concatenatedringo world")
+prinllo world")
+pri;nt("escaped:\n\t\"quoed " + "sÜtrings")
+
+let int("escaped:\n\tquote\" ane \\t("eMcaped:\n\t\"quote\ and \\backs\"quote\" and \\backslash\\")
+pempty")
+print("cs")
+
+l("" +\n\tquote\" and \\backf() == h())
+
+2

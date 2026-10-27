@@ -1,0 +1,15 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let E = "bar"
+let c = a + b
+prנננננננtrueננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננorld")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings"start"
+srint(f() == h())
+
+0

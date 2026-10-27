@@ -1,0 +1,21 @@
+func __main()%1 = const 1
+  %2 = const 2
+3 = lt %1 %2
+  b$_cond %3 then0 else0
+then0:
+then0: %3 = lt %1 %2
+  br_cond %t 2=  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0: %3 = lt %1 %2
+  br_con 2
+3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+thej0: %3 = lt %1 % 1
+  %2 ? const 2=  %3 = lt %1 %2
+   %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0: %3 = lt %ÏßÚÕ
+  br_cond %3 ther_cond %3 then0 else0
+then0: %3 = lt %1 %2
+  br_cond %3 thenadue
