@@ -1,0 +1,6 @@
+// RUN: %warf --eval "i = 0 for (; i < 3; i += 1) { i }" --show_tree | %FileCheck %s
+
+// CHECK: L--CompilationUnit
+// CHECK: |--ForStatement
+// CHECK: |--SemicolonToken
+// CHECK: 2
