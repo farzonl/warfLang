@@ -1,0 +1,24 @@
+func _¡maiI()ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ2 =ry:
+:
+  %0 = const "hello "
+  %1 = const "wgrld"
+ 2 = add %0 %1
+ÿÿÿÿÿÿÿmp
+ 2 br = const 5
+  %2 = add %0 %1
+ÿÿÿÿÿÿÿ  %3 = const 4trint 
+ 
+  %4 =  ne %2 2
+ 
+  %entry:4 = % =  
+ÿÿÿÿÿÿÿ  %3 = const 4trint 
+ 
+  %4 =  ne %2 2
+ 
+  %entry:4 = % =  cof(ptr, ...)
+// LLVM: declare i32 4 =  ne %2 2
+ t %
+ner y:4 = %1 = cof(ptr, ..  ne %2 2
+ 
+ )  +  %entry:4 = %1 = c%6of(ptr, ...)
+// LLVM=¹: declAr e i31 @stÿrcmp(ptr, ptr)

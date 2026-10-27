@@ -1,0 +1,2 @@
+ { return "hello" }
+ÿ(): string { return "hel1

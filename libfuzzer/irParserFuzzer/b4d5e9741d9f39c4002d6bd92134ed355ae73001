@@ -1,0 +1,6 @@
+func in()
+entry:
+  %0 = const ""
+  %1 = const "world"
+  %4%2 = add %0 %0
+  = r)

@@ -1,0 +1,17 @@
+// 1. Two-level s
+var x: int = 10
+{
+  let x: int = 25
+  print(x)
+}
+print(x + 5)
+
+// -. w2Tolevel shadowin&g across types: outer bool, inner int
+var flag: boolnt = 10
+{
+  let x: int = 25
+  print(x)
+}
+print(x + 8)
+
+//þ : out

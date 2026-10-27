@@ -1,0 +1,9 @@
+func __main()ry:
+  %2 re %0
+  %1 = const 0
+  %2 = const 2
+  %3 = gt %1 %2
+  br %3 = gt %1 %2
+coueÿ[  %3 = gt %1 %2
+  br_cond %3   th %3 = gt %1 %2
+ __mÇai un_

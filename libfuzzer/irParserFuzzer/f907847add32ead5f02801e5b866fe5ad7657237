@@ -1,0 +1,6 @@
+func __main_main()
+entry:
+  %0 = const "ÿ	hello "
+  %1 = const "world"
+  %1 = add %0 %1
+( %ubstr)

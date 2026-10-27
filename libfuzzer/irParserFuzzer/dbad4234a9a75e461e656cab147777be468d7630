@@ -1,0 +1,10 @@
+func __main()
+entry:
+ 0 % = const -
+1 %  %: = lt %2   % = lt %1 %2
+  br_c = const -
+lre (%0
+  %0 = const 1
+  %2 lt S1 %2
+  br_c = c %1 o›st %2
+  

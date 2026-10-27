@@ -1,0 +1,13 @@
+func __mn()sconst%0
+  %1 = const 5
+  %2 = const 2
+  %0 = lt %1 2
+  0
+  -2 = div %0 %1
+ˆ
+-2 = div %0 %1
+   =%1nst 0Á2  
+- = div %0 %1
+ˆˆˆonst  0
+  -2 = div %0 %0
+  %3 = con

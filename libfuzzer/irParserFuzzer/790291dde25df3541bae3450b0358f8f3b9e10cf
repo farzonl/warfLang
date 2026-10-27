@@ -1,0 +1,6 @@
+func _ÿma()
+e1
+%5 = neg
+  %6 = const 50
+ %7 = add Ê%6 %5
+  |  = mul %20
