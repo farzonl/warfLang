@@ -35,12 +35,12 @@
             Module._InitWarf();
         }
         Run(input, showSyntaxTree, showIR) {
-            var length = lengthBytesUTF8(input) + 1; // Add 1 for the null terminator
-            var buffer = _malloc(length);
+            var length = Module.lengthBytesUTF8(input) + 1; // Add 1 for the null terminator
+            var buffer = Module._malloc(length);
             // Copy the string to memory
             stringToUTF8(input, buffer, length);
             let results = Pointer_stringify(Module._RunWarf(buffer, showSyntaxTree, showIR));
-            _free(buffer);
+            Module._free(buffer);
             return results;
         }
         ShowTree() {

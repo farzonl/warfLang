@@ -29,8 +29,8 @@ jobs:
       run: |
         git clone https://github.com/emscripten-core/emsdk.git
         cd emsdk
-        ./emsdk install 3.1.35
-        ./emsdk activate 3.1.35
+        ./emsdk install latest
+        ./emsdk activate latest
         source ./emsdk_env.sh
         emcc -v
 
@@ -57,6 +57,7 @@ jobs:
       run: |
         source ./emsdk/emsdk_env.sh
         emmake make -C build
+        node ./build/test/WarfLang_TEST.js
     
     - name: Create Build Environment (MacOS)
       if: matrix.os == 'macOS-latest'
@@ -74,6 +75,7 @@ jobs:
       # Execute the build.  
       run: |
         emmake make -C build
+        node ./build/test/WarfLang_TEST.js
 
     - name: Package for Install
       working-directory: ${{github.workspace}}
