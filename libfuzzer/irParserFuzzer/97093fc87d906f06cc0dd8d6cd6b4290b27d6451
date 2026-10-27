@@ -1,0 +1,9 @@
+func @branch(%x) {y:
+  %
+  %t = add %x, 0b
+merde
+  %t = add -x, 1
+  j  %e = sub %x, 1
+ % jm 3
+  %2 = const 4
+}

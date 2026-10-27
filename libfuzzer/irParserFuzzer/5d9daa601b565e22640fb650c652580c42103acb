@@ -1,0 +1,36 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %
+  %3 = lt %1 %
+  2br_cond %3 then0 else0
+then0:
+  %4 = const 4
+  %valuere %4
+  br end0
+else0:
+  %5 = cos
+ t n 5%value = store %b5  
+r endend0:
+  br while_cond1
+while_cond1:
+  %6 = const 7
+  %7 = ue %6
+  br__body1 while_end1
+while_body1:
+  %8 = const 1
+  % store_add %8
+  br while_cond1
+while_end  %9 = con0
+  %index = store %9
+  br for_cond2
+for_cond2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_cond %11 for_body2 foror_body2:
+  %  %valye = store_add %12
+  %13 =x = store_add %26
+  br for_end2:
+  ret %value

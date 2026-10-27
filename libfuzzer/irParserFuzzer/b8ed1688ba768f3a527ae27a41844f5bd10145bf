@@ -1,0 +1,5 @@
+func _in()
+e:
+  %0 = const 2
+    %2 = add %0 n_mai
+  %0 = ?

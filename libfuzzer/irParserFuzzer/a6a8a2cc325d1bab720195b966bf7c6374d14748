@@ -1,0 +1,90 @@
+func __main()
+entry:
+  %4
+  br 3 = ddt4
+  %4 = = cons0:
+  %3 = const 2
+then0:rrrrŸrr%1%4 =  ne %3 %3
+  %5 = neg %5 %3 =
+  %2 =0add %0 %  %7 = addt4
+  %4 =  ne %3 %3
+ul4
+d2:
+  ret %valq ~e %3 %3
+ul45c
+  %4 = = cons0:
+  %3 = const 2
+then0:rrrrŸrr%1%4 =  ne %3 %3
+  %5 = neg %5 %3 =
+  %2 =0add %0 %  %7 = addt4
+  %4 =  ne %3 %3
+ul4
+d2:
+  ret %valq ~e %3 %3
+ul45cnst 0
+  %val %‚
+  %1 = cons0:
+  %3 = const 2
+rrrrrrr%4 =  ne %3 %3
+  %5 = neg %5 %3 =
+  %2 =0add %0 0:rrrrŸrr%1%4 =  ne %3 %3
+  %5 = neg %5 %3 =
+  %2 =0add %0 %  %7 = addt4
+  %4 =  ne %3 %3
+ul4
+d2:
+  ret %valq ~e %3 %3
+ul45cnst 0
+  %val %‚
+  %1 = cons0:
+  %3 = const 2
+rrrrrrr%4 =  ne %3 %3
+  %5 = neg %5 %3 =
+  %2 =0add %0 % % 7 = addt4
+  %4 =  ne %3 %3
+ul4
+d2:
+  ret %valq ~e %3 %3
+ul45c addt4
+  %4 = = cons0:
+  %3 = const 1
+rrrrrrrrrrŸrr%2%4 =nst 0
+  %val %‚
+  %1 = cons0:
+  %3 = const 2
+rrrrrrr%4 =  ne %3 %3
+  %5 = neg %5 %3 =
+  %2 =0add %0 0:rrrrŸrr%1%4 =  ne %3 %3
+  %5 = neg %5 %3 =
+  %2 =0add %0 %  %7 = addt4
+  %4 =  ne %3 %3
+ul4
+d2:
+  ret %valq ~e %3 %3
+ul45cnst 0
+  %val %‚
+  %1 = cons0:
+  %3 = const 2
+rrrrrrr%4 =  ne %3 %3
+  %5 = neg %5 %3 =
+  %2 =0add %0 % % 7 = addt4
+  %4 =  ne %3 %3
+ul4
+d2:
+  ret %valq ~e %3 %3
+ul45cnst 0
+  %val %‚
+  %1 = cons0:
+  %5 %0 =
+  %2 =0add %0 %  %7 = addt4
+  %4 = = cons0:
+  %3 = const 2
+rrrrrrrrrrŸrr%2%4 =  %3
+  %5 = neg %5 %3 =
+   ne %3 %3
+  %5 = neg %5entry:  %2 =0add %0 nst 2
+rrrrrrrrrrŸrr%1%4 =  ne %3 %3
+  %5 = neg %5 %3 =
+  %2 =0add %0 %
+d2:
+  ret %valq:

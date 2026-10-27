@@ -1,0 +1,4 @@
+func a()
+5
+  b = store 7
+%0 = const co

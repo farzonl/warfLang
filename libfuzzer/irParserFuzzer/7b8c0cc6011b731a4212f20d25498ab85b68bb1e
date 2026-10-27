@@ -1,0 +1,9 @@
+func ()
+dntry:
+  1
+  %3 = const 4
+= mindebr8
+  bnot %3
+  %brfod #8
+  bnot %3
+e
