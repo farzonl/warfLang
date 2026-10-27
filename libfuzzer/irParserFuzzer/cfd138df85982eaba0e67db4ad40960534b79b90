@@ -1,0 +1,12 @@
+func __main()
+ealuest 1
+  %2 = hen0 tore %0
+  %1 = const 5
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %  %4 = mul %2 %3
+  %5 = neg %4
+4
+  %4 = mul %2 %3
+  %5 = const 
+ 0

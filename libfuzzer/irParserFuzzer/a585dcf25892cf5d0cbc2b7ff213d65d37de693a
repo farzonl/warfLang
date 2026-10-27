@@ -1,0 +1,125 @@
+func __main()
+then0:
+  %0=:
+  %0 = const 0
+  %valu2
+  
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  bn_cond   %0 = const 0
+  % 2
+  % 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %= const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   = lt %1 %2
+  br_cond   %0 = const 0
+ alu2
+  
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 % lt %1 %2
+  br_cond   %0 = const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %= const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   = lt %1 %2
+  br_cond   %0 = const 0
+ alu2
+  
+  %1 = const 1
+  %2 = const 2
+  %: %1 %2
+  br_co = lt %1 %2
+  bn_cond   %0 = const 0
+  %   %: = lt %1 %2
+  br_cond   %0 = const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   %0 = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ2
+  % 2
+  %: = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 22
+  bn_cond   %0 = const 0
+  % 2
+  % 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %value = store %0
+  %1 = const 2
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   %0 = const 0
+  % ÿÿÿÿÿÿÿÿÿÿÿ2
+  % 2
+  %: = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  b0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+ r_cond   const 1
+  %2 = const 2
+  %: = lt %1 %2
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0

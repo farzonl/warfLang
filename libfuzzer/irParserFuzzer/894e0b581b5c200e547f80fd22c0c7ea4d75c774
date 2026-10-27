@@ -1,0 +1,10 @@
+func __main()
+entry:
+  %0 = const 17
+  %1 = const 0
+  %2 = mod // OPT-IR: func __main()
+// OPT-IR-NEXT: entry:
+// OPT-IR-NEXT:   %0 = const 17
+// OPT-IR-2:
+ÿÿÿþÿ %2 = mod %0 %1
+// OPT-IR-NEXT:   ret %1

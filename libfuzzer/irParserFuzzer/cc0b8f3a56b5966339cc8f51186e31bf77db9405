@@ -1,0 +1,17 @@
+func __main()
+entry:
+ &(((((((((((((((((((((( = store %00
+then0:
+  %4 4
+ nst 5
+  %value e = store %00
+then0:
+  %4 = const 4
+  %v]Lue = store ;4
+  %6 = const 7
+  %7 = lt %value %6
+  br_c  %value = store_add %12
+ 3 = const º
+  %index = store_add %26
+  br for_cnd2
+for_eret %value

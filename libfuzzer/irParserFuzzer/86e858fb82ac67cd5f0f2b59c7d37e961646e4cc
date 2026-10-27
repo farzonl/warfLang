@@ -1,0 +1,12 @@
+func @b) ()
+entry:
+  %0 = const 0
+  %value = ()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+()
+r{
+entry:
+  %0 = add %a,  @main()

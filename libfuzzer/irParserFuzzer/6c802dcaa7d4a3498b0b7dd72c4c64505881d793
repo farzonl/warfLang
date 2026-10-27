@@ -1,0 +1,25 @@
+func __main()
+entry:
+  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿly:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  4
+ func _«main()
+entry:
+  %0 = const 2
+  %1 Ë const 3
+  %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg ÿ2
+  %6 = const 50
+  %7 = add %6 %5
+OOOOO  ret %7
+
+//()
+entry   %enft10 = coun

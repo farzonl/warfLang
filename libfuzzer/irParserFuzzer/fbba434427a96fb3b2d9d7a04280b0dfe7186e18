@@ -1,0 +1,21 @@
+func __maih)()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %03add %0 %1
+  %onst 4  %7 = add %2 %5
+  ret % 4
+  % %4 %4 nst 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_c = const 1
+  %: = gt %1 %2
+%ÚÎ %2
+  br_c = const ±
+  %: = gt %1 %2
+%2br_con`   %0 %: y:
+  in() {
+entry:
+  %}
+nst ntc @ad ret %0
+%func [_m
