@@ -508,7 +508,14 @@ def parse_llvm_cov_report_fallback(report_stdout: str) -> CoverageMetrics:
     return metrics
 
 
+def is_ignored_runtime_error(text: str) -> bool:
+    """Return True if stderr/details represent a user-program runtime error (e.g., divide by zero)."""
+    return "divide by zero" in text.lower()
+
+
 def is_sanitizer_or_crash(returncode: int, stderr: str) -> bool:
+    if is_ignored_runtime_error(stderr):
+        return False
     if returncode < 0:
         return True
     # Signals on Unix shell often map to 128 + sig (e.g., 134 = SIGABRT, 139 = SIGSEGV)
@@ -622,6 +629,8 @@ class WarfFuzzerHarness:
             shutil.rmtree(self.work_dir, ignore_errors=True)
 
     def _record_finding(self, kind: str, program: str, description: str, details: str = "") -> Optional[Finding]:
+        if is_ignored_runtime_error(f"{description}\n{details}"):
+            return None
         sig = hashlib.sha256(f"{kind}:{description}".encode("utf-8")).hexdigest()[:16]
         if sig in self._finding_hashes:
             return None
@@ -1212,6 +1221,10 @@ def file_github_issues_for_findings(
 
     created_count = 0
     for finding in findings:
+        if is_ignored_runtime_error(
+            f"{finding.get('description', '')}\n{finding.get('details', '')}"
+        ):
+            continue
         fingerprint, title, body = format_finding_issue(finding, run_url=run_url)
         if dry_run:
             print(f"[DRY-RUN] Would check/file GitHub issue: {title}")

@@ -152,12 +152,17 @@ int main(int argc, char **argv) {
   }
 
   if (run) {
-    IrInterpreter interpreter;
-    Value result = interpreter.Execute(module);
-    if (result.VType() != Value::Type::Unknown) {
-      std::cout << result << std::endl;
+    try {
+      IrInterpreter interpreter;
+      Value result = interpreter.Execute(module);
+      if (result.VType() != Value::Type::Unknown) {
+        std::cout << result << std::endl;
+      }
+      return 0;
+    } catch (std::runtime_error &error) {
+      std::cerr << error.what() << std::endl;
+      return -1;
     }
-    return 0;
   }
 
   if (emitLlvmIr) {

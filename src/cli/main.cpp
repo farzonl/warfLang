@@ -247,10 +247,14 @@ void evaluate(std::string &line, bool showTree, bool emitIr,
       IrPrinter::Print(module);
       return;
     }
-    auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
-    Value result = eval->Evaluate();
-    if (result.VType() != Value::Type::Unknown) {
-      std::cout << result << std::endl;
+    try {
+      auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
+      Value result = eval->Evaluate();
+      if (result.VType() != Value::Type::Unknown) {
+        std::cout << result << std::endl;
+      }
+    } catch (std::runtime_error &error) {
+      std::cerr << error.what() << std::endl;
     }
   } else {
     for (auto error : syntaxTree->Errors()) {
