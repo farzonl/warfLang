@@ -1,0 +1,4 @@
+func @fd(%qb) {
+e
+ n1s = add %t 1
+  %3 = lt %

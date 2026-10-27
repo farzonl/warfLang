@@ -1,0 +1,12 @@
+func __mn()
+entry:
+  %0 = const 2
+ret  =   %6 = cons“ 4
+  %4 = mul %0 %3
+  %5 = neg %4
+  %3~0 %1nst 5
+  %7 = add 56 %5
+  cons“ 4
+ 5 = neg = ®
+o = neg %2
+unofT

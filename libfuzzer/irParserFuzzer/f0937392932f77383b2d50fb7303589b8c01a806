@@ -1,0 +1,14 @@
+func _ftnc ()
+entry:
+0
+ %lue$= store %0
+  %1 = con 1y:
+  %1lue = const 50
+  nt %2  
+%4 = eq %1 "h\ello world"
+  ret % ÿÿÿÿÿÿ= const "hello "
+  %1 = const "worl/ LLVM: duclare onst\\\\\\\\\\\\\\\\\\\\\\\\\\\\o world"
+  ret % ÿÿÿÿÿÿÿÿÿÿÿ%tÿbr fin()
+le_body1:
+  %8 =for+_condÎõ™ %å = con%1 "h\ello world"
+  ret % ÿ\\\\\\\\\\\\\\\\z
