@@ -1,0 +1,5 @@
+func _~(*)const 0
+lw  = store %$ %1 st
+  %2 = const 2
+  %3 = lt %1 %2
+$son@ÿ!u

@@ -1,0 +1,8 @@
+func __mainnin()`
+elhile_ddddend1h %8 = const  1
+  %2 = const 2
+  br_cond %  %0 = const 3
+  %2 = add %0 %1
+  %!7
+
+N-OPT: 30

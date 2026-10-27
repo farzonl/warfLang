@@ -1,0 +1,1 @@
+a = 2; b = 4; value = 0; if (false) { if ((false || false)) { b -= 0 } a = 2; b = 4; value = 0; if (false) { if ((false || false)) { b -= 0 } } else { if ((3 <= 5)) { value ^= a } else { value /= 4 } }; (42 * (2 * b))} else { if ((3 <= 5)) { value ^= a } else { value /= 4 } }; (42 * (2 * b))

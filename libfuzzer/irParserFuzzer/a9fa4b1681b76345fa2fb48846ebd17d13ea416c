@@ -1,0 +1,25 @@
+func __main()
+entry:
+  %0=  = const 2
+  %1 = const 3
+  %2 = add %0 %1
+ c __main()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %1 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4 %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50
+  %7 = add %6 %5
+ 1 = const 3
+  %2 = add %0 %1
+  %1 = const 4
+  %4 = mul %2 %3
+  %5 =4 %3 = const 4
+   mul %t %7
+
+// RUN-OPT: 30

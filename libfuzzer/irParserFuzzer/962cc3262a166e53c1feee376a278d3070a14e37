@@ -1,0 +1,9 @@
+func __main()
+%0 = const 0
+" %value = store %0
+ d1 d1:
+e %9
+e = store_add %12
+  %13 = const 1
+ _end2:
+  ret %valu
