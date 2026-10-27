@@ -1,0 +1,2 @@
+// Lines: 25.85% (932/3605) Regions: 29.29%
+a = 5; b = 3; value = 0; a ^= + (3); if; if (((false != true) && (true && false))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if () { value *= else { if ((1 == 2)) { a -= + 4} else { value ^= a}}; value

@@ -1,0 +1,2 @@
+// Lines: 13.86% (2963/21375) Regions: 23.71%
+a = 0; b = 10; value = 0; b *= 42; function compute(x: int, y: int): int { if (true) { y ^= +42 }; return 2 } compute(7, ((3 | ~5) - (0 * a))); i = 0; while (i < 2) { value ^= 2; i += 1 }; ((b * a) & 1)

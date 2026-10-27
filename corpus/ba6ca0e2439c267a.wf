@@ -1,0 +1,2 @@
+// Lines: 33.76% (1217/3605) Regions: 36.14%
+; ifU (((false != true) && baz (7,) 1); if (true) { *= a = 2} else { function abs (x:)} foo ((b | value), 42)}; value}; for (z = 0; 2147483648 z < 1; z += 1) { value += + 42}

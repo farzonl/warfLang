@@ -1,0 +1,2 @@
+// Lines: 22.94% (827/3605) Regions: 25.82%
+a = 5; c = 0; b = 3; value = 0; a ^= + (); if (((false != true) && (true && false 2147483648)) + 4) -

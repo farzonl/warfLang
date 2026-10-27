@@ -1,0 +1,2 @@
+// Lines: 26.93% (971/3605) Regions: 30.02%
+if (true) { a = 5; b = 3; value = 0; a ^= + (3); if; if ((13 == (2 * 7 2147483648)) + 4) - } else { for (index = 0; index < 1; index += 1) { a &= ~5 } }

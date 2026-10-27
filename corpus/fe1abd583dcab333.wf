@@ -1,0 +1,2 @@
+// Lines: 31.29% (1128/3605) Regions: 34.87%
+a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false))) { index = 0; while; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; if ((3 == (2 * 7))) { function foo (x, y) { x += - 4; return (42 - 4)} foo ((b | value), 42)}; value

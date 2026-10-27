@@ -1,0 +1,2 @@
+// Lines: 27.07% (976/3605) Regions: 29.83%
+if (((3 + x) != (42 - 10))) { if (true) { if ((true || false)) { if (!((5 != 2))) { { function foo (a: int, b: number): int { if (a > b) { return a} else { return) - 10) && true } else { var n = (0 + ~4) } } else { index = 0; while (index < 2) { b = 2; index += 1 } }
