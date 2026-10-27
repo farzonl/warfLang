@@ -8,11 +8,14 @@ set(SOURCE_FILES
                  # add files here
                  wasmEntry.cpp)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test.html
-     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/index.html
-     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(GLOB WASM_WEB_ASSETS
+     LIST_DIRECTORIES false
+     "${CMAKE_CURRENT_SOURCE_DIR}/*.html"
+     "${CMAKE_CURRENT_SOURCE_DIR}/*.css"
+     "${CMAKE_CURRENT_SOURCE_DIR}/*.js")
+if(WASM_WEB_ASSETS)
+  file(COPY ${WASM_WEB_ASSETS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+endif()
 
 set(exports 
    _InitWarf 
@@ -21,6 +24,8 @@ set(exports
    _emit_warf_ir
    _ShowSyntaxTree
    _ShowIR
+   _AnalyzeWarf
+   _ExecuteWarf
    _malloc
    _free
  )
@@ -30,6 +35,8 @@ set(runtime_exports
    UTF8ToString
    stringToUTF8
    lengthBytesUTF8
+   ccall
+   cwrap
  )
 
 # process exported functions
@@ -43,8 +50,9 @@ list(JOIN runtime_exports "," runtime_exports_string)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_link_options(${PROJECT_NAME} PRIVATE
-        -sEXPORTED_FUNCTIONS=[${exports_string}]
-        -sEXPORTED_RUNTIME_METHODS=[${runtime_exports_string}])
+        "-sEXPORTED_FUNCTIONS=[${exports_string}]"
+        "-sEXPORTED_RUNTIME_METHODS=[${runtime_exports_string}]"
+        "-sALLOW_MEMORY_GROWTH=1")
 
 target_link_libraries (${PROJECT_NAME}
   WarfCore
