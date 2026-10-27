@@ -1,18 +1,18 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 111,
+  "corpus_size": 131,
   "findings_count": 0,
   "cumulative_coverage": {
-    "lines_covered": 3696,
-    "lines_total": 20818,
-    "lines_percent": 17.753866845998655,
-    "regions_covered": 2162,
-    "regions_total": 7208,
-    "regions_percent": 29.994450610432853,
-    "branches_covered": 1357,
-    "branches_total": 1771,
-    "branches_percent": 76.62337662337663
+    "lines_covered": 3686,
+    "lines_total": 21212,
+    "lines_percent": 17.376956439751083,
+    "regions_covered": 2178,
+    "regions_total": 7542,
+    "regions_percent": 28.878281622911693,
+    "branches_covered": 1356,
+    "branches_total": 2091,
+    "branches_percent": 64.8493543758967
   },
   "best_single_program": "if ((!(false) == (true && false))) { a = 2; b = 10; value = 0; function foo (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value / b)), (- (255) / (value ^= - 42))); b |= (value { arg} foo (10); function pair (a: int, b: int): int { return a + (10 * (3 + 4) - 10)) &&; function clamp (x: int, y: int): int { y /= 3; return (3 * 1)} clamp ((255 * 10), - (10)) && true} } else { a &= (5 / -10) }",
   "best_single_coverage_percent": 38.76193231125254,

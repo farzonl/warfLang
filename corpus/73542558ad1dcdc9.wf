@@ -1,0 +1,2 @@
+// Lines: 29.74% (1028/3457) Regions: 33.09%
+{ function foo (a: int, b: int): int { if (a > b) { return a} else { return b}} foo (= (3 * (2 + 1) / 4 == 5 * (10 * (3 + 4) - 10)) && true; b /= a

@@ -1,2 +1,2 @@
-// Lines: 11.63% (2422/20818) Regions: 20.75%
+// Lines: 11.47% (2434/21212) Regions: 20.11%
 a = 2; b = 1; value = 0; _a = true; for (index = 0; index < 1; index += 1) { if ((a < a)) { value |= 2 } else { b -= 4 } }; for (index = 0; index < 3; index += 1) { if ((255 > -5)) { a += a } else { a -= 10 } }; ~42

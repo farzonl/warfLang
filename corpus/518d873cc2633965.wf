@@ -1,0 +1,2 @@
+// Lines: 30.81% (1065/3457) Regions: 33.45%
+{ function foo (a: int, b: int): int { if (a > b) { return} else { return b} index = 0; value = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; return 7} foo ((42 ^ (value / b)), (- (255) / (vKaue function ^= - 42))) = 0 b index < 2; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; b |= (b ^; function inc (x: int): int { retur
