@@ -158,3 +158,39 @@ void Records::ReportInvalidBreakOrContinue(
           << " can only be used inside of loops.";
   Report(keywordToken->Span(), message.str());
 }
+
+void Records::ReportHeterogeneousArray(TextSpan span, Value::Type expectedType,
+                                       Value::Type actualType) {
+  std::stringstream message;
+  message << mPrefix << "Error: Array elements must have homogeneous type "
+          << expectedType << " but found " << actualType << ".";
+  Report(span, message.str());
+}
+
+void Records::ReportInvalidArrayIndexType(TextSpan span,
+                                          Value::Type actualType) {
+  std::stringstream message;
+  message << mPrefix
+          << "Error: Array index requires a value of type Number but was given "
+             "a value of type "
+          << actualType << ".";
+  Report(span, message.str());
+}
+
+void Records::ReportCannotIndexType(TextSpan span, Value::Type actualType) {
+  std::stringstream message;
+  message << mPrefix << "Error: Cannot index value of type " << actualType
+          << ".";
+  Report(span, message.str());
+}
+
+void Records::ReportArrayElementTypeMismatch(TextSpan span,
+                                             Value::Type expectedType,
+                                             Value::Type actualType) {
+  std::stringstream message;
+  message << mPrefix
+          << "Error: Array element assignment requires a value of type "
+          << expectedType << " but was given a value of type " << actualType
+          << ".";
+  Report(span, message.str());
+}

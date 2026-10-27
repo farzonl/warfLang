@@ -81,4 +81,10 @@ public:
                                      Value::Type actualType);
   void ReportCannotAssign(std::shared_ptr<SyntaxToken> identifierToken);
   void ReportInvalidBreakOrContinue(std::shared_ptr<SyntaxToken> keywordToken);
+  void ReportHeterogeneousArray(TextSpan span, Value::Type expectedType,
+                                Value::Type actualType);
+  void ReportInvalidArrayIndexType(TextSpan span, Value::Type actualType);
+  void ReportCannotIndexType(TextSpan span, Value::Type actualType);
+  void ReportArrayElementTypeMismatch(TextSpan span, Value::Type expectedType,
+                                      Value::Type actualType);
 };

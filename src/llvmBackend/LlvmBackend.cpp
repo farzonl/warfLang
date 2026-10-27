@@ -3,6 +3,8 @@
 // license that can be found in the LICENSE file.
 
 #include "LlvmBackend.h"
+#include <cctype>
+#include <cstdlib>
 #include <llvm/Bitcode/BitcodeWriter.h>
 #include <llvm/IR/BasicBlock.h>
 #include <llvm/IR/Constants.h>
@@ -253,8 +255,12 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
   module->setSourceFileName("warf");
   llvm::IRBuilder<> builder(context);
   auto intType = llvm::Type::getInt32Ty(context);
+  auto int64Type = llvm::Type::getInt64Ty(context);
   auto ptrType = llvm::PointerType::getUnqual(context);
   auto functionMap = std::unordered_map<std::string, llvm::Function *>();
+  auto funcArrayVars =
+      std::unordered_map<std::string, std::unordered_set<std::string>>();
+  auto arrayReturningFuncs = std::unordered_set<std::string>();
 
   // Module-level type inference to identify string variables, parameters, and
   // return types
@@ -264,6 +270,17 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
   std::unordered_map<std::string, const IrFunction *> functionTable;
   for (const auto &function : irModule.functions) {
     functionTable[function.name] = &function;
+    auto &arrayVars = funcArrayVars[function.name];
+    for (const auto &inst : function.instructions) {
+      if (inst.op == IrOpcode::ArrayNew && !inst.result.empty()) {
+        arrayVars.insert(CanonicalName(inst.result));
+      }
+      if ((inst.op == IrOpcode::ArrayGet || inst.op == IrOpcode::ArraySet ||
+           inst.op == IrOpcode::ArrayLen) &&
+          !inst.operands.empty()) {
+        arrayVars.insert(CanonicalName(inst.operands[0]));
+      }
+    }
   }
 
   auto isStringOperand = [&](const std::string &fnName,
@@ -429,17 +446,75 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     }
   }
 
+  bool anyPropagated = true;
+  while (anyPropagated) {
+    anyPropagated = false;
+    for (const auto &function : irModule.functions) {
+      auto &arrayVars = funcArrayVars[function.name];
+      for (const auto &inst : function.instructions) {
+        if ((inst.op == IrOpcode::Store || inst.op == IrOpcode::Copy) &&
+            !inst.result.empty() && !inst.operands.empty()) {
+          auto src = CanonicalName(inst.operands[0]);
+          auto dst = CanonicalName(inst.result);
+          if (arrayVars.count(src) && arrayVars.insert(dst).second) {
+            anyPropagated = true;
+          }
+        }
+        if (inst.op == IrOpcode::Call && !inst.result.empty() &&
+            !inst.operands.empty()) {
+          if (arrayReturningFuncs.count(inst.operands[0]) &&
+              arrayVars.insert(CanonicalName(inst.result)).second) {
+            anyPropagated = true;
+          }
+          auto calleeIt = funcArrayVars.find(inst.operands[0]);
+          if (calleeIt != funcArrayVars.end()) {
+            for (const auto &calleeFn : irModule.functions) {
+              if (calleeFn.name == inst.operands[0]) {
+                for (size_t i = 0; i < calleeFn.parameters.size() &&
+                                   i + 1 < inst.operands.size();
+                     i++) {
+                  auto argName = CanonicalName(inst.operands[i + 1]);
+                  auto paramName = CanonicalName(calleeFn.parameters[i]);
+                  if (arrayVars.count(argName) &&
+                      calleeIt->second.insert(paramName).second) {
+                    anyPropagated = true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        if (inst.op == IrOpcode::Ret && !inst.operands.empty() &&
+            function.name != kIrMainFunctionName) {
+          if (arrayVars.count(CanonicalName(inst.operands[0])) &&
+              arrayReturningFuncs.insert(function.name).second) {
+            anyPropagated = true;
+          }
+        }
+      }
+      if (!function.returnValue.empty() &&
+          function.name != kIrMainFunctionName &&
+          arrayVars.count(CanonicalName(function.returnValue)) &&
+          arrayReturningFuncs.insert(function.name).second) {
+        anyPropagated = true;
+      }
+    }
+  }
+
   for (const auto &function : irModule.functions) {
+    const auto &arrayVars = funcArrayVars[function.name];
     auto parameterTypes = std::vector<llvm::Type *>();
     parameterTypes.reserve(function.parameters.size());
     for (const auto &paramName : function.parameters) {
-      bool isStr = isStringOperand(function.name, paramName);
-      parameterTypes.push_back(isStr ? static_cast<llvm::Type *>(ptrType)
+      bool isPtr = isStringOperand(function.name, paramName) ||
+                   arrayVars.count(CanonicalName(paramName)) > 0;
+      parameterTypes.push_back(isPtr ? static_cast<llvm::Type *>(ptrType)
                                      : static_cast<llvm::Type *>(intType));
     }
     llvm::Type *returnType = intType;
     if (function.name != kIrMainFunctionName &&
-        functionReturnsString[function.name]) {
+        (functionReturnsString[function.name] ||
+         arrayReturningFuncs.count(function.name) > 0)) {
       returnType = ptrType;
     }
     auto functionType =
@@ -455,6 +530,8 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
 
   for (const auto &function : irModule.functions) {
     auto llvmFunction = functionMap.at(function.name);
+    const auto &arrayVars = funcArrayVars[function.name];
+    int32_t boundsCheckId = 0;
     auto values = std::unordered_map<std::string, llvm::Value *>();
     auto parameter = llvmFunction->arg_begin();
     for (const auto &parameterName : function.parameters) {
@@ -534,8 +611,9 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     auto slots = std::unordered_map<std::string, SlotInfo>();
     if (blocks.size() > 1) {
       for (const auto &varName : slotVarOrder) {
-        bool isStr = stringVars.count(varName) > 0;
-        llvm::Type *slotType = isStr ? static_cast<llvm::Type *>(ptrType)
+        bool isPtr =
+            stringVars.count(varName) > 0 || arrayVars.count(varName) > 0;
+        llvm::Type *slotType = isPtr ? static_cast<llvm::Type *>(ptrType)
                                      : static_cast<llvm::Type *>(intType);
         auto allocaInst = builder.CreateAlloca(slotType, nullptr,
                                                CleanName(varName) + ".addr");
@@ -543,7 +621,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         llvm::Value *initialValue = nullptr;
         if (paramValue != values.end()) {
           initialValue = paramValue->second;
-        } else if (isStr) {
+        } else if (isPtr) {
           initialValue = llvm::ConstantPointerNull::get(ptrType);
         } else {
           initialValue = llvm::ConstantInt::get(intType, 0);
@@ -552,6 +630,29 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         slots[varName] = {allocaInst, slotType};
       }
     }
+
+    auto emitBoundsCheck = [&](llvm::Value *arrPtr, llvm::Value *idxVal) {
+      auto lenVal = builder.CreateLoad(intType, arrPtr, "arr.len");
+      auto isNegative = builder.CreateICmpSLT(
+          idxVal, llvm::ConstantInt::get(intType, 0), "idx.neg");
+      auto isTooLarge = builder.CreateICmpSGE(idxVal, lenVal, "idx.oob");
+      auto outOfBounds = builder.CreateOr(isNegative, isTooLarge, "bounds.err");
+      auto idStr = std::to_string(boundsCheckId++);
+      auto oobBlock =
+          llvm::BasicBlock::Create(context, "array_oob" + idStr, llvmFunction);
+      auto okBlock =
+          llvm::BasicBlock::Create(context, "array_ok" + idStr, llvmFunction);
+      builder.CreateCondBr(outOfBounds, oobBlock, okBlock);
+
+      builder.SetInsertPoint(oobBlock);
+      auto exitType = llvm::FunctionType::get(llvm::Type::getVoidTy(context),
+                                              {intType}, false);
+      auto exitFunc = module->getOrInsertFunction("exit", exitType);
+      builder.CreateCall(exitFunc, {llvm::ConstantInt::get(intType, 1)});
+      builder.CreateUnreachable();
+
+      builder.SetInsertPoint(okBlock);
+    };
 
     for (const auto &instruction : function.instructions) {
       auto operand = [&](size_t index) {
@@ -634,6 +735,42 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         value = EmitBinaryOp(CompoundStoreToBinaryOp(instruction.op), current,
                              operand(0), resultName, intType, builder,
                              module.get());
+      } else if (instruction.op == IrOpcode::ArrayNew) {
+        auto lenVal = operand(0);
+        auto totalElems = builder.CreateAdd(
+            lenVal, llvm::ConstantInt::get(intType, 1), resultName + ".total");
+        auto totalElems64 = builder.CreateZExt(totalElems, int64Type);
+        auto totalBytes = builder.CreateMul(
+            totalElems64, llvm::ConstantInt::get(int64Type, 4),
+            resultName + ".bytes");
+        auto mallocType = llvm::FunctionType::get(ptrType, {int64Type}, false);
+        auto mallocFunc = module->getOrInsertFunction("malloc", mallocType);
+        auto rawPtr = builder.CreateCall(mallocFunc, {totalBytes}, resultName);
+        builder.CreateStore(lenVal, rawPtr);
+        value = rawPtr;
+      } else if (instruction.op == IrOpcode::ArrayLen) {
+        auto arrPtr = operand(0);
+        value = builder.CreateLoad(intType, arrPtr, resultName);
+      } else if (instruction.op == IrOpcode::ArrayGet) {
+        auto arrPtr = operand(0);
+        auto idxVal = operand(1);
+        emitBoundsCheck(arrPtr, idxVal);
+        auto offset = builder.CreateAdd(
+            idxVal, llvm::ConstantInt::get(intType, 1), resultName + ".idx");
+        auto elemPtr =
+            builder.CreateGEP(intType, arrPtr, offset, resultName + ".ptr");
+        value = builder.CreateLoad(intType, elemPtr, resultName);
+      } else if (instruction.op == IrOpcode::ArraySet) {
+        auto arrPtr = operand(0);
+        auto idxVal = operand(1);
+        auto elemVal = operand(2);
+        emitBoundsCheck(arrPtr, idxVal);
+        auto offset = builder.CreateAdd(
+            idxVal, llvm::ConstantInt::get(intType, 1), "array_set.idx");
+        auto elemPtr =
+            builder.CreateGEP(intType, arrPtr, offset, "array_set.ptr");
+        builder.CreateStore(elemVal, elemPtr);
+        value = elemVal;
       } else if (instruction.op == IrOpcode::Print) {
         auto printedVal = operand(0);
         auto printfType = llvm::FunctionType::get(

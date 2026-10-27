@@ -6,6 +6,7 @@
 #include <sstream>
 // #include<algorithm> // for copy() and assign()
 // #include<iterator> // for back_inserter
+#include "ArrayLiteralExpressionNode.h"
 #include "AssignmentExpressionNode.h"
 #include "BinaryExpressionNode.h"
 #include "BreakStatementSyntaxNode.h"
@@ -16,6 +17,8 @@
 #include "FunctionDeclarationSyntaxNode.h"
 #include "IdentifierExpressionNode.h"
 #include "IfStatementSyntaxNode.h"
+#include "IndexAssignmentExpressionNode.h"
+#include "IndexExpressionNode.h"
 #include "Lexer.h"
 #include "LiteralExpressionNode.h"
 #include "ParenthesizedExpressionNode.h"
@@ -33,6 +36,9 @@ static Value::Type ParseTypeAnnotation(const std::string &text) {
   }
   if (text == "string" || text == "str") {
     return Value::Type::String;
+  }
+  if (text == "array") {
+    return Value::Type::Array;
   }
   return Value::Type::Unknown;
 }
@@ -153,34 +159,58 @@ Parser::ParseBinaryExpression(int parentPrecedence) {
 }
 
 std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
+  std::unique_ptr<ExpressionNode> primary;
   if (Current()->Kind() == SyntaxKind::OpenParenthesisToken) {
     auto left = Next();
     auto expression = ParseBinaryExpression();
 
     auto right = Match(SyntaxKind::CloseParenthesisToken);
-    return std::make_unique<ParenthesizedExpressionNode>(
+    primary = std::make_unique<ParenthesizedExpressionNode>(
         left, std::move(expression), right);
-  }
-  if (Current()->Kind() == SyntaxKind::TrueKeyword ||
-      Current()->Kind() == SyntaxKind::FalseKeyword) {
+  } else if (Current()->Kind() == SyntaxKind::OpenBracketToken) {
+    primary = ParseArrayLiteralExpression();
+  } else if (Current()->Kind() == SyntaxKind::TrueKeyword ||
+             Current()->Kind() == SyntaxKind::FalseKeyword) {
     auto boolToken = Match(Current()->Kind());
-    return std::make_unique<LiteralExpressionNode>(boolToken);
-  }
-  if (Current()->Kind() == SyntaxKind::IdentifierToken &&
-      Peek(1)->Kind() == SyntaxKind::OpenParenthesisToken) {
-    return ParseCallExpression();
-  }
-  if (Current()->Kind() == SyntaxKind::IdentifierToken) {
+    primary = std::make_unique<LiteralExpressionNode>(boolToken);
+  } else if (Current()->Kind() == SyntaxKind::IdentifierToken &&
+             Peek(1)->Kind() == SyntaxKind::OpenParenthesisToken) {
+    primary = ParseCallExpression();
+  } else if (Current()->Kind() == SyntaxKind::IdentifierToken) {
     auto identifierToken = Match(Current()->Kind());
-    return std::make_unique<IdentifierExpressionNode>(identifierToken);
-  }
-  if (Current()->Kind() == SyntaxKind::StringToken) {
+    primary = std::make_unique<IdentifierExpressionNode>(identifierToken);
+  } else if (Current()->Kind() == SyntaxKind::StringToken) {
     auto stringToken = Match(SyntaxKind::StringToken);
-    return std::make_unique<LiteralExpressionNode>(stringToken);
+    primary = std::make_unique<LiteralExpressionNode>(stringToken);
+  } else {
+    auto numberToken = Match(SyntaxKind::NumberToken);
+    primary = std::make_unique<LiteralExpressionNode>(numberToken);
   }
 
-  auto numberToken = Match(SyntaxKind::NumberToken);
-  return std::make_unique<LiteralExpressionNode>(numberToken);
+  while (Current()->Kind() == SyntaxKind::OpenBracketToken) {
+    auto openBracket = Match(SyntaxKind::OpenBracketToken);
+    auto index = ParseAssignmentExpression();
+    auto closeBracket = Match(SyntaxKind::CloseBracketToken);
+    primary = std::make_unique<IndexExpressionNode>(
+        std::move(primary), openBracket, std::move(index), closeBracket);
+  }
+  return primary;
+}
+
+std::unique_ptr<ExpressionNode> Parser::ParseArrayLiteralExpression() {
+  auto openBracket = Match(SyntaxKind::OpenBracketToken);
+  auto elements = std::vector<std::unique_ptr<ExpressionNode>>();
+  auto commas = std::vector<std::shared_ptr<SyntaxToken>>();
+  while (Current()->Kind() != SyntaxKind::CloseBracketToken &&
+         Current()->Kind() != SyntaxKind::EndOfFileToken) {
+    elements.push_back(ParseAssignmentExpression());
+    if (Current()->Kind() != SyntaxKind::CloseBracketToken) {
+      commas.push_back(Match(SyntaxKind::CommaToken));
+    }
+  }
+  auto closeBracket = Match(SyntaxKind::CloseBracketToken);
+  return std::make_unique<ArrayLiteralExpressionNode>(
+      openBracket, std::move(elements), std::move(commas), closeBracket);
 }
 
 std::unique_ptr<ExpressionNode> Parser::ParseCallExpression() {
@@ -216,29 +246,38 @@ std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
     return std::make_unique<LiteralExpressionNode>(tok);
   }
   ParseDepthGuard depthGuard(mDepth);
-  if (Peek(0)->Kind() != SyntaxKind::IdentifierToken) {
-    return ParseBinaryExpression();
+  if (Peek(0)->Kind() == SyntaxKind::IdentifierToken) {
+    switch (Peek(1)->Kind().GetValue()) {
+    case SyntaxKind::PlusEqualsToken:
+    case SyntaxKind::MinusEqualsToken:
+    case SyntaxKind::StarEqualsToken:
+    case SyntaxKind::SlashEqualsToken:
+    case SyntaxKind::PercentEqualsToken:
+    case SyntaxKind::AmpersandEqualsToken:
+    case SyntaxKind::PipeEqualsToken:
+    case SyntaxKind::HatEqualsToken:
+    case SyntaxKind::EqualsToken: {
+      auto identifierToken = Next();
+      auto operatorToken = Next();
+      auto right = ParseAssignmentExpression();
+      return std::make_unique<AssignmentExpressionNode>(
+          identifierToken, operatorToken, std::move(right));
+    }
+    default:
+      break;
+    }
   }
-  switch (Peek(1)->Kind().GetValue()) {
-  case SyntaxKind::PlusEqualsToken:
-  case SyntaxKind::MinusEqualsToken:
-  case SyntaxKind::StarEqualsToken:
-  case SyntaxKind::SlashEqualsToken:
-  case SyntaxKind::PercentEqualsToken:
-  case SyntaxKind::AmpersandEqualsToken:
-  case SyntaxKind::PipeEqualsToken:
-  case SyntaxKind::HatEqualsToken:
-  case SyntaxKind::EqualsToken: {
-    auto identifierToken = Next();
-    auto operatorToken = Next();
+  auto left = ParseBinaryExpression();
+  if (left && left->Kind() == SyntaxKind::IndexExpression &&
+      Current()->Kind() == SyntaxKind::EqualsToken) {
+    auto equalsToken = Next();
     auto right = ParseAssignmentExpression();
-    return std::make_unique<AssignmentExpressionNode>(
-        identifierToken, operatorToken, std::move(right));
+    auto indexExpr = std::unique_ptr<IndexExpressionNode>(
+        static_cast<IndexExpressionNode *>(left.release()));
+    return std::make_unique<IndexAssignmentExpressionNode>(
+        std::move(indexExpr), equalsToken, std::move(right));
   }
-  default:
-    break;
-  }
-  return ParseBinaryExpression();
+  return left;
 }
 
 std::unique_ptr<CompilationUnitSyntaxNode> Parser::ParseCompilationUnit() {

@@ -15,9 +15,11 @@ class Scope;
 
 class VariableSymbol {
 public:
-  VariableSymbol(const std::string &name, bool isReadOnly, Value::Type type);
+  VariableSymbol(const std::string &name, bool isReadOnly, Value::Type type,
+                 Value::Type elementType = Value::Type::Unknown);
   const std::string &Name() const;
   Value::Type Type() const;
+  Value::Type ElementType() const;
   Value GetValue() const;
   void SetValue(Value v);
   bool IsReadOnly() const;
@@ -43,6 +45,7 @@ public:
 private:
   std::string mName;
   Value::Type mType;
+  Value::Type mElementType;
   Scope *mScope;
   Value mValue;
   bool mIsReadOnly;

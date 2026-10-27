@@ -1,0 +1,31 @@
+// RUN: %warf-ir --run %s | %FileCheck %s
+
+func __main()
+entry:
+  %0 = const 10
+  %1 = const 20
+  %2 = const 30
+  %3 = array_new 3
+  %4 = const 0
+  array_set %3 %4 %0
+  %5 = const 1
+  array_set %3 %5 %1
+  %6 = const 2
+  array_set %3 %6 %2
+  %a = store %3
+  %7 = const 1
+  %8 = const 25
+  array_set %a %7 %8
+  %9 = array_len %a
+  %10 = const 0
+  %11 = array_get %a %10
+  %12 = add %9 %11
+  %13 = const 1
+  %14 = array_get %a %13
+  %15 = add %12 %14
+  %16 = const 2
+  %17 = array_get %a %16
+  %18 = add %15 %17
+  ret %18
+
+// CHECK: 68

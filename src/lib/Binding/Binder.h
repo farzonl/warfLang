@@ -20,6 +20,9 @@
 class LiteralExpressionNode;
 class UnaryExpressionNode;
 class BinaryExpressionNode;
+class ArrayLiteralExpressionNode;
+class IndexExpressionNode;
+class IndexAssignmentExpressionNode;
 class AssignmentExpressionNode;
 class CallExpressionNode;
 class IdentifierExpressionNode;
@@ -59,6 +62,12 @@ private:
   BindUnaryExpression(UnaryExpressionNode *unary);
   std::unique_ptr<BoundExpressionNode>
   BindBinaryExpression(BinaryExpressionNode *binary);
+  std::unique_ptr<BoundExpressionNode>
+  BindArrayLiteralExpression(ArrayLiteralExpressionNode *arrayLiteral);
+  std::unique_ptr<BoundExpressionNode>
+  BindIndexExpression(IndexExpressionNode *indexExpression);
+  std::unique_ptr<BoundExpressionNode>
+  BindIndexAssignmentExpression(IndexAssignmentExpressionNode *indexAssignment);
   std::unique_ptr<BoundExpressionNode>
   BindAssignmentExpression(AssignmentExpressionNode *assignment);
   std::unique_ptr<BoundExpressionNode>

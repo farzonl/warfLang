@@ -7,12 +7,13 @@
 #include "Scope.h"
 
 VariableSymbol::VariableSymbol(const std::string &name, bool isReadOnly,
-                               Value::Type type)
-    : mName(name), mType(type), mScope(nullptr), mValue(),
-      mIsReadOnly(isReadOnly) {};
+                               Value::Type type, Value::Type elementType)
+    : mName(name), mType(type), mElementType(elementType), mScope(nullptr),
+      mValue(), mIsReadOnly(isReadOnly) {};
 
 const std::string &VariableSymbol::Name() const { return mName; }
 Value::Type VariableSymbol::Type() const { return mType; }
+Value::Type VariableSymbol::ElementType() const { return mElementType; }
 
 std::string VariableSymbol::GetScopeName() {
   return this->mScope != nullptr ? this->mScope->Name() : "";

@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include "Evaluator.h"
+#include "Binding/BoundArrayLiteralExpressionNode.h"
 #include "Binding/BoundAssignmentExpressionNode.h"
 #include "Binding/BoundBinaryExpressionNode.h"
 #include "Binding/BoundBlockStatementNode.h"
@@ -15,6 +16,8 @@
 #include "Binding/BoundFunctionDeclarationNode.h"
 #include "Binding/BoundIdentifierExpressionNode.h"
 #include "Binding/BoundIfStatementNode.h"
+#include "Binding/BoundIndexAssignmentExpressionNode.h"
+#include "Binding/BoundIndexExpressionNode.h"
 #include "Binding/BoundLiteralExpressionNode.h"
 #include "Binding/BoundReturnStatementNode.h"
 #include "Binding/BoundUnaryExpressionNode.h"
@@ -185,6 +188,41 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
           dynamic_cast<BoundIdentifierExpressionNode *>(node)) {
     return identifierExpression->Variable()->GetValue();
   }
+  if (BoundArrayLiteralExpressionNode *arrayLiteral =
+          dynamic_cast<BoundArrayLiteralExpressionNode *>(node)) {
+    auto elements = std::make_shared<std::vector<Value>>();
+    elements->reserve(arrayLiteral->Elements().size());
+    for (const auto &element : arrayLiteral->Elements()) {
+      elements->push_back(EvaluateRec(element.get()));
+    }
+    Value value;
+    value = std::move(elements);
+    return value;
+  }
+  if (BoundIndexExpressionNode *indexExpression =
+          dynamic_cast<BoundIndexExpressionNode *>(node)) {
+    auto target = EvaluateRec(indexExpression->Target());
+    auto index = EvaluateRec(indexExpression->Index());
+    const auto &arr = target.asArray();
+    int32_t idx = index.asInt();
+    if (!arr || idx < 0 || static_cast<size_t>(idx) >= arr->size()) {
+      throw std::runtime_error("EvaluatorError: Array index out of bounds.");
+    }
+    return (*arr)[static_cast<size_t>(idx)];
+  }
+  if (BoundIndexAssignmentExpressionNode *indexAssignment =
+          dynamic_cast<BoundIndexAssignmentExpressionNode *>(node)) {
+    auto target = EvaluateRec(indexAssignment->Target());
+    auto index = EvaluateRec(indexAssignment->Index());
+    auto val = EvaluateRec(indexAssignment->ValueExpression());
+    const auto &arr = target.asArray();
+    int32_t idx = index.asInt();
+    if (!arr || idx < 0 || static_cast<size_t>(idx) >= arr->size()) {
+      throw std::runtime_error("EvaluatorError: Array index out of bounds.");
+    }
+    (*arr)[static_cast<size_t>(idx)] = val;
+    return val;
+  }
   if (BoundAssignmentExpressionNode *assignmentExpression =
           dynamic_cast<BoundAssignmentExpressionNode *>(node)) {
     auto rightSide = EvaluateRec(assignmentExpression->BoundExpression());
@@ -307,6 +345,13 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
         auto val = EvaluateRec(callExpression->Arguments()[0].get());
         std::cout << val << std::endl;
         return val;
+      }
+      if (callExpression->Name() == "len") {
+        auto val = EvaluateRec(callExpression->Arguments()[0].get());
+        Value lenVal;
+        lenVal =
+            static_cast<int32_t>(val.asArray() ? val.asArray()->size() : 0);
+        return lenVal;
       }
       throw std::runtime_error("EvaluatorError: Unexpected function: " +
                                callExpression->Name());
