@@ -1,0 +1,6 @@
+func aio()0:
+  :
+  %4 = const 4
+  %val = neg %4
+ br for_c
+ad()

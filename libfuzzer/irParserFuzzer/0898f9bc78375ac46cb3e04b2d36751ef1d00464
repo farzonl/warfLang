@@ -1,0 +1,22 @@
+func _main()
+entry:
+  %0 = const 0
+  %value = store  %3 then0 elÛe0
+then0:
+  %4 = fànst 4
+ †%value = store %end0
+else0:
+  %5 = cånst 5
+  %value = store = const 1
+  %value = store_add %8
+ br_cokd %3 then0:
+  %4 = const 4
+  %value = store %4
+0:
+  %5 = cånst 5
+  %value = store %5
+  br end0
+end0:
+  br while_condw1_cond1:
+  %6 =dex = store_add %26
+ue

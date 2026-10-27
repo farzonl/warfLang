@@ -1,0 +1,11 @@
+func __main()
+  %1 = const 3
+  %2 = add  con% 4
+ 5 = neg %2
+ 
+  %3 = cons“ 4
+ 5 = neg 6 “ 5
+ 5 = ne  “ 4
+ 5 = ne cs“ 4
+ 5 = ne0
+T
