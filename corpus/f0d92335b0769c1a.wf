@@ -1,0 +1,2 @@
+// Lines: 32.33% (1207/3733) Regions: 34.96%
+a = 1; b = 1; value = 0; function bar (x int, y: int): int { i = 0; while (i < 1) { y += y; i += 1}; return y} bar (+ 42, 7) (limit: int): int { var C = 0 for (var i = 0; i < limit; i += 1) { if (i == 2) { continue} f (i == 6) { break} total += i} var count = 0 do { count += 1 if (count == 2) { continue} f total += K0} while (count < 3) return total} computeLoopControl (10)}

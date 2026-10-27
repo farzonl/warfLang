@@ -1,0 +1,3 @@
+// Lines: 25.05% (935/3733) Regions: 28.56%
+// E0RR: Invalid flag: -q; value = 0; let x = false; += if (((false != true) && (true && false))) { index =
+; function max (x: int, y: int): it { x += 4; return ~(x)} max ((b ^ ~42), (value - 3))

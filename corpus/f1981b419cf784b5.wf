@@ -1,0 +1,2 @@
+// Lines: 23.09% (862/3733) Regions: 26.90%
+{ function inc(x: int): int { return x + 1 } inc(true) }

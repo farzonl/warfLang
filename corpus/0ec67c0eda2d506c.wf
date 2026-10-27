@@ -1,2 +1,2 @@
-// Lines: 34.89% (1290/3697) Regions: 38.10%
+// Lines: 34.85% (1301/3733) Regions: 38.05%
 { a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && 255))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~false * 1)}; index = 0; value = 0; for (index = 0; index < 4; index += 1) { let x = (value = value)}; if ((- 42 < (4 * 1))) { if (false) { 1) { let x = (value = value)}; if ((- 42 < (4 * 1))) { if (false) { b &= ~7}} else { function compute (x: int, y: int): int { x *= + 7; return + (255)} compute (255, (+ 7 / 42))}; index = 0; b = 3; if (((false (((false !=

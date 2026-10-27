@@ -1,0 +1,2 @@
+// Lines: 8.51% (1833/21543) Regions: 15.70%
+a = 5; b = 3; value = 0; var n = (false != (4 < -42)); n

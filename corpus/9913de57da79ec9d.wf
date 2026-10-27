@@ -1,2 +1,2 @@
-// Lines: 8.64% (1799/20818) Regions: 16.26%
+// Lines: 9.18% (1977/21543) Regions: 16.58%
 b1 = true; b2 = false; (b1 && !b2) || (1 < 2 && 3 >= 3) != false
