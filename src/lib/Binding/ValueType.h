@@ -19,12 +19,13 @@
 
 class Value {
 public:
-  enum class Type { Unknown, Number, Boolean, String, Array };
+  enum class Type { Unknown, Number, Boolean, Float, String, Array };
 
 private:
   union uValue {
     bool boolean;
     int32_t integer;
+    double floating;
   };
   Type type;
   uValue val;
@@ -39,6 +40,9 @@ public:
   Value(int32_t i) : type(Type::Number), val(), str(), array(nullptr) {
     val.integer = i;
   }
+  Value(double d) : type(Type::Float), val(), str(), array(nullptr) {
+    val.floating = d;
+  }
   Value(std::string s)
       : type(Type::String), val(), str(std::move(s)), array(nullptr) {}
   explicit Value(const char *s)
@@ -49,6 +53,13 @@ public:
     str.clear();
     array.reset();
     type = Type::Number;
+    return *this;
+  }
+  Value &operator=(double d) {
+    val.floating = d;
+    str.clear();
+    array.reset();
+    type = Type::Float;
     return *this;
   }
   Value &operator=(bool b) {
@@ -83,18 +94,30 @@ public:
       value = this->asString() + v.asString();
       return value;
     }
+    if (this->isFloat() && v.isFloat()) {
+      value = this->asFloat() + v.asFloat();
+      return value;
+    }
     value = this->asInt() + v.asInt();
     return value;
   }
 
   Value operator-(const Value &v) {
     Value value;
+    if (this->isFloat() && v.isFloat()) {
+      value = this->asFloat() - v.asFloat();
+      return value;
+    }
     value = this->asInt() - v.asInt();
     return value;
   }
 
   Value operator-() {
     Value value;
+    if (this->isFloat()) {
+      value = -this->asFloat();
+      return value;
+    }
     value = static_cast<int32_t>(-static_cast<int64_t>(this->asInt()));
     return value;
   }
@@ -125,35 +148,60 @@ public:
 
   Value operator*(const Value &v) {
     Value value;
+    if (this->isFloat() && v.isFloat()) {
+      value = this->asFloat() * v.asFloat();
+      return value;
+    }
     value = this->asInt() * v.asInt();
     return value;
   }
 
   Value operator<(const Value &v) {
     Value value;
+    if (this->isFloat() && v.isFloat()) {
+      value = this->asFloat() < v.asFloat();
+      return value;
+    }
     value = this->asInt() < v.asInt();
     return value;
   }
 
   Value operator>(const Value &v) {
     Value value;
+    if (this->isFloat() && v.isFloat()) {
+      value = this->asFloat() > v.asFloat();
+      return value;
+    }
     value = this->asInt() > v.asInt();
     return value;
   }
 
   Value operator<=(const Value &v) {
     Value value;
+    if (this->isFloat() && v.isFloat()) {
+      value = this->asFloat() <= v.asFloat();
+      return value;
+    }
     value = this->asInt() <= v.asInt();
     return value;
   }
 
   Value operator>=(const Value &v) {
     Value value;
+    if (this->isFloat() && v.isFloat()) {
+      value = this->asFloat() >= v.asFloat();
+      return value;
+    }
     value = this->asInt() >= v.asInt();
     return value;
   }
 
   Value operator/(const Value &v) {
+    if (this->isFloat() && v.isFloat()) {
+      Value value;
+      value = this->asFloat() / v.asFloat();
+      return value;
+    }
     if (v.asInt() == 0) {
       throw std::runtime_error("Logial error: Divide by zero.");
     }
@@ -182,6 +230,8 @@ public:
     value.type = Type::Boolean;
     if (this->isInt() && v.isInt()) {
       value.val.boolean = this->val.integer == v.val.integer;
+    } else if (this->isFloat() && v.isFloat()) {
+      value.val.boolean = this->val.floating == v.val.floating;
     } else if (this->isBool() && v.isBool()) {
       value.val.boolean = this->val.boolean == v.val.boolean;
     } else if (this->isString() && v.isString()) {
@@ -197,6 +247,8 @@ public:
     value.type = Type::Boolean;
     if (this->isInt() && v.isInt()) {
       value.val.boolean = this->val.integer != v.val.integer;
+    } else if (this->isFloat() && v.isFloat()) {
+      value.val.boolean = this->val.floating != v.val.floating;
     } else if (this->isBool() && v.isBool()) {
       value.val.boolean = this->val.boolean != v.val.boolean;
     } else if (this->isString() && v.isString()) {
@@ -234,6 +286,10 @@ public:
     assert(type == Type::Number);
     return val.integer;
   }
+  double asFloat() const {
+    assert(type == Type::Float);
+    return val.floating;
+  }
   bool asBool() const {
     assert(type == Type::Boolean);
     return val.boolean;
@@ -247,6 +303,7 @@ public:
     return array;
   }
   bool isInt() const { return type == Type::Number; }
+  bool isFloat() const { return type == Type::Float; }
   bool isBool() const { return type == Type::Boolean; }
   bool isString() const { return type == Type::String; }
   bool isArray() const { return type == Type::Array; }
@@ -261,6 +318,9 @@ inline std::ostream &operator<<(std::ostream &out, const Value v) {
     break;
   case Value::Type::Number:
     out << v.asInt();
+    break;
+  case Value::Type::Float:
+    out << v.asFloat();
     break;
   case Value::Type::String:
     out << v.asString();
@@ -290,6 +350,9 @@ inline std::ostream &operator<<(std::ostream &out, const Value::Type t) {
     break;
   case Value::Type::Number:
     out << "Number";
+    break;
+  case Value::Type::Float:
+    out << "Float";
     break;
   case Value::Type::String:
     out << "String";

@@ -110,6 +110,9 @@ static std::string ValueText(Value value) {
   if (value.isString()) {
     return EscapeIrString(value.asString());
   }
+  if (value.isFloat()) {
+    return FormatIrFloat(value.asFloat());
+  }
   std::stringstream stream;
   stream << value;
   return stream.str();
@@ -842,6 +845,8 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
                  instruction.operands[0].front() == '"' &&
                  instruction.operands[0].back() == '"') {
         value = UnescapeIrString(instruction.operands[0]);
+      } else if (IsIrFloatLiteral(instruction.operands[0])) {
+        value = std::stod(instruction.operands[0]);
       } else {
         value = static_cast<int32_t>(std::stoll(instruction.operands[0]));
       }
@@ -963,6 +968,9 @@ Value IrInterpreter::EvaluateOperand(
   }
   if (operand.size() >= 2 && operand.front() == '"' && operand.back() == '"') {
     return UnescapeIrString(operand);
+  }
+  if (IsIrFloatLiteral(operand)) {
+    return std::stod(operand);
   }
   if (!operand.empty() &&
       (std::isdigit(static_cast<unsigned char>(operand[0])) ||

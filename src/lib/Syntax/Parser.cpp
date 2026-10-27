@@ -31,6 +31,9 @@ static Value::Type ParseTypeAnnotation(const std::string &text) {
   if (text == "int" || text == "number") {
     return Value::Type::Number;
   }
+  if (text == "float" || text == "f64") {
+    return Value::Type::Float;
+  }
   if (text == "bool" || text == "boolean") {
     return Value::Type::Boolean;
   }
@@ -182,6 +185,9 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
   } else if (Current()->Kind() == SyntaxKind::StringToken) {
     auto stringToken = Match(SyntaxKind::StringToken);
     primary = std::make_unique<LiteralExpressionNode>(stringToken);
+  } else if (Current()->Kind() == SyntaxKind::FloatToken) {
+    auto floatToken = Match(SyntaxKind::FloatToken);
+    primary = std::make_unique<LiteralExpressionNode>(floatToken);
   } else {
     auto numberToken = Match(SyntaxKind::NumberToken);
     primary = std::make_unique<LiteralExpressionNode>(numberToken);

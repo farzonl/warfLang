@@ -72,6 +72,10 @@ LookupValue(const std::string &name,
   if (IsStringLiteral(name)) {
     return builder.CreateGlobalString(UnescapeIrString(name), ".str");
   }
+  if (IsIrFloatLiteral(name)) {
+    return llvm::ConstantFP::get(llvm::Type::getDoubleTy(builder.getContext()),
+                                 std::stod(name));
+  }
   if (name == kIrTrueLiteral) {
     return llvm::ConstantInt::get(intType, 1);
   }
@@ -120,6 +124,9 @@ static llvm::Value *EmitUnaryOp(IrOpcode op, llvm::Value *operand,
   case IrOpcode::Copy:
     return operand;
   case IrOpcode::Neg:
+    if (operand->getType()->isDoubleTy()) {
+      return builder.CreateFNeg(operand, resultName);
+    }
     return builder.CreateNeg(operand, resultName);
   case IrOpcode::Not: {
     auto compare =
@@ -189,6 +196,57 @@ EmitBinaryOp(IrOpcode op, llvm::Value *left, llvm::Value *right,
         IrOpcodeToString(op) + ".");
   }
 
+  if (left->getType()->isDoubleTy() || right->getType()->isDoubleTy()) {
+    auto doubleType = llvm::Type::getDoubleTy(context);
+    if (!left->getType()->isDoubleTy()) {
+      left = builder.CreateSIToFP(left, doubleType);
+    }
+    if (!right->getType()->isDoubleTy()) {
+      right = builder.CreateSIToFP(right, doubleType);
+    }
+    if (IsComparisonOp(op)) {
+      llvm::Value *compare = nullptr;
+      switch (op) {
+      case IrOpcode::Eq:
+        compare = builder.CreateFCmpOEQ(left, right);
+        break;
+      case IrOpcode::Ne:
+        compare = builder.CreateFCmpONE(left, right);
+        break;
+      case IrOpcode::Lt:
+        compare = builder.CreateFCmpOLT(left, right);
+        break;
+      case IrOpcode::Le:
+        compare = builder.CreateFCmpOLE(left, right);
+        break;
+      case IrOpcode::Gt:
+        compare = builder.CreateFCmpOGT(left, right);
+        break;
+      case IrOpcode::Ge:
+        compare = builder.CreateFCmpOGE(left, right);
+        break;
+      default:
+        compare = builder.CreateFCmpOEQ(left, right);
+        break;
+      }
+      return builder.CreateZExt(compare, intType, resultName);
+    }
+    switch (op) {
+    case IrOpcode::Add:
+      return builder.CreateFAdd(left, right, resultName);
+    case IrOpcode::Sub:
+      return builder.CreateFSub(left, right, resultName);
+    case IrOpcode::Mul:
+      return builder.CreateFMul(left, right, resultName);
+    case IrOpcode::Div:
+      return builder.CreateFDiv(left, right, resultName);
+    default:
+      throw std::runtime_error(
+          "LLVM backend error: unsupported binary operation on floats " +
+          IrOpcodeToString(op) + ".");
+    }
+  }
+
   if (IsComparisonOp(op)) {
     auto compare = builder.CreateICmp(PredicateFor(op), left, right);
     return builder.CreateZExt(compare, intType, resultName);
@@ -256,17 +314,21 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
   llvm::IRBuilder<> builder(context);
   auto intType = llvm::Type::getInt32Ty(context);
   auto int64Type = llvm::Type::getInt64Ty(context);
+  auto doubleType = llvm::Type::getDoubleTy(context);
   auto ptrType = llvm::PointerType::getUnqual(context);
   auto functionMap = std::unordered_map<std::string, llvm::Function *>();
   auto funcArrayVars =
       std::unordered_map<std::string, std::unordered_set<std::string>>();
   auto arrayReturningFuncs = std::unordered_set<std::string>();
 
-  // Module-level type inference to identify string variables, parameters, and
-  // return types
+  // Module-level type inference to identify string/float variables, parameters,
+  // and return types
   std::unordered_map<std::string, std::unordered_set<std::string>>
       functionStringVars;
   std::unordered_map<std::string, bool> functionReturnsString;
+  std::unordered_map<std::string, std::unordered_set<std::string>>
+      functionFloatVars;
+  std::unordered_map<std::string, bool> functionReturnsFloat;
   std::unordered_map<std::string, const IrFunction *> functionTable;
   for (const auto &function : irModule.functions) {
     functionTable[function.name] = &function;
@@ -299,8 +361,8 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
   auto markString = [&](const std::string &fnName,
                         const std::string &varName) -> bool {
     if (!varName.empty() && !IsStringLiteral(varName) &&
-        varName != kIrVoidValue && varName != kIrTrueLiteral &&
-        varName != kIrFalseLiteral) {
+        !IsIrFloatLiteral(varName) && varName != kIrVoidValue &&
+        varName != kIrTrueLiteral && varName != kIrFalseLiteral) {
       if (!(std::isdigit(static_cast<unsigned char>(varName[0])) ||
             (varName[0] == '-' && varName.size() > 1 &&
              std::isdigit(static_cast<unsigned char>(varName[1]))))) {
@@ -313,6 +375,41 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
   auto markReturnsString = [&](const std::string &fnName) -> bool {
     if (!functionReturnsString[fnName]) {
       functionReturnsString[fnName] = true;
+      return true;
+    }
+    return false;
+  };
+
+  auto isFloatOperand = [&](const std::string &fnName,
+                            const std::string &operand) -> bool {
+    if (IsIrFloatLiteral(operand)) {
+      return true;
+    }
+    auto canonical = CanonicalName(operand);
+    auto it = functionFloatVars.find(fnName);
+    if (it != functionFloatVars.end()) {
+      return it->second.count(canonical) > 0;
+    }
+    return false;
+  };
+
+  auto markFloat = [&](const std::string &fnName,
+                       const std::string &varName) -> bool {
+    if (!varName.empty() && !IsStringLiteral(varName) &&
+        !IsIrFloatLiteral(varName) && varName != kIrVoidValue &&
+        varName != kIrTrueLiteral && varName != kIrFalseLiteral) {
+      if (!(std::isdigit(static_cast<unsigned char>(varName[0])) ||
+            (varName[0] == '-' && varName.size() > 1 &&
+             std::isdigit(static_cast<unsigned char>(varName[1]))))) {
+        return functionFloatVars[fnName].insert(CanonicalName(varName)).second;
+      }
+    }
+    return false;
+  };
+
+  auto markReturnsFloat = [&](const std::string &fnName) -> bool {
+    if (!functionReturnsFloat[fnName]) {
+      functionReturnsFloat[fnName] = true;
       return true;
     }
     return false;
@@ -331,6 +428,11 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
             changed = true;
           }
         }
+        if (isFloatOperand(fnName, function.returnValue)) {
+          if (markReturnsFloat(fnName)) {
+            changed = true;
+          }
+        }
       }
 
       for (const auto &instruction : function.instructions) {
@@ -340,53 +442,110 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
             if (markString(fnName, instruction.result)) {
               changed = true;
             }
+          } else if (IsIrFloatLiteral(instruction.operands[0])) {
+            if (markFloat(fnName, instruction.result)) {
+              changed = true;
+            }
           }
         } else if ((instruction.op == IrOpcode::Copy ||
-                    instruction.op == IrOpcode::Store) &&
+                    instruction.op == IrOpcode::Store ||
+                    instruction.op == IrOpcode::Neg) &&
                    !instruction.operands.empty()) {
-          if (isStringOperand(fnName, instruction.operands[0])) {
-            if (markString(fnName, instruction.result)) {
+          if (instruction.op != IrOpcode::Neg) {
+            if (isStringOperand(fnName, instruction.operands[0])) {
+              if (markString(fnName, instruction.result)) {
+                changed = true;
+              }
+            }
+            if (isStringOperand(fnName, instruction.result)) {
+              if (markString(fnName, instruction.operands[0])) {
+                changed = true;
+              }
+            }
+          }
+          if (isFloatOperand(fnName, instruction.operands[0])) {
+            if (markFloat(fnName, instruction.result)) {
               changed = true;
             }
           }
-          if (isStringOperand(fnName, instruction.result)) {
-            if (markString(fnName, instruction.operands[0])) {
+          if (isFloatOperand(fnName, instruction.result)) {
+            if (markFloat(fnName, instruction.operands[0])) {
               changed = true;
             }
           }
-        } else if (instruction.op == IrOpcode::Add &&
+        } else if ((instruction.op == IrOpcode::Add ||
+                    instruction.op == IrOpcode::Sub ||
+                    instruction.op == IrOpcode::Mul ||
+                    instruction.op == IrOpcode::Div) &&
                    instruction.operands.size() >= 2) {
-          bool op0Str = isStringOperand(fnName, instruction.operands[0]);
-          bool op1Str = isStringOperand(fnName, instruction.operands[1]);
-          bool resStr = isStringOperand(fnName, instruction.result);
-          if (op0Str || op1Str || resStr) {
-            if (markString(fnName, instruction.result))
+          if (instruction.op == IrOpcode::Add) {
+            bool op0Str = isStringOperand(fnName, instruction.operands[0]);
+            bool op1Str = isStringOperand(fnName, instruction.operands[1]);
+            bool resStr = isStringOperand(fnName, instruction.result);
+            if (op0Str || op1Str || resStr) {
+              if (markString(fnName, instruction.result))
+                changed = true;
+              if (markString(fnName, instruction.operands[0]))
+                changed = true;
+              if (markString(fnName, instruction.operands[1]))
+                changed = true;
+            }
+          }
+          bool op0Flt = isFloatOperand(fnName, instruction.operands[0]);
+          bool op1Flt = isFloatOperand(fnName, instruction.operands[1]);
+          bool resFlt = isFloatOperand(fnName, instruction.result);
+          if (op0Flt || op1Flt || resFlt) {
+            if (markFloat(fnName, instruction.result))
               changed = true;
-            if (markString(fnName, instruction.operands[0]))
+            if (markFloat(fnName, instruction.operands[0]))
               changed = true;
-            if (markString(fnName, instruction.operands[1]))
+            if (markFloat(fnName, instruction.operands[1]))
               changed = true;
           }
-        } else if (instruction.op == IrOpcode::StoreAdd &&
+        } else if ((instruction.op == IrOpcode::StoreAdd ||
+                    instruction.op == IrOpcode::StoreSub ||
+                    instruction.op == IrOpcode::StoreMul ||
+                    instruction.op == IrOpcode::StoreDiv) &&
                    !instruction.operands.empty()) {
-          bool resStr = isStringOperand(fnName, instruction.result);
-          bool op0Str = isStringOperand(fnName, instruction.operands[0]);
-          if (resStr || op0Str) {
-            if (markString(fnName, instruction.result))
+          if (instruction.op == IrOpcode::StoreAdd) {
+            bool resStr = isStringOperand(fnName, instruction.result);
+            bool op0Str = isStringOperand(fnName, instruction.operands[0]);
+            if (resStr || op0Str) {
+              if (markString(fnName, instruction.result))
+                changed = true;
+              if (markString(fnName, instruction.operands[0]))
+                changed = true;
+            }
+          }
+          bool resFlt = isFloatOperand(fnName, instruction.result);
+          bool op0Flt = isFloatOperand(fnName, instruction.operands[0]);
+          if (resFlt || op0Flt) {
+            if (markFloat(fnName, instruction.result))
               changed = true;
-            if (markString(fnName, instruction.operands[0]))
+            if (markFloat(fnName, instruction.operands[0]))
               changed = true;
           }
-        } else if ((instruction.op == IrOpcode::Eq ||
-                    instruction.op == IrOpcode::Ne) &&
+        } else if (IsComparisonOp(instruction.op) &&
                    instruction.operands.size() >= 2) {
-          bool op0Str = isStringOperand(fnName, instruction.operands[0]);
-          bool op1Str = isStringOperand(fnName, instruction.operands[1]);
-          if (op0Str && !op1Str) {
-            if (markString(fnName, instruction.operands[1]))
+          if (instruction.op == IrOpcode::Eq ||
+              instruction.op == IrOpcode::Ne) {
+            bool op0Str = isStringOperand(fnName, instruction.operands[0]);
+            bool op1Str = isStringOperand(fnName, instruction.operands[1]);
+            if (op0Str && !op1Str) {
+              if (markString(fnName, instruction.operands[1]))
+                changed = true;
+            } else if (op1Str && !op0Str) {
+              if (markString(fnName, instruction.operands[0]))
+                changed = true;
+            }
+          }
+          bool op0Flt = isFloatOperand(fnName, instruction.operands[0]);
+          bool op1Flt = isFloatOperand(fnName, instruction.operands[1]);
+          if (op0Flt && !op1Flt) {
+            if (markFloat(fnName, instruction.operands[1]))
               changed = true;
-          } else if (op1Str && !op0Str) {
-            if (markString(fnName, instruction.operands[0]))
+          } else if (op1Flt && !op0Flt) {
+            if (markFloat(fnName, instruction.operands[0]))
               changed = true;
           }
         } else if (instruction.op == IrOpcode::Print &&
@@ -399,6 +558,14 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
             if (markString(fnName, instruction.operands[0]))
               changed = true;
           }
+          if (isFloatOperand(fnName, instruction.operands[0])) {
+            if (markFloat(fnName, instruction.result))
+              changed = true;
+          }
+          if (isFloatOperand(fnName, instruction.result)) {
+            if (markFloat(fnName, instruction.operands[0]))
+              changed = true;
+          }
         } else if (instruction.op == IrOpcode::Ret &&
                    !instruction.operands.empty()) {
           if (instruction.operands[0] != kIrVoidValue) {
@@ -408,6 +575,14 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
             }
             if (functionReturnsString[fnName]) {
               if (markString(fnName, instruction.operands[0]))
+                changed = true;
+            }
+            if (isFloatOperand(fnName, instruction.operands[0])) {
+              if (markReturnsFloat(fnName))
+                changed = true;
+            }
+            if (functionReturnsFloat[fnName]) {
+              if (markFloat(fnName, instruction.operands[0]))
                 changed = true;
             }
           }
@@ -430,6 +605,14 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
                   if (markString(fnName, arg))
                     changed = true;
                 }
+                if (isFloatOperand(fnName, arg)) {
+                  if (markFloat(callee->name, param))
+                    changed = true;
+                }
+                if (isFloatOperand(callee->name, param)) {
+                  if (markFloat(fnName, arg))
+                    changed = true;
+                }
               }
             }
             if (functionReturnsString[callee->name]) {
@@ -438,6 +621,14 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
             }
             if (isStringOperand(fnName, instruction.result)) {
               if (markReturnsString(callee->name))
+                changed = true;
+            }
+            if (functionReturnsFloat[callee->name]) {
+              if (markFloat(fnName, instruction.result))
+                changed = true;
+            }
+            if (isFloatOperand(fnName, instruction.result)) {
+              if (markReturnsFloat(callee->name))
                 changed = true;
             }
           }
@@ -508,14 +699,23 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     for (const auto &paramName : function.parameters) {
       bool isPtr = isStringOperand(function.name, paramName) ||
                    arrayVars.count(CanonicalName(paramName)) > 0;
-      parameterTypes.push_back(isPtr ? static_cast<llvm::Type *>(ptrType)
-                                     : static_cast<llvm::Type *>(intType));
+      bool isFlt = isFloatOperand(function.name, paramName);
+      if (isPtr) {
+        parameterTypes.push_back(ptrType);
+      } else if (isFlt) {
+        parameterTypes.push_back(doubleType);
+      } else {
+        parameterTypes.push_back(intType);
+      }
     }
     llvm::Type *returnType = intType;
-    if (function.name != kIrMainFunctionName &&
-        (functionReturnsString[function.name] ||
-         arrayReturningFuncs.count(function.name) > 0)) {
-      returnType = ptrType;
+    if (function.name != kIrMainFunctionName) {
+      if (functionReturnsString[function.name] ||
+          arrayReturningFuncs.count(function.name) > 0) {
+        returnType = ptrType;
+      } else if (functionReturnsFloat[function.name]) {
+        returnType = doubleType;
+      }
     }
     auto functionType =
         llvm::FunctionType::get(returnType, parameterTypes, false);
@@ -606,6 +806,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     }
 
     const auto &stringVars = functionStringVars[function.name];
+    const auto &floatVars = functionFloatVars[function.name];
 
     builder.SetInsertPoint(entryBlock);
     auto slots = std::unordered_map<std::string, SlotInfo>();
@@ -613,8 +814,13 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
       for (const auto &varName : slotVarOrder) {
         bool isPtr =
             stringVars.count(varName) > 0 || arrayVars.count(varName) > 0;
-        llvm::Type *slotType = isPtr ? static_cast<llvm::Type *>(ptrType)
-                                     : static_cast<llvm::Type *>(intType);
+        bool isFlt = floatVars.count(varName) > 0;
+        llvm::Type *slotType = intType;
+        if (isPtr) {
+          slotType = ptrType;
+        } else if (isFlt) {
+          slotType = doubleType;
+        }
         auto allocaInst = builder.CreateAlloca(slotType, nullptr,
                                                CleanName(varName) + ".addr");
         auto paramValue = values.find(varName);
@@ -623,6 +829,8 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
           initialValue = paramValue->second;
         } else if (isPtr) {
           initialValue = llvm::ConstantPointerNull::get(ptrType);
+        } else if (isFlt) {
+          initialValue = llvm::ConstantFP::get(doubleType, 0.0);
         } else {
           initialValue = llvm::ConstantInt::get(intType, 0);
         }
@@ -671,11 +879,18 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
       }
       if (instruction.op == IrOpcode::Ret) {
         if (instruction.operands[0] == kIrVoidValue) {
-          builder.CreateRet(llvm::ConstantInt::get(intType, 0));
+          if (llvmFunction->getReturnType() == doubleType) {
+            builder.CreateRet(llvm::ConstantFP::get(doubleType, 0.0));
+          } else if (llvmFunction->getReturnType() == ptrType) {
+            builder.CreateRet(llvm::ConstantPointerNull::get(ptrType));
+          } else {
+            builder.CreateRet(llvm::ConstantInt::get(intType, 0));
+          }
         } else {
           auto retVal = operand(0);
           if (function.name == kIrMainFunctionName &&
-              retVal->getType()->isPointerTy()) {
+              (retVal->getType()->isPointerTy() ||
+               retVal->getType()->isDoubleTy())) {
             builder.CreateRet(llvm::ConstantInt::get(intType, 0));
           } else if (llvmFunction->getReturnType() == intType &&
                      retVal->getType()->isPointerTy()) {
@@ -683,6 +898,12 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
           } else if (llvmFunction->getReturnType() == ptrType &&
                      retVal->getType() == intType) {
             builder.CreateRet(builder.CreateIntToPtr(retVal, ptrType));
+          } else if (llvmFunction->getReturnType() == intType &&
+                     retVal->getType()->isDoubleTy()) {
+            builder.CreateRet(builder.CreateFPToSI(retVal, intType));
+          } else if (llvmFunction->getReturnType() == doubleType &&
+                     retVal->getType() == intType) {
+            builder.CreateRet(builder.CreateSIToFP(retVal, doubleType));
           } else {
             builder.CreateRet(retVal);
           }
@@ -716,6 +937,9 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         } else if (IsStringLiteral(instruction.operands[0])) {
           value = builder.CreateGlobalString(
               UnescapeIrString(instruction.operands[0]), ".str");
+        } else if (IsIrFloatLiteral(instruction.operands[0])) {
+          value = llvm::ConstantFP::get(doubleType,
+                                        std::stod(instruction.operands[0]));
         } else {
           value = llvm::ConstantInt::get(
               intType,
@@ -779,6 +1003,8 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         llvm::Value *fmtPtr = nullptr;
         if (printedVal->getType()->isPointerTy()) {
           fmtPtr = builder.CreateGlobalString("%s\n", ".printf.str.fmt");
+        } else if (printedVal->getType()->isDoubleTy()) {
+          fmtPtr = builder.CreateGlobalString("%g\n", ".printf.flt.fmt");
         } else {
           fmtPtr = builder.CreateGlobalString("%d\n", ".printf.fmt");
         }
@@ -804,6 +1030,12 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
               } else if (expectedType == intType &&
                          argVal->getType() == ptrType) {
                 argVal = builder.CreatePtrToInt(argVal, intType);
+              } else if (expectedType == doubleType &&
+                         argVal->getType() == intType) {
+                argVal = builder.CreateSIToFP(argVal, doubleType);
+              } else if (expectedType == intType &&
+                         argVal->getType() == doubleType) {
+                argVal = builder.CreateFPToSI(argVal, intType);
               }
             }
           }
@@ -820,6 +1052,9 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         auto canonical = CanonicalName(instruction.result);
         auto slot = slots.find(canonical);
         if (slot != slots.end()) {
+          if (slot->second.type == doubleType && value->getType() == intType) {
+            value = builder.CreateSIToFP(value, doubleType);
+          }
           builder.CreateStore(value, slot->second.allocaInst);
         } else {
           values[instruction.result] = value;
@@ -830,12 +1065,19 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
 
     if (!HasTerminator(builder.GetInsertBlock())) {
       if (function.returnValue == kIrVoidValue) {
-        builder.CreateRet(llvm::ConstantInt::get(intType, 0));
+        if (llvmFunction->getReturnType() == doubleType) {
+          builder.CreateRet(llvm::ConstantFP::get(doubleType, 0.0));
+        } else if (llvmFunction->getReturnType() == ptrType) {
+          builder.CreateRet(llvm::ConstantPointerNull::get(ptrType));
+        } else {
+          builder.CreateRet(llvm::ConstantInt::get(intType, 0));
+        }
       } else {
         auto retVal =
             LookupValue(function.returnValue, values, slots, intType, builder);
         if (function.name == kIrMainFunctionName &&
-            retVal->getType()->isPointerTy()) {
+            (retVal->getType()->isPointerTy() ||
+             retVal->getType()->isDoubleTy())) {
           builder.CreateRet(llvm::ConstantInt::get(intType, 0));
         } else if (llvmFunction->getReturnType() == intType &&
                    retVal->getType()->isPointerTy()) {
@@ -843,6 +1085,12 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         } else if (llvmFunction->getReturnType() == ptrType &&
                    retVal->getType() == intType) {
           builder.CreateRet(builder.CreateIntToPtr(retVal, ptrType));
+        } else if (llvmFunction->getReturnType() == intType &&
+                   retVal->getType()->isDoubleTy()) {
+          builder.CreateRet(builder.CreateFPToSI(retVal, intType));
+        } else if (llvmFunction->getReturnType() == doubleType &&
+                   retVal->getType() == intType) {
+          builder.CreateRet(builder.CreateSIToFP(retVal, doubleType));
         } else {
           builder.CreateRet(retVal);
         }

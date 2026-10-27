@@ -13,22 +13,37 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
                                           Value::Type::Number),
     std::make_shared<BoundBinaryOperator>(SyntaxKind::PlusToken,
                                           BoundBinaryOperatorKind::Addition,
+                                          Value::Type::Float),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::PlusToken,
+                                          BoundBinaryOperatorKind::Addition,
                                           Value::Type::String),
     std::make_shared<BoundBinaryOperator>(SyntaxKind::MinusToken,
                                           BoundBinaryOperatorKind::Subtraction,
                                           Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::MinusToken,
+                                          BoundBinaryOperatorKind::Subtraction,
+                                          Value::Type::Float),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::StarToken, BoundBinaryOperatorKind::Multiplication,
         Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::StarToken, BoundBinaryOperatorKind::Multiplication,
+        Value::Type::Float),
     std::make_shared<BoundBinaryOperator>(SyntaxKind::SlashToken,
                                           BoundBinaryOperatorKind::Division,
                                           Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::SlashToken,
+                                          BoundBinaryOperatorKind::Division,
+                                          Value::Type::Float),
     std::make_shared<BoundBinaryOperator>(SyntaxKind::PercentToken,
                                           BoundBinaryOperatorKind::Modulo,
                                           Value::Type::Number),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::EqualsEqualsToken, BoundBinaryOperatorKind::Equals,
         Value::Type::Number, Value::Type::Number, Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::EqualsEqualsToken, BoundBinaryOperatorKind::Equals,
+        Value::Type::Float, Value::Type::Float, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::EqualsEqualsToken, BoundBinaryOperatorKind::Equals,
         Value::Type::Boolean, Value::Type::Boolean, Value::Type::Boolean),
@@ -38,6 +53,9 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::BangEqualsToken, BoundBinaryOperatorKind::NotEquals,
         Value::Type::Number, Value::Type::Number, Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::BangEqualsToken, BoundBinaryOperatorKind::NotEquals,
+        Value::Type::Float, Value::Type::Float, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::BangEqualsToken, BoundBinaryOperatorKind::NotEquals,
         Value::Type::Boolean, Value::Type::Boolean, Value::Type::Boolean),
@@ -65,16 +83,30 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
         SyntaxKind::GreaterToken, BoundBinaryOperatorKind::GreaterThan,
         Value::Type::Number, Value::Type::Number, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::GreaterToken, BoundBinaryOperatorKind::GreaterThan,
+        Value::Type::Float, Value::Type::Float, Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
         SyntaxKind::GreaterOrEqualsToken,
         BoundBinaryOperatorKind::GreaterThanOrEqualTo, Value::Type::Number,
         Value::Type::Number, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::GreaterOrEqualsToken,
+        BoundBinaryOperatorKind::GreaterThanOrEqualTo, Value::Type::Float,
+        Value::Type::Float, Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
         SyntaxKind::LessToken, BoundBinaryOperatorKind::LessThan,
         Value::Type::Number, Value::Type::Number, Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::LessToken, BoundBinaryOperatorKind::LessThan,
+        Value::Type::Float, Value::Type::Float, Value::Type::Boolean),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::LessOrEqualsToken,
         BoundBinaryOperatorKind::LessThanOrEqualTo, Value::Type::Number,
         Value::Type::Number, Value::Type::Boolean),
+    std::make_shared<BoundBinaryOperator>(
+        SyntaxKind::LessOrEqualsToken,
+        BoundBinaryOperatorKind::LessThanOrEqualTo, Value::Type::Float,
+        Value::Type::Float, Value::Type::Boolean),
 };
 
 BoundBinaryOperator::BoundBinaryOperator(SyntaxKind syntaxKind,

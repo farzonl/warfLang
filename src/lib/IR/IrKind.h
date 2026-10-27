@@ -6,7 +6,9 @@
 
 #pragma once
 
+#include <cctype>
 #include <cstdint>
+#include <sstream>
 #include <string>
 #include <unordered_map>
 
@@ -365,4 +367,38 @@ inline std::string UnescapeIrString(const std::string &quoted) {
     }
   }
   return result;
+}
+
+inline bool IsIrFloatLiteral(const std::string &text) {
+  if (text.empty() || (text.front() == '"' && text.back() == '"')) {
+    return false;
+  }
+  size_t i = (text[0] == '-') ? 1 : 0;
+  if (i >= text.size() || !std::isdigit(static_cast<unsigned char>(text[i]))) {
+    return false;
+  }
+  bool hasDot = false;
+  for (; i < text.size(); ++i) {
+    if (text[i] == '.') {
+      if (hasDot || i + 1 >= text.size() ||
+          !std::isdigit(static_cast<unsigned char>(text[i + 1]))) {
+        return false;
+      }
+      hasDot = true;
+    } else if (!std::isdigit(static_cast<unsigned char>(text[i]))) {
+      return false;
+    }
+  }
+  return hasDot;
+}
+
+inline std::string FormatIrFloat(double value) {
+  std::ostringstream oss;
+  oss << value;
+  std::string s = oss.str();
+  if (s.find('.') == std::string::npos && s.find('e') == std::string::npos &&
+      s.find('E') == std::string::npos) {
+    s += ".0";
+  }
+  return s;
 }
