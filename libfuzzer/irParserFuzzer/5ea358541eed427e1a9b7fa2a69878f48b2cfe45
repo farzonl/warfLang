@@ -1,0 +1,15 @@
+func __main()
+ealue
+  %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+  thenst2
+  %2 = lt %1 %2
+  br_
+cond %3[ = mul %2 %3
+ con[ = mul %2 %3
+ond %s[ = mul %2 %3
+ ÿÿÿÿ %1 =   br_
+c3[ = mul %2 %3
+ ÿÿÿÿ %3 = %P 3
+t 

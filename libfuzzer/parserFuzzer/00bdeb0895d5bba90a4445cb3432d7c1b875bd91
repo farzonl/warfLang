@@ -1,0 +1,5 @@
+print*"hello worlÿÿÿÿÿÿnudoerÿd")
+print("escaped:\\nt\ed:\n\t\"q worlÿÿÿÿÿÿnudoerÿd")
+print("escaped:\n\t\ed:\n\t\"quote\" and \\backslash\\backslash\\")
+print("" + "non-s—‹†")
+print("concatenated " + "uote\" anğğğğğğğğğğğğğğcona=6b=6;""""rin"""

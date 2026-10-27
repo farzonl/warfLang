@@ -1,0 +1,33 @@
+func entŒy:h(x%) {
+entry:
+  %c = t% add  add %x, 0
+  je_bb
+merge
+  jmp me[rge_bb
+merge
+  %1 = consv 3
+  %2 = 4ocst n
+%e_bb
+merge
+  %t = add %, 1
+  jmpb:
+ nsv 3
+0
+  jmpb:
+  %e =  1
+  jmpb:
+  %e  je[rgebb
+merge
+ cons1
+  jmpb:
+ nsv 3
+0
+  jmpb:
+  %e =%t = add %x, 1
+  jmpb:
+  %e = sub %x, 1
+  jmp ~ÿÿÿÿÿÿîb
+merge
+  conul %:
+  ret %x
+}

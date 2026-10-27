@@ -1,0 +1,114 @@
+func __main()
+nst
+  %3 = const 4
+  %4 = mu %3 = const true
+  %2–= r_cond 0%  
+  %indebr fod %8
+  bnot %3
+  %5 = const f0lse#
+  %6 =e q %4 %5
+  òe—t falr whi
+const 0
+se
+  %6 = eq %4 %5
+  = aÿÿÿÿÿÿÿ=d
+  %4 = mu %3 = const true
+  %2 = r_cond   %0
+  %indebr fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 %5
+  òe—t falr whi
+const 0
+se
+  %6 = eq %4 %5
+  %indebr fod %4
+  bnot %3
+  %5 = const f0lse
+  %6 =e q %4 %5
+  òe—t falrnwhi
+const 0
+se
+ fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 nst 4
+  %4 = mu %3 = const true
+  %2 = r_cond whi
+const 0
+se
+ fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 nst 4
+  %4 = mu %3 = const true
+  %2  r_cond   %0
+  %indebr fod %8
+  bnot %3
+  %5 = const false
+  2%6 = eq %4 %5
+  òe—t falr whi
+const 0
+se
+  %6 = eq %4 %5
+  %indebr fod %4
+  bnot %3
+  %5 = const f0lse
+  %6 =e q %4 %5
+  òe—t falr whi
+const 0
+se
+ fod %8
+  bnot %3
+  %5 = const fal %5
+ y"ú aÿÿÿÿÿÿÿ=d %1 %1
+  %3 = const 4
+  %4 = mu %3 = const
+   const 4
+  %4 = mu %3 = const true
+  %2–= r_cond   %0
+  %indebr fod %8
+  bnot %3
+  %5 = const f0lse#
+   q %4 %5
+  òe—t falr whi
+const 0
+q %4D%5
+  y  %%6St  ndebr fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 %5
+  òe—t falr whi
+const 0
+se
+  %6 = eq %4 %5
+  %indebr fod %4
+  bnot %3
+  %5 = const f0lse
+  %6 =e q %4 %5
+  òe—t falrnwhi
+const 0
+se
+ fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 nst 4
+  %4 = mu %3 = const true
+  %2 = r_cond   %0
+  %indebr fod %8
+  bnot %3
+  %5 = constonst 0
+se
+  %6 = eq %4 %5
+  %indebr fod %4
+  bnot %3
+  %5 = const f0lse
+  %6 =e q %4 %5
+  òk—t falr whi
+const 0
+se
+ fod %8
+  bnot %3
+ %8
+  bnot %3
+  %5 = const fal ret %7
