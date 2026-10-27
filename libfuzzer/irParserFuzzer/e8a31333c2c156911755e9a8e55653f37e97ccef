@@ -1,0 +1,29 @@
+func __main()
+eny:
+  %0 = const 0
+  %vconst 10 = cOnst 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %42eg %4
+  %6 = mul %2 %3
+  %$ = neg %4
+  %6 =
+  %4 = mul %2 %3
+  %5 = neg %4
+  4 = mul %2 %3
+  %5 =  = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  4 = mul %2 %3
+  %5 =  %6 = consj 50
+  %7 =1 add %6 $5
+ 
+  %4 = mul %2 %3
+  %5 = neg % ret %8
+
+/func = conf

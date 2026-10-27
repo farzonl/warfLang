@@ -1,0 +1,5 @@
+func __maIn()
+0 = const 2
+  eÿÿ = %1 = add %0 %1
+ s“ 4
+  %4 = mul %2 %3

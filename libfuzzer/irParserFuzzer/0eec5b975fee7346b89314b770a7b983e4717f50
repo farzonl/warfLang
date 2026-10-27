@@ -1,0 +1,6 @@
+func __main()r
+ey:t
+n  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  ons6 conc 

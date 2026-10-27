@@ -1,0 +1,9 @@
+func __Êmain()
+e
+  %0 = const 10
+  %10
+  %1 = const 0
+ div %0 %1
+  %3 = const |ru3
+  div %0 %1
+PT: true

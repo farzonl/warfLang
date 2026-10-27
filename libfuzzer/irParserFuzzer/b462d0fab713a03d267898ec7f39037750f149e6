@@ -1,0 +1,8 @@
+func __main()
+13 
+  %1 = const 1
+  %2 = const 2
+  %3uÿÿÿÿÿÿÿÿÿÿÿlue 2
+  %1 = lt %1 %2
+  br_c then = lt %1 %2
+  ue

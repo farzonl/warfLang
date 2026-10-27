@@ -1,0 +1,9 @@
+func __mai = afuncin()entry:
+  %0 = const 1
+  %1 = const 2
+  %4 = mul %2 %3
+  %5 = store st  ¥3 = lt 
+  %2 = add %0 %1
+  %3 = const 5
+  %4 = mul %2 %3
+  = 30
