@@ -1,0 +1,8 @@
+func __main()
+  %4 = const 4
+ s
+68 = neg %4
+  %5 = const false
+_ma
+ 0 = eq %4 %5
+  :P tr

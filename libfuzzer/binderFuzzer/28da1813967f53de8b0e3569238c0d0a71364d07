@@ -1,0 +1,8 @@
+a =2function foo(a,b,c) { +++++++++++++1tementNdoelue = a =undStatementNdoelue = a  0 /5  00 /  01 /  01  00 / +
+    a    a
+ }function foo2(a,b,c) {
+    a + b == c
+ }
+
+foo(2,3,4)
+foo2(1,2,3)

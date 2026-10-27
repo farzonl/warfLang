@@ -1,0 +1,54 @@
+"ha" == "b"
+"a" "
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {
+  return "hi " + šame
+}
+greet("alice")
+
+fulci\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bÙ
+"a" != "a"
+
+let s2 = "warf"
+let s: = "lang"
+les: = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s2: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(nšme: string): string on greet(name: string): string {
+  return "hi " + name
+}
+gr "!"

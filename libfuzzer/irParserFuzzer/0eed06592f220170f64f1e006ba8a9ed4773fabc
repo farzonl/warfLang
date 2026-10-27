@@ -1,0 +1,9 @@
+func __main()
+e0 on
+  %2 = const 3
+1
+  %3 = const 41
+  %4 = mul %2 %3
+  %4 % = mul %2 %3
+ 
+  rvalu

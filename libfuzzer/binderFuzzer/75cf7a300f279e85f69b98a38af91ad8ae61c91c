@@ -1,0 +1,13 @@
+// Top-level commtion
+function computeWithComments(base: int, limit: int): nit {
+  // Initialize accumulator
+  var acc = base
+  // Loop across range with inline and standalone commen
+}
+
+// Multi-liclarations
+let start = 20 // starting offset
+var bonus = 5
+bonus += 3 // now 8
+
+computeWithComments(start, 4) + bonus

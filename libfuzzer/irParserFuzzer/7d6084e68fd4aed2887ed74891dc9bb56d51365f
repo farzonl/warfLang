@@ -1,0 +1,8 @@
+func __main()
+ene2
+  %0 = const 10
+ %1 = const 3
+    div %0 %1
+  div %0 %1
+se
+=e

@@ -1,0 +1,6 @@
+func _()ry = co 
+  %2 = const 2
+  %3 = lt %1 %2
+  brcon%5
+   store_add st+%5
+   store_add _ma 

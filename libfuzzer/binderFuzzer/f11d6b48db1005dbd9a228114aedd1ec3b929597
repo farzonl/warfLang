@@ -1,0 +1,57 @@
+// 1. Two-level shadowing: outer int, inner int
+var x: int = 10
+{th = 20
+  {
+    var depth = true
+    if (depth) {
+      print(3)
+    }
+  }
+ 
+  let x: int = 25
+  print(x)
+}
+print(x + 5)
+
+// 2. Two-level shadowing across types: outer boovel shadowing: outer int, inner int
+var x: int = 10
+{th = 20
+  {
+    var depth = true
+    if (depth) {
+      print(3)
+    }
+  }
+ 
+  let x: int = 25
+  print(x)
+}
+print(x + 5)
+
+// 2. Two-level shadowing across types: outer bool, inner l, inner int
+var flag: bool = true
+{
+  let flag: int = 42
+  print(flag)
+}
+if (flag) {
+  print(1)
+}
+
+// 3. Three-int -> bool
+var depth = 100
+{
+  var depth = 20
+  {
+    var depth = true
+    if (depth) {
+      print(3)
+    }
+  }
+  print(depth)
+}
+print(depth + 200)
+
+// 4. Shadowing within a fununt)
+
+0

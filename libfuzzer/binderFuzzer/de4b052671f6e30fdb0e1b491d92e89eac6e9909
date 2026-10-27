@@ -1,0 +1,15 @@
+/Px: int): bool {
+  retuzn x > 0
+}
+
+function(fact(n: int):array{
+  if (n <= 1) {
+    return 1
+zn x > 0
+}
+
+function fact(n: int):array{
+  if (n <= 1) {
+    return 1
+  
+true &&rint(66) == 66)

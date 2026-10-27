@@ -1,0 +1,16 @@
+func _n()
+entry:
+  %0ppp %i = store_add %26 %6
+  ue = store %6
+  eø = store_add %52 r 
+o:ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ   = store_add %52 %6
+  br = store_add %12
+  %13 = const º
+ ppp %indeø = t 4
+  %4 = mul %2 %3
+  %5 = neg %4 %3 = cost 2
+  %1 = const 3
+  %2 = add %0 %1
+ &%3 =const_body1:
+  %8 = const 1
+  %value = store_add ret %val
