@@ -1,0 +1,5 @@
+func _main()
+
+%0 st 2con1t 3
+ 0 la %b
+  %1 = sub 0 %0  
