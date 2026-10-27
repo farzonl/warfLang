@@ -285,18 +285,27 @@ Binder::BindVariableDeclaration(VariableDeclarationSyntaxNode *syntax) {
 
 std::unique_ptr<BoundStatementNode>
 Binder::BindFunctionDeclaration(FunctionDeclarationSyntaxNode *syntax) {
+  auto fnName = syntax->Identifier()->Text();
   auto parameters = std::vector<std::shared_ptr<VariableSymbol>>();
   const auto &paramTypes = syntax->ParameterTypes();
   for (size_t i = 0; i < syntax->Parameters().size(); i++) {
     Value::Type paramType =
         i < paramTypes.size() ? paramTypes[i] : Value::Type::Unknown;
+    if (syntax->IsExtern() && paramType == Value::Type::Unknown) {
+      mRecords.ReportExternFunctionMissingParameterType(
+          syntax->Parameters()[i], fnName, syntax->Parameters()[i]->Text());
+    }
     parameters.push_back(std::make_shared<VariableSymbol>(
         syntax->Parameters()[i]->Text(), false, paramType));
   }
+  if (syntax->IsExtern() && syntax->ReturnType() == Value::Type::Unknown) {
+    mRecords.ReportExternFunctionMissingReturnType(syntax->Identifier(),
+                                                   fnName);
+  }
 
-  auto function =
-      std::make_shared<FunctionSymbol>(syntax->Identifier()->Text(), parameters,
-                                       syntax->Body(), syntax->ReturnType());
+  auto function = std::make_shared<FunctionSymbol>(
+      fnName, parameters, syntax->Body(), syntax->ReturnType(),
+      syntax->IsExtern());
   mScope->insert(function);
 
   return std::make_unique<BoundFunctionDeclarationNode>(function);
@@ -583,6 +592,21 @@ Binder::BindCallExpression(CallExpressionNode *call) {
                                        expectedType, boundArguments[i]->Type());
       return std::make_unique<BoundLiteralExpressionNode>(0);
     }
+  }
+
+  if (function->IsExtern()) {
+    auto parameters = std::vector<std::shared_ptr<VariableSymbol>>();
+    for (size_t i = 0; i < function->Parameters().size(); i++) {
+      parameters.push_back(std::make_shared<VariableSymbol>(
+          function->Parameters()[i]->Name(), false,
+          function->Parameters()[i]->Type(), boundArguments[i]->ElementType()));
+    }
+    Value::Type returnType = function->ReturnType() != Value::Type::Unknown
+                                 ? function->ReturnType()
+                                 : Value::Type::Number;
+    return std::make_unique<BoundCallExpressionNode>(
+        name, std::move(boundArguments), std::move(parameters), nullptr,
+        returnType, true);
   }
 
   auto activeIt = mActiveFunctionReturnTypes.find(name);

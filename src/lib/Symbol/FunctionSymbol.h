@@ -18,11 +18,13 @@ public:
   FunctionSymbol(const std::string &name,
                  std::vector<std::shared_ptr<VariableSymbol>> parameters,
                  const BlockStatementSyntaxNode *body,
-                 Value::Type returnType = Value::Type::Unknown);
+                 Value::Type returnType = Value::Type::Unknown,
+                 bool isExtern = false);
   const std::string &Name() const;
   const std::vector<std::shared_ptr<VariableSymbol>> &Parameters() const;
   const BlockStatementSyntaxNode *Body() const;
   Value::Type ReturnType() const;
+  bool IsExtern() const;
   static std::shared_ptr<FunctionSymbol> failSymbol() {
     static auto fail = std::make_shared<FunctionSymbol>(
         "unknown", std::vector<std::shared_ptr<VariableSymbol>>(), nullptr);
@@ -34,4 +36,5 @@ private:
   std::vector<std::shared_ptr<VariableSymbol>> mParameters;
   const BlockStatementSyntaxNode *mBody;
   Value::Type mReturnType;
+  bool mIsExtern;
 };

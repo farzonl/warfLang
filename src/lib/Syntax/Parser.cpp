@@ -372,6 +372,7 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseStatement() {
   case SyntaxKind::ReturnKeyword:
     statement = ParseReturnStatement();
     break;
+  case SyntaxKind::ExternKeyword:
   case SyntaxKind::FunctionKeyword:
     statement = ParseFunctionDeclaration();
     break;
@@ -408,6 +409,10 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseReturnStatement() {
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseFunctionDeclaration() {
+  std::shared_ptr<SyntaxToken> externKeyword;
+  if (Current()->Kind() == SyntaxKind::ExternKeyword) {
+    externKeyword = Match(SyntaxKind::ExternKeyword);
+  }
   auto functionKeyword = Match(SyntaxKind::FunctionKeyword);
   auto identifier = Match(SyntaxKind::IdentifierToken);
   auto openParenthesis = Match(SyntaxKind::OpenParenthesisToken);
@@ -435,11 +440,14 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseFunctionDeclaration() {
     auto returnTypeToken = Match(SyntaxKind::IdentifierToken);
     returnType = ParseTypeAnnotation(returnTypeToken->Text());
   }
-  auto body = ParseBlockStatement();
+  std::unique_ptr<BlockStatementSyntaxNode> body;
+  if (!externKeyword) {
+    body = ParseBlockStatement();
+  }
   return std::make_unique<FunctionDeclarationSyntaxNode>(
       functionKeyword, identifier, openParenthesis, std::move(parameters),
       std::move(commas), closeParenthesis, std::move(body),
-      std::move(parameterTypes), returnType);
+      std::move(parameterTypes), returnType, externKeyword);
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseIfStatement() {

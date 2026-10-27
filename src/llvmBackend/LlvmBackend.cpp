@@ -415,6 +415,28 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     return false;
   };
 
+  for (const auto &function : irModule.functions) {
+    auto &arrayVars = funcArrayVars[function.name];
+    for (size_t i = 0;
+         i < function.parameters.size() && i < function.parameterTypes.size();
+         i++) {
+      if (function.parameterTypes[i] == Value::Type::String) {
+        markString(function.name, function.parameters[i]);
+      } else if (function.parameterTypes[i] == Value::Type::Array) {
+        arrayVars.insert(CanonicalName(function.parameters[i]));
+      } else if (function.parameterTypes[i] == Value::Type::Float) {
+        markFloat(function.name, function.parameters[i]);
+      }
+    }
+    if (function.returnType == Value::Type::String) {
+      markReturnsString(function.name);
+    } else if (function.returnType == Value::Type::Array) {
+      arrayReturningFuncs.insert(function.name);
+    } else if (function.returnType == Value::Type::Float) {
+      markReturnsFloat(function.name);
+    }
+  }
+
   bool changed = true;
   while (changed) {
     changed = false;
@@ -696,10 +718,16 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     const auto &arrayVars = funcArrayVars[function.name];
     auto parameterTypes = std::vector<llvm::Type *>();
     parameterTypes.reserve(function.parameters.size());
-    for (const auto &paramName : function.parameters) {
+    for (size_t i = 0; i < function.parameters.size(); i++) {
+      const auto &paramName = function.parameters[i];
       bool isPtr = isStringOperand(function.name, paramName) ||
-                   arrayVars.count(CanonicalName(paramName)) > 0;
-      bool isFlt = isFloatOperand(function.name, paramName);
+                   arrayVars.count(CanonicalName(paramName)) > 0 ||
+                   (i < function.parameterTypes.size() &&
+                    (function.parameterTypes[i] == Value::Type::String ||
+                     function.parameterTypes[i] == Value::Type::Array));
+      bool isFlt = isFloatOperand(function.name, paramName) ||
+                   (i < function.parameterTypes.size() &&
+                    function.parameterTypes[i] == Value::Type::Float);
       if (isPtr) {
         parameterTypes.push_back(ptrType);
       } else if (isFlt) {
@@ -711,9 +739,12 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
     llvm::Type *returnType = intType;
     if (function.name != kIrMainFunctionName) {
       if (functionReturnsString[function.name] ||
-          arrayReturningFuncs.count(function.name) > 0) {
+          arrayReturningFuncs.count(function.name) > 0 ||
+          function.returnType == Value::Type::String ||
+          function.returnType == Value::Type::Array) {
         returnType = ptrType;
-      } else if (functionReturnsFloat[function.name]) {
+      } else if (functionReturnsFloat[function.name] ||
+                 function.returnType == Value::Type::Float) {
         returnType = doubleType;
       }
     }
@@ -723,12 +754,14 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         emitExecutableMain && function.name == kIrMainFunctionName
             ? "main"
             : function.name;
-    auto llvmFunction = llvm::Function::Create(
-        functionType, llvm::Function::ExternalLinkage, functionName, *module);
-    functionMap[function.name] = llvmFunction;
+    auto callee = module->getOrInsertFunction(functionName, functionType);
+    functionMap[function.name] = llvm::cast<llvm::Function>(callee.getCallee());
   }
 
   for (const auto &function : irModule.functions) {
+    if (function.isExtern) {
+      continue;
+    }
     auto llvmFunction = functionMap.at(function.name);
     const auto &arrayVars = funcArrayVars[function.name];
     int32_t boundsCheckId = 0;

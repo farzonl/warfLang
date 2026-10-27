@@ -340,6 +340,13 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   if (BoundCallExpressionNode *callExpression =
           dynamic_cast<BoundCallExpressionNode *>(node)) {
     auto function = mFunctions.find(callExpression->Name());
+    if (callExpression->IsExtern() ||
+        (function != mFunctions.end() &&
+         function->second->Function()->IsExtern())) {
+      throw std::runtime_error(
+          "EvaluatorError: Cannot execute extern function " +
+          callExpression->Name() + " in interpreter.");
+    }
     if (function == mFunctions.end()) {
       if (callExpression->Name() == "print") {
         auto val = EvaluateRec(callExpression->Arguments()[0].get());

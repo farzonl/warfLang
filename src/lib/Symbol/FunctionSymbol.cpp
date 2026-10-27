@@ -7,9 +7,9 @@
 FunctionSymbol::FunctionSymbol(
     const std::string &name,
     std::vector<std::shared_ptr<VariableSymbol>> parameters,
-    const BlockStatementSyntaxNode *body, Value::Type returnType)
+    const BlockStatementSyntaxNode *body, Value::Type returnType, bool isExtern)
     : mName(name), mParameters(std::move(parameters)), mBody(body),
-      mReturnType(returnType) {}
+      mReturnType(returnType), mIsExtern(isExtern) {}
 
 const std::string &FunctionSymbol::Name() const { return mName; }
 
@@ -21,3 +21,5 @@ FunctionSymbol::Parameters() const {
 const BlockStatementSyntaxNode *FunctionSymbol::Body() const { return mBody; }
 
 Value::Type FunctionSymbol::ReturnType() const { return mReturnType; }
+
+bool FunctionSymbol::IsExtern() const { return mIsExtern; }

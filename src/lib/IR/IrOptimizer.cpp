@@ -463,6 +463,8 @@ IrModule IrOptimizer::Optimize(const IrModule &module) {
 
 void IrOptimizer::OptimizeInPlace(IrModule &module) {
   for (auto &function : module.functions) {
-    OptimizeFunction(function);
+    if (!function.isExtern) {
+      OptimizeFunction(function);
+    }
   }
 }

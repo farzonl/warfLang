@@ -12,13 +12,17 @@ FunctionDeclarationSyntaxNode::FunctionDeclarationSyntaxNode(
     std::vector<std::shared_ptr<SyntaxToken>> commas,
     std::shared_ptr<SyntaxToken> closeParenthesis,
     std::unique_ptr<BlockStatementSyntaxNode> body,
-    std::vector<Value::Type> parameterTypes, Value::Type returnType)
+    std::vector<Value::Type> parameterTypes, Value::Type returnType,
+    std::shared_ptr<SyntaxToken> externKeyword)
     : StatementSyntaxNode(SyntaxKind::FunctionDeclaration),
-      mFunctionKeyword(functionKeyword), mIdentifier(identifier),
-      mOpenParenthesis(openParenthesis), mParameters(std::move(parameters)),
-      mCommas(std::move(commas)), mCloseParenthesis(closeParenthesis),
-      mBody(std::move(body)), mParameterTypes(std::move(parameterTypes)),
-      mReturnType(returnType) {
+      mExternKeyword(externKeyword), mFunctionKeyword(functionKeyword),
+      mIdentifier(identifier), mOpenParenthesis(openParenthesis),
+      mParameters(std::move(parameters)), mCommas(std::move(commas)),
+      mCloseParenthesis(closeParenthesis), mBody(std::move(body)),
+      mParameterTypes(std::move(parameterTypes)), mReturnType(returnType) {
+  if (mExternKeyword) {
+    mVecExpressionNodes.push_back(mExternKeyword.get());
+  }
   mVecExpressionNodes.push_back(mFunctionKeyword.get());
   mVecExpressionNodes.push_back(mIdentifier.get());
   mVecExpressionNodes.push_back(mOpenParenthesis.get());
@@ -29,7 +33,9 @@ FunctionDeclarationSyntaxNode::FunctionDeclarationSyntaxNode(
     }
   }
   mVecExpressionNodes.push_back(mCloseParenthesis.get());
-  mVecExpressionNodes.push_back(mBody.get());
+  if (mBody) {
+    mVecExpressionNodes.push_back(mBody.get());
+  }
 }
 
 std::shared_ptr<SyntaxToken> FunctionDeclarationSyntaxNode::Identifier() {
@@ -52,4 +58,13 @@ Value::Type FunctionDeclarationSyntaxNode::ReturnType() const {
 
 const BlockStatementSyntaxNode *FunctionDeclarationSyntaxNode::Body() const {
   return mBody.get();
+}
+
+bool FunctionDeclarationSyntaxNode::IsExtern() const {
+  return mExternKeyword != nullptr;
+}
+
+std::shared_ptr<SyntaxToken>
+FunctionDeclarationSyntaxNode::ExternKeyword() const {
+  return mExternKeyword;
 }

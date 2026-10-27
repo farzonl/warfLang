@@ -18,7 +18,8 @@ public:
       std::string name,
       std::vector<std::unique_ptr<BoundExpressionNode>> arguments,
       std::vector<std::shared_ptr<VariableSymbol>> parameters,
-      std::unique_ptr<BoundStatementNode> body, Value::Type type);
+      std::unique_ptr<BoundStatementNode> body, Value::Type type,
+      bool isExtern = false);
   virtual ~BoundCallExpressionNode() {}
   virtual BoundNodeKind Kind() override;
   virtual Value::Type Type() override;
@@ -26,6 +27,7 @@ public:
   const std::vector<std::unique_ptr<BoundExpressionNode>> &Arguments() const;
   const std::vector<std::shared_ptr<VariableSymbol>> &Parameters() const;
   const BoundStatementNode *Body() const;
+  bool IsExtern() const;
 
 private:
   std::string mName;
@@ -33,4 +35,5 @@ private:
   std::vector<std::shared_ptr<VariableSymbol>> mParameters;
   std::unique_ptr<BoundStatementNode> mBody;
   Value::Type mType;
+  bool mIsExtern;
 };

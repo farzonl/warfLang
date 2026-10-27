@@ -301,8 +301,30 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
     mCurrentFunction->returnValue = varName;
     return;
   }
-  if (dynamic_cast<BoundFunctionDeclarationNode *>(node)) {
+  if (auto fnDecl = dynamic_cast<BoundFunctionDeclarationNode *>(node)) {
     mCurrentFunction->returnValue.clear();
+    if (fnDecl->Function() && fnDecl->Function()->IsExtern() &&
+        mEmittedFunctions.find(fnDecl->Function()->Name()) ==
+            mEmittedFunctions.end()) {
+      mEmittedFunctions.insert(fnDecl->Function()->Name());
+      const auto &fn = fnDecl->Function();
+      std::vector<std::string> params;
+      std::vector<Value::Type> paramTypes;
+      for (const auto &param : fn->Parameters()) {
+        params.push_back("%" + param->Name());
+        paramTypes.push_back(param->Type());
+      }
+      auto savedFunctionIndex =
+          static_cast<size_t>(mCurrentFunction - mModule.functions.data());
+      mModule.functions.push_back(IrFunction{fn->Name(),
+                                             std::move(params),
+                                             {},
+                                             "",
+                                             true,
+                                             std::move(paramTypes),
+                                             fn->ReturnType()});
+      mCurrentFunction = &mModule.functions[savedFunctionIndex];
+    }
     return;
   }
   if (auto ifStatement = dynamic_cast<BoundIfStatementNode *>(node)) {
@@ -496,14 +518,14 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
     return result;
   }
   if (auto call = dynamic_cast<BoundCallExpressionNode *>(node)) {
-    if (call->Name() == "print" && !call->Body() &&
+    if (call->Name() == "print" && !call->Body() && !call->IsExtern() &&
         mEmittedFunctions.find("print") == mEmittedFunctions.end()) {
       auto arg = LowerExpression(call->Arguments()[0].get());
       auto result = NewTemp();
       Emit(IrOpcode::Print, {arg}, result);
       return result;
     }
-    if (call->Name() == "len" && !call->Body() &&
+    if (call->Name() == "len" && !call->Body() && !call->IsExtern() &&
         mEmittedFunctions.find("len") == mEmittedFunctions.end()) {
       auto arg = LowerExpression(call->Arguments()[0].get());
       auto result = NewTemp();
@@ -525,6 +547,28 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
 }
 
 void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
+  if (call->IsExtern()) {
+    if (mEmittedFunctions.find(call->Name()) == mEmittedFunctions.end()) {
+      mEmittedFunctions.insert(call->Name());
+      std::vector<std::string> params;
+      std::vector<Value::Type> paramTypes;
+      for (const auto &param : call->Parameters()) {
+        params.push_back("%" + param->Name());
+        paramTypes.push_back(param->Type());
+      }
+      auto savedFunctionIndex =
+          static_cast<size_t>(mCurrentFunction - mModule.functions.data());
+      mModule.functions.push_back(IrFunction{call->Name(),
+                                             std::move(params),
+                                             {},
+                                             "",
+                                             true,
+                                             std::move(paramTypes),
+                                             call->Type()});
+      mCurrentFunction = &mModule.functions[savedFunctionIndex];
+    }
+    return;
+  }
   if (!call->Body() ||
       mEmittedFunctions.find(call->Name()) != mEmittedFunctions.end()) {
     return;
@@ -570,6 +614,20 @@ std::string IrLowerer::NewTemp() { return "%" + std::to_string(mTempIndex++); }
 void IrPrinter::Print(const IrModule &module, std::ostream &out) {
   for (size_t i = 0; i < module.functions.size(); i++) {
     const auto &function = module.functions[i];
+    if (function.isExtern) {
+      out << "extern func " << function.name << "(";
+      for (size_t j = 0; j < function.parameters.size(); j++) {
+        if (j != 0) {
+          out << ", ";
+        }
+        out << function.parameters[j];
+      }
+      out << ")" << std::endl;
+      if (i + 1 < module.functions.size()) {
+        out << std::endl;
+      }
+      continue;
+    }
     out << "func " << function.name << "(";
     for (size_t j = 0; j < function.parameters.size(); j++) {
       if (j != 0) {
@@ -614,6 +672,21 @@ IrModule IrParser::Parse(const std::string &text) {
   while (std::getline(stream, line)) {
     line = Trim(line);
     if (line.empty() || line == entryHeader) {
+      continue;
+    }
+    if (line.rfind("extern func ", 0) == 0) {
+      auto open = line.find('(');
+      auto close = line.find(')', open == std::string::npos ? 0 : open);
+      if (open == std::string::npos || close == std::string::npos) {
+        throw std::runtime_error(
+            "IR parse error: malformed extern function header.");
+      }
+      auto name = Trim(line.substr(12, open - 12));
+      auto parameters =
+          ParseParameters(line.substr(open + 1, close - open - 1));
+      module.functions.push_back(
+          IrFunction{name, parameters, {}, "", true, {}, Value::Type::Unknown});
+      currentFunction = nullptr;
       continue;
     }
     if (line.rfind("func ", 0) == 0) {
@@ -957,6 +1030,10 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
       if (!target) {
         throw std::runtime_error("IR error: unknown function " +
                                  instruction.operands[0] + ".");
+      }
+      if (target->isExtern) {
+        throw std::runtime_error("IR error: cannot execute extern function " +
+                                 target->name + " in interpreter.");
       }
       auto callArguments = std::vector<Value>();
       for (size_t i = 1; i < instruction.operands.size(); i++) {
