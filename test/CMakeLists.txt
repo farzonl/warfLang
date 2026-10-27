@@ -4,6 +4,8 @@
 
 project(${CMAKE_PROJECT_NAME}_TEST)
 
+enable_testing()
+
 download_file(https://raw.githubusercontent.com/onqtam/doctest/2.4.6/doctest/doctest.h 
               ${CMAKE_SOURCE_DIR}/packages/doctest/doctest.h
               MD5
@@ -23,6 +25,8 @@ add_executable(${PROJECT_NAME}
 target_link_libraries (${PROJECT_NAME}
   WarfCore
 )
+
+add_test(NAME WarfLangTest COMMAND ${PROJECT_NAME})
 
 #add_subdirectory(parser)
 #add_subdirectory(lexer)

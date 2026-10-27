@@ -28,18 +28,28 @@
 BoundExpressionNode *Evaluator::Root() const {
   return dynamic_cast<BoundExpressionNode *>(mRoot.get());
 }
-Value Evaluator::Evaluate() {
+Value Evaluator::Evaluate(uint64_t maxSteps) {
+  if (maxSteps > 0) {
+    mMaxSteps = maxSteps;
+  }
+  mStepCount = 0;
   if (auto statement = dynamic_cast<BoundStatementNode *>(mRoot.get())) {
     return EvaluateStatement(statement);
   }
   return EvaluateRec(dynamic_cast<BoundExpressionNode *>(mRoot.get()));
 }
 
-Evaluator::Evaluator(std::unique_ptr<BoundExpressionNode> root)
-    : mRoot(std::move(root)) {}
+Evaluator::Evaluator(std::unique_ptr<BoundExpressionNode> root, uint64_t maxSteps)
+    : mRoot(std::move(root)), mMaxSteps(maxSteps) {}
 
-Evaluator::Evaluator(std::unique_ptr<BoundStatementNode> root)
-    : mRoot(std::move(root)) {}
+Evaluator::Evaluator(std::unique_ptr<BoundStatementNode> root, uint64_t maxSteps)
+    : mRoot(std::move(root)), mMaxSteps(maxSteps) {}
+
+void Evaluator::CheckStepBudget() {
+  if (mMaxSteps > 0 && ++mStepCount > mMaxSteps) {
+    throw std::runtime_error("EvaluatorError: Step limit exceeded.");
+  }
+}
 
 void Evaluator::SetVariableValue(VariableSymbol *variable, Value value) {
   if (!mCallFrames.empty()) {
@@ -52,6 +62,10 @@ void Evaluator::SetVariableValue(VariableSymbol *variable, Value value) {
 }
 
 Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
+  if (!node) {
+    return Value();
+  }
+  CheckStepBudget();
   if (auto block = dynamic_cast<BoundBlockStatementNode *>(node)) {
     Value result;
     for (const auto &statement : block->Statements()) {
@@ -112,9 +126,13 @@ Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
   }
   if (auto whileStatement = dynamic_cast<BoundWhileStatementNode *>(node)) {
     Value result;
-    while (EvaluateRec(
+    while (true) {
+      CheckStepBudget();
+      if (!EvaluateRec(
                const_cast<BoundExpressionNode *>(whileStatement->Condition()))
                .asBool()) {
+        break;
+      }
       result = EvaluateStatement(
           const_cast<BoundStatementNode *>(whileStatement->Body()));
       if (mHasReturnValue) {
@@ -134,6 +152,7 @@ Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
   if (auto doWhileStatement = dynamic_cast<BoundDoWhileStatementNode *>(node)) {
     Value result;
     do {
+      CheckStepBudget();
       result = EvaluateStatement(
           const_cast<BoundStatementNode *>(doWhileStatement->Body()));
       if (mHasReturnValue) {
@@ -157,9 +176,13 @@ Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
       EvaluateStatement(
           const_cast<BoundStatementNode *>(forStatement->Initializer()));
     }
-    while (EvaluateRec(
+    while (true) {
+      CheckStepBudget();
+      if (!EvaluateRec(
                const_cast<BoundExpressionNode *>(forStatement->Condition()))
                .asBool()) {
+        break;
+      }
       result = EvaluateStatement(
           const_cast<BoundStatementNode *>(forStatement->Body()));
       if (mHasReturnValue) {
@@ -339,6 +362,7 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   }
   if (BoundCallExpressionNode *callExpression =
           dynamic_cast<BoundCallExpressionNode *>(node)) {
+    CheckStepBudget();
     auto function = mFunctions.find(callExpression->Name());
     if (function == mFunctions.end()) {
       if (callExpression->Name() == "print") {

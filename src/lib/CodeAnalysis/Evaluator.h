@@ -21,16 +21,26 @@ class VariableSymbol;
 
 class Evaluator {
 public:
-  Evaluator(std::unique_ptr<BoundExpressionNode> root);
-  Evaluator(std::unique_ptr<BoundStatementNode> root);
-  Value Evaluate();
+  Evaluator(std::unique_ptr<BoundExpressionNode> root, uint64_t maxSteps = 0);
+  Evaluator(std::unique_ptr<BoundStatementNode> root, uint64_t maxSteps = 0);
+  Value Evaluate(uint64_t maxSteps = 0);
   BoundExpressionNode *Root() const;
+
+  void SetStepLimit(uint64_t limit) { mMaxSteps = limit; }
+  void SetMaxSteps(uint64_t limit) { mMaxSteps = limit; }
+  uint64_t StepLimit() const { return mMaxSteps; }
+  uint64_t MaxSteps() const { return mMaxSteps; }
+  uint64_t StepCount() const { return mStepCount; }
+  void ResetStepCount() { mStepCount = 0; }
 
 private:
   Value EvaluateRec(BoundExpressionNode *node);
   Value EvaluateStatement(BoundStatementNode *node);
   void SetVariableValue(VariableSymbol *variable, Value value);
+  void CheckStepBudget();
   std::unique_ptr<BoundNode> mRoot;
+  uint64_t mStepCount = 0;
+  uint64_t mMaxSteps = 0;
   std::unordered_map<std::string, const BoundFunctionDeclarationNode *>
       mFunctions;
   std::unordered_map<std::string, const BoundCallExpressionNode *>

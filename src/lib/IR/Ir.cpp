@@ -127,6 +127,7 @@ IrModule IrLowerer::Lower(BoundStatementNode *root) {
   mLowerDepth = 0;
   mVariableNames.clear();
   mVariableNameCounts.clear();
+  mCurrentSpan = TextSpan(0, 0);
   mModule.functions.push_back(IrFunction{kIrMainFunctionName, {}, {}, ""});
   mCurrentFunction = &mModule.functions.back();
   LowerStatement(root);
@@ -160,17 +161,24 @@ std::string IrLowerer::GetVariableName(const VariableSymbol *variable,
 }
 
 void IrLowerer::Emit(IrOpcode op, std::vector<std::string> operands,
-                     std::string result) {
+                     std::string result, TextSpan span) {
+  if (span == TextSpan(0, 0)) {
+    span = mCurrentSpan;
+  }
   mCurrentFunction->instructions.push_back(
-      {std::move(result), op, std::move(operands)});
+      {std::move(result), op, std::move(operands), span});
 }
 
 void IrLowerer::EmitAt(size_t index, IrOpcode op,
-                       std::vector<std::string> operands, std::string result) {
+                       std::vector<std::string> operands, std::string result,
+                       TextSpan span) {
+  if (span == TextSpan(0, 0)) {
+    span = mCurrentSpan;
+  }
   mCurrentFunction->instructions.insert(
       mCurrentFunction->instructions.begin() +
           static_cast<std::ptrdiff_t>(index),
-      {std::move(result), op, std::move(operands)});
+      {std::move(result), op, std::move(operands), span});
 }
 
 void IrLowerer::EmitLabel(const std::string &label) {
@@ -254,11 +262,23 @@ struct LowerDepthGuard {
 } // namespace
 
 void IrLowerer::LowerStatement(BoundStatementNode *node) {
-  if (!node || mLowerDepth >= kMaxLowerDepth) {
+  if (!node) {
+    return;
+  }
+  if (mLowerDepth >= kMaxLowerDepth) {
     Emit(IrOpcode::UnsupportedStatement, {});
     return;
   }
   LowerDepthGuard depthGuard(mLowerDepth);
+  auto prevSpan = mCurrentSpan;
+  if (node->Span().Length() > 0) {
+    mCurrentSpan = node->Span();
+  }
+  struct SpanScope {
+    TextSpan &target;
+    TextSpan prev;
+    ~SpanScope() { target = prev; }
+  } scope{mCurrentSpan, prevSpan};
   if (auto block = dynamic_cast<BoundBlockStatementNode *>(node)) {
     for (const auto &statement : block->Statements()) {
       LowerStatement(statement.get());
@@ -409,12 +429,24 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
 }
 
 std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
-  if (!node || mLowerDepth >= kMaxLowerDepth) {
+  if (!node) {
+    return "";
+  }
+  if (mLowerDepth >= kMaxLowerDepth) {
     auto result = NewTemp();
     Emit(IrOpcode::Unknown, {}, result);
     return result;
   }
   LowerDepthGuard depthGuard(mLowerDepth);
+  auto prevSpan = mCurrentSpan;
+  if (node->Span().Length() > 0) {
+    mCurrentSpan = node->Span();
+  }
+  struct SpanScope {
+    TextSpan &target;
+    TextSpan prev;
+    ~SpanScope() { target = prev; }
+  } scope{mCurrentSpan, prevSpan};
   if (auto literal = dynamic_cast<BoundLiteralExpressionNode *>(node)) {
     auto result = NewTemp();
     Emit(IrOpcode::Const, {ValueText(literal->GetValue())}, result);
@@ -739,7 +771,14 @@ std::vector<std::string> IrParser::ParseParameters(const std::string &text) {
   return parameters;
 }
 
-Value IrInterpreter::Execute(const IrModule &module) {
+IrInterpreter::IrInterpreter(uint64_t maxSteps)
+    : mModule(nullptr), mStepCount(0), mMaxSteps(maxSteps) {}
+
+Value IrInterpreter::Execute(const IrModule &module, uint64_t maxSteps) {
+  if (maxSteps > 0) {
+    mMaxSteps = maxSteps;
+  }
+  mStepCount = 0;
   mModule = &module;
   auto mainFunction = FindFunction(kIrMainFunctionName);
   if (!mainFunction) {
@@ -833,6 +872,9 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
   }
 
   for (size_t ip = 0; ip < function.instructions.size(); ip++) {
+    if (mMaxSteps > 0 && ++mStepCount > mMaxSteps) {
+      throw std::runtime_error("IR error: Step limit exceeded.");
+    }
     const auto &instruction = function.instructions[ip];
     auto operand = [&](size_t index) {
       return EvaluateOperand(instruction.operands[index], values);
