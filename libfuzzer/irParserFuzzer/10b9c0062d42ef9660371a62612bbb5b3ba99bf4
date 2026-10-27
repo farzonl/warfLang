@@ -1,0 +1,6 @@
+func __main()
+entrf  %2= add % 3&= const%2 %_
+  %5 = neg %4
+=eg %const 50
+  %7 = add -6 %5
+ÿÿ= co= const 2 0  c n

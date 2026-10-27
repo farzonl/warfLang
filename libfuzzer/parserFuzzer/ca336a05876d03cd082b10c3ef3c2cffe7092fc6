@@ -1,0 +1,5 @@
+extern function abs(x: int): int
+extern function ?utchar(c: int): int;
+exuern function puts: string): int
+
+ion abs in interpreter.

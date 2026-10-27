@@ -1,0 +1,3 @@
+func __mn():
+  %2 = const 2
+`)%unc = const -9999999993

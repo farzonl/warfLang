@@ -1,0 +1,28 @@
+func __main()
+entry:
+nnst 2
+  %1 = const 3
+  %2 = a3
+%0 = const 2
+  %1 = !o2 %3
+%0 = bnosr 2
+  %1 = const 3
+  %%4
+  %2 %3
+%0 = const 2
+  %1 = !o2 %3
+%0 = con= consr 2
+  %1 = const 3
+  :%4
+  %6 2 %3
+%0 = const 2
+  %1 = !o2 %3
+%0 = consr 2
+  %1 = const 33
+%0 = const 2
+  %1 = !o2 %3
+%0 =   %1 = const 3
+  %%4
+  %60
+  %7 = add %
+// RUN-OPT: %0

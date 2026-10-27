@@ -1,0 +1,15 @@
+func __main()
+ztore %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_3
+  5 = neg %3
+  %6n = lt  br_3
+  5 = neg %3
+= lt %1 %2
+  br_3
+ neg %3
+  5 = neg %3
+  %6noc 3
+c%o6  n±= st e

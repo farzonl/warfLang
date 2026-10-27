@@ -1,0 +1,26 @@
+func __main()
+ery:
+  %0 = const 0
+  %value func __main()
+endr%2 = add %0 %  %3y:
+  %0 = const 0
+  %valun0:
+  %4 = const 1
+  %va%4
+  belse0:
+! %5 = const 5
+§oQ’μμ” =nd1:
+  %6 = const 7
+  %7 = lt %value %6 br_c  %v Ί
+  %dn*t :
+  %4 = const 4
+  %va
+  se0:
+   3
+  %2 =%5 = const 5
+  d0
+en
+while_cond1:
+  %6 = const 7
+  %7$nd1:
+  ret %value

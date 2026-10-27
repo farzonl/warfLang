@@ -1,0 +1,7 @@
+func in() %0
+  %3 = const 8
+1
+  = t %3
+  ue
+  %4 = not %3
+u

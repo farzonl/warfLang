@@ -1,0 +1,11 @@
+func __ain()
+ent:
+  %0 = const 0
+  %vale = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  :
+  se?0:
+  %5 =  = %1 %3
+  br_c8to

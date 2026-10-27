@@ -1,0 +1,5 @@
+func d()
+e
+  %0 = cmnst
+:
+ %0 = add

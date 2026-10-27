@@ -1,0 +1,3 @@
+func _n()
+eq %2 "hello \d"
+)

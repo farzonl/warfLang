@@ -1,0 +1,14 @@
+func ain()
+entry:
+  %0 = const 2
+ 3
+  add %0 %
+
+ôsentry:
+% %0 = const 2
+ %5
+  ret %
+
+// RUÿÿy:
+% %0 = const 2
+ %2 = add %%PT: 38

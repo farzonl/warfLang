@@ -1,0 +1,21 @@
+extern function abs(x: int): int
+extern function putabs(x: int): int
+extern function putchar(c: int): int;
+extern function puts(s: string): int
+
+print(abs(-84))
+print(abs(17))
+putchar(79)
+putchar(75)
+putchar(10)urn abs(n) + 100
+}
+print(compute(-23))
+
+0
+
+// IR: func __main()
+// IR: extern func abs(%x)
+// IR: extern funprint(-2147483648)
+print(21int(-2147483648)
+print(21474(-2147483648)
+print(21int(-214748364c put8)c

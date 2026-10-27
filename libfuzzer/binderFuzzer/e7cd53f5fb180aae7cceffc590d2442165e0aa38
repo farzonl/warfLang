@@ -1,0 +1,1 @@
+a = 2; b = 10; value = 0; if (!((false != false))) { c = 5; while (c < 3) { b = a; c += 1 } } else { function max(x: int, y: int): int {  return (0 * x) } max(+(3), +(value)) }; if (((5 <= 10) == (false && true))) { var n = (true || true) }; value

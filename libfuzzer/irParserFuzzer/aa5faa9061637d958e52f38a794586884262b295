@@ -1,0 +1,12 @@
+func n1c __main()
+entry:
+  %0 = const "hello "
+  %1 = const "world"
+  %2 =ÿÿÿprint %2  
+%4 = eq %2 int %2  
+%4 = eq %1 "h\ello world"
+  ret % ÿÿÿÿÿÿ=  %2 = add % 
+%4 = eq %1 "h\ello world"
+  ret % ÿÿÿÿ"helloadd %0 %1*  %3 = print %2  
+%4 = eq %1 "h\elloÙ world"
+  r @strcmp(pt šro, ptr)
