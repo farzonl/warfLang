@@ -1,0 +1,9 @@
+// RUN: %warf --emit-ir %s > %t.wir
+// RUN: %warf-ir --emit-ir %t.wir | %FileCheck %s
+// RUN: %warf-ir --run %t.wir
+
+a = 1; b = 1; value = 0; function bar(x: int, y: int): int { i = 0; while (i < 1) { y += y; i += 1 }; if (false) { for (z = 0; z < 2; z += 1) { b *= 5}} else { if ((1 == 2)) { a -= + 4} else { value ^= a}}; value }
+
+// CHECK: func __main()
+// CHECK:   %value = store %2
+// CHECK-NEXT:   ret

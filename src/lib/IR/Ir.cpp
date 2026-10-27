@@ -285,6 +285,7 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
     return;
   }
   if (dynamic_cast<BoundFunctionDeclarationNode *>(node)) {
+    mCurrentFunction->returnValue.clear();
     return;
   }
   if (auto ifStatement = dynamic_cast<BoundIfStatementNode *>(node)) {
