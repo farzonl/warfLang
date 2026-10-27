@@ -1,0 +1,20 @@
+func n1c __main()
+entry:
+  %0 = const "hello "
+  %1 = const "world"
+  %4 = adÿÿet % ÿÿÿÿÿÿ=  %2 = add % 
+ add a %1
+  ret %2
+
+func __main()
+entry:
+  %0 = co4 :
+  %0 = const 2
+  %1 = const 3
+ nst
+}
+f 1.25
+  %1 = const 2.75
+  %2 = add %0 %1
+!4 = eq %1 "h\ell„&ßˆorld"
+  r @strcm(štrpp o, ptr)

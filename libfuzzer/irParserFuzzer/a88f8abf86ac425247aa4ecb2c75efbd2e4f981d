@@ -1,0 +1,15 @@
+func n()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+()
+entry:
+  %1 %0
+  %1 = contore
+  n: 2
+  %1 = const 3
+  %2 =
+ 2
+  %1 = co’Œ‹ßÌõßÊ = const 4
+  %4 = mul %2 %: 30

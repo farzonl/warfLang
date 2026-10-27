@@ -1,0 +1,11 @@
+unction circle_area(r: floa:)t oat {
+  let pi: f64 = 3.14
+  return pi * r * r
+}
+
+leŒprint(unction circle_a>rea(r: float): float {
+  let pi: f64 = 3.14
+  return pi * …>>9ßßÕr
+}
+
+leŒßßÂßœ–rcle_area
