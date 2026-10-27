@@ -10,9 +10,11 @@
 #include "Syntax/SyntaxTree.h"
 #include "Version/version.h"
 #include <cctype>
+#include <filesystem>
 #include <fstream>
 #include <functional>
 #include <sstream>
+#include <unordered_set>
 #include <vector>
 
 #if !defined(_WIN32) && !defined(__wasm) && !defined(DISABLE_LIBEDIT)
@@ -149,17 +151,90 @@ static bool StatementStartsWithKeyword(const std::string &statement,
   return false;
 }
 
-bool ParseFile::parse(bool showTree) {
-  std::ifstream file(mInputFilePath);
+static bool TryParseImportPath(const std::string &line,
+                               std::string &importPath) {
+  std::string trimmed = StripCommentAndTrim(line);
+  while (!trimmed.empty() &&
+         (trimmed.back() == ';' ||
+          std::isspace(static_cast<unsigned char>(trimmed.back())))) {
+    trimmed.pop_back();
+  }
+  if (!StartsWithKeyword(trimmed, "import")) {
+    return false;
+  }
+  size_t pos = 6;
+  while (pos < trimmed.size() &&
+         std::isspace(static_cast<unsigned char>(trimmed[pos]))) {
+    pos++;
+  }
+  if (pos + 2 > trimmed.size() || trimmed[pos] != '"' ||
+      trimmed.back() != '"') {
+    return false;
+  }
+  std::string rawPath = trimmed.substr(pos + 1, trimmed.size() - pos - 2);
+  if (rawPath.empty() || rawPath.find('"') != std::string::npos) {
+    return false;
+  }
+  importPath = rawPath;
+  return true;
+}
+
+static std::string NormalizeImportKey(const std::filesystem::path &path) {
+  std::error_code ec;
+  auto absPath = std::filesystem::absolute(path, ec);
+  if (ec) {
+    return path.lexically_normal().string();
+  }
+  auto canonicalPath = std::filesystem::weakly_canonical(absPath, ec);
+  if (ec) {
+    return absPath.lexically_normal().string();
+  }
+  return canonicalPath.string();
+}
+
+static bool LoadFileLines(const std::string &filePath,
+                          std::vector<std::string> &outLines,
+                          std::unordered_set<std::string> &visited,
+                          bool isImported) {
+  std::filesystem::path fsPath(filePath);
+  std::string key = NormalizeImportKey(fsPath);
+  if (visited.find(key) != visited.end()) {
+    return true;
+  }
+
+  std::ifstream file(filePath);
   if (!file.is_open()) {
-    // Error couldn't open the file
+    if (isImported) {
+      std::cerr << "Failed to open imported file: " << filePath << std::endl;
+    }
     return false;
   }
 
-  std::vector<std::string> lines;
+  visited.insert(key);
+  std::filesystem::path baseDir = fsPath.parent_path();
   std::string line;
-  while (getline(file, line)) {
-    lines.push_back(line);
+  while (std::getline(file, line)) {
+    std::string importedRelPath;
+    if (TryParseImportPath(line, importedRelPath)) {
+      std::filesystem::path resolvedPath =
+          baseDir.empty() ? std::filesystem::path(importedRelPath)
+                          : (baseDir / importedRelPath);
+      if (!LoadFileLines(resolvedPath.string(), outLines, visited, true)) {
+        return false;
+      }
+      continue;
+    }
+    outLines.push_back(line);
+  }
+
+  return !file.bad();
+}
+
+bool ParseFile::parse(bool showTree) {
+  std::vector<std::string> lines;
+  std::unordered_set<std::string> visited;
+  if (!LoadFileLines(mInputFilePath, lines, visited, false)) {
+    return false;
   }
 
   std::stringstream textBlock;
@@ -198,8 +273,7 @@ bool ParseFile::parse(bool showTree) {
     mParseLineBehavior(statement, showTree, textBlock);
   }
 
-  file.close();
-  return file.eof() && !file.bad();
+  return true;
 }
 
 const Flags::FlagName Flags::help = {"-h", "--help"};
@@ -411,20 +485,29 @@ int main(int argc, char **argv) {
   int filePathIndex = (1 == showTreeIndex || 1 == emitIrIndex) ? 2 : 1;
   std::string filePath(argv[filePathIndex]);
   if (emitIr) {
-    std::ifstream inputFile(filePath);
-    if (inputFile.is_open()) {
-      std::stringstream buffer;
-      buffer << inputFile.rdbuf();
-      std::string wholeFile = buffer.str();
-      std::stringstream textBlock;
-      evaluate(wholeFile, showTree, emitIr, textBlock);
+    std::vector<std::string> lines;
+    std::unordered_set<std::string> visited;
+    if (!LoadFileLines(filePath, lines, visited, false)) {
+      return -1;
     }
+    std::stringstream buffer;
+    for (size_t i = 0; i < lines.size(); i++) {
+      if (i > 0) {
+        buffer << "\n";
+      }
+      buffer << lines[i];
+    }
+    std::string wholeFile = buffer.str();
+    std::stringstream textBlock;
+    evaluate(wholeFile, showTree, emitIr, textBlock);
     return 0;
   }
   ParseFile file(filePath, [emitIr](std::string &line, bool showTree,
                                     std::stringstream &textBlock) {
     evaluate(line, showTree, emitIr, textBlock);
   });
-  file.parse(showTree);
+  if (!file.parse(showTree)) {
+    return -1;
+  }
   return 0;
 }

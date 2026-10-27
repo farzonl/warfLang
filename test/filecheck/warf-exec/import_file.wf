@@ -1,0 +1,30 @@
+// RUN: %warf %s | %FileCheck %s
+// RUN: %warf --emit-ir %s > %t.wir
+// RUN: %warf-ir --run %t.wir | %FileCheck %s --check-prefix=IR-EXEC
+
+import "../Inputs/import_math.wf"
+import "../Inputs/import_base.wf"
+
+print(baseOffset)
+print(bonusValue)
+print(scaleAndOffset(4, 3, baseOffset))
+print(computeTotal(2, 3, baseOffset, bonusValue))
+0
+
+// CHECK: 10
+// CHECK-NEXT: 5
+// CHECK-NEXT: 10
+// CHECK-NEXT: 10
+// CHECK-NEXT: 5
+// CHECK-NEXT: 5
+// CHECK-NEXT: 22
+// CHECK-NEXT: 22
+// CHECK-NEXT: 38
+// CHECK-NEXT: 38
+// CHECK-NEXT: 0
+
+// IR-EXEC: 10
+// IR-EXEC-NEXT: 5
+// IR-EXEC-NEXT: 22
+// IR-EXEC-NEXT: 38
+// IR-EXEC-NEXT: 0

@@ -1,0 +1,8 @@
+import "import_base.wf"
+import "import_cycle_a.wf"
+
+var bonusValue = 5
+
+function computeTotal(a: int, b: int, offset: int, bonus: int): int {
+  return scaleAndOffset(a + b, 2, offset) + bonus + cycleA(3)
+}

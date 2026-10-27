@@ -1,0 +1,5 @@
+let baseOffset = 10
+
+function scaleAndOffset(x: int, factor: int, offset: int): int {
+  return x * factor + offset
+}
