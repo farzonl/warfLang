@@ -89,7 +89,7 @@ bool ParseFile::parse(bool showTree) {
   while (getline(file, line)) {
     braceDepth += CountUnmatchedBraces(line);
     if (!statement.empty()) {
-      statement += " ";
+      statement += "\n";
     }
     statement += line;
     if (braceDepth <= 0) {
@@ -151,7 +151,7 @@ void evaluate(std::string &line, bool showTree, bool emitIr,
       syntaxTree->Root()->Statements().size() == 1 &&
       syntaxTree->Root()->Statement()->Kind() ==
           SyntaxKind::FunctionDeclaration) {
-    textBlock << line << " ";
+    textBlock << line << "\n";
     return;
   }
   if (!textBlock.str().empty()) {
