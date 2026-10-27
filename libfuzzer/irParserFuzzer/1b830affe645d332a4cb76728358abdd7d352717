@@ -1,0 +1,8 @@
+func __main()
+entry:
+  %0 = const "hello "
+  32 (
+  %1 = const 3
+  %8 = add %0 %1
+  %1 =const_dy1: = add %0 %1
+  ptr)

@@ -1,0 +1,6 @@
+func _m()
+  %0 = const 10
+  %1 = const 0
+  0
+ Ž%2 = div %1 %1
+  +ctfu

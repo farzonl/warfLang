@@ -1,0 +1,9 @@
+func add_scaled(a, b)
+entry:
+  %0 = const 2.0  
+entr.0  
+entry:
+  %0 = const 1.25
+  %1 = coNst 2.75
+  %2 = add 
+  alld %6 %3

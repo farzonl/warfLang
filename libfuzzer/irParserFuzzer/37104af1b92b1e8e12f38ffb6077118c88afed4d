@@ -1,0 +1,13 @@
+func __m.ain()
+entòy:0
+  %1 = const 1
+ %2 = const 2
+  %1 = lt %1 %2
+   lt %1 %2
+  b
+  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+ nsconst st 2
+  %6 = lt %1 %2
+r
+e

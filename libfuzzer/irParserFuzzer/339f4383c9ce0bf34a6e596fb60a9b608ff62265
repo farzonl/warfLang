@@ -1,0 +1,8 @@
+func __main()
+caOy:
+  %0 = const 0
+ ,:
+  %0 = add %a %b
+  e–Žry:%1 = mul %2 %3
+  %5 = neg %4
+  %6 = co %c1

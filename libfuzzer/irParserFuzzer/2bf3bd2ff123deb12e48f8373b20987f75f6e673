@@ -1,0 +1,19 @@
+func __mai#n()zntry:
+•ntry:
+  %5 = const 0
+  %value = 0
+  %1 = const 1 
+ %2 = const 2
+  %3 = l sl% ete0
+t st0:
+  %5 = cue = store re %D
+  %1 = const 1
+  %2 = const 1 
+ %3 = lt %1 %2
+  en0:
+  %4 = const 4
+  %valu const 7
+d0:
+  %4 = const 4
+  %vatore_add %2:
+  ret %value

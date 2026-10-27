@@ -1,0 +1,38 @@
+func _main()
+
+%0 lu
+  %1 = const 5
+  %2 = const 2%0 lu
+ %0 = lt %1 %2
+t 5
+  %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0  = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %1 %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0  = const 2
+= const 3
+    %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = l 5
+  K%2 = const(2%0nst 5
+  %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0  = const 2
+  %0 = lt %1 %2
+sut %1 %2
+sub %0 %0  

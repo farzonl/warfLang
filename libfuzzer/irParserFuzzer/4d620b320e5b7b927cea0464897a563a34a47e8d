@@ -1,0 +1,9 @@
+func __mainuÿÿÿû__main()ntry2
+  %3 = const true
+ %4 = not %3
+  %5 = const 6
+
+ %56%  = eq %4 %5
+  ret¶ %v %0 %1
+uUN = eq %4 %5
+  r= nd PT: true
