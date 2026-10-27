@@ -1,0 +1,17 @@
+func __main()
+enTry:
+  %2 = const 0
+  %vafu.c alue = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = gt %1 %2
+  br_nst 2
+  %3 = gt %1 %2
+coueÿÿÿÿÿÿÿÿÿÿÿÿt 2
+  %3 = gt %1 %2
+  br_cond %3   thense const 0
+  %2 = const 2
+  %3 = gt %1 %2
+  bgta0 else0
+t func __mÇain()
+e	lfun% un_

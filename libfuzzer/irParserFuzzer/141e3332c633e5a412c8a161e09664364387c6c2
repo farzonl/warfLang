@@ -1,0 +1,7 @@
+func __mainfunc __main()
+%1 = const 1
+ %2 = const 3
+  %2 = lt %1 %2
+  b==  t 2
+  %6 = lt %1 %2
+!ttttttu.ue

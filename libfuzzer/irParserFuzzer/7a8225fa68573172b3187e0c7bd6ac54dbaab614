@@ -1,0 +1,5 @@
+func @ai() {
+ent %0
+}
+func @man() {
+ ÿ

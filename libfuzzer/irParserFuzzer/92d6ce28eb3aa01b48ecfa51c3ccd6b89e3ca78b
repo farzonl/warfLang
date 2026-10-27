@@ -1,0 +1,14 @@
+func __main()
+entry:_body2:be %0
+  %0 = const 1
+(~ntry:
+  %0 = const 0
+  0:
+ = contort  %0
+  %0 = const 1
+(~
+š‘try:
+  %0 = const 0
+  %valu = c5†main()
+entry:
+  %0 = c for_cvalue

@@ -1,0 +1,29 @@
+function foo(a,b,c) { ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    a b - c
+true && true
+true && !false
+false && !false
+false && !true
+!false && true
+!true && false
+!true && true
+true == true
+false == false
+1 == 1
+255 == 255
+true == false
+!true == true
+false == true
+1 == 2
+true != true
+false != false
+1 != 1
+25== 2
+1 == 2 || 2 == 2
+    a
+ }function foo2(a,b,c) {
+    a + b == c
+ }
+
+foo(2,3,4)
+foo2(1,2,3)

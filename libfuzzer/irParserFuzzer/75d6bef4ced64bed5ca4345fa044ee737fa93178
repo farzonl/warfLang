@@ -1,0 +1,12 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+ d1:
+  %9 = const 0
+  %index = store %9
+e = store_add %12
+  %13 = const 1
+ bd2
+for_end2:
+  ret %value

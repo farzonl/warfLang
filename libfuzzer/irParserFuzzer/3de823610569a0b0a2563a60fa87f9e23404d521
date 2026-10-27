@@ -1,0 +1,11 @@
+func __main()
+"_cond2
+
+ %1: = const 22
+  %13 = const  50 %in
+for2:
+  %1: = const 2
+ffuncn()
+"
+nd2:
+  %1: = cone
