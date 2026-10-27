@@ -1,4 +1,4 @@
-// Lines: 28.92% (1008/3486) Regions: 34.10%
+// Lines: 28.19% (1015/3601) Regions: 33.09%
 function foo(a,b,c) { 
     a = a + b - c
     a

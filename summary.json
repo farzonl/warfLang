@@ -1,20 +1,35 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 152,
-  "findings_count": 0,
+  "corpus_size": 179,
+  "findings_count": 2,
   "cumulative_coverage": {
-    "lines_covered": 3659,
-    "lines_total": 21251,
-    "lines_percent": 17.218013269963766,
-    "regions_covered": 2174,
-    "regions_total": 7570,
-    "regions_percent": 28.718626155878468,
-    "branches_covered": 1375,
-    "branches_total": 2111,
-    "branches_percent": 65.13500710563714
+    "lines_covered": 3717,
+    "lines_total": 21366,
+    "lines_percent": 17.396798652064028,
+    "regions_covered": 2216,
+    "regions_total": 7651,
+    "regions_percent": 28.96353417853875,
+    "branches_covered": 1382,
+    "branches_total": 2179,
+    "branches_percent": 63.42358880220284
   },
-  "best_single_program": "if ((!(false) == (true && false))) { a = 2; b = 10; value = 0; function foo (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value / b)), (- (255) / (value ^= - 42))); b |= (value { arg} foo (10); function pair (a: int, b: int): int { return a + (10 * (3 + 4) - 10)) &&; function clamp (x: int, y: int): int { y /= 3; return (3 * 1)} clamp ((255 * 10), - (10)) && true} } else { a &= (5 / -10) }",
-  "best_single_coverage_percent": 38.43947217441193,
-  "findings": []
+  "best_single_program": "a = 5; b = 1; value = 0; function baz (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x |= x}; return + ((x & y))} baz (7,) 1); if (true) { a = 2} else { function abs (x: int, y: int): int { y -= y; return + (~5)} abs ((4 | 42), (5 & + 10) -}; |= (value ^= 4); computeLoopControl n: int): int { if (n <= 1) { return; c = 0; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false 2147483648)) + 4) -; let y = 10",
+  "best_single_coverage_percent": 36.850874757011944,
+  "findings": [
+    {
+      "kind": "crash",
+      "fingerprint": "84071549d4d2efc0",
+      "description": "Crash/Unhandled error in `Warf --eval` (exit -6)",
+      "program": "a = 1; b = 1; value = 0; a += ((b / value) & 2); ((b - 7) ^ +(value))",
+      "details": "terminate called after throwing an instance of 'std::runtime_error'\n  what():  Logial error: Divide by zero."
+    },
+    {
+      "kind": "crash",
+      "fingerprint": "cea1712793bf6e3b",
+      "description": "Crash in `Warf --eval --show_tree` (exit -6)",
+      "program": "a = 1; b = 1; value = 0; a += ((b / value) & 2); ((b - 7) ^ +(value))",
+      "details": "terminate called after throwing an instance of 'std::runtime_error'\n  what():  Logial error: Divide by zero."
+    }
+  ]
 }

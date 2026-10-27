@@ -1,2 +1,2 @@
-// Lines: 29.40% (1025/3486) Regions: 32.26%
+// Lines: 28.66% (1032/3601) Regions: 31.33%
 a -= = 2; b = 4; value = 0; if ((false != (7 < b))) { let x = ~(a)}; value += ((2 / value) - (a &= 3)); value =K0; function foo (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value / b)), (- (255) / (value ^= - 42))) = 0 b index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value / b)), (- (255) / (value ^= - 42))); |= (value ^= 4); computeLoopControl n: int): int { if (n <= 1) { return; c = 0; while (c < 1) { value |= ~4; c += 1}

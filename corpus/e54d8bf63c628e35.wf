@@ -1,0 +1,2 @@
+// Lines: 26.44% (952/3601) Regions: 30.20%
+if ((true || false)) { if (!((5 != 2))) { { function foo (a: int, b: number): int { if (a > b) { return a} else { return) - 10) && true

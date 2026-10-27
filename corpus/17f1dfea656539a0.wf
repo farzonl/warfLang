@@ -1,2 +1,2 @@
-// Lines: 34.22% (1193/3486) Regions: 37.92%
+// Lines: 33.38% (1202/3601) Regions: 36.86%
 if ((true == (true || false))) { a = 5; b = 3; value = 0; a ^= + (3); ifU (((false != true) && (true && false))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= vaglue}; index += 1}; if ((3 == (2 * 7))) { function foo (x, y) { x += - 4; if (!(false 10)) 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; if ((3 == (2 * 7) 0) < 4)) { function compute (x, y) { y |= ~3; if (((3 + 0)

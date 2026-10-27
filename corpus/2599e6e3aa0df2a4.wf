@@ -1,2 +1,2 @@
-// Lines: 31.67% (1104/3486) Regions: 34.96%
+// Lines: 30.91% (1113/3601) Regions: 34.02%
 if (!((-5 > +10))) { a = (3 * (2 false))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; value = 0 a ^= + (3); if (((false != true) && (true && false))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; if ((== (2 * 7))) { function foo ((3 + 4) - 10)) && true } else { if ((0 == 10)) { value &= a } else { b += 10 } }; a |= 1; if ((b >= ~1)) {

@@ -1,0 +1,2 @@
+// Lines: 10.96% (2342/21366) Regions: 19.37%
+a = 5; b = 10; value = 0; let y = ((false != false) && (~10 <= a)); { if ((false && false)) { value /= 255 } }; ((0 - +1) & (a | 4))

@@ -1,2 +1,2 @@
-// Lines: 29.60% (1032/3486) Regions: 32.57%
+// Lines: 28.85% (1039/3601) Regions: 31.62%
 a = 5; b = 4; value = 0; for (z = 0; z < 5; z += 1) { if ((>= false == true)) { value = 5} else { b /= 1}}; if (false) { for (z = 0; * (3 + 4) - 10)) && true
