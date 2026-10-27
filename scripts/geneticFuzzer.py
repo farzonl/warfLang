@@ -513,6 +513,20 @@ def is_ignored_runtime_error(text: str) -> bool:
     return "divide by zero" in text.lower()
 
 
+def is_ignored_hang(kind: str, description: str, program: str = "") -> bool:
+    """Return True if a hang finding is caused by a user-program infinite loop at runtime."""
+    if kind != "hang":
+        return False
+    if "--emit-ir" in description or "Warfc" in description:
+        return False
+    if "Warf --eval" not in description and "WarfIR --run" not in description:
+        return False
+    if program:
+        tokens = set(tokenize_program(program))
+        return bool(tokens & {"while", "for", "do", "function"})
+    return True
+
+
 def is_sanitizer_or_crash(returncode: int, stderr: str) -> bool:
     if is_ignored_runtime_error(stderr):
         return False
@@ -629,7 +643,7 @@ class WarfFuzzerHarness:
             shutil.rmtree(self.work_dir, ignore_errors=True)
 
     def _record_finding(self, kind: str, program: str, description: str, details: str = "") -> Optional[Finding]:
-        if is_ignored_runtime_error(f"{description}\n{details}"):
+        if is_ignored_runtime_error(f"{description}\n{details}") or is_ignored_hang(kind, description, program):
             return None
         sig = hashlib.sha256(f"{kind}:{description}".encode("utf-8")).hexdigest()[:16]
         if sig in self._finding_hashes:
@@ -748,20 +762,21 @@ class WarfFuzzerHarness:
             if f:
                 result.findings.append(f)
 
-        # Also exercise `--show_tree` periodically or when clean to cover AST printing
-        rc_tree, _, err_tree, tree_timeout = self._run_cmd(
-            [str(self.warf_cli), "--eval", program, "--show_tree"], env
-        )
-        result.exec_modes_run += 1
-        if not tree_timeout and rc_tree is not None and is_sanitizer_or_crash(rc_tree, err_tree):
-            f = self._record_finding(
-                "crash",
-                program,
-                f"Crash in `Warf --eval --show_tree` (exit {rc_tree})",
-                err_tree.strip(),
+        # Also exercise `--show_tree` when `--eval` did not time out to cover AST printing
+        if not timed_out:
+            rc_tree, _, err_tree, tree_timeout = self._run_cmd(
+                [str(self.warf_cli), "--eval", program, "--show_tree"], env
             )
-            if f:
-                result.findings.append(f)
+            result.exec_modes_run += 1
+            if not tree_timeout and rc_tree is not None and is_sanitizer_or_crash(rc_tree, err_tree):
+                f = self._record_finding(
+                    "crash",
+                    program,
+                    f"Crash in `Warf --eval --show_tree` (exit {rc_tree})",
+                    err_tree.strip(),
+                )
+                if f:
+                    result.findings.append(f)
 
         # 2. Differential & IR pipeline testing if `--eval` succeeded without diagnostics
         eval_clean = (
@@ -1223,6 +1238,10 @@ def file_github_issues_for_findings(
     for finding in findings:
         if is_ignored_runtime_error(
             f"{finding.get('description', '')}\n{finding.get('details', '')}"
+        ) or is_ignored_hang(
+            finding.get("kind", ""),
+            finding.get("description", ""),
+            finding.get("program", ""),
         ):
             continue
         fingerprint, title, body = format_finding_issue(finding, run_url=run_url)
