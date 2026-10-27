@@ -708,6 +708,47 @@ TEST_CASE("SyntaxTree PrintTree") {
     std::string treeStr = out.str();
     REQUIRE(treeStr.find("ForStatement") != std::string::npos);
   }
+  SUBCASE(
+      "loop control function with for, do-while, break, continue, and var") {
+    const std::string program =
+        "function computeLoopControl(limit: int): int {\n"
+        "  var total = 0\n"
+        "  for (var i = 0; i < limit; i += 1) {\n"
+        "    if (i == 2) {\n"
+        "      continue\n"
+        "    }\n"
+        "    if (i == 6) {\n"
+        "      break\n"
+        "    }\n"
+        "    total += i\n"
+        "  }\n"
+        "\n"
+        "  var count = 0\n"
+        "  do {\n"
+        "    count += 1\n"
+        "    if (count == 2) {\n"
+        "      continue\n"
+        "    }\n"
+        "    total += 10\n"
+        "  } while (count < 3)\n"
+        "\n"
+        "  return total\n"
+        "}\n"
+        "\n"
+        "computeLoopControl(10)";
+    auto syntaxTree = SyntaxTree::Parse(program);
+    REQUIRE(syntaxTree->Errors().empty());
+    std::stringstream out;
+    syntaxTree->PrintTree(out);
+    std::string treeStr = out.str();
+    REQUIRE(treeStr.find("FunctionDeclaration") != std::string::npos);
+    REQUIRE(treeStr.find("ForStatement") != std::string::npos);
+    REQUIRE(treeStr.find("ContinueStatement") != std::string::npos);
+    REQUIRE(treeStr.find("BreakStatement") != std::string::npos);
+    REQUIRE(treeStr.find("DoWhileStatement") != std::string::npos);
+    REQUIRE(treeStr.find("ReturnStatement") != std::string::npos);
+    REQUIRE(33 == testProgramHelper(program).asInt());
+  }
 }
 
 TEST_CASE("IrOptimizer") {

@@ -40,10 +40,15 @@ void SyntaxTree::PrintTreeRec(SyntaxNode *sNode, std::ostream &out,
   }
 
   indent += isLast ? "    " : "|   ";
-  auto vecChildren = sNode->GetChildren();
-  for (auto child : vecChildren) {
-    bool isLastChild = (child == vecChildren[vecChildren.size() - 1]);
-    PrintTreeRec(child, out, indent, isLastChild);
+  std::vector<SyntaxNode *> vecChildren;
+  for (auto *child : sNode->GetChildren()) {
+    if (child != nullptr) {
+      vecChildren.push_back(child);
+    }
+  }
+  for (size_t i = 0; i < vecChildren.size(); ++i) {
+    bool isLastChild = (i + 1 == vecChildren.size());
+    PrintTreeRec(vecChildren[i], out, indent, isLastChild);
   }
 }
 

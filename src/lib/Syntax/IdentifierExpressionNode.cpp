@@ -7,8 +7,8 @@
 IdentifierExpressionNode::IdentifierExpressionNode(
     std::shared_ptr<SyntaxToken> identifierToken)
     : ExpressionNode(SyntaxKind::IdentifierExpression),
-      mIdentifier(identifierToken) {
-  mVecExpressionNodes.push_back(identifierToken.get());
+      mIdentifier(std::move(identifierToken)) {
+  mVecExpressionNodes.push_back(mIdentifier.get());
 }
 
 std::shared_ptr<SyntaxToken> IdentifierExpressionNode::IdentifierToken() {

@@ -2,11 +2,15 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-#include "Syntax/Parser.h"
+#include "Syntax/SyntaxTree.h"
+#include <sstream>
 
 void ParserFuzzTest(std::string &line) {
-  Parser parser(line);
-  parser.ParseCompilationUnit();
+  auto syntaxTree = SyntaxTree::Parse(line);
+  if (syntaxTree) {
+    std::ostringstream out;
+    syntaxTree->PrintTree(out);
+  }
 }
 
 extern "C" int LLVMFuzzerTestOneInput(const char *cLine, size_t len) {

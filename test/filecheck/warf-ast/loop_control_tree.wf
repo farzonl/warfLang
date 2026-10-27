@@ -1,0 +1,13 @@
+// RUN: %warf --eval "function computeLoopControl(limit: int): int { var total = 0; for (var i = 0; i < limit; i += 1) { if (i == 2) { continue } if (i == 6) { break } total += i } var count = 0; do { count += 1; if (count == 2) { continue } total += 10 } while (count < 3) return total } computeLoopControl(10)" --show_tree | %FileCheck %s
+
+// CHECK: L--CompilationUnit
+// CHECK: |--FunctionDeclaration
+// CHECK: |--VariableDeclaration
+// CHECK: |--ForStatement
+// CHECK: |--ContinueStatement
+// CHECK: |--BreakStatement
+// CHECK: |--DoWhileStatement
+// CHECK: |--ReturnStatement
+// CHECK: |--ExpressionStatement
+// CHECK: L--CallExpression
+// CHECK: 33
