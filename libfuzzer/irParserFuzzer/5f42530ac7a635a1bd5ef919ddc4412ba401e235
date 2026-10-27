@@ -1,0 +1,33 @@
+func __main()
+entry:
+n= con
+  %1 =þ const 3
+  %2 = adä %0 % const 2
+  %1 = !o2 %3
+%0 = consr 2
+  %1 = const 3
+  %%4
+  %6 2 %3f5nc 3
+%0 = const 2
+  %1 = !o2 %%vy1 sr 2
+  %1 = const 3
+  %%4
+  %6 2 %3f5nÿÿÿÿÿÿÿst 4
+  %mul %2 
+  %6 2 %3f5nc __mainst 4
+  %mul %2 %3
+%0 = const 2
+  %1 = !o2  2
+  %1 = conÿÿÿst 3
+  %%4
+  %6 2 %3f5nc 3
+%0 = const 2
+  %1 = !o2 %%vy1dä %0 % const 2
+  %1 = !o2 %3
+%0 = consr 2
+  %1 = const 3
+  %%4
+  %6 2 %3f5nc 3
+%0 = const 2= con= cons%60
+  %7 = add %
+// RUN-O0T: %0

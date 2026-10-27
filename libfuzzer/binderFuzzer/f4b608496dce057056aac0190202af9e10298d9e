@@ -1,0 +1,6 @@
+function f(): int {
+  return true
+}
+
+pt(f())
+0

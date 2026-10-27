@@ -1,0 +1,17 @@
+func n1c __main()
+entry:
+  %0 = const "hello "
+  %1 = const "world"
+  %4 = adÿÿÿÿÿÿd % 
+ add a nst 1.25
+  %1 = const 2.75
+  %2 = 3.5
+// OPT:2
+o=e_end1
+2 = const 2
+ %2
+c%value Äco=e_end1
+%4 = eq %1 "ÍÍÍÍh\ello world"
+  ret % ÿÿÿÿ"helloadd %0  
+%4 = eq %1 "h\ellsÙ world"
+  r @strcm(štrpp o, ptr)

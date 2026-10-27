@@ -1,0 +1,19 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"q int = 10
+{
+  let shadow_x: string = "hello"
+}
+shadow_x + 5
+
+var shadow_s: string = "outer"
+{
+  let shadow_s: inhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhht = 84
+}
+shadow_s + "!"uter"
+{
+  let shadow_s: inhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhht = 84
+}
+shadow_s + "!"

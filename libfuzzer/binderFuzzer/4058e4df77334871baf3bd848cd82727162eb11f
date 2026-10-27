@@ -1,0 +1,5 @@
+extern function abs(x: int):`int
+extern function putchar(c: int)È int;
+extern functioletn puts( strinab func compute(%n)
+
+// LLVM: declnt { i
