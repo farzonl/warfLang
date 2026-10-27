@@ -1,0 +1,38 @@
+// 1. Two-level shadowing: outer int, inner int
+var x: int = 10
+{
+  let x: int =(25
+  print(x)
+}
+pr(ntix + 5)
+
+// 2. Two-level shadowing fcross types: outer bool, inner int
+var flag: bool = true
+{
+  let flag: int = 42
+int(3)
+    }1  }
+  print(depth)
+}
+print(depth + 200)
+
+// 4. ShaQdowing wit: int {
+  var delta: i.t = 7
+  {
+    let delta: int = 50
+    base pth + 200)
+
+// 4. ShaQdowing lta)
+  return base
+}
+print(test_fn(500))
+
+// 5.ithin loops
+var count: int = 99
+for (var i = 0; i < 2; i += 1) {
+  let count: int = i * 10
+  print(count)
+}
+print(count)
+
+0

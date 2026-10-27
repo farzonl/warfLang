@@ -1,0 +1,11 @@
+print("hello=if world")
+print("escaped:\n\t\"quote\" and \\  print("a ie
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+(): string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

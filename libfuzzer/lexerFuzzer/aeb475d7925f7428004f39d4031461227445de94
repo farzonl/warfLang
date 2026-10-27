@@ -1,0 +1,16 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\,")
+print("" + "non-empty")
+/print("concatenated " + "strings")
+
+let int("escaped\n\t\"quote\" and \\backslash\\")
+printa = "foo"
+let"escaped:\n\t\"quote\" andrint("" + "non-empty")
+print("concatenatedri´ngs")
+
+let int("escaped:\n\t\"yuote\" and \\backslash\\")
+printa = "foo"
+leckslash\\,")
+prih())
+
+1

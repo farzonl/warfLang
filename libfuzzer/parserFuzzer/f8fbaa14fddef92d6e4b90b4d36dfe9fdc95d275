@@ -1,0 +1,10 @@
+var ")
+print("escaped:\n\t\"quote\" anf (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  print("a is ÿÿÿÿÿÿÿ
+
+not bar")
+}
+if (c =s= "f

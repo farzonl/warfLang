@@ -1,0 +1,5 @@
+pr isfoobar") {
+  prinŒ×Ýž iw fstring { areturn "hello" }
+function h(): string { return "world" }
+print(f() == h())
+0

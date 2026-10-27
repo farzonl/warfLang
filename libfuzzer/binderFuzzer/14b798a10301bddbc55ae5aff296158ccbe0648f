@@ -1,0 +1,8 @@
+"hello world"
+""
+"hello\nwoab\there"
+"quote: \"hi14ExpressionNode\\"
+
+"hello " + "world"
+"" + "abc"
+"abc"
