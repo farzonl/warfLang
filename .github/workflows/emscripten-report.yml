@@ -11,6 +11,9 @@ on:
       - '**.cpp'
       - '**.h'
       - '**CMakeLists.txt'
+      - '**.html'
+      - '**.css'
+      - '**.js'
       - .github/workflows/emscripten-report.yml
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -84,6 +87,7 @@ jobs:
       run: |
         mkdir install
         find build/ -name "*.html" -exec cp {} install/ \;
+        find build/ -name "*.css" -exec cp {} install/ \;
         find build/ -name "*.js" -exec cp {} install/ \;
         find build/ -name "*.wasm" -exec cp {} install/ \;
 
