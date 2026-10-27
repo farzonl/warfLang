@@ -22,11 +22,17 @@ ForStatementSyntaxNode::ForStatementSyntaxNode(
       mCloseParenthesisToken(std::move(closeParenthesisToken)),
       mInitializer(std::move(initializer)), mCondition(std::move(condition)),
       mIncrement(std::move(increment)), mBody(std::move(body)) {
-  mVecExpressionNodes = {mForKeyword.get(),  mOpenParenthesisToken.get(),
-                         mInitializer.get(), mFirstSemicolonToken.get(),
-                         mCondition.get(),   mSecondSemicolonToken.get(),
-                         mIncrement.get(),   mCloseParenthesisToken.get(),
-                         mBody.get()};
+  mVecExpressionNodes.push_back(mForKeyword.get());
+  mVecExpressionNodes.push_back(mOpenParenthesisToken.get());
+  if (mInitializer != nullptr) {
+    mVecExpressionNodes.push_back(mInitializer.get());
+  }
+  mVecExpressionNodes.push_back(mFirstSemicolonToken.get());
+  mVecExpressionNodes.push_back(mCondition.get());
+  mVecExpressionNodes.push_back(mSecondSemicolonToken.get());
+  mVecExpressionNodes.push_back(mIncrement.get());
+  mVecExpressionNodes.push_back(mCloseParenthesisToken.get());
+  mVecExpressionNodes.push_back(mBody.get());
 }
 
 const StatementSyntaxNode *ForStatementSyntaxNode::Initializer() const {

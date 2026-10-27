@@ -671,3 +671,24 @@ TEST_CASE("Loop Control (break, continue, do-while) and let Immutability") {
             "BinderError: Variable d is read-only and cannot be assigned to.");
   }
 }
+
+TEST_CASE("SyntaxTree PrintTree") {
+  SUBCASE("variable declarations let and var") {
+    auto syntaxTree = SyntaxTree::Parse("let a = 10; var b = 20; a + b");
+    REQUIRE(syntaxTree->Errors().empty());
+    std::stringstream out;
+    syntaxTree->PrintTree(out);
+    std::string treeStr = out.str();
+    REQUIRE(treeStr.find("VariableDeclaration") != std::string::npos);
+    REQUIRE(treeStr.find("LetKeyword") != std::string::npos);
+    REQUIRE(treeStr.find("VarKeyword") != std::string::npos);
+  }
+  SUBCASE("for loop without initializer") {
+    auto syntaxTree = SyntaxTree::Parse("i = 0 for (; i < 3; i += 1) { i }");
+    REQUIRE(syntaxTree->Errors().empty());
+    std::stringstream out;
+    syntaxTree->PrintTree(out);
+    std::string treeStr = out.str();
+    REQUIRE(treeStr.find("ForStatement") != std::string::npos);
+  }
+}

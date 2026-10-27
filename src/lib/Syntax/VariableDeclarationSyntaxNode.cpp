@@ -9,13 +9,14 @@ VariableDeclarationSyntaxNode::VariableDeclarationSyntaxNode(
     std::shared_ptr<SyntaxToken> identifier,
     std::shared_ptr<SyntaxToken> equalsToken,
     std::unique_ptr<ExpressionNode> initializer)
-    : StatementSyntaxNode(SyntaxKind::VariableDeclaration), mKeyword(keyword),
-      mIdentifier(identifier), mEqualsToken(equalsToken),
+    : StatementSyntaxNode(SyntaxKind::VariableDeclaration),
+      mKeyword(std::move(keyword)), mIdentifier(std::move(identifier)),
+      mEqualsToken(std::move(equalsToken)),
       mInitializer(std::move(initializer)) {
-  mVecExpressionNodes.push_back(keyword.get());
-  mVecExpressionNodes.push_back(identifier.get());
-  mVecExpressionNodes.push_back(equalsToken.get());
-  mVecExpressionNodes.push_back(initializer.get());
+  mVecExpressionNodes.push_back(mKeyword.get());
+  mVecExpressionNodes.push_back(mIdentifier.get());
+  mVecExpressionNodes.push_back(mEqualsToken.get());
+  mVecExpressionNodes.push_back(mInitializer.get());
 }
 
 std::shared_ptr<SyntaxToken> VariableDeclarationSyntaxNode::Keyword() {
