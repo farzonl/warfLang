@@ -26,7 +26,7 @@ private:
 public:
   bool HasValue() const;
   const Value &GetValue() const;
-  const TextSpan &Span() const;
+  TextSpan Span() const override;
   std::string Text() const;
   SyntaxToken(SyntaxKind synKind, int startPos, int endPos, std::string text);
   SyntaxToken(SyntaxKind synKind, int startPos, int endPos, const char *text);

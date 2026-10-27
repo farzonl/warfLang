@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Symbol/TextSpan.h"
 #include "ValueType.h"
 
 enum class BoundNodeKind {
@@ -37,8 +38,14 @@ enum class BoundNodeKind {
 class BoundNode {
 public:
   BoundNode() = default;
+  explicit BoundNode(TextSpan span) : mSpan(span) {}
   virtual BoundNodeKind Kind() = 0;
   virtual ~BoundNode() {}
+  const TextSpan &Span() const { return mSpan; }
+  void SetSpan(TextSpan span) { mSpan = span; }
+
+private:
+  TextSpan mSpan;
 };
 
 class BoundExpressionNode : public BoundNode {

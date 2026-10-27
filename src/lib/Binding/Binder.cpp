@@ -62,45 +62,68 @@ Binder::BindCompilationUnit(CompilationUnitSyntaxNode *syntax) {
   for (const auto &statement : syntax->Statements()) {
     statements.push_back(BindStatement(statement.get()));
   }
-  return std::make_unique<BoundBlockStatementNode>(std::move(statements));
+  auto block = std::make_unique<BoundBlockStatementNode>(std::move(statements));
+  if (syntax) {
+    block->SetSpan(syntax->Span());
+  }
+  return block;
 }
 
 std::unique_ptr<BoundStatementNode>
 Binder::BindStatement(StatementSyntaxNode *syntax) {
+  std::unique_ptr<BoundStatementNode> bound;
   switch (syntax->Kind().GetValue()) {
   case SyntaxKind::BlockStatement:
-    return BindBlockStatement(dynamic_cast<BlockStatementSyntaxNode *>(syntax));
+    bound =
+        BindBlockStatement(dynamic_cast<BlockStatementSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::VariableDeclaration:
-    return BindVariableDeclaration(
+    bound = BindVariableDeclaration(
         dynamic_cast<VariableDeclarationSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::FunctionDeclaration:
-    return BindFunctionDeclaration(
+    bound = BindFunctionDeclaration(
         dynamic_cast<FunctionDeclarationSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::ExpressionStatement:
-    return BindExpressionStatement(
+    bound = BindExpressionStatement(
         dynamic_cast<ExpressionStatementSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::IfStatement:
-    return BindIfStatement(dynamic_cast<IfStatementSyntaxNode *>(syntax));
+    bound = BindIfStatement(dynamic_cast<IfStatementSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::WhileStatement:
-    return BindWhileStatement(dynamic_cast<WhileStatementSyntaxNode *>(syntax));
+    bound =
+        BindWhileStatement(dynamic_cast<WhileStatementSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::DoWhileStatement:
-    return BindDoWhileStatement(
+    bound = BindDoWhileStatement(
         dynamic_cast<DoWhileStatementSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::ForStatement:
-    return BindForStatement(dynamic_cast<ForStatementSyntaxNode *>(syntax));
+    bound = BindForStatement(dynamic_cast<ForStatementSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::BreakStatement:
-    return BindBreakStatement(dynamic_cast<BreakStatementSyntaxNode *>(syntax));
+    bound =
+        BindBreakStatement(dynamic_cast<BreakStatementSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::ContinueStatement:
-    return BindContinueStatement(
+    bound = BindContinueStatement(
         dynamic_cast<ContinueStatementSyntaxNode *>(syntax));
+    break;
   case SyntaxKind::ReturnStatement:
-    return BindReturnStatement(
-        dynamic_cast<ReturnStatementSyntaxNode *>(syntax));
+    bound =
+        BindReturnStatement(dynamic_cast<ReturnStatementSyntaxNode *>(syntax));
+    break;
   default:
     std::stringstream diagmsg;
     diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(syntax->Kind());
     throw std::runtime_error(diagmsg.str());
   }
+  if (bound && syntax) {
+    bound->SetSpan(syntax->Span());
+  }
+  return bound;
 }
 
 Value::Type Binder::InferStatementType(const BoundStatementNode *node) {
@@ -343,51 +366,46 @@ Binder::BindExpressionStatement(ExpressionStatementSyntaxNode *syntax) {
 
 std::unique_ptr<BoundExpressionNode>
 Binder::BindExpression(ExpressionNode *node) {
-
+  std::unique_ptr<BoundExpressionNode> bound;
   if (LiteralExpressionNode *literal =
           dynamic_cast<LiteralExpressionNode *>(node)) {
-    return std::move(BindLiteralExpression(literal));
+    bound = BindLiteralExpression(literal);
+  } else if (UnaryExpressionNode *unaryExpression =
+                 dynamic_cast<UnaryExpressionNode *>(node)) {
+    bound = BindUnaryExpression(unaryExpression);
+  } else if (BinaryExpressionNode *binaryExpression =
+                 dynamic_cast<BinaryExpressionNode *>(node)) {
+    bound = BindBinaryExpression(binaryExpression);
+  } else if (ParenthesizedExpressionNode *parenthesizedExpression =
+                 dynamic_cast<ParenthesizedExpressionNode *>(node)) {
+    bound = BindExpression(parenthesizedExpression->Expression());
+  } else if (ArrayLiteralExpressionNode *arrayLiteralExpression =
+                 dynamic_cast<ArrayLiteralExpressionNode *>(node)) {
+    bound = BindArrayLiteralExpression(arrayLiteralExpression);
+  } else if (IndexExpressionNode *indexExpression =
+                 dynamic_cast<IndexExpressionNode *>(node)) {
+    bound = BindIndexExpression(indexExpression);
+  } else if (IndexAssignmentExpressionNode *indexAssignmentExpression =
+                 dynamic_cast<IndexAssignmentExpressionNode *>(node)) {
+    bound = BindIndexAssignmentExpression(indexAssignmentExpression);
+  } else if (AssignmentExpressionNode *assignmentExpression =
+                 dynamic_cast<AssignmentExpressionNode *>(node)) {
+    bound = BindAssignmentExpression(assignmentExpression);
+  } else if (CallExpressionNode *callExpression =
+                 dynamic_cast<CallExpressionNode *>(node)) {
+    bound = BindCallExpression(callExpression);
+  } else if (IdentifierExpressionNode *identifierExpression =
+                 dynamic_cast<IdentifierExpressionNode *>(node)) {
+    bound = BindIdentifierExpression(identifierExpression);
+  } else {
+    std::stringstream diagmsg;
+    diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(node->Kind());
+    throw std::runtime_error(diagmsg.str());
   }
-  if (UnaryExpressionNode *unaryExpression =
-          dynamic_cast<UnaryExpressionNode *>(node)) {
-    return std::move(BindUnaryExpression(unaryExpression));
+  if (bound && node) {
+    bound->SetSpan(node->Span());
   }
-  if (BinaryExpressionNode *binaryExpression =
-          dynamic_cast<BinaryExpressionNode *>(node)) {
-    return std::move(BindBinaryExpression(binaryExpression));
-  }
-  if (ParenthesizedExpressionNode *parenthesizedExpression =
-          dynamic_cast<ParenthesizedExpressionNode *>(node)) {
-    return std::move(BindExpression(parenthesizedExpression->Expression()));
-  }
-  if (ArrayLiteralExpressionNode *arrayLiteralExpression =
-          dynamic_cast<ArrayLiteralExpressionNode *>(node)) {
-    return std::move(BindArrayLiteralExpression(arrayLiteralExpression));
-  }
-  if (IndexExpressionNode *indexExpression =
-          dynamic_cast<IndexExpressionNode *>(node)) {
-    return std::move(BindIndexExpression(indexExpression));
-  }
-  if (IndexAssignmentExpressionNode *indexAssignmentExpression =
-          dynamic_cast<IndexAssignmentExpressionNode *>(node)) {
-    return std::move(BindIndexAssignmentExpression(indexAssignmentExpression));
-  }
-  if (AssignmentExpressionNode *assignmentExpression =
-          dynamic_cast<AssignmentExpressionNode *>(node)) {
-    return std::move(BindAssignmentExpression(assignmentExpression));
-  }
-  if (CallExpressionNode *callExpression =
-          dynamic_cast<CallExpressionNode *>(node)) {
-    return std::move(BindCallExpression(callExpression));
-  }
-  if (IdentifierExpressionNode *identifierExpression =
-          dynamic_cast<IdentifierExpressionNode *>(node)) {
-    return std::move(BindIdentifierExpression(identifierExpression));
-  }
-  std::stringstream diagmsg;
-  diagmsg << "Unexpected syntax " << SyntaxTokenToStrMap.at(node->Kind());
-  throw std::runtime_error(diagmsg.str());
-  return nullptr;
+  return bound;
 }
 
 std::unique_ptr<BoundExpressionNode>

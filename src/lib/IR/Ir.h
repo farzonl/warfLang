@@ -8,6 +8,7 @@
 
 #include "Binding/BoundExpressionNode.h"
 #include "IR/IrKind.h"
+#include "Symbol/TextSpan.h"
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -21,6 +22,12 @@ struct IrInstruction {
   std::string result;
   IrOpcode op;
   std::vector<std::string> operands;
+  TextSpan span = TextSpan(0, 0);
+
+  IrInstruction() = default;
+  IrInstruction(std::string res, IrOpcode opcode, std::vector<std::string> ops,
+                TextSpan s = TextSpan(0, 0))
+      : result(std::move(res)), op(opcode), operands(std::move(ops)), span(s) {}
 };
 
 struct IrFunction {
@@ -48,6 +55,7 @@ private:
   int32_t mTempIndex;
   int32_t mLabelIndex;
   int32_t mLowerDepth = 0;
+  TextSpan mCurrentSpan = TextSpan(0, 0);
   std::unordered_set<std::string> mEmittedFunctions;
   std::unordered_map<const VariableSymbol *, std::string> mVariableNames;
   std::unordered_map<std::string, size_t> mVariableNameCounts;
@@ -69,9 +77,9 @@ private:
                  BoundExpressionNode *increment);
   void LowerDoWhile(BoundStatementNode *body, BoundExpressionNode *condition);
   void Emit(IrOpcode op, std::vector<std::string> operands,
-            std::string result = "");
+            std::string result = "", TextSpan span = TextSpan(0, 0));
   void EmitAt(size_t index, IrOpcode op, std::vector<std::string> operands,
-              std::string result = "");
+              std::string result = "", TextSpan span = TextSpan(0, 0));
   void EmitLabel(const std::string &label);
   void EmitBranch(const std::string &targetLabel);
   void EmitCondBranch(const std::string &condition,
@@ -97,10 +105,19 @@ private:
 
 class IrInterpreter {
 public:
-  Value Execute(const IrModule &module);
+  IrInterpreter(uint64_t maxSteps = 0);
+  Value Execute(const IrModule &module, uint64_t maxSteps = 0);
+  void SetStepLimit(uint64_t limit) { mMaxSteps = limit; }
+  void SetMaxSteps(uint64_t limit) { mMaxSteps = limit; }
+  uint64_t StepLimit() const { return mMaxSteps; }
+  uint64_t MaxSteps() const { return mMaxSteps; }
+  uint64_t StepCount() const { return mStepCount; }
+  void ResetStepCount() { mStepCount = 0; }
 
 private:
   const IrModule *mModule;
+  uint64_t mStepCount = 0;
+  uint64_t mMaxSteps = 0;
 
   Value ExecuteFunction(const IrFunction &function,
                         const std::vector<Value> &arguments);

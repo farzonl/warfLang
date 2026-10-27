@@ -10,7 +10,7 @@ bool SyntaxToken::HasValue() const {
   return mValue.type != Value::Type::Unknown;
 }
 
-const TextSpan &SyntaxToken::Span() const { return mTextSpan; }
+TextSpan SyntaxToken::Span() const { return mTextSpan; }
 
 std::string SyntaxToken::Text() const { return mText; }
 
