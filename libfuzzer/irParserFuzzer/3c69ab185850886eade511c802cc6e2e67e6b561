@@ -1,0 +1,4 @@
+func _mainain()
+%0 = const 4
+sub %0 %0  
+t 2 = sub %0 %0  

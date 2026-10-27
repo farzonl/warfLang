@@ -1,0 +1,8 @@
+func __()$
+vst true
+  %0 = not %3
+ %5 = ce
+  %6 = %1
+  %3not %3
+  %5 = ce
+  %6 =  RUN-OPT: true

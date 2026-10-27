@@ -1,0 +1,38 @@
+a = 5; bb2 = 1;OvaatementNdoeStatementNdoelue = a =undStatementNdoeule = a = 0; b =a = 18BoundStatementNdoeStatementNdoelue = a =undStatementNdoelue = a = 0; b oelue = a = 0; b =a = 18BoundStatemeundStatealue = 0;mfunCtiontatementNdoelue = a =undSBoundStatementNdoeStatementNdoelue = a =undStatementNdoelue = a = 0;a =  b =dddddddddddd4847dddddddddddddddddddddd2ex = 3; { { b /= -2 } }; 1; b// Untyped function with consistent boolean returns on branches
+function is_even_sign(positive: bool) {
+  if (positive) {
+    return true
+  }
+  return false
+}
+
+print(is_even_sign(true))
+print(is_even_sign(false))
+
+// Untyped function with consistent integer returns on branches
+function abs_val(n: int) {
+  if (n < 0) {
+    return -n
+  }
+  return n
+}
+
+print(abs_val(-42))
+print(abs_val(100))
+
+// Untyped function with if-else-if consistent branches
+function classify(val: int) {
+  if (val > 0) {
+    return 1
+  } else if (val == 0) {
+    return 0
+  } else {
+    return -1
+  }
+}
+
+print(classify(5))
+print(classify(0))
+print(classify(-3))
+
+0oeStatementNdoenue = a =undSpatematatementNdoeStatementNdoelue = a =undStatementNdoelue = a = 0; b oelue = a = 0;dd4848dddddddddd2ex = 3; { { b /= -2 } }; 1; b = 1; value = 0; let x = falsdddddddddddd4848dddddddddd2ex = 3; { { b /= -2 } }; 1; b = 1; value = 0; let x = false; function step(x, y  ){x |= 255; return ((y | y) + (255 | 10)) } step((value & 0), (255 ^ (~3 * 42))); b |= (b ^ (+255 * b)); (10 * (42 / 5))0; b =a = 5; b ntNdressionNodentNdoelue = a = 0; b =a = 5; b  4 0;ddddddddd2ex = 3; { { b /= -2 } }; 1; b = 1; value = 0; let x = falsdddddddddddd4848dddddddddd2ex = 3; { { b /= -2 } }; 1; b = 1; value = 0; let x = false; function step(x, y  ){x |= 255; return ((y | y) + (255 | 10)) } step((value & 0), (255 ^ (~3 * 42))); b |= (b ^ (+255 * b)); (10 * (42 / 5))0; b =a = 5; b ntNdressionNodentNdoelue = a = 0; b =a = 5; b  4 0;a =l= a ementNdneStatementNdoelue = a =undStatndStatementNdoeStatementNdoenue = a =unement2ex = 3; { { b /= -2 } }; 1; b = 1; value = 0; let xNdressionNodentNdoelue = a = 0; b =a = 5; b  4 0;a =l= a ementNdneStatementNdoelue = a =undStatndStatementNdoeStatementNdoenue = a =undSpatematatementNdoeStatementNdoelue = a =undStatementNdoelue = a = 0; b oelue = a = 0;dd4848dddddddddd2ex = 3; { { b /= -2 } }; 1; b = 1; value = 0; let x = falsdddddddddddd4848dddddddddd2ex = 3; { { b /= -2 } }; 1; b = 1; value = 0; let x = false; fNdoeStatemel= 1; ou=taeeNmdee = 0;; 

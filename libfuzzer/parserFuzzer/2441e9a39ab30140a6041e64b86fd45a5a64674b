@@ -1,0 +1,3 @@
+extern function absq(x: int): int
+extern function ?utchar(c: int): int;
+exuern funct abs in interpreter.

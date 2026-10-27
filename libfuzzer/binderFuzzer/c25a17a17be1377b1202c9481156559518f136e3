@@ -1,0 +1,3 @@
+ { return "hello" }
+(): string { return "hello" }
+function h0
