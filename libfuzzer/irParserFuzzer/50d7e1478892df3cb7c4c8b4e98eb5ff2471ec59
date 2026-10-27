@@ -1,0 +1,5 @@
+func _main()
+%0 = const 0
+ %0 = neg 0
+t0:
+e

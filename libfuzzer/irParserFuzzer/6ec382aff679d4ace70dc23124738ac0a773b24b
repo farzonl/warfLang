@@ -1,0 +1,10 @@
+func __ain()
+ÿcnonsr
+  %c1
+ %1 = const 1
+ %2 = const 3
+  %2 = lt %1 %2
+  b= stor  %2con=  st 2
+  %6 = lt %1 %2
+fun ts  %6 = lt %1 %2
+!tttttt%vvale

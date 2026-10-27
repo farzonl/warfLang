@@ -1,0 +1,9 @@
+print("hello=if world")
+print("escaped:\n\t\"quote\" and \\  peet("alice"))
+
+function f(): string { return "hello" }
+(): string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

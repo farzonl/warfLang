@@ -1,0 +1,28 @@
+func __main()
+ %1 = sub %2 %c
+add %a %b
+  %1 = sub %0 %c
+  ret %1= cons_main()
+ %1 = sub %2 %c
+add %a %b
+  %1 = sub %0 %c
+  ret %1= const»3
+  %2 = add %0 %1
+  %2 = add %0 %1
+  %3 = const 4
+ntry:
+  %1 = add %a %»3
+  %2 = add %0 4
+ntry:
+  %1 = add %a %»3
+  %2 = add %0 %1
+  %2 = add %0 %1
+  %3 = cob
+  ry:
+  %1 = add %a %b
+  %1 = sub %0 %
+  %2 = add %0 %1
+  % = neg %4 %3 = c 4
+  %4 = mul %2 3
+  %5 = neg %4
+  %6 = const 50e

@@ -1,0 +1,16 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world" string = "hello"
+}
+shadow_x + 5
+
+var shadow_s: string = "outer"
+{
+  let shadow_s: inhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhht = 42
+}
+shadow_s + "!"

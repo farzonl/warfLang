@@ -1,0 +1,8 @@
+func __%in()
+entry:
+  %0 = const 
+  %3 = const 4
+  % %4 = not %3
+u%4
+  %3 = not %3
+ RUN-OPT: try:

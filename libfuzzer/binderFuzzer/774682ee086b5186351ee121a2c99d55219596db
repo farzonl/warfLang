@@ -1,0 +1,8 @@
+107function foo(a, b, c) {
+ function foo(a, b, c) { 4 1;- c
+}
+
+foo(2, 3, 41 ) a 4 1;- c
+}
+
+foo(2,3, 41 )

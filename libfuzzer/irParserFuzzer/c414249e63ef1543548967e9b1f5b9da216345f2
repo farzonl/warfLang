@@ -1,0 +1,17 @@
+func ain()
+enúÿtry:
+  %0 = const 2
+  %1 = cgd %0 %1
+  % 
+  %1 = c 3
+ 
+  %4 = not %3
+uû
+  %4 = not %3
+  %Y = c
+s 2 = div t true
+  %4 = not %1
+  lse
+  %6 = eq %4 %5
+  r
+// RUN-OPT: try:
