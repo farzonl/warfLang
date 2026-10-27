@@ -372,13 +372,15 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
         mCurrentFunction->returnValue =
             !thenReturn.empty() ? thenReturn : elseReturn;
       }
-    } else if (!prevReturn.empty()) {
-      mCurrentFunction->returnValue = prevReturn;
     } else if (!thenReturn.empty() && !thenTerminated) {
       auto resultTemp = NewTemp();
       EmitAt(thenJumpIndex, IrOpcode::Store, {thenReturn}, resultTemp);
-      EmitAt(branchIndex, IrOpcode::Const, {"0"}, resultTemp);
+      EmitAt(branchIndex, IrOpcode::Const, {kIrVoidValue}, resultTemp);
       mCurrentFunction->returnValue = resultTemp;
+    } else if (!thenTerminated) {
+      mCurrentFunction->returnValue.clear();
+    } else if (!prevReturn.empty()) {
+      mCurrentFunction->returnValue = prevReturn;
     }
     return;
   }
@@ -858,7 +860,9 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
     }
     if (instruction.op == IrOpcode::Const) {
       Value value;
-      if (instruction.operands[0] == kIrTrueLiteral) {
+      if (instruction.operands[0] == kIrVoidValue) {
+        value = Value();
+      } else if (instruction.operands[0] == kIrTrueLiteral) {
         value = true;
       } else if (instruction.operands[0] == kIrFalseLiteral) {
         value = false;
@@ -980,6 +984,9 @@ Value IrInterpreter::EvaluateOperand(
   auto value = values.find(operand);
   if (value != values.end()) {
     return value->second;
+  }
+  if (operand == kIrVoidValue) {
+    return Value();
   }
   if (operand == kIrTrueLiteral) {
     return true;
