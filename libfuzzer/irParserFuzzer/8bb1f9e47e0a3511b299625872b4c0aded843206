@@ -1,0 +1,12 @@
+func _2()ty:
+  %0 = const 0
+  %val=
+ %1 = const 1
+  %2 = const 2
+ t %1 %2
+ 
+  %4 = const 4
+0:
+ 5  br_c:
+ :%_c:
+  %51 %3

@@ -1,0 +1,14 @@
+extern function abs(x: int): int
+extern function putchar(c: int): int;
+extern function puts(s: string): int
+
+print(abs(-42))
+print(abs(17))
+putchar(79)
+putchar(75)
+putchar(10)
+puts("ffi_puts_hello")
+
+function compute(n: M: declare i32 @puts(ptr)
+
+// WIR-ERR: IR error: cannot execute extern function abs in interpreter.

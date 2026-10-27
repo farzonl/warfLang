@@ -1,0 +1,9 @@
+print*"hello worlÿÿÿÿÿÿnudoanנננננננננננננננננhello worlÿÿÿÿÿÿnudoerÿd")
+print("escaped:\n\t\ed:\n\t\"quote\" and \\backslash\\backslash\\")
+print("" + "non-s—‹†")
+print&"concatenated " + "uote\" anנננננננננננננerÿd")
+print("escaped:\n\t\ed:\n\t\"quote\" and + "non-s—‹†")
+print("concatenated " + "uote\" anנננננננננננננננננhello worlÿÿÿÿÿÿnudoerÿd")
+print("escaped:\n\t\ed:\n\t\"quote\" and \\backslash\\backslash\\")
+pr"" + "non-s—‹†")
+print(ted " + "uote\" anננננננננננננננcon"""""""""""rin"""

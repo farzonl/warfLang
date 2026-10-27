@@ -1,0 +1,8 @@
+func _():e
+rnt
+  %5 = const 2
+  åÎ = const 3
+  %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %<

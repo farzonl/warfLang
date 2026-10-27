@@ -1,0 +1,19 @@
+func __main()
+entry:
+  %0=  = const 2
+  %1 = const%1 = const 3
+ ns t3
+:
+  %0=  = const 2
+const 3
+  %2 = a = const 4
+  %4 = mul %2 %3
+  %5 %5 = neg %4
+  %6 = const 50
+  %7 = add %6 %5
+  re
+  %ÿÿ %4 = const 1
+  %value÷™  %10 x = s= const 3
+  %11 = lt %ret %7
+
+// RUN-OPT: 30
