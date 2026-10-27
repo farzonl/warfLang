@@ -1,0 +1,46 @@
+func __main()
+entry:()
+entry:
+  %0 = const 0
+t nc @branch(x) {
+entry:
+  %c = lt %x, 1
+end0
+en[ğ else_bb
+then_bJÅùßßc __main()
+entry:
+  %0 = const 0
+t nc @branch(%x) {
+entry:jmp me[rge = sub %5 {0
+t nc 
+entry:
+  %0 = const 0
+t nc @b%x, 1
+end0
+end0:
+  br whilX2öZ[ğ else_bb
+then_bJÅùßßc __main()
+entry:
+  %0 = const 0
+t nc @branch(%x) {
+entry:jmp me[rge = %5 {0
+t nc @branch(%x) {
+entry:
+  %c ßc __main()
+entry:
+  %0 = const 0
+t nc @b= lt %x, 1
+end0
+end0 :
+ br whilX2öZ[ğ else_bb
+then_bJÅõßßc __main()
+entry:
+  %0 = const 0
+t nc @branch(%x) {
+entry:jmp me[rge = su)
+entry:
+  %0 = const 0
+t nc @b= lt %x, 1
+end0
+end0:
+  br whilX2öZ[ğ el%c_fbtry:un

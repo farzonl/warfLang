@@ -1,0 +1,85 @@
+func __main()
+o %0 %1 %2
+  ret %3
+
+f =%2
+  ret %3
+
+f Â aain()
+o %0 %1"% ret %1t 21
+}
+  
+
+
+//dd %a, % %3
+
+f =%2
+  ret %3
+
+f = aain()
+o %0 %1"%2
+  ret %3
+
+fuc foo( a, %b,b
+  ret %0
+}
+func @main() {
+entr‚“?#?ðÔ:
+  %1 = call @add(10, 20)
+  ret % %1%1 = sub %0 %c
+  ret %1t 21
+}
+  
+e{n
+
+try:
+  %11dd %a, %b
+  ret
+  ret %3
+
+fuc foˆ( a, %b,b) {
+entry:
+  %0 = add %a, %b
+b
+  ret %0
+}fun2
+  ret %3
+
+fuc foo( a, %1 =ùÿÿÿ %0 %c
+  ret %1t 21
+}
+  
+
+
+//dd %a, % %3
+
+f =%2
+  ret %3
+
+f = aain()
+o %0 %1"%2
+  ret %3
+
+fuc foo( a %b
+  ret
+  ret %3
+
+fuc foˆ( a, %b,b) {
+entry:
+  %0 = add %a, %b
+b
+  ret %0
+}func @ma
+  ret %3
+
+f = aain()
+o %0 %1"%2
+  ret %3
+
+fuc foo( a, %b,b
+  ret %0
+}
+func @main() {
+entr‚:
+  %1 = call @add(10, 20)
+  re/ RUN-OPT: 30

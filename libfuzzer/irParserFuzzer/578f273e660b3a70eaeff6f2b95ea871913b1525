@@ -1,0 +1,6 @@
+func _main()
+
+%0 = const 2
+  = con3t 3
+  l t 21-%func a %b
+  %1 = sub 0 %0  

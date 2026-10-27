@@ -1,0 +1,5 @@
+1 function foo(a, b, c) {
+  a 4 1;- c
+}
+
+foo(2, 3, 41 )

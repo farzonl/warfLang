@@ -1,0 +1,9 @@
+func @add(%a, %b) {
+entry:
+b
+  ret e0
+}
+func @ (i)
+entry
+  ret %1
+}

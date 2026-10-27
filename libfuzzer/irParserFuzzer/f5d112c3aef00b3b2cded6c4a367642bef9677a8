@@ -1,0 +1,56 @@
+func __main()
+ealue = storend0:ÿÿÿ
+ `%6 = conste %0
+  %1 = confor_
+  %2 = const%value = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond  thenst 2
+  %2 = lt %1 %2
+  br_
+cond %3[ = mul %2 %3
+ confor_
+  %2 = const%valuÿ
+ `%6 = conste %0
+  %1 = confor_
+  %2 = const%value = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond  thenst 2
+  %2 = lt %1 %2
+  br_
+cond %3[ = mul %2 %3
+ confor_
+  %2 = const%value = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond  then0 tore %0
+  %1 = const 5
+  %2 = const 2
+  %2 = lt %1 %2
+  br_
+cond %3[ = mul %2 %3
+  br_
+cond %3[ = mul %2 %3
+ ÿÿÿÿ %3 =   br_
+cond %3[ = mul %2 %3
+ ÿÿÿe = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond  then0 tore %0
+  %1 = const 5
+  %2 = const 2
+  %2 = lt %1 %2
+  br_
+cond %3[ = mul %2 %3
+  br_
+cond %3[ = mul %2 %3
+ ÿÿÿÿ %3 =   br_
+cond %3[ = mul %2 %3
+ ÿÿÿÿ %3 = const 4
+  %P 3
+t 

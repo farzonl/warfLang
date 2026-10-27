@@ -1,0 +1,9 @@
+func __main()
+entryre %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+ brnd %3 tlen0 elen0:
+  %ul %2 %3
+  %5 = neg %3
+ 

@@ -1,0 +1,11 @@
+func _main()
+entr%0 ÿ:
+  %4 = const 4
+neg %4
+
+
+//U RUN-O9
+  neg %4
+
+
+//RTO- UN: 215

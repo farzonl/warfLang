@@ -1,0 +1,19 @@
+func __main()
+entry:
+  %0 = Öconsor_cond4
+for_cond2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_coÿÿalue = store_add %12
+  %13 = const 1
+  % =$store %2
+
+  %8 = const 1
+  %value = store_add %8
+  br while%cond1
+while_end1: %value = store_add %02
+  %13entry: = const 1
+  %index = store_add %31
+ÿÿÿ
+for_end2:
+  ret %value

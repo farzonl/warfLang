@@ -1,0 +1,16 @@
+func __ma()
+eaÿ
+ to %re0
+  %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+  br then0 tore %0
+  %1 = const 5
+  %2 = const 2
+  %2 = lt %1 %2
+  br_
+cond %3[ = mul %2 %3
+  br_
+cond %3[ = mul %2 %3
+ ÿÿÿÿ P 3
+t 

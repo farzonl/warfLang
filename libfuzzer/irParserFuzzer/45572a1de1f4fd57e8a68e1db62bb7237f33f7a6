@@ -1,0 +1,5 @@
+func _*_main()
+stor end0
+e’ %value = store_add %= const 3
+  %value = store_add %>
+  re

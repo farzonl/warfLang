@@ -1,0 +1,7 @@
+func _]main()
+ent 6 =  = mul %2 3
+  = add %6 %2 3
+  = add %6‹%5
+è  ret %
+// RUN-OpP 3
+ 0

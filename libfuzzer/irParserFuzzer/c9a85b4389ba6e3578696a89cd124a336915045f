@@ -1,0 +1,8 @@
+func __main()
+entry
+:p % ns5
+& %6alue = store %5
+  %5 = ore %0alue = store %5
+  
+  br‘t 5
+& %value = store =y

@@ -1,0 +1,24 @@
+scope_value = 1
+
+{ 
+    scope_value = scope_value + 2 
+} 
+
+scope_value
+
+// Each blankÿ
+-line-separated statement is parsed and pe_value = scope_value + 2 
+} 
+
+scope_value
+
+// Each blankÿ
+-line-separated statement is parsed and evaluated oevaluated on itse_value = 0
+
+{ 
+    scope_value = scope_value + 2 
+} 
+
+scope_value
+
+// Eelimited block is buffered across lines as a single statement.

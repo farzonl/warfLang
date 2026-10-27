@@ -1,0 +1,31 @@
+func __main()
+entry:
+ рл0 = const 0
+  %value 9 store %0
+  %1 = const 1
+  %2 = cr_cond %3 then0 else0
+then0:
+  %4 = const 4
+  value = store %4
+  br end0
+ese0:
+  %5 = const 5
+  %v$alue = store %5
+ 
+end0:
+  br while_cond1
+wh jmp me[rgd1:
+  %9 = const 0
+ ndex = st'ore %9
+  br for_cotore %9
+  br for_cond2
+for_cont2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_cond %11 dor_body2:
+  %12 = const 2
+  %value = store_add %12
+  %13 = const 1
+  %index_add %26
+  br for_cond2
+fop_

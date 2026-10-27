@@ -1,0 +1,17 @@
+// Top-leon compu (i == 2) {
+      continue // inline comment after continue
+    }
+ acc += i // add current index
+  }
+  == 2) {
+  ÿÿÿ    continue // inline comment after continue
+    }
+    acc += i // add current // Return final value
+4 return acc
+}
+
+// Multi-line clarations
+let start = 10 // sta   acc += i // addsrnu = 5
+bonus += 3 // now 8
+
+computeWithComments(start, 4)`+ bonus

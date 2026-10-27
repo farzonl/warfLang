@@ -1,0 +1,12 @@
+func __main()
+entrycomul %2 %3
+%0 = const 2
+ 1 = const ne= mul %2 %3
+  %5co   %0 = ne%7
+
+// RUN-OPT:  %1 = const 3
+  %2 = add %0 %1
+  %3 = cons“ 4
+  %4 = mul %2 %3
+%0 = const1 = add %0 %ÿÿÿ(%3 = cond %
+// RUN-OPT: 30

@@ -1,0 +1,8 @@
+func __mainfunc __main()
+entry %° = const 0
+  %value = const 0
+  %Š”lue = stor  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 %value = se %0
+  %1 = ry:
+  %° ==  b
