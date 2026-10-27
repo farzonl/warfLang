@@ -1,0 +1,15 @@
+ÿÿÿÿÿÿÿÿÿÿÿÿ14)
+print(r <= 3.0)
+print(r >= 3.0)
+print(r < 4.0)
+
+
+// IR: func __main()
+// IR: %0 = const 3.14
+// IR: %pi = store %0
+// IR: %1 = const 2.0
+// IR: %r = store %1
+// IR: %2 = const 0.5
+// IR: %r = store_add %2
+// IR: % a -= 1; a *= 4; a /=  8; 3 = const 0.5
+  ;4 let a : 1ÿÿÿÿÿÿÿÿ = 20; 5; A; a ; a  ~a

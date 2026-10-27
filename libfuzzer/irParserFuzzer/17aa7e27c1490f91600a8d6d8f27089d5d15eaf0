@@ -1,0 +1,24 @@
+func _main()
+
+%1main()
+%0 = consfunc __main()
+entry:
+  %0 = const "hello "
+  %1 = con st"world"
+  %2 = add %1 %1
+ t+ "hello "
+  %1 = const =  ne t 4
+ %t 2
+ 
+  %4 =  ne %2 2
+ 
+5 = neg%4 =  leg Í5 %3 = const 4
+ %t leg Í5 %3 = cons4 4
+ %t 2
+ 
+  %4 =  ne %2 2
+ 
+5 = neg %4 %3 = c4 =  leg 2 = sub %0 %0  
+t n 2 cn¿1 = sub %0 %0  
+t 2 cn%12
+t Í5  %2 = c2n%1 = sub %0 %0  

@@ -1,0 +1,18 @@
+fun¡¡¡¡ction circle_area(r: fl 3.14
+  r pi * r * r
+}
+
+let a = circle_area(2.0)
+print(a)
+
+var x: float = 10.5
+x += 1.5
+x -= 2.0
+x *= 0.5
+x /= 2.0
+print(x)
+print(-x)
+
+0 && x >= 2.5)}
+
+0

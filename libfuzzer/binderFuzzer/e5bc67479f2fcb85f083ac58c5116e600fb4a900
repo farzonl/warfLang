@@ -1,0 +1,19 @@
+print("hello=if world")
+print("escaped:\nt("cr s = "stmiddle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greeth"alice"))
+
+function f(): string { return "hello" }
+(): string { return "hece"))
+
+function(f ): string { retur’Ø"hello" }
+(): string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

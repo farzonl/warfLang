@@ -1,0 +1,6 @@
+func fn()
+st 0to1
+ 
+e = store ›%,2
+  %13 = const 1
+ e = store e =e

@@ -1,0 +1,9 @@
+func __main()
+ent e2
+  %0 = const const 2
+ ,%2 = add 2 %3
+  in()
+2entry ,%2 = add 2 %3
+  in()
+entry:
+Ûß_e

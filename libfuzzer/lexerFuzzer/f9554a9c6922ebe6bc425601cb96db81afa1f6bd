@@ -1,0 +1,6 @@
+prin int("escaped\n\tquote\"d \ \nat("ent("escaped:\n\tquote\" angs")
+
+let t("escaped:\n\tquote\" ane \s")
+int("escaped:\n\tquote\" == h)()
+
+0
