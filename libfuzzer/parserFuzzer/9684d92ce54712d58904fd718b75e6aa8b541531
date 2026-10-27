@@ -1,0 +1,38 @@
+"hello world"
+""
+"hello\nworld"
+"ätab\there""quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "aba
+"bc"c" + ""
+
+"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "aba
+ello world"
+""
+"hemberte: \"hi\""
+"backslasd"
+"" + "aba
+"bc"c" + ""
+
+"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello "tab\therenumberte: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "aba
+"bc"c" + ""
+
+"
+"quote: \"hi\""
+"rom print")
+print(s4)

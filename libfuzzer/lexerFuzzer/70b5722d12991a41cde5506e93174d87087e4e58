@@ -1,0 +1,12 @@
+print("hello world")
+prinllo world")
+print("escaped:\n\ta                             \"quote\" and \\bqckslchprinllo world")
+print("escaped:\n\t\"quote\" and \\bcaped:\n\t\"quote\" and \\bacint
+print("escapeÿ\\bacint
+print("escapeÿÿÿÿÿÿÿÿÿÿÿÿ\t\"quot\" and \\backslash\\int("escaped:\n\tqu"  = )pa           2                    = ")
+print("" + "non-empty")
+print("concatenatd " + "sÜtringo world")
+
+print("escaped:\n\t\"quote\" and \\bote\")
+print("" + "non-empty")
+print("concatenatd " + "sÜtringtquote\"te\" 
