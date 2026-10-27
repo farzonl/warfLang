@@ -1,0 +1,19 @@
+print("hello=if world")
+print("escaped:\n\t\"qello=\" and \\backslash\\")
+print("" + "non-euote\" and \\backslash\\")
+pr-euote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo)
+}
+iJJJJJJJJJJorld" }
+print(f() == h())
+
+0

@@ -1,0 +1,12 @@
+func __main()
+ %“ 4
+  %4 = mul %2 %3
+ %5 = neg %4
+  %6 = const 
+0
+  %7 = add %64
+  %6 = const 
+0
+  %7 = add n7
+
+// RUN-OPT: 30

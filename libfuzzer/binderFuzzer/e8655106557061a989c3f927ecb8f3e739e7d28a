@@ -1,0 +1,8 @@
+"hello`world"
+""
+"hello\nw: \"hi\""
+"backslash: \\"
+
+"helloÂ›ﬂ‘ﬂ›àêrld"
+"" + "abc"
+"abc"

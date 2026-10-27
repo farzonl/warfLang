@@ -1,0 +1,77 @@
+print("hello world")
+print("escaped:\n\
+}
+if (a != b) {
+  print("a is not bar")ö‚õ›f (c == "foobar") {
+  print("c is foobar")
+}
+
+varÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ s = "start"
+s += " middle"
+sworld")
+print("escaped:\n\
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+varÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿbar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+varÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ s = "start"
+s += " middle"
+sworld")
+print("escaped:\n\
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+varÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ s = "start"
+s += " m/iddle"
+s += " end"
+print(s)
+
+function greet(name: string): strin)
+
+functio += " end"
+print(s)
+
+function greet(name: string): strÿÿ{
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+funÿÿÿÿÿÿÿÿÿÿÿÿ s = "start"
+s += " m/iddle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+functio += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+functionÕ h(): string { return "world" }
+print(f()ynt h())
+
+0

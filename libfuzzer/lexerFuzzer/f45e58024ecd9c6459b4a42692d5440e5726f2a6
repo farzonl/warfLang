@@ -1,0 +1,25 @@
+"hello world"
+""
+\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abce: \"hi\""
+"backslash: \\"
+
+¢hello " + "wothere"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "woNrld"
+"" + "abce: \"hi\""
+"backslash: \\"
+
+¢hello " + "world"
+"" + "abcontinue + ½ "nt("message from print")
+prig"
+
+print("message from print")
+print(s2*

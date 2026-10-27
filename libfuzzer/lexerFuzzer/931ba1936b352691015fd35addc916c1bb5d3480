@@ -1,0 +1,57 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quot" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != " " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 = "warf "warf"
+let s2 = "lang"
+let s2" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"A" != "b"
+"a" != "a"
+
+let s1 b"
+"a" != "a"
+
+let s1 =ello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 = "warf "warf"
+let s2 = "lang"
+let s2" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 =elloe from pri    
+print(s3)

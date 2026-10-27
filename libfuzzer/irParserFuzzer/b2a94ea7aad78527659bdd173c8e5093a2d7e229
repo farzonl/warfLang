@@ -1,0 +1,5 @@
+func __main():
+  %0 = const 10
+ %1 = const 1
+  %2 = div %0 %1
+rue

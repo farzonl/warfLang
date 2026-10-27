@@ -1,0 +1,15 @@
+w= =r"hello ªworld"
+""
+"hello\nworld"
+"tab\tllo\nworld"
+"tab\there"
+"quotge :"hi\\%""
+"ba"
+"o\nworld"
+"tabrekslash: \\"*
+"ÿ elo " + "world"
+"o\nworld"
+"tab\there"
+"q" == "a"
+"wa" =0 "\there"b"=9 "b"
+"a(tins3)

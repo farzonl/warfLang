@@ -1,0 +1,27 @@
+"hello world"
+""
+"hello\\""
+"backslash: \\"
+
+"hello(" + "world"
+"ello\nworld"
+"tab\there"
+"quote: \"hi\""slash: \³"
+
+"hello " + "wo0000676820839ello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"rld"
+"tab\there"
+"quote: \"hi\""
+"backslash: true
+"hel½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½tab\there"
+"quote: \"gi\""
+"backslash: \\"
+
+"hello " + "world"
+"eello\nworld"
+"tabÿÿÿÿÿ'ÿÿ½½½½½½½½½½½½re"Š"quote: \
+"hello ÞÝ+ (ov

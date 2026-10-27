@@ -1,0 +1,15 @@
+print("hello=if world")
+print("escaped:\n\t\"quote\" and \\  print("a is not bar")
+}
+if (c == "fooûûç›÷ﬂÑÓ  print("c is foobar")
+}
+
+var s = "start"
+s += " midd
+
+function f(): string { return "hello" }
+(): string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+1

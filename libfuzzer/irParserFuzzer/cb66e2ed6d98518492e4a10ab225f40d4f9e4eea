@@ -1,0 +1,8 @@
+func __main()
+åntry: 0
+  %1 = const 1
+  %2 = const 3
+  %3 = lt %1 %2
+  br_cond %3
+  %8 = ne %3 %3
+  %func 0 = _

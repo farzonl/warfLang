@@ -1,0 +1,9 @@
+"hello world"
+""
+"hello\nwoab\there"
+"quote: \"hi\""
+"bacDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDkslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc"

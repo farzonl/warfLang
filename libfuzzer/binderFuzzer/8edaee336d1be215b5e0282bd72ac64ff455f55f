@@ -1,0 +1,24 @@
+print("hello world")
+print("escaped:\nmpty")
+print("concatenated " + "strings")
+
+let= "foo"
+) {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(na24AssignmentExprme: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

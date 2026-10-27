@@ -1,0 +1,16 @@
+print("hell\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let int("escaped:\n\t\"quote\" and \\Uvarslash\\")
+printa = "foo"
+let"escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let int("escaped:\n\t\"quote\" and \\backslash\\")
+printa = "foo"
+let b =orld" }
+êçñét(f() == h())
+
+3

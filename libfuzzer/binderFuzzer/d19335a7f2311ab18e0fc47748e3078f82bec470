@@ -1,0 +1,9 @@
+"hello ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿworld"
+""
+"hello\nworld"
+"tab\there""quote: \"hi\""
+"backslash: .\\"
+
+"hello " + "world"
+"" + "abc"
+"abc"

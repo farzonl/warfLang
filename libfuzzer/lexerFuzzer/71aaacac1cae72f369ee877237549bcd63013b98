@@ -1,0 +1,15 @@
+prin int("escaped:\n\tquote\" and \\t("escaped:\n\t\"quote\" and \\backslash\\")
+p rint
+let int("escaped:\n\tquote\" and \\t("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-emp^^^^^^^^n"quoed " + "sÜtrings")
+
+let int("escaped:\n\tquote\" ane \\t("escaped:\n\t\"quote\" and \\backs\"quote\" and \\baÿÿïash\\")
+print("" + "non-empty")
+print("cs")
+
+l("" + "non-empty")
+print("cs")
+
+let int("escaped:\n\tquote\" and \\backf() == h())
+
+2

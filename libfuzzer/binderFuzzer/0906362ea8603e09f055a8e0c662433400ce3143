@@ -1,0 +1,14 @@
+"hello world"
+""
+"he\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == a"
+"a" == "b"
+"a" !arflang"
+
+print("message nt")
+print(s3)

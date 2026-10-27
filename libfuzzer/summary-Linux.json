@@ -9,12 +9,12 @@
   ],
   "timeout_seconds": 180,
   "per_fuzzer_timeout_seconds": 45,
-  "corpus_size": 61418,
+  "corpus_size": 62163,
   "corpus_by_fuzzer": {
-    "binderFuzzer": 10285,
-    "irParserFuzzer": 27622,
-    "lexerFuzzer": 14649,
-    "parserFuzzer": 8862
+    "binderFuzzer": 10422,
+    "irParserFuzzer": 27872,
+    "lexerFuzzer": 14918,
+    "parserFuzzer": 8951
   },
   "findings_count": 0,
   "findings": []

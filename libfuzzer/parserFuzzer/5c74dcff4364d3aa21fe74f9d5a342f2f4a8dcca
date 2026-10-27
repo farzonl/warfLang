@@ -1,0 +1,26 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+priÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ" + "strings")
+t("" + "non-e
+let a = "foo"
+let E = "bar"
+let c = a + b
+prððððððððððððððððððððððððconcatenated " + "strings")
+t("" + "nonrint(e`caped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-emptbar"
+let c = a + b
+prððððððððððððððððððððððððconcate~ated " + "strings")
+t("" + "noÿÿe
+let a = "foo"
+let E = strings")
+t("" + "non-e
+let a = "foo"
+let E = "bar"
+let c = a + b
+prððððððððððððððððððððððððconcateÿÿd " + "strings")
+t("" + "nonrint(e`caped:\n\t\"quote\" and \\backslash\\")
+print(ððððððððððððððððððððððððconcateÿÿd " + "strings")
+t("" + "nonrint(e`caped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-emptbar"
+let c = a + b
+prððððððððððððððððððððððððconcat=te~ated "" + "st"""""""""""rin"""

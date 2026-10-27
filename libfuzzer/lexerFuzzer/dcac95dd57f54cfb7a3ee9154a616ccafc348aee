@@ -1,0 +1,37 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello(" + "world"
+"ello\nworld"
+"tab\there"
+"quote: \"hi\""slash: \³"
+
+"hello " + "woello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"rld"
+"tab\there"
+"quote: \"hi\""
+"backslash: true
+"hel½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½tab\there"
+"quote: \"gi\""
+"backslash: \\"
+
+"hello " + "world"
+"eello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+" != "a"
+
+let s2 =ello\nworld"
+"tab\there \"hi\""
+"backslash: truÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ'ÿÿ½½½½½½½½½½½½re"
+"quote: \
+"hello ÞÝ+ (ov

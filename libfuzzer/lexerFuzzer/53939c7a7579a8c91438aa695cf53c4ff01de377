@@ -1,0 +1,13 @@
+"hello world
+"backslash: \\"
+
+"hello " + "world"
+"ΩΩtab\there"
+ \"hi\""
+"backslash: |ΩΩΩtab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"ΩΩtab\there"
+"q›õ: eutohi\<)<)<<(-(ov

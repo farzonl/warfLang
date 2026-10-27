@@ -1,0 +1,25 @@
+print("hello world")
+pžint("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+t("" + "non-e
+let a = "foo"
+let E = "bar"
+let c = a + b
+prððððððððððððððððððððððððcy")
+print("concatenated " + "strings")
+t("" + "non-e
+let a = "foo"
+let E = "bar"
+let c = a + b
+prððððððððððððððððððððððððconcatenated " ")
+}
+
+var s = (s)
+
+function greet(nunction h(): str(nt(s)
+
+function greet(nunction h(): string { retun "world" }
+print(f() == h())
+
+0
