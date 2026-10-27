@@ -1,0 +1,2 @@
+// Lines: 15.08% (3522/23357) Regions: 25.07%
+a = 1; b = 10; value = 0; function bar(x, y) { var b = 2; return 3 } bar((+1 * 4), a); for (index = 0; index < 4; index += 1) { c = 0; while (c < 2) { b /= 1; c += 1 } }; for (z = 0; z < 3; z += 1) { var x = 5 }; (-3 + +(a))

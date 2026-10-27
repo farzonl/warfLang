@@ -1,2 +1,2 @@
-// Lines: 20.68% (929/4493) Regions: 23.24%
+// Lines: 20.22% (934/4619) Regions: 22.39%
 a = 2; b = 10; value = 0 var; c = value; { a = true}; ((value -= value) - a)

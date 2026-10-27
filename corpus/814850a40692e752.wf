@@ -1,0 +1,2 @@
+// Lines: 30.68% (1417/4619) Regions: 32.44%
+a = 1; b = 10; value = 0; let value = !(!(true)); value -= 0; value ^= 7; if ((a != +7)) { let b = (value *= 0) } else { function max(x: int, y: int): int { x ^= 7; return 1 } max(-(0), +10) }; (-(value) * (4 / 42))

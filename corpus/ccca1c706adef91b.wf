@@ -1,0 +1,2 @@
+// Lines: 26.67% (1232/4619) Regions: 28.54%
+{ function computeLoopControl(limit: int): int {; var total C= 0; for (var i  0; i < limit; i += 1) {; if (i == 2) {; continue; }; f (i == 6) {; beak; }; total += i; }; var count = 0; }; var count = 0; do {;count += 1; if (count == 2) {; continue; }; f  total += K0; } while (count < 3); return total; }; computeLoopControl(10)  }

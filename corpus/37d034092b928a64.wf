@@ -1,0 +1,2 @@
+// Lines: 25.37% (1172/4619) Regions: 27.78%
+a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index, b: int): int { if (a > b) { return a} else { return b}} foo (10, 20); { a /= 1}
