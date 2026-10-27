@@ -34,12 +34,12 @@ class WarfLang {
     Module._InitWarf();
   }
   Run(input) {
-    var length = lengthBytesUTF8(input) + 1; // Add 1 for the null terminator
-    var buffer = _malloc(length);
+    var length = Module.lengthBytesUTF8(input) + 1; // Add 1 for the null terminator
+    var buffer = Module._malloc(length);
     // Copy the string to memory
     stringToUTF8(input, buffer, length);
     let results = Pointer_stringify(Module._RunWarf(buffer, false, false));
-    _free(buffer);
+    Module._free(buffer);
     return results;
   }
   ShowTree() {
@@ -48,6 +48,13 @@ class WarfLang {
   ShowIR() {
     return Pointer_stringify(Module._ShowIR());
   }
+}
+if (typeof assert === "undefined") {
+  var assert = function(condition) {
+    if (!condition) {
+      throw new Error("Assertion failed");
+    }
+  };
 }
 function functionExists(f) {
   return f && typeof f === "function";

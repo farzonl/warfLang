@@ -25,26 +25,26 @@ set(exports
    _free
  )
 
-set(libEm_exports 
-   Pointer_stringify
+set(runtime_exports 
+   HEAPU8
+   UTF8ToString
    stringToUTF8
+   lengthBytesUTF8
  )
 
 # process exported functions
 set(exports_string "")
 list(JOIN exports "," exports_string)
-set(libEm_exports_string "")
-list(JOIN libEm_exports "," libEm_exports_string)
+set(runtime_exports_string "")
+list(JOIN runtime_exports "," runtime_exports_string)
 
 
 # specify the project
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_link_options(${PROJECT_NAME} PRIVATE
-        -s EXPORTED_FUNCTIONS=[${exports_string}])
-
-#target_link_options(${PROJECT_NAME} PRIVATE
-#        -s DEFAULT_LIBRARY_FUNCS_TO_INCLUDE=[${libEm_exports_string}])
+        -sEXPORTED_FUNCTIONS=[${exports_string}]
+        -sEXPORTED_RUNTIME_METHODS=[${runtime_exports_string}])
 
 target_link_libraries (${PROJECT_NAME}
   WarfCore
