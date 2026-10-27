@@ -1,0 +1,11 @@
+func __main().
+es0:
+  %3 = const 2
+rrrrrrŸrr%[
+ ()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %² = add %0 4
+  %2 =  ne %2 %3
+  ne %2 %3

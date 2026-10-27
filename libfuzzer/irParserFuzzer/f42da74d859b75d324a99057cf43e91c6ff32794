@@ -1,0 +1,6 @@
+func __main()
+entry:
+  %0 = const 3
+  %2 = store %0
+ %2 = add %0 %0
+7 = add0

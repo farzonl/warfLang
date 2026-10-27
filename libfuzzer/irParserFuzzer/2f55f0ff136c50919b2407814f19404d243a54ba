@@ -1,0 +1,4 @@
+func n()
+ÿŒy:
+ %0 = const 2
+ ret %0

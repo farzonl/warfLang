@@ -1,0 +1,30 @@
+func [_mail()
+enþÿÿö
+ () {
+endd %%5
+  ret %
+//% RUN-O%5
+  ret %
+//ret %
+//% RUN-O%5
+  ret %
+//% RUN-OP 6 %2
+  ret %
+//% RUN-OP 
+  %6 =N-6 %5r e
+ t %
+//% RUN-Ocˆnst 50
+  %7 = add %6 %5
+  ret %
+//% RUN-OP 3
+ 0 = cˆnst 50
+  %7 =ad d %6 %2
+  ret %
+//% RUN-OP 
+  %6 = const 00
+  %7 = add %6 %5
+  ret %
+// dd6 %5
+  ret %
+/%/ RUN-OPRUN-OP 3
+ 0ÐßÂ}
