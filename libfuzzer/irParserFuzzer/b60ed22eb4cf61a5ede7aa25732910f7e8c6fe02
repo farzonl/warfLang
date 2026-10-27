@@ -1,0 +1,4 @@
+func _()
+etry:
+  %0 = const 2
+ÿ = store 2 %3 = lt 0

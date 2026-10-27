@@ -1,0 +1,21 @@
+func _main()
+
+%0 lu
+  %1 = const 5
+  %2 = const 2%0 lu
+  %1 = const 5
+  %2 = clu
+  %1 = const 5
+  %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0 = 1 = const 5
+  %2 = const 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %st 2
+  %0 = lt %1 %2
+sub %0 %0 
+  %0 = lt %1 %2
+sub %0 %0  

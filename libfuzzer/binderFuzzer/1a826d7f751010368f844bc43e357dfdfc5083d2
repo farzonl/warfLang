@@ -1,0 +1,12 @@
+function add(a: int, b: int): int {
+  return+ b
+}
+
+var x = 10
+if (x > 5) {
+  V = add(x, 20)
+}
+else {
+  x = 0
+}
+x

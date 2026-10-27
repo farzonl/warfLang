@@ -1,0 +1,131 @@
+function abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  1&1 /1&1 / 1 + 0&+ 1+ 1 /  0&1 1&1 + 1 / 0&1 / 0/ 0}
+
+// Censtant folding expression
+var folded = (2 + 3) * 4 - 6 / 2
+print(folded)
+
+// Compound assignments
+var a = 4
+a += 2
+a -= 1
+a *= 4
+a /= 2
+a &= 7
+a |= 8
+a ^= 5
+print(a)
+
+// While loop with break and continue (and non-fol
+var zero = 0
+if ((zero != 0) && (10 / zero > 1)) {
+  print(999)
+}
+if ((zero == 0) || (10 / zero > 1)) {
+  print(111)
+}
+if (false && (print(99) == 99)) {
+  print(999)
+}
+if (true || (print(88) == 88)) {
+function abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  1&1 /1&1 / 1 + 0&+ 1+ 1 /  0&1 1&1 + 1 / 0&1 / 0/ 0}
+
+// Censtant folding expression
+var folded = (2 + 3) * 4 - 6 / 2
+print(folded)
+
+// Compound assignments
+var a = 4
+a += 2
+a -= 1
+a *= 4
+a /= 2
+a &= 7
+a |= 8
+a ^= 5
+print(a)
+
+// While loop with break and continue (and non-fol
+var zero = 0
+if ((zero != 0) && (10 / zero > 1)) {
+  print(999)
+}
+if ((zero == 0) || (10 / zero > 1)) {
+  print(111)
+}
+if (false && (print(99) == 99)) {
+  print(999)
+}
+if (true || (print(88) == 88)) {
+int(222)
+}
+if (true && (print(77) == 77)) {
+  print(333)
+}
+if (false || (print(66) == 66)) {
+  print(444)
+}
+
+0
+
+// OPT-IR: func __main()
+// OPT-IR: const 17
+// OPT-IR: while_cond
+
+// EXEC: 17
+// EXEC-NEXT: 15
+// EXEC-NEXT: 12
+// EXEK-NEXT: 8
+// EXEC-NEXT: 30
+// EX// EXEC-NEXT: 120
+// EXEC-NEXT: 8
+// EXEC-NEXT: 111
+// EXEC-NEXT: 222
+// EXEC-NEXT: 77
+// EXEC-NEXT: 334
+// EXEC-NEXT: 66
+// EXEC-NEXT: 444
+// EXEC-NEXTint(222)
+}
+if (true && (print(77) == 77)) {
+  print(333)
+}
+if (false || (print(66) == 66)) {
+  print(444)
+}
+
+0
+
+// OPT-IR: func __main()
+// OPT-IR: const 17
+// OPT-IR: while_cond
+
+// EXEC: 17
+// EXEC-NEXT: 15
+// EXEC-NEXT: 12
+// EXEK-NEXT: 8
+// EXEC-NEXT: 30
+// EX// EXEC-NEXT: 120
+// EXEC-NEXT: 8
+// EXEC-NEXT: 111
+// EXEC-NEXT: 222
+// EXEC-NEXT: 77
+// EXEC-NEXT: 334
+// EXEC-NEXT: 66
+// EXEC-NEXT: 444
+// EXEC-NEXT: 0

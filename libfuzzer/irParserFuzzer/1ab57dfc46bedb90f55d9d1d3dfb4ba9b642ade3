@@ -1,0 +1,16 @@
+func __main()
+entry:
+ =©onst :
+  %0 = store %0
+  %1 = const 1
+()
+entry:
+  %0 = const 0
+ stor{
+entrytry:
+  %0 = const 0
+  %value = store_add %12
+  %0ndex = store_add %13
+  r for_cond2
+for_end2:
+  ret %value
