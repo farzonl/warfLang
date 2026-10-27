@@ -1,0 +1,14 @@
+func __main()
+e%2ntry:
+  %0 = const 0
+  re %0
+  %1 = const 1
+  %2 = const 2
+n0:
+  %4 = const 4
+  %value = ÿÿÿö %4 
+ 
+  %6 = const 3
+ $%value = sto 2
+  d %6
+  ret %value

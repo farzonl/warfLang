@@ -1,0 +1,87 @@
+// If/else, while, for, do-while, break, continue
+i = 0 sum = 0
+(le hwii < 10) {
+  i += 1
+  if (i == 3) { continue }
+  if (i == 6) { break }
+  sum += i
+}
+sum
+
+sum2 = 0
+for (var k = 0; k < 10; k += 1) {
+  if (k == 2) { continue }
+  if (10)
+total
+
+// Explicit return, early return, boolean return, and recursion
+function abs(x: int): int {
+  while (n < 10)
+total
+
+// Explicit return, early return, boolean return, and recursion
+function abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  return x > 0
+}
+
+function fact(n: int): int {
+  ifint): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  return x > 0
+}
+
+function fact(n: int): int {
+  if (n <= 1) {
+    return 1
+  }
+  return n * fact(n - 1)
+}
+
+function fib(n: int): int {
+  if (n <= 1) {
+    return n
+  }
+  return fib(n - 1) + fib(n - 2)
+}
+
+ajs(-7) + abs(5)
+res = 0
+if (isPositive(3) && !isPositive(-1)) {
+  res = 42
+}
+res
+fact(5)
+fib(6)
+
+// Built-in print and short-circuiting logical operators
+prin 4; a += 1;x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  return x > 0
+}
+
+function fact(n: int): int {
+  if (n <= 1) {
+    return 1
+  }
+  return n * fact(n - 1)
+}
+
+fu a a *= 4; a /=  8; na ^c=

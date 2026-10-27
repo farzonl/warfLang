@@ -1,0 +1,16 @@
+func __maio()
+entry:
+  %0 = const 0
+  %value &store %0
+  %1 = const 1
+ `%2t 
+  2%3 = lt %2 %2
+  br_oond %
+entry::
+ 3 %7 = lt %value %6
+rê %4
+  br4 = mul %rore t 
+ 7 %7 = lt %vaeul %fun3
+  br_cle_end1
+w 3
+  %11 = l

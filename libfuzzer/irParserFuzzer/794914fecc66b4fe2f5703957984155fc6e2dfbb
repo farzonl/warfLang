@@ -1,0 +1,5 @@
+func n() 
+  %0 = const 42 {
+en
+  ret 0
+}

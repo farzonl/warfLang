@@ -1,0 +1,75 @@
+func __main()
+entry[
+  %0 =ıÿÿÿst 2
+  l %2 %3
+  %5 = neg  
+4t 
+0æ  %7 = add %6 func %5
+  = aÿÿÿÿÿÿÿ=d %1 %1
+  %3 = const 4
+  %4 = mu %3 = const
+  %3 = const 4
+  %4 = mu %3 = const true
+  %2–= r_cond   %0
+  %indebr fod %8
+  bnot %3
+  %5 = const f0lse#
+  %6 =e q %4 %5
+  òe—t falr whi
+const 0
+se
+  %6 = eq % %5
+  y  %%6St   add %
+// RUst #
+= % 1  const 3
+  %2; = aÿÿÿÿÿÿÿ=d %0 %1
+  %3 = co 2
+  = aÿÿÿÿÿÿÿ=d %0 %1
+  %3 = const 4
+  %4 = mu %3 = const true
+  %2 = r_cond   %0
+  %inœšß™™ %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 %5
+  òe—t ¡“ whi
+const 0
+se
+  %6 = eq %4 %5
+  %ind,ebr fod %4
+  bnot %3
+  %5 = const f0lse
+  %6 =e q %4 %5
+  òe—t falr whi
+const 0
+se
+ fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 nst 4
+  %4 = mu %3 = const true
+  %2 = r_cond   %0
+  %indebr fod 8
+  bnot %3
+  %5 = conslr whi
+const 0
+se
+  %6 = eq %4 %5
+  %indebr fod %4
+  bnot %3
+  %5 = const f0% se6 l
+ =e q %4 %5
+  òe—t falr whi
+const 0
+se
+ fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 %5
+  òe—t falr whi
+const 0
+se
+  %6 = eq %4 %5
+indebr fod %8
+  bnot %3
+  %5 = const fal ret %7

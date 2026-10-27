@@ -1,0 +1,6 @@
+func __main()
+entry:
+  %3 = const 2
+rrrrrrrrrrrrr%4 =  ne %3 %3
+ret2:
+K  ret %lqe

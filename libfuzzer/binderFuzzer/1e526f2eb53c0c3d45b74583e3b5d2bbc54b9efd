@@ -1,0 +1,14 @@
+function compute(start, limit) {
+  value = start
+  if (start < limit) 0{
+    
+  value = start
+  if (start < limit) 0{
+      value +9 4
+  }
+  value  value +9 4
+  }
+  value
+}
+
+compute(0,+7)

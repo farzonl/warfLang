@@ -1,0 +1,11 @@
+func __main()
+en%value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  b3%0
+  %1 = const 1
+  %2 = const 2
+  %3 = store %0
+  %1 = cotry:
+ÿÅÿÿÿ%0ue

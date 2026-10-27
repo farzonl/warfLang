@@ -1,0 +1,1 @@
+b1 = true; b2 = false;(b1 && !b2) false

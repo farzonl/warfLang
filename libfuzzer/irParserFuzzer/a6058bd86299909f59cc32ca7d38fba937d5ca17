@@ -1,0 +1,6 @@
+func _main():
+  %0 = const 0
+ func __main()
+  %0 = const t 0
+ func _4_main()
+  %0 = const 0 sv

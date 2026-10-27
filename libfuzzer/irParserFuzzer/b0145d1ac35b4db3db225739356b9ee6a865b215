@@ -1,0 +1,12 @@
+func __main()
+Ânr = stñçöﬂ%5
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %rend2
+‡‡%3 = cons t4
+; %4 =  le %3 %3
+  _main()
+ %5 %3 = const 4
+ :
+  ret %value

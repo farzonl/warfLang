@@ -1,0 +1,6 @@
+func _in()
+e:
+  %0 = const 2
+    %2 = add %0 nc __m
+entry:
+  %0 = ?

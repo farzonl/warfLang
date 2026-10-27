@@ -1,0 +1,3 @@
+func __m()%
+  %5 = neg %4
+   %10 = const r 1
