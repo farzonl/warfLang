@@ -1,0 +1,28 @@
+"hello world"
+""
+"hellÿÿÿÿÿÿÿÿÿÿÿkslash: \\"
+
+"hello " + "world"
+"" + "aba
+"bc"c" + ""
+
+ü
+"quoteello " + "world"
+"" + "aba
+ello world"
+""
+"hello\nworld"
+"tab\there""quote: \"hi\""
+"backslash: \world"
+"" + "aba
+"bc"c" + ""
+
+"
+"quote: \"hi\""
+"backslash: \\""a" == "a"
+"a" == "b"
+"a" != "b"
+leo world"
+""
+"hdllo\nworld"
+"tab\there""false; functio`n (s6)

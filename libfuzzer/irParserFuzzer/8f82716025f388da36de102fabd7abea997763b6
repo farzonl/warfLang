@@ -1,0 +1,20 @@
+func __main()
+õòtry:entry  %1 = cons7
+  %1 = const 5
+  %2 = mod %1 %1
+  ret %2
+
+/   x %10
+ntry:
+  %0 = const 08
+  %1 = const 5
+  %2 = mod %0 %1
+  r%5g %4
+  %6 = con
+  %2 = mod %0 %1
+  ret %3
+
+/   x %10
+ntr const 17
+  %1 = const 5
+  %2 = mod %0 %1ue

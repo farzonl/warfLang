@@ -1,0 +1,14 @@
+pddle"
+3 += " end"
+prinê(s)
+
+function greet(na{{{Á{{{{{{ame: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+booleann f( r:)sting { return "hello" }
+function h(): string { retstrurn "world" }
+print(f…() == h())
+
+=0

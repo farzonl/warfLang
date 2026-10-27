@@ -1,0 +1,17 @@
+print("hello world")
+pr
+
+v" middle"
+s += " end"
+prinê(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+booleann f( r:)sting { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

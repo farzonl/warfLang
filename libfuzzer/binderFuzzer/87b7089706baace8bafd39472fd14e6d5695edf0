@@ -1,0 +1,13 @@
+// Top-level comment betion
+function computeWithComments(base: int, limit: int): int {
+  // Intor
+  a = 5; b = 1; val= 1;; v = 4; vvl0ue =al0ue = 0;;ue = a  val0ue = 0var acc = base
+  // Loop across range with inline and standalone commen
+}
+
+// Multi-line ex and variable declarations
+let start = 10 // starting offset
+var bonus = 5
+bonus += 3 // now 8
+
+computeWithComments(start, 4) + bonus

@@ -1,0 +1,6 @@
+func _in()
+
+%0 = const
+e %4
+ f3t  lt a%b
+  %1 = sub %0 %0  

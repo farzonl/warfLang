@@ -1,0 +1,14 @@
+"hello          ееееееееееееееееееееееееееееееееееееееееееorld"
+""
+"hello\nworldorld"
+""
+"hello\n \"hi\""
+"backslash: .\\"
+
+"hollrld"
+"tab\there""quote: \"hi\""
+"backslash: .\\"
+
+"hollo " + "world"
+"" + "ibc"
+"abc"

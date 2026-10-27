@@ -1,0 +1,20 @@
+print("hello world")
+print("ekslash\\")
+pri
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string${ return "hello" }
+function h(): string { return "wodex8rld" }
+`rint(f() == h())
+z
+0

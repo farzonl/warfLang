@@ -1,0 +1,8 @@
+func __n()
+  %0 = const 0
+con %2 =  store %0
+  %1 = const 1
+()
+e %:
+ 
+(a

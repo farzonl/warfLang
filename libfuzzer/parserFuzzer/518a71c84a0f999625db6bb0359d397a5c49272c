@@ -1,0 +1,3 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslashccaped:\n\t\"quote\" and \\backslash\\")
+prin"" + "non-e""""""""""rin"""
