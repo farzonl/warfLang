@@ -1,0 +1,8 @@
+func __main()
+entr=  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+ %tr_cond %3 then0 else0
+ÿhen0:
+  %4 = const 4
+  %vaÓue_e1n

@@ -1,0 +1,11 @@
+func __main()
+
+ caly:
+  %0 = const 0
+ ,ry:
+  %0 = add %a %b
+  e–Žry:%1 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50
+  %7 þÿÿÌ= d:1 = sub %0 %c
+  ret %1

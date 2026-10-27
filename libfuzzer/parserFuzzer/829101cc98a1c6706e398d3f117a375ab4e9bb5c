@@ -1,0 +1,18 @@
+print("hello world")
+pr
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f( r:)sting { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

@@ -1,0 +1,10 @@
+function foo(a,b,c) { 
+    a = 18lue = a = 0; b oelue = a = 0; b =a = 18BoundStatemeundStatementNdSoetatementNdoelue = a =undSBoundStatementNdoeStatementNdoelue = a =undStatementNdoelue = a = 0; b =a =tementNmentNdoelue = a = 0; b =a =tementNdoelue = a = 0; b =a = 18BoundStatementNdOeStatementNdoenue = a =undSpatementNdoelue = a = 0; b =a =l= a =undStateme19UnaryExpressioNnodentNdoelue = a = 0; b =a = a = 2; b  4 0;a =l= a =undStateme19UnaryExpressionNodentNdoelue = a = 0; b =a = 5; b ntNdoeStatementNdoelue = a =undSpatementNdo=lue = a = 0; b =a =l= a =undStat29BoundAssignmentExpressioNdoelue = a = 0; b =a = 5; b  4 0;a =l= a ementNdoeStatementNdoelue = a =undStatndSttmeaentNdoeStatementNdoenue = a =undSpatematema = 9; b = 4; vala = 9; b = 4; vaalab = 4; vaala =elue = 0; c = 0; 1index = 3; { { b /= -2 } }; u = 9; bluelue = 0; c = 0; 1index = 3; ; ue = undStatementNdoelue mentNdoelue = a = 0; b =a = 18BoryExpressionNodentNdoelue = a = 0; be28BoundExpressionStatemenelue = a = 0; b =a = 5; b  4 0;b =a = 5; b a
+ }
+
+ function foo2(a,b,c) {
+ c 
+ }
+4
+foo(2,3,4)
+foo2(1,2,3)

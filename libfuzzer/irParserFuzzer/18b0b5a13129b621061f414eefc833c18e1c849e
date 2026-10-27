@@ -1,0 +1,14 @@
+func __mainc __main()
+þÿÿö%0æ%1 '1
+  %3 = const true
+  %4 = not %3
+  %5 = const 6
+
+// RUN-O6%  = eq %4 %5
+ = lse
+ 6%  = eq %4 %5
+  ret %nst tr= nd 7
+ const 6
+: t%  = eq %4 %5
+  rett%  = eq %4 %5
+  ret %v %0 %1*UN-OPT: true

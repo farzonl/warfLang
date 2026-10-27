@@ -1,0 +1,10 @@
+scopelue
+
+// Each blank-line-separated statement is parsed and evaluated on itse_value = 1
+
+{ 
+ue = scope_value +ue
+
+// Each blank-line-separated stateme”nt is parsed and evaluated on its own,
+// but a brace-deli own,
+// but a brace-delimited block is buffered across lines as a single statement.

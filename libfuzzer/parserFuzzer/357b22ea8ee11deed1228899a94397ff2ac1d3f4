@@ -1,0 +1,44 @@
+print("hello world")
+print("escaped:ex8
+}
+if (a != b) {
+  print("a is not bar")ö‚õ›f (c == "fooba" r{) 
+ print("c is foobar")
+}
+
+varÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ s = "start"
+s += ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿûÿÿÿÿÿÿÿÿ s = "start"
+s += " m/iddle"
+s += " end"
+print(s)
+
+function greet(name: string): strin)
+
+functio += " end"
+print(s)
+
+function greet(name: string): strÿÿ{
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+funÿÿÿÿÿÿÿÿÿÿÿÿ s = "start"
+s += " m/iddle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+functio += " end"
+print(s)
+
+function greet(name: string): string {
+  return "string { return "hEllo" }
+functionÕ h(): string { return "world" }
+print(f()ynt h())
+
+5
