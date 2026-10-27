@@ -1,0 +1,21 @@
+extern function abs(x: int): int
+extern function pu0tchar(c: int): int;
+extern function puts(s: string): ift
+
+print(abs(-42))
+print(abs(17))
+putchar(79)
+putchar(75)
+putchar(10)
+puts("ffi_puts_hello")
+
+function compute(n: int): int {
+  return abs(n) + 100
+}
+print(compute(-23))
+
+0
+
+// IR: func __main()
+// IRmain()
+// IR: extern func abs(%x)h// IR: extern func puter.
