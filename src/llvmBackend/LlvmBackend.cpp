@@ -75,7 +75,7 @@ LookupValue(const std::string &name,
   if (name == kIrTrueLiteral) {
     return llvm::ConstantInt::get(intType, 1);
   }
-  if (name == kIrFalseLiteral) {
+  if (name == kIrFalseLiteral || name == kIrVoidValue) {
     return llvm::ConstantInt::get(intType, 0);
   }
   auto canonical = CanonicalName(name);
@@ -711,7 +711,8 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
       if (instruction.op == IrOpcode::Const) {
         if (instruction.operands[0] == kIrTrueLiteral) {
           value = llvm::ConstantInt::get(intType, 1);
-        } else if (instruction.operands[0] == kIrFalseLiteral) {
+        } else if (instruction.operands[0] == kIrFalseLiteral ||
+                   instruction.operands[0] == kIrVoidValue) {
           value = llvm::ConstantInt::get(intType, 0);
         } else if (IsStringLiteral(instruction.operands[0])) {
           value = builder.CreateGlobalString(
