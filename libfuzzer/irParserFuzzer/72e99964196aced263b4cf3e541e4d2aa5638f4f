@@ -1,0 +1,4 @@
+func ()
+%0 = const
+   lt ^ %b
+0 

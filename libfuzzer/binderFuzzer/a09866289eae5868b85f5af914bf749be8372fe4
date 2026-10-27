@@ -1,0 +1,5 @@
+extenrnu fction abs(x: inth): in: inth): int
+extern function putchar(c: int): 0nt;
+ern func abs(%x)
+// IR: echar(%c)
+/pret: extern f function abs in interpter.

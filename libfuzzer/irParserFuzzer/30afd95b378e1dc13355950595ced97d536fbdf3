@@ -1,0 +1,3 @@
+func ()
+%0 = const 2
+t2 c%1 = sub %0 %0  
