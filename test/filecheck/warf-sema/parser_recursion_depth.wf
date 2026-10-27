@@ -1,0 +1,11 @@
+// RUN: %warf -e "((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((1))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))" 2>&1 | %FileCheck %s --check-prefix=DEEP-PARENS
+// RUN: %warf -e "0 + ----------------------------------------------------------------------------------------------------------------------------------------1" 2>&1 | %FileCheck %s --check-prefix=DEEP-UNARY
+// RUN: %warf %s 2>&1 | %FileCheck %s --check-prefix=DEEP-FILE
+
+{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{1}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = a = 1
+
+// DEEP-PARENS: ParserError: Unexpected token: < OpenParenthesisToken > Expected: < NumberToken >
+// DEEP-UNARY: ParserError: Unexpected token: < MinusToken > Expected: < NumberToken >
+// DEEP-FILE: ParserError: Unexpected token: < OpenBraceToken > Expected: < SemicolonToken >
+// DEEP-FILE: ParserError: Unexpected token: < IdentifierToken > Expected: < NumberToken >
