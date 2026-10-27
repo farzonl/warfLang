@@ -1,0 +1,55 @@
+func __main()
+ent e2
+  %in()
+en°ry:
+  %0 = const 2
+  %1 = cod %0 %1
+  %3 
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = const 4func _in&()
+e”‹†ֵß%0=o  csnt 1
+  ret %00 %1
+  %3 = const 8
+  %2 = mul %2 %3
+  %5 = neg %4 %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50
+ 3 = const 4ß•rue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+  %2 = div t true
+  %4 = not %3
+  %5 = conmt false
+  %6 = e
+  %4 = mul %2 %= const 50
+  %7 = add %6 %5
+  re
+  %50
+  %7 = add %6 %5
+  ההההההההההההההההההההההההההההההההה = const 50
+  %7 = add %6 %5
+  re
+  %50
+  %7 = add %6 %5
+  r0 = const 30
+  %1 = const ain()
+entry:
+  const 10
+  %1 = const 0
+%ף %2 = div %0 %1
+  %3 =א‘‹ß•rue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+  %2 = div t true
+  %4 = not %3
+  %5 = conmt false
+  %6 = eq %4 %5
+  ret %3
+
+// RUN-OPT: true

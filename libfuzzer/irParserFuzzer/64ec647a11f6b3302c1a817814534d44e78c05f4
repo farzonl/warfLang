@@ -1,0 +1,17 @@
+func __main()
+ealue = stor% %7
+ue Ë store %5
+ 
+  %1 = const 5
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3[ = mul %2 %3
+  %5 %n&  = stor% %7
+ue = st 4
+  %4 = mul %2 %3
+  %5 = neg %2
+ = const 5
+  %2 = 2
+  50
+  %7 = addP 3
+ 0

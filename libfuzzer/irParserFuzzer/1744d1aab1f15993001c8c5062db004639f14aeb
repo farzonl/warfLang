@@ -1,0 +1,13 @@
+func __main()
+ 0
+  %2 %3 then0 else0
+th%n0:
+  %4 = const 4
+ s
+  %888#888888800000000001455424905816426268 = neg %4
+  %6 = `o %3
+  %5 = const false
+  %6 = eq %4 %5
+  ret %6
+
+// RUN-OPT: true

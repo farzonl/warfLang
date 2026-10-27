@@ -1,0 +1,95 @@
+func @afunc @branch(x%) {
+entry:
+  %c = lt %x,en_bJb:
+  %
+ =  t% add  add %x, 0
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  %t = add %x, 1
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bbunc @branch(x%) {
+entry:
+  %c = lt %x,en_bJb:
+  %
+ =  t% add  add %x, 0
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  %t = add %x, 1
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  %1 = consv 3
+  %2 = const 4
+%e_bb
+merge
+  %t = add %, 1
+  jmpb:
+  %e = sub mp me[rge_bb
+merge
+  %1 = consv 3
+0
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  %t  %x, 1
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  %2 = consv 3
+  %2 = const 4
+%e_bb
+merge
+  %t = add %x, 1
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  conc_bb:
+  ret %x
+}
+
+merge
+  %1 = consv 3
+  %2 = const 4
+%e_bb
+merge
+  %t = add %, 1
+  jmpb:
+  %e ;= sub %x, 1
+  jmp me[rge_bb
+merge
+  %1 = consv 3
+0
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  %t  %x, 1
+  jmpb:
+  %e = sub %x, 1
+  jmp me[rge_bb
+merge
+  %1onst 4
+%e_bb
+merge
+  %t = add %x, 1
+  jmpb:
+  %e = sub %xdd(% , 1
+  jmp me[rge_bb
+merge
+  conc_bb:
+ =()
+entfuÿÿÿÿ0)
+   retret % %1ÿÿÿÿÿÿÿÿÿÿÿÿ:ÿÿÿÿÿÿ2
+  rext Ù1ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ0)
+  ret %1ÿÿÿÿÿÿÿeÿÿÿÿ
+ÿÿÿÿÿÿÿ}
+õ‚°

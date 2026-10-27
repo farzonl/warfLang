@@ -1,0 +1,16 @@
+func __main()
+e%2ntry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+   %10 else0
+then0:
+  %4 = const 2
+  %value = store %4
+  br end0
+
+e ls:0e %5 = const 5
+  %vand0:
+  %6 = csnto3
+   %value = store_add %6
+  ret %value

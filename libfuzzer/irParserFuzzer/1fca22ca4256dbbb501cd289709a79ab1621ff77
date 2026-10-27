@@ -1,0 +1,10 @@
+func __main()
+en%4
+en0:
+  %4 = const 4
+  %value = store %4
+   
+ebe = store %4
+   
+ebdeÿÿÿÿ -OP 3
+ n0

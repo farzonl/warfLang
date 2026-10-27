@@ -1,0 +1,21 @@
+func __m.ain()
+entry:
+  %0 = _0 ÿÿ
+ %3n0
+  %1 = const 1
+ %2 = const 2
+  %1 = lt %1 %2
+  br_`ond %3 then0 else0
+th  %0 = constå 0
+  %vaentryCst`r  %2 =:cp  %1 = lt %1 %2
+  br_`ond %3 thyCst`r  %2 =:cpns= const 0
+  %value = stor  %2 = const 2
+  %6 = lt %1 %2
+ %2 =:cp  %1 = lt %1 %2
+  br_`ond %3 then0 else0
+th  %0 = constå 0
+  %vaentryCst`r  %2 =:cpns= const 0
+  %value = stor  %2 = const 2
+  %6 = lt %1 %2
+!func __main() br
+e

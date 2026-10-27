@@ -1,0 +1,22 @@
+func __main()
+entry:Ö
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 th%value%1 %2
+  ret %3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a %b
+tore %0
+  %1 = const 2
+()
+entry:% 0
+  %valueo%2 = const 2
+  %3 = lt %1 %1
+  y2 for_end2
+for_body2:
+  ret %value

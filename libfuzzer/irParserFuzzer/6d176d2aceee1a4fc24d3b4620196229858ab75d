@@ -1,0 +1,4 @@
+func @a½½½½d(%a, %úÿÿÿb) {
+entry:
+  %5 = add %a, %bret %0'
+}

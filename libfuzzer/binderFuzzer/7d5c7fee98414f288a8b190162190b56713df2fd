@@ -1,0 +1,1 @@
+functni o(ib (n: int)Ç int { if (n <= 1) { return n} return fib (n - 1) + fib (n - 2)} f4883oo (10, 1(} return fib[ (n - 1) + fib (n - 2*)} foo (1°, 11) function bar (eturn n} return fib (n - 1) + fib (n - 2)} foo (10, 11) function bar (a, b) { 2) a < b} a, b) { a < b} bar (9, 10) function(b)- 1) + fib (n - 2)} foo (10,- 1) + fib (n - 3)} | -1))

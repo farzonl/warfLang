@@ -1,0 +1,2 @@
+func _main()
+en = store_add %6 b0alue

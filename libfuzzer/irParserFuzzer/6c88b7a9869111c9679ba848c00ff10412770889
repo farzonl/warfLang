@@ -1,0 +1,11 @@
+func __ __main()
+entr%:
+  %4 = const 4
+neg %4
+
+
+//U RU©Ÿ-O9
+  neg %4
+
+
+// RUN-OT: 215

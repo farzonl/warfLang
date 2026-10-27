@@ -1,0 +1,19 @@
+func __main()
+entry:
+onst 0
+ ]%value = store %0
+  %1 = const 1
+func __main()
+entry:
+  %0 = const 0
+  vla%e = store %5
+  b = store %4
+  br end0
+else0:
+  %µ = cons0t 5
+%  value = store %5
+  br endfocÂnd2
+for_cond2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_cfunc __mainnondfu

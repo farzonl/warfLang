@@ -1,0 +1,26 @@
+—unction 0oo(a,b,c) { 
+,c) { 
+    a =[o2(a,b,c) {o2)a,b,c) {= c
+ }
+
+fotion foo2(a,b,c) {o2)aùb,c) {
+  b == c
+ }
+
+foo(2,3,4)
+foo(2,3,4)
+foo2(1
+    a + b == c
+ }ncti
+
+fotion foo3(a,b,c) {o2)ac
+ }
+
+foo(2,3,4)
+foo(2,3,function foo2(a) {o2)a,b,c) {
+    a + b == c
+ }
+
+foo(2,3,4)
+foo(2,3,4)
+foo2(1,2,3)

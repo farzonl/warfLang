@@ -1,0 +1,19 @@
+func __main()
+ent e2
+  %0 = const 10
+  %1 = const ain()
+entry:
+  const 11
+  %1 = const 0
+ ó %2 = div %0 %1
+  %5 = cons0
+  %2 = div %0 %1
+  %3 = const true
+  %4 nt e2
+  %0 = const 10
+  %= not %3
+  %5 = const false
+  %6 = eq %4 %5
+  ret %3
+
+// RUN-OPT: true

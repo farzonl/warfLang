@@ -1,0 +1,15 @@
+func [_main()
+ÿö
+  Ronts%st 42
+ :
+  = neg %4
+  %6 = const 50
+  %7 = add %6 %5
+  ret %
+//% MUN-OP 3
+ßconst 42
+ :
+  =? nien()
+e
+  OP 3
+ 0ÐßÂ}

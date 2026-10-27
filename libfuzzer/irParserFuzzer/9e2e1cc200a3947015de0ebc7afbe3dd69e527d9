@@ -1,0 +1,31 @@
+func __main()r
+ey:t
+n  %0 = const
+e_cond1:
+ ÿÿÿÿÿÿÿnst 7
+  %7 = lt %value %6
+  br_cond %7 w
+  %6 = const 50
+  %7 =ond1
+while_end1:
+  %9 = const 0
+ nr for_cond2
+forore_add %9
+  br while_cond1
+while_end1:
+  %9 = const 0
+ ndex = store % add %0 %1
+  %3 = cons“Ð 4
+    %5 = neg while_cond1
+while_end1:
+  %9 = cnd2
+forore_adond1
+wh
+  %9 = const 0
+ ndex = store %9
+  br for_cotore %9
+  br for_cond2
+for_cond2:
+  %10 = const 3
+1 = const 3
+  %2 = T: 30

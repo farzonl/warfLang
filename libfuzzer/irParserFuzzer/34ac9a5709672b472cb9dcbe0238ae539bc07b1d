@@ -1,0 +1,8 @@
+func __ÿÿmaiî()
+åntr(RûOV~e %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 const 2
+  %14 =  le %2 %3
+  %5 = neg %5_ %3 = con  ne %2 %

@@ -1,0 +1,14 @@
+func __main()
+entry:
+  %0 = const 0
+  %value(.(value = store á4
+ue = store  bre0:
+  %5 = const 5
+  %value e = store %00
+then0:
+t  brst 5
+&t  brst 5
+& %value = store %5
+  b = store %4or_cond2
+for_end2:
+  ret% value

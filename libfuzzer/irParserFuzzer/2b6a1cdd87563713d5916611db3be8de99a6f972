@@ -1,0 +1,15 @@
+func [_ma2n()
+entry:
+  %0 = consÿÿÿÿÿÿÿÿÿn5 = neg %4
+  %6 = const $0
+  %7 = add %6 %5
+  ret %
+7
+3 = const 4
+  %4 = mul % %5
+   store_add %Ð06
+  % %5
+  ret %
+//% RUN5
+  ret %
+/fun

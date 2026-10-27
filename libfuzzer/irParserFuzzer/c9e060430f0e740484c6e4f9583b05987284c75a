@@ -1,0 +1,3 @@
+func @id(a,b) {
+eny:
+}

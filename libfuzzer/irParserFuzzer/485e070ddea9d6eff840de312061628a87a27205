@@ -1,0 +1,10 @@
+func __main()
+‹ntry:
+  %0 = const 1
+  %(val—»Z˜`×Jue = store %00
+thend0constt %value %6
+  br_c%  value = store_add %13
+ ãÚ13 = const º
+  %index = store_add %26
+  br for_co2nd
+for_en ret %value

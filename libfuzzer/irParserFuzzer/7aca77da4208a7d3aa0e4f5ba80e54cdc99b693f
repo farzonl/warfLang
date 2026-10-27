@@ -1,0 +1,3 @@
+func _()
+entry = const 3
+  %3 = add %0 %

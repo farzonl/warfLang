@@ -1,0 +1,19 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 2br_cfunc __main()r
+ey:t
+n  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = cons%7 func __=1 add %6 % 
+  ret %7
+
+/func = const 7
+ ($
+entry:
+  %0 = con= const %value %6
+ t 

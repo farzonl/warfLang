@@ -1,0 +1,49 @@
+func __main()
+entry = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %iledocn_1:
+  %6 = const 7
+  %7 ? lt %va3 then0 else0t
+hen0:
+  %4 = const 4
+  %va!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!lue = store %3
+  br end0
+else0:
+  %5 = const 5
+  %value = store %5
+  brend0:
+  br while_cond1
+while_cond1:
+  %6se0
+then0:
+  %4 = const 4
+  %value = stroe % end0
+end0:
+  br while_cond2
+while_cond1:
+  %6 = const 7
+  %7 = lt %
+  br while_cond1:
+  %4 = const 4
+  %value = strnc ()q
+
+
+
+
+
+
+
+
+
+q
+
+
+
+
+:
+  %5 = const 5
+  %value = store %5
+U  br end0
+end0:
+  br while_cond11

@@ -1,0 +1,8 @@
+func __mainf()
+entry:br end0
+els  %val’e = store %0
+  % =  cknst1
+ue = store %0
+  % =  :-
+ 4 = #onst  % t 4
+ b

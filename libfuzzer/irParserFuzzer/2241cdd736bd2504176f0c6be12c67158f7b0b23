@@ -1,0 +1,5 @@
+func ain()
+store %5
+  br end’ %value = store_add %= const 3
+  %value = store_add %>
+  re

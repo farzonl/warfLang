@@ -1,0 +1,6 @@
+func __main()
+entr %0 = const 0
+  %value = store %0
+  %1 = const 1
+ost 4
+  
