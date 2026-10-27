@@ -154,6 +154,8 @@ def discover_fuzzer_binaries(search_root: Path) -> List[Path]:
     for path in sorted(search_root.rglob("*")):
         if not path.is_file():
             continue
+        if any(part.lower().endswith(".dsym") for part in path.parts):
+            continue
         if path.suffix.lower() in IGNORED_EXTENSIONS:
             continue
         stem = path.stem if path.suffix.lower() == ".exe" else path.name
