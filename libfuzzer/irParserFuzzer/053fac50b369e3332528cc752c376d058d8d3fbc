@@ -1,0 +1,10 @@
+func add_scaled(a, b)
+entry:
+  %0 %8 = print %7
+  %9 = const 4.5
+  %10 E eq %7 %9
+  %11 
+
+// OPT: funcBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB __main()
+// OPT: %6 = const 3.5
+// OPT: %7 = call add_scaled %6 %3

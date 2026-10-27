@@ -1,0 +1,10 @@
+func __main()
+  %indebr fod %8
+  bnot %3
+  %0
+ _da热热热热热萻t true
+  %4热萪ebr fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 q %4 %5
+  

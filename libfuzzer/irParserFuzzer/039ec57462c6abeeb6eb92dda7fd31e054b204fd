@@ -1,0 +1,11 @@
+func add_ócaled(a, b)
+entry:
+   %0 = const 2.0  
+entry:
+  %0 = const 1.25
+  %)œ—03 = const 0.5
+  %5 = sub %ÿÿ()
+// OPT: %6 = const 3.5
+// OPT: %7 = call add_scaled %func _main(
+%)0 = const 0
+ %0 = ne6 %3
