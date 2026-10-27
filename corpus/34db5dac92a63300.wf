@@ -1,0 +1,2 @@
+// Lines: 10.95% (2434/22233) Regions: 19.06%
+a = 2; b = 1; value = 0; if (false) { if ((0 < 42)) { b ^= 7 } else { b -= 0 } } else { if (false) { value += 4 } else { value += value } }; var y = (0 ^ value); ((3 * 0) ^ 0)
