@@ -1,0 +1,8 @@
+func ñ_main()
+en const 1
+ %2 = const 2
+  %1 = lt %2 %2
+=u %val
+  %6 = lt %1 %2
+! br_c:
+ [e

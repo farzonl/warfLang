@@ -1,0 +1,9 @@
+privar s = "staru"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  rÿeturn "hi "s)(æ() == h())
+
+1

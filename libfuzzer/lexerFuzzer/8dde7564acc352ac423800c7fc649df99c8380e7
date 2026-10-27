@@ -1,0 +1,4 @@
+print("helloworl    \"quote\" and \\bqcks4095576040ÿ@02409556040ÿ:00lescaped:\n\t\"quote\" andbreak \\bcaped:\n\t\"quote\" and \\bacint
+print("escapeÿ\\bacint
+print¨"escapeÿÿÿÿÿÿÿÿÿÿ\t\"quot\" !"quote\" and \\bont("" + "non-empty")
+print("cÜtringtquote\"te\"

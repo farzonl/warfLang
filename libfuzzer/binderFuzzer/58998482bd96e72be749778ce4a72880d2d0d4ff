@@ -1,0 +1,4 @@
+function foo(a,b,c) {+ b== c}
+
+foo9(2,3,4)
+fIoo3(1,2,3)

@@ -1,0 +1,55 @@
+func __main()
+entvy:
+  %2
+  %1 = const 3
+  %2 = adä %%1 = !o2 %3
+%0 = cons“ 4
+  %5 = mul %2 %3
+%0 = const 2
+  %1 = !o2 %3
+%0 = consr 2
+  %1 = const 3
+  %%4
+  %6 2 %3func __maincons“ 4
+  %4 = mul %2 %3
+%0 = const 2
+  %1 = !o2 %3
+%0 = consr 2
+  %1 = const 3
+  %%4
+  %6 2 %3func st%mul %2 %3
+%0 = const 2
+  %1 = !o2 %3
+%0 = consr 2
+  %1 = const 33
+%0 = const 2
+  %1 = !o2 %3
+%0 = con= consr 2
+  %0 = consr 2
+  %1 = const 3
+  %%4
+  %6 2 %3func __ma 4
+  %mul %2 %3
+%0 = const 2
+  %1 = !o2 %3
+%0 = con= consr 2
+  %1 = const 3
+  %%4
+  %6 2 %3func __mainst 4
+  %mul %2 %st 4
+  %mul %2 %3
+%0 = const 2
+  %1 = !o2 %3
+%0 = con= consr 2
+  %1 = const 3
+  %%4
+  %6 2 %3func __mainst 4
+  %mul %2 %3
+%0 = const 2
+  %1 = !o2 %3
+%0 = consr 2
+  %1 = const 33
+%0 = const 2
+  %1 = !o2 %3
+%0 = con= consr 2
+  %1 = conRUN-OPT: %0

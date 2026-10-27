@@ -1,0 +1,13 @@
+"ha,0lo\nw: \"hi\""
+"backslash:&0i,~aÿù,0loÿ,0i,~a,0lo\nw: \"hi\""
+"backslash:&1 / 1/ 0llo " + "wo’rld"
+"" + "abc\nw: \"hi\""
+"backslash: \\"
+
+"hello " + "wo’ÿÿ1 / 1/ 0llo " + "wo’rld"
+"" + "abc\nw: \"hi\""
+"backslash: \\"
+
+"hello " + "wo’ÿÿÿÿÿÿÿ 1/ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿrld"
+"" + "abc"
+"abc"

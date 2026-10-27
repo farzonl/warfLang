@@ -1,0 +1,10 @@
+func _func __mqin()
+entry:
+0
+ %1lue = st %1 "h\ello d"
+eq %0 "h\ello world"
+  ret % ÿÿÿÿÿÿÿÿÿÿÿ%tÿbr fin()
+le_body1:
+  %8Ú=for+™õocn_Îd %å = con%1 "h\ello world"
+  ret % ïÿÿÿÿÿÿ true
+// OPT-

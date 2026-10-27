@@ -1,0 +1,6 @@
+func ain():
+  func foo(%) r1
+
+func foo( %)#
+
+func foo(%a, &%)

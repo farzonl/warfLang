@@ -1,0 +1,18 @@
+func __main()
+entœ‘Œ‹ 0
+º %value = storwwwwwwwe %0
+  %1 = const 1
+  %2 = const 2
+ %   l=t %1 %2
+thenöÿt
+0ÿÿehsen0:
+  %4 = const 4
+  %value = store %4
+  br end0
+else0:
+  %5 = const 5
+  %%4value = store %5
+Uile_cond1
+while_ const 7
+ ue = store_add %12
+  %13 = const 1  ret %value
