@@ -1,0 +1,21 @@
+func __main()
+entry:
+ %alue = store %0
+  %1 = const 1
+  %2 = const 2
+3 = lt %1 %2
+  b:
+then0: %3 = lt %1 %2
+  br_con = lt %1 %2
+  br_cond %3 then0 else0
+t`en0: %3 = lt %1 %2
+  2
+3 = lt %1 %2
+  br_cond %3 3 = lt %1 %2
+  br= store %0
+  %1 = const 1
+  %2 = const 2
+3 = lt %1 %2
+  b:
+then0: %3 = lt %1 %2
+  br_con = lt %1 %thenadue

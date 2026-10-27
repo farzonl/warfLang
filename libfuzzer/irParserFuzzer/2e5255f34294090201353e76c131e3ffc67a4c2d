@@ -1,0 +1,5 @@
+func __main()
+e = const 0
+%value = store %0
+  %1 = const 1
+  %2 = const cos  

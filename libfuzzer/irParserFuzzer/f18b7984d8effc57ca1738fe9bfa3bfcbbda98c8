@@ -1,0 +1,16 @@
+func __main()
+entry:
+ Â%0
+2Z
+  ret %0
+} = 0
+2Z
+  ret %0
+} = try:
+ Â%0
+2Z
+ et %0
+} ns; 1
+  %%oPT: 
+  %y:
+  t %2

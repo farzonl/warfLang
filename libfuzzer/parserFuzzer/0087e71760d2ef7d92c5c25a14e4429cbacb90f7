@@ -1,0 +1,23 @@
+a s(x: int): int }
+  retu5{ if (true) { value *= 3 }es {elue && (tifeon abq(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+ function abs(x: int): int {
+  if (x < 0): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPoistive(x: int): bool {
+  return x > 0
+}
+
+func‘tion f i return x >f (n <= 1) {
+    ret o:::!!uƒnc return fib(n - 1) + fib i(n
