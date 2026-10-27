@@ -1,0 +1,9 @@
+func _in()
+entzy:
+  %value = store %0
+  %1 =een0:
+  %4 = const 2
+ 4
+  %4  %5 = neg %4
+
+  ret %vilue

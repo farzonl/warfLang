@@ -1,0 +1,21 @@
+func _n()HHHHHHHHHHHHHHHHHHHH
+entry:
+  %__main()
+2 = colt %1 %2
+ 0:
+  %4 = const 4
+ ¦¦¦¦¦¦¦¦¦¦¦¦¦au¦¦le 
+ lul %2 ‚3
+  %5 = neg %4
+   %5 = neg %4
+  %e %5
+  br e%90
+end0:
+  br w
+while_cond0:
+   ue = store_add %12
+  %13 = const 1
+  %index = store_add %13
+  br for_cond2
+fw:
+  ret %value

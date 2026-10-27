@@ -1,0 +1,7 @@
+func ain()
+entry:
+  func foo(%) ret %1
+
+func foo( %)
+
+func foo(%a, &%)

@@ -1,0 +1,47 @@
+func __m!in()
+enty:%r  
+0 = const 0
+  %value0
+  %value co=e_end1
+2 = const 2
+o=e_end1
+2 = const 2
+ %2
+c coty:%r  
+0
+0 = const 0
+  nc __main()
+enty:%r  
+0 = const 0
+  ty:%r  
+0 = const 0
+  %value co=e_end1
+2 = const 2
+o=e_end1
+2 = const 2
+()
+enty:%r  
+0 = co%2
+c = const 2
+o=e = const 0
+  nc __main()
+enty:%r  
+0 = const 0
+  ty:%r  
+0 = const 0
+  %value co=e_end1
+2 = const 2
+o=e_end1
+2 = const 2
+()
+enty:%r  
+0 = co%2
+c = const 2
+o=e_end1
+2 = const 2
+ %2
+cons %2
+const 7
+  %7 = lt %value %]
+  br_coy:
+ 

@@ -1,0 +1,6 @@
+func __main()
+2  tentrtentry:
+ %3 = const 2
+  le %3 %3
+  le %3 %3
+ %3 %3
