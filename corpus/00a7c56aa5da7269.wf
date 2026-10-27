@@ -1,2 +1,2 @@
-// Lines: 25.74% (1257/4883) Regions: 27.45%
+// Lines: 25.70% (1292/5028) Regions: 27.60%
 if ((true == (true || false))) { a = 4; a += 2;}; return fib (n - 1) + fib (n - 2);}; function clampPositive (x: int): int {; if (x < 0) { clampPositive return 0;}; return x;}; fib (7) + clampPositive (- 5) +; (8); let _a = false} else { for (z = 0; z < 1; z += 1) { a -= 5}}

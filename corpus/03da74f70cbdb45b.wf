@@ -1,2 +1,2 @@
-// Lines: 24.72% (1207/4883) Regions: 26.60%
+// Lines: 24.68% (1241/5028) Regions: 26.81%
 a = 5; b = 3; value = 0; a ^= + (3); += if (((false != true) && (true && false))) { index = 0; return 7} foo ((42 ^ (value / b)), (- (255) / (value ^= - 42) for); |= (value ^= 4); computeLoopControl n: int): int { if (n <= 1) { return; c = 0; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false 2147483648)) + 4) -

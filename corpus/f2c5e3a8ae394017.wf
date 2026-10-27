@@ -1,0 +1,2 @@
+// Lines: 15.25% (3667/24050) Regions: 26.10%
+a = 0; b = 1; value = 0; function max(x, y) { i = 0; while (i < 1) { y -= 3; i += 1 }; return ((y & 42) - 0) } max(((255 | 0) + (3 | 255)), ((a / 255) & -3)); 4

@@ -1,2 +1,2 @@
-// Lines: 12.79% (3057/23905) Regions: 22.69%
+// Lines: 13.06% (3142/24050) Regions: 23.16%
 function fact(n: int): int { if (n <= 1) { return 1 } return n * fact(n - 1) } fact(4)
