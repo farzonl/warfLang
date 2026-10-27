@@ -295,3 +295,62 @@ inline IrOpcode CompoundStoreToBinaryOp(IrOpcode op) {
     return IrOpcode::Unknown;
   }
 }
+
+inline std::string EscapeIrString(const std::string &str) {
+  std::string result = "\"";
+  for (char c : str) {
+    switch (c) {
+    case '\\':
+      result += "\\\\";
+      break;
+    case '\"':
+      result += "\\\"";
+      break;
+    case '\n':
+      result += "\\n";
+      break;
+    case '\t':
+      result += "\\t";
+      break;
+    default:
+      result += c;
+      break;
+    }
+  }
+  result += "\"";
+  return result;
+}
+
+inline std::string UnescapeIrString(const std::string &quoted) {
+  if (quoted.size() < 2 || quoted.front() != '"' || quoted.back() != '"') {
+    return quoted;
+  }
+  std::string result;
+  result.reserve(quoted.size() - 2);
+  for (size_t i = 1; i + 1 < quoted.size(); ++i) {
+    if (quoted[i] == '\\' && i + 2 < quoted.size()) {
+      ++i;
+      switch (quoted[i]) {
+      case 'n':
+        result.push_back('\n');
+        break;
+      case 't':
+        result.push_back('\t');
+        break;
+      case '"':
+        result.push_back('"');
+        break;
+      case '\\':
+        result.push_back('\\');
+        break;
+      default:
+        result.push_back('\\');
+        result.push_back(quoted[i]);
+        break;
+      }
+    } else {
+      result.push_back(quoted[i]);
+    }
+  }
+  return result;
+}

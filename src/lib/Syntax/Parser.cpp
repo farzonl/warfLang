@@ -31,6 +31,9 @@ static Value::Type ParseTypeAnnotation(const std::string &text) {
   if (text == "bool" || text == "boolean") {
     return Value::Type::Boolean;
   }
+  if (text == "string" || text == "str") {
+    return Value::Type::String;
+  }
   return Value::Type::Unknown;
 }
 
@@ -170,6 +173,10 @@ std::unique_ptr<ExpressionNode> Parser::ParsePrimaryExpression() {
   if (Current()->Kind() == SyntaxKind::IdentifierToken) {
     auto identifierToken = Match(Current()->Kind());
     return std::make_unique<IdentifierExpressionNode>(identifierToken);
+  }
+  if (Current()->Kind() == SyntaxKind::StringToken) {
+    auto stringToken = Match(SyntaxKind::StringToken);
+    return std::make_unique<LiteralExpressionNode>(stringToken);
   }
 
   auto numberToken = Match(SyntaxKind::NumberToken);

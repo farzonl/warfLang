@@ -49,6 +49,12 @@ void Records::ReportBadCharacter(int position, char character) {
   Report(TextSpan(position, 1), message.str());
 }
 
+void Records::ReportUnterminatedString(TextSpan span) {
+  std::stringstream message;
+  message << mPrefix << "Error: Unterminated string literal.";
+  Report(span, message.str());
+}
+
 void Records::ReportUnexpectedToken(int32_t start, int32_t end,
                                     SyntaxKind actual, SyntaxKind expected) {
 

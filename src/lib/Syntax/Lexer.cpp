@@ -198,6 +198,9 @@ void Lexer::ReadToken(SyntaxKind &type) {
   case '_':
     ReadIdentifierOrKeyword(type);
     break;
+  case '"':
+    ParseString(type);
+    break;
   default:
     ParseLetters(type);
   }
@@ -281,13 +284,66 @@ void Lexer::ParseNumber(SyntaxKind &type) {
   type = SyntaxKind::NumberToken;
 }
 
+void Lexer::ParseString(SyntaxKind &type) {
+  int32_t posStart = mPosition;
+  mPosition++;
+  std::string stringVal;
+  bool closed = false;
+  while (mPosition < static_cast<int32_t>(mText.length())) {
+    char c = mText[mPosition];
+    if (c == '"') {
+      mPosition++;
+      closed = true;
+      break;
+    }
+    if (c == '\0' || c == '\n' || c == '\r') {
+      break;
+    }
+    if (c == '\\') {
+      mPosition++;
+      if (mPosition >= static_cast<int32_t>(mText.length())) {
+        break;
+      }
+      char esc = mText[mPosition];
+      mPosition++;
+      switch (esc) {
+      case 'n':
+        stringVal += '\n';
+        break;
+      case 't':
+        stringVal += '\t';
+        break;
+      case '"':
+        stringVal += '"';
+        break;
+      case '\\':
+        stringVal += '\\';
+        break;
+      default:
+        stringVal += '\\';
+        stringVal += esc;
+        break;
+      }
+    } else {
+      stringVal += c;
+      mPosition++;
+    }
+  }
+
+  if (!closed) {
+    mRecords.ReportUnterminatedString(TextSpan(posStart, mPosition));
+  }
+  mValue = stringVal;
+  type = SyntaxKind::StringToken;
+}
+
 std::unique_ptr<SyntaxToken> Lexer::NextToken() {
   SyntaxKind type = SyntaxKind::UnknownToken;
   int32_t tokenStartPos = mPosition;
   ReadToken(type);
   int32_t tokenEndPos = mPosition;
   if (type == SyntaxKind::NumberToken || type == SyntaxKind::TrueKeyword ||
-      type == SyntaxKind::FalseKeyword) {
+      type == SyntaxKind::FalseKeyword || type == SyntaxKind::StringToken) {
     return std::make_unique<SyntaxToken>(type, tokenStartPos, tokenEndPos,
                                          mValue);
   }

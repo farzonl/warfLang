@@ -1,0 +1,99 @@
+// RUN: %warf %s | %FileCheck %s
+
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 = "warf"
+let s2 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {
+  return "hi " + name
+}
+greet("alice")
+
+function pick(c: bool) {
+  if (c) {
+    return "first"
+  }
+  return "second"
+}
+pick(true)
+pick(false)
+
+var shadow_x: int = 10
+{
+  let shadow_x: string = "hello"
+}
+shadow_x + 5
+
+var shadow_s: string = "outer"
+{
+  let shadow_s: int = 42
+}
+shadow_s + "!"
+
+// CHECK: hello world
+// CHECK-EMPTY:
+// CHECK-NEXT: hello
+// CHECK-NEXT: world
+// CHECK-NEXT: tab	here
+// CHECK-NEXT: quote: "hi"
+// CHECK-NEXT: backslash: \
+// CHECK-NEXT: hello world
+// CHECK-NEXT: abc
+// CHECK-NEXT: abc
+// CHECK-NEXT: true
+// CHECK-NEXT: false
+// CHECK-NEXT: true
+// CHECK-NEXT: false
+// CHECK-NEXT: warf
+// CHECK-NEXT: lang
+// CHECK-NEXT: warflang
+// CHECK-NEXT: warflang
+// CHECK-NEXT: true
+// CHECK-NEXT: message from print
+// CHECK-NEXT: message from print
+// CHECK-NEXT: warflang
+// CHECK-NEXT: warflang
+// CHECK-NEXT: hello
+// CHECK-NEXT: hello 
+// CHECK-NEXT: hello world
+// CHECK-NEXT: hello world
+// CHECK-NEXT: typed
+// CHECK-NEXT: typed
+// CHECK-NEXT: hi alice
+// CHECK-NEXT: first
+// CHECK-NEXT: second
+// CHECK-NEXT: 10
+// CHECK-NEXT: hello
+// CHECK-NEXT: 15
+// CHECK-NEXT: outer
+// CHECK-NEXT: 42
+// CHECK-NEXT: outer!

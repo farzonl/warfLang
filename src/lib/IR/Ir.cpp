@@ -20,6 +20,7 @@
 #include "Binding/BoundUnaryExpressionNode.h"
 #include "Binding/BoundVariableDeclarationNode.h"
 #include "Binding/BoundWhileStatementNode.h"
+#include "Symbol/VariableSymbol.h"
 #include <algorithm>
 #include <cctype>
 #include <iostream>
@@ -103,6 +104,9 @@ static IrOpcode AssignmentOpcodeFor(BoundAssignmentOperatorKind kind) {
 }
 
 static std::string ValueText(Value value) {
+  if (value.isString()) {
+    return EscapeIrString(value.asString());
+  }
   std::stringstream stream;
   stream << value;
   return stream.str();
@@ -611,11 +615,45 @@ std::string IrParser::Trim(const std::string &text) {
 }
 
 std::vector<std::string> IrParser::SplitWhitespace(const std::string &text) {
-  auto result = std::vector<std::string>();
-  std::stringstream stream(text);
-  std::string part;
-  while (stream >> part) {
-    result.push_back(part);
+  std::vector<std::string> result;
+  size_t i = 0;
+  size_t n = text.size();
+  while (i < n) {
+    while (i < n && std::isspace(static_cast<unsigned char>(text[i]))) {
+      i++;
+    }
+    if (i >= n) {
+      break;
+    }
+    if (text[i] == '"') {
+      size_t start = i++;
+      bool closed = false;
+      while (i < n) {
+        if (text[i] == '\\') {
+          i++;
+          if (i < n) {
+            i++;
+          }
+        } else if (text[i] == '"') {
+          i++;
+          closed = true;
+          break;
+        } else {
+          i++;
+        }
+      }
+      if (!closed) {
+        throw std::runtime_error(
+            "IR parse error: unterminated string literal.");
+      }
+      result.push_back(text.substr(start, i - start));
+    } else {
+      size_t start = i;
+      while (i < n && !std::isspace(static_cast<unsigned char>(text[i]))) {
+        i++;
+      }
+      result.push_back(text.substr(start, i - start));
+    }
   }
   return result;
 }
@@ -758,6 +796,10 @@ Value IrInterpreter::ExecuteFunction(const IrFunction &function,
         value = true;
       } else if (instruction.operands[0] == kIrFalseLiteral) {
         value = false;
+      } else if (instruction.operands[0].size() >= 2 &&
+                 instruction.operands[0].front() == '"' &&
+                 instruction.operands[0].back() == '"') {
+        value = UnescapeIrString(instruction.operands[0]);
       } else {
         value = static_cast<int32_t>(std::stoll(instruction.operands[0]));
       }
@@ -819,10 +861,25 @@ Value IrInterpreter::EvaluateOperand(
     const std::string &operand,
     const std::unordered_map<std::string, Value> &values) {
   auto value = values.find(operand);
-  if (value == values.end()) {
-    throw std::runtime_error("IR error: unknown value " + operand + ".");
+  if (value != values.end()) {
+    return value->second;
   }
-  return value->second;
+  if (operand == kIrTrueLiteral) {
+    return true;
+  }
+  if (operand == kIrFalseLiteral) {
+    return false;
+  }
+  if (operand.size() >= 2 && operand.front() == '"' && operand.back() == '"') {
+    return UnescapeIrString(operand);
+  }
+  if (!operand.empty() &&
+      (std::isdigit(static_cast<unsigned char>(operand[0])) ||
+       (operand[0] == '-' && operand.size() > 1 &&
+        std::isdigit(static_cast<unsigned char>(operand[1]))))) {
+    return static_cast<int32_t>(std::stoll(operand));
+  }
+  throw std::runtime_error("IR error: unknown value " + operand + ".");
 }
 
 const IrFunction *IrInterpreter::FindFunction(const std::string &name) const {

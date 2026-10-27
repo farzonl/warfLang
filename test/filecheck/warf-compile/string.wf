@@ -1,0 +1,52 @@
+// REQUIRES: llvm-backend
+// RUN: %warfc -o %t.exe %s
+// RUN: %t.exe | %FileCheck %s
+
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "foo") {
+  print("a is foo")
+}
+if (a != b) {
+  print("a is not bar")
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("alice"))
+
+function f(): string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0
+
+// CHECK: hello world
+// CHECK-NEXT: escaped:
+// CHECK-NEXT: 	"quote" and \backslash\
+// CHECK-NEXT: non-empty
+// CHECK-NEXT: concatenated strings
+// CHECK-NEXT: foobar
+// CHECK-NEXT: a is foo
+// CHECK-NEXT: a is not bar
+// CHECK-NEXT: c is foobar
+// CHECK-NEXT: start middle end
+// CHECK-NEXT: hi alice
+// CHECK-NEXT: 0

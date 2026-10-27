@@ -54,6 +54,7 @@ public:
   }
   void RemoveNumericOverflow(TextSpan span);
   void ReportBadCharacter(int position, char character);
+  void ReportUnterminatedString(TextSpan span);
   void ReportUnexpectedToken(int32_t start, int32_t end, SyntaxKind actual,
                              SyntaxKind expected);
   void ReportUndefinedUnaryOperator(std::shared_ptr<SyntaxToken> unaryOperator,
