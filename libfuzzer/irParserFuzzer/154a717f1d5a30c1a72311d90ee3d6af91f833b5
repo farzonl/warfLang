@@ -1,0 +1,37 @@
+func __main()
+entry:
+  %0 = const 0
+  %value e %0
+  %1 = const 1
+  %2 = constþÿÿø 2
+  %: = ~lre_add %12
+  %13 = _body1:
+  %8 = const 1
+  %value = store_add %8
+! br while_cond1
+while_end1:
+  %9`= const 0
+  %ie %5
+  = st %3 = print %2  
+%4 = eq %1 "h\nlloÙ wo rld"
+ÿ  0:
+  %4 = const 4
+  %
+  br end0
+end0:
+nd1:
+  %6 = const 7
+×ß%7 =1
+whilere_add %12
+  %13 = _body1:
+  %8 = const 1
+* %value = store_add %8
+  br while_cond1
+while_end1:
+  %9`= const 0
+  %ie %5
+  = st %3 = print %2  
+%4 = eq %1 "h\nlloÙ wo rld"
+ÿ  r @s%b
+trc  %1mp(pt šro,"pt r)dd %12
+  %13 = const  %ndex = svalue

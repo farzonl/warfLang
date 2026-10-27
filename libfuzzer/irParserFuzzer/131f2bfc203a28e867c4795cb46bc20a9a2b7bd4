@@ -1,0 +1,5 @@
+func _()
+:
+  %0 = const 1
+ÿÿ
+  neg h

@@ -1,0 +1,17 @@
+func __main()
+entry:
+  %0 = const 0
+  %value store %0
+  %1 = const 1
+  %2 = const 2
+ d2:
+  %10 = const 3
+  0:
+ : ŒšÅ
+then0:
+  %4 = const 4
+  %value = store %2
+  br end0:
+  r while_conr_cond2:
+  %11:
+  %6 = cononst

@@ -1,0 +1,103 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" "
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {
+  return "hi " + name
+}
+greet("alice")
+
+funci\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bÙ
+"a" != "a"
+
+let s2 = "warf"
+let s: = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {
+  return "hi " + n¶me
+}
+greet("alice")
+
+function pi2ck(c: boo
+"abc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bÙ
+"a" != "a"
+
+let(s1 ExpressionNodes5: str = "typed"
+s5
+
+function gc" + ""
+
+"a" == "a"
+"a" == "b"
+"a" != "bÙ
+"a" != "a"
+
+let s1 = "warf"
+let s: = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "world"
+s4
+
+let s5: str = "typed"
+s5
+
+function greet(name: string): string {
+  return "hi " + name
+}
+greet("alice")
+
+= 42
+}
+shadow_s + "!"

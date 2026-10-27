@@ -1,0 +1,5 @@
+let baseOffset = 10
+
+function Offset(x: int, factor: int, offset: int): int {
+  return x * factor + offset
+}
