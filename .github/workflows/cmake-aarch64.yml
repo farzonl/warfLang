@@ -33,14 +33,27 @@ jobs:
       fail-fast: true
     steps:
     - uses: actions/checkout@v2
+    - name: Cache apt packages and sysroot
+      id: aarch64-cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ${{ github.workspace }}/apt-cache
+          ${{ github.workspace }}/sysroots
+        key: ${{ runner.os }}-aarch64-cache-v1-${{ hashFiles('.github/workflows/cmake-aarch64.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-aarch64-cache-v1-
     - name: install cross-build dependencies
       run: |
+        mkdir -p "${{ github.workspace }}/apt-cache/partial"
         sudo apt-get update
-        sudo apt install cmake ninja-build llvm-dev clang lld libc++-dev \
-        libc++abi-dev zlib1g-dev git build-essential \
-        ca-certificates crossbuild-essential-arm64 \
-        qemu-user wget rsync curl
+        sudo apt-get install -y --no-install-recommends \
+          -o Dir::Cache::archives="${{ github.workspace }}/apt-cache" \
+          cmake ninja-build clang lld \
+          ca-certificates crossbuild-essential-arm64 \
+          qemu-user wget rsync curl
     - name: setup sysroot
+      if: steps.aarch64-cache.outputs.cache-hit != 'true'
       run: |
         GCC_CROSS_DIR=$(ls -d /usr/lib/gcc-cross/aarch64-linux-gnu/[0-9]* | sort -V | tail -1) \
         && cd ${{github.workspace}} \
