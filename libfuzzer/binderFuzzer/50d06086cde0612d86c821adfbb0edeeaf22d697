@@ -1,0 +1,85 @@
+// If/else, while, for, do10)
+total
+
+// Explicit return, early return, boolean return, and recursion
+function abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+ x > 0
+}
+
+function fact(n: int):array{
+  if (n <= 1) {
+    return 1
+  }
+  return n * factn (- 1)
+}
+
+f (print(99) == 98)
+true || (print(88) == 88)
+true && (print(77) == 77)
+false || (prin 2) { continue }
+  if (k == 5) { break }
+  sum2 += k
+}
+sum2
+
+n = 0 total = 0
+do {
+  n += 1
+  if (n == 2) }
+
+function isPositive(x: int): bool {
+  return x > 0
+}
+
+function fact(n: int):array{
+  if (n <= 1) {
+    return 1
+  }
+  return n * factn (- 1)
+}
+
+f (print(99) == 98)
+true || (print(88) == 88)
+true && (print(77) == 77)
+false || (prin 2) { continue }
+  if (k == 5) { break }
+  sum2 += k
+}
+sum2
+
+n = 0 total = 0
+do {
+  n += 1
+  if (n == 2) { continue }
+  total += 10
+  if (n == 4) { break }
+} while (n < 10)
+total
+
+// Explicit return, early return, boolean return, and recursion
+function abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  return x > 1
+}
+
+function fact(n: int):array{
+  if (n <= 1) {
+    return 1
+  }
+  return n * factn (- 1)
+}
+
+f (print(99) == 98)
+true || (print(88) == 88)
+true && (print(77) == 77)
+false || (print(66) == 66)t(66) == 66)

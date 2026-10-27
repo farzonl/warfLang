@@ -1,0 +1,9 @@
+func __mai()
+entry:
+  %0 = const "hello "
+  32 (
+  %1 = const 2
+  %8 = add %0 %1
+  %1 =const_body1: = add %0 %1
+  1
+ Ãe va l%= stre_asrcmp(ptr, ptr)

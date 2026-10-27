@@ -1,0 +1,5 @@
+func __main()1
+ %2 = const 3
+  %3 = lt %2 %2
+Entry:4 =  ge %2 %3
+    ne %4 % = %%%40  

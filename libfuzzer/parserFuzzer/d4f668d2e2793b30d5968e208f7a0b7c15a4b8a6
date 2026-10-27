@@ -1,0 +1,33 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenatedorld")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" +print("concatenated " + "strings"start"
+s += " midd
+le"
+s += " end"
+print(s)
+
+function greet(name: string): strAng {
+  return "hi " + name
+}
+print(greet("a { function int, b: number): int { if  ftello" }
+function h(): string { retun "world" }
+נננננtrueננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננorlD")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-eנננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננננorld")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatent "d ea+ "strings"start"
+s += " midd
+le"
+s += " end"
+print(s)
+
+function greet(name: string): string {
+  return "hi " + name
+}
+print(greet("a { function int, b: number): iprint(f() == h())
+
+0

@@ -1,0 +1,51 @@
+func __main()
+ealue = storend0:ÿÿÿ
+ `ore %0
+  %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond  thçÿÿÿ 2
+    br_cond  thenst 2
+  %2 = lt %1 %2
+  br_
+cond %3[ent e2 = mul %2 %3
+ confor_
+  %=o4 c nst%value = store %]0
+  %1 = const 0
+  
+ %2 3[ = mul %2 %3
+mul %2 %3
+ond %3[ = mul %2 %3
+2  then0 tore %0]0
+  %1 = const 0
+  
+ %2 3[ = mul %2 %3
+mul %2 %3
+ ÿÿÿnd %3[ = mul %2 %3
+  br_
+cond %3[ = mul %2 %3
+ ÿÿÿÿ %3 =   br_
+cÿ%2
+  brnc d()
+entry:
+entry:ÿÿÿÿÿÿÿiÿÿÿÿr_
+cond ret nt e2 = mul %2 %3
+ confor_
+  %=o4 c nst%value = store %]0
+  %1 = const 0
+  
+ %2 3[ = mul %2 %3
+mul %2 %3
+ ÿÿÿÿ %3 =   br_
+cond %3[ = mul %2 %3
+2  then0 tore %0]0
+  %1 = const 0
+  
+ %2 3[ = mul %2 %3
+mul %2 %3
+ ÿÿÿnd %3[ = mul %2 %3
+  br_
+cond %3[ = mul %2 %3
+ ÿÿÿ  ÿÿÿÿÿÿÿÿÿÿ %3 = const 4
+  %P 3
+t 

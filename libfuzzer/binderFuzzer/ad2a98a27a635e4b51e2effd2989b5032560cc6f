@@ -1,0 +1,15 @@
+// Dead constanted, printed constant expression folded
+(10 + 20) * 3
+print((2 + 3) * 4 - 6 / 2)
+0
+
+// HELP: usage: Warfc [-O|--opt]
+
+// OPT-IR: func __main()
+// OPT-IR-NEXT: entry:
+// OPT-IR-NEXT:   %13 = const 17
+// OPT-IR-NEXT:   %14 = print %13
+// OPT-IR-NEXT:   %15 = const 0
+// OPT-IR-NEXT:   ret %15
+
+// EXEC: 17
