@@ -7,6 +7,8 @@
 #include "CodeAnalysis/Compilation.h"
 #include "CodeAnalysis/Evaluator.h"
 #include "DataStructures/TemplateList.h"
+#include "IR/Ir.h"
+#include "IR/IrOptimizer.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Symbol/TextSpan.h"
 #include "Syntax/ExpressionStatementSyntaxNode.h"
@@ -111,5 +113,44 @@ TEST_CASE("Compilation Chain and SymbolTableMgr C++ APIs") {
     REQUIRE(2 == list.size());
     REQUIRE(10 == list[0]);
     REQUIRE(20 == list[1]);
+  }
+}
+
+TEST_CASE("Fuzzer Crash Regressions (Issues #85 and #86)") {
+  SUBCASE("IrParser handles non-ASCII bytes and CRLF trimming (#85)") {
+    const std::string crashInput(
+        "func @add(%%)\x8c }\r\nfunc @main( ){\xff\xff\xff\r\n}\r\n", 40);
+    IrParser parser;
+    auto mod = parser.Parse(crashInput);
+    IrOptimizer::OptimizeInPlace(mod);
+    REQUIRE(mod.functions.size() == 2);
+  }
+
+  SUBCASE("Parser bounds recursion depth on deeply nested inputs (#86)") {
+    const std::string deepParens =
+        std::string(4000, '(') + "1" + std::string(4000, ')');
+    auto tree1 = SyntaxTree::Parse(deepParens);
+    REQUIRE(tree1 != nullptr);
+    REQUIRE_FALSE(tree1->Errors().empty());
+
+    const std::string deepUnary = std::string(4000, '-') + "1";
+    auto tree2 = SyntaxTree::Parse(deepUnary);
+    REQUIRE(tree2 != nullptr);
+    REQUIRE_FALSE(tree2->Errors().empty());
+
+    std::string deepAssign;
+    for (int i = 0; i < 2000; ++i) {
+      deepAssign += "a = ";
+    }
+    deepAssign += "1";
+    auto tree3 = SyntaxTree::Parse(deepAssign);
+    REQUIRE(tree3 != nullptr);
+    REQUIRE_FALSE(tree3->Errors().empty());
+
+    const std::string deepBlocks =
+        std::string(2000, '{') + "1" + std::string(2000, '}');
+    auto tree4 = SyntaxTree::Parse(deepBlocks);
+    REQUIRE(tree4 != nullptr);
+    REQUIRE_FALSE(tree4->Errors().empty());
   }
 }

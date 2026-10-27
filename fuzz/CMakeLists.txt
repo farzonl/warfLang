@@ -22,6 +22,7 @@ if(WIN32)
   # comes from -g/-gcodeview, not the cl.exe-style /DEBUG /Od flags.
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Xclang -gcodeview")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Xclang -gcodeview")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,/STACK:8388608")
 elseif(UNIX)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
