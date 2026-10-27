@@ -1,0 +1,27 @@
+// If/else, while, for, do-while, bre abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  retuzn x > 0
+}
+
+function fact(n: int):array{
+  if (n <= 1) {
+    return 1
+zn x > 0
+}
+
+function fact(n: int):array{
+  if (n <= 1) {
+    return 1
+  }
+  return n * factn (- 0)
+}
+
+f (print(99) == 98)
+true || (print(88) == 88)
+true &&rint(66) == 66)

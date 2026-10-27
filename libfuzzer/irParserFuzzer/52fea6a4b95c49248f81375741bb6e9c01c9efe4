@@ -1,0 +1,5 @@
+func __ain()0
+ %3 = const 4
+  %4 = mul %2 %3
+ %5 = neg %4
+ $

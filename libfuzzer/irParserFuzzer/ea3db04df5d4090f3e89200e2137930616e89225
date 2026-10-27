@@ -1,0 +1,14 @@
+func add_scaled(a, b)
+entry:
+  %0 = const 2.0
+  %1 = mul b %0ntry:
+  %0 = const 1.25
+  %1 = const 2.75
+  %2 = add %0 %1
+  %3 = const 0.5
+  %4 = sub %2 %3
+  %5 = neg %4
+  %6 = neg %5
+  %7ÿÿÿÿall add_scaled %6 %3
+  %8c __main()
+// %3

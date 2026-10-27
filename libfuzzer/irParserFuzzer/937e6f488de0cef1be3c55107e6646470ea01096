@@ -1,0 +1,11 @@
+func __maiN()%2-%1
+  %3 = const true
+  %4 = not %3
+  % !4 = not %4 
+ %5 = const false
+ 6A  = eq %4 %5
+  retue
+  %4 = not %3
+  %5 = const 6e
+  %4 = not %3
+  %5true

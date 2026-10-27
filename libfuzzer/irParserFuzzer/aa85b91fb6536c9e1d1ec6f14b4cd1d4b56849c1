@@ -1,0 +1,6 @@
+func ad add_scaled(a, b)
+entry:
+  %0 = print %7
+  %9 = const BBB@BBBBBBin()
+// OPT: %2 = const 3.5
+// OPT: !7 = call ad%3
