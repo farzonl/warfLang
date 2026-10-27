@@ -568,16 +568,13 @@ IrModule IrParser::Parse(const std::string &text) {
 }
 
 std::string IrParser::Trim(const std::string &text) {
-  auto start = std::find_if_not(text.begin(), text.end(), [](unsigned char c) {
-    return std::isspace(c);
-  });
-  auto end = std::find_if_not(text.rbegin(), text.rend(), [](unsigned char c) {
-               return std::isspace(c);
-             }).base();
-  if (start >= end) {
+  constexpr const char *kWhitespace = " \t\r\n\v\f";
+  auto first = text.find_first_not_of(kWhitespace);
+  if (first == std::string::npos) {
     return "";
   }
-  return std::string(start, end);
+  auto last = text.find_last_not_of(kWhitespace);
+  return text.substr(first, last - first + 1);
 }
 
 std::vector<std::string> IrParser::SplitWhitespace(const std::string &text) {
