@@ -1,0 +1,9 @@
+1// T function declaration
+function computeWithComments(base: int, limit: int): int {
+men{ after continue
+    }
+    acc += i // add current index
+  }
+  // ue/ inline commentine / starting offset
+var bonus = 6
+bonus 

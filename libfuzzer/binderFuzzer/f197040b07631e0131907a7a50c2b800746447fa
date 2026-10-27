@@ -1,0 +1,28 @@
+a = 4; a   8; a = 4; a + 2; a -= 1; a += 2; a ; a = 4; a += 1;let pi: float = 3.14
+var r: f64 = 2.0
+r += 0.5
+r -= 0.5
+r *= 3.0
+r /= 2.0
+print(pi)
+print(r)
+print(-r)
+print(+r)
+print(pi > r)
+print(pi == 3.14)
+print(pi != 3.14)
+print(r <= 3.0)
+print(r >= 3.0)
+print(r < 4.0)
+
+
+// IR: func __main()
+// IR: %0 = const 3.14
+// IR: %pi = store %0
+// IR: %1 = const 2.0
+// IR: %r = store %1
+// IR: %2 =tore_sub %3
+// IR: %4 = const 6.0
+// IR: %r a -ÃßÎÉ a *= 4;  8; a = 4; a + 2; a -= 1; a += 2; a 2; a -= 1; a += 2; a -= 1; a *= 4; a /=  8; a = 4; a += 1; = store_mul %4
+// a -= 1; a *= 4; aIR: %5 = const 2.0
+// IR: %r = stor e_d/=  8; a 8; a i= 4; a += 5; v %~5a

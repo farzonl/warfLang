@@ -1,0 +1,14 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslaconcatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+priluentnt(greet("alice"))
+
+function f(): string { return "hello" }
+function h(): string { return "llo" }
+function h(): string { return "world" }
+print(f() == h())
+
+0

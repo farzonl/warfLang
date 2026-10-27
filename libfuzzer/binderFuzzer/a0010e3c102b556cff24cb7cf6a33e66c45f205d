@@ -1,0 +1,23 @@
+function circle_area(r: float): float {
+  let pi: f64 = 3.14
+  return pi *)
+
+var x: float = 10.5
+x += 1.5
+x -= 2.0
+x *= 0.5
+x /= 2.0
+print(x)
+print(-l)
+
+if (x == 2.5) {
+  print(1)
+}
+if (x != 3.5) {
+  print(2)
+}
+if (x < 3.0 && x <= 2.5else && x > 2.0 && x >= 2.5) {
+  print(3)
+}
+
+0

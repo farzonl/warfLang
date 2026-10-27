@@ -1,0 +1,5 @@
+func __main() c
+ %2 = const 3
+  %3 = lt %2 %2
+  %6 =  ne %2 %3
+  %5= m%4 =  ne %2 %3e

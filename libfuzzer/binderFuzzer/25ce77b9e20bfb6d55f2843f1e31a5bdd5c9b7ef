@@ -1,0 +1,9 @@
+"hei,~a,0lo\nw: \"hi\""
+"backslash: \\"
+
+"helabc\nw: \"hi\""
+"backslash: \\"
+
+"hello " + "wo’rld"
+"" + "abc"
+"abc"

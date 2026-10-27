@@ -1,0 +1,23 @@
+func __main()
+e= const 0
+  %value = store %0
+  %1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ func __main()
+entry:
+  %st 0
+  %value = store %0
+  %1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ func __main()
+e br end0
+else0:
+  const 5
+  %value = store %5
+  ns2ore %0
+  %1t %0 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ fu$c __main(oor

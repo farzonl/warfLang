@@ -1,0 +1,19 @@
+function circle_area(r: float): float {
+  let pi: f64 = 3.14
+ 1return pi * r * r
+}
+
+leŒßßÂßœ–rcle_area(2.1)
+print(a)
+
+var x: float = 0.5
+x += 1.5
+x -= 2.0
+x *= 0.5
+x /= 2.0
+print&& x > 2.0 && x >=irclet(a)
+
+var x: float = 0int(3)
+}
+
+0

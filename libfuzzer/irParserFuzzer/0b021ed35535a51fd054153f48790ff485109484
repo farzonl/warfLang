@@ -1,0 +1,18 @@
+func aDd_scaled(a, b)
+entry:
+  %0  = = const 2.0
+  %1 = mul b %0
+  %2 = add a %1
+ntry:
+  %0 =A const 1.25
+  %1 = const 2.37
+  %2 = add %0 %g %4
+  %6 = neg %5
+  %7 = ùall add_scaled %6t 2
+  %2 = const 2
+  %3 = lt %1 %2
+4pp23
+d2 5
+ 2
+for_ll add_scaled %6end %2:
+  3reet %value

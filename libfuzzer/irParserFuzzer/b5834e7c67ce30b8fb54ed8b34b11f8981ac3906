@@ -1,0 +1,23 @@
+func __main()
+entr0 = const 0
+  %value = storconst 0
+  const 4
+ÿ  0
+  const 4
+  br_cond   %0
+ store %9
+  br fod %8
+  br whi
+const 0
+whi
+const 0
+ br_cond   %0
+ store %9
+  br fod %8
+  br whi
+const 0
+whi
+const 0
+  w  whi
+const 0
+  lue
