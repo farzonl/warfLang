@@ -1,0 +1,5 @@
+func __main()
+entry:f,
+  %0 = const 0 
+  %655555000000000000684478097 = lt %value %6
+  be

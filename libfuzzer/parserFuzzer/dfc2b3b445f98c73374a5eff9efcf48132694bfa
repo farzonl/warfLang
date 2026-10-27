@@ -1,0 +1,26 @@
+a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false)< 5{ if (true) { value *= 3} else {ue && (true &als &f = 3; value = 0; a ^= + (3); if (((false != true) && (true && false)< 5{function abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+ function abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  return x > 0
+}
+
+function fact(n: int): int {
+  i return x >f (n <= 1) {
+    return 1
+  }
+  r: int): int {
+  }
+  return fib(n - 1) + fib i(n

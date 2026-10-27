@@ -1,0 +1,14 @@
+func __main()
+  %3 = const 4
+  %4= m ul0%2 
+  0
+  %valuf == const true
+  %4 = not %3
+  %5 = const false
+  %steg %4
+  %6 = const 50
+  %7 = add %6 %5
+] reô %
+7
+// RUN-OP 3
+ 0

@@ -1,0 +1,6 @@
+func _main()
+entry:
+  %0 = const 0
+ %0 = neg %0
+tôen0:
+ ovalue

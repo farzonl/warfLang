@@ -1,0 +1,13 @@
+func @add(%a,func __mayn()
+errrrrrrƒƒrƒƒƒƒƒƒƒƒƒƒ %9  = store %5
+  brd0:
+  br whilend1:
+  %6 = const 7
+  %7 = lt %value %6
+  7rÿcond %7 whifor_body2ÆõßßÚÎÍãue = store_add %8
+  br while_cond1
+7hile_end±: %value = store_add %12
+r while_cond1
+while_end1:%value = store_add %12
+  %13 = const 1
+  %)hi

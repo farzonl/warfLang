@@ -1,0 +1,16 @@
+func _main()
+2  t%2entry:
+  %0= 5cnst 0
+  %val %‚
+  %1 = cojs  %val %‚
+  %1 = cojs0:
+  %3 = const 2
+rrrrrrrrrrŸrr%1%4 =  le %3 %3
+  %2 =ÿÿÿÿÿÿÿrrrrrrrrrrŸrr%1%4 =  le %3 %3
+  %3 = const 2
+rrrrrrrrrrŸrr%1%4 =  le %3 %3
+  %2 =ÿÿÿÿÿÿÿÿ2 =0Xdd %0 %  %7 = addt4
+  %4 =  ne %3 %3
+ul4
+d2:
+  ret %valq:

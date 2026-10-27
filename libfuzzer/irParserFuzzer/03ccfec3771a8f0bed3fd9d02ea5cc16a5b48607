@@ -1,0 +1,7 @@
+func __main() 2
+  
+  %0 = const 2
+  
+elHe0:
+  %5 = scond1:
+ try:

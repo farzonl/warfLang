@@ -1,0 +1,5 @@
+func __main()
+encond1
+while_cond1:
+  %6* = const 7
+  %7 = lt %vafun

@@ -1,0 +1,8 @@
+func @branch(%x) 
+:
+  %t = add %x, 1
+  jmpb:
+  %e = sub %x, 13
+  %2 = const 8
+%c_bbn:
+  re

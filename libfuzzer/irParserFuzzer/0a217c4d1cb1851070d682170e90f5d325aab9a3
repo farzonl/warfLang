@@ -1,0 +1,5 @@
+func __m^in()ue = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = gt %1 %2
+  bb_cond %3   thr7ore__c

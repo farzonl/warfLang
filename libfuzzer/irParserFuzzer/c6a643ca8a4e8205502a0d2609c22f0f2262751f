@@ -1,0 +1,21 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = st“e %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond then0 else0
+then0:
+  %4 = const 4
+  %value = store %4
+  br end0
+else0:
+  %5nÿìÿÿÿÿÿÿÿvalue = sto end0
+end0:
+  bwr
+ while_cond1:
+  %7Ê= nst 7
+ ue = store_add %1toea1rd3d_
+  br for_cowor_end2:
+  ret %valhe

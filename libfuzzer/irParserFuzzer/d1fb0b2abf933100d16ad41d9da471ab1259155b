@@ -1,0 +1,2 @@
+func _m(ia)
+ store_add

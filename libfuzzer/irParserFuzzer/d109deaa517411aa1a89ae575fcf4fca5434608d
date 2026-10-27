@@ -1,0 +1,14 @@
+func _()
+entry:
+  %1 = cşÿÿÿ0 6 = consttornde0
+e’˜0:
+h  %6 = const 3
+  %value = st 4
+  ’valuå = store %4
+  br end0:5 = const 5
+  %v:
+  %6 stos
+  %6 = const 3
+  %value = store_add %= const 3
+  %value =store_add %>
+  ret

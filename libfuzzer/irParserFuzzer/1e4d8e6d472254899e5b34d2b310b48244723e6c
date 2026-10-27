@@ -1,0 +1,2 @@
+func _main()
+t = add %FF 30

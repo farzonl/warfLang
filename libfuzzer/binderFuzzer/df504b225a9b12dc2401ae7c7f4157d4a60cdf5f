@@ -1,0 +1,16 @@
+function computeLoopContrel(limitAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: int): int {
+  va2r total = 0
+  for (var i = 0; i < limit; i += 1) {
+    if (i == 2) {
+      continue
+    }
+    if (i == 6) {
+      break
+    }
+  tal += 20
+  } while (count < 3)
+
+  return total
+}
+
+computeLoopControl(10)

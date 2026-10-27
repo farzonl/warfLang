@@ -1,0 +1,8 @@
+func add(%a, %b) {
+t:
+rn  %0 = addt %1
+}
+func @main() ny{et
+r:
+  %± = ca10,`ret %1
+#}

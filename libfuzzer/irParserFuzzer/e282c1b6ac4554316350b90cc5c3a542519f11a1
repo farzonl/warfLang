@@ -1,0 +1,20 @@
+func __main()
+entry:
+  %0 = const 0
+  %valu%0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %! = const 4
+  %4 %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = c add %1  = const™in(ü
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %! = const 4
+value = store %5 = neg %4
+=6 %  ÿÿÿÿÿÿÿÿÿÿco5 = neg %4
+  %6 =ÿ
+ 0

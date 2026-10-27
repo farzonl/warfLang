@@ -1,0 +1,5 @@
+func @add(%a, %b) {
+ennd0:
+  ey1:
+  %2 = const 1
+  %valu

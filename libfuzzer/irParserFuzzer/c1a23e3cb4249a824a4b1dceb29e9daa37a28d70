@@ -1,0 +1,42 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+ 0%0alue :
+  %5 = const 5
+  %value = store %5«««««««««aain()onst 38
+ :
+  %Ðßn() {() [yÿ::±;•’t @maain()ons+ 38
+ :
+  %Ðßn() {() [{
+Ð2
+ :
+  Â
+ :
+  Â}in()on %Ð2
+ :
+42nstÐ2
+ :
+  Â}in()on(%Ð2
+ :
+42
+ :
+  %Ð2
+ :
+  Â
+ :
+  Â}in()oodyn %Ð2
+ :
+42nst @maain()onst 38
+ :
+  %Ðß2n( %Ð2
+ :
+  :
+  %12 = :
+ 
