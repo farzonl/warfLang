@@ -28,6 +28,7 @@ int SyntaxOrder::GetBinaryOperatorPrecedence(SyntaxKind type) {
   switch (type.GetValue()) {
   case SyntaxKind::StarToken:
   case SyntaxKind::SlashToken:
+  case SyntaxKind::PercentToken:
     return 5;
   case SyntaxKind::PlusToken:
   case SyntaxKind::MinusToken:

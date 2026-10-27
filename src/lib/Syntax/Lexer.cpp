@@ -73,6 +73,15 @@ void Lexer::ReadToken(SyntaxKind &type) {
       mPosition++;
     }
     break;
+  case '%':
+    mPosition++;
+    if (CurrentToken() != '=') {
+      type = SyntaxKind::PercentToken;
+    } else {
+      type = SyntaxKind::PercentEqualsToken;
+      mPosition++;
+    }
+    break;
   case '(':
     type = SyntaxKind::OpenParenthesisToken;
     mPosition++;

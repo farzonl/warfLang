@@ -20,6 +20,9 @@ const std::shared_ptr<BoundBinaryOperator> BoundBinaryOperator::sOperators[] = {
     std::make_shared<BoundBinaryOperator>(SyntaxKind::SlashToken,
                                           BoundBinaryOperatorKind::Division,
                                           Value::Type::Number),
+    std::make_shared<BoundBinaryOperator>(SyntaxKind::PercentToken,
+                                          BoundBinaryOperatorKind::Modulo,
+                                          Value::Type::Number),
     std::make_shared<BoundBinaryOperator>(
         SyntaxKind::EqualsEqualsToken, BoundBinaryOperatorKind::Equals,
         Value::Type::Number, Value::Type::Number, Value::Type::Boolean),

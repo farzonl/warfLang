@@ -206,6 +206,7 @@ std::unique_ptr<ExpressionNode> Parser::ParseAssignmentExpression() {
   case SyntaxKind::MinusEqualsToken:
   case SyntaxKind::StarEqualsToken:
   case SyntaxKind::SlashEqualsToken:
+  case SyntaxKind::PercentEqualsToken:
   case SyntaxKind::AmpersandEqualsToken:
   case SyntaxKind::PipeEqualsToken:
   case SyntaxKind::HatEqualsToken:
