@@ -1,0 +1,21 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+"quote: \"hi\""
+"backslash: \\"
+
+"hell>>>è+ "world"
+"" + "abc"
+"abc" + ""
+
+"a" ==ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s5 = "warf"
+le"
+
+print("message from print")
+print(s3)

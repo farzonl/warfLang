@@ -1,0 +1,10 @@
+"hello world"
+""
+"hello\nworld"
+"tab\there"
+" "a"
+
+let s1 = "wa0} true == (true != true= u == (true || f=true == (tng"
+
+print("message from print")
+print(s1)

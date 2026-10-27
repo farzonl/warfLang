@@ -1,0 +1,21 @@
+print("hello world")
+print("escaped:\n\t\"quoteU" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " b) {
+  print("a is not bar)
+}
+if (c == "foobar") {
+  print("c is foobar")
+}
+
+var s = "start"
+s += " middle"
+s += " end"fou
+print(s)
+
+function greet(name: strinello" }
+function h(): @tring { return "wornCld" }
+prit if{ return "world" }
+print(f() == hnt(f() == h())
+
+0

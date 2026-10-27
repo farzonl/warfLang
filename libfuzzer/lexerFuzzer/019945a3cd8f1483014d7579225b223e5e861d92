@@ -1,0 +1,9 @@
+print("hello world")
+print("escaped:\n\t\"quoteU" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " b) {
+  print("a is not b: string { return "hello" }
+function h(): string { return "world" }
+print(f() == h())
+
+0
