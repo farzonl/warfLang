@@ -1,0 +1,5 @@
+func _n() 0
+  %3 = const true
+  %2+
+ bnot %3
+ ue

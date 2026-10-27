@@ -1,0 +1,17 @@
+let pi: float = 3.14a
+vr r: f64 = 2.0
+r += 0.5
+r -= 0.5
+r *= r3.
+ 0/= 2.0
+print(pi)
+print(r)
+print*-r)
+prin)
+print(pi != 733.14)
+print(r <= 3.0)
+print(r >= 3.0)
+print(r < 4.0)
+
+
+/7734

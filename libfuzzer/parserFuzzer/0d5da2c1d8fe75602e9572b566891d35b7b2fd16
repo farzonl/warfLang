@@ -1,0 +1,19 @@
+extern function abs(x: int): intction puts(s: string): int
+
+print(abs(-42))
+print(abs(17))
+putchar(79)
+putchar(79)
+putchar(75)
+putchar(10)
+puts("function puts(vvvvvvvvvvvvvs: string): int
+
+print(abs(-42))
+print(abs(17))
+putchar(79)
+putchar(75)
+putchar(10)
+puts("ffi_puts_hello")
+
+function compute(n: int): int {
+  returR-ERR: IR error: cannot execute extern function abs in interpreter.

@@ -1,0 +1,72 @@
+func __main()
+entry:
+  %0 = const 0
+  ()r
+ey:t
+n  %0 = const 1
+  %1 = const 3
+  %3 = add %0 %1
+  %3 = const 4
+  %4 = mul %2   %00000000000000000000000000000000000000000= add %0 %1
+  %3 = const 1
+  %t = mul % ret %7
+
+/func = const 7
+  %7 = 1
+2 = add %0 %1
+ 4
+  %4 = mul n
+  2br = const 3
+  %2 = add %0 %1
+ÿÿÿÿ=ÿÿ  %3 = const 4
+  '4 = mul %2 %3
+  %5 = neg %4
+  „%6 = const 50
+  %7 =1 add %6 %5
+  ret %7ore_add %8
+  br while_cond1
+wh %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+1  %5 = neg %4
+ ÿÿÿÿÿÿÿfunc __main()
+entry:
+  %0=  = const 2
+  %1 = const 1
+	%@=  %2 = add %0 %1
+ c __main()
+entry:
+  %0 = const 2
+  %1 = const 4
+ ÿÿÿ %> = const 50
+  %7 =1 add %6 %5
+ 
+n  %0 = const 2
+ %1 = const 3
+  ù2 = add %0 %1
+  %3 =%5 = neg %4
+   const 4br while_cond1
+wh %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 =0mul %2 %3
+  = const 2
+  %3 = lt %1 %2
+  br then0 tora %0
+  %1 = const 5
+  %2 = const 2
+  %2 = lt %1 %2
+  br_
+cond %3[ = mul %2 %3
+  br_
+cond %3[ = mul %2 %3
+ ÿÿÿ%1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  4 = nu6 %5
+  ret %7
+
+/func = conf

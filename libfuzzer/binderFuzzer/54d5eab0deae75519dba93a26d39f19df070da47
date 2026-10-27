@@ -1,0 +1,11 @@
+a = 4; a   8; a = 4; 4; a   8; a = 4;   gggggggggggggggggggggg= 4; 4				function foo(a,b,c) { 
+    a = a + b 
+    a
+ }
+
+ function foo2(a,b,c) {
+    a + b == c
+ }
+
+foo(2,3,4)
+foo2(1,2,3)~~~~~~~~~~1; a *- 4; a																																a -= 1; a *=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~			 a   8; a = 4~~~~a ^		5; ~a

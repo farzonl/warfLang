@@ -1,0 +1,10 @@
+func __“ž‘()
+%a0
+  %0 = const  1
+  %2 = const 2
+  %2 = lt %0 %2
+  %3 = const 4
+ U %4 = mul %2 %3
+ /fu4
+  %4 = mul %2 %3
+  %5 = ne

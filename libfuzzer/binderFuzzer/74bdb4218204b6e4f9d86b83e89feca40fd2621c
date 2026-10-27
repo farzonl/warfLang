@@ -1,0 +1,5 @@
+extern function abs(x: inth): int
+extern function putchar(c: int): int;
+ern func abs(%x)
+// IR: exn func putchar(%c)
+// IR: extern func puts(r)or: cannot execute extern function abs in interpreter.
