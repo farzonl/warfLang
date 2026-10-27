@@ -6,6 +6,7 @@
 #include "Binding/Binder.h"
 #include "CodeAnalysis/Evaluator.h"
 #include "IR/Ir.h"
+#include "IR/IrOptimizer.h"
 #include "Symbol/SymbolTableMgr.h"
 #include "Syntax/ExpressionStatementSyntaxNode.h"
 #include "Syntax/SyntaxTree.h"
@@ -706,5 +707,68 @@ TEST_CASE("SyntaxTree PrintTree") {
     syntaxTree->PrintTree(out);
     std::string treeStr = out.str();
     REQUIRE(treeStr.find("ForStatement") != std::string::npos);
+  }
+}
+
+TEST_CASE("IrOptimizer") {
+  SUBCASE("constant folding and dead temporary elimination") {
+    SymbolTableMgr::init();
+    auto syntaxTree = SyntaxTree::Parse("(2 + 3) * 4 - 6 / 2");
+    Binder binder;
+    auto bound = binder.BindCompilationUnit(syntaxTree->Root());
+    REQUIRE(binder.Errors().empty());
+
+    IrLowerer lowerer;
+    auto module = lowerer.Lower(bound.get());
+    auto optimized = IrOptimizer::Optimize(module);
+
+    REQUIRE(optimized.functions.size() == 1);
+    const auto &fn = optimized.functions[0];
+    REQUIRE(fn.instructions.size() == 1);
+    REQUIRE(fn.instructions[0].op == IrOpcode::Const);
+    REQUIRE(fn.instructions[0].operands.size() == 1);
+    REQUIRE(fn.instructions[0].operands[0] == "17");
+
+    IrInterpreter interpreter;
+    REQUIRE(interpreter.Execute(optimized).asInt() == 17);
+  }
+
+  SUBCASE("boolean constant folding and division by zero preservation") {
+    const std::string irText = "func __main()\n"
+                               "entry:\n"
+                               "  %0 = const 10\n"
+                               "  %1 = const 0\n"
+                               "  %2 = div %0 %1\n"
+                               "  %3 = const true\n"
+                               "  %4 = not %3\n"
+                               "  %5 = const false\n"
+                               "  %6 = eq %4 %5\n"
+                               "  ret %6\n";
+    IrParser parser;
+    auto module = parser.Parse(irText);
+    IrOptimizer::OptimizeInPlace(module);
+
+    IrInterpreter interpreter;
+    REQUIRE(interpreter.Execute(module).asBool() == true);
+  }
+
+  SUBCASE("loop variables are not folded across basic block labels") {
+    SymbolTableMgr::init();
+    const std::string program = "var i = 0 var sum = 0 "
+                                "while (i < 5) { "
+                                "  i += 1 + 0 "
+                                "  sum += i "
+                                "} sum";
+    auto syntaxTree = SyntaxTree::Parse(program);
+    Binder binder;
+    auto bound = binder.BindCompilationUnit(syntaxTree->Root());
+    REQUIRE(binder.Errors().empty());
+
+    IrLowerer lowerer;
+    auto module = lowerer.Lower(bound.get());
+    IrOptimizer::OptimizeInPlace(module);
+
+    IrInterpreter interpreter;
+    REQUIRE(interpreter.Execute(module).asInt() == 15);
   }
 }

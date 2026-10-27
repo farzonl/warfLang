@@ -6,7 +6,7 @@ project(${CMAKE_PROJECT_NAME}_FUZZ)
 
 include_directories(${CMAKE_SOURCE_DIR}/src/lib)
 
-set(fuzzers "lexerFuzzer;parserFuzzer" CACHE STRING "libfuzzers")
+set(fuzzers "lexerFuzzer;parserFuzzer;binderFuzzer;irParserFuzzer" CACHE STRING "libfuzzers")
 foreach(fuzzer ${fuzzers})
   add_executable(${fuzzer} ${fuzzer}.cpp)
 endforeach()

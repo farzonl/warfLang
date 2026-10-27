@@ -6,10 +6,12 @@ include_directories(${WARF_CORE_SOURCE_DIR})
 
 set(SourceFiles
     Ir.cpp
+    IrOptimizer.cpp
 )
 set(HeaderFiles
     Ir.h
     IrKind.h
+    IrOptimizer.h
 )
 
 add_library (WarfCore.IR OBJECT ${SourceFiles} ${HeaderFiles})

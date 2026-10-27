@@ -4,6 +4,7 @@
 
 #include "Binding/Binder.h"
 #include "IR/Ir.h"
+#include "IR/IrOptimizer.h"
 #if defined(WARF_ENABLE_LLVM_BACKEND)
 #include "LlvmBackend.h"
 #endif
@@ -17,7 +18,7 @@
 #include <string>
 
 static void printUsage() {
-  std::cout << "usage: Warfc [-o output] <file_name>\n";
+  std::cout << "usage: Warfc [-O|--opt] [-o output] <file_name>\n";
   std::cout << "       Warfc -h\n";
   std::cout << "       Warfc --help\n";
 }
@@ -100,6 +101,7 @@ static bool CompileLLVM(const std::string &llvmIr,
 #endif
 
 int main(int argc, char **argv) {
+  bool optimize = false;
   std::string inputPath;
   std::string outputPath;
 
@@ -108,6 +110,10 @@ int main(int argc, char **argv) {
     if (arg == "-h" || arg == "--help") {
       printUsage();
       return 0;
+    }
+    if (arg == "-O" || arg == "--opt") {
+      optimize = true;
+      continue;
     }
     if (arg == "-o") {
       if (i + 1 >= argc) {
@@ -150,6 +156,9 @@ int main(int argc, char **argv) {
 
   IrLowerer lowerer;
   auto module = lowerer.Lower(boundStatement.get());
+  if (optimize) {
+    IrOptimizer::OptimizeInPlace(module);
+  }
 #if defined(WARF_ENABLE_LLVM_BACKEND)
   auto llvmIr = LlvmBackend::EmitLLVM(module, true);
   if (!CompileLLVM(llvmIr, outputPath)) {
