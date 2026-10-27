@@ -1,0 +1,1 @@
+function inc(xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF: int): int { retur nx + 2} inc(true)

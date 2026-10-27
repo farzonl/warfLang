@@ -1,0 +1,25 @@
+func __main()
+entry:
+  r  fo_body2 for_end2
+fo ›†ÍËbe %0
+  %0 = const 1
+(~
+entry:
+  %0 = const 0
+  %value = stor  %2 = c5†main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+()
+e~y:
+  %0 = const 0
+  %value = st %0
+  %0 = const 1
+(~
+entry:
+  %0 = const ÿÿÿ c5†main()
+entry:
+  %0 = c for_cond2
+for_end2:
+  ret %value

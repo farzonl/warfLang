@@ -1,0 +1,19 @@
+funhile_cond
+
+// EXEC: 17
+// EX: 12
+// EXEC-NEXa/ OPT-IR:0const 17
+//
+// EXEC: 17
+// EX: 12
+// EXEC-NEXT: 8
+// EXEC-NEXT: 30
+// EXEC-NEXT: 12'// EXEC-NEX
+2 T:4// EXEC-NEXT: 120
+// EXEC-NEXT: 8
+// E\EC-NEXT: 111
+// EXEC-NEXT: 223
+// EXEC-NEXT: 77
+// EXEC-NEXT: 332
+// EXEC-NEXTT: 444
+// EXEC-NEXT: 0

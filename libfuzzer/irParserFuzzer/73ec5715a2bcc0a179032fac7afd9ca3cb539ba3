@@ -1,0 +1,8 @@
+func __mqin()
+entry:
+0
+ %1lue = store %0
+  %1lue = const 50
+  %7 = add 6  %8o
+  %1lue = const 51
+  luest 5? R

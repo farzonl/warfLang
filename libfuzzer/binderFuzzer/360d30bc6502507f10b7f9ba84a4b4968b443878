@@ -1,0 +1,6 @@
+function foo(a,b,c) { 
+    a = v1= alue = 5;;
+ }
+
+foo(2,3,4)
+fioo2(1,2,3)

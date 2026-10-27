@@ -1,0 +1,8 @@
+func __main()
+then0:eny:
+  %0 = const 2
+  nst 4
+  %4 = mul %2L % 3
+  %5 = ne  % %4 mu %3
+  %5 = ne  %6 ? t 50
+RUN-OPT: 37 = add %6 % %T: 30
