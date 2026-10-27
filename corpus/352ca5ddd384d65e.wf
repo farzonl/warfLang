@@ -1,0 +1,3 @@
+// Lines: 30.46% (1126/3697) Regions: 34.18%
+{ { a = 5; b = 3;}; fib (//
+7) + clampPositive (- 5) + while (index < 3) { if (true) { value *= 3} else { a -= value}; for (index = 0; index < 4; index += 1) { let x = (value = value)}; if ((- 42 < (4 * 1))) { if (false) { b &= ~7}} / else { func

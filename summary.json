@@ -1,28 +1,28 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 327,
+  "corpus_size": 347,
   "findings_count": 1,
   "cumulative_coverage": {
-    "lines_covered": 3827,
-    "lines_total": 21515,
-    "lines_percent": 17.78759005345108,
-    "regions_covered": 2259,
-    "regions_total": 7721,
-    "regions_percent": 29.257868151793808,
-    "branches_covered": 1413,
+    "lines_covered": 3803,
+    "lines_total": 21506,
+    "lines_percent": 17.68343718032177,
+    "regions_covered": 2228,
+    "regions_total": 7719,
+    "regions_percent": 28.863842466640754,
+    "branches_covered": 1388,
     "branches_total": 2243,
-    "branches_percent": 62.99598751671868
+    "branches_percent": 61.88140882746321
   },
-  "best_single_program": "function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= { value *= 3} else { a -= value}; index += 1}; if ((3 == (2 * 7))) { true && (true && false))) { index = 0; += if (((false != truB) && (true (n <= 1) { return; c = 0; b = 3; value = 0; a ^= + (3 j; if (",
-  "best_single_coverage_percent": 35.483000539665404,
+  "best_single_program": "function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; for (var i = 0; i < limit; i += 1) {; if (i == 2) {; continue; }; f (i == 6) {; break; }; total += i; }; var count = 0; do {; fib (7) + clampPositive (- 5) +; (8); let _a = false} else { for (z = 0; z < 1; if ((3 == (2 * 7))) { function foo (x, y) { x) > (- 2 / a))) { function foo (x: int, y: int): int { x /= 42; return (1 ^ 3)} foo (42, 7)} else { let value = (b * value)}; function compute (x: bool, y:",
+  "best_single_coverage_percent": 39.43738166080606,
   "findings": [
     {
       "kind": "differential",
-      "fingerprint": "59665c3c178257c8",
-      "description": "Mismatch between `Warf --eval` ('') and `WarfIR --run` ('0')",
-      "program": "a = 1; b = 1; value = 0; function bar(x: int, y: int): int { i = 0; while (i < 1) { y += y; i += 1 }; if (false) { for (z = 0; z < 2; z += 1) { b *= 5}} else { if ((1 == 2)) { a -= + 4} else { value ^= a}}; value }",
-      "details": "Emitted IR:\nfunc __main()\nentry:\n  %0 = const 1\n  %a = store %0\n  %1 = const 1\n  %b = store %1\n  %2 = const 0\n  %value = store %2\n  ret %value\n"
+      "fingerprint": "94fa43b01c70b51f",
+      "description": "Mismatch between `Warf --eval` ('0') and `WarfIR --run` ('80')",
+      "program": "a = 1; b = 1; value = 0; let x = false; function step(x, y) { x |= 255; return ((y | y) + (255 | 10)) } step((value & 0), (255 ^ (~3 * 42))); b |= (b ^ (+255 * b)); (10 * (42 / 5)); if (!(false)) { value *= value }",
+      "details": "Emitted IR:\nfunc __main()\nentry:\n  %0 = const 1\n  %a = store %0\n  %1 = const 1\n  %b = store %1\n  %2 = const 0\n  %value = store %2\n  %3 = const false\n  %x = store %3\n  %4 = const 0\n  %5 = band %value %4\n  %6 = const 255\n  %7 = const 3\n  %8 = bnot %7\n  %9 = const 42\n  %10 = mul %8 %9\n  %11 = xor %6 %10\n  %12 = call step %5 %11\n  %13 = const 255\n  %14 = copy %13\n  %15 = mul %14 %b\n  %16 = xor %b %15\n  %b = store_bor %16\n  %17 = const 10\n  %18 = const 42\n  %19 = const 5\n  %20 = div %18 %19\n  %21 = mul %17 %20\n  %22 = const false\n  %23 = not %22\n  br_cond %23 then0 end0\nthen0:\n  %value = store_mul %value\n  br end0\nend0:\n  ret %21\n\nfunc step(%x, %y)\nentry:\n  %0 = const 255\n  %x = store_bor %0\n  %1 = bor %y %y\n  %2 = const 255\n  %3 = const 10\n  %4 = bor %2 %3\n  %5 = add %1 %4\n  ret %5\n"
     }
   ]
 }

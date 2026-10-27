@@ -1,0 +1,2 @@
+// Lines: 36.62% (1354/3697) Regions: 39.92%
+a = 5; b = 3; value = 0; n = ((7 ^ -10) <= +(0)); i = 0; while (i < 1) { if ((true || false)) { b |= value } else { value &= value }; i += 1 }; function max(x: int, y: int): int { let n = (x / +4); return 1 } max((+(10) + (b + a)), (b &= (n ^= ~2))); function foo(x: int, y: int): int { let y = (255 + +7); return (x ^= 10) } foo(((n & a) & 1), ((42 * 0) | (a += a))); ((10 / b) ^ (a + 255))

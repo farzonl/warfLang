@@ -1,0 +1,2 @@
+// Lines: 7.30% (1571/21506) Regions: 13.86%
+a = 1; b = 1; value = 0; value &= 42; let c = a; 10

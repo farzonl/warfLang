@@ -1,0 +1,2 @@
+// Lines: 13.57% (2919/21506) Regions: 23.37%
+a = 2; b = 3; value = 0; for (z = 0; z < 5; z += 1) { function clamp(x: int, y: int): int { x |= ~42; return (y / 1) } clamp(+(value), +2) }; index = 0; while (index < 2) { i = 0; while (i < 2) { a = 255; i += 1 }; index += 1 }; 3

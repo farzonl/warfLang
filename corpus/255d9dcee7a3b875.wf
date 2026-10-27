@@ -1,0 +1,2 @@
+// Lines: 31.54% (1166/3697) Regions: 35.38%
+a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false))) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; if ((3 == { _a = !(false); return (- (+ 42) + 5)} foo (5, 10); (+ - 42) | (a ^ 1))

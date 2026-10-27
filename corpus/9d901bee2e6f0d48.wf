@@ -1,0 +1,2 @@
+// Lines: 29.16% (1078/3697) Regions: 33.03%
+if ((true == (true || false))) { a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false)) -=) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= 3} else { a -=}; index += 1}; if ((3 == (2 * (3 + 4) - 10)) && true
