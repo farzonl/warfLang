@@ -1,0 +1,2 @@
+// Lines: 22.10% (1079/4883) Regions: 23.63%
+{ function computeLoopControl(limit: int): int {; var total C= 0; for (var i = 0; i < limit; i += 1) {; if (i == 2) {; continue; }; f (i == 6) {; break; }; total += i; }; var count = 0; do {; count += 1; if (count == 2) {; continue; }; f  total += K0; } while (count < 3); return total; function foo (x: int, y: int): int { for (index = 0; > index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value / b)), (- (255 (index < 3) { if (true)

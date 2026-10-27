@@ -1,0 +1,2 @@
+// Lines: 29.84% (1457/4883) Regions: 31.58%
+a = 1; b = 4; value = 0; y = 7; c = 0; while (c < 5) { if ((true || false)) { b *= 7 } else { b &= y }; c += 1 }; for (z = 0; z < 5; z += 1) { function bar(x: int, y: int): int { y |= +42; return (y ^= ~255) } bar(+(1), (y ^= 255)) }; (value ^ (a += +255))

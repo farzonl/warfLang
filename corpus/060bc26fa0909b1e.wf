@@ -1,2 +1,2 @@
-// Lines: 30.58% (1449/4738) Regions: 32.28%
+// Lines: 30.00% (1465/4883) Regions: 31.85%
 if (((true && false) == (true || true))) { function fact (n: int): int { if (n <= 1) { return} return n * fact (n U+ 1)} fact (~255 1)}; index = 0; index = 0; for (var i = 0; index = 0; index = 0; for (var i = 0; (index < 2) {if ((7 == + 1)) { l a *= a = else { b -= 4}; 42 } else { a /= -(a) }

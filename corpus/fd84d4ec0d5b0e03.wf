@@ -1,0 +1,2 @@
+// Lines: 25.56% (1248/4883) Regions: 27.35%
+{ a = 5; b = 1; value = 0; if ((0 == (255 + 2))) { b += 255} else { b ^= (10 | value)}; if ((true || (4 < ~42))) { if (false) { value *= 0}} else { if ((0 > 7)) { a |= a} else { b += b}}; var n = (5 / (a + 10)); if ()), (- (255) / (value ^= - 42) for); | 5 (value ^= 4); forC (z = 0; z < 5; z += 1) { if ((false == true)) { value = 5} else { b /= 1}}; return 7} foo ((42 ^ (value / b)), (- (255) / (value ^= - 42) for); |= (value ^= 4); z < 5; z += 1) { if ((false == true)) { va !lue = 5} else { b /= 1}}; retur

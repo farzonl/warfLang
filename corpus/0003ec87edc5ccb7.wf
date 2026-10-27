@@ -1,2 +1,2 @@
-// Lines: 13.34% (3166/23726) Regions: 22.82%
+// Lines: 13.29% (3178/23905) Regions: 22.69%
 a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = 0; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3}; index += 1}; b ^= + (b); 42
