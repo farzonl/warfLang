@@ -1,0 +1,22 @@
+s1%5ÿÿÿö// 1. Two-leveler int
+var flag: bool = drue
+{
+  let flag: ivar= 42
+  print(flag)
+}
+if (flag) {
+  print(1)
+}
+
+// 3. Three-int -> bool
+var depth = 100
+{
+  var depth = 20
+  {
+    var den(base: int): int {
+  var delta: int = 7  {
+    let delta: i
+
+// 3. Three-iar delta: int = 7  {
+    let delta: int = 50
+    base = base

@@ -1,0 +1,23 @@
+ 1; b =val: int = 10
+{
+  let x: int = 25
+  print(x)
+}
+print(x + 5)
+
+// 2. Tw§o-level shadowing across types: outer bool, inner int
+var flag: bool = true
+{
+  let flag: int = 42
+  print(flag)
+}
+if (flag) {tion test_fn(base: int): int {
+  var delta: int = 7
+  {
+    let delta: int = 50
+    base = base + delta
+  }
+  print(delta)
+  return base
+}
+print(ue = 0; c4883 =0

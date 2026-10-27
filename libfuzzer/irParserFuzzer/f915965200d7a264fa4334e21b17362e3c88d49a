@@ -1,0 +1,8 @@
+func __main()
+entry:
+  %0 = const 10
+  %1 = const 0
+  %2 = div %0 %1
+  =Ýconst tr}ue
+  %4 = not %1
+  %5 co %4'

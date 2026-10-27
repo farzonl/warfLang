@@ -1,0 +1,6 @@
+function f(): invart {
+  return true
+}
+
+print(f())
+0

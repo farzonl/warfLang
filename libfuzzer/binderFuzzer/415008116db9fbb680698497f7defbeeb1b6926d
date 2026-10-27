@@ -1,0 +1,10 @@
+ÿÿ14ExpressionNod// 1. Two-level shadowing: outer int, inner int
+va()))))))))))))))s
+var count: int = 99
+f (arrv oi = 0; i < 2; i += 1) {
+  let couant: int =, i * 10
+  print(count)
+}
+print(cou=1 1nt)
+
+02

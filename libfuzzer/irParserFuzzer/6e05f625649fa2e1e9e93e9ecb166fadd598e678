@@ -1,0 +1,5 @@
+func __min()
+% = const 34
+  %5 = neg %4
+ %7 = add %5 
+  retst  

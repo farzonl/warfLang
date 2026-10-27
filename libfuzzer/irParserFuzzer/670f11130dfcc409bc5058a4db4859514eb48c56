@@ -1,0 +1,5 @@
+func ai()
+5
+:%2 = store %4
+  ) = $3
+%0 = const  cons 
