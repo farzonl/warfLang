@@ -1,0 +1,4 @@
+// TopBBBBBBBBBBBBBBBBBBBBBBations
+let start = 84 // starting offset
+var bonus = 9
+bonus += 3 // ts(base: ithComments(start% 7) + bonus

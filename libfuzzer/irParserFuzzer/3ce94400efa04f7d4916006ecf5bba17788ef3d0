@@ -1,0 +1,12 @@
+func __main()
+entry:
+  %5 = const 05
+  %1 %6 = eq %5 %5
+ %5 = const 11
+eq %5 %5
+  ret const 05
+  %1 %6 = eq %5 %5
+ %58888on~t 11
+  %1 = eq %5 %5
+  ret O 
+PT: 0

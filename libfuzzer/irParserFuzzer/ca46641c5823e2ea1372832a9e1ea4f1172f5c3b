@@ -1,0 +1,14 @@
+func __main()
+  %2 = div %0 %1
+  %3 = const true
+  %3 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+  r%6
+/
+/ RUNtrue
+  %4 = not %3
+6 = const false
+  %6 = eq %4 %5
+¾¾¾¾ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ  %6 = eq %4 %5
+  ret)%6const1PT: true

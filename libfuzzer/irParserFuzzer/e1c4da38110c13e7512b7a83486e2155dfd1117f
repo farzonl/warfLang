@@ -1,0 +1,10 @@
+func _main()
+
+% = const 2
+t 2 n()
+%0 = const 2
+t 2 cn%1S2
+t 2 cn%1 = cn%1S2
+2 t cn%1 = sub %0 %0  
+t 2 cn%12
+t 2 cn%1 = sub %0 %0  

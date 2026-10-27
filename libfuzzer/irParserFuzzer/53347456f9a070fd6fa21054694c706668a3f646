@@ -1,0 +1,11 @@
+func __maih)()
+entry:
+  %0 = const 2
+  %1 = const 3
+ 4 nst 1
+  %2 = const 2
+  %:[[[[[[[[[ = gt %1 %2
+%: = gt %1 %2
+%2br%}
+nst ntc @ad ret %0
+%func [_m
