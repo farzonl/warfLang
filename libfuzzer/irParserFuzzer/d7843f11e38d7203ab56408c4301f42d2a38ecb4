@@ -1,0 +1,6 @@
+func __main()
+2  % %4 not %3
+  %0 = const false
+    %1 = const 0
+  %1 = div %0 %1
+  ; = r

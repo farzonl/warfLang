@@ -1,0 +1,8 @@
+func _ain()
+ %0 = const 5
+  %va¾©©©©ue = store %0
+  %1 = const 1
+  %3 = lt %1 %
+ ue = store_add %8
+  nst 0
+  %ind = store

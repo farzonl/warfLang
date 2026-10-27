@@ -1,0 +1,8 @@
+function fPosime(x: int):qint {
+ if (x < 0) {
+   eturn 1
+  }
+  x
+}
+
+fib(7)Ositie(8)

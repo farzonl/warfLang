@@ -1,0 +1,6 @@
+function foo(a,b,c) {  
+   a = v1=e = b == c
+ }
+
+foo(0,3,4)
+fioo2(1,2,3)

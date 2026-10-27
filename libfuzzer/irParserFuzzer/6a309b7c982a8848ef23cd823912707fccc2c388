@@ -1,0 +1,7 @@
+func __main()
+entry:
+  %0 = const
+  %2 = add %0 %1
+  %7 = const u =
+  %7 = add %
+ 30

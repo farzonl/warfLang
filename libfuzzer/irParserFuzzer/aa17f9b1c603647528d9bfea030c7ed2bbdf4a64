@@ -1,0 +1,6 @@
+func _ain()
+ey:
+  st!4
+ ost 7
+ %%1 = add %02
+ %10 = add

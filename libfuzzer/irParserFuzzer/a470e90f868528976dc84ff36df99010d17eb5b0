@@ -1,0 +1,9 @@
+func __main()
+e
+  %3 = const 5
+%4 = mul %2 %3
+  %5 = neg %4
+  %6 =ons
+  %7 = add %6 %5
+ 2
+ ÿ %1 = const 
