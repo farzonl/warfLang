@@ -772,3 +772,24 @@ TEST_CASE("IrOptimizer") {
     REQUIRE(interpreter.Execute(module).asInt() == 15);
   }
 }
+
+TEST_CASE("Built-in print function") {
+  SUBCASE("print returns value and outputs to stdout") {
+    std::stringstream captured;
+    auto *oldBuf = std::cout.rdbuf(captured.rdbuf());
+    REQUIRE(42 == testProgramHelper("print(42)").asInt());
+    REQUIRE(123 == testIrRoundTripHelper("print(100 + 23)").asInt());
+    std::cout.rdbuf(oldBuf);
+    REQUIRE(captured.str() == "42\n123\n");
+  }
+  SUBCASE("print wrong argument count reports binder error") {
+    SymbolTableMgr::init();
+    auto syntaxTree = SyntaxTree::Parse("print(1, 2)");
+    auto binder = std::make_unique<Binder>();
+    binder->BindCompilationUnit(syntaxTree->Root());
+    REQUIRE_FALSE(binder->Errors().empty());
+    REQUIRE(binder->Errors()[0].Message() ==
+            "BinderError: Function print requires 1 argument(s) but was given "
+            "2.");
+  }
+}

@@ -20,6 +20,7 @@
 #include "Binding/BoundUnaryExpressionNode.h"
 #include "Binding/BoundVariableDeclarationNode.h"
 #include "Binding/BoundWhileStatementNode.h"
+#include <iostream>
 
 BoundExpressionNode *Evaluator::Root() const {
   return dynamic_cast<BoundExpressionNode *>(mRoot.get());
@@ -283,6 +284,11 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
           dynamic_cast<BoundCallExpressionNode *>(node)) {
     auto function = mFunctions.find(callExpression->Name());
     if (function == mFunctions.end()) {
+      if (callExpression->Name() == "print") {
+        auto val = EvaluateRec(callExpression->Arguments()[0].get());
+        std::cout << val << std::endl;
+        return val;
+      }
       throw std::runtime_error("EvaluatorError: Unexpected function: " +
                                callExpression->Name());
     }
