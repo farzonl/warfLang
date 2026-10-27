@@ -1,4 +1,4 @@
-// Lines: 13.08% (2718/20777) Regions: 23.23%
+// Lines: 13.11% (2725/20787) Regions: 23.27%
 function compute(start, limit) {
   value = start
   if (start < limit) {

@@ -1,2 +1,2 @@
-// Lines: 37.08% (1264/3409) Regions: 40.94%
+// Lines: 37.17% (1271/3419) Regions: 41.04%
 function compute (start, limit) { value = start if (start < limit) { value = 4} else { value = 5} while (value < limit) { value += 1} for (index = 0; index < 3; index += 1) { value += 2} value} compute (0, 7); if ((true && false)) { value /= 2}

@@ -1,0 +1,2 @@
+// Lines: 37.50% (1282/3419) Regions: 41.35%
+a = 5; b = 3; value = 0; a ^= +(3); if (((false != true) && (true && false))) { index = 0; while (index < 5) { value &= b; index += 1 } } else { a &= (~255 * 1) }; index = 0; while (index < 3) { if (true) { value *= 3 } else { a -= value }; index += 1 }; if ((3 == (2 * 7))) { function foo(x, y) { x += -4; if (!(false 10)) && true} else { if (false) { b |= ~0}}}; function clamp (x: int, y: int): int { y += x; return (+ 4 & y)} clamp ((; value = (2 / 1)

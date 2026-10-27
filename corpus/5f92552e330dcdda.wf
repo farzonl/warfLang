@@ -1,0 +1,2 @@
+// Lines: 11.67% (2426/20787) Regions: 20.80%
+a = 0; b = 3; value = 0; if ((+0 != 10)) { let x = 4 }; for (index = 0; index < 3; index += 1) { b += b }; ((10 / b) * +(42))

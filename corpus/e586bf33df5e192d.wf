@@ -1,0 +1,2 @@
+// Lines: 19.77% (676/3419) Regions: 23.39%
+1 == 10)) && true; missing_fn(1, 2)

@@ -1,2 +1,2 @@
-// Lines: 12.73% (2645/20777) Regions: 22.62%
+// Lines: 12.73% (2646/20787) Regions: 22.63%
 a = 1; b = 1; value = 0; function compute(x: int, y: int): int { if ((0 >= 255)) { y = 255 }; return ((y - ~5) / x) } compute((b / a), 0); y = 5; 4

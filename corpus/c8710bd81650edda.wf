@@ -1,0 +1,2 @@
+// Lines: 25.65% (877/3419) Regions: 29.69%
+value = 0 if (1 < 2) { value = 4} else { value = 5} value while arg} foo (10)
