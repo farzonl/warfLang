@@ -1,0 +1,2 @@
+// Lines: 15.54% (3547/22819) Regions: 25.91%
+a = 2; b = 3; value = 0; c = 0; while (c < 5) { value &= (42 * 7); c += 1 }; if ((!(false) && false)) { { a /= a } } else { function baz(x: int, y: int): int { x &= +10; return 7 } baz((a & +2), (4 | b)) }; if ((true == (~0 > 0))) { if ((b <= b)) { a |= +2 } else { b = 2 } } else { if ((true == true)) { b &= +42 } else { b -= b } }; (-(3) ^ value)

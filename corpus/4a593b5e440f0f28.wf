@@ -1,0 +1,2 @@
+// Lines: 21.21% (953/4493) Regions: 24.16%
+a = 5; b = 3; value = 0; a ^= + (3); if (((, y:; for (z = 0; z < 4; z += 1) { value |= 3}

@@ -1,0 +1,2 @@
+// Lines: 21.54% (968/4493) Regions: 24.81%
+a = 5; b = 10; value = 0; let c = (+(a) / (2 | a)); _a = ((false || false) || false); ((10 & 2) - (_a * value))
