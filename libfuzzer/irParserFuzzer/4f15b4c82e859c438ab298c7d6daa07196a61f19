@@ -1,0 +1,19 @@
+func __main()
+enty:
+  %0 = const 0
+  %value = store %0?se0:
+    %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_conL %3 the&n0lse0
+then0:
+  %4 = const 4
+  %value 0
+else0:
+ 5
+  3 = lt %1 %3
+  br_c:
+  %5= const 5
+  3 = lt %1 %3
+  br_add %13
+  br for_c  %value = sto

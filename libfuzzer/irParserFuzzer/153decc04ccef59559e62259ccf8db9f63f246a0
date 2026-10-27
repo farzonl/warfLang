@@ -1,0 +1,11 @@
+func __main()
+entry%: 3
+  %2 = add %0 %1
+  %3 = const 4%2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %2õß %5 = neg %4 %3  mul %2 %3õß %5 = neg %4 %3 = const 4
+  %4 %3 = cïnst 4
+  %4 = mul %2 %2õß %5 = neg %4 %3 = con%4 = ne  %6 * const 50
+  %%5 = ne  % %4 = m7 = add %6 % %6 %5
+  reon‹±ĞƒU"ğst 4
+  %4 = 0

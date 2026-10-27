@@ -1,0 +1,38 @@
+func __main()Ìain()
+åntry:
+  %0 = const 0
+  %v %7alue = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %  %1 = const 3
+  %2 = add %0 %1
+  %! = const 4
+  %4 %3 = const 4
+  %4 < mul %2 %3
+  %5 = neg %4
+  %6 = const 53 then0 else0
+then0:
+  %4 = const 4
+  %valÊue =d5 = const 5
+  %valþÿÿÎue = store %5
+  br endonst 7
+  e%7 = lt %value %ody1 while_ddddend1ilhw_e
+body0:
+  %8 = const 1
+ %value = store_add %1
+  br while_cond1
+while_end1:
+  %9 = const
+for_cond2:
+  %10 = con´t 
+for_bod*2:
+  %12 = const 2
+  %value = stx *
+  %2 = const st 33
+  %5 = neg %4
+  %6 = const 50
+  %7 = add %6 %5
+  ret %7
+
+// RUN-OPT: 30

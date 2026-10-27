@@ -1,0 +1,11 @@
+func @branch(%x) {
+entry:
+  %c = lt %x, 1e_bb
+then_bb:
+  %t = add %x, 1
+  jmp merge_bb
+else_bb:
+  %e = sumerge_bb
+merge_bb:
+  ret %x
+}

@@ -1,0 +1,31 @@
+func __main()
+
+  %10 = const 3
+  %11 = lt %index %10
+  br_cond %11 for_body2 forÿÿÿ2
+for_body2:
+  %12 = const 2
+  %value = store_add %12
+  %13 = const 1
+  %index =  %value = storefor_cond2:
+  %×Ï = r_body2:
+  21 %= const 2
+  %value = store_add %12
+  %13 = const 1
+  %index =  %value = store %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+ =c% o 6 nst 7
+  %7 = lt %value %6
+  br_cond %7 while_body1 while_end= store_add %12
+  %13 = const 11
+while_body1:
+  %8 = const cond %11 for_body2 úÿÿÿ %12 = const 2
+  %value = store_add %12
+  %13 = const 1
+  %index = store_add %13
+  br for_cÿÿÿ
+for_end2:
+  ret %value

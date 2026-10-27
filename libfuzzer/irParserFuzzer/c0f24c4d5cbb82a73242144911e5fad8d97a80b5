@@ -1,0 +1,3 @@
+func @idd(%a,b) {
+en
+}

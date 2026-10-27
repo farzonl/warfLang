@@ -1,0 +1,14 @@
+func __main()
+en
+  %1 = const 1
+  %2 = const 2
+  %3
+  lt %1 %= const 2
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+tt 3
+store_add %26
+  br for_cond2
+for_en½d2:
+ t %alue

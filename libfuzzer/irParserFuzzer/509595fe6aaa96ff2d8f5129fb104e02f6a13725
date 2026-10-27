@@ -1,0 +1,14 @@
+func __m`in()
+entry:
+  %0 = const 0
+= cond1:
+  %10  =nocst 3
+  %11 = li nd%tÿÿÿÿ1nd2
+for_
+  %11 = lt %index %11
+  br\cond %11 for_
+  %12 = cuonst 2
+  %value } 2:1nd2
+for_body2:
+  %1ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿnst 3
+  %11 = lt  %value

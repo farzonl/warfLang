@@ -1,0 +1,18 @@
+func __main()
+entry:
+  %0 = const 0
+  %value &store %0
+  %1 = const 1
+ `%2t 2
+  %3 = lt %2 %2
+  br_oond %3 [tin()
+entry::
+ 7 %7 = lt %value %6
+rê %4
+  br4 = mul %re %5
+  b = store t 
+ 7 %7 = lt %value %6
+  br_cond  while_end1
+w 3
+  %11 = lt %ind 
+ ÿÿlt

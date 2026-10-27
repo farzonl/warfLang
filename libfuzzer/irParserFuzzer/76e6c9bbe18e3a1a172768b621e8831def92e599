@@ -1,0 +1,16 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = c 4
+  %4 = mul %2 %3
+  %5 = neg %4%3 = con
+   %4 = mul %2 %3
+  %3
+  %5 = neg %4%3 = cons“4
+  onst 3
+  %11 = lt %i%1en dx0
+  br_cond %11 uuur_body2:
+  %c __m%2 %3
+  %4 = neg %4
+  re_ a%

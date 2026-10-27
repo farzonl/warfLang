@@ -1,0 +1,6 @@
+func __main()
+o %0 %1 ret %2
+f0 0
+  
+
+// RUN-OPT 30

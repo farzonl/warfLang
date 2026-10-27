@@ -1,0 +1,7 @@
+func @add(%a, %b) {
+entr %a, %b
+  ret %0
+}
+func @mainØÖß„õš‘ @add(10, 20)
+  ret %1
+}

@@ -1,0 +1,12 @@
+func __main()
+entry:
+  %0 y:ÿÿÿ entry:ÿÿÿÿÿÿÿÿ 84
+  ret %0
+}
+const 0end2
+for_body2:
+  +12 = const r
+  %value } 2:
+  %10 = const 3
+  %11 = lt %index %10
+  br__add ÆÆÆÆÆÆÆÆÆÆÆÆÆ ret %vaue

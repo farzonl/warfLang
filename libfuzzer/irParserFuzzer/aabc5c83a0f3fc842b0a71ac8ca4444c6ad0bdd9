@@ -1,0 +1,7 @@
+func __main()
+ %4 = : 
+lul %2
+entry:ÿÿÿ@main() {
+entry:ÿÿÿÿÿÿÿÿÿÿÿÔÿÿÿÿÿÿÿÿ0
+} = neg %4
+  %6 =ÿÿÿÿÿÿÿÿ cons/ RWN-OPT: 15

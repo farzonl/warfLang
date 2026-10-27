@@ -1,0 +1,7 @@
+func @add(% %b) {
+entry:
+  %0  add %a, %b
+  ret %0
+}
+func(@20)
+   ret %ret

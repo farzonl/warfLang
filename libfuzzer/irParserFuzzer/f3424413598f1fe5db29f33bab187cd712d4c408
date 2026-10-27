@@ -1,0 +1,15 @@
+func __main() store %0
+  %1 = const try:1
+()
+entry:
+  %0 = c
+entry:
+  %5 = add %ab,store %0
+  %1 = const try:1
+()
+entry:
+  %0 = co %12
+  %1ndex = store_ad[ %13
+  br for_cond2
+_nd2:
+  ret %value

@@ -1,0 +1,4 @@
+func @@ain() {
+entry:
+  %0 = const 42
+  ret ƒƒƒƒƒÿÿÿÿÿÿÿÿÿ%0}

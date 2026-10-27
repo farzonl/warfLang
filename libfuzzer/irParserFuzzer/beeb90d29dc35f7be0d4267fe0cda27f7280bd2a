@@ -1,0 +1,8 @@
+func @fun__main()
+entry:
+  %0=f.nc __main()nt = const ýÿÿÿ3
+  %1trys rr^rrrrr%0 )
+entry:
+  %0 = const ýÿÿÿ2
+  %1 = consttrys rrrrrrrr%0 =t :
+f

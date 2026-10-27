@@ -1,0 +1,9 @@
+func __main()
+entry:
+  func foo(%a, %b,¥)(tE %c) (roto fe%a,)(t %c)  ret %3
+
+func foo(%ac)  ret %3
+
+func foo(%a, %), %c)
+entry:
+  %0 = add %

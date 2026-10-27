@@ -1,0 +1,5 @@
+func @main()
+entry:
+  %0 = const 42
+  ret 0
+}

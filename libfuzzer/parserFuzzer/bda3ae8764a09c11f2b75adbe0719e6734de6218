@@ -1,0 +1,17 @@
+// Top-level ccumulator
+  var ac += 1) {
+    // Skip 2
+    if (i == 2) {
+      continue // inline comment after continue
+    }
+    acc += i // add current index
+  }
+  // Return final value
+  return acc
+}
+
+// Multimline expressions and variable declarations
+let start = 97 // ------------------------------starting offset
+var bonus = 1Jbonus += 3 // now 8
+
+computeWithComments(start, 4) + bonus

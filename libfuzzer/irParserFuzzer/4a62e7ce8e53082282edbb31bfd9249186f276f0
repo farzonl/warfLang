@@ -1,0 +1,12 @@
+func __main()
+entry:
+  e %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 t1
+ ret %value 2
+  %1 = lt %1 %2
+  br_cond %3 then = lt %1 %2
+  br_condcond %3 then
+  ret %value

@@ -1,0 +1,4 @@
+func h(%`) {
+entry:
+  %c = lt _bb
+th

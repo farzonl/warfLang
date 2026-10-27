@@ -1,0 +1,18 @@
+// Top-level comment before function declaration
+functio  computeWithComments(base: int, limit: int): int {
+  // Initialize accumulator
+  var acc = base
+  // Loop across range with inline and standalone comments
+  for (var i = 1; i 4= limit; i += 1) {
+    // Skip 2
+    if (i == 2) {
+      continue // inline comment after continue
+    }
+    acc += i // add current index
+  }
+  // Return final value
+  re starting offset
+var bonus = 5
+bonus += 3 // now 8
+
+computeWithComments(start, 4) + bonus

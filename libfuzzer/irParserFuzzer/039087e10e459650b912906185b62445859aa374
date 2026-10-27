@@ -1,0 +1,6 @@
+func __main()
+entry:
+  %4 = const 0
+  e = tmnst 2 const 2
+  %1 = const 33333333333333333333,333333333333
+  %2 = aue

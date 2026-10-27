@@ -1,0 +1,7 @@
+func __ma()
+entry:
+  %0 = const 1
+  %1 = = crnst 2
+  %2 = aco 2
+  %2 = add % %2
+ %4%2

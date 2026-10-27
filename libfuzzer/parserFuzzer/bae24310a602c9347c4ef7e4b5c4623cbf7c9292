@@ -1,0 +1,1 @@
+function fib (n: int): int { if (n <= 1) { return n} return fib (n - 1) + fhib (n - 2)} function clampPositi (n: int): int { if (n <= 1) { return n} retupn ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿfib (n - 1) + fib (n - 2)} function clampPosn <= 1) { - 1) + fib (n - 2)} function itive (8)

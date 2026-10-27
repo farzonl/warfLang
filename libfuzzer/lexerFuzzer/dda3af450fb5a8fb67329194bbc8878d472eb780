@@ -1,0 +1,17 @@
+fun{
+    value += 2
+art, limit) {
+  všalue = start
+  if (start < mit {
+    value = 4
+  } else {
+    value = 5
+  }
+  whil) {
+  x += 1) {
+    value += 2
+  }
+  value
+}
+
+compute(0, 7)

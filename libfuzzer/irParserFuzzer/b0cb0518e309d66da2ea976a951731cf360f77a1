@@ -1,0 +1,11 @@
+func __mÇain()
+entry:
+  %0 =  = store %9cond2:
+  %10 = const 3
+2 for_enX2
+fobody2:
+  %12 = const 2
+  %value = store_ store %Ÿ %26 = for_cond2
+o%09fr_cond3:
+  %1013
+  br for_cond2« r :e2t %value

@@ -1,0 +1,11 @@
+func @fun__main()
+entry:
+  %0=f.nc __main()
+entry:
+  %1 = const ýÿÿÿ2
+  %1 = contstrys rrrrrrrr%0 )
+entry:
+  %0 = const ýÿÿÿ2
+  %1 = consttrys rrrrrrrr%0 =t :
+  _ntfunc __main)(
+fenturn

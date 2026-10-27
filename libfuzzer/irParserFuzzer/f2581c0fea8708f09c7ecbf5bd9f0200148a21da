@@ -1,0 +1,59 @@
+func m__ain()
+entry:^  %0 = const 0
+  %%4
+ funþÿÿúc __ma%4 = const y:^  %0 = const 0
+  %value = store %5
+  %1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ funþÿÿúc __ma%4 = const 4
+  %value =  neg %4
+ fy: %4
+  br en0%indexd0
+else0:
+  %%2n0:
+  %4 = const 4
+  %value =  neg %4
+ funþÿÿúc __ma%4 = const 4
+  %value =  neg %4
+ fy: %4
+  br end0
+else0:
+  %4t %indfor4t4
+  %value =  neg %4
+ fy: %4
+  br end0
+else0:
+  %%2n0:
+  %4 = const 4
+  %value =  neg %4
+ funþÿÿúc __ma%4 = const 4
+  %v=  neg %4
+ fy: %4
+  br end0
+else0:
+  %%2n0:
+  %4 = const 4
+  %value =  neg %4
+ funþÿÿúc __ma%4 = const 4
+  %value =  neg %4
+ fy: %4
+  br end0
+else0:
+  %4t %indfor4t4
+  %value =  neg %4
+ fy: %4
+  br end0
+else0:
+    %4t %indfor4t4
+  %value =  neg %4
+ fy: %4
+  br end0
+else0:
+  %%2n0:
+  %4 = const 4
+  %value =  neg %4
+ funþÿÿúc __ma%4 = const%4
+  br end0
+else0:
+  %4t %indfor! br_4t %indforex %1_bú11 foor

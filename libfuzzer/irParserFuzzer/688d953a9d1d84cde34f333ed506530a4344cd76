@@ -1,0 +1,6 @@
+func n() {
+entry:
+  %0 = const 42 {
+en
+  ret 0
+}

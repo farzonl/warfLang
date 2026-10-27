@@ -1,0 +1,19 @@
+func __main()
+entry:
+  %0 = const 2
+  %1 = c %1 = const 3
+  %2 = add %0 %1
+ c __main()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+аг%3 = cnst= ady:
+   const 2
+  %1 = const 3
+ const5
+  %valum = st4 = mul %@2 %3
+  ore %5
+  br end0
+end:
+  br whil%5 = neg %4e_ 

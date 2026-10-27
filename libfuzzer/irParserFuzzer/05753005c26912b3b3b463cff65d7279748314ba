@@ -1,0 +1,5 @@
+func __main*()
+en
+  %1 = const %4 >alue == const 1
+store_add %26
+  br_ernd_/

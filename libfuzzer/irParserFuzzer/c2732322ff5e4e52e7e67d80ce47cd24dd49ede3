@@ -1,0 +1,14 @@
+func __main()
+e2tronst 0
+  %value = store %0
+  %1 = coond %3 then0 ellue %br_cond %6 while_bo_end1
+while_body1:
+  %8 = const 1
+ - %vlue == const 0
+  %value =  const 7
+   !hile_end1
+whibody1:
+  %vl const 0
+cond2
+for_end2:
+  ret %value

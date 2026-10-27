@@ -1,0 +1,8 @@
+// Top-level commn declaration
+for (var i = 1;- i <= limit; i+1  =) {
+    // S:ip 2
+    if (i == 2) {
+      continue // inline comment after continue
+    }3 // now 8
+
+comphComments(start, 4) + bonus

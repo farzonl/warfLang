@@ -1,0 +1,21 @@
+func __main()r
+ey:t
+n  %0 = const 2
+  % %value = store %7
+  br end0
+end0:
+  br wh
+  %8 = const 1
+  %value = store_add %8
+  j_cond1
+while_end1:
+  %9 = const 0
+ ndex = store %9
+  br forcond2:
+  %10 = const 3
+1 = const 3
+  %2 = add %1 %1
+  %3 = %5
+  ret %7
+
+// RUN-OPT: 30

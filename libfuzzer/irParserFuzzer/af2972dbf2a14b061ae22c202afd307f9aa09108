@@ -1,0 +1,19 @@
+func __main()
+entry:
+  %0 = cons™ 2
+ # %1 = c %1 = const 3
+  %2 = add %0 %1
+ c __main()
+entry:
+  %0 = const 2
+  %1 = c %1 = const 3
+  %2 = add %0 %1
+ c __maiÿÿÿentry:
+  %0 = const 2
+  %1 = consŒÙ3
+  %2 = add %0 %1
+  %3 = const 4
+  %4 func __main()
+ent%= c‰‘Œ‹ßl %2 %3
+  %5 = neg %4 %ul %21
+   

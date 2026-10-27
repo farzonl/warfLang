@@ -1,0 +1,25 @@
+func __main()
+ealue = store %4
+ue = store %5
+  bstore %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1nst 0
+  %value = store %0
+  %1 = const 1
+ nst 2
+  %3 = lt %1 %2
+  br_cond %3 t end0
+enconst 0
+  %value = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3•then0 tore %0
+  %1ÿÿÿÿÿÿÿÿ 5
+  -2  = store %0
+  %1 = const 0
+  %2 = const 2
+  l %2 %3
+ %7 = addP 3
+ 0

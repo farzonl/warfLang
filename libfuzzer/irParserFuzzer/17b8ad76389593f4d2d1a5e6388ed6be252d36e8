@@ -1,0 +1,17 @@
+func @add(%a,func __main()
+errrrrrrrrrrrr1
+while_end1:
+ ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ %9  = store %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6 = const 7
+  %7 = lt %value %6
+  brÿcond %7 whifor_body2ÆõßßÚÎÍãue = store_add %8
+  br while_cond1
+7hile_end1: %value = store_add %12
+r while_cond1
+while_end1:%value = store_add %12
+  %13 = const 1
+  %index = s  ody1 w()hi

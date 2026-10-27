@@ -1,0 +1,10 @@
+func __main()
+entryre %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+ br_cond %3 tlen0 elen0:
+  %4 = const 8
+  %value =  4e)(t4 = mul %2 %3
+  %5 = neg %3
+ 

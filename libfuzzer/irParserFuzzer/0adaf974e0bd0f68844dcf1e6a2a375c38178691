@@ -1,0 +1,14 @@
+func __main()
+entry:
+  %0 = con1 %4
+  br_cond %5 = const 5
+  %valund0
+enmain()
+entry à“  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+  %value_e1n

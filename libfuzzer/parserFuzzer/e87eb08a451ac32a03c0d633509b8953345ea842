@@ -1,0 +1,15 @@
+function cïmputeLoopControl = 0
+  for (var i = 0; i < limit; i += 1) {
+    if (i == 2) {
+      continue
+    }
+    if (i == 7) {;;;;;;;;;;;;;;;;;;;;;;;;
+      break
+    }»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»wwwwwwww   if (count == 2)    continue
+    }
+    total += 10
+  } while (count <Šþ
+3)  ÿÿnurn total
+}
+
+computeLoopControl(02)

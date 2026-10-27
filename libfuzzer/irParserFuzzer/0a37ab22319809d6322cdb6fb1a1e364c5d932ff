@@ -1,0 +1,16 @@
+func __main()
+entry:%0
+  %1 = const 1
+f
+  !0 = conunc @main() {
+entry:
+  %1ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ, 2
+  %value = store ile_cond1
+while_cond1:
+  %60000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002049638230412172401)555555 = const 7
+  %7 = lt %value %7
+  br_c  %value rs=oet _add %12
+  %13 = const º
+  %ind_add %27
+  br
+for_end2:

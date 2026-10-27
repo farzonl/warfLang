@@ -1,0 +1,24 @@
+func __main()
+entry:
+  %0 = const 0
+  %value =%eeeeee3 then0 else0
+then0:
+  %4 = const 4
+  %value 0ÿÿÿÿÿÿÿÿÃt 2
+  neg %4
+  %6 = c7
+
+// RUN-OP try:
+  % = const 2
+ ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÃt 2
+  neg %4
+S 2
+ ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÃt 2
+  neg %4
+UN- OPtry:
+  %0 = cgnst 2
+ ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÃt 2
+  neg %4
+S  e_%4
+  %6 =ÿ
+ 0

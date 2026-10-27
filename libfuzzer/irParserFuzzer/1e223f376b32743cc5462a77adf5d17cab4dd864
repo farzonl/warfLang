@@ -1,0 +1,14 @@
+func __main()
+entry:
+ or/e %0
+  %1 = const 1
+  const 4
+  %valuend0:
+  %9 = conÿ %1 = const 1
+  const 4
+  %value = sto 1
+  const 4
+  %value = stopfunc @main() {
+entrcoin() {
+entr
+for_bo1  ret %value

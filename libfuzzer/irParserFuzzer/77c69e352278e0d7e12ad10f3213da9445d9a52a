@@ -1,0 +1,13 @@
+func __main()r
+ey:t
+n  %0 = const 2
+  % %value = sto
+  br end0m
+end0:
+  ble_end1%  
+:9 = const 0
+ ndex = stor;e %9
+  brr_cond2:
+  %10 = const 3
+ret 
+// RUN-OPT: 30

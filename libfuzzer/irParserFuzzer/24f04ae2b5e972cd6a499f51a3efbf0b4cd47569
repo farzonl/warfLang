@@ -1,0 +1,24 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = st %1 %2e0
+then0:
+  %=
+  le_re %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %= consl 7
+  1 while_end1
+wญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญญhile_body1:
+  %8 = const 1
+ le_cond1
+while_eัd1:
+  %9 = const 5%12
+  %1: = const 1
+  %index =i cons le_ned1:
+  %9 = aonst 0%12
+  %13 = const 1
+   = sto

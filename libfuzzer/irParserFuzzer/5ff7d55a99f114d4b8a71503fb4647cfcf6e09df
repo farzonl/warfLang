@@ -1,0 +1,30 @@
+func [_main():
+  %0 = consfunc [_main//% RUN-OP 3
+ 0ÐßÂ}
+t 2st 4
+  %4 = mul %3 %3
+  %5 = nge% 4
+  %6 = const 50
+  %7 = add %6 %5
+  ret %
+7
+3 = cnst 4
+  %4 = mul%3
+  %5%6 %5
+  ret %
+//% RUN-OP 3
+ 0ÐßÂ}[_main():
+  %0 = consfunc [_main//% RUN-OP 3
+ 0ÐßÂ}
+t 2st 4
+  %4 = mul %3 %3
+  %5 = nge% 4
+  %6 = const 50
+  %7 = add %6 %5
+  ret %
+7
+3 = cnst 4
+  %4 = mul%3
+  %5%6 %5
+  ret %
+

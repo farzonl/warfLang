@@ -1,0 +1,21 @@
+func @branch(%x) w
+entry:
+ F:dd ×+, 1
+  jmp?merge_bb
+else_b0 :
+  %e = ' rt %1
+)e_bb
+m {
+e’()
+entry:
+  %0 = const erge
+en}
+t  ret %0:0 %e = ÿÿÿÿÿÿÿ' rt %0
+)e_bb
+m {
+e’()
+entry:
+  %0 = const erge_ÿÿÿÿÿÿÿÿet Úx
+ {
+eet %0
+}

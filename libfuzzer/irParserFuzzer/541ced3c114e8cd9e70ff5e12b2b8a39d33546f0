@@ -1,0 +1,14 @@
+func __mÇain()
+entry:
+  %0 = const 0
+  %vaindex = store %9cond2:
+  %10 = const 3
+2 for_end2
+for_body2:
+  %12 = const 2
+  %value = store_ store %  %26 = for_cond2
+ofr_cond2:
+  %1013
+  br for_cond2«
+for_end
+ r :e2t %value

@@ -1,0 +1,6 @@
+func __main()
+%0
+  %3 = const 4
+  %4 = mul %2 %3
+ %5 = neg %4
+ $%6 =ÿÿRU0

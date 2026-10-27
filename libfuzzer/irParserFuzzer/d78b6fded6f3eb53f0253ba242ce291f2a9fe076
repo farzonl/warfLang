@@ -1,0 +1,17 @@
+func __main()
+entry:
+  %0 = consor_cond2
+for_cond2:
+  %10 = const 3
+  %11 = lt %index %10
+  b2_cond %11 for_body2 forÿÿÿ2
+for_body2:
+  %12 = const 2
+  %value = store_add %12
+  %13 = const 1
+  %index  %12 = const 2
+  fofunc [_mr_orÿÿÿ2
+for_body2:
+  %12 = con¼  %8à= const 1 forÿÿÿ2
+for_body2:
+  ai%1

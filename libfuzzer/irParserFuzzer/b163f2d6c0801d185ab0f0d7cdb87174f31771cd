@@ -1,0 +1,5 @@
+func @add(%a, %b) {
+entry:
+  %0 = add ond1
+: %ve = store_add %121%0
+}

@@ -1,0 +1,6 @@
+func @main()Û„õš}try:ÿÿÉÿÿÿÿüÿÿÿQÿÿ%b
+  ret %0
+func @main()ÿÿAÿÿÿÿÿÿÿüÿÿÿQÿÿ%b
+  ret %0}
+func @main() {
+efunc _n_

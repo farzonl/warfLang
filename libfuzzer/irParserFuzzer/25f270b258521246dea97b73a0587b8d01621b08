@@ -1,0 +1,6 @@
+func @add(%a, %b) {
+ent
+  %0 = add %a, %b
+}
+func @main() {
+entry0,}

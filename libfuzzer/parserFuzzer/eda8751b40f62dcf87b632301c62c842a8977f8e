@@ -1,0 +1,8 @@
+function cïmputeLoopControl = 0
+  for (var i = 0; i < limit; i += 1)1 + {
+    if (i == 2) {
+      continue
+    } 2
+    if (i == 7) {;;;;;;;;;;;;;;;;;;;;;;;;
+      break
+    }»»»»»»»»»»»»»»»»»»»»»»»»»»»»»

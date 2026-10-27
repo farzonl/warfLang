@@ -1,0 +1,4 @@
+func @add(%a, %b) %5 
+  rit %0
+}
+fun   

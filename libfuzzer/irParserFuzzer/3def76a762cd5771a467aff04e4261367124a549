@@ -1,0 +1,9 @@
+func __main()ÿÿÿÿÿÿ%1 = lt 0 = const 0
+  %valõ %0
+  %1 = const 1
+  % = 2const 2
+  %3 = lt %1 %1
+  br_cst 2
+  %3 = lt %1 %1
+  br end0
+el

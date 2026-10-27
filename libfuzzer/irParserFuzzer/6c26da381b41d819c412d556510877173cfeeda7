@@ -1,0 +1,41 @@
+func __mn()
+entry:
+  %0 = const 0
+  %value func __main()
+endry:
+  %0 = const 0
+  %value = store %00
+then0:
+  %4 = const 4
+  %value 0= store %4
+  br end0
+else0:
+! %5 = const 5
+  %value = stgre %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6 = const 7
+  %7 = lt %value %6
+  br_c  %value = store_add %12
+ dniex = store_add %26
+  br for_cond2
+for_end2:
+  ret :
+  %4 = const 4
+  %value = store %4
+  br end0
+else0:
+   3
+  %2 =%5 = const 5
+  %value = stgre %5
+  br end0
+end0:
+  br while_cond1
+Ohile_cond1:
+  %6 = const 7
+  %7 =d %12
+  %13 = for_cond2
+for_end2:
+  ret %value

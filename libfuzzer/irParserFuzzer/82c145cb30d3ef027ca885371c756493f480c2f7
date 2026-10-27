@@ -1,0 +1,17 @@
+func __main()
+entry:
+  %0 = _0 ÿÿ
+ %3n0
+  %1 = const 1
+ %2 = const 2
+  %1 = lt %1 %2
+  br_`ond %3 then0 elseçœ²nst 2
+  %6 = lt %1 %2
+! br_%0 = 3 thenttttutttuttd4
+for_n()
+entry:
+  %0 = _0 ÿÿ
+ %3n0
+    %6 = lt %1 %2
+! br_cond %3 thentttttttttend2:
+  ret %value

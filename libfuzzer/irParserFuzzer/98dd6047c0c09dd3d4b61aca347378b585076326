@@ -1,0 +1,16 @@
+func __main()
+o %2 %1e %c
+  2
+  
+
+// RUN-O-T:et %1t 2
+  
+
+// R%0 %c
+  ret %1t 2
+  
+
+// RU×éÿÔTþÿÿÿÿÿÿ2
+  
+
+/U /RN-OPT: 0

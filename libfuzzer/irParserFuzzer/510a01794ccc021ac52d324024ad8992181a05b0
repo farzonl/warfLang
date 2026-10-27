@@ -1,0 +1,6 @@
+func __main()
+entry = const 0
+.; %value = store st 2 = lt %1 %2
+" ealue = store e = storåst 3
+ã %value = store_add %2
+  ýet %value
