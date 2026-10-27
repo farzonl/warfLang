@@ -1,0 +1,14 @@
+func @add%b) ()
+etry:entr
+  lue = stob{
+enÿÿÿÿÿÿÿÿ5)
+  ret %1ÿÿÿÿÿ¸c¸õ¼¬ %0 = const 
+}
+func ll @add(10, 20)
+  ret %1ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+=er ct N%0
+}
+func @main() {
+el @add(10, 20)
+  ret %1ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+}

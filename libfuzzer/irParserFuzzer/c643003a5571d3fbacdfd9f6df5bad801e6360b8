@@ -1,0 +1,2 @@
+func __mainnc foo(%a, %o(%a,foo(%a, %o(%a,(%a. ,%" %c)
+%0 = add %

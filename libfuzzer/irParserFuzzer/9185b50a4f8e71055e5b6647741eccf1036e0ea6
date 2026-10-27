@@ -1,0 +1,12 @@
+func __main()lue = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+th  %0 = constnst 2
+  %3 = lt %1 %2
+%9! br_cond
+  %3 = store ‘‘‘‘‘‘‘‘‘‘‘‘‘‘‘‘2
+f%1 = cnˆnst%0 = conlue

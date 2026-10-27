@@ -1,0 +1,4 @@
+func @main()#?ð
+}
+ const 2
+  %2 = add 

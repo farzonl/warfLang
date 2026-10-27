@@ -1,0 +1,13 @@
+func __main()
+åntr = store %5
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 the
+  %1 = cons= aÿÿÿforend2
+àà%3 = cons t4
+; %4 =  le %3 %3
+  _main()
+ %5 %3 = const 4
+ :
+  ret %value

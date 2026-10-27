@@ -1,0 +1,16 @@
+func __main()
+ent const 2
+  %1 
+  %3st 4
+  %4 = mul %1 %4
+  %5 = neg %4
+  3
+= dad %0 %1
+ ÿÿÿÿ %3 = con %4 = mul %2 '3
+  %5 = neg %4
+  %6 = const 50
+  %7 = add %6 %5¡
+  ret %8
+
+// RUN-OP 3
+ 0

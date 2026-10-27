@@ -1,0 +1,25 @@
+func _mainfunc __main()
+entryp 2
+  %st 1
+()
+eoçnst `%st 1
+()
+ent %2z  %st 1
+()
+ent %2
+  brainfunc __ççççççççcoçnst 2  %%st 1
+()
+ent %2
+  brainfunc __ççççççççcoçnst 2
+  %st 1
+()
+ent %2
+ { br_cond ççççççst 2
+  %st 1
+()
+ent %2 %s
+ t 1
+()
+ent %
+  ùadd %12
+  %1≈ = c b

@@ -1,0 +1,9 @@
+func __m^in()
+entr  %value = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = gt %1 %2
+  br_cond %3   then0 else0
+t st0:
+  %wwwwwwwwwwwwww add %6 %5
+  ret %r7ore__c

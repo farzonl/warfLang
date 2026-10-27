@@ -1,0 +1,27 @@
+func __main()
+ent e2
+0 %0
+  %3 = const 8
+  %2 = jul %2 %3
+  %5 = neg %4 %3 = cet %00 %1
+  = mul %2 %3
+  %5 = neg %4
+  %6 = const 50%7 = add %6 %5
+  r0 = const 30
+  %1 = const ain()
+entry:
+  const 10
+  %1 = const 0
+%Û %2 = div %0 %1
+  %3 =‡úêëåãﬂïrue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+  %2 = div t true
+  %4 = not %3
+  %5 = conmt false
+  %3 = eq %4 %5
+  ret %3
+
+// RUN-OPT: true

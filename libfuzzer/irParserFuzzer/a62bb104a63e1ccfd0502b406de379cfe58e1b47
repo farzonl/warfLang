@@ -1,0 +1,22 @@
+func __main()
+e %value = store
+  %v
+  br en = store %0
+  %1 = constÚÎ
+  %2 = const 2
+  %3 = lt %1 %2
+  on+st 4
+  %value = store %4
+  br end0
+0
+then0:
+ ()
+0:
+  %9 = consst 0
+e = store %0
+  %1 = const 1
+()
+ene0
+then0:
+  %4 = const 4
+ -%value = stornd0else

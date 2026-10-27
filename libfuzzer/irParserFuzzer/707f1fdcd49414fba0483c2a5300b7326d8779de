@@ -1,0 +1,6 @@
+func __main()
+entry %0 = co  %vald2:
+  %10 = coest 3
+  %11 = lt %index %10
+  br_c2:
+  %12fo = const 2  %ve

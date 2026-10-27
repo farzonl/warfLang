@@ -1,0 +1,16 @@
+func __main()
+ÿÿÿÿdd %0
+  %0 = const 2
+  %1 = const 3
+ 
+  %2 = add %0 %1
+  %3 = const 4
+ jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj %4 = mul %2  %3 
+% 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 =jjjjj %4 = mul %2 %3
+  %5 = neg %4 %3 = c
+  for_%7
+
+/entr3

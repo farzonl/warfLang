@@ -1,0 +1,12 @@
+func __main()
+%0tr:y
+  %0 = const 88888888882
+  %1 = stonstc __main()
+entry:
+  %0 = const 88888888882
+  %1 = s$2
+  % = const 88888888882
+  %:
+  %0 = const 88888888882
+ %7 = add %6 %st 2
+  888889PT: 30

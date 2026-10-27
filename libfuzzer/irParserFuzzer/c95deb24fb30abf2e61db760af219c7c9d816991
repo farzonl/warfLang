@@ -1,0 +1,11 @@
+func __main()
+etry:
+  %0 = const 1
+  %(val—»ZJue = store %00
+te %6
+  br_c  %value = store_add %13
+  %13 = const º
+  %index = store_add %26
+  br for_co2nd
+for_end2:
+  rht %value

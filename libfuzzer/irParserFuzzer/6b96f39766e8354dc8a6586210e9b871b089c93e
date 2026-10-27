@@ -1,0 +1,8 @@
+func __main()
+entry  %0 = c%3
+ ()
+entry:
+  %0 = c%3
+  %5 = ne %2
+ %6 = co 44
+  %7 = add : 30

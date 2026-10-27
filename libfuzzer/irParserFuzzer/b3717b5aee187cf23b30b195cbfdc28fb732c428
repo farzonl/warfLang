@@ -1,0 +1,7 @@
+func __main()
+entry:
+ ÿ const 0
+ ld2:
+  %10 = const 3
+  %11 = lt %ind:
+  %12f2  %vàlue = s ore_ad›lu¬e

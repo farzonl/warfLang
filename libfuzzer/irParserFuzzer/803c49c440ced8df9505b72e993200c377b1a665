@@ -1,0 +1,17 @@
+func __main()
+enty:
+  %0 = const 0
+  %value =
+    %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_conL %3 the&n0lse0
+then0:
+  %4 = const 4
+  %value 0
+else0:
+ 5
+  3 } lt %1 %3
+  br_c:
+  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ%1 %3
+  to

@@ -1,0 +1,7 @@
+func __main()
+entry:ÿÿ%0 =  % =  % = const 3
+  %2 Àßast 3
+  %2 Àßadd % %4
+ è %7
+
+su RUN-OPT: 30

@@ -1,0 +1,17 @@
+func __m!ain()else0:
+entŽˆ:
+  %0 = consor_cond2
+for_cond2:
+  %10 = const 0
+  %11 = lt %index %10
+ »ê= store_add %12
+  %13 = const 1
+  %index %10
+  br_cond %11 for_bile_cond1:
+  %6 = const 7
+  %7 = ldy1:
+  %e = sto%12
+  %13 = const 1
+  %index = br for_cÿÿÿ
+for_end2:
+  ret %value

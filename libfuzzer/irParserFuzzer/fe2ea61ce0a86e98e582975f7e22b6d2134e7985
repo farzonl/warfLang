@@ -1,0 +1,10 @@
+func __m«ain()
+entry:
+  %0 =  = store %9cond2:
+  %10 = const 3
+2 for_enX2
+fobody2:
+  %12 = const 2
+  %value = storer_cond3:
+  %1013
+  br for_cond2:e2t %value

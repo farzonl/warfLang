@@ -1,0 +1,12 @@
+func __main()
+ 0
+  %2 %3 then0 else0
+th%n0:
+  %4 = const 4
+ s
+  %888#8888888068 = neg %4
+  %6 = `o %3
+  %5 = const false
+  %6nc __main()
+ 0 = eq %4 %5
+  ret :P true

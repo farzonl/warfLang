@@ -1,0 +1,24 @@
+func _mainfunc __main()
+5   =entryp 2
+  %st 1
+()
+eonst `%st 1
+()
+ent %2z  %st 1
+()
+ent %2
+  bconst 2  %%st 1
+()
+ent %2
+  %st 1
+()
+ent %2
+ { br_st 2
+  %st 1
+()
+ent %2 %s
+ t 1
+()
+ent %
+  add %12
+  %1Å = c b

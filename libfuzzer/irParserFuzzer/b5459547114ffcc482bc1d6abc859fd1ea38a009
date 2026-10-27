@@ -1,0 +1,11 @@
+func __mainfunentry”in()
+entry  c0 = const 0
+  %value = st/rt1
+ ()
+entry:
+ ‹%0 = const 0
+  1vt1
+ ()
+enty:
+ ‹%0 = const 04
+ b
