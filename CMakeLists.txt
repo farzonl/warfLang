@@ -100,6 +100,7 @@ if (BUILD_FUZZER AND CMAKE_CXX_COMPILER_ID STREQUAL "Clang" AND NOT isEmscripten
     # without updating container shadow bytes.
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Xclang -gcodeview -D_DISABLE_STRING_ANNOTATION=1 -D_DISABLE_VECTOR_ANNOTATION=1")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Xclang -gcodeview -D_DISABLE_STRING_ANNOTATION=1 -D_DISABLE_VECTOR_ANNOTATION=1")
+    add_compile_definitions(_DISABLE_STRING_ANNOTATION=1 _DISABLE_VECTOR_ANNOTATION=1)
   endif()
   add_subdirectory (fuzz)
 endif()

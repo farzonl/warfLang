@@ -367,6 +367,87 @@ def is_startup_or_loader_failure(returncode: int, output_text: str) -> bool:
     return False
 
 
+def bisect_crashing_corpus_input(
+    fuzzer_bin: Path,
+    candidates: Sequence[Path],
+    env: Dict[str, str],
+    timeout: int = 15,
+) -> Optional[Tuple[Path, str, int]]:
+    """Binary-search `candidates` to isolate a single corpus/seed file that crashes `fuzzer_bin`."""
+    valid = [p for p in candidates if p.is_file()]
+    if not valid:
+        return None
+
+    def run_subset(subset: Sequence[Path]) -> Tuple[int, str]:
+        cmd = [str(fuzzer_bin.resolve()), f"-timeout={max(5, timeout - 5)}"] + [
+            str(p.resolve()) for p in subset
+        ]
+        try:
+            proc = subprocess.run(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                errors="replace",
+                env=env,
+                timeout=max(10, timeout),
+            )
+            return proc.returncode, proc.stdout or ""
+        except subprocess.TimeoutExpired as exc:
+            raw_out = exc.stdout or b""
+            out_str = (
+                raw_out.decode("utf-8", errors="replace")
+                if isinstance(raw_out, bytes)
+                else raw_out
+            )
+            return 124, out_str
+        except OSError:
+            return 0, ""
+
+    # Batch into chunks first so command lines stay well within OS limits (especially on Windows)
+    chunk_size = 200
+    crashing_chunk: Optional[List[Path]] = None
+    last_rc = 0
+    last_out = ""
+    for i in range(0, len(valid), chunk_size):
+        chunk = valid[i : i + chunk_size]
+        rc, out = run_subset(chunk)
+        if rc != 0:
+            crashing_chunk = chunk
+            last_rc = rc
+            last_out = out
+            running_matches = RUNNING_INPUT_RE.findall(out)
+            if running_matches:
+                candidate = Path(running_matches[-1].strip())
+                if candidate.is_file():
+                    rc_single, out_single = run_subset([candidate])
+                    if rc_single != 0:
+                        return candidate, out_single, rc_single
+            break
+
+    if not crashing_chunk:
+        return None
+
+    low = 0
+    high = len(crashing_chunk)
+    while high - low > 1:
+        mid = (low + high) // 2
+        left = crashing_chunk[low:mid]
+        rc, out = run_subset(left)
+        if rc != 0:
+            high = mid
+            last_rc = rc
+            last_out = out
+        else:
+            low = mid
+
+    culprit = crashing_chunk[low]
+    rc_single, out_single = run_subset([culprit])
+    if rc_single != 0:
+        return culprit, out_single, rc_single
+    return culprit, last_out, last_rc
+
+
 def replay_crash_artifact(
     fuzzer_bin: Path,
     artifact_path: Path,
@@ -598,17 +679,63 @@ def run_single_fuzzer(
                 if startup_failures is not None:
                     startup_failures.append(f"{fuzzer_name} (exit code {returncode})")
                 break
+
+            # If the fuzzer crashed during seed/corpus loading without emitting a crash
+            # artifact or `Running:` line (e.g. Windows STATUS_BREAKPOINT / 0x80000003),
+            # bisect the corpus and seed directories to isolate and quarantine the input.
+            all_inputs = sorted(
+                [p for p in corpus_dir.iterdir() if p.is_file()]
+                + [p for p in seed_dir.iterdir() if p.is_file()]
+            )
+            bisected = bisect_crashing_corpus_input(
+                fuzzer_bin, all_inputs, env, timeout=max(10, per_input_timeout + 5)
+            )
+            program_str = ""
+            hex_preview = ""
+            art_path: Optional[Path] = None
+            if bisected is not None:
+                culprit_path, culprit_out, culprit_rc = bisected
+                if culprit_out.strip():
+                    output = culprit_out
+                    returncode = culprit_rc
+                try:
+                    raw_bytes = culprit_path.read_bytes()
+                except OSError:
+                    raw_bytes = b""
+                program_str, hex_preview = format_crashing_input(raw_bytes)
+                digest = hashlib.sha1(raw_bytes).hexdigest()
+                art_path = crashes_dir / f"{fuzzer_name}-crash-{digest}"
+                try:
+                    art_path.write_bytes(raw_bytes)
+                    known_artifacts.add(art_path)
+                except OSError:
+                    art_path = None
+                print(f"Quarantining bisected crashing input: {culprit_path}")
+                try:
+                    culprit_path.unlink()
+                except OSError:
+                    pass
+
             call_stack = extract_call_stack(output)
-            kind, description = extract_crash_metadata(fuzzer_name, output)
+            kind, description = extract_crash_metadata(
+                fuzzer_name, output, art_path.name if art_path else ""
+            )
             fp = finding_fingerprint(kind, description)
             if fp not in seen_fingerprints:
                 seen_fingerprints.add(fp)
                 added_new_finding = True
                 crash_report = extract_crash_report(output)
+                extra_meta = ""
+                if art_path is not None:
+                    extra_meta = (
+                        f"Artifact: {art_path.name}\n"
+                        f"Hex (first 512B): {hex_preview}\n"
+                    )
                 details = (
                     f"OS: {os_name}\n"
                     f"Fuzzer: {fuzzer_name}\n"
-                    f"Exit Code: {returncode}\n\n"
+                    f"Exit Code: {returncode}\n"
+                    f"{extra_meta}\n"
                     f"{crash_report}"
                 )
                 findings.append(
@@ -616,10 +743,11 @@ def run_single_fuzzer(
                         fuzzer=fuzzer_name,
                         kind=kind,
                         description=description,
-                        program="",
+                        program=program_str,
                         details=details,
                         fingerprint=fp,
                         call_stack=call_stack,
+                        artifact_path=art_path,
                     )
                 )
 
