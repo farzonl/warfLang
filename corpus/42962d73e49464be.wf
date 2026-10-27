@@ -1,2 +1,2 @@
-// Lines: 27.52% (941/3419) Regions: 31.30%
+// Lines: 27.22% (941/3457) Regions: 30.93%
 a = 5; b = 3; value = 0; a ^= +(3); if (((false != true) && (true && false))) { index = 0; b = 10; if ((3 == (2 * 7 &-& true; var value = -1

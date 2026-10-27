@@ -1,4 +1,4 @@
-// Lines: 10.80% (2244/20787) Regions: 19.56%
+// Lines: 10.76% (2239/20818) Regions: 19.46%
 value = 0
 if (1 < 2) { value = 4 } else { value = 5 }
 value

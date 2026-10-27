@@ -1,0 +1,2 @@
+// Lines: 14.79% (3080/20818) Regions: 25.62%
+a = 5; b = 1; value = 0; function baz(x: int, y: int): int { for (index = 0; index < 2; index += 1) { x |= x }; return +((x & y)) } baz(7, -1); if (true) { a = 2 } else { function abs(x: int, y: int): int { y -= y; return +(~5) } abs((4 | 42), (5 & +10)) }; var value = ~1; ((b * a) + 255)

@@ -1,0 +1,2 @@
+// Lines: 22.71% (785/3457) Regions: 26.97%
+function pair(a: int, b: int): int { return a + b } pair(1)

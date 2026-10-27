@@ -1,28 +1,20 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 84,
-  "findings_count": 1,
+  "corpus_size": 111,
+  "findings_count": 0,
   "cumulative_coverage": {
-    "lines_covered": 3655,
-    "lines_total": 20787,
-    "lines_percent": 17.58310482513109,
-    "regions_covered": 2146,
-    "regions_total": 7189,
-    "regions_percent": 29.851161496731116,
-    "branches_covered": 1337,
-    "branches_total": 1761,
-    "branches_percent": 75.92277115275412
+    "lines_covered": 3696,
+    "lines_total": 20818,
+    "lines_percent": 17.753866845998655,
+    "regions_covered": 2162,
+    "regions_total": 7208,
+    "regions_percent": 29.994450610432853,
+    "branches_covered": 1357,
+    "branches_total": 1771,
+    "branches_percent": 76.62337662337663
   },
-  "best_single_program": "if (!((true != true))) { a = 2; b = 10; value = 0; function foo (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value * b)), (- (255) / (value ^= - 42))); value = 0; function foo (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value * b)), (- (255) / (value ^= - 42))); b |= (value ^= 4); var res = (+ (255)}; total += 10; } while (count < 3); return total; }; computeLoopControl n: int): int { if (n <= 1) { return",
-  "best_single_coverage_percent": 40.830652237496345,
-  "findings": [
-    {
-      "kind": "hang",
-      "fingerprint": "de9ead1f1fc4fc1a",
-      "description": "Timeout in `Warf --eval`",
-      "program": "value = 0 if (1 < 2) { value = 4} else { value = 5} value while (value < 7) { value += ~1} value for (index = 0; index < 3; index += 1) { value += 2} value",
-      "details": ""
-    }
-  ]
+  "best_single_program": "if ((!(false) == (true && false))) { a = 2; b = 10; value = 0; function foo (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value / b)), (- (255) / (value ^= - 42))); b |= (value { arg} foo (10); function pair (a: int, b: int): int { return a + (10 * (3 + 4) - 10)) &&; function clamp (x: int, y: int): int { y /= 3; return (3 * 1)} clamp ((255 * 10), - (10)) && true} } else { a &= (5 / -10) }",
+  "best_single_coverage_percent": 38.76193231125254,
+  "findings": []
 }

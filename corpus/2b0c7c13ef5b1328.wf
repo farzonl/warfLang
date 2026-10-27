@@ -1,2 +1,2 @@
-// Lines: 8.87% (1843/20787) Regions: 17.05%
+// Lines: 8.83% (1838/20818) Regions: 16.97%
 function foo(arg) { arg } foo(10)
