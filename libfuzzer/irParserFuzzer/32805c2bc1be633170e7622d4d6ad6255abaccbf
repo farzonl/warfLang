@@ -1,0 +1,5 @@
+func add_scaled(a, b)
+ent{y:
+  %0 ="const %0  %0 = const 1.25
+  %1 = const 2.75
+  %

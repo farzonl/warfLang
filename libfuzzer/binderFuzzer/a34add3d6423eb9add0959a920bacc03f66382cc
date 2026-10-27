@@ -1,0 +1,7 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslaÄh\\")
+print("" + "non-empty")
+print("concatenated " + "kkkkkkkkikkkkkkkkkkkkkÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿorld")
+print("escaped:\n\t\"quote\" and \\backslasb\"foobar") {
+  print
+1

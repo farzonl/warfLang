@@ -1,0 +1,3 @@
+func ()
+en2r 2 7 add %
+%10 = add

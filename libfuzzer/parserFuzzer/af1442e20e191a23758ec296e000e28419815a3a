@@ -1,0 +1,8 @@
+// 1. Two-levener ixnt
+var x: int = 10
+{
+  let x:  print(x)
+}
+// 2. Two-owing across typbool, inner int
+var flag: ue
+{-  {  let count: int 

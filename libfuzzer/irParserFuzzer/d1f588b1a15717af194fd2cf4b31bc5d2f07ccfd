@@ -1,0 +1,20 @@
+func __mainnc __main()
+els
+0:
+  %8 = const 1
+  %2 = const 2
+  %3 += lt %1 %0°
+  br_cond %  %0 = const 3
+  %2 = add %0 %1
+  %! =body0:
+  %8 = const 1
+ %valuest 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %  %0 = const 3
+  %2 = add %0funn
+}
+ %1
+  %!)%u= stx *
+  %2 st 33
+  

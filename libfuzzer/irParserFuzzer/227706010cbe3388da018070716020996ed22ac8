@@ -1,0 +1,5 @@
+func in()
+n0:
+  %4 = const 4
+  %value = store %
+ebe = store %n0
