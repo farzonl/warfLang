@@ -1,0 +1,10 @@
+"ÿÿÿworld"
+""
+"hello\nworld"
+"tab\&here""quote: \orld"
+"tab\&here""quote: \"hi\""
+"backslash: \\"
+
+"hello " + "world"
+"" + "abc"
+"abc"

@@ -1,0 +1,17 @@
+func __main()
+eno1
+  %3 = const true
+  %3 = not %3
+ RUNtrue
+  %4 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+  retPT: trret %6
+
+//3
+  %5 = const false
+  %6 = eq %4 %5
+  ret %6
+
+// RUN- = eq %4 %5
+  ret %6UN-OPT: true

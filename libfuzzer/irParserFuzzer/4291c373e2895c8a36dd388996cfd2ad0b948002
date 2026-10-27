@@ -1,0 +1,133 @@
+func __main()
+entry:
+  %0 = const 2
+  %1 = const 23% æ
+ = const 4
+  %3 = call foo %0 1 %2
+  re, %ÿÿÿ3
+
+func func __main()%0 %c
+:
+  %0 = const 2
+  %1 = const 3
+  %2 = const 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()%0 %c:
+  %0 = const 2
+  %1 = const 8
+  %2 = const 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()
+entry:
+  %0 = const 2
+  %1 = const 23% æ
+ = con()%0 %c
+:
+  %0 = const 2
+  %1 = const 3
+  %2 = const 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()
+entry:
+  %0 = cll foo %0 n()%0 %c
+:
+  %0 = const 2
+  %1 = const 3
+  %2 = const 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()
+entonst 2
+  %1 = const 3
+  %2 = cofunc func __mafunc __main(&st 4
+  %3 = call foo %0 1 %2
+  refoo %0 1 %2
+  re, %ÿÿÿ3
+
+func func __main()%0 %c
+:
+  %0 = const 2
+  %1 = const 3
+  %2 = const 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()%0 %c
+:
+  %0 = const 2
+  %1 = const 8
+  %2 = const 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()
+entry:
+  %0 = const 2
+  %1 = const 23% æ
+ = con()%0 %c
+:
+  %0 = const 2
+  %1 = const 3
+  %2 = const 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+f %1 = const 3
+  %2 = const 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()
+entry:
+  %0 = cll foo %0 n()%0 %c
+:
+  %0 = csnst 2
+  %1 = const 3
+  %2 = const 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()
+entonst 2
+  %1 = const 3
+  %2 = cofunc func __mafunc __main(&st 4
+  %3 = call foo %0 1 %2
+  re, %ÿÿÿ3
+
+func func __man()%0 %c
+:
+  %0 = c, %ÿÿÿ3
+
+func func __main()%0 %c
+:
+  %0 = const 2
+  %1 = const 3
+  %2 = const 4
+  %%1 -2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()st 4
+  %%1 %2
+  re, %ÿÿÿ3
+
+func func __mafunc __n()
+entonst 2
+  %1 = const 3
+  %2 = cofunc func __mafunc __main(&st 4
+  %3 = call foo %0 1 %2
+  re, %ÿÿÿ3
+
+func func __maunc __n()
+entonst 1
+  %1 = const 3
+  %2 = cofunc func __mafunc __main()
+entiry:
+  %0 = const 0
+ |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| %vÿÿ

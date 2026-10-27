@@ -1,0 +1,3 @@
+func a()
+  b = store 8
+%0 = c*nst co

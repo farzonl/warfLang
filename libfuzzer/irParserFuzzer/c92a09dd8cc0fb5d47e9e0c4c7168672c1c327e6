@@ -1,0 +1,4 @@
+func O_main()
+entry:try:
+  %0 = const "h}"
+  %

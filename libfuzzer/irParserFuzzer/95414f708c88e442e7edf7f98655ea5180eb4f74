@@ -1,0 +1,9 @@
+func _ain()
+
+  %3 = const 4
+ %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+ 4 =  ne %2 %3
+ %3
+  %1 = valqe

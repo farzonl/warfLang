@@ -1,0 +1,10 @@
+func __main()
+entry:
+  %0 = const "hello "
+  %1 LLVM:   call i32 (
+  %1 = const 3
+  %2 = add %0 %1
+  %3 =const_body1: = add %0 %1
+  %3 =const_body1:
+  %8 = const 1
+  %val√e = store_asrcmp(ptr, ptr)

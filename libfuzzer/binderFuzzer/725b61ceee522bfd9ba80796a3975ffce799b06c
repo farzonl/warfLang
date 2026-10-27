@@ -1,0 +1,9 @@
+pri"hello=if world")
+print("escaped:\n\t\"qello=if world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+print("" + "non-euote\" and \\backslash\\")
+pr-euote\" and \\backslash\\")
+print("JJJJJJJJJorld" }
+print(f() == h())
+
+0

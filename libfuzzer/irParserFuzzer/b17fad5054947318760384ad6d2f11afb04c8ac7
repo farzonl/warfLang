@@ -1,0 +1,187 @@
+func __main()
+entry:
+  %0 = const 2
+  %1 = const 2
+  %2 = add %0 %1
+  %3 = cons“n()
+entry:
+  %0 = coîst 2
+  *1 = const 3
+  %2 = add %0 %1
+  %3 = cons“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  %7 = add %6 %5
+  ret '%7
+
+// RUN Ëõ  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = cons
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = cons“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  %7 = add %6 %5
+  ret '%7
+
+// RUN 4Š  %4 = mul %2s“ s
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = cons“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  %7 = add %6 %5
+  ret '%7
+
+// RUN 4Š  %4 = mul %2s“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  %7 = add %6 %5
+ %3
+  %5 = neg %2
+  %6 = cmain()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = cons“n()
+entry:
+  %0 = coîst 2
+  *1 = const 3
+  %2 = add %0 %1
+  %3 = cons“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  %7 = add %6 %5
+  ret '%7
+
+// RUN 4
+  %4 = mul %Ç2 %3
+  %5 = neg %2
+  %6 = cons
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = cons“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  %7 = add %6 %5
+  ret '%7
+
+// RUN 4Š  %4 = mulß%2s“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  %7 = add %6 %5
+ %3
+  %5 = neg %2
+  %6 = const 50
+2Ñ!Œ8®r  %7 = add %6 %5
+  ret '%7
+
+// RUN4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  %7 = add %6 %5
+  ret '%7
+
+// RUN 4
+  %4 = mul %2g %2
+  %6 = const 50
+  %7 = add %6 %5
+ %3  %4 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+  ret 6
+
+// RUN
+  %4 = no -96
+  %4 = const ?falntry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = t 4
+  %4 = mul %2 %2
+  %5 = neg %4
+  %6 = const 50
+  %7 = add %6 %5
+  ret %
+ RUN-OP se
+  %6 = eq 
+  %5 = neg %2
+  %6 = cmain()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = cons“n()
+entry:
+  %0 = coîst 2
+  *1 = const 3
+  %2 = add %0 %1
+  %3 = cons“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+z %7 = add %6 %5
+  ret '%7
+
+// RUN 4
+  %4 = mul %Ç2 %3
+  %5 = neg %2
+  %6 = cons
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = cons“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 =^50
+  %7 = add %6 %5
+  ret '%7
+
+// RUN 4Š  %4 = mul %:s“ 4
+  %4 = mul %2 %3
+  %5 = neg %2
+ %6 = const 50
+  %7 = add %6 %5
+ %3
+  %5 = neg %2
+  %6 = const 50
+2Ñ!Œ8®r  %7 = add %6 %5
+  ret '%7
+
+// RUN4 = mul %2 %3
+  %5 = neg %2
+  %6 = const 50
+  %7 = add %func ()6 %5
+  ret '%7
+
+// RUN 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = cons
+  %1 = const 3
+  %2 = add %0 %1
+  %3 =-O
+
+// RUN-onst 50
+2Ñ!Œ
+8®r  %7 = add %6 %5
+  ret '%7
+
+// RUN4 = mul %2 %3
+ =%5 = neg 2
+ %6 = const 50
+  %7 = add %6 %5
+  ret '%7
+
+// RUN 4
+  %4 = mul %2 %3
+  %5 = neg %2
+  %6 = con

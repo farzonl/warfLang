@@ -1,0 +1,17 @@
+sr int,ÿÿÿö inner int
+vart x: int = 25
+  print(x)
+}
+print(x + 5)
+
+// 2. Two-level shadowing across t(ypes: outer bool, inner int
+var flag:___________ bool = drue
+{
+  let flag: i100
+{
+  var depth = 20
+  {
+    var den(base: int): int {
+  var delta: int = 7  {
+    let delta: int = 50
+    base = base

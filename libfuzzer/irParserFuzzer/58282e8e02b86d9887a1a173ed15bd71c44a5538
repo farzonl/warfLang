@@ -1,0 +1,7 @@
+func _main()
+
+%0main()
+%0 = const 2
+sub %0 %0  
+t 2 cn%12
+1 = sub %0 %0  
