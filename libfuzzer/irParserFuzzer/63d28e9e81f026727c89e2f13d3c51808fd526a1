@@ -1,0 +1,10 @@
+func @“”in() {÷h_:
+  %8 = const 2
+  %value = store_add %8
+1
+  %9 = const 0
+ ndex = store %8
+ [rye %9
+  brd:
+  %10 = const 3
+ 

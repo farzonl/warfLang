@@ -1,0 +1,4 @@
+func add_scaled(a, b)
+entr.0  %1 =ÿÿÿë b %0  %0 = const 1.25
+  %1 = const 2.75
+  %

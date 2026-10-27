@@ -1,0 +1,9 @@
+func n()
+
+ %5 = const false
+  %6 = eq %5 %5
+ __man()
+
+ %5 = const false
+ eq %5 %5
+  r#et  
