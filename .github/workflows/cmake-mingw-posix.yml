@@ -31,20 +31,34 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Cache apt packages
+      id: mingw-cache
       uses: actions/cache@v3
       with:
         path: ${{ github.workspace }}/apt-cache
-        key: ${{ runner.os }}-mingw-apt-cache-v1-${{ hashFiles('.github/workflows/cmake-mingw-posix.yml') }}
+        key: ${{ runner.os }}-mingw-apt-cache-v2-${{ hashFiles('.github/workflows/cmake-mingw-posix.yml') }}
         restore-keys: |
-          ${{ runner.os }}-mingw-apt-cache-v1-
+          ${{ runner.os }}-mingw-apt-cache-v2-
     - name: install cross-build dependencies
       run: |
-        mkdir -p "${{ github.workspace }}/apt-cache/partial"
-        sudo apt-get update
-        sudo apt-get install -y --no-install-recommends \
-          -o Dir::Cache::archives="${{ github.workspace }}/apt-cache" \
-          cmake g++-mingw-w64-x86-64-posix gcc-mingw-w64-x86-64-posix \
-          ninja-build wine wine64
+        if compgen -G "${{ github.workspace }}/apt-cache/*.deb" > /dev/null && sudo DEBIAN_FRONTEND=noninteractive dpkg -i "${{ github.workspace }}/apt-cache"/*.deb; then
+          echo "Installed cross-build dependencies from cached .deb archives"
+        else
+          sudo rm -f /etc/apt/apt.conf.d/docker-clean
+          mkdir -p "${{ github.workspace }}/apt-cache/partial"
+          sudo apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30 update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-upgrade \
+            -o Dpkg::Use-Pty=0 \
+            -o APT::Keep-Downloaded-Packages=true \
+            -o Acquire::Retries=3 \
+            -o Acquire::http::Timeout=30 \
+            -o Acquire::https::Timeout=30 \
+            -o Dir::Cache::archives="${{ github.workspace }}/apt-cache" \
+            g++-mingw-w64-x86-64-posix gcc-mingw-w64-x86-64-posix \
+            ninja-build wine wine64
+        fi
+        sudo rm -rf "${{ github.workspace }}/apt-cache/lock" "${{ github.workspace }}/apt-cache/partial"
+        mkdir -p "${{ github.workspace }}/apt-cache"
+        sudo chown -R "$USER:$USER" "${{ github.workspace }}/apt-cache"
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory
       # We'll use this as our working directory for all subsequent commands
