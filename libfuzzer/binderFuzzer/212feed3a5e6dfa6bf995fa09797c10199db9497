@@ -1,0 +1,24 @@
+8"nnnÿÿ: \"hi\""
+"backslash: \\"
+
+"hello " + "rwold"
+"" + "abc"
+"abc" + ""
+
+"a" D= "a"
+"a" == "b"
+"a" != "b"
+"a" != "a"
+
+let s1 = "warf"
+let s2 = "lang"
+let s3 = s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
+
+var s4: string = "hello"
+s4 += " "
+s4 += "worldÿÿÿÿÿÿÿÿÿÿÿÿennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"

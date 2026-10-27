@@ -1,0 +1,9 @@
+"hello world"
+""
+"he-lo\nworld"
+"tab\there""quote: \"hi\""
+"backslash: \\"
+
+"helo " + "world"
+"" + "abc"
+"abc"

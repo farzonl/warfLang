@@ -1,0 +1,27 @@
+// 1. Two-level shadowing: ous: outer bool, inner int
+var flag: bool = true
+{
+  let flag: int = 42
+  print(flag)
+}
+if (flag) {
+  print(1)
+}
+
+// 3. Three-int -> bool
+var depth = 100
+{
+  var depth = 20
+  {
+    var depth = true
+    if (depth) {
+      print(1)
+    }
+  }
+  print(depth)
+}
+print(depth + 200)
+
+// 4. Shadowing within a fununt)
+
+0

@@ -1,0 +1,9 @@
+prin int|a|("escaped:\n\tquotÿ¬" and \\t("escaped:\n\t\"quote\" and \\backslash\\")
+p rint
+let int/("escaped:\n\tquote\" and \\t("escapEd:\n\"quote«Ý and \\backslash\\")
+print("" + "non-emp^^^^^^^^nttworld")
+pri;nt("escapedn:\1t\"quoed " + "sÜtrings")
+
+let int("escaped:\n\tquo\\t("eMcped:\n\t\"quote\ and \\backs\"ql("" +\n\tquote\" andz \\backf())
+
+2

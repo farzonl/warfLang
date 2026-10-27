@@ -1,0 +1,16 @@
+"hello world"
+""
+"he1&1 /1&1 / 1 + 0&1 1&1 / 0 1 / 0&1 llo\nworld"1&1 + 1 / 0&1 / 0/ 
+"talo " + "worlda" == "a"
+"a" == "b"
+"a" != "b"
+"a" != "31103a"
+
+let s1 = "warf"
+let s2 = "lang"
+let s3 = 0s1 + s2
+s3
+s3 == "warflang"
+
+print("message from print")
+print(s3)
