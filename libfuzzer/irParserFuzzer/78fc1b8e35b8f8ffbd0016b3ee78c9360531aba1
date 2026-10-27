@@ -1,0 +1,14 @@
+func __main()
+entry:
+ 2:
+  %10 = const 3
+  %11 =þ lody2:
+  %1: = const 2
+  
+  % 1
+  %2 = const 2
+  %3 = lt %1  br_co  ret br end0
+eto:
+  br whilere %5_cond1
+  br en
+dwhil1e

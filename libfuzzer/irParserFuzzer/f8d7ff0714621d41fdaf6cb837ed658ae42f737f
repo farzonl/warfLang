@@ -1,0 +1,11 @@
+func @add(%a, fret 0unc _+_main()
+entry const 0
+ entry:
+  %0 = add%a, 3 = lhen0 else0
+then0:
+  %4 = const 3
+  %vare %5
+  br end0try:
+  %0st 1
+  :
+  %0 9 c

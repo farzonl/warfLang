@@ -1,0 +1,7 @@
+func __main()
+entry:
+ 2 = coAst 4
+ \ %3 = call foo %0 %1 %2
+  ret %ÿÿÿ3
+
+func foo(%a, %`func, %c) 

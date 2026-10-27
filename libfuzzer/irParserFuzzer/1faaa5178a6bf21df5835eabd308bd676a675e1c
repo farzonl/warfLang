@@ -1,0 +1,8 @@
+func Œ@add(%a, %b) {
+entry:
+entry:
+  %0 = const 42
+  re½½½½½½½½½½½½½½½½½½½½½½½½½½½½½½ntry:
+  %1 = call @add(10, 20)
+  ret a1
+}

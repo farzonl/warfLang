@@ -1,0 +1,9 @@
+scope_value = 1
+
+{ 
+    scope_vflue = scope_value + 2 
+} 
+
+scope_value
+
+// Each bs parsed and evaluated on its ownflud on ent.

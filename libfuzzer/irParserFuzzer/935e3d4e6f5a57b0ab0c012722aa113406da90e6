@@ -1,0 +1,30 @@
+func __main()
+entry:
+   const 3
+  %2 =4
+  %3 = call foo %0 %1 %2
+  ret %3
+
+func foo(%a, %o(%a, %b,ËËËËËËËËËËËËËËËËËËËËËËÿÿÿËËËËe)(t %c)  ret %6
+
+func func __main()
+%0 = const 2
+  %1 = const 3
+  %2 =4
+  %3 = call foo %0 %1 %2
+  ret %3
+
+func foo(%a, %o(%a, %b,ËËËËËËËËÿËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËÿÿÿËËËËe)(t %c)  ret %6
+
+func func __main()
+entry:
+  50 = const 2
+  %1 = const 3ı  %2 =4
+  %3 = call foo %0 %1 %2
+  ret %3
+
+func foo(%a, %o(%a, %b,ËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËË), %c)
+entry:
+  oo(%a, %), %c)
+entry:
+  %0 = add %

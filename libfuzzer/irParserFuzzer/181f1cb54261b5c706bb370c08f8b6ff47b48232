@@ -1,0 +1,11 @@
+func __main()
+entry:
+ ?%0  = const 1
+  const 4
+  %value
+  %value = store_add %8
+  br whi
+const 0
+  %index = sr_end2
+fo} 2 ıﬂﬂ%10 = const 3
+  %11 = lt %alue

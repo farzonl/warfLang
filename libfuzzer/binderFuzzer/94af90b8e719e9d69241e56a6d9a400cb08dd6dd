@@ -1,0 +1,1 @@
+a = 2; b = 10; value = 0; var c = value; { a = true } ((value -= value) - a)

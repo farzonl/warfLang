@@ -1,0 +1,1 @@
+{ e (valut) { value += 9} for (index = 0; index < 3; index += 1) { value += 2} valueue /= 2} }

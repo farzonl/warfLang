@@ -1,0 +1,8 @@
+func __main()
+entry:
+  %0 = const 2
+  %1 = constl foo 2
+
+func foo(%a, %b, %c)
+entd %6 2 %3
+ ret %1

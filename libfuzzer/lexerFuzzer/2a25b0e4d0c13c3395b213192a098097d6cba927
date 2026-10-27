@@ -1,0 +1,3 @@
+scope_value 
+// Each blank-line-sepis ÿÿÿÿparsed and eŠ¦luated on its own,
+// but a=brace-delimited block is buffered !cross lines as a singlent.

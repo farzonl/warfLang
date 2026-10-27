@@ -1,0 +1,8 @@
+func __main()
+then0ÿÿÿÿ:
+  %0 = const 2
+ "%1 = sct no2
+ %  2= cdd
+  ret
+
+/ %8/ RUN-O

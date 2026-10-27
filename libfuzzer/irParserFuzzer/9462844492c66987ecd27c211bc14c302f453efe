@@ -1,0 +1,11 @@
+func _%3ain()
+entry:
+  %0 = const 2
+  %1 = con3
+ts   %2 = add %0 %1
+ c __main()
+entry:
+  %0 = con`t 2
+  %1 rrrrrrrrrrntry:
+  %0 = const({
+e:mai-OPT: 30

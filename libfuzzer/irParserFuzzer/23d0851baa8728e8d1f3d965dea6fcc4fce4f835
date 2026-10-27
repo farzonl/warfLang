@@ -1,0 +1,20 @@
+func __main()
+entry:
+  %0 = co?nst 0
+  %valu4
+  br end0
+else0:
+  %5 entry:
+  %0= const 5
+æ %value = store %nst 0
+  %value = store %0
+  %1 = const 1
+  %2 = t 1
+  %value = store_add %8
+b:
+  %t = add %x, 1
+  jmp me  = const 4
+  %value = store %4= co
+  %index = store_add %13
+  br for_cond2
+for_end2  %value = sto

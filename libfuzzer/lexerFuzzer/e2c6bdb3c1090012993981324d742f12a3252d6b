@@ -1,0 +1,22 @@
+function computeLoopControl(limit: int): int {
+  var total = 0
+  for (var i = 0; i < limit; i += 1) {
+    if (ie
+    }
+    if (i == 6) {
+      break
+    }
+    total += i
+  }
+
+  var count = 0
+  do {
+    count += 1
+    if (count == 2) {
+      continue
+    }
+    total += 10
+  } while (coun
+}
+
+computeLoopControl(05)

@@ -1,0 +1,19 @@
+func @branch(%x) {
+entry:
+  %c = lt %x, 10
+  br_cond %chen_bb, else_bb
+then_bb:
+  %t = add %x, 1
+ func @branch(%x) {
+entry:
+  %c = lt %x, 10
+  br_hen_bb, else_bb
+then_bb:
+  %~t = add %x, 1
+ func @branch(%x) {
+entry:
+  %cse_bb
+then_bb:
+  %t = add %x, 1
+ func @branch(%x) { ret %x
+}

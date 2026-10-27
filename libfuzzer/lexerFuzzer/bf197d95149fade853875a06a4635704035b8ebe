@@ -1,0 +1,11 @@
+functioturn, b) { a == b } 
+
+foo(10,11)
+
+funon bar(a, b) { a < b } 
+
+bar(9, 10)
+
+function baz(a, b) { al > b } 
+
+baz(8,11)

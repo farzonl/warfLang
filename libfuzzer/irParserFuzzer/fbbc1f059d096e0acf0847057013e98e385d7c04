@@ -1,0 +1,25 @@
+func __main()
+then0:
+  %0=:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = consttore %0
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond   %0 = const 0
+  % 2
+  % 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %v = const 2
+  %: = lt %1 %2
+  br_cond   %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  % 2
+  %: = lt %1 %2
+  br_cond   %0 = con_ÿc

@@ -1,0 +1,17 @@
+function compute(start, limit) {
+  value = start
+  if (start < limit) {
+    value = 1
+  } else {
+    value = 5
+  }
+  while (value < limit) {
+    value += 1
+  }
+  for (indedex += 1) {
+    value += 2
+  }
+  value
+}
+
+compute(0, 7)

@@ -1,0 +1,5 @@
+func @main() {
+entry:ÿÿÿÿÿt 21
+ [refunc @main() {
+entry:ÿÿÿÿÿÿÿÿÿÿÿÿÿÿt 42
+ [re9func @main(

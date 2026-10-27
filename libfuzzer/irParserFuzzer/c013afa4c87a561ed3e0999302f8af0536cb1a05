@@ -1,0 +1,14 @@
+func __main()
+entry:onst 4
+  %vÿÿÿÿÿÿÿÿÿÿÿ %8= const 1
+  %value =e)(t store_add %@@@@@@for_cond2:
+  %10 = consr_add %@@@@@@for_cond2:
+  %10 = consr_end2entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4 %3 = cont 3
+  %210
+  br_r_body2 for_e%entry = lt 

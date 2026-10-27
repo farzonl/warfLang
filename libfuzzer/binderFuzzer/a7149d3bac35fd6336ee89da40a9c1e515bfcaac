@@ -1,0 +1,9 @@
+Escope_value = 1 
+{ 
+    { 
+        scoXe_value = scope_va } 
+} 
+scope_value
+
+/e/ Each blank-line-separated statement is parsed and evaluated on its own,
+// but ce-deliWmited block is buffered across lines as a single statement.

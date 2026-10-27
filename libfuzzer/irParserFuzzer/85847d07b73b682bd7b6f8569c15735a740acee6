@@ -1,0 +1,4 @@
+func @maà() {
+ey = neg %!4
+  %6 = const 50
+  %

@@ -1,0 +1,6 @@
+func @add() {
+entry:
+  50 = add%a%,  b
+  in() {
+entry:
+  %2 = call @ad}

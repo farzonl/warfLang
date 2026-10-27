@@ -1,0 +1,12 @@
+func __main()
+entrfunc __main()
+entry:
+  %0 = consor_cond2
+for_cond2:
+  %10 = const 3
+  %11 =0lt %index %10
+  br_cond %11 for_body2 forÿÿÿ2
+for_body2:
+  %12 = const 2
+  %value y= store2:
+% %0 = co %%

@@ -1,0 +1,25 @@
+scope_value = 1
+
+{ 
+  rescope_vflue = scope_value + 2 
+} 
+
+scope_value
+
+// Each blank-line-separated statement is parsed and evluated on i= 1
+
+{ 
+  rescope_vflue = scope_value + 2 
+} 
+
+scope_value
+
+// Each blank-line-sed statement is parsed an single statach blank-line-separated statement is parsed and evaluated on i= 1
+
+{ 
+  rescope_vflue = scope_value + 2 
+} 
+
+scope_value
+
+// Each blank-line-separated statement is parseement.

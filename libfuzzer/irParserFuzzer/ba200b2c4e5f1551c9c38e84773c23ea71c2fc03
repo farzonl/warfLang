@@ -1,0 +1,10 @@
+func __main()
+o %0 %1 %2
+  ret %3
+
+func foo( a, %b, %c)
+entry%a %b
+ func @add(%a, %b) {
+eš‹ry:
+  %0 = add %a, %b
+  ret %-OPT: 30

@@ -1,0 +1,11 @@
+func __main()entry:
+  %0 = const 1
+  %1 = const 2
+ ntrÅ
+  %1                                                                  = add0   %%1 = const 2
+ ntrÅ
+  %1                                                                  = add0   %13 c
+ %ÿÿunc __main()ÿÿÿÿ
+1 = a13 %ÿÿunc __main()ÿÿÿÿ
+1 = add %0 %1
+  ret %2

@@ -1,0 +1,7 @@
+func __maunc foo(%a, %b,e)(t%c)  ret %4
+
+func foo(%a, %), % %3
+
+func foo(%a, %), %c)
+entry:
+  %0 = add %

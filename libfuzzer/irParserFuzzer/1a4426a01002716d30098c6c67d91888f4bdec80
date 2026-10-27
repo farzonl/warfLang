@@ -1,0 +1,12 @@
+func __main()
+entry:
+  %0 = const re %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_3
+  5 = neg %3
+  %6  %7 =1
+  %value = store_add %8
+  br while_ond1
+value

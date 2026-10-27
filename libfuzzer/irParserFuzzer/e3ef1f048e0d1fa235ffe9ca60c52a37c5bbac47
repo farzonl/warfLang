@@ -1,0 +1,27 @@
+func @main() {
+entzy:ÿÿÿÿÿÿÿÿÿÿÿÿ %8 = const 1
+  %value = store_add %8
+  br while_cond1
+while_end1:
+  %9 = conÿÿst 0
+  %index = store %9
+  boc_rfr ond2
+for_cond2:
+  %10 = c %11 = lt eeeeeeeeeeeeeeeeeeeeeeeeeeeeea, %b
+  ret %0
+}
+func(@main() {
+e’ry:
+  %1 = call @add(10, 20)
+ %index %10
+# br_cond %11 Åforÿÿÿÿÿÿÿÿÿÿÿÿÿÿ@add(%a, %b) {
+entry:
+  %0 = add %eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeea, %b
+  ret %0
+}
+func(@main() {
+e’ry:
+  %1 = call @add(10, 20)
+  ret %ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ 84
+  ret %0
+}

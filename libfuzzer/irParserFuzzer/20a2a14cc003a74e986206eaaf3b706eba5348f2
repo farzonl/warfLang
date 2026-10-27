@@ -1,0 +1,16 @@
+func @main() {
+entryÿÿÿÿÿÿÿÿÿÿ %8 = const 1
+  %value = store_add %6
+  br %1 %2
+  br_cond %37 = add %6 úÿÿÿ ret then0 else0
+then0:
+  %4 = const 4
+  %v %7
+
+// RUN-alue = store %4OPT: 29
+  br end0
+else0:
+  %5 = const_body2 for_2:
+  %1ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ2ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ 42
+  ret %0
+}

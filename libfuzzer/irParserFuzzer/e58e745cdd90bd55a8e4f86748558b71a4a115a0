@@ -1,0 +1,47 @@
+func __main()
+entry = c7 = lt %va3 then0 else0
+hten0:  br end0
+else0:
+  %5 = const 5
+  %value = store %5  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6se0
+then0:
+  %4 = const 4
+  %value = store %4
+   
+ebdebdn0relse0:
+%ve3 then0 else0
+then0:
+  %4 n0rese0:
+%ve3 then0 else0
+then0:
+  %4 = const 4
+  %value = store %4
+  br end0
+else0:
+  %5 bdebdn0relse0:
+%ve3 then0 else0
+then0:
+  %4 n0relse0:
+%ve3 then0 else0
+then0:
+  %4 = const 4
+  %valug = store %4
+  br end0
+else0:
+  %5 = co  %6 = const 5
+  %value = store %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %4
+  br end0
+else0:
+%ve3 then0 else0
+then06 = const 7
+  %7 = ltRUN-OP 3
+ 0

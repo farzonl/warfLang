@@ -1,0 +1,42 @@
+func __main()
+entry = c7 = lt %va3 then0 else0
+hten0:  br end0
+else0:
+  %5 = const 5
+  %value = store %5  br end0
+end0: 
+  br wxile_cond1
+whic ÿÿÿÿÿain:
+  %4 = const 4
+  %value = stoRe %4
+   
+ebdebdn0relse0:
+%ve3 then0 else0
+then0:
+  %4 nd0: 
+  br wxile_cond1
+while_\ond0:
+  %6seĞõ‹en0:
+  %4 = const 4
+  %value = store %4
+   
+ebdebdn0relse0~
+%qe3 th
+   
+ebdebdn0relse0:
+%ve3 then0 else0
+then0:
+  %4 nd0: 
+  br wxile_cond1
+while_\ond0:
+  %6seĞõ‹en0:
+%4 n0relse0:
+%ve7
+  %7 = ltRUNfunc __main()
+e%value = store %4
+   
+ebdebdn0relse0~
+%qe3 th%4 n0relse0:
+%ve7
+  %7 = ltRUNfunc -OP 3
+ n0

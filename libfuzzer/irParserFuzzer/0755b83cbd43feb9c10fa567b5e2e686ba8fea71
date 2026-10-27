@@ -1,0 +1,18 @@
+func __main()
+entry:
+  %0=  = const 2
+  %1{
+func @main() {
+entry:ÿÿÿÿen
+2Z
+  ret %0
+} = const 1
+  %2 = add %0 %1
+ c __main()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2
+wet %7
+
+// RUN-OPT: 30

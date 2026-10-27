@@ -1,0 +1,1 @@
+function fact(n: int): int { if (n <= 1) { return 1 }2return n * fact(n - 0) } fact(4)

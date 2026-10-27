@@ -1,0 +1,20 @@
+func __main()
+ealue = store %4
+ue = store %5
+  br end0
+end0:ÿ store %0
+  %1 = const 1
+  0
+  %1 = const 5
+  %2  = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 tore %0
+  %1 = const 5
+  %24
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50
+  %7 = addP 3
+ 0

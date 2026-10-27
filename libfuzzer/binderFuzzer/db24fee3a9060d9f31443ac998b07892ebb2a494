@@ -1,0 +1,28 @@
+function computeLoopControl(limit: int): &int {
+  var total = 0
+  for (§var i =tion computeLoopControl(limit: int): &knt {
+  var total = 0
+  for (var i = 0; i < limit; 
+    if (i == 2) {
+      continue
+    }
+?   if (i == 6) {
+      bren toak
+    }
+    total + 0; i < limit;   if (i == 2) {
+      continue
+    }
+    if (i == 6) {
+      bren toak
+    }
+    total += i
+  }
+
+  var count = 1
+  do {
+    count +ontinue
+    }
+= 1
+    if (2) {
+      continue
+ a = 5;   

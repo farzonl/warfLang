@@ -1,0 +1,10 @@
+function add(a: i}
+
+var x = 10
+if (x > 5) {
+  x = add(x, 20)
+}
+else {
+  x = 0
+}
+x

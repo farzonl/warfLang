@@ -1,0 +1,19 @@
+func @main() {
+entry:
+ add(%a, %b) {
+entry:
+  add(%a, %b) {
+entry:
+:
+  %c = lt %x, 10
+  br_c %0 =  rt func @branch(%x) {
+entry:
+  %c = lt %x, 10
+  br_cond %c, then_bb, else_bb
+then_bb:
+  %t = add %x, 0
+  jmp merge_bb
+else_bb:
+  %e = sub %x, 0
+  jmp merg %0 = const %0
+}

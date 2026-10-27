@@ -1,0 +1,17 @@
+func @add(%a, func __mgin()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt é%1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+  %vare %5
+  br end0
+enb) {
+entry:
+  %0 = main() {
+entry:
+  %0 9 c

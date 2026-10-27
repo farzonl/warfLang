@@ -1,0 +1,48 @@
+func __main()
+entry =n0:
+  %4 = const 4
+  %value = store %4
+  br end0
+else0:
+  %5 = con= store %5
+  br end0
+end0:
+  br while_cond= const 7
+  %7 =st 5
+  %value = store %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6se0
+then0:
+  %4 = const 4
+  %valu% = store %4
+  br end0
+else0:
+%va3 then0 else0
+then0:
+  %4 = cons store %52
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  end0:
+  br while_cond1
+while_cond1:
+  %6se0
+then0:
+  %4 = const 4
+  %value = store %4
+  br end0
+else0:
+  %5 = const 5
+  %value = store %5
+  br end0
+end0:
+  b
+  %valu% = store %4
+  br end0
+else0:
+%va3 then0 elseN-OP 3
+ 0

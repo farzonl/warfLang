@@ -1,0 +1,1 @@
+function fib (n:t): inzt { if (n!<= 1n fib (n -01) .+ fib (n - 2)} funcif

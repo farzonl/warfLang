@@ -1,0 +1,11 @@
+// Top-level comment before function declaration
+function computeWithCommes(bsnate: int, limit: int): int {
+  // Initialize accumulator
+  var acc = base
+  // L = scope_value + 2 
+} 
+
+scope_value
+
+// Each blank-line-separated statement is parsed and evaluated on its own,
+// but a brace-delimited block is buffere with inline aed acr

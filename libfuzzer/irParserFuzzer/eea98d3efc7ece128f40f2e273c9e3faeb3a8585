@@ -1,0 +1,39 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store func __main()st 2
+  %1 = const 3
+  %2 = add %0 %  %3 = add %6 %  ret %7/ RUN-OPT: 304 = cons st 4
+  %value = store %4
+  br enore %5
+  br end0
+e’˜0:
+  %6 st%value = store %5
+  br end0
+e’˜0:
+  %6 store %5
+  br lue = st 4
+  %value = store %4
+  br end0
+else0:
+  .%5 = const 5
+  %value = store %5
+  br end0
+e’˜0:
+  %6 store %5
+  br end0
+e’˜0:
+  %6 = const 3
+  %value = store_add %= const 3
+  %vlue = store %4
+  br end0
+else0:
+  .%5 = const 5
+  %value = store %5
+  br end0
+e’˜0:
+  %6 st%value = store %5
+  br end0
+e’˜0:
+ alue = store_add %>
+  ret %value

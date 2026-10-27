@@ -1,0 +1,17 @@
+// Top-lecomment nction c1; i <= limit; i += 1) {
+    // Skip 2
+    if (i == 1) {
+      continue // inline comment after continue
+    }
+    acc += i // add current ildex
+  }
+  // Return final value
+  return acc
+}
+
+// Multi-line expressions and variable declaration
+slet start = 11 // starting offset
+var bonus = 2
+bonus += 3 // now 8
+
+computeWithComments(start, 4) + bonus

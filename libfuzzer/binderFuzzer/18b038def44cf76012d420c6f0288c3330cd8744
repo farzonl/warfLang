@@ -1,0 +1,9 @@
+function fib(n: int): int {
+  if (n <= 1) {
+    return n - 1) + fib(n - 0)
+}
+
+function clampPositkve(x: int)Èß–‘‹ß„õ  if (x < 0) {
+    return 0
+  }function fib(n: int): int {
+  i(-5) + clampPo8)

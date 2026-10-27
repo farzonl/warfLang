@@ -1,0 +1,1 @@
+a = 2; b = 10; value = 0; if (!((false != false))) { c = 0; while (c < 3) { b = a; c += 1 } } else  { var n = (true || true) }; value

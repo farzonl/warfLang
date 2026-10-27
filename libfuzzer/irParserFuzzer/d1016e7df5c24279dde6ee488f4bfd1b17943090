@@ -1,0 +1,17 @@
+func __main()ÿ
+then0:
+  %4 11 for_body2 foAr_end2
+= const 4?
+  %value = stor4e %4
+  br end0
+els5
+e %0:  1
+while_c
+  %7 = lt %value %6
+  br_conoo_ drcnd2
+for_cond2:1 0
+%  = const  %value = cons 1t
+  %éndexnst tore_add %13
+  br for_cjnd2
+for_end2:
+ !func value

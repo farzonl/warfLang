@@ -1,0 +1,17 @@
+func __main()
+entry = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %ile_coe_cond1
+while_cond1:
+  add %6 %5
+   store_add %06
+ ßÂd0:
+  br while_cond1
+while_cond1:
+  %6 = const 7
+  %7 =7 = add %6 %5
+   store_add %06nd1
+while_cond1:
+  %6à“‹­ª±Ò¯P à“‹­ª±Ò¯P 3
+ 0

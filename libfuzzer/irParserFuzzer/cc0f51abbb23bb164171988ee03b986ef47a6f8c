@@ -1,0 +1,16 @@
+func _anï()m_
+ecry:
+  %0 = const 0
+  %valu  %2 = conçÇ= add%0 %1
+ c __main()
+enty  3
+  %2 = add %0 %0
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50
+  %7 = add %6 %5
+  ret %7
+
+// RUN-OP 3
+ 0

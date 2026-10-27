@@ -1,0 +1,18 @@
+func __main()ÿn(ÿÿ3
+tgre %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_connd2:1 0
+%  = const 3
+  %11 = lt %index %10
+  br_cond %11 for_body2 for_end2
+for_body2:
+  %12 = const 2
+  :1 0
+%  = const 3
+  %11 = lt %indeø ond2
+for_cond2:1 0%10
+  br_cond %11 for_body2 for_end2
+for_body2:
+  %12 = et %value

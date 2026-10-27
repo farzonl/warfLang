@@ -1,0 +1,15 @@
+func @main() {
+en%value = store_add %8
+  br while_cond1
+while_end1:
+  %9 = conÿÿst 0
+  %index = store %9
+ for_cond2
+for_cond2:
+  %10 = const 3
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd %8
+  br while_cond1
+while_end1:
+  %9 = conÿÿsÿÿÿÿÿÿ 84
+  ret %0
+}

@@ -1,0 +1,10 @@
+func __main()
+en
+  %value = ýtore %0
+  %1 = const 1
+  %Æ = const 2
+  %3 = lt %1 %2
+  br_d %3 then0 else0
+then0 %1
+t 2
+  %1 = cÿobz_d %3 then_end2  %ret value = sto

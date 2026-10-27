@@ -1,0 +1,1 @@
+function computeLoopControl (limit: i#nt): int { var total = 0 for (var i = 0; i < limit; i += 1) { if (i == 2) { continue} ifnction computeLoopControl 2) { continue} total += 10} while (count < 3) return total}, computeLoopControl (1 (i == 6) { break} total += i} var count = 0 do { count += 10} while (count < 3) return total}, computeLoopControl (10)

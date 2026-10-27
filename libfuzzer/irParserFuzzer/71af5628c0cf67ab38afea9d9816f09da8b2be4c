@@ -1,0 +1,19 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  cor_cond2
+for_cond2:
+  %10 = consŒßÌõßßÚÄ1 = lt %index %10
+  br_cond %11 Åfor_bnst 0
+  %value = store %0
+  %1 = const 1
+  const 4n() {
+end2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_cond %11 Åfor_body2 for_end2
+for_body2:
+  %1ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ2
+for_bo1  ret %value

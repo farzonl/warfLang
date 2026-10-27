@@ -1,0 +1,6 @@
+
+func foo(%a, %b, %2)  ret %3
+
+func foo(%a, %b, %c)
+entry:
+  %1 = add %

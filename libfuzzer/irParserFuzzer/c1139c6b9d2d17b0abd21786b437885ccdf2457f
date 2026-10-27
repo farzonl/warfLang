@@ -1,0 +1,36 @@
+func __main()
+eond2:
+  %10 = const 3
+  %1  br end0
+end0:
+  br» while_cond1
+jjjj %4 = mul %2 %3
+  %5 = neg %4 %3 = const 4
+  %4 = mul %2 %3
+  %5 = negl %2 %3
+  %5 = neg %4 %3%1  br end0
+end0:
+  br» while_cond1
+jjjj %4 = mul %2 %3
+  %5 = neg %4 %3 = const 4
+  %4 = mul %2 %3
+  %5 = negl %2 %3
+  %5 = neg %4 %3 = const 4
+  %2 = mul %2 %3
+  %5 = neg %4
+  %6 = const50
+  %3 = add %6 %5
+  ret %2 %3
+  %5 = neg %4 %3 = con %6 %5
+  ret %7
+
+/ = const 4
+  %2 = mul %2 %3
+  %5 = neg %4
+  %6 = const50
+  %3 = add %6 %5
+  ret %2 %3
+  %5 = neg %4 %3 = con %6 %5
+  ret %7
+
+// RUN-OPT: 30

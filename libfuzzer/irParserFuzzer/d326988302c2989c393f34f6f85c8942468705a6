@@ -1,0 +1,37 @@
+func __main()
+o %0 %1 %2çöãﬂ⁄Ã
+
+func foo( a, %b, %c)
+entry:
+  %1 = add %a %b
+
+  ret %0≠≠≠func __main()
+en∫y:
+  %2
+  %13 = const 1%4e = store õ%5
+  br end
+end0:
+  br while_cond1
+while_cond2:
+  %6 = %main()
+en∫y:
+  %2
+  %13 = const 1%4e = store õ%5
+  br end
+en≠≠≠func __main()
+en∫y:
+  %2
+  %13 = const 1%4e = store õ%5
+  br end
+end0:
+  br while_cond1
+while_cond2:
+  %6 = %main()
+en∫y:
+  %2
+  %13 = const 1%4e = store õ%:5
+  br end
+end0:
+  br whilefunc __main()
+e_cond1
+whntåy:

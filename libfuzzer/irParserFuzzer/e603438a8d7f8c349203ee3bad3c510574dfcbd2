@@ -1,0 +1,10 @@
+func __main()
+ensto %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 els:
+ öbr end0
+else0:
+  %5 = const 5
+  %valu‰~~~e

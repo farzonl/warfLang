@@ -1,0 +1,11 @@
+func __main()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = const 4
+  %2%3 = call foo %0 %1 %2
+  ret %ÿÿû3
+
+func foo(%a, %b, %c)
+entry:
+  %1 = add %a %bøßßÚ1 = sub %0 %c %1

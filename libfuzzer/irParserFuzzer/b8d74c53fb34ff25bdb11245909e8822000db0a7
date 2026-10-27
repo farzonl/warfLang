@@ -1,0 +1,11 @@
+func @branch(%x) {
+entry:
+F:  %t = add %x, 4
+  jmp?merge_bb
+ein() {t 42 ÿÿÿþÿÿÎÿÿÿÿÿÿ  %0 :
+  %e = sub rg= add %, a 
+eb' rt %0
+}
+f= sub %x, 1
+  jmp merg= add 
+f%u

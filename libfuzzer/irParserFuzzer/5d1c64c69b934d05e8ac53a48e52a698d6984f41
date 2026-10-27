@@ -1,0 +1,18 @@
+func @add(%a, %b) {
+entÿÿÿÿÿÿÿÿÿ  %1 = add %a,  
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿd %a,  
+eb' rt %0
+}
+funcry:
+ÿÿşÿÿÿb' rt %0
+}
+f add %a,  
+eb' rt %0
+}
+funccÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ  %0 = add %a,  
+eb' rt%0
+}
+func?@main() {ry:
+  %2 = @add(%a, %b) {
+ent  ret %1
+}

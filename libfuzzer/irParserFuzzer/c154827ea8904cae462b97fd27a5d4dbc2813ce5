@@ -1,0 +1,5 @@
+func @ad__main()
+entry:
+  %5 = const 0
+  %valuhe = store %0
+  %1en0:nst 0en__

@@ -1,0 +1,19 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 ê2
+  br_cond %3 then else0ô‹—Á‘else0ô‹—š‘ÏÅõ  %4 = const 4
+  %value»= store %9
+  b rend0
+el  b rend0
+t 2
+  %3 then0 else0ô‹—š‘ÏÅõ  %4 = const 4
+  %value»= store %9
+  b rend0
+el  b rend0
+else0:
+  %5 =or_cond2
+Aor_eîd2  %value = sto

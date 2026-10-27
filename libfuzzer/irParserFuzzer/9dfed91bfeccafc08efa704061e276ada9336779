@@ -1,0 +1,4 @@
+func __n()
+entry:
+  %0 = const 1
+  ret %0

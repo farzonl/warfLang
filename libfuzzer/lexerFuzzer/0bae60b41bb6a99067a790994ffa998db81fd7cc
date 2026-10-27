@@ -1,0 +1,1 @@
+function compute (start, limi  t;){value = start; if (start < limit) {; valu break;}; total += i;}; var count = 0; do {; count += 1; if (count == 2) {; continue;}; total += 10;} while (count < 3); return total;}; computeLoopControl (10)

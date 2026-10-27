@@ -1,0 +1,17 @@
+functcompute(start,
+  value = Start
+  if (start < limit) {
+    value = 1
+  } else { 
+   auvle = 5
+  }
+  while (value < limi) {
+    value += 1
+  }
+ 1 {
+    value += 2
+  }
+  value
+}
+
+compute(0, 7)

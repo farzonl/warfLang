@@ -1,0 +1,21 @@
+{
+  "mode": "libfuzzer",
+  "os": "Linux",
+  "fuzzers": [
+    "binderFuzzer",
+    "irParserFuzzer",
+    "lexerFuzzer",
+    "parserFuzzer"
+  ],
+  "timeout_seconds": 180,
+  "per_fuzzer_timeout_seconds": 45,
+  "corpus_size": 3633,
+  "corpus_by_fuzzer": {
+    "binderFuzzer": 835,
+    "irParserFuzzer": 1001,
+    "lexerFuzzer": 1232,
+    "parserFuzzer": 565
+  },
+  "findings_count": 0,
+  "findings": []
+}

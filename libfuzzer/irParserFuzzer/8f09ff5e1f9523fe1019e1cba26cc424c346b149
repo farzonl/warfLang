@@ -1,0 +1,32 @@
+func _?main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  const 4
+  %value = storfunc @main() {
+entry:ÿÿÿÿÿÿÿÿÿÿÿÿ %8 = const 1
+  %value = _toreEadd %8
+  br while_cond1
+while_end1:
+  %9 = conÿÿst Ô
+  %index = store %9
+  br for_cond2
+for_ncod2:
+  %10 = consŒßÌõßßÚÄ1 = lt %ind e1x
+%0  br_cond %11 Åfor_bnst 0
+  %value = store %0
+  %1 = const 1
+  const 4
+  %value = storfunfunc __main()
+entry:
+  %0 = const 2
+ "%1 = const 3
+  %2 = add %0 %  %7 = add %6 %5
+  ret
+
+/ %7/ RUN-OPT: 30ÿÿst Ô
+  %in1:
+  %9 = conÿÿst Ô
+  %i
+foralue

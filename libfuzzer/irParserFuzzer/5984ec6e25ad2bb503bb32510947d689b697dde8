@@ -1,0 +1,36 @@
+func __main()
+o %1 %1 %ìa %b
+  %1 = sub 
+´func foo( a, %b, %c)
+e %c
+  2
+  
+
+// RUN-OPT:et %1t 2
+  
+
+// R%0 %c
+  ret %1t 2c __main()
+o %1 %1 %ìa %b
+  %1 = sub 
+e %c
+  2
+  
+
+// RUN-OPT:et %1t 2
+  
+
+// R%0 %c
+  ret %1t 2
+  
+
+// RU×éÿÔTþÿÿÿÿÿÿ2
+  
+
+// RUN
+  
+
+// RU×éÿÔTþÿÿÿÿÿÿ2
+  
+
+// RUN-OPT: 0

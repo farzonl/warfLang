@@ -1,0 +1,8 @@
+func __main()
+entry:
+  %5 = const 0
+  e = tonst 2 const 2
+  %1 = const 33333333333333333333,333333333333
+  %2 = add %0 %1
+  %3àÂß˜onst 4
+  %4 = mlue ul %2ue

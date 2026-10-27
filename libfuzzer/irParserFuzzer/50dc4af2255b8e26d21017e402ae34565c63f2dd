@@ -1,0 +1,33 @@
+func __main()
+entry:
+  %0 = consor_cond2
+for_cond2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_cond %11 for_body2 forÿÿÿ2
+for_body2:
+  %12 = const 2
+  %value = store_add %11
+  %13 = const 1
+  %index =  %value = storefor_cond2:
+  %×Ï = const 3
+  %11 = lt %e)(tx %10
+  br_cond %11'for_body2 forÿÿÿ2
+for_body2:
+  %12 = const 2
+  %value = store_add %12
+  %13 = const 1
+  %index =  %value = store %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6 = const 7
+  %7 = lt %value %6
+  br_cond %ody1 while_end1
+while_o:d1by
+  %8 = const 1 forÿÿÿ2
+for_body2:
+  %12 = const ÏõßßÚ‰ž“ue = store_add %12
+  %13 = const 1
+  %index =lue

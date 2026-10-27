@@ -1,0 +1,10 @@
+scope_value = 1
+
+{ 
+  rescope_vflue = scope_value + 2 
+} 
+
+scope_value
+
+// Each blank-line-ssed and evaluated on its o-delimited block is buffered8 across l
+// Each bsingle statement.

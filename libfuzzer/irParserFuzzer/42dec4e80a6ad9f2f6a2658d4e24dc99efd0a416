@@ -1,0 +1,14 @@
+func __main()
+entry:
+nst 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+  %value = store 
+  %value = store %5
+  br end0
+end0:
+  %6 = const 3
+  %value =

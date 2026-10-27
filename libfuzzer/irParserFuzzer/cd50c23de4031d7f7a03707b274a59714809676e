@@ -1,0 +1,9 @@
+func __mac @main() º
+entry:ÿÿÿÿÿÿÿÿÿÿÿÿ %8 = const 1
+  ±value = stor
+entry:
+  %0  const 4
+st 3
+  %() {
+entry:ÿÿÿÿÿÿÿÿÿÿÿÿ %8 = con2 = afune 3
+  %2 = add

@@ -1,0 +1,9 @@
+func O_()
+entry:
+  %0 = const 2
+  3
+  %2 add %6 %5
+  ret %7
+
+//?RU:
+ T: 30

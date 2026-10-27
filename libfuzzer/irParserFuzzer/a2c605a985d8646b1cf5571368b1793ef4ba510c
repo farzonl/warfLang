@@ -1,0 +1,4 @@
+func @ad[(%a, eb) {
+entryc @
+  % = lt %  br_cond %cn(%
+entr

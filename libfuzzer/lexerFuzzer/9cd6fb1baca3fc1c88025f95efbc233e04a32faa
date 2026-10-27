@@ -1,0 +1,1 @@
+function in inc(x: it): int { return x +inc(true)

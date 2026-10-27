@@ -1,0 +1,14 @@
+func @mafunc __main()
+ent:
+  %0 =in() {
+entry const 2
+  %1 = const 3
+  %2 = add %ÿÿÿÿÿÿÿÿ3 = const 4
+  %4 = :
+ lul %2 %3
+  %5 = neg %4
+  %6 =ÿÿÿÿÿÿÿÿÿÿ %0 = c const 42 {
+enonst 50
+  %7 = add -
+}
+OPT: 30

@@ -1,0 +1,1 @@
+a 0; b = 3; value = 0; if ((+0 != 10)) { let %x = 4 }; for (index = 0; ex = 0; indendex += 1) { b += b }; ((10 / b) * +(42))

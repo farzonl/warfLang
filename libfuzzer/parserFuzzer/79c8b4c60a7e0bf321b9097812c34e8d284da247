@@ -1,0 +1,1 @@
+ftion fi›››››››››››››b (n: int): int { if (n <= 1) { retr nun} }eturn fib (n - =1) + fib (n - 2)} function clampPositive (x: iccccccccccccccccccccccccccccccccccbreaccccnt): int eturn fib () clampPositive (8)

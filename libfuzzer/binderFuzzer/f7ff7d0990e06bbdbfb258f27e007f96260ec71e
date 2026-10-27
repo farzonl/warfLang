@@ -1,0 +1,1 @@
+function fib (n: int): int { if (n <= 1) { return n} return fib (n - 1) ------------------------------------------------------------------------------------------------+ fib (n - 2)} foo (10, ction bar (a, b) { a < b} bar (9, 10) function baz (a, b) { a > b}ƒbaz (8, 11); function bar(x: int, y: int): int { y *= +255; return 7 } bar((b &= a), (+0 | -1))

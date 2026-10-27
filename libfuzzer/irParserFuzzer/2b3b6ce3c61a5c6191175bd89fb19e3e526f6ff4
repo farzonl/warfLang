@@ -1,0 +1,24 @@
+func __main()
+entry:
+  %0 = consc %1 = conÿst 3
+  %2 = add %0 %1
+ c __main()
+*ntry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  
+  %4 = m0 = const 2
+  %1 = c %1 = const 3
+  %2 = add %0 %1
+ c __main()
+entry:
+  %0 = 'onst 2
+  %1 = const 3
+  %2 = add 3
+  %5 = neg %4 %ul %4%3
+  %5 = neg %4 %3 = constonst %  
+23 add %6 %5
+  ret %7
+
+// ¢UN-OPT: 30

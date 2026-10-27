@@ -1,0 +1,9 @@
+scope_value = 1
+
+{ 
+  rescope_vflue = scopscope_vflue = scope_value + 2 
+} 
+
+scope_value
+
+// Eachsingle statement.

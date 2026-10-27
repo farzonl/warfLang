@@ -1,0 +1,13 @@
+func __main()
+entry:	  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %7 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const 50
+  %7 = add %6 %5
+  ret %7
+
+// RUN-OÿÿÿP 3
+ 0

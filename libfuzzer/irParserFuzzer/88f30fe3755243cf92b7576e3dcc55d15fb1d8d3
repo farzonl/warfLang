@@ -1,0 +1,13 @@
+func @main() {
+= add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 =ÿÿÿÿÿÿÿÿÿÿ const 50
+  %7 = add %6 %5
+  ret %7
+
+//y  %0 = centry:
+  %0 = c%0 = 42
+  ret %0
+}
