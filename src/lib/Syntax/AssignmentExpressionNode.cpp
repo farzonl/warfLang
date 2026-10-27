@@ -9,9 +9,10 @@ AssignmentExpressionNode::AssignmentExpressionNode(
     std::shared_ptr<SyntaxToken> equalsToken,
     std::unique_ptr<ExpressionNode> expression)
     : ExpressionNode(SyntaxKind::AssignmentExpression),
-      mIdentifier(identifierToken), mAssignmentOperator(equalsToken),
+      mIdentifier(std::move(identifierToken)),
+      mAssignmentOperator(std::move(equalsToken)),
       mExpression(std::move(expression)) {
-  mVecExpressionNodes.push_back(identifierToken.get());
+  mVecExpressionNodes.push_back(mIdentifier.get());
   mVecExpressionNodes.push_back(mAssignmentOperator.get());
   mVecExpressionNodes.push_back(mExpression.get());
 }

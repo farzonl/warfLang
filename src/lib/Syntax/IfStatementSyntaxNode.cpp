@@ -25,7 +25,9 @@ IfStatementSyntaxNode::IfStatementSyntaxNode(
                          mThenStatement.get()};
   if (mElseKeyword) {
     mVecExpressionNodes.push_back(mElseKeyword.get());
-    mVecExpressionNodes.push_back(mElseStatement.get());
+    if (mElseStatement) {
+      mVecExpressionNodes.push_back(mElseStatement.get());
+    }
   }
 }
 
