@@ -319,7 +319,7 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         auto printfType = llvm::FunctionType::get(
             intType, {llvm::PointerType::getUnqual(context)}, true);
         auto printfFunc = module->getOrInsertFunction("printf", printfType);
-        auto fmtPtr = builder.CreateGlobalStringPtr("%d\n", ".printf.fmt");
+        auto fmtPtr = builder.CreateGlobalString("%d\n", ".printf.fmt");
         auto printedVal = operand(0);
         builder.CreateCall(printfFunc, {fmtPtr, printedVal}, resultName);
         value = printedVal;
