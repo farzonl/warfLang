@@ -1,0 +1,2 @@
+func fu( a, %b, %c)
+r1

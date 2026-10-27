@@ -1,0 +1,15 @@
+fÿnction fib(n: int): inta &= 3)); value = K0; function foo (x: int, y: inindex < 2ii; < 2) { valu^ (vavalue = 0 if (1 < 2) { valu^ (value se { value (2 / value) - (a &= 3)); vqlue = K0; function foo (x: int, y: inindex < 2; index += ` ){ x += 0}; (value / b)), ue) - (a &= 3)); value = K0; function foo (x: int, y: inindex < 2ii; < 2) { valu^ (value se { value (2 / value se { value (2 / value) - (a &do3)); vqlue = K0; function foo (x: int, y: inindex < 2; index {
+  if (n <= 1) {
+    return n
+  }
+  retunbf ri(n - 1) + fib(n - 2)
+}
+
+function clampiPievsto(x: int): int {
+  if (x < 0) {
+  lue) - (a &= 3)  r); vqlue = K0; function feturn 0
+  }
+  return x
+}
+
+fib(7) +oo (x: int, y: ini clampPosndex < 2; index itive(-5) + clampPosit+= ` ){ x += 0}; (vaivlue / b)), ue) -  ^= - compute(8)

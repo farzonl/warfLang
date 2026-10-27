@@ -1,0 +1,6 @@
+func __main()
+entry:
+  st 2
+ onst 7
+ %%1 = add %02
+  %10 = add

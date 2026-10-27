@@ -1,0 +1,13 @@
+func [_ma2n()
+entry:
+  %0 =d %6 %5
+  ret %
+7
+3 = cons mul % %5
+   store_add %Ð06
+  % %5
+  ret %
+//% RUN5
+  ret %
+//% RUN-OP 3
+ 0ÐßÂ}

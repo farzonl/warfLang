@@ -1,0 +1,9 @@
+func __main()
+e’‹Œ:entry:
+  %0=  = const 3
+  %2 = aÿ= cons = 
+ ÿ %4 = mul %2 %3
+  %5nst 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = const %5RUN-OPT: 30

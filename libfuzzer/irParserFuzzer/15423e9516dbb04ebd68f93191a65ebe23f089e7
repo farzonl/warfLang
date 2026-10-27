@@ -1,0 +1,11 @@
+func [_mainßÐÂ(% )
+ßconst 42
+ :
+  = neg %45
+  ret %
+//% RUN-OP 3:
+ nst 50 R
+ :
+  = neonst 50 R
+ :
+  =  0ÐßÂ}

@@ -1,0 +1,7 @@
+func @add(b)
+b
+  ret %0
+}
+func @ía{n (i)
+entry
+  ret %2

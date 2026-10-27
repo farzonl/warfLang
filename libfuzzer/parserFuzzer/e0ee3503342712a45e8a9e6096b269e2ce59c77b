@@ -1,0 +1,1 @@
+function foo (a: int, b:~ int): int { if  c a} fu|nction foo2 (a, b, c) { a + b == )} foo (2, 3, 4) fioo2 (1, 2, 3)

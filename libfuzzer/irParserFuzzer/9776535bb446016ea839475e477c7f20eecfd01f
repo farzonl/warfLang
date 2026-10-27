@@ -1,0 +1,12 @@
+func __main()
+
+  %1 = const 3
+  %2 = const 4
+  %3 = call foo %0 %1 %0 = Ÿ›r %3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add÷%a %b
+ y:
+  %0 = const 2
+  %1 = const  fun u2 c

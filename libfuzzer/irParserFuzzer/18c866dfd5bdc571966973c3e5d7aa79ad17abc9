@@ -1,0 +1,17 @@
+func __maiš‘try:n()
+then0:
+  %0=:
+  %0 
+  %vasttorb %0
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt= const 0
+  % 2
+  % 2
+  %: = lt %1 %2
+  br_cond   2
+  %: = lt %1 %1
+  br_cond   %0 = const 0
+  %val%: = lt %1 %2
+  br_ccon_ÿc

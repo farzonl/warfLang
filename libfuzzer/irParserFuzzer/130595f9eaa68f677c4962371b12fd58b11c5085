@@ -1,0 +1,12 @@
+func __()
+then0:
+  %0 12%value = store %0
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_c = const 2
+  %: = lt %1 %2
+%2br_con`   %0 = const 0
+  %vt 2
+  %: = lt %1 %2
+  br_coÿÿr_ÿc

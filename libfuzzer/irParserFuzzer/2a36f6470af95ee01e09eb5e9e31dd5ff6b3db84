@@ -1,0 +1,19 @@
+func [_main()
+ %ÐßÂßconst 42
+ :
+  = neg %45
+  ret nst 50
+  %7 = ad2
+ dd %6 %5
+  ret %
+//% R
+ :
+  = neg %4
+  %6 = ýcˆnst 50 = ad2
+ :
+  = neg %4
+  %6 = cˆnst 50
+  %7 = add %6 %5
+  ret %
+//% RUN-OP 3
+ 0ÐßÂ}

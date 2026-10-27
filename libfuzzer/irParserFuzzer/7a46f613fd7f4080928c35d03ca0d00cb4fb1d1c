@@ -1,0 +1,22 @@
+func _mÿÿÿÿain()
+
+  %1 =etb %0 %c
+  ret %1entjy:
+  %0 = const 2
+  
+else0:
+( %8t:
+  %0 = addÑÑ=etb %0 %c
+  ret %1entjy:
+  %0 = #onst 2
+  
+else0:
+( %5try:
+   %0 = const 2
+  
+else0:
+  %5 = while_conentry:
+  %0 const 2
+  
+else0 %c
+  rt e%1

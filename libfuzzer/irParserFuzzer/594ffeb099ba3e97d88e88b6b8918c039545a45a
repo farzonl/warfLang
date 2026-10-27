@@ -1,0 +1,16 @@
+func __main()
+entry:
+" % %3 = const 2
+  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+  %v¦¦¦¦¦((((((((((((((((ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ(store %00
+then0:
+ 
+  %5 = const false
+  %6 = eq %4 %5
+  re(((((((((ue = store %(((((((((((( = store4
+  br end0
+else0:
+  %5 = c‘‘ %

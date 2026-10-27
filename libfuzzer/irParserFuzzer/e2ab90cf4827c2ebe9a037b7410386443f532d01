@@ -1,0 +1,17 @@
+func __main()
+entry:
+ Â%0
+2Z
+  ret %0
+} = const 1nc __main()
+entry:
+ Â%0
+2Z
+  ret %0
+} = const 1
+  %y:
+  t %0
+}à= conOPT: 
+  %y:
+  t %0
+}à= conOPT: 20

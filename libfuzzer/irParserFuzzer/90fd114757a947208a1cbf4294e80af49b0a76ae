@@ -1,0 +1,10 @@
+func _ain()
+entry:
+  foo %0 %2
+ ret %3
+
+¡unc
+  ret %3
+
+nc %c%2
+  ret %senst0 

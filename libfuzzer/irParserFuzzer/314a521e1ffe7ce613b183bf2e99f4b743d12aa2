@@ -1,0 +1,8 @@
+func ]n()
+ÿÿ:
+  %4 = const 4
+  % @or_z%9
+  neg %4
+
+
+// RUT: 430

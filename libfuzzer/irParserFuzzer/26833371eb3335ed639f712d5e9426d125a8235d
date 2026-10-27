@@ -1,0 +1,45 @@
+func __main()
+entry:
+  %5 = const 0
+  %val(((((((((((((((((((((((((((( = store %00
+then0:
+ alue e =  = store %00
+
+ue e = storeD%00
+then0:
+  %4 = const 4
+:
+  %0 = const 10
+  %1 = const 0
+  %2§§§§ = div 0
+  %2 = div %0 %1
+  %3 = const true
+  %4 = not %3
+  %5 = const false
+  %6 = eq %0 %5
+  ret n0:
+  %4 = const 4
+:
+  %0 = const 10
+  %1 = const 0
+  %2 = div %0 %1
+  %3 = const tr‘šõß %4 = not %3
+  %5 = const false
+  %6 = eq %4 %5
+  ret %6
+
+0
+  %1 =   ret %6
+
+0
+  %1 = const 0
+  t for_coue = store_add %11ÿÿ
+  %13 = const º
+  %ind
+1:
+  %9 = consst 0
+e = sene0
+then0:
+  %4 = const 4
+ -%value = store cond2
+ft %value

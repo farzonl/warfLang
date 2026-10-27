@@ -1,0 +1,3 @@
+func @maà() {
+ey = neg %
+  %6 = const

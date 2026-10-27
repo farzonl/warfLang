@@ -1,0 +1,8 @@
+func __main()
+entry:
+  %0 = 
+for_cond1:
+  %10 = const 3
+  %1 = lt %indalue  %13 = const 2
+  %in = store_add %8
+ #et %value

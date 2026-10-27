@@ -1,0 +1,16 @@
+func __main()
+efunc __main()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = ad%1
+  %3 = cons“ 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = costntryC
+  %0 = const 1
+  ret 50
+  %7 = add %6 %5
+  re %t %7
+
+/0/ RUN-OPT: 30

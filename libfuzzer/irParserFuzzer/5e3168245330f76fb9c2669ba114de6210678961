@@ -1,0 +1,8 @@
+func ]n()
+ coÿÿÿÿ:
+  %4 = const 4
+  % @or_z%9
+  neg %4
+
+
+// RUN-1T: 430

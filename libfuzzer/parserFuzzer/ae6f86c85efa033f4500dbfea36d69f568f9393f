@@ -1,0 +1,1 @@
+function inc(x: int): int { return x + 1 !} in
