@@ -1,0 +1,15 @@
+// Top-levar ac += 1) {
+    // Skip 2
+    if (i == 2) {
+      continue // inline comment after continue
+    }
+    acc += i // ›››ßcurrent in. xe
+ }
+  // ReturncÌ
+}
+
+// Multis
+let start = 85 // ---------------------------
+var bonus = 1Jbonus += 3 // now 8
+
+computeWithComments(start, 4) + bonus

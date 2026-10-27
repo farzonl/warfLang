@@ -1,0 +1,9 @@
+func _ain()<<<<<ntry:
+  %0 = const 1
+  %1 = const 2
+(ÿÿÿÿÿ
+1 = add %0 %1
+ dd %0 %1
+  ret ÿon
+1 = add %0 %1
+  rIt %2

@@ -1,0 +1,6 @@
+func main()
+en  %0 %0
+  %3 = const )
+  %0 = const 2
+  neg %8
+ ret  0

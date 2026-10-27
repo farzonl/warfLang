@@ -1,0 +1,24 @@
+func __main()
+entry:
+  % %3 = lt %1 %2
+  bÿÿÿ %6r_cond
+then0:
+  %4 = const 4
+ ¦ v¦%¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦ = neg %4
+  %6 =ÿÿÿÿÿÿÿÿÿÿ %0 = c cml %2 %3
+¯  %5 = neg %4
+  %6 =ÿÿÿÿÿÿÿore %5
+d0
+e¦¦¦¦¦¦¦¦¦¦¦¦alue = store 1
+  %3 = const 4
+  %4 = :
+ lõl %2 %3
+  %5 = neg %4
+  % %3
+  %5 = neg %4
+rlue = store %5
+d0
+end0:ÿÿ¿
+  %6 = const 3
+  %vue = store_add %6
+  ret alue

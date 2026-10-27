@@ -1,0 +1,6 @@
+func :m__ain()
+%value = store %0
+ :
+  %4 = const 4
+  %value =  neg %4
+ fy: 

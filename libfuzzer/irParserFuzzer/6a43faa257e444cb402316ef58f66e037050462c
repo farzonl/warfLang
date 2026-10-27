@@ -1,0 +1,7 @@
+func __main()entr%0
+ %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+ brn:
+  %ul %2 neg %3
+ 

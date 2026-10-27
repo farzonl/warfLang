@@ -1,0 +1,7 @@
+func @bran(%x) 
+:
+  %t = add %x, 1pm
+b:
+  %e = sub %x, 13
+  %2 = const 8
+re
