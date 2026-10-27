@@ -1,6 +1,13 @@
 name: CMake Libfuzzer Release
 
 on:
+  workflow_dispatch:
+    inputs:
+      timeout:
+        description: 'Overall fuzzing wall-clock timeout in seconds (split across fuzzers)'
+        required: false
+        default: '180'
+        type: string
   push:
     branches:
       - master
@@ -8,6 +15,8 @@ on:
       - '**.cpp'
       - '**.h'
       - '**CMakeLists.txt'
+      - 'scripts/runLibFuzzers.py'
+      - 'scripts/geneticFuzzer.py'
       - .github/workflows/cmake-libfuzzer.yml
   pull_request:
     branches:
@@ -16,13 +25,21 @@ on:
       - '**.cpp'
       - '**.h'
       - '**CMakeLists.txt'
+      - 'scripts/runLibFuzzers.py'
+      - 'scripts/geneticFuzzer.py'
       - .github/workflows/cmake-libfuzzer.yml
+
+permissions:
+  contents: write
+  issues: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  CORPUS_BRANCH: fuzz-corpus
 
 jobs:
   build:
@@ -127,11 +144,10 @@ jobs:
       shell: powershell
       run: |
         [system.io.directory]::CreateDirectory("${{github.workspace}}/artifacts")
-        Copy-Item "build/fuzz/${{ env.APPNAME }}*Fuzzer${{ matrix.artifact_exec_ext }}" -Destination "${{github.workspace}}/artifacts"
+        Copy-Item "build/fuzz/*Fuzzer${{ matrix.artifact_exec_ext }}" -Destination "${{github.workspace}}/artifacts"
         Compress-Archive -Path ${{github.workspace}}/artifacts/* -DestinationPath ${{ env.APPNAME }}-${{matrix.artifact_os_name}}-libfuzzers-${{matrix.artifact_arch}}.zip
     - name: 'Upload Pull Request Artifact'
       uses: actions/upload-artifact@v4
-      if: startsWith(github.ref, 'refs/pull/')
       with:
         name: ${{ env.APPNAME }} Pull Request Artifacts (${{ matrix.os }})
         path: ${{ env.APPNAME }}-*.zip
@@ -143,3 +159,154 @@ jobs:
         tag_name: ${{ env.APPNAME }}-${{ env.VERSION }}
         files: |
           ${{ env.APPNAME }}-*.zip
+
+  fuzz:
+    needs: [build]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-15, windows-2022]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Runtime Dependencies (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            llvm libedit-dev unzip python3
+
+      - name: Install Runtime Dependencies (Mac)
+        if: matrix.os == 'macos-15'
+        run: |
+          brew install llvm
+          echo "$(brew --prefix llvm)/bin" >> $GITHUB_PATH
+
+      - name: Install Runtime Dependencies (Windows)
+        if: matrix.os == 'windows-2022'
+        run: |
+          choco install llvm
+
+      - name: Download Libfuzzer Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Warf Pull Request Artifacts (${{ matrix.os }})
+          path: fuzzer-artifact
+
+      - name: Restore persistent fuzz corpus from ${{ env.CORPUS_BRANCH }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git ls-remote --exit-code --heads origin "${CORPUS_BRANCH}" >/dev/null 2>&1; then
+            git clone --depth=1 --branch "${CORPUS_BRANCH}" \
+              "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" fuzz-corpus
+          else
+            mkdir -p fuzz-corpus
+            git -C fuzz-corpus init
+            git -C fuzz-corpus checkout --orphan "${CORPUS_BRANCH}"
+            git -C fuzz-corpus remote add origin \
+              "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          fi
+          mkdir -p fuzz-corpus/libfuzzer
+          EXISTING_COUNT=$(find fuzz-corpus/libfuzzer -type f ! -name '*.json' | wc -l | tr -d ' ')
+          echo "Restored ${EXISTING_COUNT} persistent libFuzzer corpus inputs from ${CORPUS_BRANCH}."
+
+      - name: Run libFuzzers
+        shell: bash
+        run: |
+          TIMEOUT="${{ inputs.timeout || '180' }}"
+          if [ "${RUNNER_OS}" = "Windows" ]; then
+            PYTHON_BIN="python"
+          else
+            PYTHON_BIN="python3"
+          fi
+          "$PYTHON_BIN" scripts/runLibFuzzers.py \
+            --artifact-dir fuzzer-artifact \
+            --corpus-root fuzz-corpus/libfuzzer \
+            --seed-dir "test/filecheck,fuzz-corpus/corpus" \
+            --output-dir fuzz-output \
+            --timeout "${TIMEOUT}"
+
+      - name: Upload libFuzzer output artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: libfuzzer-output-${{ matrix.os }}-${{ github.run_id }}
+          path: fuzz-output/
+          retention-days: 14
+
+      - name: Merge and persist corpus to ${{ env.CORPUS_BRANCH }} branch
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p fuzz-corpus/libfuzzer
+          if [ -d fuzz-output/corpus ]; then
+            cp -rf fuzz-output/corpus/* fuzz-corpus/libfuzzer/ 2>/dev/null || true
+          fi
+          if [ -f "fuzz-output/summary-${RUNNER_OS}.json" ]; then
+            cp -f "fuzz-output/summary-${RUNNER_OS}.json" "fuzz-corpus/libfuzzer/summary-${RUNNER_OS}.json" 2>/dev/null || true
+          fi
+
+          cd fuzz-corpus
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add libfuzzer
+
+          TOTAL_CORPUS=$(find libfuzzer -type f ! -name '*.json' | wc -l | tr -d ' ')
+          if git diff --cached --quiet; then
+            echo "No libFuzzer corpus changes to push (${TOTAL_CORPUS} total corpus inputs)."
+          else
+            git commit -m "Update libFuzzer corpus on ${RUNNER_OS} (${TOTAL_CORPUS} inputs, run ${GITHUB_RUN_ID})"
+            PUSHED=0
+            for attempt in 1 2 3 4 5; do
+              if git push origin "HEAD:refs/heads/${CORPUS_BRANCH}"; then
+                PUSHED=1
+                break
+              fi
+              echo "Push attempt ${attempt} failed due to concurrent update; fetching and merging..."
+              sleep $((attempt * 2))
+              git fetch origin "${CORPUS_BRANCH}"
+              git checkout -B "${CORPUS_BRANCH}" "origin/${CORPUS_BRANCH}"
+              mkdir -p libfuzzer
+              if [ -d ../fuzz-output/corpus ]; then
+                cp -rf ../fuzz-output/corpus/* libfuzzer/ 2>/dev/null || true
+              fi
+              if [ -f "../fuzz-output/summary-${RUNNER_OS}.json" ]; then
+                cp -f "../fuzz-output/summary-${RUNNER_OS}.json" "libfuzzer/summary-${RUNNER_OS}.json" 2>/dev/null || true
+              fi
+              git add libfuzzer
+              if git diff --cached --quiet; then
+                PUSHED=1
+                break
+              fi
+              git commit -m "Update libFuzzer corpus on ${RUNNER_OS} (${TOTAL_CORPUS} inputs, run ${GITHUB_RUN_ID})"
+            done
+            if [ "${PUSHED}" -eq 1 ]; then
+              echo "Persisted ${TOTAL_CORPUS} libFuzzer corpus inputs to ${CORPUS_BRANCH}."
+            else
+              echo "Warning: could not push corpus after retries." >&2
+            fi
+          fi
+
+      - name: File deduplicated GitHub issues for discovered findings
+        if: always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${RUNNER_OS}" = "Windows" ]; then
+            PYTHON_BIN="python"
+          else
+            PYTHON_BIN="python3"
+          fi
+          if [ -f fuzz-output/summary.json ]; then
+            "$PYTHON_BIN" scripts/runLibFuzzers.py \
+              --file-github-issues-from fuzz-output/summary.json \
+              --repo "${GITHUB_REPOSITORY}" \
+              --run-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          fi
