@@ -1,0 +1,17 @@
+
+true && true
+true && !false
+false && !false
+false false
+!true != true
+false != true
+1 != 2
+1 != 111
+1 == 1 && true
+1 == 1 && 2 == 2
+1 == 1 && false
+1 == 1 && 2 == 3
+false && 2 == 2
+1 == 2 || 2 == 2
+1 == 2 || 2==3
+348831831

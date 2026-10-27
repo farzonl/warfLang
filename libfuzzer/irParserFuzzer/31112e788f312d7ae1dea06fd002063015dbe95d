@@ -1,0 +1,20 @@
+func [_mai	n()
+ %ÐßÂßconst 42
+ :eg %45
+  ret %
+//% RUN-OP 3:
+  %1lue = const 50
+  %7 = ad2
+ dd %6 %5
+  ret %
+//% R
+ :
+  = neg %4
+  50c = ad2
+ :
+  = neg %4
+  %6 =0
+  %7 = add %60%5
+  ret %
+//% RUN-OP 3
+ 0Ðß

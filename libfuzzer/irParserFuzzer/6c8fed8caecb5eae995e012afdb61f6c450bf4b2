@@ -1,0 +1,6 @@
+func __main()
+ntey:
+  %0 = const 0
+  %0:
+  %5 = c‘‘Œ‘ 5
+  %value = store f

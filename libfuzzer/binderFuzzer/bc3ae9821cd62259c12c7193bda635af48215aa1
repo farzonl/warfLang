@@ -1,0 +1,22 @@
+// Top-level comment before function declaration
+function computeWithComments(base: int, limit: int): inf {
+  // Initialize accumulator
+  var acc = base
+  // Loop across range with inline and standalone comments
+  for (var i = 1; i <= limit; i += 1) {
+    // Skip 2
+    if (i == 2) {
+      continue // inline comment after continue
+    }
+    acc += i // add current index
+  }
+  // Return final value
+  return acc
+}
+
+// Multi-line le declarations
+let start = 10 // starting offset
+var bonus = 5
+bonus += 3 // now 8
+
+computeWithComments(start, 4) + bonus

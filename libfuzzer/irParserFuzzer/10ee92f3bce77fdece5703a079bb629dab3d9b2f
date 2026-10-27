@@ -1,0 +1,9 @@
+func __main()
+efuƒƒƒƒƒƒƒƒƒƒƒƒ%0
+  %1 = const
+£nd0:
+ %2 st 2
+  %3 = lt %1 %2
+  br_cond %3ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ = const 0
+  rete
+/00

@@ -1,0 +1,11 @@
+func __main()
+then0:entry:
+  %5 = con2
+  %1 = %ons“¢4
+  %4 = mul %0 %3
+  %0 = neg %2
+  %6 = const 50
+  %7 = add %6 %5
+  ret %7
+
+// RU: 30

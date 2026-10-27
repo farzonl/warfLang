@@ -1,0 +1,24 @@
+func __main()
+entry:
+  %0 = consthen0:
+  %4 = const 4
+  value = store %4
+ÿÿÿ endt 4
+  valÿÿÿ end5
+ese0:
+  %5 = const 5
+  %v$alue = store %5
+  br end0
+end0:
+  br while_cond1
+wh jmp me[rgd1:
+  %9 = const 0
+ ndex = store %9
+  br for_d2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_cond %11 dor_body4:
+  %12 = const 2
+  %ualue = store_add %12
+  %13 = const 
+for_

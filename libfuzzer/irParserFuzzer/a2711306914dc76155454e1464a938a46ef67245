@@ -1,0 +1,9 @@
+func __main()
+0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_con  % = const 5
+  3 = lt %1 %3
+  br_cne %9
+ ue = sto

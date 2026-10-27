@@ -1,0 +1,13 @@
+func __main() %0
+  %3 = const 8
+  %2et %00 %1
+  = mul %2 %3
+ ßrue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0= div t true
+  %4 = not %3
+  conmt false
+  %3 = eq %4 %5
+õõÐÐß­ªN-OPT: true
