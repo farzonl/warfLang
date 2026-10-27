@@ -1,0 +1,81 @@
+
+true && true
+true && !false
+false && !false
+false && !true
+!false && true
+!true && false
+!true && true
+true == true
+false == false
+1 == 1
+255 == 255
+true == false
+!true == true
+slae= f= true
+1 == 2
+"hellg world"
+"a ,,s,0i,~slash:&0i,~aÿù,0loÿ,0i,~a,0lo\nw: \"hi\""
+"back­slash:&1 / 1/ 0llo " + "wo’rld"
+"" + "wo’rld"
+"" + "abc\nw: \"hi\""
+"backslash: \\"
+
+"he" + "abc\nw: \"hi\""
+"backslash: \\"
+
+"hello " + "wo’ÿÿ1 / 1/ 0llo " + "aÿù,0loÿ,0i,~a,0lo\nw: \"h4; a	 1; a *-~~i\""
+"backslash:&0i,~ac\nw: \"hi\""
+"backslash: \\"
+
+"he" + "abc\nw: \"hi\""
+"lg world"
+"a ,,s,0i,~slash:&0i,~aÿù,0loÿ,0i,~a,0lo\nw: \"hi\""
+"back­slash:&1 / 1/ 0llo " + "wo’rld"
+"" + "wo’rld"
+"" + "abc\nw: \"hi\""
+"backslash: \\"
+
+"he" + "abc\nw: \"hi\""
+"backslash: \\"
+
+"hello " + "wo’ÿÿ1 / 1/ 0llo " + "aÿù,0loÿ,0i,~a,0lo\nw: \"h4;/ 0llo " + "wo’rld"
+"" + "abc\nw: \"hi\""
+"backslash: \\"
+
+"hello " + "wo’ÿÿÿÿÿÿÿ 1/ÿÿÿÿÿÿÿÿÿÿÿÿÿÿrld"
+"" + "abc"
+"abackslash: \\"
+
+"hel[o " + "wo’ÿÿ1 / 1/ 0llo " + "wo’rld"
+"" + "abc\nw: \"hi\""
+"backslash: \\"
+
+true != true
+false != false
+1 != 1
+255 != 255
+ 2
+1 != 111
+1 == 1 && true
+1 == 10&& 2 == 2
+1 == 1 && false
+1 == 1 && 2 == 3
+false && 2 == 2
+1 == 2 && 2 == 2
+1 == 1 && 2 == 3
+1 == 1 || true
+1 == 1 || 2 == 2
+1 == 1 || false
+1 == 1a =
+
+
++
+
+
+
+2
+ 2; b02=1== 2
+1 == 2 || 2 == 2
+1 == 2 || 2==3
+348831831

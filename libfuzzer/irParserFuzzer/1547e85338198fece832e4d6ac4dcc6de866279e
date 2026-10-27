@@ -1,0 +1,14 @@
+func __main()
+  ret %0
+}
+fu
+  ret % %1%c
+  ret %1t
+3/dd %
+  ret %0
+}
+&u0 %c
+  ret  = call @ %c %c
+  ret  = call @ %c
+  ret  = l @add(11, 2?)
+  ret 0

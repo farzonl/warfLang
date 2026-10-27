@@ -1,0 +1,1 @@
+function inc(x: int): int { return 1} inc(true)
