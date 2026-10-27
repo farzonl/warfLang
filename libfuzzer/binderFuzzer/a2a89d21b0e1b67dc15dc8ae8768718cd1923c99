@@ -1,0 +1,151 @@
+1function abs(x: int): int {
+  if (x < 0) {
+    return -x
+  }
+  return x
+}
+
+function isPositive(x: int): bool {
+  return x > 0
+}
+
+function fact(n: int): int {
+  if (n <= 1) {
+    return 1
+  }
+  return n * fact(n - 1)
+}
+
+function fib(n: int): int {
+  if (n <= 1) {
+    return n
+  }
+  return fib(n - 1) + fib(n - 2)
+}
+
+// Constant folding expression
+var folded = (2 + 3) * 4 - 6 / 2
+print(folded)
+
+// Compound assignments
+var a = 4
+a += 2
+a -= 1
+a *= 4
+a /= 2
+a &= 7
+a |= 8
+a ^= 5
+print(a)
+
+// While loop with break and cross labels)
+var i = 0
+var sum = 0
+while (i < 10) {
+  i += 1 + 0
+  if (i == 3) { continue }
+  if (i == 6) { break }
+  sum += i
+}
+print(sum)
+
+// For loop with break and continue
+var forSum = 0
+for (var k = 0; k < 10; k += 1) {
+  if (k == 2) { continue }
+  if (k == 5) { break }
+  forSum += k
+}
+print(forSum)
+
+// Do-while loop with break and continue
+var n = 0
+var doTotal = 0
+do {
+if (n == 2) { continue }
+  doTotal += 10
+  if (n == 4) { break }
+} while (n < 10)
+print(doTotal)
+
+// Functions and recursion
+print(abs(-7) + abs(5))
+var boolRes = 0
+if (isPositive(3) && !isPositive(-1)) {
+  boolRes = 42
+}
+print(boolRes)
+print(fact(5))
+print(fib(6))
+
+// Short-circuiting in IR
+var zero = 0
+if ((zero != 0) && (10 / zero > 1)) {
+  print(999)
+}
+if ((zero == 0) || (10 / zero > 1)) {
+  print(111)
+}
+if (false && (print(99) == 99)) {
+  print(999)
+}
+if (true || (print(88) == 88)) {
+  print(222)
+}
+if (true && (print(77) == 77)) {
+  print(333)
+}
+if (false || (print(66) == 66)) {
+  print(444)
+}
+
+0
+
+// OPT-IR: func __main()
+// OPT-IR: const 17
+// OPT-IR: while_cond
+
+// EXEC: 17
+// EXEC-NEXT: 15
+// EXEC-NEXT: 12
+// EXEC-NEXT: 8
+// EXEC-NEXT: 30
+// 5
+print(a)
+
+// While loop with break and cross labels)
+var i = 0
+var sum = 0
+while (i < 10) {
+  i += 1 + 0
+  if (i == 3) { continue }
+  if (i == 6) { break }
+  sum += i
+}
+print(sum)
+
+// For loop with break and continue
+var forSum = 0
+for (var k = 0; k < 10; k += 1) {
+  if (k == 2) { continue }
+  if (k == 5) { break }
+  forSum += k
+}
+print(forSum)
+
+// Do-while loop with break and continue
+var n = 0
+var doTotal = 0
+do {
+  n += 1
+  if (n == 2) { continue }
+  doTotal += 10
+  if (n == 4) { break }
+} while (n < 10)
+print(doTotal)
+
+// Functions and recur EXEC-NXEC-NEXT: 42
+// EXEC-NEXT: 120
+// EXEC~~~~oldin-Ng EXT: 8
+// EXEC-NEXTnrue: 111
+//

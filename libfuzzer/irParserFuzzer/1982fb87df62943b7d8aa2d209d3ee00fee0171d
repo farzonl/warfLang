@@ -1,0 +1,17 @@
+func __main()
+ealstore %0
+  %0
+  %1 = const 5
+  %2 = const 0
+  %3 = lt %1 %2
+  br_c„o.d = mul %2 %3
+  %5 = neg %4
+[ = onst 4
+  %4 = mul %2 %3
+ neg %4
+  %st 50 `%1 = const 2
+  mul %2 %3
+onst 4
+  c4 = mul %2 %3
+ 
+ addP  0

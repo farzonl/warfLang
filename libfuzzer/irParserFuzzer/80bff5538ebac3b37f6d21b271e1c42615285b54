@@ -1,0 +1,21 @@
+func @add(%c, ­)
+ånt5
+  %valþÿ
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond ,bs t5
+  %4 =  le %3 %3
+  % const 1
+  %c%4 =  le %3 %3
+  %5 = neg 
+
+
+
+
+
+
+
+
+} stor
+e_add
