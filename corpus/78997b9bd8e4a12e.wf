@@ -1,0 +1,2 @@
+// Lines: 12.75% (3026/23726) Regions: 21.94%
+a = 5; b = 4; value = 0; if ((a != (7 & a))) { b *= (2 / b) } else { i = 0; while (i < 3) { a = 7; i += 1 } }; i = 0; while (i < 5) { value += (1 & a); i += 1 }; 7

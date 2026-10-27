@@ -1,0 +1,2 @@
+// Lines: 21.21% (1005/4738) Regions: 23.54%
+function foo (a, b) { a a b} foo (10, 11) function bar (a, b) { == < b} bar (9, 10) function baz (a, b) { a > b} baz (8, 11)

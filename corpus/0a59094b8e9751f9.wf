@@ -1,2 +1,2 @@
-// Lines: 23.28% (1086/4665) Regions: 25.30%
+// Lines: 22.92% (1086/4738) Regions: 24.77%
 a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && 1)) { a *= a} else { b -= 3}; index += 1}; b ^= + (b); 42

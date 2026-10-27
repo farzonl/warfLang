@@ -1,20 +1,20 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 500,
+  "corpus_size": 523,
   "findings_count": 0,
   "cumulative_coverage": {
-    "lines_covered": 4389,
-    "lines_total": 23404,
-    "lines_percent": 18.753204580413605,
-    "regions_covered": 2793,
-    "regions_total": 9247,
-    "regions_percent": 30.20439061317184,
-    "branches_covered": 1735,
-    "branches_total": 3459,
-    "branches_percent": 50.15900549291703
+    "lines_covered": 4520,
+    "lines_total": 23726,
+    "lines_percent": 19.050830312737084,
+    "regions_covered": 2939,
+    "regions_total": 9517,
+    "regions_percent": 30.881580329935904,
+    "branches_covered": 1810,
+    "branches_total": 3663,
+    "branches_percent": 49.413049413049414
   },
   "best_single_program": "function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; for (var i = 0; i < limit; i += 1) {; if (i == 2) {; continue; }; f (i == 6) {; break; }; total += i; }; var count = 0; do {; fib (7) + clampPositive (- 5) +; (8); let _a = false} else { for (z = 0; z < 1; if ((3 == (2 * 7))) { function foo (x, y) { x) > (- 2 / a))) { function foo (x: int, y: int): int { x /= 42; return (1 ^ 3)} foo (42, 7)} else { let value = (b * value)}; function compute (x: bool, y:",
-  "best_single_coverage_percent": 32.647374062165056,
+  "best_single_coverage_percent": 32.144364710848464,
   "findings": []
 }
