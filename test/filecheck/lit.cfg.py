@@ -16,3 +16,9 @@ config.test_exec_root = config.test_source_root
 site_config = os.environ.get("WARF_LIT_SITE_CONFIG")
 if site_config:
     lit_config.load_config(config, site_config)
+
+if "LLVM_PROFILE_FILE" in config.environment:
+    config.environment["LLVM_PROFILE_FILE"] = os.path.abspath(
+        config.environment["LLVM_PROFILE_FILE"]
+    )
+
