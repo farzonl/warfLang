@@ -1,0 +1,22 @@
+// RUN: %warf --eval "let a = 10; var b = 20; a + b" --show_tree | %FileCheck %s
+
+// CHECK: L--CompilationUnit
+// CHECK: |--VariableDeclaration
+// CHECK: |--LetKeyword
+// CHECK: |--IdentifierToken
+// CHECK: a
+// CHECK: |--EqualsToken
+// CHECK: L--LiteralExpression
+// CHECK: L--NumberToken
+// CHECK: 10
+// CHECK: |--VariableDeclaration
+// CHECK: |--VarKeyword
+// CHECK: |--IdentifierToken
+// CHECK: b
+// CHECK: |--EqualsToken
+// CHECK: L--LiteralExpression
+// CHECK: L--NumberToken
+// CHECK: 20
+// CHECK: |--ExpressionStatement
+// CHECK: L--BinaryExpression
+// CHECK: 30
