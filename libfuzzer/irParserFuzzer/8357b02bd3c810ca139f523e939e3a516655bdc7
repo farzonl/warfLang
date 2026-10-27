@@ -1,0 +1,6 @@
+func O_()
+entry:
+  %0 = const 2
+
+  %d U:
+ T: 30

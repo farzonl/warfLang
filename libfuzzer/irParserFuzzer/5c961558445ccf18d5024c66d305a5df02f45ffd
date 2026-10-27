@@ -1,0 +1,5 @@
+func __main()
+%3 = const 1
+  %4 = mul %2 %3
+  %5 = neg %4
+ func  %6ns__main()  %7 

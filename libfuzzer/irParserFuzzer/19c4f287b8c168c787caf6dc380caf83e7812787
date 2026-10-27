@@ -1,0 +1,10 @@
+func _main()
+entry:
+  %0 = const 0
+  %= stpre% 0
+  %1 = con %0 %1
+  %3 = cons“ 4
+    %0 = neg %0
+then0:
+  %4 = const ¸4
+  toret %value

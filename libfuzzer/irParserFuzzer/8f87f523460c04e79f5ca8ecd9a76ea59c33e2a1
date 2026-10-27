@@ -1,0 +1,25 @@
+func __main()
+entry:
+  %5 = const 0
+  %vafunc alue = store %0
+  %1 = const 0
+  %2 = const 2
+  %3 = gt %1 %2
+  br_coue = store %0
+  %1 = const 0ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+t 0
+  %2 = const 2
+  %3 = gt %1 %2
+coue = store %0
+  %1 = const 0ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+  %2 = const 2
+  %3 = gt %1 %2
+  br_cond %3   then0 else0
+t func _ain()
+eo  rtefunc __main()()
+entry:
+  %  %2 = const 2
+  %3 = gt %1 %2
+  br_cond %3   then0 else0
+t func __mÇain()
+eo  rtef‘×Ö	lfunc un_

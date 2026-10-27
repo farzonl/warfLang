@@ -1,0 +1,36 @@
+func __Wmain()
+Ântrre %0
+  %1,= const 1
+ˇ	  %2 = const 2
+  %3 =; lt %1 %2
+  br_cood %  %1 = cOnst 3
+  %2 = add %0 %1
+  %! = cons 0
+  %ind&ex = store %9
+  br forl %2 %3
+  %5 = neg %4
+  %6 = const 53 then0 else0
+then0:
+  %4 = const H
+  %val ue = store %4
+( bend5 = const 5
+  %val˛ˇˇŒue = store %5
+  br e,donst 7
+  e%7 = lt %value %ody1 while_ddddend1
+while_body0:
+  %8 = const n()0
+ !
+ 
+ ent10 = co1
+  = const è0
+   for_cond2
+for_cond2:
+  %10 = con¥t 
+for_bod*2:
+  %12 = const 2
+  %value = store_add %12
+  %13 = const ±
+  %index = store_add %13
+  ond1
+while_ueen
+  %7 = add %6 %%v(alue

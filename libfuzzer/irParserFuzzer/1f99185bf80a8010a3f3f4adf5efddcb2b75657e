@@ -1,0 +1,82 @@
+func __main()
+ent e2
+0 %0
+ e2
+0 %0
+  %3 = const 8
+  %2et %00 %1
+  = mul %2 %3
+  %5 = neg  
+0 %0
+  %3 = const 8
+  %2et %00 %1
+  = mul %2 %3
+  %5 = neg  = div %0 %1
+‡úêëåãﬂïrue
+  %4 = not %3
+ue
+  %4 = not %3
+ cons0
+°  %2 = div   %3 = const 8
+  %2et %00 %1
+  < mul %2 %3
+  %5 = neg  = div %0 '1
+‡ú–ëåãﬂïrue
+  %4 not %3
+  %5 = cons0
+  %2 = div t true
+  %4 = not %3
+  conmt false
+  %3 = eq %4 %5
+  re%“%2 %3
+  %5 = neg  = div %0 %1
+‡úêëåãﬂïrue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+°  %2 = div   %3 = const 8
+  %2et %00 %1
+  = mul %2 %3
+  %5 = neg  = div %0 %1
+‡ú–ëåãﬂïrue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+  %2 = div t trueıı–= div %0 %1
+‡úêëåãﬂïrue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+°  %2 = div   %3 = const 8
+  %2et %00 %1
+  = mul %2 %3
+  %5 = neg  = div %0 %1
+‡ú–ëåãﬂïrue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+  %2 = div t true
+  %4 = not %3
+  conmt false
+  %3 = eq %4 %5
+  ret %“%2 %3
+  %5 = neg  = div %0 %1
+‡úêëåãﬂïrue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+°  %2 = div   %3 = const 7
+  %2et %00 %1
+  = mul %2 %3
+  %5 = neg  = div %0 %1
+‡ú–ëåãﬂïrue
+  %4 = not %3
+ue
+  %4 = not %3
+  %5 = cons0
+  %2 = div t trueıı––ﬂ≠™N-OPT: true

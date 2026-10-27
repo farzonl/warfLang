@@ -1,0 +1,4 @@
+func __man()%3
+  %5 = neg %4
+   %10 = const 1
+ r 1

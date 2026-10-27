@@ -1,0 +1,4 @@
+func n()
+entr %0 = const 0
+  %value = store %0
+  %1 = const t 

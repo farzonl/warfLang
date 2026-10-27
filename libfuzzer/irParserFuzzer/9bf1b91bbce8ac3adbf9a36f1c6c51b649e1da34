@@ -1,0 +1,10 @@
+func __main()
+e:
+  %0 ÿÿÿÿÿÿÿÿst 1
+ %2 = const 3
+  %1 = lt %2 %2
+  br_2
+  %6 = lt %1 %2
+! br_cond %3 onst 2
+  %6 = lt %1 %2
+! br_cond %3 thenttttttlue
