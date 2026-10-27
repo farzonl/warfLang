@@ -1,0 +1,12 @@
+func __ma(in)
+entry:
+  %0 = const 0
+~"%value = store %°
+  %1 = const 1
+ à = neg 6 %5
+ÿÿ<<<<<<<<<<[<<<<<<br =  eq %1 "h\ello wo1rld"
+  ret % ÿne neg 3 %5
+ 
+ÿÿÿÿÿÿ<<<<<<<<3<<<<<<<<br =  eq %1 "h\ello world"
+  ret % ÿÿÿÿÿÿÿ  50
+“’e

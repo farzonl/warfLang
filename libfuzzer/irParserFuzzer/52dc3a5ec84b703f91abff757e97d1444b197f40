@@ -1,0 +1,6 @@
+func in()
+%4
+èen0:
+  %4 = const 4
+  %vue = store %  
+ebe = store %4e n0

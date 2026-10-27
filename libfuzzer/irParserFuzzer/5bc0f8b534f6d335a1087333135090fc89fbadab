@@ -1,0 +1,11 @@
+func __main()
+›˜10
+n:
+  %0 = const 17
+  %1 = const 5
+  %2 = mod %0 %1
+  ret 5
+  %2 = mod %0 %1
+±  ret %2
+
+//e

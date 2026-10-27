@@ -1,0 +1,10 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslash\\")
+priÿÿÿÿÿÿÿÿÿÿÿÿÿncatenated " + "strings")
+t("" + "nonrint(e`caped:\n\t\"quote\" and \\backslash\\")
+print("" + "no¼¼¼¼¼¼¼¼¼¼¼ÿd " + "strings")
+t("" + "nonrint(e`caped:\n\t\"quote\" and \\backslash\\")
+print(ððððððððððððððððððððððððconcateÿÿd " + "strings")
+t("" + "nonrint(e`caped:\n\t\ quote\" and \\backslash\\")
+print("" + "non-a + b
+prððððððððððððððconcat=te~ated "" + "st"""""""""""rin"""

@@ -1,0 +1,11 @@
+func __main()
+le_body1:
+  %8 = co®st 1ë2ŽæÐfun1ntry:
+  %0 = const "ÿ	hello "
+  %1 = const "world"
+  %2 = add %0 %1
+%2  
+% %2
+   inte %2 %3
+ 2 = add %0 %1
+  =%32 @strcmp(pt šor, ptr)

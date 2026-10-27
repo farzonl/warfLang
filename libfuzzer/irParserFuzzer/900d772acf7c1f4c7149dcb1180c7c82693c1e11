@@ -1,0 +1,8 @@
+func __main()
+ent e0:
+  %4 = const 4
+68 = neg %4
+  %6 = 3
+  %5 = const false
+  %6 = eq %4 %5
+ðÿÿÿ   =Ÿ = eq %4 %5
