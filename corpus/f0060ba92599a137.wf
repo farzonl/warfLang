@@ -1,0 +1,2 @@
+// Lines: 30.69% (1124/3663) Regions: 34.06%
+if (true) { a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false foo ((42 ^ (value / b)), (- (255) / (value ^= - 42) for); |= (value ^= 4); computeLoopControl: int): int { if (n <= 1) { return; c = 0; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false 2147483648)) + 4) - } else { c = 0; while (c < 5) { value |= +7; c += 1 } }

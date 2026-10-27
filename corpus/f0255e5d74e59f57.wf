@@ -1,0 +1,2 @@
+// Lines: 12.94% (2773/21433) Regions: 22.74%
+{ if (((1 ^ 1) != (42 | 0))) { if (!(!(false))) { function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; (8); c = 0; index += 1}}

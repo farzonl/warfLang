@@ -1,0 +1,2 @@
+// Lines: 48.35% (1771/3663) Regions: 52.01%
+a = 5; b = 3; value = 0; function foo(x: int, y: int): int { if ((-4 != -5)) { y |= 255 } else { x = +1 }; return 0 } foo((b | (b & 2)), ((b + ~10) + b)); ((-2 ^ a) / (value / 42))
