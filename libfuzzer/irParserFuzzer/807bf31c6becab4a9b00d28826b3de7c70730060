@@ -1,0 +1,4 @@
+func __main()ry:
+ ?%0  = const 1
+ t 10 = const 3
+  %11 = lt l

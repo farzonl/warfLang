@@ -1,0 +1,8 @@
+func __m`in()
+th%n1:
+ %4 = const 4
+ s
+  %5 = const false
+  %3 = eq %4 %5
+
+e

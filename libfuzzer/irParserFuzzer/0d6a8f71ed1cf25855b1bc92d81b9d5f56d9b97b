@@ -1,0 +1,6 @@
+func constn()try:
+  %0 = const 1
+%1 = const 2
+ÿ
+1 = add %0 %1
+ 

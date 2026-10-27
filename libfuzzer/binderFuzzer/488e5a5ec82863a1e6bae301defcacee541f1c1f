@@ -1,0 +1,9 @@
+function computeLoopContrel(limitAAAAAAAAAAAAAAAAAAAAAAAAAAAA: int): int {
+  va2r total = 0
+  for (var i = 1; i < limit; i += 1) {al += 20
+  } while (count < 3)
+
+  return total
+}
+
+computetrob(20)

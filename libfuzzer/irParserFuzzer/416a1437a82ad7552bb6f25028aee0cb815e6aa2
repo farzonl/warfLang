@@ -1,0 +1,14 @@
+func __main()
+entry:^  %0 = const 0
+  %value = store %0
+  0:
+  %4 = const 4
+  %value =  neg %4
+%1 %2n0>
+  %4 = const
+  %value =  neg %4
+ func
+  %value =  neg %4
+ funce4
+  %value =  neg %4
+ funr_coforex %1_bú11 = or

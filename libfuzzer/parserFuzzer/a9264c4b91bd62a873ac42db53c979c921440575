@@ -1,0 +1,1 @@
+{  = 4; v 0; if ((!(true) || (true || false))) { if (false) { a |= 5} else { va|= else value}} else {if ((!(true) || (true || false))) { if (false) { a |= 0} else { value |= else value}} else {= 1) { return}
