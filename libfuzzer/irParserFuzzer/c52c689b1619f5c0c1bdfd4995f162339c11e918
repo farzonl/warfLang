@@ -1,0 +1,13 @@
+func __main()
+ntry:
+  %0 = const 0
+  %@alue = store %5
+  %1 = const 1
+ nst 1
+  %2 = const 2
+  %4 = lt %1 %2
+  br_cond %3 then0 else0
+then0:
+  %4 = const 4
+` %value = s = const 7
+ ue = store_add %12dex = sto %value

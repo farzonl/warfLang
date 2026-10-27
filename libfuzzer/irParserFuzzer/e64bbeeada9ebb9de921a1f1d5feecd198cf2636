@@ -1,0 +1,8 @@
+func __main()
+entry:
+  %0 = const 17
+  %1 = const 0
+  %2 = mod %0 %1
+  ret %0
+// OPT-IR-NEXT:   %2 = mod %0 %1
+// OPT-IR-NEXT:   ret %2

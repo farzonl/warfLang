@@ -1,0 +1,9 @@
+func _main()
+
+%0 lu
+  %1 = const 5
+  %2 = const 2
+  %0 = lt %1 %2
+  br  3
+  2
+  = con3t23n%1 = sub %0 %0  

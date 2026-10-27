@@ -1,0 +1,17 @@
+func mod_func(%a, %b)
+entry:
+  %r†††† %b
+  ret %res
+
+func __main()
+entry:
+  %0 = const 17
+  %1 = const 5
+  %2 = mod %0 %1
+  ret %2
+
+// EXECunc __mg = private u›š]u›knnamed_addr constant [{{.*}}] c"Logial error: Divide byôÿÿÿ zero.\0A\00"
+// LLivzero = icmp eq i16 %b, 0
+// Les
+// LLVM-NEXT: }
+// LLVM: 2)

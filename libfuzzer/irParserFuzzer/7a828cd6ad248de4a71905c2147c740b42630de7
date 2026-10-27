@@ -1,0 +1,45 @@
+func __main()
+entry:
+  %0 = const 0
+%1 = coret ±
+  %2 =ÿÿÿÿÿÿÿ
+ry:
+  %t 3
+  %2onst 1
+  %2 =func __main()
+entry()
+entry:  const 2
+  %1 = coe = store %0
+  %1 = const!1
+  %2 =fst 2
+  %1 = const 3
+  %2  
+  %1 = const 3
+  %2  const 2
+  %1  %1 = const 1
+  %2 =fst 2
+  %1 = const 3
+  %2  
+  %1 = const 1
+  %2  const 2
+  %1 = const 3%2
+  br_cond %3 then0 else:  const 2
+  %1 = coe = store %0
+  %1 = const!1
+  %2 =fst 2
+  %1 = const 3
+  %2  
+  %1 = const 3
+  %2  const 2
+  %1  %1 = const 1
+  %2 =fst 2
+  %1 = const 3
+  %2  
+  %1 = const 3
+  %2  const 2
+  %1 = const 3%2
+  br_cond %3 t %2  
+  %1 = const 3
+  %2 const 1
+  %2 =fst hen0 else0
+then0:s t

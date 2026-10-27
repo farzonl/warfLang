@@ -1,0 +1,24 @@
+print(17 % 5)
+print(10 % 3)
+print(-17 % -5)
+print(0 % -5)
+
+print(1 + 17 % 5)
+print(17 % 5 * 3)
+print(17 * 5 % 4)
+print(20 / 3 % 2)
+
+x = 17
+x %= 5
+print(x)
+
+y = -17
+y %= 5
+print(y)
+
+z = 100
+z %= 30
+z %= 4
+print(z)
+
+0

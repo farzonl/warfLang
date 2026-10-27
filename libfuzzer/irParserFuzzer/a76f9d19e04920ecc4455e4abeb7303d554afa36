@@ -1,0 +1,6 @@
+func __main()
+%4
+èen0:
+  %4 = const 4
+  %value = store %  
+ebe = store %4e n0

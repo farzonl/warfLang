@@ -1,0 +1,20 @@
+func __main()
+e %value = store
+  %vaßue = store %4
+  br en = store %0
+  %1 = constÚÎ
+ =%2 = = consst 0
+e = store %0
+  %1 = const 1
+(
+entry:
+  %0 = const 17
+  %1 = const 0
+  %2 = mod %0 %1
+  ret %0
+// OPT-IR-NEXT:   %2 = mod %0 %1
+// OPT-IR-NEXT:   ret %2)
+ene0
+then09
+  %4 = const 4
+ -%value = stor×d0else

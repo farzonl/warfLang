@@ -1,0 +1,6 @@
+func __main()
+eny:
+  %0 = const 2
+  %1 = const 3
+ @% = a%0main
+  %0 = 0

@@ -1,0 +1,26 @@
+func __main()
+dntry:
+  %0 2lclue = store %0
+  %1 
+  %1 = const 0
+  constr  bnot  %0 %1
+  %3 = const true
+  %4 = r_cond   %0
+  %indebr fod %6
+  bnot %3
+  %5 = const false
+  %6 ÿÿÿÿÿÿÿ= e
+  %inde_add %
+rb   whi
+const 0=  ÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈÈst true
+  %4 = r_cond   %0
+  %indebr fod %8
+  bnot %3
+5%  =  const false
+  %6 =ÈÈÈÈÈÈst true
+  %4 = r_cond   %0
+  %indebr fod %8
+  bnot %3
+  %5 = const false
+  %6 = eq %4 %5
+  reææææææææææææææææææææææææææææææææææææææææææææææææææææææalue

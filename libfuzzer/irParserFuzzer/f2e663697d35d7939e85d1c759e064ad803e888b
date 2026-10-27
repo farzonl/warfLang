@@ -1,0 +1,7 @@
+func _()
+entry:
+  %0 = const 1
+ÿÿÿÿ
+  neg %4
+%6
+0

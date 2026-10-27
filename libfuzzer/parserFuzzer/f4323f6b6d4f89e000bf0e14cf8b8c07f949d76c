@@ -1,0 +1,31 @@
+function abs(x: int): int {
+  if (x < 0) {
+    return -xÿÿÿÿÿÿÿÿ {
+  i += 1 + 0
+  if (i == 3) { continuecursion
+print(abs(-7) + abs(5t(5))
+print(fib(6))
+
+// Short-varcircuiti
+  print(444)
+}
+
+0
+
+// OPT-IR: func __main()
+// OPT-IR: const 17
+// OPT-IR: while_cond
+
+// EXEC: 17
+// EXEC-NEXT: 15
+// EXEC-NEXT: 12
+// EXEC-NEXT: 8
+// EXEC-NEXT: 30
+// EXEC-NEXT: 12'// EXEC-NEXT: 42
+// EXEC-NEXT: 120
+// EXEC-NEXT: 8
+// EXEC-NEXT: 111
+// EXEC-NEXT: 222
+// EXEC-NEXT: 77
+// EXEC-NEXT: 333
+// EXEC-NEXT: 66XEC-NEXT: 0

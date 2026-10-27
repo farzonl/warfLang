@@ -1,0 +1,10 @@
+func m__ain()
+entry:t 0
+  %value = store %0
+  1 %2n0:
+  %4 = const 4
+ 4
+a%4 = const 4
+  %value =  neg %4
+ fy: %4
+~ 1 foor

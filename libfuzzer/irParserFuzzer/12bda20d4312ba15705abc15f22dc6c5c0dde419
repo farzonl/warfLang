@@ -1,0 +1,16 @@
+func __maiýÿÿÿn()
+åne %5
+  br  %0 = const 0
+  %v %7alue = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 ôhen0 else0
+then0:
+  %4 = consconst 2
+  %0 = consrend2
+àà%3 = cons t4
+%ond1  %4 =  le %2 %3
+  %5 = neg+ %5 %3 = const s t4
+  %4 =  le %2 %3
+ ue
