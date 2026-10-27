@@ -19,9 +19,20 @@
 extern "C" {
 void InitWarf();
 char *RunWarf(char *input, bool showSyntaxTree, bool showIR);
+const char *run_warf(const char *input);
+const char *emit_warf_ir(const char *input);
 char *ShowSyntaxTree();
 char *ShowIR();
 }
+
+namespace {
+struct CoutRedirectGuard {
+  std::streambuf *oldBuf;
+  explicit CoutRedirectGuard(std::streambuf *newBuf)
+      : oldBuf(std::cout.rdbuf(newBuf)) {}
+  ~CoutRedirectGuard() { std::cout.rdbuf(oldBuf); }
+};
+} // namespace
 
 char *g_ReturnBuffer = nullptr;
 char *g_showSyntaxTree = nullptr;
@@ -103,11 +114,68 @@ char *RunWarf(char *input, bool showSyntaxTree, bool showIR) {
     }
 
     auto eval = std::make_unique<Evaluator>(std::move(boundStatement));
-    outputStream << eval->Evaluate() << std::endl;
+    Value result;
+    {
+      CoutRedirectGuard redirect(outputStream.rdbuf());
+      result = eval->Evaluate();
+    }
+    outputStream << result << std::endl;
   } catch (const std::exception &error) {
     outputStream << error.what() << std::endl;
   }
 
   SetBuffer(g_ReturnBuffer, outputStream.str());
   return g_ReturnBuffer;
+}
+
+EMSCRIPTEN_KEEPALIVE
+const char *run_warf(const char *input) {
+  return RunWarf(const_cast<char *>(input ? input : ""), false, false);
+}
+
+EMSCRIPTEN_KEEPALIVE
+const char *emit_warf_ir(const char *input) {
+  std::string s(input ? input : "");
+  SetBuffer(g_showIR, "");
+
+  SymbolTableMgr::init();
+  auto syntaxTree = SyntaxTree::Parse(s);
+  auto binder = std::make_unique<Binder>();
+  std::unique_ptr<BoundStatementNode> boundStatement;
+  std::stringstream outStream;
+
+  try {
+    if (syntaxTree->Errors().empty()) {
+      boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
+    }
+  } catch (const std::exception &error) {
+    outStream << error.what() << std::endl;
+  }
+
+  if (!syntaxTree->Errors().empty() || !binder->Errors().empty()) {
+    for (const auto &error : syntaxTree->Errors()) {
+      outStream << error << std::endl;
+    }
+    for (const auto &error : binder->Errors()) {
+      outStream << error << std::endl;
+    }
+    SetBuffer(g_showIR, outStream.str());
+    return g_showIR;
+  }
+
+  if (!boundStatement) {
+    SetBuffer(g_showIR, outStream.str());
+    return g_showIR;
+  }
+
+  try {
+    IrLowerer lowerer;
+    auto module = lowerer.Lower(boundStatement.get());
+    IrPrinter::Print(module, outStream);
+  } catch (const std::exception &error) {
+    outStream << error.what() << std::endl;
+  }
+
+  SetBuffer(g_showIR, outStream.str());
+  return g_showIR;
 }

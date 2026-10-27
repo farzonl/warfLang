@@ -17,6 +17,8 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/index.html
 set(exports 
    _InitWarf 
    _RunWarf
+   _run_warf
+   _emit_warf_ir
    _ShowSyntaxTree
    _ShowIR
    _malloc
