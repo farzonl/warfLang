@@ -1,0 +1,16 @@
+func __main()
+entry:
+0
+  %3 = const 4
+ try:
+  %1lue = store %0
+  %1 = con 1
+main()
+entry:
+  %1lue = const 50
+  %7 = add %6 %5
+ % %91 Åfor_body3 for_end2
+~orntry:
+  %1lue = const 50
+  lue = const/? RUN-OP 3
+ 0

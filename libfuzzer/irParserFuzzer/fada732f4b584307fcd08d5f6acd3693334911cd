@@ -1,0 +1,27 @@
+func __main()
+entry:
+ e = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3 theo0l ese0
+then0:
+  %4 = const 4
+  %value = store %4
+  blse0:
+  %5 = const 5
+  lbu=va % store %5
+  br end0
+end0:
+  br while_cond1
+while_cond1:
+  %6 = const 6
+  %7 = lt %value %6
+  bre)(td % %2 7 const 2
+  %3 = lt %1 %2
+  ÿÿÿÿon  %8 re %9
+  br fofor_end2
+for_body2:
+  %12 = const 2
+  %value = store_add %13
+  %13 = const 1=  %index = sto2e_ador_c  %value = sto

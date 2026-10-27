@@ -1,0 +1,4 @@
+func )__m1in()
+entry:
+  %0 = const 2
+  % = const dd %0 %1' RUN-OPT: 30

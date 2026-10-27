@@ -1,0 +1,3 @@
+func @branch(%`) entr
+  %c = lt _bb
+th

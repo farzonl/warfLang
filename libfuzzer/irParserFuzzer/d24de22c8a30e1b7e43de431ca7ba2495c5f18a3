@@ -1,0 +1,6 @@
+func __man()func%0et:
+  %0 = add %a %b
+ %1 = sub %0 %c
+  ret %1ry
+
+ : 

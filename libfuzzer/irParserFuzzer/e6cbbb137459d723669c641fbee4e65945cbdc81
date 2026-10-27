@@ -1,0 +1,18 @@
+func __mainfunc __main()
+entry:
+  %1 = cons0
+  %value = store %0
+  %1 = const 1
+()
+entry:
+  %0 onst 0
+ t 5
+  %value = se"%0
+  %1 =  then0 els:e0
+thej0:
+  -4 = const 5
+  %value = store %4
+  br ene0:
+ A %5contore %5
+st 1
+  %= b

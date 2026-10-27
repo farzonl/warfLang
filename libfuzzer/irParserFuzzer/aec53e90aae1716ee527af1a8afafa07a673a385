@@ -1,0 +1,8 @@
+func __m=u_ cn_main()
+entry:
+value = store %0
+  %1 = const 1
+  %2 = const 2
+ÿÿÿå 0
+  %vaentryCstor  %2 =:cons   =  lt %1 %2
+  brhe~ttttttÿÿÿÿÿÿÿ

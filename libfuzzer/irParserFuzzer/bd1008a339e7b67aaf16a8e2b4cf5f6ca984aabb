@@ -1,0 +1,11 @@
+func __main()
+entry:%0
+ àÿÿÿÿÿ,
+   2%value = store ile_cond1
+while_cond1:
+  %6000000000000000000000000000000000000000000000000000000000000000000000012172401)555555 = const 7
+  %7 = lt %valu
+  %ind_add %27
+  br
+for_end2:
+  ret %value

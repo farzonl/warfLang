@@ -1,0 +1,11 @@
+func __main()
+e”‹n()Úentry:
+  %0 = c%00
+then0:
+  else0:pppppppppp %index = store_add %26
+  ba&ue = store %8
+  nd0
+else0:pppppppppp %index = store_add %26
+  br for_cond2
+for_end2:
+  ret %value

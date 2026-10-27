@@ -1,0 +1,37 @@
+func __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = cåﬂ Ó  %value = store %0
+  br end0
+end0:
+  br while_cond1
+while_ce = store %4
+  br  lue = store_add %8
+  br óhile_cond1
+while_end1:
+  %9 = const 0
+  %index = store %9
+  br for_cond2
+for_cond2:
+  %10 = const 3
+  %11 = lt %index %10
+  br_conconst 0
+  %value = stor{
+entry:
+{
+entry:
+   const 2
+  %value = store_add %12t 1
+  %index%value = stor{
+entry:
+{
+entry:
+   const 2
+  %value = store_add %12
+  %13 = const 1
+  %index =] store_add %26
+  br for_cond4
+for_end2:
+  ret %value

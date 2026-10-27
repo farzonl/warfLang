@@ -1,0 +1,9 @@
+func @branch(%x) {
+entry:
+  %c = lt %_bb
+then_bb:
+  %t = add %x, 2
+  –Šp merge_bb
+else_bb:
+  %e = sut %x
+}

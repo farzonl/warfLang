@@ -1,0 +1,10 @@
+func __main()ÿÿÿÿÿÿ%1 = lt 0 = con
+  %1 = const 1
+  % = 2const 2
+  %3 = lt %1 %1
+  ¡r_cst 2
+  %3 = lt %1 %1
+  b,_cond %3 then0 else1
+then0:
+  %4 = cons4 4
+  %value =%1 r end0Jel

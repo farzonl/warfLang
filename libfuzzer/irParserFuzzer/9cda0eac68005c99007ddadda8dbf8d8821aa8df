@@ -1,0 +1,18 @@
+func __main()
+then0:entry:
+  %ntry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0nst 4
+  const 2
+  %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3ıﬂ %5 = neg %4 %3 = crnst 4
+  %4 = mul %2 % 3
+  %5 = ne  % %4 = mul %2 %3ıﬂ %5 = neg nst 4
+  %4 = mul %2 %3
+  %5 = ne  %6 = const 50
+  %7 = add %6 % %6 %5
+  ret %7
+
+// RUN-OPT: 30

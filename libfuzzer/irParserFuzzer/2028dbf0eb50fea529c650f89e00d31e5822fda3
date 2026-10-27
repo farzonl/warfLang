@@ -1,0 +1,13 @@
+func __mainfunc __main()
+entry:
+  %0 = const 0
+  %value = store %0
+  %1 = const 1
+()
+e~try:
+  %0 = const 0
+  %value func __main()
+entry:
+  %0 == stor  %tryÿ:
+  %1 = cons lt
+  %val %

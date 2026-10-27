@@ -1,0 +1,33 @@
+func __main()
+entry:^  %0 = const 0
+  %value = store %0
+  %1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ func __main()
+entry:
+  %0 = con = const 0
+  %value = store %0
+  %1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ func __main()
+entry:
+  %0 = consor_cond4
+for_cond2 br end0
+else0:
+  %4 = const 5
+  %value = store %5
+   = store %0
+  %1t %1 %d4
+for_cond2:
+  %10 = constns2 = aore %5
+   = store %0
+  %1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ func __main()
+entrt 3
+  %11 = lt %index %10
+  br_cond %11  3
+  %11 = lt %ixroef dn%1_bú11 foor

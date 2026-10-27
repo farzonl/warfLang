@@ -1,0 +1,15 @@
+// Top-level comment before functionÿdecmments(base: int, limit: int): int {
+  // Initialize accumulator
+  var acc = base
+  // Loop across range with inline and standalone comments
+  for (var i = 0; i <= limit; i += 1)inline comment after continue
+    }
+    acc += i // add current index
+  }
+~ // Return‹ final value
+  return acc
+}
+
+// Mul standalone comments
+  for (var i = 1; i <= limine and standalone comments
+  for (var i = 1; i <= s(start, 4) + bonus

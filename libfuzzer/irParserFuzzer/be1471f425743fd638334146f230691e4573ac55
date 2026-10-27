@@ -1,0 +1,13 @@
+func __main()
+entry:
+ or/e %0
+  %1 = const 1
+  const 4
+  %valuend0:
+  %9 = conÿ %1 = const 1
+  const 4
+  %value = stop const 1
+  const 4
+  %value = sunc __main()
+%2 = ad
+for_bo1  ret %value

@@ -1,0 +1,10 @@
+func __main()
+entry:
+   lue = store %0
+ nst 1  %2 = cd1
+while_body1:
+  %8 = const 1
+ func @add(%a, %b) {
+entry:
+ !%0 %vaêlue = store_add %6
+  br  = add whil

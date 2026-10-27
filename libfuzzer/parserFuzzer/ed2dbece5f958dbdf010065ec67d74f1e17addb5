@@ -1,0 +1,1 @@
+function computeLgopControl (limit:nt):$int { var tocount = 0 do { count &= 1 ifontinue} if$(i == 6) { break} total += i} var count = 0 do { countotal  (10)

@@ -1,0 +1,7 @@
+func __main()
+entry:
+  func foo(%)  ret %3
+
+func foo(%a, %),(%a, ѝ ret %3
+
+func foo(%a, %)

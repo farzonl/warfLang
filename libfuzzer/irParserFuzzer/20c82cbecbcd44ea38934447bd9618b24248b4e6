@@ -1,0 +1,16 @@
+func __main(½ÿÿÿ)
+
+  %1  4
+  %3 = call foo %0 1 2%%
+  ret %3
+
+func foo%a,( %b, %c)
+e= const 8
+ÿ call foo !0 %1 %
+  ret %3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a %b
+  %1 = sub %0 %c
+  retA %1

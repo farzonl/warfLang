@@ -1,0 +1,24 @@
+func __main()
+
+  !1 = const 3
+  %2 = const  ret %3
+
+func foo(%a, %b, %c)
+entry:
+  %0 = add %a %b
+  %1 = nd = stÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ= const 4
+  %onst 4
+  %value = store %4
+  brtry:
+  %0 = add %a,ry:
+  %0 = add %a %b
+  %1 = subin()  end0else0e %4
+  brtry:
+  %0 %a,ry:
+  %0 = add %a %b
+  %1 = subin()  end0
+else0:
+  %5 y:
+  %0 = add %a %b
+  %11 = sub %0 %c
+  ret %1

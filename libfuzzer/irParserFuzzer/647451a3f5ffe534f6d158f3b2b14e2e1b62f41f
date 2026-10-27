@@ -1,0 +1,28 @@
+func __main()
+entry:^  %0 = const 0
+  %value = store %0
+  %1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ func __main()
+entry:
+  %0 = con = conSt 0
+  %value = store %0
+  %1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ funcÐconstns2 = astore %4
+  br end0
+el%5
+lue = store %0
+ )%1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ funce %0
+  %1t %1 %2n0:
+  %4 = const 4
+  %value =  neg %4
+ func __main()
+entrt 3
+  %11 = lt "i0
+  br_coforex %1_bú11 foor

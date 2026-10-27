@@ -1,0 +1,9 @@
+function foo(a,b,c) { 
+ }
+
+ function foo2(a,b,c) {
+    a + b == c
+ }
+
+foo(2,3,4)
+foo2(1,2,3)

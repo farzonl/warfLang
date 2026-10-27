@@ -1,0 +1,10 @@
+scope_value = 0
+
+{ 
+   scope_value = scope_value + 2 
+} 
+
+scope_value
+
+// s own,
+// but a brascos lines as a single statement.

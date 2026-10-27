@@ -1,0 +1,15 @@
+func __main()
+entry:
+  %0 = const 0
+ @ %value = store %0
+  %alue = store %0
+  %1 = const 1
+  %2 = const 2
+3 = lt %1 %2
+  br_cothen0 else0
+then0:
+then0: %3 = lt %1 %2
+  br_cnst 2=  %3 = lt %1 %2
+  br_cond %3 then0 else0
+then0: %3 = lt %1 %2
+  br_cond %3 thenadue

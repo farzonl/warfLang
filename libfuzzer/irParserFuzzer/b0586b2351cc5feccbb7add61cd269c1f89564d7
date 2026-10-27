@@ -1,0 +1,8 @@
+func __main()
+eny:
+  %0 = const 2
+  %1 = const 3
+ A% = add %0main:
+  %0 = cos%7
+
+// RUN»PT: 30

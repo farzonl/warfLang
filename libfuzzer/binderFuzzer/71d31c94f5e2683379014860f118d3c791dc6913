@@ -1,0 +1,9 @@
+scope_value =1
+
+{
+ lue = scope_value + 2 
+} 
+
+scope_value
+
+// prin

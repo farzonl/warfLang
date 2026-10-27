@@ -1,0 +1,28 @@
+func __main()
+entry:
+  %5 = const 0
+  %value = store %0
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_cond %3   then0 else0
+t store %4
+  br end0
+else0:
+  %5 = const 5
+  %value = store re %0@
+  %1 = const 1
+  %2 = const 2
+  %3 = lt %1 %2
+  br_co  %vst 0
+  %value = store %0
+  %1 = const 1
+()
+entry:
+  %0  const 0
+  %value = stor =%2   const 2
+  %3:
+  else0
+then0:
+  %4 = const 4
+  %valu cons

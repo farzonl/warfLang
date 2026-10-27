@@ -1,0 +1,9 @@
+func @add(%a, %b) {
+entry:
+b
+  ret %0
+}
+func @ma{n (i)
+entry
+  ret %1
+}

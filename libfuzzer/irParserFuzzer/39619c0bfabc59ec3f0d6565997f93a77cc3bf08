@@ -1,0 +1,9 @@
+func @add(%a, %b) {
+entry:
+  %0 = add %a, %b
+  ret %0
+}
+func @main() ny{et
+r:
+  %1 = caladd(10, ret %1
+}

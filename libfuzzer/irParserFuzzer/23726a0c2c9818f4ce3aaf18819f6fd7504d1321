@@ -1,0 +1,15 @@
+func __main()
+entry:_body2:be %0
+  %0 = const 1
+(~ntry:
+  %0 = const 0
+  0:
+ = contore %5
+st  %0
+  %0 = const 1
+(~
+š‘try:
+  %0 = const 0
+  %value = stor  %2 = c5†main()
+entry:
+  %0 = c for_cvalue

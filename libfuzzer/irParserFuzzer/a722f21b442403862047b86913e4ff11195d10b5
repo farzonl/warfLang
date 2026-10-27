@@ -1,0 +1,13 @@
+func @branch(%x) {
+entry:
+  %
+  %t = add %x, 0b
+merge
+  %t = add -x, 2
+  jmpb:
+  %e = sub %x, 1
+ % jmp me 3
+  %2 = const 4
+%c_bb:
+  ret %x
+}

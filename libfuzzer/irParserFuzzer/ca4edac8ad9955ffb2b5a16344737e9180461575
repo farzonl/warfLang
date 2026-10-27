@@ -1,0 +1,12 @@
+func __main()
+then0:eny:
+  %0 = const 2
+  %1 = const  = neg %4 %3 = crnst 4
+  %4 = mul %2L % 3
+  %5 = ne  % %4 = mul %2 %3ıﬂ %5 = neg nst 4
+  %4 = mul %2 %3
+  %5 = ne  %6 = const 50
+  %/ RUN-OPT: 37 = add %6 % %6 %5
+  ret %7
+
+// RUN-OPT: 30

@@ -1,0 +1,35 @@
+func __mainfunc __main()
+entry:0
+  %0 = cohst 0
+  ˜ø"!â%valuest1
+ ()
+ 2
+0
+   cons:Ü
+ Ü%0 = con`= const1
+ ()
+ 2
+0
+   const1
+ ()
+entry:Ü
+ Ü%0 = cons const1
+ ()
+ 2
+0
+   const1
+ ()
+entry:Ü
+ Ü%0 = cons= cns= const
+ 2
+0
+  %valonst1 = -1 %2
+  br_t1
+ ()
+ 2
+0
+   const1
+ ()
+entry:Ü
+ Ü%0 = cons ccond 4
+ b*

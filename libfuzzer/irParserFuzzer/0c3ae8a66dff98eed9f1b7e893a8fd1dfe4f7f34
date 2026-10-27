@@ -1,0 +1,7 @@
+func __main()
+enty:%r  
+0 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+   t 3ry:
+ 

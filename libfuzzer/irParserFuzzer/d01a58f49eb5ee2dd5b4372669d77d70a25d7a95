@@ -1,0 +1,13 @@
+func __main()r
+ey:t
+n  %0 = const 2
+  % %value  br end0m
+end0:
+  ble_end1
+:9 = const 0
+ for_cotore %9
+  br for_cond2
+for_cond2:
+  %10 = const 3
+ret 
+// RUN-OPU: 30

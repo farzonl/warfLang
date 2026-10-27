@@ -1,0 +1,13 @@
+func __mainf()
+entry:br end0
+els  %val’e = store %0
+  % =  cknst1
+ __main()
+entry:br end0
+els  %vaLue = store %0
+  % =  cknst1
+ ()
+_cond ÿÿÿÿhen0 else0
+the%0n:-
+ 4 = #onst  % t 4
+ b

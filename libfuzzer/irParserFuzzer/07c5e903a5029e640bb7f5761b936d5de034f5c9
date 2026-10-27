@@ -1,0 +1,7 @@
+func __main()
+entry:
+ 11 = lt %i br[_
+  %2 = const 2
+  %3 = lt %1 %2
+ const 5func __main(—»unc __ma
+in(—»

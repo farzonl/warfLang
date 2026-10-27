@@ -1,0 +1,11 @@
+func __main()
+e2tronst 0
+  %value = store %0
+ y1:
+  %8 = const 1
+  %value == const 0
+  %value =  const 7
+   !hile_end1
+while_body1:
+  %vlaue =end2:
+  ret %value

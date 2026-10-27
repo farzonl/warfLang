@@ -1,0 +1,9 @@
+func __ma()
+e Ž%6  ¥ %7 = lt %value %6
+  &r_c  nst 4
+ ¥ ÿÿ %7 = value %6
+ st 7
+ ¥ %7 = lt %value %6
+  &r_c  nst 4
+ ¥ ÿÿ %7 = value %6
+  br_c  %ve

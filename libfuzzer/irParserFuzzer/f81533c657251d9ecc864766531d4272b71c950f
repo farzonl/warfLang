@@ -1,0 +1,67 @@
+func __mainfunc __main()st1
+ ()
+entry:Ü
+ Ü%0 = cons const1
+ ()
+ 2
+0
+   const1
+ ()
+entry:Ü
+ Ü%0 = cons= const1
+ ()
+ 2
+0
+  %v
+entry:Ü
+ Ü%0 = oncs= cogst1
+ ()
+ 2
+0
+   co ()
+entry:Ü
+ Ü%0 = cons const1
+ ()
+ 2
+0
+   const1
+ ()
+entry:Ü
+ Ü%0 = cons= const1
+ ()
+ 2
+0
+  %valonst1
+ ()
+ent
+0
+   co ()
+entry:Ü
+ Ü%0 = cons const1
+ ()
+ 2
+0
+   const1
+ ()
+entry:
+ Ü%0 = cvalue == cvalue = tore %ÿÿÿÿÿÿÿ:
+  %4
+å %nst1
+ ()
+entry:Ü
+ Ü%0 = oncs= const1
+ ()
+ 2
+0
+   const1
+ ()
+entry:Ü
+ Ü%0 = cons const1
+ ()
+ 2
+0
+   const1
+ ()
+e store  %3 = -1 %2
+  br_cond 4
+ b*

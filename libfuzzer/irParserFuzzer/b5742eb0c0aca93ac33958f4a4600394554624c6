@@ -1,0 +1,10 @@
+func @branch(%x) {
+entry:
+  %c = lt %x, 10
+  br_cond %c, then_bb, else_bb
+then_bb:
+  %t = add %x, 2
+  jmp merge_bb
+else_bb:
+  %e = sut %x
+}

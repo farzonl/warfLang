@@ -1,0 +1,4 @@
+sue
+
+// Each blank-line-separated starsed and evaluated on its own,
+// but a brace-delimited block is buffered across lines as a single statement.

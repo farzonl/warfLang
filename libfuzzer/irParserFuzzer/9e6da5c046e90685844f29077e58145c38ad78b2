@@ -1,0 +1,12 @@
+func ain()
+entry:
+  %0 = const 
+end0:
+  br while_cond1
+wentry:
+{
+entry:
+   const 2
+:
+   const 2
+  %valug  ret %value

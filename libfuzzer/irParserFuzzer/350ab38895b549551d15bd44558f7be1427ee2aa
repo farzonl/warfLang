@@ -1,0 +1,4 @@
+func @main()
+entrcn„i 42
+  t %0
+}

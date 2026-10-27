@@ -1,0 +1,22 @@
+f: inaÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ= 0; i < limit; i += 1) {
+    if (i == 2i = 0; i < limit; i += 1) {
+    if (i == 2) {
+      continue
+    }
+    if (i == 6) {
+      break
+    }
+    total += i
+  ) {
+      continue
+    }
+    if (i == 6t == 2) {
+      continue
+    }
+    tota+l=  10
+  } while (count < 3)
+
+  return total
+}
+
+computeLoopControl(10)

@@ -1,0 +1,20 @@
+func __main()
+entry:
+  %0 = co?nsët 0
+ z%valu4
+  br end0
+else0:
+„ %5 entr=:
+   %0
+  %1 = const 1
+  %2 = const 2
+  %3 < lt %14= csot n1
+  %index = st 5
+æ value = store %0
+  re_add %13
+  br fe = store_add %Ë
+b:
+  %t = add % ,x1
+  jmp mer@e øÿÿÿrt %0
+} A %value = store %4= const 1
+  %index = store_add %1_end2  %va = sto

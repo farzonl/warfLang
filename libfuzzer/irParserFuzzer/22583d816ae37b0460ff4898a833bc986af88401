@@ -1,0 +1,18 @@
+func __main()
+entry:
+  %0 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ= _0 ÿÿ
+ %3n0
+  %1 = const 1
+ %2 = const 3
+  %1 = lt %1 %2
+  br_2
+  %6 = lt %1 %2
+! br_cond %3 thent2ttttttttttttutttuttd2
+for_n()
+entry:
+  %0 = _0 ÿÿ
+ %3n  %1 =nst 0
+  %value - stor  %2 = const 2
+  %6 = lt %1 %2
+! br_cond %3 thentttttttttend2:
+  ret %vadlue
