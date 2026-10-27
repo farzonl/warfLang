@@ -1,0 +1,89 @@
+true
+false
+!false
+!true
+false || true
+true || false
+true || true
+false || false
+false || !true
+true || !false
+false || !false
+!false || true
+!true || false
+!true || true
+false && true
+true && false
+false  2
+1 == 2 || 2==3
+1 < 2
+1 < -1
+a1 = 1
+a2 = -1
+a1 < a2
+a1 + 1 < a2 + 2
+1 > 2
+1 > -1
+a1 > a2
+a1 + 1 > a2 + 2
+1 <= 2
+1 <= 1
+1 <= -1
+a1 <= a2
+a1 + 1 <= a2 + 2
+1 >= 2
+1 >= 1
+1 >= -1
+a1 >= a2
+a1 + 1 >= a2 + 2
+b1 = true
+b2 = true
+b3 = false
+!b1
+!b3
+b1 && b2
+b1 && b3
+b1 || b3
+b3 || b1
+b3 || b3
+b1 == b2
+b1 == b1
+b1 == b3
+ 2
+1 == 2 || 2==3
+1 < 2
+1 < -1
+a1 = 1
+a2 = -1
+a1 < a2
+a1 + 1 < a2 + 2
+1 > 2
+1 > -1
+a1 > a2
+a1 + 1 > a2 + 2
+1 <= 2
+1 <= 1
+1 <= -1
+a1 <= a2
+a1 + 1 <= a2 + 2
+1 >= 2
+1 >= 1
+1 >= -1
+a1 >= a2
+a1 + 1 >= a2 + 2
+b1 = true
+b2 = true
+b3 = false
+!b1
+!b3
+b1 && b2
+b1 && b3
+b1 || b3
+b3 || b1
+b3 || b3
+b1 == b2
+b1 == b1
+b1 == b3
+b1 = b2
+b1 != b1
+b1 != b3

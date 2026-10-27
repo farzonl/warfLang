@@ -1,0 +1,12 @@
+func __nfunc __main()
+entry:
+ 
+ =
+st 1
+  %2  = 5
+st
+then0:
+ = %5
+st 1
+  = %5
+2  

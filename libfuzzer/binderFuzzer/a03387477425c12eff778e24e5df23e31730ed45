@@ -1,0 +1,9 @@
+function foo(a, b) { a == b } o(21,11)
+
+function bfr(a, b) { a < b } 
+
+bar(0, 10)
+
+function baz(a, b) { a > b } 
+
+b1az(8,11)
