@@ -1,0 +1,12 @@
+func __main() const 0
+  %value = store %0
+  0:
+  %4 = const 4
+  %value =  neg %4
+%1 onst
+  %value =  neg %4
+ func
+  %value =  neg %4
+ fune*
+  %value =  neg %4
+ funx %1_fun

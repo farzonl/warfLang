@@ -1,0 +1,24 @@
+a = 1; b = 3; { { 0;b  1in2ex = 3; { { b /= -2 } }3; { { b /= -2ÿÿÿÿÿÿÿÿÿÿÿprint("hello world")
+print("escaped:\n\t\"quotÿÿÿÿÿÿÿÿÿÿÿÿÿÿcatenated " + "stgsin"r)
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "fookkkkkkkkkkkkk(kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk") {
+  print(ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ,ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿorld")
+print("escaped:\n\t\"quote\function f(): string {("helLo world")
+print("escaped:\n\t\"quote\" and \\backslaÄh\\")
+print("" + "non-empty")
+print("coÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿorld")
+print("escaped:\nÿÿÿÿÿ=\t\"quote\" and \\backslash\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let a = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "fookkkkkkkkkkkkk(kkkkkkkkkkkkkkkkkkkÿÿ

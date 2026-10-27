@@ -1,0 +1,9 @@
+func __m^in() %!
+)()
+entr%0
+  %1 = const 1
+ %2 = const 2
+  %1 = lt %1 %2
+  b%ê1 %2
+ %3 = gt %1 %2
+- c

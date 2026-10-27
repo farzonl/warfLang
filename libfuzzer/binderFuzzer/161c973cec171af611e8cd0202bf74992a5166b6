@@ -1,0 +1,12 @@
+print("hello world")
+print("escaped:\n\t\"quote\" and \\backslaÄh\\")
+print("" + "non-empty")
+print("concatenated " + "strikkkkkkkkkIkkkkkkkkkkkkkkikkkkkkkkkkkkkÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿorld")
+print("escaped:\n\t\"quote\" and \\backslasb\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+lÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿorld")
+print("escaped:\n\t\"quote\" and \\backated " +ÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊÊ "strings"f (c == "foobar") {
+  print
+0

@@ -1,0 +1,10 @@
+func __main()
+eC0
+  %1 = const 1
+ %2 = const 2
+  %1 = lt %1 %2
+  br_2
+  %6 = lt %1 %2
+!tttuttd2
+or_n(e%6 = lt %1 %2
+brva

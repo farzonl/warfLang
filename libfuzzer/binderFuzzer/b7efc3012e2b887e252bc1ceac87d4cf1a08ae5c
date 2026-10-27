@@ -1,0 +1,34 @@
+a = 1; b = 4; valux = 3; { { ion h(): strnig { ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿprint("hello world")
+print("escaped:\n\t\"quote\" and \\backslaÄh\\")
+print("" + "non-empty")
+print("concatenated " + "strings")
+
+let aÿÿÿ = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "fookkkkkkkvalekkkkkIkkkkkkkkkkkkkkikkkkkkkkkkkkkÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿorld")
+print("escaped:\nÿÿÿÿÿ=\t\"quote\" and \\backslash\\")
+print("" + "nont("hello world")
+print("escaped:\n\t\"quote\" and \\backslaÄh\\")
+print("" + "non-elsoy")
+print("concatenated " + "strings")
+
+let aÿÿÿ = "foo"
+let b = "bar"
+let c = a + b
+print(c)
+
+if (a == "fookkjkkkkkkkkkkkkkIkkkkkkkkkkkkkkikkkkkkkkkkkkkÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿorld")
+print("escaped:\nÿÿÿÿÿ=\t\"quote\" and \\bac.slash\\")
+print("" + "non-empty")
+print("concatenated " t a = "foo"
+let b = "âar"
+let c = a + b
+print(c)
+
+if (a == "fookkkkkkkkkkkkk(kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk") {
+  print(ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿretnt(f() == h 0())
+
+0;  2ÿÿÿÿÿÿÿÿÿ

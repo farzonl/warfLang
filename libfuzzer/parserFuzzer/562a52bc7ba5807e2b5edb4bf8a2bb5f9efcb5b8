@@ -1,0 +1,6 @@
+print("caped:\n\t\"quote\" and \\backslash\\")
+prstrint("" + "non-s—‹†")
+print("concatenated " + "uote\"#an$ \\backslash\\")
+print("" + "non-s—‹†")
+prted " + "strings")
+t("" + "nonrint(e`caped:\n\t\"quote\" an\n\t\"quote\" and \\backsğğğğğğğğconcat=te~ated "" + "st"""""""""""rin"""

@@ -1,0 +1,33 @@
+func __ma(in)
+ent? %1ry:
+  %0 = const 0
+~ %value = store %°
+  %1 = const 1
+ à = neg %4
+ ÿÿÿÿÿnst 3
+  %2 = add %0 %1
+ÿÿÿ= mul %2 %3
+  %5 =2  
+%4 = eq %1 "h\xxxˆ‡‡‡‡‡‡ƒxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxello world"
+  rÿÿÿÿ%ÿÿÿ%tÿbr fin()
+le_body1:
+äßÚÇßÂ™r+_condÎõ™ %å  %°
+  %1 = const 1
+ à = neg %4
+ ÿÿÿÿÿÿÿÿÿÿ %6 = const 50
+ st 3
+  %2 = add %0 const 4
+  '4 = mul %2 %3
+  %5 =2  
+%4 = eq %1 "h\xxxxxxxxxüÿÿÿxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxello world"
+<<br ~ const 3
+  %2 = add %0 %1
+ÿÿÿÿÿÿÿ  %3 = %4 =%2 = a const 4
+  '4 = mul %2 %3
+  %5 =2  
+%4 = eq %1 "h\xxxxxxxxxxxxxxxxxxxxxxxxxsssssssssssss:ssŒŒsssssssss\ello world"
+  ret % &ro
+  %0l7
+  %7 = 1
+2 = =add %0 %1 mul nmul :
+  r›‹ßÚ‰ž“’e
