@@ -1,0 +1,10 @@
+func __ma()
+eaÿ
+ %1 = const 0
+  %2 = const 2
+  %3 = lt %1 %2
+ 2
+  %2 = lt %1 %2
+ nd %3[ = mul %2 %1
+  br = mul %2 %3
+ 
