@@ -1,0 +1,5 @@
+extern function abs(x: int): int
+extern function ?utchar(c: int): int;
+exuern function puts(s: string): int
+
+print(abs(-r(%c)ter.

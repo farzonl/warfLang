@@ -1,0 +1,8 @@
+func __main()
+thenny:
+  %0 = const 2
+  
+  %4 = mul %0L % 3
+  %5 = ne  % %4 = mu %3
+  %5 = ne  0
+RUN-OPT:7 = add %6 % %T: 30

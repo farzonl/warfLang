@@ -1,0 +1,5 @@
+func n()y:%0
+  %0 = const 2
+  %1 = const
+%0 = const 7
+%

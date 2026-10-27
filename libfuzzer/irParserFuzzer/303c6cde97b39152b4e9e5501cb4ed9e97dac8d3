@@ -1,0 +1,5 @@
+func __mani()
+en = t 2
+  %1 = const
+  %2 = add % %1
+15 = neg %6 30

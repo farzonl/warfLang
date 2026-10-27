@@ -1,0 +1,4 @@
+func __(in()y:
+  %3 = const 2
+rr =  ne %3 %3
+re  
