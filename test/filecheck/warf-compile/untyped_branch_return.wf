@@ -1,0 +1,54 @@
+// REQUIRES: llvm-backend
+// RUN: %warfc -o %t.exe %s
+// RUN: %t.exe | %FileCheck %s
+
+// Untyped function with consistent boolean returns on branches
+function is_even_sign(positive: bool) {
+  if (positive) {
+    return true
+  }
+  return false
+}
+
+if (is_even_sign(true)) {
+  print(1)
+}
+if (!is_even_sign(false)) {
+  print(2)
+}
+
+// Untyped function with consistent integer returns on branches
+function abs_val(n: int) {
+  if (n < 0) {
+    return -n
+  }
+  return n
+}
+
+print(abs_val(-42))
+print(abs_val(100))
+
+// Untyped function with if-else-if consistent branches
+function classify(val: int) {
+  if (val > 0) {
+    return 1
+  } else if (val == 0) {
+    return 0
+  } else {
+    return -1
+  }
+}
+
+print(classify(5))
+print(classify(0))
+print(classify(-3))
+
+0
+
+// CHECK: 1
+// CHECK-NEXT: 2
+// CHECK-NEXT: 42
+// CHECK-NEXT: 100
+// CHECK-NEXT: 1
+// CHECK-NEXT: 0
+// CHECK-NEXT: -1

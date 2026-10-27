@@ -1,0 +1,19 @@
+// RUN: %warf -e "function f(): int { return true; } f()" 2>&1 | %FileCheck %s --check-prefix=RET-INT-BOOL
+// RUN: %warf -e "function g(): bool { return 123; } g()" 2>&1 | %FileCheck %s --check-prefix=RET-BOOL-INT
+// RUN: %warf -e "function branch_typed(c: bool): int { if (c) { return 42; } else { return false; } } branch_typed(false)" 2>&1 | %FileCheck %s --check-prefix=RET-BRANCH-TYPED
+// RUN: %warf -e "function branch_untyped(c: bool) { if (c) { return true; } return 123; } branch_untyped(true)" 2>&1 | %FileCheck %s --check-prefix=RET-BRANCH-UNTYPED
+// RUN: %warf -e "function loop_ret(): int { while (true) { return false; } return 0; } loop_ret()" 2>&1 | %FileCheck %s --check-prefix=RET-LOOP-TYPED
+// RUN: %warf -e "let x: int = true" 2>&1 | %FileCheck %s --check-prefix=VAR-INT-BOOL
+// RUN: %warf -e "var b: bool = 42" 2>&1 | %FileCheck %s --check-prefix=VAR-BOOL-INT
+// RUN: %warf -e "var a = 10; a += true" 2>&1 | %FileCheck %s --check-prefix=COMPOUND-ADD-MISMATCH
+// RUN: %warf -e "var c = true; c &= 10" 2>&1 | %FileCheck %s --check-prefix=COMPOUND-AND-MISMATCH
+
+// RET-INT-BOOL: BinderError: Function f requires a return value of type Number but was given a value of type Boolean.
+// RET-BOOL-INT: BinderError: Function g requires a return value of type Boolean but was given a value of type Number.
+// RET-BRANCH-TYPED: BinderError: Function branch_typed requires a return value of type Number but was given a value of type Boolean.
+// RET-BRANCH-UNTYPED: BinderError: Function branch_untyped requires a return value of type Boolean but was given a value of type Number.
+// RET-LOOP-TYPED: BinderError: Function loop_ret requires a return value of type Number but was given a value of type Boolean.
+// VAR-INT-BOOL: BinderError: Variable x requires a value of type Number but was given a value of type Boolean.
+// VAR-BOOL-INT: BinderError: Variable b requires a value of type Boolean but was given a value of type Number.
+// COMPOUND-ADD-MISMATCH: BinderError: Binary operator += is not defined for types Number and Boolean.
+// COMPOUND-AND-MISMATCH: BinderError: Binary operator &= is not defined for types Boolean and Number.

@@ -26,14 +26,21 @@ enum class BoundAssignmentOperatorKind {
 class BoundAssignmentOperator {
 public:
   static const std::shared_ptr<BoundAssignmentOperator>
-  Bind(SyntaxKind syntaxKind, Value::Type OperandType);
+  Bind(SyntaxKind syntaxKind, Value::Type lhsOperandType,
+       Value::Type rhsOperandType);
+  static const std::shared_ptr<BoundAssignmentOperator> GetBindFailure();
   SyntaxKind GetSyntaxKind();
+  Value::Type LeftHandExpressionType();
   Value::Type RightHandExpressionType();
+  Value::Type LhsType() const { return mLhsType; }
+  Value::Type RhsType() const { return mRhsType; }
   BoundAssignmentOperatorKind AssignmentKind();
-  BoundAssignmentOperator(SyntaxKind syntaxKind, Value::Type rhsOperandType);
+  BoundAssignmentOperator(SyntaxKind syntaxKind, Value::Type lhsOperandType,
+                          Value::Type rhsOperandType);
 
 private:
   SyntaxKind mSyntaxKind;
+  Value::Type mLhsType;
   Value::Type mRhsType;
   BoundAssignmentOperatorKind mAssigmentKind;
   static const std::shared_ptr<BoundAssignmentOperator> sOperators[];

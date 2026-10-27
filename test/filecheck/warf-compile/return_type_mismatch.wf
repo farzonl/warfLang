@@ -1,0 +1,11 @@
+// REQUIRES: llvm-backend
+// RUN: not %warfc -o %t.exe %s 2>&1 | %FileCheck %s
+
+function f(): int {
+  return true
+}
+
+print(f())
+0
+
+// CHECK: BinderError: Function f requires a return value of type Number but was given a value of type Boolean.

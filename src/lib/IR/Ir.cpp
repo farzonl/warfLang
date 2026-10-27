@@ -114,6 +114,8 @@ IrModule IrLowerer::Lower(BoundStatementNode *root) {
   mLoopStack.clear();
   mTempIndex = 0;
   mLabelIndex = 0;
+  mVariableNames.clear();
+  mVariableNameCounts.clear();
   mModule.functions.push_back(IrFunction{kIrMainFunctionName, {}, {}, ""});
   mCurrentFunction = &mModule.functions.back();
   LowerStatement(root);
@@ -121,6 +123,29 @@ IrModule IrLowerer::Lower(BoundStatementNode *root) {
     mCurrentFunction->returnValue = kIrVoidValue;
   }
   return std::move(mModule);
+}
+
+std::string IrLowerer::GetVariableName(const VariableSymbol *variable,
+                                       const std::string &fallbackName) {
+  if (!variable) {
+    return fallbackName.empty() ? "%unknown" : "%" + fallbackName;
+  }
+  auto it = mVariableNames.find(variable);
+  if (it != mVariableNames.end()) {
+    return it->second;
+  }
+  const auto &baseName =
+      variable->Name().empty() ? fallbackName : variable->Name();
+  if (baseName.empty()) {
+    return "%unknown";
+  }
+  auto &count = mVariableNameCounts[baseName];
+  std::string name = (count == 0)
+                         ? ("%" + baseName)
+                         : ("%" + baseName + "." + std::to_string(count));
+  count++;
+  mVariableNames[variable] = name;
+  return name;
 }
 
 void IrLowerer::Emit(IrOpcode op, std::vector<std::string> operands,
@@ -247,7 +272,7 @@ void IrLowerer::LowerStatement(BoundStatementNode *node) {
   if (auto declaration = dynamic_cast<BoundVariableDeclarationNode *>(node)) {
     auto value = LowerExpression(
         const_cast<BoundExpressionNode *>(declaration->Initializer()));
-    auto varName = "%" + declaration->Variable()->Name();
+    auto varName = GetVariableName(declaration->Variable().get());
     Emit(IrOpcode::Store, {value}, varName);
     mCurrentFunction->returnValue = varName;
     return;
@@ -363,7 +388,7 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
     return result;
   }
   if (auto identifier = dynamic_cast<BoundIdentifierExpressionNode *>(node)) {
-    return "%" + identifier->Name();
+    return GetVariableName(identifier->Variable().get(), identifier->Name());
   }
   if (auto unary = dynamic_cast<BoundUnaryExpressionNode *>(node)) {
     auto operand = LowerExpression(unary->Operand());
@@ -400,7 +425,8 @@ std::string IrLowerer::LowerExpression(BoundExpressionNode *node) {
   }
   if (auto assignment = dynamic_cast<BoundAssignmentExpressionNode *>(node)) {
     auto value = LowerExpression(assignment->BoundExpression());
-    auto result = "%" + assignment->Identifier();
+    auto result =
+        GetVariableName(assignment->Variable().get(), assignment->Identifier());
     Emit(AssignmentOpcodeFor(assignment->OperatorKind()), {value}, result);
     return result;
   }
@@ -438,13 +464,18 @@ void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
   auto savedTempIndex = mTempIndex;
   auto savedLabelIndex = mLabelIndex;
   auto savedLoopStack = std::move(mLoopStack);
+  auto savedVariableNames = std::move(mVariableNames);
+  auto savedVariableNameCounts = std::move(mVariableNameCounts);
   mTempIndex = 0;
   mLabelIndex = 0;
   mLoopStack.clear();
+  mVariableNames.clear();
+  mVariableNameCounts.clear();
 
   auto parameters = std::vector<std::string>();
   for (const auto &parameter : call->Parameters()) {
-    parameters.push_back("%" + parameter->Name());
+    parameters.push_back(
+        GetVariableName(parameter.get(), parameter ? parameter->Name() : ""));
   }
 
   mModule.functions.push_back(IrFunction{call->Name(), parameters, {}, ""});
@@ -458,6 +489,8 @@ void IrLowerer::LowerFunction(BoundCallExpressionNode *call) {
   mTempIndex = savedTempIndex;
   mLabelIndex = savedLabelIndex;
   mLoopStack = std::move(savedLoopStack);
+  mVariableNames = std::move(savedVariableNames);
+  mVariableNameCounts = std::move(savedVariableNameCounts);
 }
 
 std::string IrLowerer::NewTemp() { return "%" + std::to_string(mTempIndex++); }
