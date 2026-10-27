@@ -1,0 +1,9 @@
+func __()$
+v %0 %1
+  %3 = const true
+  %0 = not %3
+ %5 = ce
+  %6 = %1
+  %3not %3
+  %5 = ce
+  %6 =  RUN-OPT: true

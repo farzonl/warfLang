@@ -1,0 +1,1 @@
+function compute (start, limit) { value = start if (start < limit) {  1} for (index = 0; index < 3; index += 1) { value += 2} value} compute (0, 7); a = - 255

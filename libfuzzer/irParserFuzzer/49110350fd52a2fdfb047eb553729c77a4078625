@@ -1,0 +1,21 @@
+func __main()()
+entry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %0
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+ ntry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+  %3 = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 = = const 4
+  %4 = mul %2 %3
+  %5 = neg %4
+  %6 =ãonst 50
+ 3 = const 4
+  %4 = mu %20

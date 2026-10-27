@@ -1,0 +1,5 @@
+func d(b)b
+  ret %0}
+func @í(i)
+  ret %3
+

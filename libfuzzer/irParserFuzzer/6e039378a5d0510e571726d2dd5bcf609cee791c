@@ -1,0 +1,11 @@
+func _()
+%va
+ensô 0
+  %1 = const 1
+  %2 = const 2
+8
+lt %1 %2
+0%val
+lt %1 %1
+lt %1 %2
+  bto

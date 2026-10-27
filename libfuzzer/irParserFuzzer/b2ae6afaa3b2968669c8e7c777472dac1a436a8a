@@ -1,0 +1,10 @@
+func _in()
+entry: 3
+  %2 = store %0
+ent€yncry:
+  %0 = const 2
+  %1 = const 3
+  %2 = add %0 %1
+
+  %2 = add %0 %1
+:Ñ30
