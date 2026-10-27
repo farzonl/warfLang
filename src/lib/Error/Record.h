@@ -69,4 +69,6 @@ public:
                                const std::string &name,
                                Value::Type expectedType,
                                Value::Type actualType);
+  void ReportCannotAssign(std::shared_ptr<SyntaxToken> identifierToken);
+  void ReportInvalidBreakOrContinue(std::shared_ptr<SyntaxToken> keywordToken);
 };

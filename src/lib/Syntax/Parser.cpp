@@ -7,7 +7,10 @@
 // #include<iterator> // for back_inserter
 #include "AssignmentExpressionNode.h"
 #include "BinaryExpressionNode.h"
+#include "BreakStatementSyntaxNode.h"
 #include "CallExpressionNode.h"
+#include "ContinueStatementSyntaxNode.h"
+#include "DoWhileStatementSyntaxNode.h"
 #include "ForStatementSyntaxNode.h"
 #include "FunctionDeclarationSyntaxNode.h"
 #include "IdentifierExpressionNode.h"
@@ -213,8 +216,17 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseStatement() {
   case SyntaxKind::WhileKeyword:
     statement = ParseWhileStatement();
     break;
+  case SyntaxKind::DoKeyword:
+    statement = ParseDoWhileStatement();
+    break;
   case SyntaxKind::ForKeyword:
     statement = ParseForStatement();
+    break;
+  case SyntaxKind::BreakKeyword:
+    statement = ParseBreakStatement();
+    break;
+  case SyntaxKind::ContinueKeyword:
+    statement = ParseContinueStatement();
     break;
   case SyntaxKind::ReturnKeyword:
     statement = ParseReturnStatement();
@@ -230,6 +242,16 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseStatement() {
     Next();
   }
   return statement;
+}
+
+std::unique_ptr<StatementSyntaxNode> Parser::ParseBreakStatement() {
+  auto breakKeyword = Match(SyntaxKind::BreakKeyword);
+  return std::make_unique<BreakStatementSyntaxNode>(breakKeyword);
+}
+
+std::unique_ptr<StatementSyntaxNode> Parser::ParseContinueStatement() {
+  auto continueKeyword = Match(SyntaxKind::ContinueKeyword);
+  return std::make_unique<ContinueStatementSyntaxNode>(continueKeyword);
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseReturnStatement() {
@@ -305,6 +327,18 @@ std::unique_ptr<StatementSyntaxNode> Parser::ParseWhileStatement() {
   return std::make_unique<WhileStatementSyntaxNode>(
       whileKeyword, openParenthesis, std::move(condition), closeParenthesis,
       std::move(body));
+}
+
+std::unique_ptr<StatementSyntaxNode> Parser::ParseDoWhileStatement() {
+  auto doKeyword = Match(SyntaxKind::DoKeyword);
+  auto body = ParseStatement();
+  auto whileKeyword = Match(SyntaxKind::WhileKeyword);
+  auto openParenthesis = Match(SyntaxKind::OpenParenthesisToken);
+  auto condition = ParseAssignmentExpression();
+  auto closeParenthesis = Match(SyntaxKind::CloseParenthesisToken);
+  return std::make_unique<DoWhileStatementSyntaxNode>(
+      doKeyword, std::move(body), whileKeyword, openParenthesis,
+      std::move(condition), closeParenthesis);
 }
 
 std::unique_ptr<StatementSyntaxNode> Parser::ParseForStatement() {

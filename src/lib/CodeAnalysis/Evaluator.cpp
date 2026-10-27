@@ -6,7 +6,10 @@
 #include "Binding/BoundAssignmentExpressionNode.h"
 #include "Binding/BoundBinaryExpressionNode.h"
 #include "Binding/BoundBlockStatementNode.h"
+#include "Binding/BoundBreakStatementNode.h"
 #include "Binding/BoundCallExpressionNode.h"
+#include "Binding/BoundContinueStatementNode.h"
+#include "Binding/BoundDoWhileStatementNode.h"
 #include "Binding/BoundExpressionStatementNode.h"
 #include "Binding/BoundForStatementNode.h"
 #include "Binding/BoundFunctionDeclarationNode.h"
@@ -52,8 +55,19 @@ Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
       if (mHasReturnValue) {
         return mReturnValue;
       }
+      if (mShouldBreak || mShouldContinue) {
+        break;
+      }
     }
     return result;
+  }
+  if (dynamic_cast<BoundBreakStatementNode *>(node)) {
+    mShouldBreak = true;
+    return Value();
+  }
+  if (dynamic_cast<BoundContinueStatementNode *>(node)) {
+    mShouldContinue = true;
+    return Value();
   }
   if (auto returnStatement = dynamic_cast<BoundReturnStatementNode *>(node)) {
     Value val;
@@ -102,7 +116,35 @@ Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
       if (mHasReturnValue) {
         return mReturnValue;
       }
+      if (mShouldBreak) {
+        mShouldBreak = false;
+        break;
+      }
+      if (mShouldContinue) {
+        mShouldContinue = false;
+        continue;
+      }
     }
+    return result;
+  }
+  if (auto doWhileStatement = dynamic_cast<BoundDoWhileStatementNode *>(node)) {
+    Value result;
+    do {
+      result = EvaluateStatement(
+          const_cast<BoundStatementNode *>(doWhileStatement->Body()));
+      if (mHasReturnValue) {
+        return mReturnValue;
+      }
+      if (mShouldBreak) {
+        mShouldBreak = false;
+        break;
+      }
+      if (mShouldContinue) {
+        mShouldContinue = false;
+      }
+    } while (EvaluateRec(const_cast<BoundExpressionNode *>(
+                             doWhileStatement->Condition()))
+                 .asBool());
     return result;
   }
   if (auto forStatement = dynamic_cast<BoundForStatementNode *>(node)) {
@@ -118,6 +160,13 @@ Value Evaluator::EvaluateStatement(BoundStatementNode *node) {
           const_cast<BoundStatementNode *>(forStatement->Body()));
       if (mHasReturnValue) {
         return mReturnValue;
+      }
+      if (mShouldBreak) {
+        mShouldBreak = false;
+        break;
+      }
+      if (mShouldContinue) {
+        mShouldContinue = false;
       }
       EvaluateRec(const_cast<BoundExpressionNode *>(forStatement->Increment()));
     }
@@ -257,8 +306,12 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
     }
 
     bool prevHasReturn = mHasReturnValue;
+    bool prevShouldBreak = mShouldBreak;
+    bool prevShouldContinue = mShouldContinue;
     Value prevReturnVal = mReturnValue;
     mHasReturnValue = false;
+    mShouldBreak = false;
+    mShouldContinue = false;
 
     Value result =
         EvaluateStatement(const_cast<BoundStatementNode *>(targetCall->Body()));
@@ -267,6 +320,8 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
     }
 
     mHasReturnValue = prevHasReturn;
+    mShouldBreak = prevShouldBreak;
+    mShouldContinue = prevShouldContinue;
     mReturnValue = prevReturnVal;
 
     for (const auto &[var, savedVal] : mCallFrames.back()) {

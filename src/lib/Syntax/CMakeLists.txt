@@ -16,7 +16,10 @@ set(SourceFiles Lexer.cpp
                 FunctionDeclarationSyntaxNode.cpp
                 IfStatementSyntaxNode.cpp
                 WhileStatementSyntaxNode.cpp
+                DoWhileStatementSyntaxNode.cpp
                 ForStatementSyntaxNode.cpp
+                BreakStatementSyntaxNode.cpp
+                ContinueStatementSyntaxNode.cpp
                 ReturnStatementSyntaxNode.cpp
                 ExpressionNode.cpp
                 AssignmentExpressionNode.cpp
@@ -41,7 +44,10 @@ set(HeaderFiles Lexer.h
                 FunctionDeclarationSyntaxNode.h
                 IfStatementSyntaxNode.h
                 WhileStatementSyntaxNode.h
+                DoWhileStatementSyntaxNode.h
                 ForStatementSyntaxNode.h
+                BreakStatementSyntaxNode.h
+                ContinueStatementSyntaxNode.h
                 ReturnStatementSyntaxNode.h
                 ExpressionNode.h
                 AssignmentExpressionNode.h

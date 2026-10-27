@@ -43,6 +43,12 @@ private:
   int32_t mTempIndex;
   int32_t mLabelIndex;
   std::unordered_set<std::string> mEmittedFunctions;
+  struct LoopTargets {
+    std::string breakLabel;
+    std::string continueLabel;
+    bool usedContinue = false;
+  };
+  std::vector<LoopTargets> mLoopStack;
 
   void LowerStatement(BoundStatementNode *node);
   std::string LowerExpression(BoundExpressionNode *node);
@@ -51,6 +57,7 @@ private:
                  IrLabelKind endKind, BoundStatementNode *initializer,
                  BoundExpressionNode *condition, BoundStatementNode *body,
                  BoundExpressionNode *increment);
+  void LowerDoWhile(BoundStatementNode *body, BoundExpressionNode *condition);
   void Emit(IrOpcode op, std::vector<std::string> operands,
             std::string result = "");
   void EmitAt(size_t index, IrOpcode op, std::vector<std::string> operands,

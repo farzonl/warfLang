@@ -200,6 +200,22 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         currentBlockName = labelName;
         continue;
       }
+      if (!instruction.result.empty()) {
+        auto canonical = CanonicalName(instruction.result);
+        defCounts[canonical]++;
+        defBlock[canonical] = currentBlockName;
+        if (IsStoreOp(instruction.op) || defCounts[canonical] > 1) {
+          addSlotVar(canonical);
+        }
+      }
+    }
+
+    currentBlockName = entryLabel;
+    for (const auto &instruction : function.instructions) {
+      if (instruction.op == IrOpcode::Label && !instruction.operands.empty()) {
+        currentBlockName = instruction.operands[0];
+        continue;
+      }
       for (const auto &op : instruction.operands) {
         if (!op.empty() && op[0] == '%') {
           auto canonical = CanonicalName(op);
@@ -208,14 +224,6 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
               it->second != currentBlockName) {
             addSlotVar(canonical);
           }
-        }
-      }
-      if (!instruction.result.empty()) {
-        auto canonical = CanonicalName(instruction.result);
-        defCounts[canonical]++;
-        defBlock[canonical] = currentBlockName;
-        if (IsStoreOp(instruction.op) || defCounts[canonical] > 1) {
-          addSlotVar(canonical);
         }
       }
     }

@@ -56,8 +56,12 @@ enum class IrLabelKind : uint8_t {
   WhileCond,
   WhileBody,
   WhileEnd,
+  DoBody,
+  DoCond,
+  DoEnd,
   ForCond,
   ForBody,
+  ForInc,
   ForEnd,
 };
 
@@ -162,8 +166,12 @@ static const std::unordered_map<IrLabelKind, std::string, IrLabelKindHash>
         {IrLabelKind::WhileCond, "while_cond"},
         {IrLabelKind::WhileBody, "while_body"},
         {IrLabelKind::WhileEnd, "while_end"},
+        {IrLabelKind::DoBody, "do_body"},
+        {IrLabelKind::DoCond, "do_cond"},
+        {IrLabelKind::DoEnd, "do_end"},
         {IrLabelKind::ForCond, "for_cond"},
         {IrLabelKind::ForBody, "for_body"},
+        {IrLabelKind::ForInc, "for_inc"},
         {IrLabelKind::ForEnd, "for_end"},
 };
 
@@ -244,6 +252,10 @@ inline bool IsCompoundStoreOp(IrOpcode op) {
 
 inline bool IsStoreOp(IrOpcode op) {
   return op == IrOpcode::Store || IsCompoundStoreOp(op);
+}
+
+inline bool IsTerminatorOp(IrOpcode op) {
+  return op == IrOpcode::Ret || op == IrOpcode::Br || op == IrOpcode::BrCond;
 }
 
 inline IrOpcode CompoundStoreToBinaryOp(IrOpcode op) {

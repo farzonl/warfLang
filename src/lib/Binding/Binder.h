@@ -30,7 +30,10 @@ class FunctionDeclarationSyntaxNode;
 class ExpressionStatementSyntaxNode;
 class IfStatementSyntaxNode;
 class WhileStatementSyntaxNode;
+class DoWhileStatementSyntaxNode;
 class ForStatementSyntaxNode;
+class BreakStatementSyntaxNode;
+class ContinueStatementSyntaxNode;
 class ReturnStatementSyntaxNode;
 
 class Binder {
@@ -46,6 +49,7 @@ public:
 private:
   Records mRecords;
   std::shared_ptr<Scope> mScope;
+  int32_t mLoopDepth = 0;
   std::vector<std::string> mActiveFunctionStack;
   std::unordered_map<std::string, Value::Type> mActiveFunctionReturnTypes;
   static Value::Type InferStatementType(const BoundStatementNode *node);
@@ -74,7 +78,13 @@ private:
   std::unique_ptr<BoundStatementNode>
   BindWhileStatement(WhileStatementSyntaxNode *syntax);
   std::unique_ptr<BoundStatementNode>
+  BindDoWhileStatement(DoWhileStatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
   BindForStatement(ForStatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindBreakStatement(BreakStatementSyntaxNode *syntax);
+  std::unique_ptr<BoundStatementNode>
+  BindContinueStatement(ContinueStatementSyntaxNode *syntax);
   std::unique_ptr<BoundStatementNode>
   BindReturnStatement(ReturnStatementSyntaxNode *syntax);
 };
