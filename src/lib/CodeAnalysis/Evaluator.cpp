@@ -241,8 +241,22 @@ Value Evaluator::EvaluateRec(BoundExpressionNode *node) {
   if (BoundBinaryExpressionNode *binaryExpression =
           dynamic_cast<BoundBinaryExpressionNode *>(node)) {
     auto left = EvaluateRec(binaryExpression->Left());
-    auto right = EvaluateRec(binaryExpression->Right());
     auto opKind = binaryExpression->OperatorKind();
+    if (opKind == BoundBinaryOperatorKind::LogicalAnd) {
+      if (!left.asBool()) {
+        return left;
+      }
+      auto right = EvaluateRec(binaryExpression->Right());
+      return left && right;
+    }
+    if (opKind == BoundBinaryOperatorKind::LogicalOr) {
+      if (left.asBool()) {
+        return left;
+      }
+      auto right = EvaluateRec(binaryExpression->Right());
+      return left || right;
+    }
+    auto right = EvaluateRec(binaryExpression->Right());
     switch (opKind) {
     case BoundBinaryOperatorKind::Addition:
       return left + right;

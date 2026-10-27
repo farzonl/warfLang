@@ -793,3 +793,48 @@ TEST_CASE("Built-in print function") {
             "2.");
   }
 }
+
+TEST_CASE("Short-circuiting logical operators") {
+  SUBCASE("guarded division by zero") {
+    REQUIRE_FALSE(testProgramHelper("false && (1 / 0 == 0)").asBool());
+    REQUIRE_FALSE(testIrRoundTripHelper("false && (1 / 0 == 0)").asBool());
+
+    REQUIRE(testProgramHelper("true || (1 / 0 == 0)").asBool());
+    REQUIRE(testIrRoundTripHelper("true || (1 / 0 == 0)").asBool());
+
+    REQUIRE_FALSE(testProgramHelper("x = 0 (x != 0) && (10 / x > 1)").asBool());
+    REQUIRE_FALSE(
+        testIrRoundTripHelper("x = 0 (x != 0) && (10 / x > 1)").asBool());
+
+    REQUIRE(testProgramHelper("x = 0 (x == 0) || (10 / x > 1)").asBool());
+    REQUIRE(testIrRoundTripHelper("x = 0 (x == 0) || (10 / x > 1)").asBool());
+  }
+
+  SUBCASE("chained short-circuiting expressions") {
+    REQUIRE_FALSE(testProgramHelper("true && true && false").asBool());
+    REQUIRE_FALSE(testIrRoundTripHelper("true && true && false").asBool());
+
+    REQUIRE(testProgramHelper("false || false || true").asBool());
+    REQUIRE(testIrRoundTripHelper("false || false || true").asBool());
+
+    REQUIRE_FALSE(testProgramHelper("true && false && (1 / 0 == 0)").asBool());
+    REQUIRE_FALSE(
+        testIrRoundTripHelper("true && false && (1 / 0 == 0)").asBool());
+
+    REQUIRE(testProgramHelper("false || true || (1 / 0 == 0)").asBool());
+    REQUIRE(testIrRoundTripHelper("false || true || (1 / 0 == 0)").asBool());
+  }
+
+  SUBCASE("side-effecting function calls guarded by short-circuiting") {
+    std::stringstream captured;
+    auto *oldBuf = std::cout.rdbuf(captured.rdbuf());
+    REQUIRE_FALSE(testProgramHelper("false && (print(99) == 99)").asBool());
+    REQUIRE_FALSE(testIrRoundTripHelper("false && (print(99) == 99)").asBool());
+    REQUIRE(testProgramHelper("true || (print(88) == 88)").asBool());
+    REQUIRE(testIrRoundTripHelper("true || (print(88) == 88)").asBool());
+    REQUIRE(testProgramHelper("true && (print(77) == 77)").asBool());
+    REQUIRE(testIrRoundTripHelper("false || (print(66) == 66)").asBool());
+    std::cout.rdbuf(oldBuf);
+    REQUIRE(captured.str() == "77\n66\n");
+  }
+}
