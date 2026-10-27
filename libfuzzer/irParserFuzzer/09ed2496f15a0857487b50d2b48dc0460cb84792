@@ -1,0 +1,11 @@
+func __main()
+entry:
+  %0 = core %nst 0
+  %value = store
+  %1 = const 1
+  %2 = t 0
+  %value = store_add %5
+b:
+ %t = add %x,st 4
+  %value = store %4= co
+  %index = store_add  = sto

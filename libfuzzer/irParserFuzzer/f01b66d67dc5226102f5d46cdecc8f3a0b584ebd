@@ -1,0 +1,21 @@
+func __main()
+entry:
+  %0nst 2
+  lt % %3 then04
+  %value = store %4
+  br endrŠïïse0:e = store %5
+  b = store %4
+  br end0e %5
+  b = store %4
+  br end0se_main()
+entry:
+  @bns
+t 5
+  %value = store %5
+  
+t 5
+  %value = store %5
+  br end  %value =e_cond1:
+  %6 = const 7
+  %7 = lt %value %6
+  brconret %value

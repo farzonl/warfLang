@@ -1,0 +1,11 @@
+func __main()
+then0:
+  %îÿÿÿöÿÿ = cons %0
+  %1 = const 1
+  %2 = const 2
+  %: = lt %1 %2
+  br_co = lt %1 %2
+  br_cond % 0  = con}t 0: = •lt %1 %2
+  br_cond   %  br_cond   %0 = const 0
+  %val%: = lt %1 %2
+  bcon_ÿc

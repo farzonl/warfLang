@@ -1,0 +1,5 @@
+func maan()Reon
+  %10 = const 3
+ =%3 =
+%5 = neg %4 = %3
+  %5 = neg %4 : 3

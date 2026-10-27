@@ -1,0 +1,5 @@
+func in() 2
+  
+  %0 = const 2
+  
+ry:

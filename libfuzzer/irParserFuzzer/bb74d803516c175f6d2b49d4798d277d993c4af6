@@ -1,0 +1,50 @@
+func _^main()
+entry: 1 = const 3
+  %2 = adfunc func _^main()
+entry: 1 = const 3
+  %2 = adfunc _i)(
+an[mealue = stue = storlt %1 %2
+  br_cond %3[ = mul %2 %3
+  %5 = neg %4
+  3
+  %2 = add %0 %1
+ ÿÿÿÿ %3 = conŽ 2
+st 4
+  mul %2 %3
+  %5 = neg %4
+  3
+0  %2 = add %0 %1
+ ÿ 23 = lt %1 %2
+  br_cond %3[ = mul %2 %3
+  %5 = neg %4
+  3
+  %2 = add %1 %1
+ ÿÿÿÿ %3 = const4
+  3
+  %2 = add %0 %1
+ ÿÿÿÿ %3 = const 4
+  mul %2 %3
+  %5 = neg %4
+  3
+0  %2 = add %0 %1
+ ÿÿÿÿ %3«ore %4
+ueconst 23 = lt %1 %2
+  br_cond %3[ = mul %2 %3
+  %5 = neg %4
+  3
+  %2 = ad%3
+  %5 = neg %4
+d  3
+0nst 2
+  %3 = lt %1 %2
+  br_cond V3[ = mul %2 %3
+  %5 = neg %4
+  3
+  %2 = add Þ0 %1
+ ÿÿ= const  %2 %3
+  %5 = neg %4
+d  3
+ ÿÿÿÿ %3 = const 4
+  g %4
+  %6 = const 50
+ %0 %
