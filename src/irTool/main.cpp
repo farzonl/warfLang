@@ -2,27 +2,68 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+#include "Binding/Binder.h"
 #include "IR/Ir.h"
 #include "IR/IrOptimizer.h"
 #if defined(WARF_ENABLE_LLVM_BACKEND)
 #include "LlvmBackend.h"
 #endif
+#include "Symbol/SymbolTableMgr.h"
+#include "Syntax/SyntaxTree.h"
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <string>
 
 static void printUsage() {
-  std::cout << "usage: ./WarfIR [--opt|-O] --run <ir_file_name>\n";
-  std::cout
-      << "       ./WarfIR [--opt|-O] [--emit-ir] [-o output] <ir_file_name>\n";
+  std::cout << "usage: ./WarfIR [--opt|-O] --run <ir_or_wf_file_name>\n";
+  std::cout << "       ./WarfIR [--opt|-O] [--emit-ir] [-o output] "
+               "<ir_or_wf_file_name>\n";
   std::cout << "       ./WarfIR [--opt|-O] --emit-llvm-ir [-o output] "
-               "<ir_file_name>\n";
-  std::cout
-      << "       ./WarfIR [--opt|-O] --emit-bc -o output <ir_file_name>\n";
+               "<ir_or_wf_file_name>\n";
+  std::cout << "       ./WarfIR [--opt|-O] --emit-bc -o output "
+               "<ir_or_wf_file_name>\n";
   std::cout << "       ./WarfIR -h\n";
   std::cout << "       ./WarfIR --help\n";
+}
+
+static bool HasWfExtension(const std::string &path) {
+  return path.size() >= 3 && path.compare(path.size() - 3, 3, ".wf") == 0;
+}
+
+static bool ReadSourceFile(const std::string &path, std::string &source) {
+  std::ifstream file(path);
+  if (!file.is_open()) {
+    return false;
+  }
+  std::stringstream stream;
+  stream << file.rdbuf();
+  source = stream.str();
+  return !file.bad();
+}
+
+static bool LowerSourceToModule(const std::string &source, IrModule &module) {
+  SymbolTableMgr::init();
+  auto syntaxTree = SyntaxTree::Parse(source);
+  auto binder = std::make_unique<Binder>();
+  auto boundStatement = binder->BindCompilationUnit(syntaxTree->Root());
+  bool hasErrors = false;
+  for (const auto &error : syntaxTree->Errors()) {
+    std::cerr << error << std::endl;
+    hasErrors = true;
+  }
+  for (const auto &error : binder->Errors()) {
+    std::cerr << error << std::endl;
+    hasErrors = true;
+  }
+  if (hasErrors) {
+    return false;
+  }
+  IrLowerer lowerer;
+  module = lowerer.Lower(boundStatement.get());
+  return true;
 }
 
 static bool ReadFile(const std::string &path, std::string &text) {
@@ -80,7 +121,7 @@ int main(int argc, char **argv) {
       optimize = true;
       continue;
     }
-    if (arg == "--emit-llvm-ir") {
+    if (arg == "--emit-llvm-ir" || arg == "--emit-llvm") {
       emitLlvmIr = true;
       continue;
     }
@@ -125,14 +166,25 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  std::string text;
-  if (!ReadFile(filePath, text)) {
-    std::cerr << "Failed to read file: " << filePath << std::endl;
-    return -1;
+  IrModule module;
+  if (HasWfExtension(filePath)) {
+    std::string source;
+    if (!ReadSourceFile(filePath, source)) {
+      std::cerr << "Failed to read file: " << filePath << std::endl;
+      return -1;
+    }
+    if (!LowerSourceToModule(source, module)) {
+      return -1;
+    }
+  } else {
+    std::string text;
+    if (!ReadFile(filePath, text)) {
+      std::cerr << "Failed to read file: " << filePath << std::endl;
+      return -1;
+    }
+    IrParser parser;
+    module = parser.Parse(text);
   }
-
-  IrParser parser;
-  auto module = parser.Parse(text);
   if (optimize) {
     IrOptimizer::OptimizeInPlace(module);
   }

@@ -1,0 +1,18 @@
+// RUN: %warf-ir -h | %FileCheck %s --check-prefix=HELP
+// RUN: %warf-ir -O --emit-ir %s | %FileCheck %s --check-prefix=OPT-IR
+// RUN: %warf-ir --opt --emit-ir %s | %FileCheck %s --check-prefix=OPT-IR
+// RUN: %warf-ir -O --run %s | %FileCheck %s --check-prefix=EXEC
+// RUN: %warf-ir --opt --run %s | %FileCheck %s --check-prefix=EXEC
+
+// Unused dead constant expression statement followed by folded expression
+(10 + 20) * 3
+(2 + 3) * 4 - 6 / 2
+
+// HELP: usage: ./WarfIR [--opt|-O] --run
+
+// OPT-IR: func __main()
+// OPT-IR-NEXT: entry:
+// OPT-IR-NEXT:   %13 = const 17
+// OPT-IR-NEXT:   ret %13
+
+// EXEC: 17
