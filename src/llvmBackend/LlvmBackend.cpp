@@ -330,8 +330,9 @@ static std::unique_ptr<llvm::Module> BuildModule(const IrModule &irModule,
         } else if (instruction.operands[0] == kIrFalseLiteral) {
           value = llvm::ConstantInt::get(intType, 0);
         } else {
-          value = llvm::ConstantInt::get(intType,
-                                         std::stoi(instruction.operands[0]));
+          value = llvm::ConstantInt::get(
+              intType,
+              static_cast<int32_t>(std::stoll(instruction.operands[0])));
         }
       } else if (instruction.op == IrOpcode::Store) {
         value = operand(0);

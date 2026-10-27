@@ -55,7 +55,7 @@ public:
 
   Value operator-() {
     Value value;
-    value = -this->asInt();
+    value = static_cast<int32_t>(-static_cast<int64_t>(this->asInt()));
     return value;
   }
 

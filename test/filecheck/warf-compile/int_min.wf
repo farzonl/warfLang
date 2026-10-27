@@ -1,0 +1,14 @@
+// REQUIRES: llvm-backend
+// RUN: %warfc -o %t.exe %s
+// RUN: %t.exe | %FileCheck %s
+
+print(-2147483648)
+print(2147483647)
+print(-2147483648 + 1)
+print(-2147483647 - 1)
+0
+
+// CHECK: -2147483648
+// CHECK-NEXT: 2147483647
+// CHECK-NEXT: -2147483647
+// CHECK-NEXT: -2147483648

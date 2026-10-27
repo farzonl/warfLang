@@ -1,0 +1,23 @@
+// RUN: %warf -e "2147483648" 2>&1 | %FileCheck %s --check-prefix=OVERFLOW-2147483648
+// RUN: %warf -e "+2147483648" 2>&1 | %FileCheck %s --check-prefix=OVERFLOW-2147483648
+// RUN: %warf -e "10 - 2147483648" 2>&1 | %FileCheck %s --check-prefix=OVERFLOW-2147483648
+// RUN: %warf -e "-(2147483648)" 2>&1 | %FileCheck %s --check-prefix=OVERFLOW-2147483648
+// RUN: %warf -e "2147483649" 2>&1 | %FileCheck %s --check-prefix=OVERFLOW-2147483649
+// RUN: %warf -e "-2147483649" 2>&1 | %FileCheck %s --check-prefix=OVERFLOW-2147483649
+// RUN: %warf -e "-" 2>&1 | %FileCheck %s --check-prefix=UNARY-EOF
+// RUN: %warf -e "- ;" 2>&1 | %FileCheck %s --check-prefix=UNARY-SEMI
+// RUN: %warf -e "(-)" 2>&1 | %FileCheck %s --check-prefix=UNARY-PAREN
+// RUN: %warf -e "1 + -" 2>&1 | %FileCheck %s --check-prefix=UNARY-EOF
+// RUN: %warf -e "let x = -;" 2>&1 | %FileCheck %s --check-prefix=UNARY-SEMI
+// RUN: %warf -e "- * 2" 2>&1 | %FileCheck %s --check-prefix=UNARY-STAR
+// RUN: %warf -e "- /* comment */ 2147483648" 2>&1 | %FileCheck %s --check-prefix=UNARY-SLASH
+// RUN: %warf -e "--" 2>&1 | %FileCheck %s --check-prefix=UNARY-EOF
+// RUN: %warf -e "print(-)" 2>&1 | %FileCheck %s --check-prefix=UNARY-PAREN
+
+// OVERFLOW-2147483648: LexerError: The number 2147483648 is a Numeric overflow.
+// OVERFLOW-2147483649: LexerError: The number 2147483649 is a Numeric overflow.
+// UNARY-EOF: ParserError: Unexpected token: < EndOfFileToken > Expected: < NumberToken >
+// UNARY-SEMI: ParserError: Unexpected token: < SemicolonToken > Expected: < NumberToken >
+// UNARY-PAREN: ParserError: Unexpected token: < CloseParenthesisToken > Expected: < NumberToken >
+// UNARY-STAR: ParserError: Unexpected token: < StarToken > Expected: < NumberToken >
+// UNARY-SLASH: ParserError: Unexpected token: < SlashToken > Expected: < NumberToken >
