@@ -1,0 +1,2 @@
+// Lines: 30.18% (1088/3605) Regions: 33.25%
+if (!(false)) { a = 1; b = 1; value = 0; let c = ((3 - 1) + 0); let b = (a &= +3); c = 0; while (c < 4) { i = 0; while (i < 5) { b -= b; i += 1 }; c += 1 }; +((255 ^ 7)) } else { { a &= 0 } }

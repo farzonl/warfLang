@@ -1,0 +1,2 @@
+// Lines: 35.53% (1281/3605) Regions: 38.24%
+{ a = 5; b = 1; value = 0; x = (false == true); if (((false != true) && (true || true))) { function clamp (x, y) { y ^= 255; return 3} clamp (0,; value = 0; a ^ 9 + (3); += if (((false != true) && (true && false))) { hile = 0; return 7} foo ((42 ^ (value / b)), (- (255) / (value ^= - 42) for); |= (value ^= 4); b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false)) { index = 0; ^ index (index < 5) { value &= b; while (index < 3) { if a int): int { if (n <= 1) { return; whi > le (index < 5) {;

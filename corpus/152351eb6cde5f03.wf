@@ -1,0 +1,2 @@
+// Lines: 11.09% (2371/21375) Regions: 19.53%
+a = 2; b = 10; value = 0; for (index = 0; index < 1; index += 1) { for (z = 0; z < 1; z += 1) { value /= -10 } }; for (index = 0; index < 4; index += 1) { a += 3 }; value &= (~(b) * (a & 3)); a *= ((-3 + 5) * (4 ^ 5)); 5

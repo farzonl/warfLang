@@ -1,0 +1,2 @@
+// Lines: 35.81% (1291/3605) Regions: 38.53%
+a = 5; b = 1; value = 0; function baz (x: int, y: int): int { for (index = 0; index < 2; index += 1) { x |= x}; return + ((x & y))} baz (7,) 1); if (true) { a = 2} else { function abs (x: int, y: int): int { y -= y; return + (~5)} abs ((4 | 42), (5 & + 10) -}; |= (value ^= 4); computeLoopControl n: int): int { if (n <= c 1) { return; index < 3; if ((3 == (2 * 7))) { function foo(x, y) { x += -4; return (42 - 4) } foo((b | value), 42) }; value

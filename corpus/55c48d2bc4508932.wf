@@ -1,0 +1,2 @@
+// Lines: 39.72% (1432/3605) Regions: 42.89%
+{ a = 2; b = 4; value = 0; b = ((5 & b) * (b ^ b)); function max (x: int, y: int): int { for (index = 0; index < 1; index += 1) { x *= ~255}; return ((0 * y) & ~(y))} max (b, - ((255 + + 2))); index = 0; while (index < 2) { for (index = 0; index < 4; index += 1) { value &= 2}; index += 1}; { if ((false || false)) { a -= 0} else { b &= + 1}}; b = 3; value = 0; a ^= + (3); += if (((false != true) && ((42 ^ (value / b)), (- / 255) ((value ^= - 42) for); |= (value ^= 4); computeLoopControl n: int): int { if (n

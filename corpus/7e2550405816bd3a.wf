@@ -1,0 +1,2 @@
+// Lines: 32.70% (1179/3605) Regions: 37.02%
+a = 5; b = 1; value = 0; function abs(x: int, y: int): int { x &= (y &= x); return (x /= y) } abs(((10 & b) - value), -2); a = 2; let _a = 1; (value |= (0 - -7))
