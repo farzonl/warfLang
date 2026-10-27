@@ -1,0 +1,7 @@
+func add_scaled(a, b)
+entry:
+, %0 %8 =  %7
+  %9 rint %8
+  %9 = const 4in()
+// OPT: n%6 = const 3.5
+aled %6 %3
