@@ -203,6 +203,23 @@
     <div id="toast" class="toast hidden"></div>
   </div>
 
+  <!-- Pre-configure Emscripten Module lifecycle before WarfWasm.js loads -->
+  <script>
+    window.__warfWasmReady = false;
+    window.Module = window.Module || {};
+    (function () {
+      var prevInit = window.Module.onRuntimeInitialized;
+      var hook = function () {
+        window.__warfWasmReady = true;
+        if (typeof prevInit === 'function') prevInit();
+        if (typeof window.__onWarfWasmReady === 'function') {
+          window.__onWarfWasmReady();
+        }
+      };
+      window.__warfPreInitHook = hook;
+      window.Module.onRuntimeInitialized = hook;
+    })();
+  </script>
   <!-- Emscripten Wasm Script (if present) -->
   <script src="WarfWasm.js"></script>
   <!-- Playground Application Engine -->

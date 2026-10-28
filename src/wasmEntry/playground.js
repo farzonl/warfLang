@@ -405,21 +405,42 @@ greet(result)`
 
   class WarfBridge {
     constructor() {
+      this.wasmReady = Boolean(typeof window !== 'undefined' && window.__warfWasmReady);
       this.isReady = false;
       this.hasRichApi = false;
       this.hasLegacyApi = false;
+      this.lastLegacyCode = null;
+      this.lastLegacyExecResult = null;
       this.init();
     }
 
     init() {
-      if (typeof window !== 'undefined' && window.Module) {
+      if (typeof window !== 'undefined' && window.__warfWasmReady) {
+        this.wasmReady = true;
+      }
+      if (this.wasmReady && typeof window !== 'undefined' && window.Module) {
         this.checkModule();
       }
     }
 
     checkModule() {
+      if (typeof window !== 'undefined' && window.__warfWasmReady) {
+        this.wasmReady = true;
+      }
+      // CRITICAL: Never access Module._* properties before Wasm runtime initialization!
+      // Emscripten defines makeInvalidEarlyAccess getters on Module._* before
+      // onRuntimeInitialized fires, which abort if referenced/called early.
+      if (!this.wasmReady) return;
+      if (this.isReady) return;
+
       const M = window.Module;
       if (!M) return;
+
+      if (typeof M._InitWarf === 'function') {
+        try {
+          M._InitWarf();
+        } catch (_) {}
+      }
 
       if (typeof M._AnalyzeWarf === 'function' && typeof M._ExecuteWarf === 'function') {
         this.hasRichApi = true;
@@ -431,36 +452,49 @@ greet(result)`
     }
 
     encodeUTF8(str) {
+      if (!this.wasmReady) return null;
       const M = window.Module;
-      if (M && typeof M.lengthBytesUTF8 === 'function' && typeof M.stringToUTF8 === 'function' && typeof M._malloc === 'function') {
-        const len = M.lengthBytesUTF8(str) + 1;
+      if (!M) return null;
+      const lenFn = typeof M.lengthBytesUTF8 === 'function'
+        ? M.lengthBytesUTF8
+        : (typeof lengthBytesUTF8 === 'function' ? lengthBytesUTF8 : null);
+      const toUtf8Fn = typeof M.stringToUTF8 === 'function'
+        ? M.stringToUTF8
+        : (typeof stringToUTF8 === 'function' ? stringToUTF8 : null);
+      if (lenFn && toUtf8Fn && typeof M._malloc === 'function') {
+        const len = lenFn(str) + 1;
         const ptr = M._malloc(len);
-        M.stringToUTF8(str, ptr, len);
+        toUtf8Fn(str, ptr, len);
         return { ptr, len };
       }
       // TextEncoder Fallback
-      if (typeof TextEncoder !== 'undefined' && M && typeof M._malloc === 'function') {
+      const heapU8 = M.HEAPU8 || (typeof HEAPU8 !== 'undefined' ? HEAPU8 : null);
+      if (typeof TextEncoder !== 'undefined' && typeof M._malloc === 'function' && heapU8) {
         const encoded = new TextEncoder().encode(str + '\0');
         const ptr = M._malloc(encoded.length);
-        M.HEAPU8.set(encoded, ptr);
+        heapU8.set(encoded, ptr);
         return { ptr, len: encoded.length };
       }
       return null;
     }
 
     decodeUTF8(ptr) {
-      if (!ptr) return '';
+      if (!ptr || !this.wasmReady) return '';
       const M = window.Module;
       if (M && typeof M.UTF8ToString === 'function') {
         return M.UTF8ToString(ptr);
       }
+      if (typeof UTF8ToString === 'function') {
+        return UTF8ToString(ptr);
+      }
       // Manual decode fallback
-      if (M && M.HEAPU8) {
+      const heapU8 = (M && M.HEAPU8) || (typeof HEAPU8 !== 'undefined' ? HEAPU8 : null);
+      if (heapU8) {
         let str = '';
         let offset = 0;
         while (true) {
-          const byte = M.HEAPU8[ptr + offset];
-          if (byte === 0) break;
+          const byte = heapU8[ptr + offset];
+          if (byte === 0 || byte === undefined) break;
           str += String.fromCharCode(byte);
           offset++;
         }
@@ -474,8 +508,9 @@ greet(result)`
     }
 
     freeMemory(ptr) {
+      if (!ptr || !this.wasmReady) return;
       const M = window.Module;
-      if (ptr && M && typeof M._free === 'function') {
+      if (M && typeof M._free === 'function') {
         M._free(ptr);
       }
     }
@@ -484,7 +519,7 @@ greet(result)`
       this.checkModule();
       const M = window.Module;
 
-      if (this.hasRichApi && M) {
+      if (this.wasmReady && this.hasRichApi && M) {
         const mem = this.encodeUTF8(code);
         if (mem) {
           try {
@@ -508,15 +543,40 @@ greet(result)`
 
       let syntaxTreeText = '';
       let irO0Text = '';
-      if (this.hasLegacyApi && M && typeof M._ShowSyntaxTree === 'function') {
-        try {
-          const treePtr = M._ShowSyntaxTree();
-          syntaxTreeText = this.decodeUTF8(treePtr);
-          if (typeof M._ShowIR === 'function') {
-            const irPtr = M._ShowIR();
-            irO0Text = this.decodeUTF8(irPtr);
+      if (this.wasmReady && this.hasLegacyApi && M && typeof M._RunWarf === 'function') {
+        const mem = this.encodeUTF8(code);
+        if (mem) {
+          try {
+            const start = performance.now();
+            const resPtr = M._RunWarf(mem.ptr, true, true);
+            const elapsedMs = performance.now() - start;
+            const output = this.decodeUTF8(resPtr);
+            this.freeMemory(mem.ptr);
+
+            const lines = output.trim().split('\n');
+            const result = lines.length > 0 ? lines[lines.length - 1] : '';
+            const stdout = lines.length > 1 ? lines.slice(0, -1).join('\n') + '\n' : '';
+            this.lastLegacyCode = code;
+            this.lastLegacyExecResult = {
+              status: 'ok',
+              success: true,
+              stdout,
+              result,
+              resultType: isNaN(Number(result)) ? 'string' : 'number',
+              error: '',
+              elapsedMs
+            };
+
+            if (typeof M._ShowSyntaxTree === 'function') {
+              syntaxTreeText = this.decodeUTF8(M._ShowSyntaxTree());
+            }
+            if (typeof M._ShowIR === 'function') {
+              irO0Text = this.decodeUTF8(M._ShowIR());
+            }
+          } catch (e) {
+            this.freeMemory(mem.ptr);
           }
-        } catch (_) {}
+        }
       }
 
       // Generate AST and IR items from text
@@ -543,7 +603,7 @@ greet(result)`
       this.checkModule();
       const M = window.Module;
 
-      if (this.hasRichApi && M) {
+      if (this.wasmReady && this.hasRichApi && M) {
         const mem = this.encodeUTF8(code);
         if (mem) {
           try {
@@ -573,7 +633,10 @@ greet(result)`
       }
 
       // Legacy _RunWarf Fallback
-      if (this.hasLegacyApi && M && typeof M._RunWarf === 'function') {
+      if (this.wasmReady && this.hasLegacyApi && M && typeof M._RunWarf === 'function') {
+        if (this.lastLegacyCode === code && this.lastLegacyExecResult) {
+          return this.lastLegacyExecResult;
+        }
         const mem = this.encodeUTF8(code);
         if (mem) {
           try {
@@ -771,8 +834,12 @@ greet(result)`
       this.exampleSelect.addEventListener('change', (e) => {
         const key = e.target.value;
         if (EXAMPLES[key]) {
+          clearTimeout(this.debounceTimer);
           this.editorTextarea.value = EXAMPLES[key];
-          this.onCodeChanged();
+          this.renderSyntaxHighlighting();
+          this.updateGutter();
+          this.updateCursorPosition();
+          this.runCode();
         }
       });
 
@@ -863,7 +930,9 @@ greet(result)`
       }
 
       this.editorTextarea.value = initialCode;
-      this.onCodeChanged();
+      this.renderSyntaxHighlighting();
+      this.updateGutter();
+      this.updateCursorPosition();
       this.runCode();
     }
 
@@ -1819,19 +1888,34 @@ greet(result)`
   // =========================================================================
 
   function bootstrap() {
-    window.g_WarfPlayground = new SlangPlaygroundApp();
+    window.__onWarfWasmReady = function () {
+      window.__warfWasmReady = true;
+      if (window.g_WarfPlayground) {
+        window.g_WarfPlayground.bridge.wasmReady = true;
+        window.g_WarfPlayground.bridge.init();
+        window.g_WarfPlayground.runCode();
+      }
+    };
 
-    // Hook Module.onRuntimeInitialized if Emscripten is loading asynchronously
-    if (typeof window !== 'undefined' && window.Module) {
-      const prevInit = window.Module.onRuntimeInitialized;
-      window.Module.onRuntimeInitialized = function () {
-        if (typeof prevInit === 'function') prevInit();
-        if (window.g_WarfPlayground) {
-          window.g_WarfPlayground.bridge.init();
-          window.g_WarfPlayground.runCode();
+    // Hook Module.onRuntimeInitialized safely if Emscripten is loading asynchronously
+    if (typeof window !== 'undefined' && window.Module && !window.__warfWasmReady) {
+      const desc = Object.getOwnPropertyDescriptor(window.Module, 'onRuntimeInitialized');
+      if (desc && typeof desc.get === 'function') {
+        // Emscripten already ran initRuntime() and consumedModuleProp('onRuntimeInitialized')
+        window.__warfWasmReady = true;
+      } else if (!desc || desc.writable) {
+        const prevInit = window.Module.onRuntimeInitialized;
+        if (!window.__warfPreInitHook || prevInit !== window.__warfPreInitHook) {
+          window.Module.onRuntimeInitialized = function () {
+            window.__warfWasmReady = true;
+            if (typeof prevInit === 'function') prevInit();
+            window.__onWarfWasmReady();
+          };
         }
-      };
+      }
     }
+
+    window.g_WarfPlayground = new SlangPlaygroundApp();
   }
 
   if (document.readyState === 'loading') {
