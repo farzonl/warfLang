@@ -1,0 +1,2 @@
+// Lines: 19.69% (990/5028) Regions: 22.63%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = 0; let z = (w2 & 42); ~(~(+3))

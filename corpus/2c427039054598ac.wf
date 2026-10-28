@@ -1,0 +1,2 @@
+// Lines: 22.00% (1106/5028) Regions: 23.65%
+if ((~4 != +(x))) { { function computeLoopControl (limit: int): int { var total C = 0 for (var i = 0; += 1) { if ((false == true)) { value = 5} else { b /= 1}}; if (false) { for (z = 0; z < 2; z += 1) { b ^= 5}} else { if ((1 == 2)) { a -= + 4} else { value ^= a}}; value } else { i = 0; while (i < 4) { a = b; i += 1 } }

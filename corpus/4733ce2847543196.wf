@@ -1,0 +1,2 @@
+// Lines: 28.94% (1455/5028) Regions: 31.25%
+if (false) { a = 0; b = 3; value = 0; if (!((a == 255))) { function foo(x, y) { x += 2; return (y * 10) } foo((1 + 4), -(10)) } else { if ((b != a)) { a *= 1 } else { b |= b } }; let a = false; function max(x: int, y: int): int { x += 3; return (x + 2) } max((b ^ 42), b) } else { if (false) { value /= 5 } else { b &= 10 } }; a += -(a)

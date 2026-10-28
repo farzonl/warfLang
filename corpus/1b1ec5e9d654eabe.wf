@@ -1,0 +1,2 @@
+// Lines: 17.26% (868/5028) Regions: 19.01%
+) - 0)); index = 0; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3}; index += 1}; b ^= + (b);

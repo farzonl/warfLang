@@ -1,0 +1,2 @@
+// Lines: 23.13% (1163/5028) Regions: 25.33%
+a = 5; b = 3; value = 0; a ^= + (3); if (((false != true) && (true && false))) { index = 0; value = 0; b &= - ((value + value)); b = (4 / (7 - 0))); (10 * (42 / 5)); let z = ~(value); if ((42 <= a)) { value &= + 0}; 1 ? 2

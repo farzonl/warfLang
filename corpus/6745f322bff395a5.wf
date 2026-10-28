@@ -1,0 +1,2 @@
+// Lines: 15.78% (3794/24050) Regions: 26.51%
+a = 5; b = 3; value = 0; a ^= +(3); let x = false; function step (x, y) { x |= 255; return ((y | y) + (255 | 10))} step ((value & 0), (255 ^ (~3 * 42))); b |= (b ^ (+ 255 * b)); (10 * (42 / 5)); let z = ~(value); if ((42 <= a)) { value &= +0 }
