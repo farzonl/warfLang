@@ -1,0 +1,2 @@
+// Lines: 22.37% (1125/5028) Regions: 24.97%
+{ a = 5; b = 4; value = 0; b &= - ((value | value)); b ^= + (b); 42; for (z = 0; z < 1; z += 1) { b = - 5}} else while b = (value - + 7)} }

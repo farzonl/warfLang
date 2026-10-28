@@ -1,0 +1,2 @@
+// Lines: 12.59% (3028/24050) Regions: 21.64%
+a = 2; b = 3; value = 0; if ((false == (true || false))) { a &= (+ 0 ^ b)}; ((4 ^ 3) - 1); var b = (b | 1)

@@ -1,0 +1,2 @@
+// Lines: 21.64% (1088/5028) Regions: 24.18%
+{ if ((!(false) == (true && false))) { a = 2; b = 10; value *= 0; function foo (x: int, y: < 3) { if (true)

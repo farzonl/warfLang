@@ -1,0 +1,2 @@
+// Lines: 28.90% (1453/5028) Regions: 30.43%
+if ((false && (false && false))) { a = 0; b = 10; value = 0; for (z = 0; z < 5; z += 1) { index = 0; while (index < 1) { b *= 4; index += 1 } }; var a = (b -=6+(b)); y = +((-255 & a)); value = 0; a ^= + (3); += if (((false != * (2 + 1) / 4 == 5 * (10 * (3 + 4) - 10)) && true; !1 } else { function max(x: int, y: int): int { y *= +1; return +2 } max((b * 2), (value = 5)) }

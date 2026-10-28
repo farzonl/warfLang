@@ -1,0 +1,2 @@
+// Lines: 15.48% (3724/24050) Regions: 26.43%
+if (!((true != true))) { a = 5; b = 4; value = 0; b = (4 / (7 - 0)); index = 0; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3}; index += 1}; b ^= + (b); 42 } else { function bar(x: int, y: int): int { y -= x; return 2 } bar((10 & 5), +(7)) }

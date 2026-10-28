@@ -1,0 +1,2 @@
+// Lines: 25.89% (1302/5028) Regions: 28.45%
+a = 2; b = 10; value = 0; function abs(x: int, y: int): int { var z = !(false); return z } abs(3, (1 ^ (1 / 3))); (b ^ 10)

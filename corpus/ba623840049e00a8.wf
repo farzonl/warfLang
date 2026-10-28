@@ -1,0 +1,2 @@
+// Lines: 11.99% (2884/24050) Regions: 20.65%
+a = 5; b = 1; value = 0; a = 2; if (true) { value ^= +(2) } else { let n = (true == false) }; a
