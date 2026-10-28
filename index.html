@@ -1,0 +1,228 @@
+<!--
+ Copyright (c) 2026 F. Lotfi All rights reserved.
+ Use of this source code is governed by a BSD-style
+ license that can be found in the LICENSE file.
+-->
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WarfLang Playground — Zero-Dependency WebAssembly IDE</title>
+  <link rel="stylesheet" href="playground.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Top Toolbar -->
+    <header class="toolbar">
+      <div class="toolbar-group">
+        <a class="brand" href="#" title="WarfLang WebAssembly IDE">
+          <span>WarfLang</span>
+          <span class="brand-badge">IDE</span>
+        </a>
+
+        <!-- Curated Examples Selector -->
+        <select id="exampleSelect" class="form-select" title="Load Curated Example">
+          <option value="fibonacci">Example: Fibonacci</option>
+          <option value="loops">Example: Loops &amp; Control Flow</option>
+          <option value="bitwise">Example: Short-Circuit &amp; Bitwise</option>
+          <option value="optimizer">Example: IR Optimization Showcase</option>
+          <option value="functions">Example: Print &amp; Functions</option>
+        </select>
+
+        <!-- Column Toggles -->
+        <button id="toggleAstBtn" class="btn btn-toggle active" data-col="colAst" title="Toggle Syntax Tree Column">Syntax Tree</button>
+        <button id="toggleIrO0Btn" class="btn btn-toggle active" data-col="colIrO0" title="Toggle WarfIR (-O0) Column">WarfIR (-O0)</button>
+        <button id="toggleIrOptBtn" class="btn btn-toggle active" data-col="colIrOpt" title="Toggle WarfIR (-O) Column">WarfIR (-O)</button>
+      </div>
+
+      <div class="toolbar-group">
+        <!-- Execution Engine Selector -->
+        <select id="engineSelect" class="form-select" title="Select Execution Engine Backend">
+          <option value="0">Engine: AST Evaluator</option>
+          <option value="1">Engine: IR Interpreter (-O0)</option>
+          <option value="2">Engine: IR Interpreter (-O)</option>
+        </select>
+
+        <!-- Auto-Run Toggle -->
+        <label class="switch-label" title="Live re-evaluate on typing">
+          <input type="checkbox" id="autoRunCheckbox" checked>
+          <span>Auto-Run</span>
+        </label>
+
+        <!-- Run Action Button -->
+        <button id="runBtn" class="btn btn-primary" title="Execute Code (Ctrl/Cmd+Enter)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <span>Run</span>
+          <kbd>Ctrl+↵</kbd>
+        </button>
+
+        <!-- Share URL Button -->
+        <button id="shareBtn" class="btn" title="Share Code via URL Hash">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+            <polyline points="16 6 12 2 8 6"/>
+            <line x1="12" y1="2" x2="12" y2="15"/>
+          </svg>
+          <span>Share</span>
+        </button>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button id="themeToggleBtn" class="btn btn-icon" title="Toggle Dark/Light Theme">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <main class="workspace">
+      <!-- Horizontal Panes (Source Editor + Compiler Columns) -->
+      <div id="panesContainer" class="panes-container">
+        <!-- Source Editor Column -->
+        <section id="colEditor" class="pane pane-editor">
+          <div class="pane-header">
+            <div class="pane-header-title">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+              <span>main.wf</span>
+            </div>
+            <span id="cursorPos" class="pane-header-meta">Ln 1, Col 1</span>
+          </div>
+
+          <div class="editor-body">
+            <!-- Line Numbers Gutter -->
+            <div id="editorGutter" class="editor-gutter"></div>
+
+            <!-- Viewport Overlay -->
+            <div class="editor-viewport">
+              <div id="activeLineBand" class="active-line-band"></div>
+              <pre id="editorBackdrop" class="editor-backdrop" aria-hidden="true"><code id="backdropCode"></code></pre>
+              <textarea id="codeEditor" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Write WarfLang code here..."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- Draggable Splitter for AST Column -->
+        <div id="splitterAst" class="splitter-h" title="Drag to resize Syntax Tree"></div>
+
+        <!-- Syntax Tree Column -->
+        <section id="colAst" class="pane">
+          <div class="pane-header">
+            <div class="pane-header-title">
+              <span>Syntax Tree</span>
+            </div>
+            <button class="btn-close" data-close="colAst" title="Close Syntax Tree Column">&times;</button>
+          </div>
+          <div id="astContainer" class="code-view"></div>
+        </section>
+
+        <!-- Draggable Splitter for WarfIR (-O0) Column -->
+        <div id="splitterIrO0" class="splitter-h" title="Drag to resize WarfIR (-O0)"></div>
+
+        <!-- WarfIR (-O0) Column -->
+        <section id="colIrO0" class="pane">
+          <div class="pane-header">
+            <div class="pane-header-title">
+              <span>WarfIR (-O0)</span>
+            </div>
+            <button class="btn-close" data-close="colIrO0" title="Close WarfIR (-O0) Column">&times;</button>
+          </div>
+          <div id="irO0Container" class="code-view"></div>
+        </section>
+
+        <!-- Draggable Splitter for WarfIR (-O) Column -->
+        <div id="splitterIrOpt" class="splitter-h" title="Drag to resize WarfIR (-O)"></div>
+
+        <!-- WarfIR (-O) Column -->
+        <section id="colIrOpt" class="pane">
+          <div class="pane-header">
+            <div class="pane-header-title">
+              <span>WarfIR (-O)</span>
+            </div>
+            <button class="btn-close" data-close="colIrOpt" title="Close WarfIR (-O) Column">&times;</button>
+          </div>
+          <div id="irOptContainer" class="code-view"></div>
+        </section>
+      </div>
+
+      <!-- Draggable Vertical Splitter -->
+      <div id="splitterV" class="splitter-v" title="Drag to resize Console"></div>
+
+      <!-- Bottom Console Pane -->
+      <section id="consolePane" class="console-pane">
+        <div class="console-header">
+          <div class="console-tabs">
+            <button id="tabOutputBtn" class="console-tab active">Execution Output</button>
+            <button id="tabDiagBtn" class="console-tab">
+              <span>Diagnostics</span>
+              <span id="diagBadge" class="badge">0</span>
+            </button>
+          </div>
+
+          <div class="console-meta">
+            <span id="execMeta">0.00 ms</span>
+            <button id="clearConsoleBtn" class="btn btn-xs" title="Clear Console Output">Clear</button>
+            <button id="toggleConsoleBtn" class="btn btn-xs" title="Collapse / Expand Console">&minus;</button>
+          </div>
+        </div>
+
+        <div class="console-body">
+          <!-- Execution Output Tab -->
+          <div id="consoleOutputTab" class="tab-pane active">
+            <pre id="consoleStdout"></pre>
+            <div id="consoleReturn" class="console-return-card"></div>
+          </div>
+
+          <!-- Diagnostics Tab -->
+          <div id="consoleDiagTab" class="tab-pane">
+            <div id="diagnosticsList" class="diagnostics-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Floating Hover Tooltip -->
+    <div id="editorTooltip" class="editor-tooltip hidden"></div>
+
+    <!-- Autocomplete Popup -->
+    <div id="autocompletePopup" class="autocomplete-popup hidden">
+      <div id="autocompleteList"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <!-- Pre-configure Emscripten Module lifecycle before WarfWasm.js loads -->
+  <script>
+    window.__warfWasmReady = false;
+    window.Module = window.Module || {};
+    (function () {
+      var prevInit = window.Module.onRuntimeInitialized;
+      var hook = function () {
+        window.__warfWasmReady = true;
+        if (typeof prevInit === 'function') prevInit();
+        if (typeof window.__onWarfWasmReady === 'function') {
+          window.__onWarfWasmReady();
+        }
+      };
+      window.__warfPreInitHook = hook;
+      window.Module.onRuntimeInitialized = hook;
+    })();
+  </script>
+  <!-- Emscripten Wasm Script (if present) -->
+  <script src="WarfWasm.js"></script>
+  <!-- Playground Application Engine -->
+  <script src="playground.js"></script>
+</body>
+</html>
