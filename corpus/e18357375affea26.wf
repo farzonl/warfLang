@@ -1,0 +1,2 @@
+// Lines: 31.52% (1585/5028) Regions: 32.93%
+if ((true || (true != false))) { { { function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; for (var i = 0; i < limit; i += 1) {; if (i == 2) {;} fact (~255 * 1)}; index = 0; for (var i = 0; i < limit; i += 1) {; if (i == 2) {; continue;}; f (i == 6) {; break;}; total += i;}; var count = 0; do {; > index < 2; index += 1) { x += 0}; return 7} foo ((42 ^ (value / b)), (- (255 (index < 3) { if (true) } else { if (true) { a &= value } else { b ^= 42 } }

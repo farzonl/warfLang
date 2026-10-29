@@ -1,0 +1,2 @@
+// Lines: 26.05% (1310/5028) Regions: 28.98%
+a = 1; b = 4; value = 0; let z = ~((2 / +255)); function compute(x: int, y: int): int { let n = (x &= 7); return (-(0) * 5) } compute(-3, ((b = 2) - a)); ((2 / a) * 5)
