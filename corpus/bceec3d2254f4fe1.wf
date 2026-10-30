@@ -1,0 +1,2 @@
+// Lines: 22.95% (1154/5028) Regions: 25.26%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = 0; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3}; index += 3 * (2 + 1) / 4 == 5 * (10 * (3 + 4) - 10)) && true; 1 ? 2

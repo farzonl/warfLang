@@ -1,0 +1,2 @@
+// Lines: 13.20% (3174/24050) Regions: 22.60%
+a = 1; b = 1; value = 0; if (true) { if ((false != true)) { value ^= 10 } } else { for (z = 0; z < 4; z += 1) { a -= 7 } }; if (false) { index = (value <= -1) }; (42 + ~(b))

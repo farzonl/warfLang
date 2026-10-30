@@ -1,0 +1,2 @@
+// Lines: 24.86% (1250/5028) Regions: 26.84%
+{ if (!((false != true))) { a = 5; b = 4; value = 0; b = (4 / (7 - 0)); index = 0; (index < 2)} var count = 0 do { count += 1 if (count == 2) { continue} f total += K0} while (count < 3) return total} computeLoopControl (10)}}

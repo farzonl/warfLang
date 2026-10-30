@@ -1,0 +1,2 @@
+// Lines: 26.23% (1319/5028) Regions: 28.42%
+if ((true && false)) { a = 1; b = 4; value = 0; let value = 1; b = - ((~5 / 1)); if (((a >= 10) != (42 > - 42))) { if ((a >= 10)) { a |= 4} else { value += 10}} else { let c = !(true)}; index = 0; whileP (index < 4) { var b = (0 / b); index += 1}; do 3 * (2 + 1) / 4 == 5 * (10 * (3 + 4) - 10)) && true} |= { var value = 10}
