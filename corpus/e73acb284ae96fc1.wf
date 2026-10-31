@@ -1,0 +1,2 @@
+// Lines: 15.43% (3712/24050) Regions: 26.15%
+a = 5; b = 3; value = 0; c = 0; while (c < 4) { if ((true || true)) { value += b } else { value -= 2 }; c += 1 }; if (true) { function foo(x: int, y: int): int { y += x; return 5 } foo(+42, value) } else { if (false) { b += 255 } }; -(b)

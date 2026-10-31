@@ -1,0 +1,2 @@
+// Lines: 33.13% (1666/5028) Regions: 35.92%
+a = 0; b = 10; value = 0; let _a = (+(-10) + 3); if (!((value < 3))) { value ^= (value | 1) } else { if ((false == false)) { value -= 0 } else { value |= 42 } }; b /= -0; ((1 & b) | 0)

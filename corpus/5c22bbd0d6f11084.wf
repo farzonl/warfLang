@@ -1,0 +1,2 @@
+// Lines: 20.72% (1042/5028) Regions: 22.40%
+; while (index < 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; if ((3 ==; (2 * 7))) { function foo (x, y) { x += - 4; return (42 - 4)} foo ((b | |= value), 42)}; value; res = (+ 42 / 3)

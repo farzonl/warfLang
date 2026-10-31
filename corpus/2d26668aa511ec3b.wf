@@ -1,0 +1,2 @@
+// Lines: 13.49% (3244/24050) Regions: 23.43%
+a = 2; b = 1; value = 0; function foo(x: int, y: int): int { var res = 4; return (x / x) } foo(10, 2); a ^= (255 & (42 * 0)); 2

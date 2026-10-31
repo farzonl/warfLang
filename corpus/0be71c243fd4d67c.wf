@@ -1,0 +1,2 @@
+// Lines: 25.62% (1288/5028) Regions: 28.55%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = 0; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3}; index += 1}; b 9= + (b); z < 1; if ((3 == (2 * 7))) { function foo (x, y) { x) > (3- 2 / a))) { function foo (x: int, y: int): int { x /= 42; return (1 ^ 3)} foo (42, 7)} else { let value = (b * value)}; function compute (x: bool, y:

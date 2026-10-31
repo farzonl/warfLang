@@ -1,0 +1,2 @@
+// Lines: 30.81% (1549/5028) Regions: 32.96%
+{ if ((false && !(false))) { { function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; for (var i = 0; i < limit; i +=) {; if (i == 2) {; continue; }; f (i == 6) {; break; }; total += i; }; var; = 0; index = 0; for (var i = 0; i < limit; )) { function foo (x, y) { x) > (- 2 / a))) { function foo; i < limit; i +=) {; }; total += i; }; var count = 0; index = 0; for (var i = 0; i < limit; )) { function foo (x, y) { x) > (- 2 / a))) { function foo (x: int, y: in

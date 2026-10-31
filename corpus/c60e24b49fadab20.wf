@@ -1,0 +1,2 @@
+// Lines: 23.19% (1166/5028) Regions: 25.36%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = 0; (index < 2) { if ((7 == + 1)) {; if (((4 >= 3) == (true && true))) { let y = (- += 1) { value += 42}

@@ -1,0 +1,2 @@
+// Lines: 14.85% (3571/24050) Regions: 25.39%
+a = 0; b = 10; value = 0; for (index = 0; index < 3; index += 1) { function step(x: int, y: int): int { x *= -4; return x } step(1, 255) }; 2

@@ -1,0 +1,2 @@
+// Lines: 35.60% (1790/5028) Regions: 38.19%
+a = 1; b = 10; value = 0; function bar(x, y) { z = (~3 - 5); return 5 } bar((a - 10), ((10 + 3) + ~(5))); var res = ~((1 / b)); (+(a) / (value * 2))
