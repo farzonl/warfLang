@@ -1,0 +1,2 @@
+// Lines: 24.96% (1255/5028) Regions: 28.75%
+a = 0; b = 3; value = 0; a ^= (-(2) / +(a)); value += ((value * 5) & 3); value

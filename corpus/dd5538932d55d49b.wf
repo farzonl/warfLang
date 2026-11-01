@@ -1,0 +1,2 @@
+// Lines: 16.01% (3851/24050) Regions: 27.02%
+a = 0; b = 1; value = 0; i = 0; while (i < 2) { function clamp(x, y) { y = 7; return (x / 1) } clamp(255, -1); i += 1 }; i = 0; while (i < 3) { if ((true == true)) { a |= b }; i += 1 }; i = 0; while (i < 2) { let value = +(3); i += 1 }; 42

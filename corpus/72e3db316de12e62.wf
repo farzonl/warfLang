@@ -1,0 +1,2 @@
+// Lines: 20.11% (1011/5028) Regions: 22.11%
+a = 1; b = 3; value = 0; a = 1; if ((false != (true == false))) { y = (3 / 4)} else { c = 0; while - 10)) && true
