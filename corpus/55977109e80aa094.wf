@@ -1,0 +1,2 @@
+// Lines: 24.36% (1225/5028) Regions: 26.25%
+a = 1; b = 1; value = 0; - = 0; while (i < 1) { c = 0; while (c < 5) { value /= -3; c += 1 }; i += 1 }; if ((true || (2 > 10))) { function compute(x, y) { y /= +4;Ireturn x } compute((255 - b), -5) } else { function max(x, y) { x -= 0; return y } max(value, (a *= +3)) }; for (var i = 0; i < limit; i += 1) {; if (i == 2) {; continue; }; f (i == 6) {; i += 1 }; if (!((true && true))) { { b *= 10 } }; for (index = 0; index < 4; index += 1) { value = +(a) }; a

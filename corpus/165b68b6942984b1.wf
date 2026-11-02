@@ -1,0 +1,2 @@
+// Lines: 27.47% (1381/5028) Regions: 29.41%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = 0; (index < 2) { while (i < 1) { c = 0; while (c < 5) { value /= - 3; c += 1}; i += 1}; if ((true || (2 > 10))) { function compute (x, y) { y /= + 4; return x} compute ((255 - b), - 5)} else { function max (x, y) { x -= 0; return y} max (value, (a *= + 3))}; for (var i = 0; i < limit; i += 1) {; if (i == 2) {; continue;}; f (i == 6) {; break;}; total += i;}; var count = 0; do {; fib (7) + clampPositive (- 5) +; (8); let _a = false
