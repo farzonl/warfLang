@@ -1,0 +1,2 @@
+// Lines: 21.32% (1072/5028) Regions: 23.29%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (; value = 0; i = 0; while (i < 1) { index = 0; while (index < 2) { a ^= ~4; index += 1}; for (var i) 0; while (index < 2) { a ^= ~4; index += 1}; for (var i) 0; < limit; i += 1) {; (false) == (true && false))) { a = 2; b =

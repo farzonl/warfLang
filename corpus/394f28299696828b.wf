@@ -1,0 +1,2 @@
+// Lines: 25.66% (1290/5028) Regions: 27.60%
+{ if ((!(false) == (true && false))) { a = 2; b = 10; value = 0; function foo (x: int, y: int): int { for (index = 0; index = 0; for (var i = 0; i < limit; i += 1) {; (fal2e) == (true { a ^= ~4 y; index += 1}; i += 1}; if (* 1)}; index = 0; for (var i = 0; i < limit int i += 1) {; (false) == (true && false))) { a = 2; > index < 2; index += 1) { x += 0}; return 7} foo ((42 ^)

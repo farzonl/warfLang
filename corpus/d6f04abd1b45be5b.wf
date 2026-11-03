@@ -1,0 +1,2 @@
+// Lines: 25.14% (1264/5028) Regions: 28.29%
+1 / 0; index = 0; while (index < 2) { value = 255; index += 1 }

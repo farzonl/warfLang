@@ -1,0 +1,2 @@
+// Lines: 26.65% (1340/5028) Regions: 29.47%
+a = 1; b = 3; value = 0; function baz(x: int, y: int): int { index = 0; while (index < 2) { y -= x; index += 1 }; return (y / (+10 | x)) } baz((a = (value = 3)), ~3); a &= (a -= a); c = (value -= (b & +3)); (value &= (value | 255))

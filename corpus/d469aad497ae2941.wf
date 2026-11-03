@@ -1,0 +1,2 @@
+// Lines: 29.81% (1499/5028) Regions: 31.87%
+a = 5; b = 1; value = 0; index = (value = 3); for (z = 0; z < 3; z += 1) { function compute(x, y) { x = 5; return (x & x) } compute((5 | 10), (index * a)) }; function baz(x: int, y: int): int { var c = (true == true); return ((c |= 255) ^ (10 & 255)) } baz(value, (+(2) & (5 + a))); (255 | (255 ^ 255))
