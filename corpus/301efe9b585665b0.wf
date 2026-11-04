@@ -1,0 +1,2 @@
+// Lines: 13.46% (3238/24050) Regions: 22.97%
+a = 1; b = 1; value = 0; { if ((false != true)) { a ^= value } else { a += 7 } }; let n = (value / 2); a += ((7 | value) + (1 & +5)); +3

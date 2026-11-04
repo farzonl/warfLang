@@ -1,0 +1,2 @@
+// Lines: 24.84% (1249/5028) Regions: 27.07%
+a = value = 0; value = 0; if ((false == (true 9| false))) { a &= (+ 0 ^ b)}; ((4 ^ 3) - 1); b *= (255 / value); function baz (x: int, y: int): int { y *= 255; return (42 & y)} baz (- (value), 4)

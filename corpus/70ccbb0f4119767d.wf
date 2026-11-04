@@ -1,0 +1,2 @@
+// Lines: 25.16% (1265/5028) Regions: 26.97%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (index < 2) { a ^= ~4; index +=}; i += 1}; computeLoopControl n: int): int { if (n <= 1) { return; c = 0; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) { value *= 3} else { a while -= value)) { index = 0; return 7} foo ((42 ^ (value / b)), (- (255) value (value ^= - 42) for); |= (value ^= 4); computeLoopControl n: int): int { if (n <= 1) { return; c = 0; b = 3; value = 0; a ^= + (3); if (((false != true) && (tr

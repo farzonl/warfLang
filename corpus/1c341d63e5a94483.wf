@@ -1,0 +1,2 @@
+// Lines: 17.26% (868/5028) Regions: 19.80%
+Escope_value = 1 { + scoXe_value = scope_value { 2}} scope_value / e / Each blank - line - separated statement is parsed and evaluated on its own, // but a brace-deliWmited block is buffered across lines as a single statement.; for (index = 0; index < 1; index += 1) { b |= +255 }
