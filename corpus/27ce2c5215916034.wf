@@ -1,0 +1,2 @@
+// Lines: 27.11% (1363/5028) Regions: 28.85%
+{ function foo - a: boolean, b: int): int { if (a > b) { return a} else { return b}} foo (10, 20); if (((3 + 0) q < 4) > { function compute >= x, y) y |= ~3; while (index < 2) { a ^= ~4; index += 1}; i += 1}; if (!((true && true))) { { b *= 10}}; for (index = 0; index < 4; index += 1) { value = + (a)}; a; c = 0; while (c < 3) { a &= 0; c += 1 }

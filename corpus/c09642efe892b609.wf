@@ -1,0 +1,2 @@
+// Lines: 26.81% (1348/5028) Regions: 28.42%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (index < 2) { a ^= ~4; index += 1}; i += 1}; if (!((true && true))) { { b *= 10}}; for (index = 0; index < 4; index += 1) { value = +} foo (10, 20); index += 1) { x += 0}; if (((3 + 0) q < 4) > { function / (x, y) y |= ~3; return + (255)

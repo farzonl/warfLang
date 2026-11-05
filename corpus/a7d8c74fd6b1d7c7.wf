@@ -1,0 +1,2 @@
+// Lines: 18.66% (938/5028) Regions: 20.92%
+if (false) { a = 0; b = 3; value = 0; if (}}; (b = (3 + - 1)); if (!(true)) { b += 3 }

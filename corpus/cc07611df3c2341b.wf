@@ -1,0 +1,2 @@
+// Lines: 26.69% (1342/5028) Regions: 29.54%
+a = 2; b = 3; value = 0; function compute(x: int, y: int): int { let a = 2; return (~(5) - (x += 3)) } compute(~((3 & ~42)), ((value = +7) * b)); function bar(x, y) { var n = (42 & y); return (2 ^ (255 | 5)) } bar(+(+(10)), a); value |= 255; (b | (255 & b))

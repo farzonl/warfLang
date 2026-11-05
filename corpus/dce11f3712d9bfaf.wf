@@ -1,0 +1,2 @@
+// Lines: 30.63% (1540/5028) Regions: 32.20%
+a = 0; b = 10; value = 0; c = 0; while (c < 1) { { b |= 4 }; c += 1 }; if ((false == (false || true))) { if (true) { a /= 4 } else { value *= 10 } }; if ((255 <= (value & b))) { { value *= 10 } } else { for (z = 0; z < 5; z += 1) { a |= 3 } }; function step(x: int, y: int): int { for (index = 0; index < 5; index += 1) { y ^= y }; return ((y |= 4) ^ (-3 - 42)) } step(0, -255); ((4 | b) + -(a))

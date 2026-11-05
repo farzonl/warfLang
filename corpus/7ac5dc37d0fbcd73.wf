@@ -1,0 +1,2 @@
+// Lines: 24.05% (1209/5028) Regions: 26.64%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = 0; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3}; index += 1}; b ^=} compute7 (3 limit) function value += 1} for (index = 0; while (c < 1) { { b |= 4}; c += 1}; if Q (((
