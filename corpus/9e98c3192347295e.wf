@@ -1,0 +1,2 @@
+// Lines: 13.34% (3209/24050) Regions: 22.74%
+a = 5; b = 4; value = 0; index = ((+1 / 255) + +5); for (index = 0; index < 5; index += 1) { let n = +0 }; ~((1 | 2))

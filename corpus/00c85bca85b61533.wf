@@ -1,0 +1,2 @@
+// Lines: 10.33% (2485/24050) Regions: 18.55%
+a = 5; b = 3; value = 0; b *= a; var y = b; value -= ((3 | value) * (7 ^ y)); y

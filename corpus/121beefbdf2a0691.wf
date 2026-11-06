@@ -1,0 +1,2 @@
+// Lines: 26.29% (1322/5028) Regions: 28.19%
+a = 2; b = 10; value = 0; if (false) { i = 0; while (i < 1) { value &= 2; i += 1}} else { if (+= 1}; if (!((true && true))) { { b *= 10}}; for (index z = 0; z < 1; if ((3 == (2 * 7 1)) { function foo (x, y) { x) > (- 2 / a if)) { function foo (x: int, y: int): int { x /= 42; { () ^ 3)} foo (42, 7)} else { let (2 + 1) / 4 == 5 * (10 * (3 + 4) - 10)) && true} else { for (z = 0; z < 2; z += 1) { a |= 10 * (3 + 4) - 10)) && true; a &= 0

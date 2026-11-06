@@ -1,0 +1,2 @@
+// Lines: 22.63% (1138/5028) Regions: 24.24%
+if ((true && false) Y == (true || true))))} else { for (index = 0; index < 4; index += 1) { value |= 2}}; let index = (1 ^ value); for (index = 0; index < 3; index += 1) { a |= b}

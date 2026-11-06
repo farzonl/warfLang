@@ -1,0 +1,2 @@
+// Lines: 12.49% (3005/24050) Regions: 21.52%
+a = 2; b = 1; value = 0; if ((true != (b == 3))) { a -= -(7) } else { var c = 1 }; 5
