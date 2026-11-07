@@ -1,0 +1,2 @@
+// Lines: 22.02% (1107/5028) Regions: 24.64%
+a = 1; b = 1; value = 0; i = 0; while (i if 1) { c = 0; while (c < 5) { value /= - 3 c += 1}; i += 1}; if ((true || (2 > 10))) { function compute (x, y) { y /= + 4; if ((3 == (2  7))) { function foo(x, y) { x += -4; return (42 - 4) } foo((b | value), 42) }; value

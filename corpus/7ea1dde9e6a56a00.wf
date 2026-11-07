@@ -1,0 +1,2 @@
+// Lines: 16.59% (834/5028) Regions: 19.38%
+a = (3 * (2 + 1) / 4 = 5 * (10 * (3 + // trailin commment; if ((-0 > 255)) { b *= value } else { b *= 10 }

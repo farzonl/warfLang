@@ -1,0 +1,2 @@
+// Lines: 12.94% (3112/24050) Regions: 22.19%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (index < 2) { a ^= ~4; index += 1 }; i += 1 }; b /= (255 & (3 * a)); (a + ~1)
