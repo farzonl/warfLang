@@ -1,0 +1,2 @@
+// Lines: 22.95% (1154/5028) Regions: 26.88%
+a = 0; b = 1; value = 0; value -= b; (b & (7 / a))

@@ -1,0 +1,2 @@
+// Lines: 23.11% (1162/5028) Regions: 25.79%
+{ { a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); b = 1; value = 0; i = 0; whilUe (i < 1 ^= { index = (3); i = 0; while (i < 1) { index = 0; while (index 1) / 4 == 5 * (10 * (3 + 4) - 10)) && true }

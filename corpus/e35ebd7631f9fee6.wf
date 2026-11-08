@@ -1,0 +1,2 @@
+// Lines: 22.95% (1154/5028) Regions: 25.30%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (index < 2) { a ^= ~4; index += 1}; i += 1}; index += 1) { x += 0}; return 7} foo ((42 ^ (value / b)), (- (255 (index < 3) { if (true); a -= (b = 1)

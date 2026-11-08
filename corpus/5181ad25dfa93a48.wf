@@ -1,0 +1,2 @@
+// Lines: 37.03% (1862/5028) Regions: 39.77%
+a = 5; b = 4; value = 0; function bar(x: int, y: int): int { i = 0; while (i < 1) { y /= 0; i += 1 }; return (-(2) * (x * 2)) } bar(-(0), (+10 + -(b))); b

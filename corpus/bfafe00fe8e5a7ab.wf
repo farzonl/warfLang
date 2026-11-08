@@ -1,0 +1,2 @@
+// Lines: 12.81% (3080/24050) Regions: 21.81%
+a = 2; b = 4; value = 0; if (!((value <= 1))) { let x = (true && false) } else { value -= a }; let z = +(a); ((2 * a) - (255 - 2))

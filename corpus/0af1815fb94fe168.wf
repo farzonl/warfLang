@@ -1,0 +1,2 @@
+// Lines: 28.46% (1431/5028) Regions: 30.03%
+a = 1; b = 4; value = 0; if (((a - 10) != (2 / a))) { let c = (false != true) } else { value ^= a }; value ^= ~((value = 42)); function baz(x: int, y: int): int { index = 0; while (index < 4) { y |= y; index += 1 }; return 7 } baz(((value |= b) / -(7)), ((b * b) * (value ^ 255))); ((value = 255) ^ -(value))

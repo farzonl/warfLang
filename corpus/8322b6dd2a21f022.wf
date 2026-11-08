@@ -1,0 +1,2 @@
+// Lines: 19.29% (970/5028) Regions: 21.61%
+a = 5; b = 3; i += 1) {; if (i == 2) {; continue; }; f (i == 6) {; beak; }; total += i; }; var count = 0; do {; count += 1; if (count == 2) {; contine; }; f  total += K0; } while (count < 3); return total; }; computeLoopControl(10) }

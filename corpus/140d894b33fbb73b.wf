@@ -1,0 +1,2 @@
+// Lines: 19.35% (973/5028) Regions: 22.70%
+{ a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); // Each blank-line-separated statement is parsed and evaluated on its own,; // but a brace-delimited block is buffered across lines as a single statement.; a *= 1
