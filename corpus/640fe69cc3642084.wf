@@ -1,0 +1,2 @@
+// Lines: 24.54% (1234/5028) Regions: 27.14%
+a = 5; b = 3; value = 0; b ^= ~(-(a)); let x = 255; a &= ((2 + b) / (value | 42)); if (((value += 0) != 7)) { { value = 7 } } else { function abs(x: int, y: int): int { y -= 4; return (x * 5) } abs((+1 / 4), (2 / 7)) }; ~5

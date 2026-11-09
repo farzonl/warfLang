@@ -1,0 +1,2 @@
+// Lines: 16.49% (3966/24050) Regions: 27.42%
+a = 2; b = 4; value = 0; if (!((true || true))) { { a |= 5 } } else { a &= 4 }; function bar(x: int, y: int): int { for (index = 0; index < 3; index += 1) { y &= 3 }; return x } bar((42 & 1), ~((value ^ 255))); let index = ((false || false) == (a != 42)); 10

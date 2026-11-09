@@ -1,0 +1,2 @@
+// Lines: 13.64% (3280/24050) Regions: 23.20%
+a = 0; b = 4; value = 0; for (z = 0; z < 3; z += 1) { value -= b }; value &= ((b ^ 42) * (10 + 2)); if ((-1 == value)) { a = ~(a) }; a = !((true != false)); 2

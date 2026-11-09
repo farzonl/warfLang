@@ -1,0 +1,2 @@
+// Lines: 29.12% (1464/5028) Regions: 31.51%
+a = 2; b = 1; value = 0; function bar(x, y) { if (false) { x /= 3 }; return 0 } bar((value = (a & 5)), 2); for (z = 0; z < 1; z += 1) { a += (-10 - 5) }; { function step(x: int, y: int): int { y |= x; return (x ^= x) } step(+255, ~(7)) }; (a | -(b))
