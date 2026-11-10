@@ -1,0 +1,2 @@
+// Lines: 31.62% (1590/5028) Regions: 34.24%
+a = 1; b = 10; value = 0; a |= (7 / (5 - a)); if (false) { let b = 10 } else { let index = a }; res = ((5 * 3) + a); ~((42 / value))

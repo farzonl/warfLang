@@ -1,0 +1,2 @@
+// Lines: 9.44% (2270/24050) Regions: 17.15%
+a = 5; b = 3; value = 0; b *= a; var y = b;

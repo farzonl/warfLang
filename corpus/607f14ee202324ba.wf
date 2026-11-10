@@ -1,0 +1,2 @@
+// Lines: 21.50% (1081/5028) Regions: 24.01%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = 0; (index < 2) { if ((3 + 4) - 10)) && true; if ((false == true)) { value ^= 255}; 1 ? 2

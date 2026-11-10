@@ -1,0 +1,2 @@
+// Lines: 13.44% (3232/24050) Regions: 22.78%
+a = 0; b = 4; value = 0; let res = false; a -= (~(1) + 4); if (true) { a += (-0 + b) } else { let n = (value & 4) }; a ^= (-(~5) / (~1 - 1)); (2 ^ (b / 1))
