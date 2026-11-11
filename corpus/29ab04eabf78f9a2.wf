@@ -1,0 +1,2 @@
+// Lines: 28.14% (1415/5028) Regions: 29.74%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (index < 2) { a ^= ~4; index += 1}; i += 1}; if (!((true && true))) { { b *= 10}}; for (index = 0; index < 4; index += ((true && true))) { { b *= 10}}; for (index = 0; index < 4; index += 1 5) { value &= b; index += 1}} else { a &= (~255 * 1)}; index = 0; while (index < 3) { if (true) { value; return x;}; fib (7) + clampPositive (- 5) +; (8); let _a = false} else { for (z = 0; z < 1; if ((3 == (2 * 7))) { function foo (x, y) { x) > (- 2 / a)))

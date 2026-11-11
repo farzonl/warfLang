@@ -1,0 +1,2 @@
+// Lines: 29.91% (1504/5028) Regions: 31.87%
+a = 0; b = 4; value = 0; if (false) { let res = (255 ^ b) }; function max(x: int, y: int): int { for (z = 0; z < 4; z += 1) { x *= 4 }; return 2 } max((value *= (value *= value)), ((b * 5) & 3)); (value / +1)

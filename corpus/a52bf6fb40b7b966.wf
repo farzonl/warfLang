@@ -1,0 +1,2 @@
+// Lines: 16.67% (4009/24050) Regions: 27.85%
+a = 1; b = 3; value = 0; for (index = 0; index < 5; index += 1) { if ((~10 == a)) { a &= b } }; i = 0; while (i < 1) { function max(x: int, y: int): int { y |= y; return (+7 | 1) } max(+(2), (value - b)); i += 1 }; for (z = 0; z < 3; z += 1) { a &= (255 & a) }; if (false) { c = 0; while (c < 4) { b -= a; c += 1 } }; ((b / 42) * (5 & 2))

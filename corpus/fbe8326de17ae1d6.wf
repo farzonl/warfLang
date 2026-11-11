@@ -1,0 +1,2 @@
+// Lines: 19.45% (978/5028) Regions: 21.48%
+a = 5; do {; count += 1; if (count == 2) {; continue; }; f  total += K0; } while (count < 3); return total; }; computeLoopControl(10) }

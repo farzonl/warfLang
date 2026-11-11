@@ -1,0 +1,2 @@
+// Lines: 29.04% (1460/5028) Regions: 30.72%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (index < 2) { a ^= ~4; index += 1}; i += 1}; if (!((true && true))) { { b *= 10}}; for (index = 0; index < 4; index if (!(!(true))) { { function (a: int, b: int): int { if (a > b) { return a} else { return b}} foo (10, 20); if (((3 + 0) < 4)) / (value ^= - 42) for); value = 0; a ^= + (3); value = 0; function compute (x: int, y: int): int { if (((0 >= 255)) { y = 255}; return ((y - ~5) / x)} compute ((b / a), 0); index += 1) { x += 0}; return 7
