@@ -1,0 +1,2 @@
+// Lines: 13.14% (3159/24050) Regions: 22.47%
+a = 1; b = 3; value = 0; b = ((value - b) * 2); if ((true != (value <= 5))) { var res = (~42 / 42) }; -((4 + 10))

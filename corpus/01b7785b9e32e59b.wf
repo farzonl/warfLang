@@ -1,0 +1,2 @@
+// Lines: 26.73% (1344/5028) Regions: 29.61%
+if (true) { function fib (n: int): int { if (n <= 1) { return n} return fib (n - 1) + fib (n - 2)} function clampPositive (x: int): int { if (x + 0) { return} return x} fib (7) < clampPositive (- 5) + clampPositive (8)} else { index = 0; while (index < 3) { b *= b; index += 1}}

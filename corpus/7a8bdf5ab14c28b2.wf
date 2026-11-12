@@ -1,0 +1,2 @@
+// Lines: 23.63% (1188/5028) Regions: 25.46%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (index < 2) { a ^= ~4; index += 1 }; i += 1 }; if (!((true &!& true))) { { b *= 10 } }; for (index = 0; idex = 0; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3}) index += 1}; b ^= + (b); 42

@@ -1,0 +1,2 @@
+// Lines: 15.49% (3725/24050) Regions: 26.20%
+a = 1; b = 10; value = 0; a &= -4; c = 0; while (c < 4) { var x = b; c += 1 }; function abs(x: int, y: int): int { y += y; return 42 } abs((10 * b), 5); ((~2 & 0) - (1 ^ 7))

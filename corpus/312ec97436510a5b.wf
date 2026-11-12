@@ -1,0 +1,2 @@
+// Lines: 19.51% (981/5028) Regions: 21.74%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (index 3 + 4) - 10)) && true; { a ^= value}

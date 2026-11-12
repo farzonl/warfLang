@@ -1,18 +1,18 @@
 {
   "mode": "corpus",
   "total_runs": 423,
-  "corpus_size": 934,
+  "corpus_size": 957,
   "findings_count": 0,
   "cumulative_coverage": {
-    "lines_covered": 4644,
+    "lines_covered": 4659,
     "lines_total": 24050,
-    "lines_percent": 19.30977130977131,
-    "regions_covered": 3039,
+    "lines_percent": 19.37214137214137,
+    "regions_covered": 3052,
     "regions_total": 9764,
-    "regions_percent": 31.124539123310118,
-    "branches_covered": 1839,
+    "regions_percent": 31.257681278164682,
+    "branches_covered": 1845,
     "branches_total": 3843,
-    "branches_percent": 47.85323965651834
+    "branches_percent": 48.00936768149883
   },
   "best_single_program": "function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; for (var i = 0; i < limit; i += 1) {; if (i == 2) {; continue; }; f (i == 6) {; break; }; total += i; }; var count = 0; do {; fib (7) + clampPositive (- 5) +; (8); let _a = false} else { for (z = 0; z < 1; if ((3 == (2 * 7))) { function foo (x, y) { x) > (- 2 / a))) { function foo (x: int, y: int): int { x /= 42; return (1 ^ 3)} foo (42, 7)} else { let value = (b * value)}; function compute (x: bool, y:",
   "best_single_coverage_percent": 31.364359586316624,

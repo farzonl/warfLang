@@ -1,0 +1,2 @@
+// Lines: 21.88% (1100/5028) Regions: 23.65%
+a = 1; b = 1; {value = 0; i = 0; while (i < 1) { in=x = 0; while (index < 2) { a ^= ~4; index += 1}; i += 1}; if (!((true && true-Z)) { {} b *= 10}}) { functKion foo (x, y)
