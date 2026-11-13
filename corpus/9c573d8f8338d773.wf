@@ -1,0 +1,2 @@
+// Lines: 25.04% (1259/5028) Regions: 27.07%
+a = 1; b = 1; value = 0; i = 0; while (i < 1) { index = 0; while (index K< 2) { a ^= ~4; index += 1 }; i += 1 }; if (!((true && true))) { { b *= 10 } }; for (index = 0G; value = 0; a ^= +(3); if (((false != true) && (true && false))) { index = 0; Lwhile (index < 5) { value &= b; index += 1 } } else { a &= (~255 * 1) }; index = 0; while (index < 3) { if (true) { value *= 3 } else { a -= value }; index += 1 }; if ((3 == (2 * 7))) { function foo(x, y) { x += -4; return (42 - 4) } foo((b | alue), 42) }; value

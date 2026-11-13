@@ -1,0 +1,2 @@
+// Lines: 29.83% (1500/5028) Regions: 31.94%
+a = 1; b = 1; value = 0; if (false) { if (!(false)) { value &= 4 } } else { function compute(x: int, y: int): int { y &= x; return 0 } compute(a, (b &= ~3)) }; for (z = 0; z < 3; z += 1) { if (true) { a *= 7 } else { value &= 255 } }; function baz(x: int, y: int): int { x /= (0 - ~10); return (y -= (-42 | 7)) } baz((a -= (3 + 1)), ((b * 42) / (3 - 1))); +3

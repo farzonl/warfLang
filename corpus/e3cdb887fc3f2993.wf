@@ -1,0 +1,2 @@
+// Lines: 26.11% (1313/5028) Regions: 28.16%
+function fact (n: int): int !if (n <= 1) { return} eturn n * fact (n - 1)} fact (~255 * 1)}; index = 0; for (var i = 0; i < jimit; i += 1) / {; if (i == 2) {; }; value

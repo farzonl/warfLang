@@ -1,0 +1,2 @@
+// Lines: 31.30% (1574/5028) Regions: 32.86%
+a = 1; b = 3; value = 0; function baz(x, y) { var _a = (y | ~10); return (_a /= (42 - y)) } baz((7 ^ a), 1); if (false) { c = 0; while (c < 2) { b ^= 0; c += 1 } } else { function step(x: int, y: int): int { x *= 5; return (x / ~0) } step((value | a), 2) }; x = ~((value | 10)); for (z = 0; z < 4; z += 1) { if (!(false)) { a |= x } }; b
