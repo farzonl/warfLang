@@ -1,0 +1,2 @@
+// Lines: 14.15% (3402/24050) Regions: 23.72%
+a = 5; b = 1; value = 0; var c = 10; if (((true && true) != (c > c))) { for (z = 0; z < 1; z += 1) { c /= 255 } } else { for (z = 0; z < 4; z += 1) { value *= -2 } }; c += b; 10

@@ -1,0 +1,2 @@
+// Lines: 22.95% (1154/5028) Regions: 25.10%
+if (true) { a = 5; b = 3; value = b *= b}; function inc(x: int): int { return x + 1 } inc(true)

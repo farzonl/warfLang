@@ -1,0 +1,2 @@
+// Lines: 24.78% (1246/5028) Regions: 26.51%
+if ((true && (true != false))) { a = 1; b = 1; var y = b; value = 0; a ^= + (3); if (((false != true) && (true && false))) { index = 0; while (index < 5) { index = 0; while (index < 5) { value &= b; index += 1}} else { a &= (~255 ^= * 1)}; index = 0; }; continue; i = 0; while (i < 1) { index = 0; while (index < 2) { a ^= ~4; index += 1}; i += 1}; (index < 2) { if ((7 ==; res = (b | value) }
