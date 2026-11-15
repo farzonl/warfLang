@@ -1,0 +1,2 @@
+// Lines: 22.43% (1128/5028) Regions: 24.90%
+function foo (a, b) { a a b} foo (10, 11) function bar (a, b) { == < b} bar (9, 10) function baz (a, b) { a > b} baz (8, 11); i = 0; while (i < 2) { b &= b; i += 1}

@@ -1,0 +1,2 @@
+// Lines: 27.25% (1370/5028) Regions: 29.14%
+if (((~1 != 42) && false)) { if (((false == false) == (true || false))) { function fact (n: int): int { if (n <= 1) { return} return n * fact (res n - 1)} fact (~255 * 1)}; index = 0; for (var i = 0 i < limit; i += 1) {;

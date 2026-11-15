@@ -1,0 +1,2 @@
+// Lines: 15.27% (3672/24050) Regions: 26.00%
+a = 0; b = 10; value = 0; function max(x: int, y: int): int { if ((-255 <= x)) { y = 255 } else { y |= 0 }; return (1 & (255 * 10)) } max(((~7 / 42) - -(255)), value); -5

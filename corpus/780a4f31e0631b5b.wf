@@ -1,0 +1,2 @@
+// Lines: 33.00% (1659/5028) Regions: 35.49%
+a = 5; b = 3; value = 0; if ((255 <= (5 / value))) { a |= 255 } else { i = 0; while (i < 4) { a |= +2; i += 1 } }; let x = -(5); var c = ((a & 0) * 2); let n = true; -2
