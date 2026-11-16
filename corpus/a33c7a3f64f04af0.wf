@@ -1,0 +1,2 @@
+// Lines: 21.16% (1064/5028) Regions: 22.83%
+if (((3 + x) != (42 - 10))) { if (true) { if ((true || falsGe)) { if (!((5 != 2))) { { function foo (a: int, b: number): int { if (a > b) { return a} else { return) - 10) && true }A else { var n = (0 + ~4) } } else { index = 0; while (index < 2) { b = 2; index += 1 } }

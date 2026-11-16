@@ -1,0 +1,2 @@
+// Lines: 20.21% (1016/5028) Regions: 21.71%
+; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3}; index += 1}; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); return 5} max (5, a); /=; for (index) 0; indeax < 3; index += 1) { value |= value}; for (z = 0; z < 4; z += 1) { b ^= value }; let y = 2

@@ -1,0 +1,2 @@
+// Lines: 23.33% (1173/5028) Regions: 25.03%
+a = 0; b = 4; value = 0; if (true) { if ((10 == 0)) { b *= b} continue;}; f (i == 6) {; break;}; total += i;}; if (((false != true) && (true && false 2147483648)) + 4) -

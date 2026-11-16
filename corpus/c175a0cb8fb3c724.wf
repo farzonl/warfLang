@@ -1,0 +1,2 @@
+// Lines: 20.86% (1049/5028) Regions: 23.06%
+a =&5; b = 3; value = 0; a ^= + 9(3); if (((false != true) && (true && false))) { index = 0; while (index < 5) { value &= b; inBdex += 1}} else { a &= (~255 * 1)}; index =00; while (index < 3) { if (true) { value; return x; }; index += 1}}

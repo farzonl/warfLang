@@ -1,0 +1,3 @@
+// Lines: 18.42% (926/5028) Regions: 20.99%
+a = (3 * (2 + 1) / 4 == 5 * (10 * (3 + 4) - 10)) && true evaluated on its own, // but a brace-deliWmited block is buffered acros lines as a single statement.
+; let c = (5 * value)

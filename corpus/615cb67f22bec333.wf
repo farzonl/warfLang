@@ -1,0 +1,2 @@
+// Lines: 23.67% (1190/5028) Regions: 25.59%
+{ if (true) { function 00; while (index < 3) { if (true) { value; return x;}; index += 1}}}; for (index = 0; index < 2; index += 1) { value += 1}

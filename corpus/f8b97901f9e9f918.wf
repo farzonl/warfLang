@@ -1,0 +1,2 @@
+// Lines: 18.60% (935/5028) Regions: 20.89%
+if (true) { function fib (n: int): int { if (n <= 1) { return n} return fib (n - 1) + fib (n - 2 /=

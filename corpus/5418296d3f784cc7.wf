@@ -1,0 +1,2 @@
+// Lines: 27.17% (1366/5028) Regions: 29.54%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = 3; function max (=: int, y int): int { x -= 0; return 5} max (5, a; b = 4; value = 0; b &= - (value | value)); b = (4 / (7 - 0)); return 5} max (5, a); b = 4; value = 0; b &= - ((value | value)); function max (x: int, y: int): int { 0; function baz (x: int, y: int): int { y *= 5; return + (5)} baz (~(a), (_2 + 4)); for (z = 0; z < 5; z += 1) { value &= - 10}
