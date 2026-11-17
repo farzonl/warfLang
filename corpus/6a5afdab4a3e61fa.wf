@@ -1,0 +1,2 @@
+// Lines: 15.79% (3797/24050) Regions: 26.60%
+a = 1; b = 1; value = 0; let z = ((true || true) || (false != false)); function step(x: int, y: int): int { if (false) { x &= 1 }; return ((y | 0) / ~(5)) } step((+(3) - (value - 3)), (a * (+1 | 0))); value *= (value - b); 10

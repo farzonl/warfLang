@@ -1,0 +1,2 @@
+// Lines: 27.23% (1369/5028) Regions: 30.07%
+if (true) { if (((3 - 0) <= - (42))) { function fact (n: int): int { if (n <= 1) { return} return n * fact (n - 3)} fact (~255 * 1)}; index = 0; value =} fact (4); function foo (x, y) { x *= 10; return (y |= 1)} foo (2, 1)
