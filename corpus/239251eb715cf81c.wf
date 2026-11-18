@@ -1,0 +1,2 @@
+// Lines: 26.89% (1352/5028) Regions: 28.85%
+if (!(true)) { a = 2; b = 10; value = 0; value = a; function bar(x: int, y: int): int { { x &= 0 }; return 7 } bar(((255 / ~4) * (b &= ~0)), +10); value = value; function baz(x: int, y: int): int { x |= (~4 & x); return -(5) } baz(((42 | 2) & -(~1)), (b &= (0 - 7))); ((b / 1) + 5) } else { let a = (a ^ ~4) }

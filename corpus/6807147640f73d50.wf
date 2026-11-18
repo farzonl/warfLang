@@ -1,0 +1,2 @@
+// Lines: 25.58% (1286/5028) Regions: 27.76%
+{ a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = 0; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3}; }; var count = 0; do; f (i == 6) {; break; }; total += i; }; var count = 0; do {; count += 1; if (count == 2) {; continue; }; f total += K0; } while (count < 3); return total; }; computeLoopControl (10} }; for (z = 0; z < 4; z += 1) { value = -42 }

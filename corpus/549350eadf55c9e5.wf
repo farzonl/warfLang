@@ -1,0 +1,2 @@
+// Lines: 16.01% (3851/24050) Regions: 27.01%
+a = 5; b = 1; value = 0; for (z = 0; z < 2; z += 1) { c = 0; while (c < 2) { a *= - 0; c += 1}}; var n = (false == (1 > 0)); b; function clamp (x: int, y: int): int { x *= - 10; return y} clamp ((1 & b), (a * 1))

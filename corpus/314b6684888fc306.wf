@@ -1,0 +1,2 @@
+// Lines: 19.05% (958/5028) Regions: 22.11%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); index = if 0; a &=}; value ^= value
