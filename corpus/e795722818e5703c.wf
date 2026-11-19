@@ -1,0 +1,2 @@
+// Lines: 28.78% (1447/5028) Regions: 31.15%
+a = 1; b = 3; value = 0; index = 0; while (index < 1) { a = (~0 / 3); index += 1 }; for (index = 0; index < 1; index += 1) { a -= b }; function abs(x: int, y: int): int { { x -= y }; return (x /= ~(y)) } abs(((value &= 10) * (4 + -10)), value); function clamp(x: int, y: int): int { return (y & 7); return (+(x) * (y ^ x)) } clamp(((10 / ~1) & value), ~42); (b / (1 ^ a))
