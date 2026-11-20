@@ -1,0 +1,2 @@
+// Lines: 15.33% (3688/24050) Regions: 26.05%
+a = 5; b = 1; value = 0; function max(x: int, y: int): int { index = 0; while (index < 3) { y /= -5; index += 1 }; return ((y | 2) ^ (+2 ^ ~1)) } max(+(~(5)), (10 & 7)); value

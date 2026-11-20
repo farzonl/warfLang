@@ -1,0 +1,2 @@
+// Lines: 15.29% (3678/24050) Regions: 25.88%
+a = 0; b = 4; value = 0; value ^= ~42; { if ((false && false)) { a ^= 5 } else { a ^= +42 } }; function abs(x: int, y: int): int { { x = 1 }; return ((y * +255) / x) } abs(a, (-(4) / (0 + value))); +((4 / +3))

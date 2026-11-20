@@ -1,0 +1,2 @@
+// Lines: 13.25% (3186/24050) Regions: 22.43%
+a = 0; b = 4; value = 0; a = b; if ((~(7) > value)) { if ((false || false)) { a *= 7 } else { b = 10 } } else { var res = value }; b = 4; (a - (b / 5))

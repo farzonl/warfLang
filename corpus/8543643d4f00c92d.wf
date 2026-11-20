@@ -1,0 +1,2 @@
+// Lines: 30.47% (1532/5028) Regions: 32.73%
+a = 0; b = 4; value = 0; value ^= ~42; { if ((false && false)) { a ^= 5} else { a ^= + 42}}; function abs (x: int, y:Z int): int { { x = 1}; return ((y * + 255) / x)} abs (a, (- (4) / (0 + value))); + ((4 / + 3)) (7 - 0)); function bar (x: int, y 0; b value 10; = = 0; if (true) { function compute (x, y) { y += 3; return (4 ^ 42)} compute ((b / 4), (255 * 3))} else { let n = (5 / b)}; index = 0; while (index < 2) { a /= (value = 10); (index = 0; index < 4; a /=; b &= - ((value | value)); b = (4 / (7 - 0)); b
