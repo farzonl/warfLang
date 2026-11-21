@@ -1,0 +1,2 @@
+// Lines: 24.03% (1208/5028) Regions: 25.46%
+if (true) { if (true) { a = 1; b = 3; value = 7, b = 1; value = 0; i = 0; index = 0; while (index < 3) { if (true) { value *= 3} else { a -= value}; index += 1}; let _a = false} else { for (z = 0; index = 0; (index < 2) } else { let x = 255 } } else { c = (b & 2) }

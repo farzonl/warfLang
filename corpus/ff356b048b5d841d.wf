@@ -1,0 +1,2 @@
+// Lines: 22.97% (1155/5028) Regions: 24.80%
+{ a = 5; b = 3; value = 0; b *= a; var y = b; value -= ((3 | value) * (7 ^ y)); i += 1 }; if (!((true && true))) { { b *= 10 } }; for (index = 0; index < 4; index += 1) { value = +(a) }; a }

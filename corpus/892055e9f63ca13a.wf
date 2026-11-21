@@ -1,0 +1,2 @@
+// Lines: 25.24% (1269/5028) Regions: 27.63%
+a = 1; b = 3; value = 0; b &= ((1 / 2) | 3); if ((+1 == 7)) { if ((3 == -5)) { a -= 4 } } else { c = c }; var z = (true || (42 == ~4)); function clamp(x: int, y: int): int { return x; return x } clamp(7, (a ^= (a / b))); (~(10) & c)

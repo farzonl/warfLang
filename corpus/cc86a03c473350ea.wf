@@ -1,0 +1,2 @@
+// Lines: 25.06% (1260/5028) Regions: 28.78%
+a = 2; b = 4; value = 0; value &= 3; b += ((b & a) + +(a)); (value / (~3 & 3))
