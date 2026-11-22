@@ -1,0 +1,2 @@
+// Lines: 30.99% (1558/5028) Regions: 32.80%
+a = 5; b = 1; value = 0; for (index = 0; index < 4; index += 1) { if ((false != false)) { a += 42 } }; if (((2 | b) >= +0)) { var b = (0 & value) } else { function bar(x, y) { y *= y; return 7 } bar((10 & 3), (~7 ^ value)) }; function abs(x: int, y: int): int { { x -= 10 }; return +4 } abs(((a + 5) * 2), ((a *= 1) * 0)); c = (+(1) | (value /= 10)); a

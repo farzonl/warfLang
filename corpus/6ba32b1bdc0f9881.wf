@@ -1,0 +1,2 @@
+// Lines: 15.16% (762/5028) Regions: 17.57%
+if ((7 > (5 + 1))) { // E0RR: Invalid flag: -q; value = 0; let x = false; += if (((false != true) && (true && false))) { index =; value -= ((3 | value) * (7 ^ y)); y; { a *= 42}; b ^= (value - 5) if (!((true && true))) { { b *= 10}}; for () = 0; i += 1}; if ((true || (a *= + 3))}; for (var i = 0; i < limi; function abs(x: int, y: int): int { x |= y; return (7 - ~3) } abs(7, (value += a))

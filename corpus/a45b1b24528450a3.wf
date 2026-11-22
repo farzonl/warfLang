@@ -1,0 +1,2 @@
+// Lines: 44.15% (2220/5028) Regions: 45.79%
+a = 0; b = 4; value = 0; c = 0; while (c < 3) { if ((~3 == 2)) { b *= 5} else { b |= 42}; c += 1}; for (index = 0; index < 4; index += 1) { function foo (x, y) { y ^= ~7; return - (2)} foo (- 255, - (10))}; index = 0; while (index < 3) { c = 0; while (c < 2) { value ^= a; c += 3}; index += 1}; a /= value; (+ (value) & (a * 2))
