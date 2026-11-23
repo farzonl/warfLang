@@ -1,0 +1,2 @@
+// Lines: 15.22% (3661/24050) Regions: 26.13%
+a = 1; b = 1; value = 0; if (((value < a) != (b < a))) { function baz(x: int, y: int): int { y = 10; return (10 / 10) } baz((a + 3), (255 + 5)) } else { if (false) { a ^= a } }; +((1 ^ 2))

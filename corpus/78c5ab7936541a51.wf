@@ -1,0 +1,2 @@
+// Lines: 23.83% (1198/5028) Regions: 26.35%
+a = 5; b = 3; value = 0; a ^= + (3); += if (((false != true) && (true && false))) { index = 0; return 7} foo ((42 ^ (value / b)), (- (a /=

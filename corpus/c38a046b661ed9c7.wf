@@ -1,0 +1,2 @@
+// Lines: 11.64% (2800/24050) Regions: 20.25%
+a = 2; b = 4; value = 0; i = 0; while (i < 5) { var z = 42; i += 1 }; 255

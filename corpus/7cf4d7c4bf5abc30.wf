@@ -1,0 +1,2 @@
+// Lines: 15.59% (784/5028) Regions: 17.99%
+a = (3 * (2 + 1) / { for z = 0 + 3 // trailing comment
