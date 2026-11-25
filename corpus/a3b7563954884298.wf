@@ -1,0 +1,2 @@
+// Lines: 20.96% (1054/5028) Regions: 23.12%
+a =; for (index = 0; index < 4; index += 1) { value = + (a)}; a

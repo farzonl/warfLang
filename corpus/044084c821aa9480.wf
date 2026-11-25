@@ -1,0 +1,2 @@
+// Lines: 15.71% (3779/24050) Regions: 26.58%
+a = 1; b = 10; value = 0; { function step(x, y) { x *= 3; return (~5 & 4) } step(a, 42) }; if ((-(255) == 2)) { if ((false == false)) { a = +42 } else { a &= a } } else { index = 0; while (index < 1) { b &= 5; index += 1 } }; ~(~(10))

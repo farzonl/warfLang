@@ -1,0 +1,2 @@
+// Lines: 13.39% (3221/24050) Regions: 22.74%
+a = 2; b = 3; value = 0; b = 1; if (((b + ~255) > a)) { let c = ~(10) } else { for (z = 0; z < 4; z += 1) { value &= +1 } }; 4

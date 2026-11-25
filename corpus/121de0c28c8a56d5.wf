@@ -1,0 +1,2 @@
+// Lines: 29.38% (1477/5028) Regions: 31.51%
+a = 1; b = 10; value = 0; function clamp(x: int, y: int): int { if ((x > x)) { x += 4 } else { x -= x }; return y } clamp(((+3 | 0) ^ (a | -3)), ((0 - 10) - b)); let value = ((true || true) != (2 <= value)); y = +((value / +10)); { y = 7 }; 7
