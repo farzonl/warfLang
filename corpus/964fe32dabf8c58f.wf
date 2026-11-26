@@ -1,0 +1,2 @@
+// Lines: 13.37% (3215/24050) Regions: 23.35%
+a = 1; b = 4; value = 0; function compute(x: int, y: int): int { var n = +10; return -(y) } compute((0 * (5 - value)), ((b - 5) - -(5))); 3

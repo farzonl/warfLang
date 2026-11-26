@@ -1,0 +1,2 @@
+// Lines: 13.63% (3278/24050) Regions: 23.26%
+a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - + 1) / 4 == 5 * (10 * (3 + 4) - 10)) && true; for (index = 0; index < 1; index += 1) { a += 7 }

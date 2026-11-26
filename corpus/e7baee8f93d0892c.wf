@@ -1,0 +1,2 @@
+// Lines: 30.15% (1516/5028) Regions: 32.30%
+a = 2; b = 3; value = 0; let y = (!(true) && false); function abs(x: int, y: int): int { for (z = 0; z < 5; z += 1) { y &= 10 }; return ((2 & y) * (x ^= 3)) } abs((value |= (-4 ^ 1)), ((+42 * 10) - (2 + value))); { i = 0; while (i < 1) { a = 10; i += 1 } }; ((0 - 42) ^ (a * +5))
