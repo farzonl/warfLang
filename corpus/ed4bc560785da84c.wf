@@ -1,0 +1,2 @@
+// Lines: 11.07% (2662/24050) Regions: 19.60%
+a = 5; b =4; value = 0; b &= - ((value | value));Hb = (4 / (7 - 0));

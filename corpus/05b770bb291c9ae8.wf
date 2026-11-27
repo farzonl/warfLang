@@ -1,0 +1,2 @@
+// Lines: 22.16% (1114/5028) Regions: 25.10%
+{ a = 5; b = 4; value = 0; b &= - ((value | value)); b = (4 / (7 - 0)); fib (7) + clampPositive (- /= }

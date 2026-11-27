@@ -1,0 +1,2 @@
+// Lines: 21.64% (1088/5028) Regions: 23.55%
+a = 5; b = 1; value = 0; { if (b = 1; value = 0; if (((value <= a) != !(false))) { if (!(true)) { value /= 10}} else { if (!(false)) { a |= 3} else { b *= 10}}; index = 0; while (index < 5) == var c = value; index += 1}; function foo (x: int
