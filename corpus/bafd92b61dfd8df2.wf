@@ -1,0 +1,2 @@
+// Lines: 17.98% (904/5028) Regions: 20.16%
+a ^= 5; b = 3; function max (x: int, y: int): int { x /= 255; return ~(5)} max ((7 /=

@@ -1,0 +1,2 @@
+// Lines: 22.37% (1125/5028) Regions: 24.44%
+{ a = 1; b = 1; value = 0 += var n = false |= { return n} return fib (n - 1) a /=

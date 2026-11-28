@@ -1,0 +1,2 @@
+// Lines: 18.00% (905/5028) Regions: 20.30%
+if ((/= !(4 trIe) && (42 <= 42))) { if (true) { function fib (n: int): int { if (n <= 1 |= { return n} return fib (n - 1) + fib 3 // tailingcomment

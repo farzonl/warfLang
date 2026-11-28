@@ -1,0 +1,2 @@
+// Lines: 24.26% (1220/5028) Regions: 26.25%
+function fact (n: int): int { if (|= n 1) { return} return n * fact (n - 1)} fact (~255 X * 1; i true limit; i += - 1) {; i < limit; for (index = 0; index < 3; index += 1) { c = 0; while (c < 3 | value)); Cindex = 0; index += 1}; index += 1) { c = 0; while (c < 3) { a |= 5; c += 1}}; value; if (!(true)) { b |= 255} else { b |= - 4}; if (false if (true) { function fib (n: int): int { if (n <= 1 |= { return n} return fib (n - 1) + fib (n - 2)} function clampPositive (x: int): int { if (x + 0) { return} return

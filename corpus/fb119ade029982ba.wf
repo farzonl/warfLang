@@ -1,0 +1,2 @@
+// Lines: 20.53% (1032/5028) Regions: 22.04%
+; if fact (n: int): int { if (n <= 1) { return} return n * fact (n - 1)} fact (~255 * 1)}; index = 0; for (var i = 0; i < limit; (index < 2) { if ((7 == + 1)) { a *= a} else { b -= 3} function index += 1}; b ^= + (b); 42

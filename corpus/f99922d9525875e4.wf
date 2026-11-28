@@ -1,0 +1,2 @@
+// Lines: 15.98% (3844/24050) Regions: 26.84%
+a = 1; b = 1; value = 0; var n = false; if (false) { for (index = 0; index < 3; index += 1) { value *= 3 } } else { function compute(x, y) { x -= x; return -10 } compute((7 & 7), (b + 255)) }; 3

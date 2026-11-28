@@ -1,0 +1,2 @@
+// Lines: 18.42% (926/5028) Regions: 20.39%
+a = 1; value = 0; a ^= + (); if (((false != true) && (true && false 2147483648)) + 4) -
